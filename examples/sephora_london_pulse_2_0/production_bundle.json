@@ -1,0 +1,376 @@
+{
+  "bible": {
+    "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
+    "logline": "A high-octane, 9:16 vertical fashion collision through rainy midnight Soho, where two avant-garde models strut from London street grit into a gleaming SEPHORA flagship, culminating in a hero product lock.",
+    "creative_regime": "Regime 2: High-Kinetic & Precision Commercial",
+    "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+    "aspect_ratio": "9:16",
+    "total_runtime_seconds": 32,
+    "color_palette": [
+      "#0A0A10",
+      "#FF0055",
+      "#00F0FF",
+      "#FCEE09"
+    ],
+    "characters": [
+      {
+        "name": "Model Maya (The Neon Siren)",
+        "silhouette": "Tall, athletic, razor-sharp high cheekbones, graphic slicked-back raven architectural bob.",
+        "wardrobe_polarity": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+        "movement_signature": "Aggressive, predatory, fast-tempo runway stride with zero hip sway and sharp head pivots.",
+        "generation_prompt": null,
+        "image_path": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1080 1920\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"bgGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0A0A10\" stop-opacity=\"0.95\"/>\n      <stop offset=\"100%\" stop-color=\"#0A0B10\" stop-opacity=\"1.0\"/>\n    </linearGradient>\n    <linearGradient id=\"heroAccent\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FF0055\"/>\n      <stop offset=\"100%\" stop-color=\"#00F0FF\"/>\n    </linearGradient>\n    <filter id=\"glow\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feGaussianBlur stdDeviation=\"8\" result=\"blur\"/>\n      <feComposite in=\"SourceGraphic\" in2=\"blur\" operator=\"over\"/>\n    </filter>\n  </defs>\n\n  <!-- Background Canvas -->\n  <rect width=\"1080\" height=\"1920\" fill=\"url(#bgGrad)\"/>\n  \n  <!-- Subtle Studio Grid -->\n  <pattern id=\"grid\" width=\"60\" height=\"60\" patternUnits=\"userSpaceOnUse\">\n    <path d=\"M 60 0 L 0 0 0 60\" fill=\"none\" stroke=\"#252736\" stroke-width=\"1\" stroke-opacity=\"0.4\"/>\n  </pattern>\n  <rect width=\"1080\" height=\"1920\" fill=\"url(#grid)\"/>\n\n  <!-- Top Cinema HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1000\" height=\"70\" rx=\"8\" fill=\"#12131A\" stroke=\"#2F3242\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"82\" font-family=\"'Space Grotesk', system-ui, sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#00F0FF\" letter-spacing=\"2\">\n    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)\n  </text>\n  <text x=\"1015\" y=\"82\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8E92A8\" text-anchor=\"end\">\n    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK\n  </text>\n\n  <!-- 3-Panel Turnaround Frames -->\n  <!-- Panel 1: Front Full Body -->\n  <rect x=\"60\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"85\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL A: FRONT VIEW (EYE-LEVEL)</text>\n  <!-- Stylized Figure Front -->\n  <circle cx=\"340\" cy=\"310\" r=\"55\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\" filter=\"url(#glow)\"/>\n  <path d=\"M 285 390 Q 340 370 395 390 L 415 620 L 265 620 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n  <rect x=\"300\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\"/>\n  <rect x=\"345\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\"/>\n  <path d=\"M 270 410 L 220 570\" stroke=\"#3A3E56\" stroke-width=\"16\" stroke-linecap=\"round\"/>\n  <path d=\"M 410 410 L 460 570\" stroke=\"#3A3E56\" stroke-width=\"16\" stroke-linecap=\"round\"/>\n\n  <!-- Panel 2: 3/4 Dynamic Profile -->\n  <rect x=\"680\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"705\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL B: 3/4 DYNAMIC ANGLE</text>\n  <!-- Stylized Figure 3/4 -->\n  <circle cx=\"960\" cy=\"310\" r=\"55\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\"/>\n  <path d=\"M 915 390 Q 975 375 1015 405 L 1025 620 L 895 620 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n  <rect x=\"925\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\" transform=\"rotate(-4 925 620)\"/>\n  <rect x=\"965\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\" transform=\"rotate(4 965 620)\"/>\n\n  <!-- Panel 3: Tight Profile Macro -->\n  <rect x=\"1300\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"1325\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL C: HEAD &amp; WARDROBE MACRO</text>\n  <circle cx=\"1580\" cy=\"340\" r=\"95\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\" filter=\"url(#glow)\"/>\n  <!-- Facial Profile Path -->\n  <path d=\"M 1580 250 Q 1660 300 1660 340 L 1640 370 L 1670 410 L 1630 435\" fill=\"none\" stroke=\"#00F0FF\" stroke-width=\"3\"/>\n  <path d=\"M 1500 450 Q 1580 430 1660 480 L 1660 680 L 1500 680 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n\n  <!-- Telemetry Lower Bar -->\n  <rect x=\"60\" y=\"990\" width=\"960\" height=\"60\" rx=\"8\" fill=\"#0C0D13\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"85\" y=\"1027\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#00F0FF\">\n    SUBJECT: MODEL MAYA (THE NEON SIREN) | SILHOUETTE: Tall, athletic, razor-sharp high cheekbones, graphic slicked...\n  </text>\n  <text x=\"995\" y=\"1027\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#E5A93C\" text-anchor=\"end\">\n    WARDROBE POLARITY: HIGH POLARITY A: Vivid high-gloss scarlet-red pate...\n  </text>\n</svg>"
+      },
+      {
+        "name": "Model Kaelen (The Shimmer Rebel)",
+        "silhouette": "Androgynous, dark glowing skin, cropped bleached-platinum buzz cut, sharp jawline.",
+        "wardrobe_polarity": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+        "movement_signature": "Fluid, rhythm-locked street bounce with syncopated shoulder dips matching the UK Garage groove.",
+        "generation_prompt": null,
+        "image_path": null,
+        "svg_markup": null
+      }
+    ],
+    "environment": {
+      "location_name": "Midnight Soho to SEPHORA Flagship",
+      "spatial_architecture": "Exterior: Rain-slicked London cobblestones and wet asphalt reflecting neon signage. Interior: High-gloss black lacquer and mirrored vanity aisles bathed in brilliant 5600K beauty lighting.",
+      "lighting_setup": "Exterior: Moody 3200K tungsten streetlamps with electric magenta and cyan neon rim light. Interior: 5600K high-CRI diffused beauty lighting.",
+      "atmospheric_particles": "Fine airborne London rain drizzle, water droplets on patent leather, cosmetic shimmer powder catching light.",
+      "positive_invariants": [
+        "The black-and-white SEPHORA shopping bag retains exact vertical stripe geometry and clean typography.",
+        "Maya's scarlet trench coat remains high-gloss patent leather without texture drift.",
+        "Kaelen's charcoal blazer maintains chalk-white stripe accents without color bleeding."
+      ],
+      "generation_prompt": null,
+      "image_path": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg",
+      "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0A0A10\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FF0055\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#FF0055\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#FF0055\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: MIDNIGHT SOHO TO SEPHORA FLAGSHIP | ARCHITECTURE: Exterior: Rain-slicked London cobblestones and wet asphalt r...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: Exterior: Moody 3200K tungsten streetlamps with el...\n  </text>\n</svg>"
+    },
+    "camera_rig": {
+      "rig_type": "9:16 Vertical Steadicam on 50mm Anamorphic Lens",
+      "focal_length_mm": 50,
+      "composition": "Dynamic vertical framing emphasizing towering model silhouettes, high-fashion angles, and macro beauty details.",
+      "route": "Rapid tracking shots, snappy whip-pans, and stabilizing push-ins.",
+      "action_anchor": "Model facial expressions and tactile product interactions.",
+      "focus_axis": "Shallow f/1.8 depth of field creating vertical oval anamorphic bokeh in wet city lights.",
+      "tone_rig": "High-fashion commercial editorial."
+    },
+    "sonic_blueprint": {
+      "foley_cues": [
+        "Rapid rhythmic stiletto heel clicks on wet cobblestone",
+        "Passing double-decker bus wet tire spray and diesel roar",
+        "Pneumatic whoosh of glass sliding doors opening",
+        "Metallic magnetic click of luxury lipstick cap disengaging",
+        "Crisp paper bag snap and handle tension sound"
+      ],
+      "dialogue_lines": [
+        "Maya: 'London, wake up.'"
+      ],
+      "room_acoustics": "Wet, reverberant London street exterior transitioning sharply into hyper-clean, acoustically dampened luxury retail interior."
+    },
+    "master_bgm": {
+      "track_title": "Midnight Velvet: UK Garage Pulse",
+      "genre_style": "Syncopated UK Garage / Hyper-Pop Runway Sizzle",
+      "tempo_bpm": 138,
+      "key_signature": "F Minor",
+      "instrumentation": [
+        "Syncopated 2-step drum groove with punchy kick and crisp rimshots",
+        "Deep rolling Moog Reese bassline",
+        "Glittering hyper-pop synth arpeggios and vocal chops",
+        "Dramatic snare roll risers and white-noise sweeps"
+      ],
+      "dynamic_arc": "Seconds 00-08: Snappy 2-step rhythm kicks in on the wink. Seconds 08-16: Heavy bassline drops inside flagship. Seconds 16-24: Massive riser sweep building energy. Seconds 24-32: Sudden cut to dead silence on final freeze-frame bag snap, leaving only a sub-bass decay.",
+      "lyria_prompt": "High-energy UK Garage fashion runway track, 138 BPM, F Minor. Syncopated skipping 2-step beats, punchy kick drum, driving Moog bassline, glittering hyper-pop synth arpeggios, and edgy vocal chops. Builds rapidly with dramatic snare roll risers into an explosive, sleek high-fashion drop, ending abruptly on a crisp impact hit."
+    },
+    "nano_banana_assets": [
+      {
+        "asset_id": "<image_1>",
+        "job_description": "Defines the exact facial structure, avant-garde graphic eyeliner, and scarlet patent trench coat for Model Maya.",
+        "exclusion_clause": "Do not copy the studio lighting or plain grey background from <image_1>.",
+        "generation_prompt": "Fashion editorial portrait of a striking woman with high cheekbones and slicked-back raven hair, wearing avant-garde metallic holographic graphic eyeliner and bold matte crimson lipstick, dressed in a high-gloss scarlet-red patent leather trench coat, vertical 9:16 framing, Hasselblad high-fashion beauty lighting.",
+        "local_path": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1080 1920\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"bgGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0A0A10\" stop-opacity=\"0.95\"/>\n      <stop offset=\"100%\" stop-color=\"#0A0B10\" stop-opacity=\"1.0\"/>\n    </linearGradient>\n    <linearGradient id=\"heroAccent\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FF0055\"/>\n      <stop offset=\"100%\" stop-color=\"#00F0FF\"/>\n    </linearGradient>\n    <filter id=\"glow\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feGaussianBlur stdDeviation=\"8\" result=\"blur\"/>\n      <feComposite in=\"SourceGraphic\" in2=\"blur\" operator=\"over\"/>\n    </filter>\n  </defs>\n\n  <!-- Background Canvas -->\n  <rect width=\"1080\" height=\"1920\" fill=\"url(#bgGrad)\"/>\n  \n  <!-- Subtle Studio Grid -->\n  <pattern id=\"grid\" width=\"60\" height=\"60\" patternUnits=\"userSpaceOnUse\">\n    <path d=\"M 60 0 L 0 0 0 60\" fill=\"none\" stroke=\"#252736\" stroke-width=\"1\" stroke-opacity=\"0.4\"/>\n  </pattern>\n  <rect width=\"1080\" height=\"1920\" fill=\"url(#grid)\"/>\n\n  <!-- Top Cinema HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1000\" height=\"70\" rx=\"8\" fill=\"#12131A\" stroke=\"#2F3242\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"82\" font-family=\"'Space Grotesk', system-ui, sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#00F0FF\" letter-spacing=\"2\">\n    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)\n  </text>\n  <text x=\"1015\" y=\"82\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8E92A8\" text-anchor=\"end\">\n    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK\n  </text>\n\n  <!-- 3-Panel Turnaround Frames -->\n  <!-- Panel 1: Front Full Body -->\n  <rect x=\"60\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"85\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL A: FRONT VIEW (EYE-LEVEL)</text>\n  <!-- Stylized Figure Front -->\n  <circle cx=\"340\" cy=\"310\" r=\"55\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\" filter=\"url(#glow)\"/>\n  <path d=\"M 285 390 Q 340 370 395 390 L 415 620 L 265 620 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n  <rect x=\"300\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\"/>\n  <rect x=\"345\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\"/>\n  <path d=\"M 270 410 L 220 570\" stroke=\"#3A3E56\" stroke-width=\"16\" stroke-linecap=\"round\"/>\n  <path d=\"M 410 410 L 460 570\" stroke=\"#3A3E56\" stroke-width=\"16\" stroke-linecap=\"round\"/>\n\n  <!-- Panel 2: 3/4 Dynamic Profile -->\n  <rect x=\"680\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"705\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL B: 3/4 DYNAMIC ANGLE</text>\n  <!-- Stylized Figure 3/4 -->\n  <circle cx=\"960\" cy=\"310\" r=\"55\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\"/>\n  <path d=\"M 915 390 Q 975 375 1015 405 L 1025 620 L 895 620 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n  <rect x=\"925\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\" transform=\"rotate(-4 925 620)\"/>\n  <rect x=\"965\" y=\"620\" width=\"35\" height=\"260\" rx=\"8\" fill=\"#282B3E\" stroke=\"#3A3E56\" stroke-width=\"2\" transform=\"rotate(4 965 620)\"/>\n\n  <!-- Panel 3: Tight Profile Macro -->\n  <rect x=\"1300\" y=\"150\" width=\"560\" height=\"820\" rx=\"10\" fill=\"#151722\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"1325\" y=\"195\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#8E92A8\">PANEL C: HEAD &amp; WARDROBE MACRO</text>\n  <circle cx=\"1580\" cy=\"340\" r=\"95\" fill=\"none\" stroke=\"url(#heroAccent)\" stroke-width=\"4\" filter=\"url(#glow)\"/>\n  <!-- Facial Profile Path -->\n  <path d=\"M 1580 250 Q 1660 300 1660 340 L 1640 370 L 1670 410 L 1630 435\" fill=\"none\" stroke=\"#00F0FF\" stroke-width=\"3\"/>\n  <path d=\"M 1500 450 Q 1580 430 1660 480 L 1660 680 L 1500 680 Z\" fill=\"#1E202F\" stroke=\"url(#heroAccent)\" stroke-width=\"3\"/>\n\n  <!-- Telemetry Lower Bar -->\n  <rect x=\"60\" y=\"990\" width=\"960\" height=\"60\" rx=\"8\" fill=\"#0C0D13\" stroke=\"#2F3242\" stroke-width=\"1\"/>\n  <text x=\"85\" y=\"1027\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#00F0FF\">\n    SUBJECT: MODEL MAYA (THE NEON SIREN) | SILHOUETTE: Tall, athletic, razor-sharp high cheekbones, graphic slicked...\n  </text>\n  <text x=\"995\" y=\"1027\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#E5A93C\" text-anchor=\"end\">\n    WARDROBE POLARITY: HIGH POLARITY A: Vivid high-gloss scarlet-red pate...\n  </text>\n</svg>"
+      },
+      {
+        "asset_id": "<image_2>",
+        "job_description": "Defines the androgynous facial features, bleached platinum hair, and striped-cuff charcoal blazer for Model Kaelen.",
+        "exclusion_clause": "Do not copy the pose or static background from <image_2>.",
+        "generation_prompt": "Fashion editorial portrait of an androgynous model with dark glowing skin, bleached-platinum short hair, subtle holographic shimmer across cheekbones, wearing an oversized matte-charcoal tailored blazer with chalk-white striped cuffs, confident fierce expression, vertical 9:16 format, sleek editorial aesthetic.",
+        "local_path": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0A0A10\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FF0055\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#FF0055\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#FF0055\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: MIDNIGHT SOHO TO SEPHORA FLAGSHIP | ARCHITECTURE: Exterior: Rain-slicked London cobblestones and wet asphalt r...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: Exterior: Moody 3200K tungsten streetlamps with el...\n  </text>\n</svg>"
+      },
+      {
+        "asset_id": "<image_3>",
+        "job_description": "Defines the exact physical construction, black-and-white vertical stripe pattern, braided rope handle, and embossed logo of the SEPHORA shopping bag.",
+        "exclusion_clause": "Do not copy any store background from <image_3>; maintain only the bag's rigid geometry and texture.",
+        "generation_prompt": "Product photograph of an iconic SEPHORA retail shopping bag made of thick matte paper with clean black and vertical white stripes, black braided rope handles, crisp rectangular folds, embossed black SEPHORA logo centered, studio lighting, photorealistic commercial product shot.",
+        "local_path": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"sceneGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0A0A10\"/>\n      <stop offset=\"100%\" stop-color=\"#020617\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#sceneGrad)\"/>\n\n  <!-- Depth Staging Grid -->\n  <circle cx=\"960\" cy=\"540\" r=\"380\" fill=\"none\" stroke=\"#1E293B\" stroke-width=\"1.5\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"220\" fill=\"none\" stroke=\"#334155\" stroke-width=\"1.5\" stroke-dasharray=\"6,6\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"80\" fill=\"none\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n\n  <!-- Dynamic Vector Arrow -->\n  <path d=\"M 680 720 Q 960 520 1240 720\" fill=\"none\" stroke=\"#00F0FF\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <polygon points=\"1240,720 1220,705 1225,728\" fill=\"#00F0FF\"/>\n\n  <!-- Center Action Node -->\n  <circle cx=\"960\" cy=\"540\" r=\"16\" fill=\"#FF0055\"/>\n  <line x1=\"960\" y1=\"460\" x2=\"960\" y2=\"620\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n  <line x1=\"880\" y1=\"540\" x2=\"1040\" y2=\"540\" stroke=\"#FF0055\" stroke-width=\"2\"/>\n\n  <!-- Top Bar -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#FF0055\" letter-spacing=\"2\">\n    SCENE 1: THE SOHO STARE & THE NIGHT PAN\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#94A3B8\" text-anchor=\"end\">\n    WINDOW: 00:00 - 00:08 | Regime 2\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#38BDF8\">\n    CRAFT RIG: 35mm Prime | Centered\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#F43F5E\" text-anchor=\"end\">\n    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE\n  </text>\n</svg>"
+      }
+    ],
+    "scenes": [
+      {
+        "scene_index": 1,
+        "timestamp_range": "00:00 - 00:08",
+        "scene_title": "The Soho Stare & The Night Pan",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Extreme vertical macro close-up on Model Maya's eye with shimmering holographic eyeshadow in Soho rain.",
+          "Maya executes a sharp, deliberate runway wink directly into lens at second 02.",
+          "On the wink, camera whip-pans 90 degrees right to reveal a rain-slicked Soho street with a motion-blurred red double-decker bus streaking past."
+        ],
+        "kinetic_contact_chain": "Micro-eye movement -> High-velocity eyelid closure (wink) -> Triggered camera whip-pan acceleration -> Rapid rotational deceleration -> Wet asphalt perspective stabilization.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.",
+        "conversational_edit_deltas": [
+          "Turn 2: Enhance the neon reflections in the street puddles and add more visible rain mist.",
+          "Turn 3: Change the lipstick color on Maya to a deeper midnight burgundy while keeping the wink identical."
+        ]
+      },
+      {
+        "scene_index": 2,
+        "timestamp_range": "00:08 - 00:16",
+        "scene_title": "The Flagship Infiltration: Tactile Glamour",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Camera pushes forward through glowing glass sliding doors into the hyper-bright SEPHORA flagship.",
+          "Model Kaelen slides a metallic gold lipstick casing open, revealing a vibrant crimson bullet.",
+          "A large soft makeup brush sweeps across Maya's cheekbone in a rapid beauty montage, dusting fine shimmering particles."
+        ],
+        "kinetic_contact_chain": "Door glide -> Hand grips weighted lipstick tube -> Thumb drives cap removal with magnetic click -> Brush fibers compress against cheek skin -> Shimmer cloud dispersion.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
+        "conversational_edit_deltas": [
+          "Turn 2: Make the cosmetic shimmer dust reflect rainbow sparkles under the beauty lights.",
+          "Turn 3: Rack focus from the lipstick bullet directly to Kaelen's smiling eyes."
+        ]
+      },
+      {
+        "scene_index": 3,
+        "timestamp_range": "00:16 - 00:24",
+        "scene_title": "The Soho Runway Strut",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Maya and Kaelen strut in synchronized lockstep out of the store entrance onto the wet London sidewalk.",
+          "Maya's stiletto heels plant firmly onto the wet pavement with zero slip or float.",
+          "Maya swings the iconic black-and-white SEPHORA shopping bag forward in an assertive arc toward camera."
+        ],
+        "kinetic_contact_chain": "Stiletto strike on wet cobblestone -> Ground reaction force pushes hip forward -> Arm swings bag from shoulder -> Centrifugal arc of braided handle -> Forward presentation.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
+        "conversational_edit_deltas": [
+          "Turn 2: Increase the stride speed slightly and add dramatic billow to Maya's red trench coat hem.",
+          "Turn 3: Add steam rising from a nearby underground subway grate in the background."
+        ]
+      },
+      {
+        "scene_index": 4,
+        "timestamp_range": "00:24 - 00:32",
+        "scene_title": "The Bag Lock & The Soho Freeze",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "The camera punches in 60 centimeters directly toward the SEPHORA shopping bag held firmly in Maya's hand.",
+          "The bag halts dead-center in the vertical frame, perfectly upright with sharp paper edges.",
+          "At second 30, the video cuts to a crisp editorial freeze-frame on the bag and SEPHORA logo, with blurred glowing Soho neon behind."
+        ],
+        "kinetic_contact_chain": "Punch-in camera motion -> Arm locks bag at chest height -> Rope handles tension under gravity -> Abrupt momentum cessation -> Total frozen frame.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.",
+        "conversational_edit_deltas": [
+          "Turn 2: Add a bold white sans-serif kinetic text overlay in the center that pops in reading 'FEEL THE PULSE'.",
+          "Turn 3: Shift the background bokeh color balance to rich ambers and golds."
+        ]
+      }
+    ]
+  },
+  "storyboard_html_path": "/Users/ashikkay/Documents/omniskill/examples/sephora_london_pulse_2_0/storyboard_preview.html",
+  "bundle_json_path": "/Users/ashikkay/Documents/omniskill/examples/sephora_london_pulse_2_0/production_bundle.json",
+  "visual_plates": {
+    "<image_1>": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg",
+    "<image_2>": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg",
+    "scene_1": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "<image_3>": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "scene_2": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_2_keyframe.svg",
+    "scene_3": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_3_keyframe.svg",
+    "scene_4": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_4_keyframe.svg"
+  },
+  "rendered_videos": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Soho Stare & The Night Pan",
+      "timestamp_range": "00:00 - 00:08",
+      "interaction_id": "omni-interact-1-58754",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_1>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg"
+        },
+        {
+          "tag": "<image_2>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_1.mp4"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Flagship Infiltration: Tactile Glamour",
+      "timestamp_range": "00:08 - 00:16",
+      "interaction_id": "omni-interact-2-97125",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_1>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg"
+        },
+        {
+          "tag": "<image_2>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_2.mp4"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "The Soho Runway Strut",
+      "timestamp_range": "00:16 - 00:24",
+      "interaction_id": "omni-interact-3-24553",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_1>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg"
+        },
+        {
+          "tag": "<image_2>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_3.mp4"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Bag Lock & The Soho Freeze",
+      "timestamp_range": "00:24 - 00:32",
+      "interaction_id": "omni-interact-4-15669",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_1>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor1_character_turnaround.svg"
+        },
+        {
+          "tag": "<image_2>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_4.mp4"
+    }
+  ],
+  "audit_reports": [
+    {
+      "scene_index": 1,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "Rule 3 Warning: Regime 2 prompt should explicitly invoke physical invariants (gravity, friction, rigid materials, or momentum) to prevent elastic cushioning."
+      ],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_1>"
+        ]
+      }
+    },
+    {
+      "scene_index": 2,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_2>"
+        ]
+      }
+    },
+    {
+      "scene_index": 3,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_2>",
+          "<image_1>",
+          "<image_3>"
+        ]
+      }
+    },
+    {
+      "scene_index": 4,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "Rule 3 Warning: Regime 2 prompt should explicitly invoke physical invariants (gravity, friction, rigid materials, or momentum) to prevent elastic cushioning."
+      ],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_3>"
+        ]
+      }
+    }
+  ],
+  "mode": "dry-run"
+}

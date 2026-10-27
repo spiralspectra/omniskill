@@ -1,0 +1,327 @@
+{
+  "bible": {
+    "project_title": "The Kinetic Fabric: Grounded Innovation",
+    "logline": "A dynamic material exploration of high-performance technical fabric moving from microscopic weave tension to high-velocity athletic aerodynamic turbulence.",
+    "creative_regime": "Regime 2: High-Kinetic & Precision Commercial",
+    "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+    "aspect_ratio": "16:9",
+    "total_runtime_seconds": 32,
+    "color_palette": [
+      "#0F172A",
+      "#38BDF8",
+      "#F43F5E",
+      "#E2E8F0"
+    ],
+    "characters": [],
+    "environment": {
+      "location_name": "Aerodynamic Wind Tunnel Test Lab",
+      "spatial_architecture": "High-tech wind tunnel facility with matte-black carbon-fiber walls, illuminated laminar flow nozzles, and a mirror-finish titanium test stage.",
+      "lighting_setup": "High-contrast precision 5600K laser line lighting combined with deep blue ambient wash.",
+      "atmospheric_particles": "Ultra-fine white condensation smoke tracing aerodynamic streamlines with zero random turbulence.",
+      "positive_invariants": [
+        "The woven carbon-fiber grid structure remains mathematically consistent without digital warping.",
+        "Laser illumination ribbons maintain clean geometric parallelism."
+      ],
+      "generation_prompt": null,
+      "image_path": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg",
+      "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0F172A\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#38BDF8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#38BDF8\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#38BDF8\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: AERODYNAMIC WIND TUNNEL TEST LAB | ARCHITECTURE: High-tech wind tunnel facility with matte-black carbon-fiber...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: High-contrast precision 5600K laser line lighting ...\n  </text>\n</svg>"
+    },
+    "camera_rig": {
+      "rig_type": "High-Speed Robotic Motion Control Track on 100mm Macro Prime",
+      "focal_length_mm": 100,
+      "composition": "Extreme macro geometric framing focusing on microfiber elasticity, tension vectors, and aerodynamic deflection.",
+      "route": "High-precision linear tracking along the air velocity axis with micro-rotational rolls.",
+      "action_anchor": "Woven yarn contact points and laser streamline vortices.",
+      "focus_axis": "Razor-thin f/2.8 macro depth of field with micro-racks across thread layers.",
+      "tone_rig": "Hyper-technical industrial commercial."
+    },
+    "sonic_blueprint": {
+      "foley_cues": [
+        "High-tension textile stretch creak and microfiber friction",
+        "Pneumatic wind tunnel airflow whoosh and turbine hum",
+        "High-frequency laser hum and ultrasonic resonance",
+        "Tactile snap of fabric reaching maximum tensile load"
+      ],
+      "dialogue_lines": [],
+      "room_acoustics": "Acoustically treated industrial aerodynamic testing chamber with dead reflections and heavy sub-bass air pressure."
+    },
+    "master_bgm": {
+      "track_title": "Tensile Dynamics: Kinetic Pulse",
+      "genre_style": "Futuristic Minimalist Glitch & Cinematic Sub-Bass",
+      "tempo_bpm": 120,
+      "key_signature": "C Minor",
+      "instrumentation": [
+        "Pulsing analog modular synthesizer bassline",
+        "Textured metallic percussion clicks tuned to micro-foley",
+        "Granular synth pads that expand with airflow velocity",
+        "Low sub-bass drops at maximum tension markers"
+      ],
+      "dynamic_arc": "Seconds 00-08: Micro-clicks and quiet sub-hum. Seconds 08-16: Rhythmic drive kicks in. Seconds 16-24: High-energy polyrhythms. Seconds 24-32: Sudden sharp deceleration leaving resonant metallic ring.",
+      "lyria_prompt": "Futuristic industrial electronic score, 120 BPM, C Minor. Crisp tactile clicks, modular synth pulses, deep sub-bass drops, and precise microscopic rhythms. High-tech and aerodynamic aesthetic."
+    },
+    "nano_banana_assets": [
+      {
+        "asset_id": "<image_1>",
+        "job_description": "Defines the exact microscopic weave pattern, iridescent cyan and scarlet yarn fibers, and tensile thread geometry.",
+        "exclusion_clause": "Do not copy any human hands or background lab equipment from <image_1>.",
+        "generation_prompt": "Macro photograph of high-performance technical athletic fabric: intricate interlocking weave of matte-black carbon fibers and luminous electric-cyan microfibers, 100mm macro lens, ultra-sharp thread details, precision studio rim lighting.",
+        "local_path": null,
+        "svg_markup": null
+      },
+      {
+        "asset_id": "<image_2>",
+        "job_description": "Defines the titanium test stage, wind tunnel nozzle geometry, and laser illumination setup.",
+        "exclusion_clause": "Do not introduce any human operators or unrelated tools from <image_2>.",
+        "generation_prompt": "Architectural interior of an advanced aerodynamic wind tunnel testing facility: mirror-finish dark titanium floor, matte-black composite walls, high-velocity wind nozzle bathed in electric-blue LED rim lights, clean high-tech industrial aesthetic.",
+        "local_path": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0F172A\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#38BDF8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#38BDF8\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#38BDF8\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: AERODYNAMIC WIND TUNNEL TEST LAB | ARCHITECTURE: High-tech wind tunnel facility with matte-black carbon-fiber...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: High-contrast precision 5600K laser line lighting ...\n  </text>\n</svg>"
+      },
+      {
+        "asset_id": "<image_3>",
+        "job_description": "Defines the finished aerodynamic winglet drape showing the fabric under maximum aerodynamic deflection.",
+        "exclusion_clause": "Do not change the fabric weave from <image_1>; inherit only the aerodynamic curve geometry.",
+        "generation_prompt": "Product design photograph of a streamlined athletic aerodynamic fabric winglet mounted on a carbon-fiber arm, flexing under high-speed laminar airflow with visible white smoke streamlines, high-speed photography.",
+        "local_path": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"sceneGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#0F172A\"/>\n      <stop offset=\"100%\" stop-color=\"#020617\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#sceneGrad)\"/>\n\n  <!-- Depth Staging Grid -->\n  <circle cx=\"960\" cy=\"540\" r=\"380\" fill=\"none\" stroke=\"#1E293B\" stroke-width=\"1.5\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"220\" fill=\"none\" stroke=\"#334155\" stroke-width=\"1.5\" stroke-dasharray=\"6,6\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"80\" fill=\"none\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n\n  <!-- Dynamic Vector Arrow -->\n  <path d=\"M 680 720 Q 960 520 1240 720\" fill=\"none\" stroke=\"#F43F5E\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <polygon points=\"1240,720 1220,705 1225,728\" fill=\"#F43F5E\"/>\n\n  <!-- Center Action Node -->\n  <circle cx=\"960\" cy=\"540\" r=\"16\" fill=\"#38BDF8\"/>\n  <line x1=\"960\" y1=\"460\" x2=\"960\" y2=\"620\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n  <line x1=\"880\" y1=\"540\" x2=\"1040\" y2=\"540\" stroke=\"#38BDF8\" stroke-width=\"2\"/>\n\n  <!-- Top Bar -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#38BDF8\" letter-spacing=\"2\">\n    SCENE 1: THE MICROSCOPIC WEAVE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#94A3B8\" text-anchor=\"end\">\n    WINDOW: 00:00 - 00:08 | Regime 2\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#38BDF8\">\n    CRAFT RIG: 35mm Prime | Centered\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#F43F5E\" text-anchor=\"end\">\n    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE\n  </text>\n</svg>"
+      }
+    ],
+    "scenes": [
+      {
+        "scene_index": 1,
+        "timestamp_range": "00:00 - 00:08",
+        "scene_title": "The Microscopic Weave",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Extreme macro view of the interlocking cyan and carbon weave in complete stillness.",
+          "At second 03, tension applies and individual yarn microfibers stretch taut with visible physical elongation.",
+          "Laser line sweeps across the weave, highlighting microscopic fiber textures."
+        ],
+        "kinetic_contact_chain": "Relaxed fibers -> Tensile load applied -> Yarn elongation under force -> Surface micro-flattening -> Stable high-tension lock.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
+        "conversational_edit_deltas": [
+          "Turn 2: Add visible micro-dust particle displacement upon tension snap."
+        ]
+      },
+      {
+        "scene_index": 2,
+        "timestamp_range": "00:08 - 00:16",
+        "scene_title": "The Airflow Ignition",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Camera pulls back to a medium shot as wind tunnel nozzles ignite with high-speed laminar airflow.",
+          "White condensation streamlines wrap smoothly over the taut fabric sheet with zero turbulence.",
+          "The fabric ripples rhythmically with high-frequency aerodynamic waves."
+        ],
+        "kinetic_contact_chain": "Nozzle airflow discharge -> Air pressure boundary layer forms -> Fluid-structure interaction on fabric -> Aerodynamic ripple wave propagation -> Stable laminar wave state.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
+        "conversational_edit_deltas": [
+          "Turn 2: Enhance the brightness of the smoke streamlines under the blue laser light."
+        ]
+      },
+      {
+        "scene_index": 3,
+        "timestamp_range": "00:16 - 00:24",
+        "scene_title": "The Aerodynamic Deflection",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Camera tracks laterally around the fabric as it flexes into an aerodynamic winglet curve.",
+          "Laser illumination reveals vortices rolling smoothly off the trailing edge.",
+          "The material maintains rigid structural integrity under maximum velocity."
+        ],
+        "kinetic_contact_chain": "Peak wind velocity -> Aerodynamic lift force generates deflection -> Flexible composite arm reaches planned bend angle -> Trailing edge sheds micro-vortex -> Dynamic equilibrium under load.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
+        "conversational_edit_deltas": [
+          "Turn 2: Increase the camber of the fabric winglet curve."
+        ]
+      },
+      {
+        "scene_index": 4,
+        "timestamp_range": "00:24 - 00:32",
+        "scene_title": "The Deceleration & The Form Lock",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "Wind tunnel airflow suddenly cuts off with a deep pneumatic thud.",
+          "The fabric springs back into its pristine planar resting position with a satisfying tactile snap.",
+          "Laser illumination freezes on the pristine weave as smoke gently dissipates into stillness."
+        ],
+        "kinetic_contact_chain": "Airflow cutoff -> Pressure drop -> Elastic restoring force snaps fabric -> Momentum damping oscillation -> Absolute static resting state.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
+        "conversational_edit_deltas": [
+          "Turn 2: Rack focus to the central carbon fiber thread in the final second."
+        ]
+      }
+    ]
+  },
+  "storyboard_html_path": "/Users/ashikkay/Documents/omniskill/examples/kinetic_fabric_2_0/storyboard_preview.html",
+  "bundle_json_path": "/Users/ashikkay/Documents/omniskill/examples/kinetic_fabric_2_0/production_bundle.json",
+  "visual_plates": {
+    "<image_2>": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg",
+    "scene_1": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "<image_3>": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "scene_2": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_2_keyframe.svg",
+    "scene_3": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_3_keyframe.svg",
+    "scene_4": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_4_keyframe.svg"
+  },
+  "rendered_videos": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Microscopic Weave",
+      "timestamp_range": "00:00 - 00:08",
+      "interaction_id": "omni-interact-1-90333",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_1.mp4"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Airflow Ignition",
+      "timestamp_range": "00:08 - 00:16",
+      "interaction_id": "omni-interact-2-72203",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_2.mp4"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "The Aerodynamic Deflection",
+      "timestamp_range": "00:16 - 00:24",
+      "interaction_id": "omni-interact-3-00310",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_3.mp4"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Deceleration & The Form Lock",
+      "timestamp_range": "00:24 - 00:32",
+      "interaction_id": "omni-interact-4-39949",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_4.mp4"
+    }
+  ],
+  "audit_reports": [
+    {
+      "scene_index": 1,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_2>",
+          "<image_1>"
+        ]
+      }
+    },
+    {
+      "scene_index": 2,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_2>",
+          "<image_1>"
+        ]
+      }
+    },
+    {
+      "scene_index": 3,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "Rule 3 Warning: Regime 2 prompt should explicitly invoke physical invariants (gravity, friction, rigid materials, or momentum) to prevent elastic cushioning."
+      ],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_3>"
+        ]
+      }
+    },
+    {
+      "scene_index": 4,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true
+      }
+    }
+  ],
+  "mode": "dry-run"
+}

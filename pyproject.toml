@@ -1,0 +1,47 @@
+[project]
+name = "omni-movie-director"
+version = "2.0.0"
+description = "2026 Commercial & Narrative Film Director Suite: ADK 2.0 Multi-Agent Pipeline for Gemini 4 Argon, Gemini 3.8 Flash, Nano Banana Pro & Gemini Omni 1.1"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "SpiralSpectra", email = "dev@spiralspectra.org" }
+]
+keywords = [
+    "gemini",
+    "adk",
+    "omni",
+    "video-generation",
+    "multimodal",
+    "storyboard",
+    "seedance",
+    "film-direction"
+]
+dependencies = [
+    "pydantic>=2.7.0",
+    "google-genai>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+adk = [
+    "google-adk>=1.0.0",
+]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+omni-director = "omni_director.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["omni_director"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = ["."]

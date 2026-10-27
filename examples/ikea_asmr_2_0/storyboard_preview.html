@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IKEA: The Living Room Unfolds | Omni Movie Director Cinema UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #07080B;
+      --bg-surface: #0E1017;
+      --bg-card: #141722;
+      --border-subtle: #202434;
+      --border-focus: #3A425D;
+      --cyan-telemetry: #00F0FF;
+      --crimson-accent: #FF3366;
+      --amber-gold: #FFB800;
+      --text-main: #F0F2F8;
+      --text-muted: #8E95AA;
+      --text-dim: #545B73;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+    /* Top Cinema HUD */
+    .hud-header {
+      background: rgba(14, 16, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hud-left { display: flex; align-items: center; gap: 20px; }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .hud-meta {
+      display: flex;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .meta-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .meta-tag strong { color: var(--cyan-telemetry); }
+    .btn-theater {
+      background: var(--cyan-telemetry);
+      color: #000;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-theater:hover { opacity: 0.9; }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 36px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 32px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* Overview Grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .overview-card, .sonic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .logline {
+      font-size: 16px;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .palette-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .swatch-box {
+      flex: 1;
+      height: 52px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .swatch-box:hover { transform: translateY(-2px); }
+
+    /* 3-Tier Visual Continuity Cards */
+    .bible-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .bible-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-preview-wrap {
+      width: 100%;
+      height: 250px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+    .plate-svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .plate-svg-container svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bible-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-focus);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--cyan-telemetry);
+      z-index: 2;
+    }
+    .bible-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .bible-dna {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .prompt-drawer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+    .prompt-drawer-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .prompt-drawer-content {
+      margin-top: 10px;
+      background: #0A0C12;
+      border: 1px solid var(--border-subtle);
+      padding: 12px;
+      border-radius: 4px;
+    }
+    .prompt-drawer-content pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #A5B4FC;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    /* Shot-by-Shot Timeline */
+    .scene-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .scene-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scene-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scene-badge {
+      background: #000;
+      border: 1px solid var(--border-focus);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .scene-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .scene-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .scene-actions { display: flex; align-items: center; gap: 12px; }
+    .badge-pass {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .btn-copy, .btn-copy-sm {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-copy:hover, .btn-copy-sm:hover {
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }
+
+    .scene-body {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 24px;
+      padding: 24px;
+    }
+    .scene-visual-frame {
+      width: 100%;
+      height: 270px;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .scene-visual-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .camera-telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .craft-tag {
+      color: var(--amber-gold);
+      font-weight: 700;
+    }
+
+    .col-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .beats-container { margin-bottom: 16px; }
+    .beat-item {
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .beat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .chain-box {
+      background: #0B0E17;
+      border-left: 3px solid var(--crimson-accent);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #E2E8F0;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .omni-prompt-box {
+      background: #090B10;
+      border: 1px solid var(--border-focus);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .prompt-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      user-select: text;
+    }
+    .edit-deltas {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Cinema HUD -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <div class="project-title">IKEA: The Living Room Unfolds</div>
+      <div class="hud-meta">
+        <span class="meta-tag">CANVAS: <strong>16:9</strong></span>
+        <span class="meta-tag">REGIME: <strong>Regime 2</strong></span>
+        <span class="meta-tag">RUNTIME: <strong>32s</strong></span>
+        <span class="meta-tag">MODE: <strong>Mode A</strong></span>
+      </div>
+    </div>
+    <button class="btn-theater" onclick="window.scrollTo({ top: document.getElementById('timeline-section').offsetTop - 80, behavior: 'smooth' })">
+      ▶ STORYBOARD TIMELINE
+    </button>
+  </header>
+
+  <div class="container">
+    <!-- Overview & Palette -->
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="col-heading">DIRECTOR'S LOGLINE</div>
+        <div class="logline">In an empty sunlit Scandinavian apartment, an iconic flat-pack IKEA box violently trembles, then mechanically unpacks and self-assembles into a pristine, serene living sanctuary with hyper-tactile ASMR foley.</div>
+        <div class="col-heading">COLOR SCRIPT PALETTE (CLICK HEX TO COPY)</div>
+        <div class="palette-strip"><div class="swatch-box" style="background: #1E293B;" onclick="navigator.clipboard.writeText('#1E293B')"><span>#1E293B</span></div><div class="swatch-box" style="background: #F59E0B;" onclick="navigator.clipboard.writeText('#F59E0B')"><span>#F59E0B</span></div><div class="swatch-box" style="background: #0284C7;" onclick="navigator.clipboard.writeText('#0284C7')"><span>#0284C7</span></div><div class="swatch-box" style="background: #F8FAFC;" onclick="navigator.clipboard.writeText('#F8FAFC')"><span>#F8FAFC</span></div></div>
+      </div>
+
+      <div class="sonic-card">
+        <div class="col-heading">MASTER BGM BLUEPRINT</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px;">
+          Nordic Serenity: Tactile Pulse
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry); margin-bottom: 12px;">
+          84 BPM | D Major | Minimalist Acoustic Neo-Classical ASMR
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+          <span class="meta-tag">Plucked acoustic cello pizzicato</span><span class="meta-tag">Felted upright piano playing delicate sparse arpeggios</span><span class="meta-tag">Subtle wooden xylophone clicks tuned to foley impacts</span><span class="meta-tag">Warm analog sub-bass drone resolving into absolute stillness</span>
+        </div>
+        <button class="btn-copy-sm" onclick="navigator.clipboard.writeText(`Minimalist Scandinavian ASMR neo-classical acoustic cue, 84 BPM, D Major. Opens with delicate plucked cello pizzicato and light woodblock clicks. Builds into an intricate, satisfying, rhythmic clockwork pattern with felted upright piano. Resolves gracefully into a lush, peaceful ambient string chord that rings out into pristine silence.`); this.innerText = 'Copied Lyria Prompt!'; setTimeout(() => this.innerText = 'Copy Lyria Prompt', 2000)">
+          Copy Lyria BGM Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-Tier Visual Continuity Bible -->
+    <div class="section-title">3-TIER VISUAL CONTINUITY BIBLE (NANO BANANA PRO PRE-VIS)</div>
+    <div class="bible-grid">
+      
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_1></div>
+            <div class="plate-svg-container"><div class="svg-placeholder">NO VISUAL PLATE</div></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the exact cardboard texture, proportions, blue-printed IKEA logo, and packing tape styling of the sealed flat-pack box.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy the studio background or white seamless floor from <image_1>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Commercial product photograph of a pristine, sealed flat-pack IKEA cardboard furniture box resting on a neutral background, sharp corners, kraft corrugated paper texture, classic blue IKEA logo clearly printed on top surface, reinforced brown paper packing tape along seams, clean architectural studio lighting.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Commercial product photograph of a pristine, sealed flat-pack IKEA cardboard furniture box resting on a neutral background, sharp corners, kraft corrugated paper texture, classic blue IKEA logo clearly printed on top surface, reinforced brown paper packing tape along seams, clean architectural studio lighting.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_2></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="720" x2="200" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="600" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1320" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1720" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="80" y="160" width="340" height="520" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="250" y1="160" x2="250" y2="680" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="80" y1="330" x2="420" y2="330" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="80" y1="500" x2="420" y2="500" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="80,160 420,160 1480,1080 380,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="200" x2="960" y2="720" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="200" x2="1920" y2="200" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: MINIMALIST STOCKHOLM LOFT | ARCHITECTURE: An expansive 8x6 meter open-plan apartment with ultra-smooth...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Soft, low-angled morning Scandinavian sunlight str...
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the exact Scandinavian living room interior palette, pale ash wood flooring, and floor-to-ceiling window architecture.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy any people, pets, or outdoor weather conditions from <image_2>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Architectural interior photograph of an empty, bright Scandinavian room with wide pale blonde ash plank flooring, pristine matte-white walls, high ceilings, large black-framed multi-pane windows on the left wall with morning sunlight casting geometric light pools across the clean floor, 8k resolution, shot on Hasselblad.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Architectural interior photograph of an empty, bright Scandinavian room with wide pale blonde ash plank flooring, pristine matte-white walls, high ceilings, large black-framed multi-pane windows on the left wall with morning sunlight casting geometric light pools across the clean floor, 8k resolution, shot on Hasselblad.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_3></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="380" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="220" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="80" fill="none" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 680 720 Q 960 520 1240 720" fill="none" stroke="#0284C7" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1240,720 1220,705 1225,728" fill="#0284C7"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#F59E0B"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="2">
+    SCENE 1: THE AWAKENING BOX
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:08 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: 35mm Prime | Centered
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the complete finished furniture suite (grey fabric sofa, oak coffee table, mustard-yellow wool throw blanket, minimalist white bookcase, potted fiddle-leaf fig).</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Catalog showcase photograph of a curated IKEA living room set: an ash-grey textured fabric two-seater sofa, a low solid oak oval coffee table, a folded mustard-yellow waffle-knit wool throw blanket, an open white-lacquered shelf unit with art books, and a terracotta potted green fiddle-leaf plant, photorealistic Scandinavian design.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Catalog showcase photograph of a curated IKEA living room set: an ash-grey textured fabric two-seater sofa, a low solid oak oval coffee table, a folded mustard-yellow waffle-knit wool throw blanket, an open white-lacquered shelf unit with art books, and a terracotta potted green fiddle-leaf plant, photorealistic Scandinavian design.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- Shot-by-Shot Timeline -->
+    <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (4 SEQUENTIAL CUTS)</div>
+    
+        <div class="scene-card" id="scene-1">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 1</span>
+              <h3 class="scene-title">The Awakening Box</h3>
+              <span class="scene-time">00:00 - 00:08</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-1')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> The sealed IKEA box sits dead-center on the bare ash floor in total stillness under morning sunlight.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> At second 03, the box begins to shudder rapidly with high-frequency tactile micro-vibrations.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> At second 07, the reinforced packing tape along the top center seam suddenly splits open with a crisp pop and a tiny puff of kraft paper dust.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Stillness -> Micro-oscillation of box edges against ash floorboards -> High-tension seam split -> Cardboard flaps spring open 15 degrees -> Settles into open posture.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-1">A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Make the box tremble more violently and add visible paper dust curling into the sunbeam. | Turn 3: Change the morning sun to soft overcast afternoon daylight while keeping the box action identical.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-2">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 2</span>
+              <h3 class="scene-title">The Hyper-Kinetic Self-Assembly</h3>
+              <span class="scene-time">00:08 - 00:16</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-2')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/ikea_asmr_2_0/storyboards/anchor3_scene_2_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> The cardboard flaps fold flat onto the floor like blooming origami petals.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> Precision-cut solid oak furniture legs, white shelf panels, and frame components levitate out in structured order.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> Components interlock at high velocity into a low coffee table and a minimalist shelving unit with rigid mechanical clicks.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Flaps burst outward -> Wooden pieces slide on air trajectories -> Dovetail joints collide and snap together -> Base legs strike the hardwood floor with solid acoustic thuds -> Stable resting lock.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-2">A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Increase the speed of the shelf assembly and add subtle sawdust motes catching the sunlight. | Turn 3: Ensure the bookcase locks against the wall with an audible resonant tap.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-3">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 3</span>
+              <h3 class="scene-title">Upholstery & Soft Architecture</h3>
+              <span class="scene-time">00:16 - 00:24</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-3')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/ikea_asmr_2_0/storyboards/anchor3_scene_3_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> A textured grey fabric sofa expands smoothly from the center staging area, cushions billowing outward.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> A woven natural wool area rug unrolls across the ash floor with rhythmic momentum.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> A ceramic table lamp and a potted green fiddle-leaf fig slide gracefully onto their finished surfaces.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Rug unrolls across floorboards with surface friction -> Sofa cushions drop under gravity -> Potted plant bases contact oak tabletop with ceramic clinks -> Secondary leaf settling oscillation.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-3">The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Add a soft warm light turning on inside the pleated paper table lamp upon landing. | Turn 3: Make the fiddle-leaf fig leaves oscillate gently for 2 seconds after touching down.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-4">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 4</span>
+              <h3 class="scene-title">The Final Flourish & The ASMR Stillness</h3>
+              <span class="scene-time">00:24 - 00:32</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-4')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/ikea_asmr_2_0/storyboards/anchor3_scene_4_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> A folded mustard-yellow waffle-knit wool throw blanket arcs gracefully through the air over the sofa.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> The blanket lands dead-center on the grey sofa corner, sending a soft, visible air ripple through its knit folds.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> All motion abruptly freezes into an immaculate, serene, fully furnished architectural living room.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Throw blanket trajectory -> Gentle gravitational descent -> Impact with sofa cushion -> Micro-compression of textile knit -> Total static equilibrium.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-4">The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Add a small steaming white ceramic coffee mug resting on the oak coffee table in the final second. | Turn 3: Softly rack focus to the mustard throw blanket texture in the final 2 seconds.</div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+
+  <script>
+    function copyPrompt(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Omni 1.1 Natural Prose Prompt copied to clipboard!");
+      });
+    }
+    function copyText(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => btn.innerText = "Copy Prompt", 2000);
+      });
+    }
+  </script>
+</body>
+</html>

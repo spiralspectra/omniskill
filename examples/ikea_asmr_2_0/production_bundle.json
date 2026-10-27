@@ -1,0 +1,333 @@
+{
+  "bible": {
+    "project_title": "IKEA: The Living Room Unfolds",
+    "logline": "In an empty sunlit Scandinavian apartment, an iconic flat-pack IKEA box violently trembles, then mechanically unpacks and self-assembles into a pristine, serene living sanctuary with hyper-tactile ASMR foley.",
+    "creative_regime": "Regime 2: High-Kinetic & Precision Commercial",
+    "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+    "aspect_ratio": "16:9",
+    "total_runtime_seconds": 32,
+    "color_palette": [
+      "#1E293B",
+      "#F59E0B",
+      "#0284C7",
+      "#F8FAFC"
+    ],
+    "characters": [],
+    "environment": {
+      "location_name": "Minimalist Stockholm Loft",
+      "spatial_architecture": "An expansive 8x6 meter open-plan apartment with ultra-smooth pale blonde ash hardwood floors, matte-white limewashed walls, and floor-to-ceiling multi-pane Nordic windows on the left wall looking out to quiet birch trees.",
+      "lighting_setup": "Soft, low-angled morning Scandinavian sunlight streaming through the windows at 5200K daylight balance, casting elongated warm rectangular light pools across the floor, filled with soft 6500K ambient room bounce.",
+      "atmospheric_particles": "Delicate, slow-drifting micro-motes of atmospheric dust illuminated in the light beam; zero haze, zero smoke.",
+      "positive_invariants": [
+        "The pale blonde ash floorboards remain mechanically rigid with realistic wood grain that never distorts or changes direction.",
+        "The walls remain pristine matte-white with consistent architectural baseboards.",
+        "All furniture pieces retain exact Scandinavian minimalist geometry and color-true IKEA fabrics once assembled."
+      ],
+      "generation_prompt": null,
+      "image_path": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg",
+      "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#1E293B\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#F59E0B\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#F59E0B\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#F59E0B\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: MINIMALIST STOCKHOLM LOFT | ARCHITECTURE: An expansive 8x6 meter open-plan apartment with ultra-smooth...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: Soft, low-angled morning Scandinavian sunlight str...\n  </text>\n</svg>"
+    },
+    "camera_rig": {
+      "rig_type": "Locked-off Studio Tripod on 35mm Prime Lens",
+      "focal_length_mm": 35,
+      "composition": "Wide-angle eye-level architectural framing showing 80% of the room with the flat-pack box dead-center.",
+      "route": "Completely locked-off static camera for the entire duration with zero drift, zero pan, and zero handheld shake.",
+      "action_anchor": "Static frame holds observational discipline while hyper-kinetic assembly erupts within it.",
+      "focus_axis": "Deep f/8 depth of field keeping the center box and back walls tack-sharp.",
+      "tone_rig": "High-end architectural photography."
+    },
+    "sonic_blueprint": {
+      "foley_cues": [
+        "Low resonant cardboard vibration on wood floor",
+        "Sharp, satisfying high-frequency tape tear and cardboard seam pop",
+        "Crisp wood dowel clicks, rapid mechanical drawer slide swooshes, and solid pine locking thuds",
+        "Soft, airy, deep 'fwoomp' of down-filled textiles settling onto wood",
+        "Pristine, dead-silent room tone with gentle morning bird chirps outside glass"
+      ],
+      "dialogue_lines": [],
+      "room_acoustics": "Bright, reverberant empty wooden room acoustics during the initial box opening, transitioning smoothly into a warm, dampened, acoustically insulated soundscape as fabrics, rugs, and cushions populate the space."
+    },
+    "master_bgm": {
+      "track_title": "Nordic Serenity: Tactile Pulse",
+      "genre_style": "Minimalist Acoustic Neo-Classical ASMR",
+      "tempo_bpm": 84,
+      "key_signature": "D Major",
+      "instrumentation": [
+        "Plucked acoustic cello pizzicato",
+        "Felted upright piano playing delicate sparse arpeggios",
+        "Subtle wooden xylophone clicks tuned to foley impacts",
+        "Warm analog sub-bass drone resolving into absolute stillness"
+      ],
+      "dynamic_arc": "Seconds 00-08: Tense, playful pizzicato rhythm ticking like a clockwork box. Seconds 08-16: Rapid, polyrhythmic wooden mallet pulses synchronizing with furniture clicks. Seconds 16-24: Swelling warm cello and piano harmony. Seconds 24-32: All music decrescendos instantly on the final blanket drop, leaving only a sustained pure piano chord and serene silence.",
+      "lyria_prompt": "Minimalist Scandinavian ASMR neo-classical acoustic cue, 84 BPM, D Major. Opens with delicate plucked cello pizzicato and light woodblock clicks. Builds into an intricate, satisfying, rhythmic clockwork pattern with felted upright piano. Resolves gracefully into a lush, peaceful ambient string chord that rings out into pristine silence."
+    },
+    "nano_banana_assets": [
+      {
+        "asset_id": "<image_1>",
+        "job_description": "Defines the exact cardboard texture, proportions, blue-printed IKEA logo, and packing tape styling of the sealed flat-pack box.",
+        "exclusion_clause": "Do not copy the studio background or white seamless floor from <image_1>.",
+        "generation_prompt": "Commercial product photograph of a pristine, sealed flat-pack IKEA cardboard furniture box resting on a neutral background, sharp corners, kraft corrugated paper texture, classic blue IKEA logo clearly printed on top surface, reinforced brown paper packing tape along seams, clean architectural studio lighting.",
+        "local_path": null,
+        "svg_markup": null
+      },
+      {
+        "asset_id": "<image_2>",
+        "job_description": "Defines the exact Scandinavian living room interior palette, pale ash wood flooring, and floor-to-ceiling window architecture.",
+        "exclusion_clause": "Do not copy any people, pets, or outdoor weather conditions from <image_2>.",
+        "generation_prompt": "Architectural interior photograph of an empty, bright Scandinavian room with wide pale blonde ash plank flooring, pristine matte-white walls, high ceilings, large black-framed multi-pane windows on the left wall with morning sunlight casting geometric light pools across the clean floor, 8k resolution, shot on Hasselblad.",
+        "local_path": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"envGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#1E293B\"/>\n      <stop offset=\"100%\" stop-color=\"#080A0F\"/>\n    </linearGradient>\n    <linearGradient id=\"lightRay\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#F59E0B\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#F59E0B\" stop-opacity=\"0.0\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#envGrad)\"/>\n\n  <!-- Architectural Perspective Lines -->\n  <!-- Floorboard Lines -->\n  <line x1=\"0\" y1=\"720\" x2=\"1920\" y2=\"720\" stroke=\"#2D333B\" stroke-width=\"2\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"200\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"600\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"960\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1320\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"720\" x2=\"1720\" y2=\"1080\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n\n  <!-- Architectural Window Structure (Left) -->\n  <rect x=\"80\" y=\"160\" width=\"340\" height=\"520\" fill=\"none\" stroke=\"#F59E0B\" stroke-width=\"3\"/>\n  <line x1=\"250\" y1=\"160\" x2=\"250\" y2=\"680\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"330\" x2=\"420\" y2=\"330\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"500\" x2=\"420\" y2=\"500\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n\n  <!-- Volumetric Sunlight Beam -->\n  <polygon points=\"80,160 420,160 1480,1080 380,1080\" fill=\"url(#lightRay)\"/>\n\n  <!-- Back Wall Minimalist Architecture -->\n  <line x1=\"960\" y1=\"200\" x2=\"960\" y2=\"720\" stroke=\"#21262D\" stroke-width=\"1.5\"/>\n  <line x1=\"0\" y1=\"200\" x2=\"1920\" y2=\"200\" stroke=\"#21262D\" stroke-width=\"1\"/>\n\n  <!-- Camera Reticle Overlay -->\n  <circle cx=\"960\" cy=\"540\" r=\"30\" fill=\"none\" stroke=\"#58A6FF\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/>\n  <line x1=\"940\" y1=\"540\" x2=\"980\" y2=\"540\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <line x1=\"960\" y1=\"520\" x2=\"960\" y2=\"560\" stroke=\"#58A6FF\" stroke-width=\"1.5\"/>\n  <!-- Corner Reticles -->\n  <path d=\"M 60 140 L 60 80 L 120 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 140 L 1860 80 L 1800 80\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 60 940 L 60 1000 L 120 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n  <path d=\"M 1860 940 L 1860 1000 L 1800 1000\" fill=\"none\" stroke=\"#8B949E\" stroke-width=\"2\"/>\n\n  <!-- Top Title HUD -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#58A6FF\" letter-spacing=\"2\">\n    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#8B949E\" text-anchor=\"end\">\n    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0D1117\" stroke=\"#30363D\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#3FB950\">\n    LOCATION: MINIMALIST STOCKHOLM LOFT | ARCHITECTURE: An expansive 8x6 meter open-plan apartment with ultra-smooth...\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#D29922\" text-anchor=\"end\">\n    LIGHTING: Soft, low-angled morning Scandinavian sunlight str...\n  </text>\n</svg>"
+      },
+      {
+        "asset_id": "<image_3>",
+        "job_description": "Defines the complete finished furniture suite (grey fabric sofa, oak coffee table, mustard-yellow wool throw blanket, minimalist white bookcase, potted fiddle-leaf fig).",
+        "exclusion_clause": "Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications.",
+        "generation_prompt": "Catalog showcase photograph of a curated IKEA living room set: an ash-grey textured fabric two-seater sofa, a low solid oak oval coffee table, a folded mustard-yellow waffle-knit wool throw blanket, an open white-lacquered shelf unit with art books, and a terracotta potted green fiddle-leaf plant, photorealistic Scandinavian design.",
+        "local_path": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+        "svg_markup": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\">\n  <defs>\n    <linearGradient id=\"sceneGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#1E293B\"/>\n      <stop offset=\"100%\" stop-color=\"#020617\"/>\n    </linearGradient>\n  </defs>\n\n  <rect width=\"1920\" height=\"1080\" fill=\"url(#sceneGrad)\"/>\n\n  <!-- Depth Staging Grid -->\n  <circle cx=\"960\" cy=\"540\" r=\"380\" fill=\"none\" stroke=\"#1E293B\" stroke-width=\"1.5\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"220\" fill=\"none\" stroke=\"#334155\" stroke-width=\"1.5\" stroke-dasharray=\"6,6\"/>\n  <circle cx=\"960\" cy=\"540\" r=\"80\" fill=\"none\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n\n  <!-- Dynamic Vector Arrow -->\n  <path d=\"M 680 720 Q 960 520 1240 720\" fill=\"none\" stroke=\"#0284C7\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <polygon points=\"1240,720 1220,705 1225,728\" fill=\"#0284C7\"/>\n\n  <!-- Center Action Node -->\n  <circle cx=\"960\" cy=\"540\" r=\"16\" fill=\"#F59E0B\"/>\n  <line x1=\"960\" y1=\"460\" x2=\"960\" y2=\"620\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n  <line x1=\"880\" y1=\"540\" x2=\"1040\" y2=\"540\" stroke=\"#F59E0B\" stroke-width=\"2\"/>\n\n  <!-- Top Bar -->\n  <rect x=\"40\" y=\"40\" width=\"1840\" height=\"65\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"80\" font-family=\"'Space Grotesk', sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#F59E0B\" letter-spacing=\"2\">\n    SCENE 1: THE AWAKENING BOX\n  </text>\n  <text x=\"1855\" y=\"80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#94A3B8\" text-anchor=\"end\">\n    WINDOW: 00:00 - 00:08 | Regime 2\n  </text>\n\n  <!-- Lower Telemetry -->\n  <rect x=\"40\" y=\"980\" width=\"1840\" height=\"60\" rx=\"8\" fill=\"#0B132B\" stroke=\"#1C2541\" stroke-width=\"1.5\"/>\n  <text x=\"65\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#38BDF8\">\n    CRAFT RIG: 35mm Prime | Centered\n  </text>\n  <text x=\"1855\" y=\"1017\" font-family=\"'JetBrains Mono', monospace\" font-size=\"13\" fill=\"#F43F5E\" text-anchor=\"end\">\n    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE\n  </text>\n</svg>"
+      }
+    ],
+    "scenes": [
+      {
+        "scene_index": 1,
+        "timestamp_range": "00:00 - 00:08",
+        "scene_title": "The Awakening Box",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "The sealed IKEA box sits dead-center on the bare ash floor in total stillness under morning sunlight.",
+          "At second 03, the box begins to shudder rapidly with high-frequency tactile micro-vibrations.",
+          "At second 07, the reinforced packing tape along the top center seam suddenly splits open with a crisp pop and a tiny puff of kraft paper dust."
+        ],
+        "kinetic_contact_chain": "Stillness -> Micro-oscillation of box edges against ash floorboards -> High-tension seam split -> Cardboard flaps spring open 15 degrees -> Settles into open posture.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound.",
+        "conversational_edit_deltas": [
+          "Turn 2: Make the box tremble more violently and add visible paper dust curling into the sunbeam.",
+          "Turn 3: Change the morning sun to soft overcast afternoon daylight while keeping the box action identical."
+        ]
+      },
+      {
+        "scene_index": 2,
+        "timestamp_range": "00:08 - 00:16",
+        "scene_title": "The Hyper-Kinetic Self-Assembly",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "The cardboard flaps fold flat onto the floor like blooming origami petals.",
+          "Precision-cut solid oak furniture legs, white shelf panels, and frame components levitate out in structured order.",
+          "Components interlock at high velocity into a low coffee table and a minimalist shelving unit with rigid mechanical clicks."
+        ],
+        "kinetic_contact_chain": "Flaps burst outward -> Wooden pieces slide on air trajectories -> Dovetail joints collide and snap together -> Base legs strike the hardwood floor with solid acoustic thuds -> Stable resting lock.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score.",
+        "conversational_edit_deltas": [
+          "Turn 2: Increase the speed of the shelf assembly and add subtle sawdust motes catching the sunlight.",
+          "Turn 3: Ensure the bookcase locks against the wall with an audible resonant tap."
+        ]
+      },
+      {
+        "scene_index": 3,
+        "timestamp_range": "00:16 - 00:24",
+        "scene_title": "Upholstery & Soft Architecture",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "A textured grey fabric sofa expands smoothly from the center staging area, cushions billowing outward.",
+          "A woven natural wool area rug unrolls across the ash floor with rhythmic momentum.",
+          "A ceramic table lamp and a potted green fiddle-leaf fig slide gracefully onto their finished surfaces."
+        ],
+        "kinetic_contact_chain": "Rug unrolls across floorboards with surface friction -> Sofa cushions drop under gravity -> Potted plant bases contact oak tabletop with ceramic clinks -> Secondary leaf settling oscillation.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest.",
+        "conversational_edit_deltas": [
+          "Turn 2: Add a soft warm light turning on inside the pleated paper table lamp upon landing.",
+          "Turn 3: Make the fiddle-leaf fig leaves oscillate gently for 2 seconds after touching down."
+        ]
+      },
+      {
+        "scene_index": 4,
+        "timestamp_range": "00:24 - 00:32",
+        "scene_title": "The Final Flourish & The ASMR Stillness",
+        "regime": "Regime 2: High-Kinetic & Precision Commercial",
+        "action_beats": [
+          "A folded mustard-yellow waffle-knit wool throw blanket arcs gracefully through the air over the sofa.",
+          "The blanket lands dead-center on the grey sofa corner, sending a soft, visible air ripple through its knit folds.",
+          "All motion abruptly freezes into an immaculate, serene, fully furnished architectural living room."
+        ],
+        "kinetic_contact_chain": "Throw blanket trajectory -> Gentle gravitational descent -> Impact with sofa cushion -> Micro-compression of textile knit -> Total static equilibrium.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside.",
+        "conversational_edit_deltas": [
+          "Turn 2: Add a small steaming white ceramic coffee mug resting on the oak coffee table in the final second.",
+          "Turn 3: Softly rack focus to the mustard throw blanket texture in the final 2 seconds."
+        ]
+      }
+    ]
+  },
+  "storyboard_html_path": "/Users/ashikkay/Documents/omniskill/examples/ikea_asmr_2_0/storyboard_preview.html",
+  "bundle_json_path": "/Users/ashikkay/Documents/omniskill/examples/ikea_asmr_2_0/production_bundle.json",
+  "visual_plates": {
+    "<image_2>": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg",
+    "scene_1": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "<image_3>": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg",
+    "scene_2": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_2_keyframe.svg",
+    "scene_3": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_3_keyframe.svg",
+    "scene_4": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_4_keyframe.svg"
+  },
+  "rendered_videos": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Awakening Box",
+      "timestamp_range": "00:00 - 00:08",
+      "interaction_id": "omni-interact-1-80479",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_1.mp4"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Hyper-Kinetic Self-Assembly",
+      "timestamp_range": "00:08 - 00:16",
+      "interaction_id": "omni-interact-2-41147",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_2.mp4"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "Upholstery & Soft Architecture",
+      "timestamp_range": "00:16 - 00:24",
+      "interaction_id": "omni-interact-3-75640",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_3.mp4"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Final Flourish & The ASMR Stillness",
+      "timestamp_range": "00:24 - 00:32",
+      "interaction_id": "omni-interact-4-66221",
+      "status": "dry-run-completed",
+      "model": "gemini-omni-1.1-flash-preview",
+      "resolution": "720p",
+      "fps": 24,
+      "mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+      "bound_references": [
+        {
+          "tag": "<image_2>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor2_environment_master.svg"
+        },
+        {
+          "tag": "<image_3>",
+          "source": "examples/ikea_asmr_2_0/storyboards/anchor3_scene_1_keyframe.svg"
+        }
+      ],
+      "clean_prose_prompt": "The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside.",
+      "diegetic_audio_synced": true,
+      "mock_video_url": "file:///outputs/rendered_scene_4.mp4"
+    }
+  ],
+  "audit_reports": [
+    {
+      "scene_index": 1,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_2>",
+          "<image_1>"
+        ]
+      }
+    },
+    {
+      "scene_index": 2,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_3>"
+        ]
+      }
+    },
+    {
+      "scene_index": 3,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_3>"
+        ]
+      }
+    },
+    {
+      "scene_index": 4,
+      "passed": true,
+      "errors": [],
+      "warnings": [],
+      "details": {
+        "action_beats_count": 3,
+        "craft_camera_inferred": true,
+        "image_refs_detected": [
+          "<image_3>"
+        ]
+      }
+    }
+  ],
+  "mode": "dry-run"
+}

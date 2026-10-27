@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A10"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF0055" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF0055" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="720" x2="200" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="600" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1320" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1720" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="80" y="160" width="340" height="520" fill="none" stroke="#FF0055" stroke-width="3"/>
+  <line x1="250" y1="160" x2="250" y2="680" stroke="#FF0055" stroke-width="2"/>
+  <line x1="80" y1="330" x2="420" y2="330" stroke="#FF0055" stroke-width="2"/>
+  <line x1="80" y1="500" x2="420" y2="500" stroke="#FF0055" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="80,160 420,160 1480,1080 380,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="200" x2="960" y2="720" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="200" x2="1920" y2="200" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: MIDNIGHT SOHO TO SEPHORA FLAGSHIP | ARCHITECTURE: Exterior: Rain-slicked London cobblestones and wet asphalt r...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Exterior: Moody 3200K tungsten streetlamps with el...
+  </text>
+</svg>

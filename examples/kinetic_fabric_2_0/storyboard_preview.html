@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Kinetic Fabric: Grounded Innovation | Omni Movie Director Cinema UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #07080B;
+      --bg-surface: #0E1017;
+      --bg-card: #141722;
+      --border-subtle: #202434;
+      --border-focus: #3A425D;
+      --cyan-telemetry: #00F0FF;
+      --crimson-accent: #FF3366;
+      --amber-gold: #FFB800;
+      --text-main: #F0F2F8;
+      --text-muted: #8E95AA;
+      --text-dim: #545B73;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+    /* Top Cinema HUD */
+    .hud-header {
+      background: rgba(14, 16, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hud-left { display: flex; align-items: center; gap: 20px; }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .hud-meta {
+      display: flex;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .meta-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .meta-tag strong { color: var(--cyan-telemetry); }
+    .btn-theater {
+      background: var(--cyan-telemetry);
+      color: #000;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-theater:hover { opacity: 0.9; }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 36px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 32px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* Overview Grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .overview-card, .sonic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .logline {
+      font-size: 16px;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .palette-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .swatch-box {
+      flex: 1;
+      height: 52px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .swatch-box:hover { transform: translateY(-2px); }
+
+    /* 3-Tier Visual Continuity Cards */
+    .bible-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .bible-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-preview-wrap {
+      width: 100%;
+      height: 250px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+    .plate-svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .plate-svg-container svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bible-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-focus);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--cyan-telemetry);
+      z-index: 2;
+    }
+    .bible-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .bible-dna {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .prompt-drawer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+    .prompt-drawer-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .prompt-drawer-content {
+      margin-top: 10px;
+      background: #0A0C12;
+      border: 1px solid var(--border-subtle);
+      padding: 12px;
+      border-radius: 4px;
+    }
+    .prompt-drawer-content pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #A5B4FC;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    /* Shot-by-Shot Timeline */
+    .scene-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .scene-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scene-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scene-badge {
+      background: #000;
+      border: 1px solid var(--border-focus);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .scene-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .scene-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .scene-actions { display: flex; align-items: center; gap: 12px; }
+    .badge-pass {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .btn-copy, .btn-copy-sm {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-copy:hover, .btn-copy-sm:hover {
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }
+
+    .scene-body {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 24px;
+      padding: 24px;
+    }
+    .scene-visual-frame {
+      width: 100%;
+      height: 270px;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .scene-visual-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .camera-telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .craft-tag {
+      color: var(--amber-gold);
+      font-weight: 700;
+    }
+
+    .col-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .beats-container { margin-bottom: 16px; }
+    .beat-item {
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .beat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .chain-box {
+      background: #0B0E17;
+      border-left: 3px solid var(--crimson-accent);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #E2E8F0;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .omni-prompt-box {
+      background: #090B10;
+      border: 1px solid var(--border-focus);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .prompt-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      user-select: text;
+    }
+    .edit-deltas {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Cinema HUD -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <div class="project-title">The Kinetic Fabric: Grounded Innovation</div>
+      <div class="hud-meta">
+        <span class="meta-tag">CANVAS: <strong>16:9</strong></span>
+        <span class="meta-tag">REGIME: <strong>Regime 2</strong></span>
+        <span class="meta-tag">RUNTIME: <strong>32s</strong></span>
+        <span class="meta-tag">MODE: <strong>Mode A</strong></span>
+      </div>
+    </div>
+    <button class="btn-theater" onclick="window.scrollTo({ top: document.getElementById('timeline-section').offsetTop - 80, behavior: 'smooth' })">
+      ▶ STORYBOARD TIMELINE
+    </button>
+  </header>
+
+  <div class="container">
+    <!-- Overview & Palette -->
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="col-heading">DIRECTOR'S LOGLINE</div>
+        <div class="logline">A dynamic material exploration of high-performance technical fabric moving from microscopic weave tension to high-velocity athletic aerodynamic turbulence.</div>
+        <div class="col-heading">COLOR SCRIPT PALETTE (CLICK HEX TO COPY)</div>
+        <div class="palette-strip"><div class="swatch-box" style="background: #0F172A;" onclick="navigator.clipboard.writeText('#0F172A')"><span>#0F172A</span></div><div class="swatch-box" style="background: #38BDF8;" onclick="navigator.clipboard.writeText('#38BDF8')"><span>#38BDF8</span></div><div class="swatch-box" style="background: #F43F5E;" onclick="navigator.clipboard.writeText('#F43F5E')"><span>#F43F5E</span></div><div class="swatch-box" style="background: #E2E8F0;" onclick="navigator.clipboard.writeText('#E2E8F0')"><span>#E2E8F0</span></div></div>
+      </div>
+
+      <div class="sonic-card">
+        <div class="col-heading">MASTER BGM BLUEPRINT</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px;">
+          Tensile Dynamics: Kinetic Pulse
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry); margin-bottom: 12px;">
+          120 BPM | C Minor | Futuristic Minimalist Glitch & Cinematic Sub-Bass
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+          <span class="meta-tag">Pulsing analog modular synthesizer bassline</span><span class="meta-tag">Textured metallic percussion clicks tuned to micro-foley</span><span class="meta-tag">Granular synth pads that expand with airflow velocity</span><span class="meta-tag">Low sub-bass drops at maximum tension markers</span>
+        </div>
+        <button class="btn-copy-sm" onclick="navigator.clipboard.writeText(`Futuristic industrial electronic score, 120 BPM, C Minor. Crisp tactile clicks, modular synth pulses, deep sub-bass drops, and precise microscopic rhythms. High-tech and aerodynamic aesthetic.`); this.innerText = 'Copied Lyria Prompt!'; setTimeout(() => this.innerText = 'Copy Lyria Prompt', 2000)">
+          Copy Lyria BGM Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-Tier Visual Continuity Bible -->
+    <div class="section-title">3-TIER VISUAL CONTINUITY BIBLE (NANO BANANA PRO PRE-VIS)</div>
+    <div class="bible-grid">
+      
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_1></div>
+            <div class="plate-svg-container"><div class="svg-placeholder">NO VISUAL PLATE</div></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the exact microscopic weave pattern, iridescent cyan and scarlet yarn fibers, and tensile thread geometry.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy any human hands or background lab equipment from <image_1>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Macro photograph of high-performance technical athletic fabric: intricate interlocking weave of matte-black carbon fibers and luminous electric-cyan microfibers, 100mm macro lens, ultra-sharp thread details, precision studio rim lighting.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Macro photograph of high-performance technical athletic fabric: intricate interlocking weave of matte-black carbon fibers and luminous electric-cyan microfibers, 100mm macro lens, ultra-sharp thread details, precision studio rim lighting.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_2></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="720" x2="200" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="600" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1320" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1720" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="80" y="160" width="340" height="520" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="250" y1="160" x2="250" y2="680" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="80" y1="330" x2="420" y2="330" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="80" y1="500" x2="420" y2="500" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="80,160 420,160 1480,1080 380,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="200" x2="960" y2="720" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="200" x2="1920" y2="200" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: AERODYNAMIC WIND TUNNEL TEST LAB | ARCHITECTURE: High-tech wind tunnel facility with matte-black carbon-fiber...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: High-contrast precision 5600K laser line lighting ...
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the titanium test stage, wind tunnel nozzle geometry, and laser illumination setup.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not introduce any human operators or unrelated tools from <image_2>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Architectural interior of an advanced aerodynamic wind tunnel testing facility: mirror-finish dark titanium floor, matte-black composite walls, high-velocity wind nozzle bathed in electric-blue LED rim lights, clean high-tech industrial aesthetic.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Architectural interior of an advanced aerodynamic wind tunnel testing facility: mirror-finish dark titanium floor, matte-black composite walls, high-velocity wind nozzle bathed in electric-blue LED rim lights, clean high-tech industrial aesthetic.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_3></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="380" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="220" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="80" fill="none" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 680 720 Q 960 520 1240 720" fill="none" stroke="#F43F5E" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1240,720 1220,705 1225,728" fill="#F43F5E"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#38BDF8"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#38BDF8" letter-spacing="2">
+    SCENE 1: THE MICROSCOPIC WEAVE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:08 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: 35mm Prime | Centered
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the finished aerodynamic winglet drape showing the fabric under maximum aerodynamic deflection.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not change the fabric weave from <image_1>; inherit only the aerodynamic curve geometry.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Product design photograph of a streamlined athletic aerodynamic fabric winglet mounted on a carbon-fiber arm, flexing under high-speed laminar airflow with visible white smoke streamlines, high-speed photography.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Product design photograph of a streamlined athletic aerodynamic fabric winglet mounted on a carbon-fiber arm, flexing under high-speed laminar airflow with visible white smoke streamlines, high-speed photography.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- Shot-by-Shot Timeline -->
+    <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (4 SEQUENTIAL CUTS)</div>
+    
+        <div class="scene-card" id="scene-1">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 1</span>
+              <h3 class="scene-title">The Microscopic Weave</h3>
+              <span class="scene-time">00:00 - 00:08</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-1')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/kinetic_fabric_2_0/storyboards/anchor3_scene_1_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Extreme macro view of the interlocking cyan and carbon weave in complete stillness.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> At second 03, tension applies and individual yarn microfibers stretch taut with visible physical elongation.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> Laser line sweeps across the weave, highlighting microscopic fiber textures.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Relaxed fibers -> Tensile load applied -> Yarn elongation under force -> Surface micro-flattening -> Stable high-tension lock.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-1">An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Add visible micro-dust particle displacement upon tension snap.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-2">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 2</span>
+              <h3 class="scene-title">The Airflow Ignition</h3>
+              <span class="scene-time">00:08 - 00:16</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-2')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/kinetic_fabric_2_0/storyboards/anchor3_scene_2_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Camera pulls back to a medium shot as wind tunnel nozzles ignite with high-speed laminar airflow.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> White condensation streamlines wrap smoothly over the taut fabric sheet with zero turbulence.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> The fabric ripples rhythmically with high-frequency aerodynamic waves.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Nozzle airflow discharge -> Air pressure boundary layer forms -> Fluid-structure interaction on fabric -> Aerodynamic ripple wave propagation -> Stable laminar wave state.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-2">The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Enhance the brightness of the smoke streamlines under the blue laser light.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-3">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 3</span>
+              <h3 class="scene-title">The Aerodynamic Deflection</h3>
+              <span class="scene-time">00:16 - 00:24</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-3')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/kinetic_fabric_2_0/storyboards/anchor3_scene_3_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Camera tracks laterally around the fabric as it flexes into an aerodynamic winglet curve.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> Laser illumination reveals vortices rolling smoothly off the trailing edge.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> The material maintains rigid structural integrity under maximum velocity.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Peak wind velocity -> Aerodynamic lift force generates deflection -> Flexible composite arm reaches planned bend angle -> Trailing edge sheds micro-vortex -> Dynamic equilibrium under load.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-3">A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Increase the camber of the fabric winglet curve.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-4">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 4</span>
+              <h3 class="scene-title">The Deceleration & The Form Lock</h3>
+              <span class="scene-time">00:24 - 00:32</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-4')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/kinetic_fabric_2_0/storyboards/anchor3_scene_4_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Wind tunnel airflow suddenly cuts off with a deep pneumatic thud.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> The fabric springs back into its pristine planar resting position with a satisfying tactile snap.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> Laser illumination freezes on the pristine weave as smoke gently dissipates into stillness.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Airflow cutoff -> Pressure drop -> Elastic restoring force snaps fabric -> Momentum damping oscillation -> Absolute static resting state.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-4">The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Rack focus to the central carbon fiber thread in the final second.</div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+
+  <script>
+    function copyPrompt(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Omni 1.1 Natural Prose Prompt copied to clipboard!");
+      });
+    }
+    function copyText(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => btn.innerText = "Copy Prompt", 2000);
+      });
+    }
+  </script>
+</body>
+</html>

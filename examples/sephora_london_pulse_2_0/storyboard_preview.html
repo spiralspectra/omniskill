@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEPHORA: London Pulse (Midnight Velvet) | Omni Movie Director Cinema UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #07080B;
+      --bg-surface: #0E1017;
+      --bg-card: #141722;
+      --border-subtle: #202434;
+      --border-focus: #3A425D;
+      --cyan-telemetry: #00F0FF;
+      --crimson-accent: #FF3366;
+      --amber-gold: #FFB800;
+      --text-main: #F0F2F8;
+      --text-muted: #8E95AA;
+      --text-dim: #545B73;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+    /* Top Cinema HUD */
+    .hud-header {
+      background: rgba(14, 16, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hud-left { display: flex; align-items: center; gap: 20px; }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .hud-meta {
+      display: flex;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .meta-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .meta-tag strong { color: var(--cyan-telemetry); }
+    .btn-theater {
+      background: var(--cyan-telemetry);
+      color: #000;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-theater:hover { opacity: 0.9; }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 36px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 32px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* Overview Grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .overview-card, .sonic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .logline {
+      font-size: 16px;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .palette-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .swatch-box {
+      flex: 1;
+      height: 52px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .swatch-box:hover { transform: translateY(-2px); }
+
+    /* 3-Tier Visual Continuity Cards */
+    .bible-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .bible-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-preview-wrap {
+      width: 100%;
+      height: 250px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+    .plate-svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .plate-svg-container svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bible-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-focus);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--cyan-telemetry);
+      z-index: 2;
+    }
+    .bible-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .bible-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .bible-dna {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .prompt-drawer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+    .prompt-drawer-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .prompt-drawer-content {
+      margin-top: 10px;
+      background: #0A0C12;
+      border: 1px solid var(--border-subtle);
+      padding: 12px;
+      border-radius: 4px;
+    }
+    .prompt-drawer-content pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #A5B4FC;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    /* Shot-by-Shot Timeline */
+    .scene-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .scene-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scene-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scene-badge {
+      background: #000;
+      border: 1px solid var(--border-focus);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .scene-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .scene-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .scene-actions { display: flex; align-items: center; gap: 12px; }
+    .badge-pass {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .btn-copy, .btn-copy-sm {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-copy:hover, .btn-copy-sm:hover {
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }
+
+    .scene-body {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 24px;
+      padding: 24px;
+    }
+    .scene-visual-frame {
+      width: 100%;
+      height: 270px;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .scene-visual-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .camera-telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .craft-tag {
+      color: var(--amber-gold);
+      font-weight: 700;
+    }
+
+    .col-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .beats-container { margin-bottom: 16px; }
+    .beat-item {
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .beat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .chain-box {
+      background: #0B0E17;
+      border-left: 3px solid var(--crimson-accent);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #E2E8F0;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .omni-prompt-box {
+      background: #090B10;
+      border: 1px solid var(--border-focus);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .prompt-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      user-select: text;
+    }
+    .edit-deltas {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Cinema HUD -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <div class="project-title">SEPHORA: London Pulse (Midnight Velvet)</div>
+      <div class="hud-meta">
+        <span class="meta-tag">CANVAS: <strong>9:16</strong></span>
+        <span class="meta-tag">REGIME: <strong>Regime 2</strong></span>
+        <span class="meta-tag">RUNTIME: <strong>32s</strong></span>
+        <span class="meta-tag">MODE: <strong>Mode A</strong></span>
+      </div>
+    </div>
+    <button class="btn-theater" onclick="window.scrollTo({ top: document.getElementById('timeline-section').offsetTop - 80, behavior: 'smooth' })">
+      ▶ STORYBOARD TIMELINE
+    </button>
+  </header>
+
+  <div class="container">
+    <!-- Overview & Palette -->
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="col-heading">DIRECTOR'S LOGLINE</div>
+        <div class="logline">A high-octane, 9:16 vertical fashion collision through rainy midnight Soho, where two avant-garde models strut from London street grit into a gleaming SEPHORA flagship, culminating in a hero product lock.</div>
+        <div class="col-heading">COLOR SCRIPT PALETTE (CLICK HEX TO COPY)</div>
+        <div class="palette-strip"><div class="swatch-box" style="background: #0A0A10;" onclick="navigator.clipboard.writeText('#0A0A10')"><span>#0A0A10</span></div><div class="swatch-box" style="background: #FF0055;" onclick="navigator.clipboard.writeText('#FF0055')"><span>#FF0055</span></div><div class="swatch-box" style="background: #00F0FF;" onclick="navigator.clipboard.writeText('#00F0FF')"><span>#00F0FF</span></div><div class="swatch-box" style="background: #FCEE09;" onclick="navigator.clipboard.writeText('#FCEE09')"><span>#FCEE09</span></div></div>
+      </div>
+
+      <div class="sonic-card">
+        <div class="col-heading">MASTER BGM BLUEPRINT</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px;">
+          Midnight Velvet: UK Garage Pulse
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry); margin-bottom: 12px;">
+          138 BPM | F Minor | Syncopated UK Garage / Hyper-Pop Runway Sizzle
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+          <span class="meta-tag">Syncopated 2-step drum groove with punchy kick and crisp rimshots</span><span class="meta-tag">Deep rolling Moog Reese bassline</span><span class="meta-tag">Glittering hyper-pop synth arpeggios and vocal chops</span><span class="meta-tag">Dramatic snare roll risers and white-noise sweeps</span>
+        </div>
+        <button class="btn-copy-sm" onclick="navigator.clipboard.writeText(`High-energy UK Garage fashion runway track, 138 BPM, F Minor. Syncopated skipping 2-step beats, punchy kick drum, driving Moog bassline, glittering hyper-pop synth arpeggios, and edgy vocal chops. Builds rapidly with dramatic snare roll risers into an explosive, sleek high-fashion drop, ending abruptly on a crisp impact hit.`); this.innerText = 'Copied Lyria Prompt!'; setTimeout(() => this.innerText = 'Copy Lyria Prompt', 2000)">
+          Copy Lyria BGM Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-Tier Visual Continuity Bible -->
+    <div class="section-title">3-TIER VISUAL CONTINUITY BIBLE (NANO BANANA PRO PRE-VIS)</div>
+    <div class="bible-grid">
+      
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_1></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A10" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF0055"/>
+      <stop offset="100%" stop-color="#00F0FF"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1080" height="1920" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1080" height="1920" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1000" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1015" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="60" y="150" width="560" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="85" y="195" font-family="'JetBrains Mono', monospace" font-size="16" fill="#8E92A8">PANEL A: FRONT VIEW (EYE-LEVEL)</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="310" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 390 Q 340 370 395 390 L 415 620 L 265 620 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="620" width="35" height="260" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="620" width="35" height="260" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <path d="M 270 410 L 220 570" stroke="#3A3E56" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 410 410 L 460 570" stroke="#3A3E56" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="680" y="150" width="560" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="705" y="195" font-family="'JetBrains Mono', monospace" font-size="16" fill="#8E92A8">PANEL B: 3/4 DYNAMIC ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="310" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 390 Q 975 375 1015 405 L 1025 620 L 895 620 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="925" y="620" width="35" height="260" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2" transform="rotate(-4 925 620)"/>
+  <rect x="965" y="620" width="35" height="260" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2" transform="rotate(4 965 620)"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1300" y="150" width="560" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1325" y="195" font-family="'JetBrains Mono', monospace" font-size="16" fill="#8E92A8">PANEL C: HEAD &amp; WARDROBE MACRO</text>
+  <circle cx="1580" cy="340" r="95" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 250 Q 1660 300 1660 340 L 1640 370 L 1670 410 L 1630 435" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1500 450 Q 1580 430 1660 480 L 1660 680 L 1500 680 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+  <!-- Telemetry Lower Bar -->
+  <rect x="60" y="990" width="960" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="85" y="1027" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: MODEL MAYA (THE NEON SIREN) | SILHOUETTE: Tall, athletic, razor-sharp high cheekbones, graphic slicked...
+  </text>
+  <text x="995" y="1027" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: HIGH POLARITY A: Vivid high-gloss scarlet-red pate...
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the exact facial structure, avant-garde graphic eyeliner, and scarlet patent trench coat for Model Maya.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy the studio lighting or plain grey background from <image_1>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Fashion editorial portrait of a striking woman with high cheekbones and slicked-back raven hair, wearing avant-garde metallic holographic graphic eyeliner and bold matte crimson lipstick, dressed in a high-gloss scarlet-red patent leather trench coat, vertical 9:16 framing, Hasselblad high-fashion beauty lighting.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Fashion editorial portrait of a striking woman with high cheekbones and slicked-back raven hair, wearing avant-garde metallic holographic graphic eyeliner and bold matte crimson lipstick, dressed in a high-gloss scarlet-red patent leather trench coat, vertical 9:16 framing, Hasselblad high-fashion beauty lighting.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_2></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A10"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF0055" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF0055" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="720" x2="200" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="600" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1320" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="720" x2="1720" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="80" y="160" width="340" height="520" fill="none" stroke="#FF0055" stroke-width="3"/>
+  <line x1="250" y1="160" x2="250" y2="680" stroke="#FF0055" stroke-width="2"/>
+  <line x1="80" y1="330" x2="420" y2="330" stroke="#FF0055" stroke-width="2"/>
+  <line x1="80" y1="500" x2="420" y2="500" stroke="#FF0055" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="80,160 420,160 1480,1080 380,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="200" x2="960" y2="720" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="200" x2="1920" y2="200" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: MIDNIGHT SOHO TO SEPHORA FLAGSHIP | ARCHITECTURE: Exterior: Rain-slicked London cobblestones and wet asphalt r...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Exterior: Moody 3200K tungsten streetlamps with el...
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the androgynous facial features, bleached platinum hair, and striped-cuff charcoal blazer for Model Kaelen.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy the pose or static background from <image_2>.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Fashion editorial portrait of an androgynous model with dark glowing skin, bleached-platinum short hair, subtle holographic shimmer across cheekbones, wearing an oversized matte-charcoal tailored blazer with chalk-white striped cuffs, confident fierce expression, vertical 9:16 format, sleek editorial aesthetic.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Fashion editorial portrait of an androgynous model with dark glowing skin, bleached-platinum short hair, subtle holographic shimmer across cheekbones, wearing an oversized matte-charcoal tailored blazer with chalk-white striped cuffs, confident fierce expression, vertical 9:16 format, sleek editorial aesthetic.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+
+        <div class="bible-card">
+          <div class="bible-preview-wrap">
+            <div class="bible-tag"><image_3></div>
+            <div class="plate-svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A10"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="380" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="220" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="80" fill="none" stroke="#FF0055" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 680 720 Q 960 520 1240 720" fill="none" stroke="#00F0FF" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1240,720 1220,705 1225,728" fill="#00F0FF"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#FF0055"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#FF0055" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#FF0055" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#FF0055" letter-spacing="2">
+    SCENE 1: THE SOHO STARE & THE NIGHT PAN
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:08 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: 35mm Prime | Centered
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg></div>
+          </div>
+          <div class="bible-content">
+            <div class="bible-title">Defines the exact physical construction, black-and-white vertical stripe pattern, braided rope handle, and embossed logo of the SEPHORA shopping bag.</div>
+            <div class="bible-dna"><strong style="color: #FF4B4B;">Exclusion Clause:</strong> Do not copy any store background from <image_3>; maintain only the bag's rigid geometry and texture.</div>
+            <details class="prompt-drawer">
+              <summary class="prompt-drawer-btn"><span>NANO BANANA GENERATION PROMPT</span> ▾</summary>
+              <div class="prompt-drawer-content">
+                <pre>Product photograph of an iconic SEPHORA retail shopping bag made of thick matte paper with clean black and vertical white stripes, black braided rope handles, crisp rectangular folds, embossed black SEPHORA logo centered, studio lighting, photorealistic commercial product shot.</pre>
+                <button class="btn-copy-sm" onclick="copyText(this, `Product photograph of an iconic SEPHORA retail shopping bag made of thick matte paper with clean black and vertical white stripes, black braided rope handles, crisp rectangular folds, embossed black SEPHORA logo centered, studio lighting, photorealistic commercial product shot.`)">Copy Prompt</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- Shot-by-Shot Timeline -->
+    <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (4 SEQUENTIAL CUTS)</div>
+    
+        <div class="scene-card" id="scene-1">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 1</span>
+              <h3 class="scene-title">The Soho Stare & The Night Pan</h3>
+              <span class="scene-time">00:00 - 00:08</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-1')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_1_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Extreme vertical macro close-up on Model Maya's eye with shimmering holographic eyeshadow in Soho rain.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> Maya executes a sharp, deliberate runway wink directly into lens at second 02.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> On the wink, camera whip-pans 90 degrees right to reveal a rain-slicked Soho street with a motion-blurred red double-decker bus streaking past.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Micro-eye movement -> High-velocity eyelid closure (wink) -> Triggered camera whip-pan acceleration -> Rapid rotational deceleration -> Wet asphalt perspective stabilization.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-1">A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Enhance the neon reflections in the street puddles and add more visible rain mist. | Turn 3: Change the lipstick color on Maya to a deeper midnight burgundy while keeping the wink identical.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-2">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 2</span>
+              <h3 class="scene-title">The Flagship Infiltration: Tactile Glamour</h3>
+              <span class="scene-time">00:08 - 00:16</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-2')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_2_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Camera pushes forward through glowing glass sliding doors into the hyper-bright SEPHORA flagship.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> Model Kaelen slides a metallic gold lipstick casing open, revealing a vibrant crimson bullet.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> A large soft makeup brush sweeps across Maya's cheekbone in a rapid beauty montage, dusting fine shimmering particles.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Door glide -> Hand grips weighted lipstick tube -> Thumb drives cap removal with magnetic click -> Brush fibers compress against cheek skin -> Shimmer cloud dispersion.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-2">Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Make the cosmetic shimmer dust reflect rainbow sparkles under the beauty lights. | Turn 3: Rack focus from the lipstick bullet directly to Kaelen's smiling eyes.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-3">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 3</span>
+              <h3 class="scene-title">The Soho Runway Strut</h3>
+              <span class="scene-time">00:16 - 00:24</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-3')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_3_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> Maya and Kaelen strut in synchronized lockstep out of the store entrance onto the wet London sidewalk.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> Maya's stiletto heels plant firmly onto the wet pavement with zero slip or float.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> Maya swings the iconic black-and-white SEPHORA shopping bag forward in an assertive arc toward camera.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Stiletto strike on wet cobblestone -> Ground reaction force pushes hip forward -> Arm swings bag from shoulder -> Centrifugal arc of braided handle -> Forward presentation.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-3">A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Increase the stride speed slightly and add dramatic billow to Maya's red trench coat hem. | Turn 3: Add steam rising from a nearby underground subway grate in the background.</div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="scene-card" id="scene-4">
+          <div class="scene-header">
+            <div class="scene-title-wrap">
+              <span class="scene-badge">SCENE 4</span>
+              <h3 class="scene-title">The Bag Lock & The Soho Freeze</h3>
+              <span class="scene-time">00:24 - 00:32</span>
+            </div>
+            <div class="scene-actions">
+              <span class="badge-pass">✓ 7-POINT AUDIT PASS</span>
+              <button class="btn-copy" onclick="copyPrompt('prompt-4')">Copy Omni Prompt</button>
+            </div>
+          </div>
+
+          <div class="scene-body">
+            <div class="scene-visual-col">
+              <div class="scene-visual-frame">
+                examples/sephora_london_pulse_2_0/storyboards/anchor3_scene_4_keyframe.svg
+              </div>
+              <div class="camera-telemetry">
+                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              </div>
+            </div>
+
+            <div class="scene-spec-col">
+              <div class="beats-container">
+                <div class="col-heading">ACTION BEATS (MAX 3 CAP)</div>
+                <div class="beat-item"><span class="beat-num">BEAT 1</span> The camera punches in 60 centimeters directly toward the SEPHORA shopping bag held firmly in Maya's hand.</div><div class="beat-item"><span class="beat-num">BEAT 2</span> The bag halts dead-center in the vertical frame, perfectly upright with sharp paper edges.</div><div class="beat-item"><span class="beat-num">BEAT 3</span> At second 30, the video cuts to a crisp editorial freeze-frame on the bag and SEPHORA logo, with blurred glowing Soho neon behind.</div>
+              </div>
+
+              <div class="chain-box"><strong>KINETIC CONTACT CHAIN:</strong> Punch-in camera motion -> Arm locks bag at chest height -> Rope handles tension under gravity -> Abrupt momentum cessation -> Total frozen frame.</div>
+
+              <div class="omni-prompt-box">
+                <div class="col-heading">GEMINI OMNI 1.1 PROSE PROMPT (NO MARKDOWN HEADINGS)</div>
+                <div class="prompt-text" id="prompt-4">The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.</div>
+              </div>
+
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2: Add a bold white sans-serif kinetic text overlay in the center that pops in reading 'FEEL THE PULSE'. | Turn 3: Shift the background bokeh color balance to rich ambers and golds.</div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+
+  <script>
+    function copyPrompt(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Omni 1.1 Natural Prose Prompt copied to clipboard!");
+      });
+    }
+    function copyText(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => btn.innerText = "Copy Prompt", 2000);
+      });
+    }
+  </script>
+</body>
+</html>
