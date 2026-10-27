@@ -78,14 +78,17 @@ Composite Agent Tree Topology using ADK 2.0 SequentialAgent and ParallelAgent.
 from google.adk.agents import SequentialAgent, ParallelAgent
 from google.adk.tools import FunctionTool
 from omni_director.config import get_settings
-from omni_director.agents.intake_agent import IntakeAndResearchAgent
-from omni_director.agents.director_agent import CreativeDirectorAgent
-from omni_director.agents.visual_bible_agent import VisualBibleGeneratorAgent
-from omni_director.agents.storyboard_agent import StoryboardParallelAgent
-from omni_director.agents.scene_prompt_agent import ScenePromptAgent
-from omni_director.agents.bgm_agent import BGMComposerAgent
-from omni_director.agents.video_render_agent import OptionalOmniVideoRenderAgent
-from omni_director.agents.compiler_agent import StoryboardHTMLCompilerAgent
+from omni_director.agents import (
+    IntakeAndResearchAgent,
+    CreativeDirectorAgent,
+    VisualBibleGeneratorAgent,
+    StoryboardParallelAgent,
+    ScenePromptAgent,
+    ParallelScenePromptAgent,
+    BGMComposerAgent,
+    OptionalOmniVideoRenderAgent,
+    StoryboardHTMLCompilerAgent,
+)
 
 settings = get_settings()
 

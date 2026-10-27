@@ -1,6 +1,7 @@
 """Gemini Omni 1.1 Video and Multimodal Audio Engine."""
 
 import os
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from omni_director.config import DirectorConfig
 from omni_director.schemas import MasterProductionBible, ScenePromptSpec, StorytellingMode
@@ -80,7 +81,7 @@ class GeminiOmniVideoEngine:
         try:
             from google import genai
             client = genai.Client(api_key=self.config.api_key)
-        except Exception as e:
+        except Exception:
             # Fall back gracefully to simulation if SDK connection fails
             return self._simulate_dry_run_render(bible, reference_plate_paths)
 
@@ -89,9 +90,23 @@ class GeminiOmniVideoEngine:
 
         for scene in bible.scenes:
             try:
+                bound_references: List[Dict[str, str]] = []
+                contents: List[Any] = []
+                if reference_plate_paths:
+                    from google.genai import types
+                    for tag in ["<image_1>", "<image_2>", "<image_3>"]:
+                        path_str = reference_plate_paths.get(tag)
+                        if path_str and Path(path_str).exists():
+                            ref_path = Path(path_str)
+                            mime = "image/svg+xml" if ref_path.suffix == ".svg" else "image/png"
+                            part = types.Part.from_bytes(data=ref_path.read_bytes(), mime_type=mime)
+                            contents.append(part)
+                            bound_references.append({"tag": tag, "source": str(ref_path)})
+
+                contents.append(scene.omni_prose_prompt)
                 kwargs: Dict[str, Any] = {
                     "model": self.config.video_model,
-                    "input": scene.omni_prose_prompt,
+                    "input": contents if bound_references else scene.omni_prose_prompt,
                 }
                 if bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN and prev_interaction_id:
                     kwargs["previous_interaction_id"] = prev_interaction_id
@@ -104,6 +119,7 @@ class GeminiOmniVideoEngine:
                     "status": "submitted",
                     "model": self.config.video_model,
                     "mode": bible.storytelling_mode.value,
+                    "bound_references": bound_references[:3],
                 })
                 prev_interaction_id = interaction_id
             except Exception as e:

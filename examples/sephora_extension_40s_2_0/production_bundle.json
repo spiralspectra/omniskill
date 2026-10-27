@@ -198,118 +198,26 @@
     {
       "scene_index": 1,
       "scene_title": "The Soho Approach",
-      "timestamp_range": "00:00 - 00:10 (Base Clip)",
-      "interaction_id": "omni-interact-1-56457",
-      "status": "dry-run-completed",
-      "model": "gemini-omni-1.1-flash-preview",
-      "resolution": "720p",
-      "fps": 24,
-      "mode": "Mode B: Continuous Scene Extension Chain (Oner)",
-      "bound_references": [
-        {
-          "tag": "<image_1>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor1_character_turnaround.svg"
-        },
-        {
-          "tag": "<image_2>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor2_environment_master.svg"
-        },
-        {
-          "tag": "<image_3>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor3_scene_1_keyframe.svg"
-        }
-      ],
-      "clean_prose_prompt": "A 10-second continuous 9:16 vertical tracking shot glides backward at natural 1.0x real-time speed ahead of Model Maya matching <image_1>, who struts down a rain-slicked Soho cobblestone avenue at midnight. Maya wears a high-gloss scarlet-red patent trench coat with metallic stiletto boots, her eyes adorned with vivid holographic emerald eyeshadow. Neon signage from vintage clubs reflects across the wet asphalt with genuine physical reflections as an iconic red London bus streaks past in the background with wet asphalt tire hiss. Maya approaches the glowing glass facade of a SEPHORA flagship, her heels clicking crisply against the stones with unyielding physical gravity. Synchronized diegetic audio features rhythmic stiletto clicks, wet tire hisses, city rain mist, and a skipping 138 BPM UK Garage drum rhythm, ending as Maya extends her hand to push open the store entrance.",
-      "diegetic_audio_synced": true,
-      "mock_video_url": "file:///outputs/rendered_scene_1.mp4",
-      "previous_interaction_id": null
+      "status": "skipped_by_default_hybrid_mode",
+      "reason": "render_video is False (default). Use --live or render_video=True to trigger Omni 1.1 video generation."
     },
     {
       "scene_index": 2,
       "scene_title": "The Store Transition",
-      "timestamp_range": "+10s extension (00:10 - 00:20)",
-      "interaction_id": "omni-interact-2-09201",
-      "status": "dry-run-completed",
-      "model": "gemini-omni-1.1-flash-preview",
-      "resolution": "720p",
-      "fps": 24,
-      "mode": "Mode B: Continuous Scene Extension Chain (Oner)",
-      "bound_references": [
-        {
-          "tag": "<image_1>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor1_character_turnaround.svg"
-        },
-        {
-          "tag": "<image_2>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor2_environment_master.svg"
-        },
-        {
-          "tag": "<image_3>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor3_scene_1_keyframe.svg"
-        }
-      ],
-      "clean_prose_prompt": "The camera continues backward in one unbroken continuous shot through the opening glass doors as Maya struts inside without missing a beat, continuing at 1.0x real-time speed. The lighting shifts dynamically from wet moody London night into brilliant 5600K diffused beauty lighting bouncing off black-lacquered mirrored aisles. Model Kaelen from <image_2>, wearing a tailored charcoal blazer with chalk-white striped cuffs, steps smoothly into frame alongside her. Kaelen flicks open a gold lipstick case with a crisp mechanical snap, smiling as Maya whispers: 'London, wake up.' The 138 BPM music drops into a heavy Moog bassline as both models strut in side-by-side synchronization down the central cosmetics corridor with rigid physical postures. One continuous shot, no jump cuts.",
-      "diegetic_audio_synced": true,
-      "mock_video_url": "file:///outputs/rendered_scene_2.mp4",
-      "previous_interaction_id": "omni-interact-1-56457"
+      "status": "skipped_by_default_hybrid_mode",
+      "reason": "render_video is False (default). Use --live or render_video=True to trigger Omni 1.1 video generation."
     },
     {
       "scene_index": 3,
       "scene_title": "The Product Flourish",
-      "timestamp_range": "+10s extension (00:20 - 00:30)",
-      "interaction_id": "omni-interact-3-92746",
-      "status": "dry-run-completed",
-      "model": "gemini-omni-1.1-flash-preview",
-      "resolution": "720p",
-      "fps": 24,
-      "mode": "Mode B: Continuous Scene Extension Chain (Oner)",
-      "bound_references": [
-        {
-          "tag": "<image_1>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor1_character_turnaround.svg"
-        },
-        {
-          "tag": "<image_2>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor2_environment_master.svg"
-        },
-        {
-          "tag": "<image_3>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor3_scene_1_keyframe.svg"
-        }
-      ],
-      "clean_prose_prompt": "The camera continues its unbroken vertical tracking movement at 1.0x real-time speed, arcing 45 degrees to frame Maya from a low-angle three-quarter perspective as she reaches a central vanity display. In one fluid motion without stopping her stride, she picks up the iconic black-and-white striped SEPHORA shopping bag from <image_3> by its braided black rope handles. The bag swings forward in a controlled arc, its sharp paper folds and clean monochrome stripes catching the overhead beauty lights with pristine geometric rigidity and natural fabric weight. Kaelen pivots smoothly in the background, examining a shimmering powder compact. Synchronized diegetic audio features the crisp rustle of thick luxury paper, rope handle tension, stiletto clicks echoing on mirrored tiles, and a building bassline with white-noise sweeps. One continuous shot, no jump cuts.",
-      "diegetic_audio_synced": true,
-      "mock_video_url": "file:///outputs/rendered_scene_3.mp4",
-      "previous_interaction_id": "omni-interact-2-09201"
+      "status": "skipped_by_default_hybrid_mode",
+      "reason": "render_video is False (default). Use --live or render_video=True to trigger Omni 1.1 video generation."
     },
     {
       "scene_index": 4,
       "scene_title": "The Climactic Hero Lock",
-      "timestamp_range": "+10s extension (00:30 - 00:40)",
-      "interaction_id": "omni-interact-4-12528",
-      "status": "dry-run-completed",
-      "model": "gemini-omni-1.1-flash-preview",
-      "resolution": "720p",
-      "fps": 24,
-      "mode": "Mode B: Continuous Scene Extension Chain (Oner)",
-      "bound_references": [
-        {
-          "tag": "<image_1>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor1_character_turnaround.svg"
-        },
-        {
-          "tag": "<image_2>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor2_environment_master.svg"
-        },
-        {
-          "tag": "<image_3>",
-          "source": "examples/sephora_extension_40s_2_0/storyboards/anchor3_scene_1_keyframe.svg"
-        }
-      ],
-      "clean_prose_prompt": "The camera executes a smooth 50-centimeter punch-in toward the SEPHORA bag from <image_3>, locking the embossed brand logo dead-center in the vertical frame at 1.0x real-time playback speed. Maya holds the bag firmly at chest height as she reaches the outdoor threshold once more, glancing over her shoulder directly into the lens. At second 38, all motion snaps into an immaculate high-fashion freeze-frame on the crisp bag with unyielding geometric precision, with Maya's scarlet trench and the glowing store interior blurring into lush bokeh behind. Synchronized audio hits a climactic percussion impact and cuts instantly to dead silence, leaving only a single crisp SNAP and a faint decaying sub-bass hum. One continuous shot, no jump cuts.",
-      "diegetic_audio_synced": true,
-      "mock_video_url": "file:///outputs/rendered_scene_4.mp4",
-      "previous_interaction_id": "omni-interact-3-92746"
+      "status": "skipped_by_default_hybrid_mode",
+      "reason": "render_video is False (default). Use --live or render_video=True to trigger Omni 1.1 video generation."
     }
   ],
   "audit_reports": [

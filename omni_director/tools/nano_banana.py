@@ -25,6 +25,30 @@ class NanoBananaStoryboardEngine:
     def __init__(self, config: Optional[DirectorConfig] = None):
         self.config = config or DirectorConfig()
 
+    def _generate_live_or_svg(self, prompt: str, svg_fallback: str, out_prefix: Path) -> Path:
+        """Attempts live image generation via client.models.generate_content or falls back to SVG."""
+        if not self.config.dry_run and self.config.api_key:
+            try:
+                from google import genai
+                client = genai.Client(api_key=self.config.api_key)
+                response = client.models.generate_content(
+                    model=self.config.image_model,
+                    contents=prompt,
+                )
+                if response and response.candidates and response.candidates[0].content:
+                    for part in response.candidates[0].content.parts:
+                        inline = getattr(part, "inline_data", None)
+                        if inline and getattr(inline, "data", None):
+                            png_path = out_prefix.with_suffix(".png")
+                            png_path.write_bytes(inline.data)
+                            return png_path
+            except Exception:
+                pass
+
+        svg_path = out_prefix.with_suffix(".svg")
+        svg_path.write_text(svg_fallback, encoding="utf-8")
+        return svg_path
+
     def generate_all_storyboard_plates(
         self,
         bible: MasterProductionBible,
@@ -40,38 +64,72 @@ class NanoBananaStoryboardEngine:
         boards_dir.mkdir(parents=True, exist_ok=True)
         rendered_assets: Dict[str, str] = {}
 
-        # 1. Anchor 1: Character Turnaround Sheet
+        # 1. Anchor 1: Character Turnaround Sheet or Primary Hero Subject Plate
         if bible.characters:
             char = bible.characters[0]
             svg_content = self.render_character_turnaround_svg(char, bible)
-            plate_path = boards_dir / "anchor1_character_turnaround.svg"
-            plate_path.write_text(svg_content, encoding="utf-8")
-            char.image_path = str(plate_path)
-            char.svg_markup = svg_content
-            rendered_assets["<image_1>"] = str(plate_path)
+            plate_prefix = boards_dir / "anchor1_character_turnaround"
+            char_prompt = char.generation_prompt or f"Character turnaround sheet: {char.name}. Silhouette: {char.silhouette}. Wardrobe: {char.wardrobe_polarity}"
+            actual_path = self._generate_live_or_svg(
+                prompt=char_prompt,
+                svg_fallback=svg_content,
+                out_prefix=plate_prefix
+            )
+            char.image_path = str(actual_path)
+            char.svg_markup = svg_content if actual_path.suffix == ".svg" else None
+            rendered_assets["<image_1>"] = str(actual_path)
+        else:
+            # Fallback for non-character projects (e.g. hero object/product/fabric)
+            asset1 = next((a for a in bible.nano_banana_assets if a.asset_id == "<image_1>"), None)
+            char_fallback = CharacterTurnaroundSpec(
+                name=asset1.job_description[:30] if asset1 else bible.project_title,
+                silhouette=asset1.job_description if asset1 else "Hero subject geometry",
+                wardrobe_polarity=asset1.exclusion_clause if asset1 else "Default polarity",
+                movement_signature="Rigid physical geometry and material properties."
+            )
+            svg_content = self.render_character_turnaround_svg(char_fallback, bible)
+            plate_prefix = boards_dir / "anchor1_character_turnaround"
+            prompt_val = asset1.generation_prompt if asset1 else f"Hero subject anchor plate: {bible.project_title}"
+            actual_path = self._generate_live_or_svg(
+                prompt=prompt_val,
+                svg_fallback=svg_content,
+                out_prefix=plate_prefix
+            )
+            rendered_assets["<image_1>"] = str(actual_path)
 
         # 2. Anchor 2: Master Architectural Environment Plate
         env_svg = self.render_environment_plate_svg(bible.environment, bible)
-        env_path = boards_dir / "anchor2_environment_master.svg"
-        env_path.write_text(env_svg, encoding="utf-8")
-        bible.environment.image_path = str(env_path)
-        bible.environment.svg_markup = env_svg
-        rendered_assets["<image_2>"] = str(env_path)
+        env_prefix = boards_dir / "anchor2_environment_master"
+        env_prompt = bible.environment.generation_prompt or f"Architectural environment master plate: {bible.environment.location_name}. Architecture: {bible.environment.spatial_architecture}. Lighting: {bible.environment.lighting_setup}"
+        actual_env_path = self._generate_live_or_svg(
+            prompt=env_prompt,
+            svg_fallback=env_svg,
+            out_prefix=env_prefix
+        )
+        bible.environment.image_path = str(actual_env_path)
+        bible.environment.svg_markup = env_svg if actual_env_path.suffix == ".svg" else None
+        rendered_assets["<image_2>"] = str(actual_env_path)
 
         # 3. Anchor 3: Scene Keyframes & Reference 3
         for scene in bible.scenes:
             scene_svg = self.render_scene_keyframe_svg(scene, bible)
-            scene_path = boards_dir / f"anchor3_scene_{scene.scene_index}_keyframe.svg"
-            scene_path.write_text(scene_svg, encoding="utf-8")
-            rendered_assets[f"scene_{scene.scene_index}"] = str(scene_path)
+            scene_prefix = boards_dir / f"anchor3_scene_{scene.scene_index}_keyframe"
+            actual_scene_path = self._generate_live_or_svg(
+                prompt=f"Cinematic storyboard keyframe for Scene {scene.scene_index}: {scene.scene_title}. {scene.omni_prose_prompt}",
+                svg_fallback=scene_svg,
+                out_prefix=scene_prefix
+            )
+            rendered_assets[f"scene_{scene.scene_index}"] = str(actual_scene_path)
             if scene.scene_index == 1 and "<image_3>" not in rendered_assets:
-                rendered_assets["<image_3>"] = str(scene_path)
+                rendered_assets["<image_3>"] = str(actual_scene_path)
 
         # Update bible nano banana references with paths
         for asset in bible.nano_banana_assets:
             if asset.asset_id in rendered_assets:
-                asset.local_path = rendered_assets[asset.asset_id]
-                asset.svg_markup = Path(rendered_assets[asset.asset_id]).read_text(encoding="utf-8")
+                p = Path(rendered_assets[asset.asset_id])
+                asset.local_path = str(p)
+                if p.suffix == ".svg":
+                    asset.svg_markup = p.read_text(encoding="utf-8")
 
         return rendered_assets
 

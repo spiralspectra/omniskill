@@ -1,9 +1,42 @@
 """HTML Animatic Compiler and Storyboard UI Generator."""
 
+import base64
 import json
 from pathlib import Path
 from typing import Optional
 from omni_director.schemas import ProductionBundle
+
+
+def _render_plate_html(plate_value: Optional[str], alt: str = "Visual Plate") -> str:
+    """Renders plate value into self-contained HTML (inline SVG or base64 img).
+
+    - If plate_value starts with '<svg', returns it directly.
+    - If plate_value is an existing .svg file path on disk, returns the SVG content.
+    - If plate_value is an existing .png/.jpg file path on disk, returns a base64-encoded img tag.
+    - Otherwise returns a clean placeholder.
+    """
+    if not plate_value or not str(plate_value).strip():
+        return f'<div class="svg-placeholder">{alt}</div>'
+
+    val = str(plate_value).strip()
+    if val.startswith("<svg"):
+        return val
+
+    try:
+        p = Path(val)
+        if p.exists() and p.is_file():
+            suffix = p.suffix.lower()
+            if suffix == ".svg":
+                return p.read_text(encoding="utf-8")
+            elif suffix in (".png", ".jpg", ".jpeg", ".webp"):
+                raw_bytes = p.read_bytes()
+                b64 = base64.b64encode(raw_bytes).decode("ascii")
+                mime = "image/png" if suffix == ".png" else "image/jpeg"
+                return f'<img src="data:{mime};base64,{b64}" alt="{alt}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />'
+    except Exception:
+        pass
+
+    return f'<div class="svg-placeholder">{alt}</div>'
 
 
 def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
@@ -25,7 +58,8 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
     # Build 3-Tier Visual Continuity Bible cards
     bible_cards_html = []
     for asset in bible.nano_banana_assets:
-        svg_preview = asset.svg_markup or '<div class="svg-placeholder">NO VISUAL PLATE</div>'
+        plate_val = asset.svg_markup or asset.local_path or bundle.visual_plates.get(asset.asset_id, "")
+        svg_preview = _render_plate_html(plate_val, alt=asset.job_description)
         bible_cards_html.append(f"""
         <div class="bible-card">
           <div class="bible-preview-wrap">
@@ -66,9 +100,13 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
         craft_summary = scene.craft_camera.to_summary() if scene.craft_camera else "35mm Studio Prime | Centered"
 
         # SVG plate for scene
-        scene_plate_svg = bundle.visual_plates.get(f"scene_{scene.scene_index}", "")
-        if not scene_plate_svg and scene.scene_index == 1:
-            scene_plate_svg = bundle.visual_plates.get("<image_3>", "")
+        scene_plate_val = bundle.visual_plates.get(f"scene_{scene.scene_index}", "")
+        if not scene_plate_val and scene.scene_index == 1:
+            scene_plate_val = bundle.visual_plates.get("<image_3>", "")
+        if not scene_plate_val and scene.scene_keyframe:
+            scene_plate_val = scene.scene_keyframe.svg_markup or scene.scene_keyframe.image_path
+
+        scene_plate_svg = _render_plate_html(scene_plate_val, alt=f"Scene {scene.scene_index} Keyframe")
 
         escaped_omni_prompt = scene.omni_prose_prompt.replace('`', "'").replace('"', '&quot;')
 
@@ -299,57 +337,59 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
     .plate-svg-container svg {{
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      display: block;
     }}
     .bible-tag {{
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--border-focus);
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      padding: 3px 8px;
+      font-weight: 700;
+      padding: 2px 8px;
       border-radius: 4px;
-      color: var(--cyan-telemetry);
-      z-index: 2;
+      z-index: 10;
     }}
     .bible-content {{
       padding: 20px;
-      flex: 1;
       display: flex;
       flex-direction: column;
+      gap: 10px;
     }}
     .bible-title {{
       font-family: 'Space Grotesk', sans-serif;
       font-size: 15px;
       font-weight: 700;
-      margin-bottom: 8px;
+      color: var(--text-main);
     }}
     .bible-dna {{
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 16px;
+      line-height: 1.4;
     }}
     .prompt-drawer {{
-      margin-top: auto;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 12px;
+      margin-top: 6px;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
     }}
     .prompt-drawer-btn {{
+      padding: 8px 12px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-dim);
       cursor: pointer;
-      user-select: none;
+      list-style: none;
     }}
+    .prompt-drawer-btn:hover {{ color: var(--cyan-telemetry); }}
     .prompt-drawer-content {{
-      margin-top: 10px;
-      background: #0A0C12;
-      border: 1px solid var(--border-subtle);
       padding: 12px;
-      border-radius: 4px;
+      border-top: 1px solid var(--border-subtle);
+      background: #050608;
     }}
     .prompt-drawer-content pre {{
       font-family: 'JetBrains Mono', monospace;
@@ -357,6 +397,7 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
       color: #A5B4FC;
       white-space: pre-wrap;
       word-break: break-word;
+      line-height: 1.4;
       margin-bottom: 8px;
     }}
 
@@ -371,7 +412,7 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
     .scene-header {{
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 14px 20px;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -379,11 +420,10 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
     .scene-title-wrap {{
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }}
     .scene-badge {{
-      background: #000;
-      border: 1px solid var(--border-focus);
+      background: #1E2235;
       color: var(--cyan-telemetry);
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -398,105 +438,134 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
     }}
     .scene-time {{
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--text-muted);
+      font-size: 11px;
+      color: var(--text-dim);
     }}
-    .scene-actions {{ display: flex; align-items: center; gap: 12px; }}
+    .scene-actions {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
     .badge-pass {{
       background: rgba(16, 185, 129, 0.15);
       border: 1px solid #10B981;
       color: #10B981;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
+      font-weight: 700;
       padding: 3px 8px;
       border-radius: 4px;
-      font-weight: 600;
     }}
-    .btn-copy, .btn-copy-sm {{
-      background: var(--bg-base);
+    .btn-copy {{
+      background: transparent;
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }}
+    .btn-copy:hover {{ background: rgba(0, 240, 255, 0.15); }}
+    .btn-copy-sm {{
+      background: #1A1F2C;
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      padding: 6px 12px;
+      font-size: 10px;
+      padding: 4px 10px;
       border-radius: 4px;
       cursor: pointer;
-      transition: all 0.15s;
     }}
-    .btn-copy:hover, .btn-copy-sm:hover {{
-      border-color: var(--cyan-telemetry);
-      color: var(--cyan-telemetry);
-    }}
+    .btn-copy-sm:hover {{ border-color: var(--cyan-telemetry); }}
 
     .scene-body {{
       display: grid;
       grid-template-columns: 480px 1fr;
-      gap: 24px;
-      padding: 24px;
+      min-height: 270px;
+    }}
+    .scene-visual-col {{
+      background: #000;
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
     }}
     .scene-visual-frame {{
       width: 100%;
       height: 270px;
-      background: #000;
-      border: 1px solid var(--border-subtle);
-      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      margin-bottom: 12px;
+      background: #050508;
     }}
     .scene-visual-frame svg {{
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      display: block;
     }}
     .camera-telemetry {{
+      background: #0A0C12;
+      border-top: 1px solid var(--border-subtle);
+      padding: 8px 16px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.5;
     }}
     .craft-tag {{
       color: var(--amber-gold);
       font-weight: 700;
+      margin-right: 6px;
     }}
 
+    .scene-spec-col {{
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }}
     .col-heading {{
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 8px;
-    }}
-    .beats-container {{ margin-bottom: 16px; }}
-    .beat-item {{
-      font-size: 13px;
-      color: var(--text-main);
       margin-bottom: 6px;
-      line-height: 1.4;
+      text-transform: uppercase;
+    }}
+    .beats-container {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .beat-item {{
+      background: var(--bg-card);
+      border-left: 3px solid var(--cyan-telemetry);
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 0 4px 4px 0;
     }}
     .beat-num {{
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--cyan-telemetry);
       font-weight: 700;
-      margin-right: 6px;
+      color: var(--cyan-telemetry);
+      margin-right: 8px;
     }}
     .chain-box {{
-      background: #0B0E17;
+      background: #121017;
+      border: 1px solid rgba(255, 51, 102, 0.3);
       border-left: 3px solid var(--crimson-accent);
-      padding: 10px 14px;
+      padding: 8px 12px;
       font-size: 12px;
-      color: #E2E8F0;
-      margin-bottom: 16px;
-      line-height: 1.5;
-      font-family: 'JetBrains Mono', monospace;
+      color: #FDA4AF;
+      border-radius: 0 4px 4px 0;
     }}
     .omni-prompt-box {{
-      background: #090B10;
-      border: 1px solid var(--border-focus);
+      background: #0A0C12;
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
-      padding: 16px;
+      padding: 12px;
     }}
     .prompt-text {{
       font-size: 13px;
@@ -509,6 +578,13 @@ def compile_storyboard_html(bundle: ProductionBundle, output_dir: Path) -> Path:
       font-size: 12px;
       color: var(--text-muted);
       font-family: 'JetBrains Mono', monospace;
+    }}
+    .svg-placeholder {{
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 20px;
+      text-align: center;
     }}
   </style>
 </head>

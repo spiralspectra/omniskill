@@ -335,3 +335,60 @@ class TestSkillIntegrity:
             guide_path = ref_dir / guide
             assert guide_path.exists(), f"Reference guide {guide} missing!"
             assert len(guide_path.read_text(encoding="utf-8")) > 200
+
+
+# ==============================================================================
+# 7. Adversary Review Findings Verification Tests
+# ==============================================================================
+class TestAdversaryReviewFindings:
+    """Verifies all 8 adversary review fixes are locked in."""
+
+    def test_finding_1_gemini_omni_prompting_skill_comprehensiveness(self):
+        content = Path("skills/gemini-omni-prompting/SKILL.md").read_text(encoding="utf-8")
+        assert "Gemini Omni 1.1 Prompting Handbook" in content
+        assert "Seedance 2.5 Kinetic Physics Engine" in content
+        assert "Mode A: Atmospheric & World Exploration" in content
+        assert "Mode I: Continuous Scene Extension" in content
+        assert "7-Item Pre-Output Verification Checklist" in content
+
+    def test_finding_2_module_exports_and_adk2_alignment(self):
+        import omni_director
+        from omni_director import agents
+        assert hasattr(omni_director, "ParallelScenePromptAgent")
+        assert hasattr(omni_director, "BGMComposerAgent")
+        assert hasattr(omni_director, "get_settings")
+        assert hasattr(agents, "ParallelScenePromptAgent")
+        assert hasattr(agents, "BGMComposerAgent")
+
+    def test_finding_4_render_video_default_hybrid_mode(self, tmp_path):
+        from omni_director.agents.agent import OmniVideoRenderAgent
+        agent = OmniVideoRenderAgent()
+        context = {
+            "bible": get_preset_bible("ikea-asmr"),
+            "render_video": False,
+            "dry_run": True,
+            "output_dir": str(tmp_path),
+        }
+        res = agent.run(context)
+        assert len(res["rendered_videos"]) == len(context["bible"].scenes)
+        assert res["rendered_videos"][0]["status"] == "skipped_by_default_hybrid_mode"
+
+    def test_finding_6_storyboard_preview_contains_inline_svgs(self, tmp_path):
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        html_content = Path(bundle.storyboard_html_path).read_text(encoding="utf-8")
+        assert "<svg" in html_content
+        assert '<div class="svg-placeholder">' not in html_content
+
+    def test_finding_7_cli_flags_and_env_var_resolution(self, monkeypatch):
+        import os
+        from omni_director.config import get_settings
+        monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+        monkeypatch.setenv("GEMINI_API_KEY", "test-gemini-key")
+        settings = get_settings(reload=True)
+        assert settings.api_key == "test-gemini-key"

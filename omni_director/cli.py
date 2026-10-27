@@ -1,8 +1,9 @@
-"""CLI entry point for omni-director command."""
+"""CLI entry point for omni-director and omni commands."""
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import Optional
@@ -17,8 +18,9 @@ except ImportError:
     HAS_RICH = False
 
 from omni_director.agents import DirectorPipeline
-from omni_director.config import DirectorConfig, cfg
+from omni_director.config import DirectorConfig, cfg, get_settings
 from omni_director.presets import PRESETS, get_preset_bible
+from omni_director.schemas import StorytellingMode
 
 
 def print_banner() -> None:
@@ -60,9 +62,21 @@ def list_presets() -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    args_list = list(sys.argv[1:] if argv is None else argv)
+    # Support 'omni run ...' as well as 'omni ...'
+    if args_list and args_list[0] == "run":
+        args_list = args_list[1:]
+
     parser = argparse.ArgumentParser(
         prog="omni-director",
         description="Autonomous ADK 2.0 multi-agent cinematic production suite for Gemini Omni.",
+    )
+    parser.add_argument(
+        "--input",
+        "-i",
+        type=str,
+        default=None,
+        help="Path to input brief file (JSON/text) or inline creative brief string.",
     )
     parser.add_argument(
         "--preset",
@@ -78,6 +92,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="Custom user logline or creative brief to direct.",
     )
     parser.add_argument(
+        "--mode",
+        type=str,
+        default="hybrid",
+        choices=["parallel", "extension", "hybrid", "montage", "continuous"],
+        help="Storytelling mode: 'parallel', 'extension', or 'hybrid' (default: hybrid).",
+    )
+    parser.add_argument(
         "--output-dir",
         "-o",
         type=str,
@@ -88,13 +109,20 @@ def main(argv: Optional[list[str]] = None) -> int:
         "--render-video",
         action="store_true",
         default=False,
-        help="Attempt live video generation via Gemini Omni (requires GEMINI_API_KEY).",
+        help="Attempt live video generation via Gemini Omni (requires GOOGLE_API_KEY/GEMINI_API_KEY).",
     )
     parser.add_argument(
         "--dry-run",
+        dest="dry_run",
         action="store_true",
         default=True,
-        help="Run deterministic simulation with Nano Banana SVG plates (default: True).",
+        help="Run deterministic simulation mode without billable API requests (default: True).",
+    )
+    parser.add_argument(
+        "--live",
+        dest="dry_run",
+        action="store_false",
+        help="Run in live API mode with credentials.",
     )
     parser.add_argument(
         "--list-presets",
@@ -102,15 +130,33 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="List all built-in golden presets and exit.",
     )
 
-    args = parser.parse_args(argv)
+    args = parser.parse_args(args_list)
 
     if args.list_presets:
         list_presets()
         return 0
 
-    if not args.preset and not args.prompt:
+    # Resolve input from --input or --prompt
+    raw_prompt = args.prompt
+    if args.input:
+        input_path = Path(args.input)
+        if input_path.is_file():
+            try:
+                data = json.loads(input_path.read_text(encoding="utf-8"))
+                if isinstance(data, dict):
+                    raw_prompt = data.get("prompt") or data.get("logline") or data.get("brief") or str(data)
+                else:
+                    raw_prompt = str(data)
+            except Exception:
+                raw_prompt = input_path.read_text(encoding="utf-8").strip()
+        else:
+            raw_prompt = args.input
+
+    if not args.preset and not raw_prompt:
         # Default to ikea-asmr if nothing specified
         args.preset = "ikea-asmr"
+
+    continuous_mode = args.mode in ("extension", "continuous")
 
     print_banner()
 
@@ -119,18 +165,20 @@ def main(argv: Optional[list[str]] = None) -> int:
 
         if HAS_RICH:
             console = Console()
-            target_desc = f"Preset: [bold green]{args.preset}[/bold green]" if args.preset else f"Prompt: '{args.prompt}'"
+            target_desc = f"Preset: [bold green]{args.preset}[/bold green]" if args.preset else f"Prompt: '{raw_prompt}'"
             console.print(f"🎬 Initiating Director Pipeline ({target_desc})...")
-            console.print(f"📁 Target Output: [bold cyan]{args.output_dir}[/bold cyan]\n")
+            console.print(f"📁 Target Output: [bold cyan]{args.output_dir}[/bold cyan]")
+            console.print(f"⚙️ Mode: [bold magenta]{args.mode}[/bold magenta] | Dry Run: [bold]{args.dry_run}[/bold] | Render Video: [bold]{args.render_video}[/bold]\n")
         else:
-            print(f"Initiating Director Pipeline for preset: {args.preset or args.prompt}...")
+            print(f"Initiating Director Pipeline for {args.preset or raw_prompt}...")
 
         bundle = pipeline.run(
             preset_name=args.preset,
-            raw_prompt=args.prompt,
+            raw_prompt=raw_prompt,
             output_dir=args.output_dir,
             render_video=args.render_video,
-            dry_run=not args.render_video,
+            dry_run=args.dry_run,
+            continuous_mode=continuous_mode,
         )
 
         if HAS_RICH:

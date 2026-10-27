@@ -5,15 +5,21 @@ and Gemini Omni (gemini-omni-1.1-flash-preview) for cinematic video production.
 """
 
 from omni_director.agents import (
+    BGMComposerAgent,
     CreativeDirectorAgent,
     DirectorPipeline,
     IntakeAndResearchAgent,
     OmniVideoRenderAgent,
+    OptionalOmniVideoRenderAgent,
+    ParallelScenePromptAgent,
     PromptAuditorAgent,
+    ScenePromptAgent,
     StoryboardCompilerAgent,
+    StoryboardHTMLCompilerAgent,
     VisualStoryboardAgent,
+    synthesize_custom_bible,
 )
-from omni_director.config import DirectorConfig, cfg
+from omni_director.config import DirectorConfig, cfg, get_settings
 from omni_director.presets import (
     IKEA_ASMR_BIBLE,
     KINETIC_FABRIC_BIBLE,
@@ -54,6 +60,7 @@ __all__ = [
     "DirectorPipeline",
     "DirectorConfig",
     "cfg",
+    "get_settings",
     # Presets
     "PRESETS",
     "get_preset_bible",
@@ -87,7 +94,13 @@ __all__ = [
     "IntakeAndResearchAgent",
     "CreativeDirectorAgent",
     "VisualStoryboardAgent",
+    "ScenePromptAgent",
+    "ParallelScenePromptAgent",
+    "BGMComposerAgent",
     "PromptAuditorAgent",
     "OmniVideoRenderAgent",
     "StoryboardCompilerAgent",
+    "OptionalOmniVideoRenderAgent",
+    "StoryboardHTMLCompilerAgent",
+    "synthesize_custom_bible",
 ]

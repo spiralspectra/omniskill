@@ -24,7 +24,7 @@ The `001-omni-movie-director` specification establishes the end-to-end creative 
 - **US-3 (Prompt Director)**: As a prompt director, I want to generate seamless natural-prose Gemini Omni prompts that enforce Seedance 5-part kinetic contact chains, CRAFT camera telemetry, and 1.0x real-time speed locks.
 - **US-4 (Sonic Specialist)**: As a sound designer, I want to generate embedded diegetic foley and dialogue within video prompts alongside a standalone Master BGM score prompt for Lyria / `<audio>` reference.
 - **US-5 (Reviewer / Producer)**: As a reviewer, I want to view an interactive dark-room HTML animatic player (`storyboard_preview.html`) that allows timeline scrubbing, prompt copying, and audio-visual verification before rendering live video.
-- **US-6 (Developer / Systems Engineer)**: As an engineer, I want an ADK 2.0 package runnable via CLI with `--dry-run`, `--hybrid`, and `--render-video` options and automated pytest coverage.
+- **US-6 (Developer / Systems Engineer)**: As an engineer, I want an ADK 2.0 package runnable via CLI (`omni` or `omni-director`) with `--input`, `--mode` (`parallel`, `extension`, `hybrid`), `--dry-run` / `--live`, and `--render-video` options alongside automated pytest coverage.
 
 ## 3. Observable User Flows
 
@@ -37,13 +37,13 @@ The `001-omni-movie-director` specification establishes the end-to-end creative 
 6. The agent delivers `storyboard_preview.html` and `production_bundle.json`.
 
 ### Flow 2: ADK 2.0 Automated Pipeline Run (CLI / Headless)
-1. User invokes `omni run --input brief.json --mode hybrid`.
+1. User invokes `omni run --input brief.json --mode hybrid` (supporting `--input`, `--mode` [`parallel`, `extension`, `hybrid`], `--dry-run`, `--live`, `--render-video`).
 2. `IntakeAndResearchAgent` enriches the brief via `google_search` and `load_web_page`.
 3. `CreativeDirectorAgent` (`gemini-4-argon`) generates the Pydantic `ProductionBible`.
-4. `VisualBibleGeneratorAgent` and `StoryboardParallelAgent` generate PNG visual anchors via Nano Banana.
+4. `VisualBibleGeneratorAgent` and `StoryboardParallelAgent` generate PNG/SVG visual anchors via Nano Banana.
 5. `ScenePromptFanOutAgent` (`ParallelAgent` over `gemini-3.8-flash`) concurrently writes prompt recipes for all scenes while `BGMComposerAgent` generates the musical score.
 6. `StoryboardHTMLCompilerAgent` compiles the standalone `storyboard_preview.html` and exports `production_bundle.json`.
-7. If `--render-video` is active, `OptionalOmniVideoRenderAgent` calls `gemini-omni-1.1-flash-preview` to render final MP4 clips with synchronized audio.
+7. If `--render-video` is active and not `--dry-run`, `OptionalOmniVideoRenderAgent` calls `gemini-omni-1.1-flash-preview` to render final MP4 clips with synchronized audio.
 
 ## 4. Functional Requirements
 
