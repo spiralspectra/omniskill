@@ -353,12 +353,100 @@ class TestAdversaryReviewFindings:
 
     def test_finding_2_module_exports_and_adk2_alignment(self):
         import omni_director
-        from omni_director import agents
-        assert hasattr(omni_director, "ParallelScenePromptAgent")
-        assert hasattr(omni_director, "BGMComposerAgent")
-        assert hasattr(omni_director, "get_settings")
-        assert hasattr(agents, "ParallelScenePromptAgent")
-        assert hasattr(agents, "BGMComposerAgent")
+        from omni_director import agents, get_settings
+        from omni_director.agents.agent import (
+            IntakeAndResearchAgent,
+            CreativeDirectorAgent,
+            VisualBibleGeneratorAgent,
+            StoryboardParallelAgent,
+            ScenePromptAgent,
+            ParallelScenePromptAgent,
+            BGMComposerAgent,
+            StoryboardHTMLCompilerAgent,
+        )
+
+        # Check export presence on top-level and agents sub-module
+        for name in [
+            "IntakeAndResearchAgent",
+            "CreativeDirectorAgent",
+            "VisualBibleGeneratorAgent",
+            "StoryboardParallelAgent",
+            "ScenePromptAgent",
+            "ParallelScenePromptAgent",
+            "BGMComposerAgent",
+            "StoryboardHTMLCompilerAgent",
+            "get_settings",
+        ]:
+            assert hasattr(omni_director, name), f"Missing {name} in omni_director"
+            if "get_settings" not in name:
+                assert hasattr(agents, name), f"Missing {name} in omni_director.agents"
+
+        # Check uppercase model property aliases on DirectorConfig / settings
+        settings = get_settings()
+        assert settings.DIRECTOR_MODEL == settings.director_model
+        assert settings.FAST_MODEL == settings.fast_model
+        assert settings.IMAGE_MODEL == settings.image_model
+        assert settings.OMNI_VIDEO_MODEL == settings.video_model
+
+        # Check agent constructors take name and model_name kwargs without error
+        all_agent_classes = [
+            IntakeAndResearchAgent,
+            CreativeDirectorAgent,
+            VisualBibleGeneratorAgent,
+            StoryboardParallelAgent,
+            ScenePromptAgent,
+            ParallelScenePromptAgent,
+            BGMComposerAgent,
+            StoryboardHTMLCompilerAgent,
+        ]
+        for cls in all_agent_classes:
+            inst = cls(name=f"test_{cls.__name__}", model_name=settings.FAST_MODEL)
+            assert inst.name == f"test_{cls.__name__}"
+            assert inst.model_name == settings.FAST_MODEL
+
+    def test_finding_round2_custom_prompt_no_keyword_hijacking(self, tmp_path):
+        """Custom prompts containing keywords like 'fabric' or 'perfume' must NOT be hijacked into presets."""
+        pipeline = DirectorPipeline()
+        prompt_with_keywords = "A documentary on silk fabric manufacturing and perfume making with ASMR audio"
+        bundle = pipeline.run(
+            prompt=prompt_with_keywords,
+            output_dir=str(tmp_path),
+            render_video=False,
+            dry_run=True,
+        )
+        assert bundle.bible.project_title != "IKEA: The Living Room Unfolds"
+        assert bundle.bible.project_title != "Sephora London: Glow In The Rain"
+        assert bundle.bible.project_title != "Kinetic Fabric: Silk in Freefall"
+        assert bundle.bible.logline == prompt_with_keywords
+
+    def test_finding_round2_vertical_9_16_svg_geometry_strictly_bounded(self, tmp_path):
+        """In 9:16 vertical productions, all SVG elements must strictly fit inside viewBox 0 0 1080 1920."""
+        import xml.etree.ElementTree as ET
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="sephora-pulse",
+            output_dir=str(tmp_path),
+            render_video=False,
+            dry_run=True,
+        )
+
+        svg_files = list((tmp_path / "storyboards").glob("*.svg"))
+        assert len(svg_files) >= 3, "Expected storyboard SVGs to be generated"
+
+        for svg_file in svg_files:
+            content = svg_file.read_text(encoding="utf-8")
+            root = ET.fromstring(content)
+            viewbox = root.attrib.get("viewBox", "")
+            assert viewbox == "0 0 1080 1920", f"{svg_file.name} unexpected viewBox: {viewbox}"
+
+            # Verify no <rect> exceeds viewBox width (1080) or height (1920)
+            for rect in root.iter("{http://www.w3.org/2000/svg}rect"):
+                x = float(rect.attrib.get("x", 0))
+                y = float(rect.attrib.get("y", 0))
+                width = float(rect.attrib.get("width", 0))
+                height = float(rect.attrib.get("height", 0))
+                assert x + width <= 1080, f"{svg_file.name} rect exceeds viewBox width: x={x}, w={width}, right={x+width}"
+                assert y + height <= 1920, f"{svg_file.name} rect exceeds viewBox height: y={y}, h={height}, bottom={y+height}"
 
     def test_finding_4_render_video_default_hybrid_mode(self, tmp_path):
         from omni_director.agents.agent import OmniVideoRenderAgent

@@ -101,6 +101,26 @@ class DirectorConfig(BaseModel):
         default_factory=lambda: os.getenv("OMNI_DRY_RUN", "true").lower() in ("true", "1", "yes")
     )
 
+    @property
+    def DIRECTOR_MODEL(self) -> str:
+        return self.director_model
+
+    @property
+    def FAST_MODEL(self) -> str:
+        return self.fast_model
+
+    @property
+    def IMAGE_MODEL(self) -> str:
+        return self.image_model
+
+    @property
+    def VIDEO_MODEL(self) -> str:
+        return self.video_model
+
+    @property
+    def OMNI_VIDEO_MODEL(self) -> str:
+        return self.video_model
+
     def validate_no_legacy_3_1_models(self) -> None:
         validate_model_identifier(self.director_model, "director_model")
         validate_model_identifier(self.fast_model, "fast_model")
@@ -111,6 +131,7 @@ class DirectorConfig(BaseModel):
     def verify_no_legacy_models(self) -> "DirectorConfig":
         self.validate_no_legacy_3_1_models()
         return self
+
 
 
 _settings_instance: Optional[DirectorConfig] = None

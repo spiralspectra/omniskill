@@ -83,7 +83,7 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
     """Dynamically synthesizes a valid 7-Point compliant MasterProductionBible from custom raw_prompt."""
     kinetic_keywords = ["speed", "race", "drone", "action", "kinetic", "car", "run", "fast", "motion", "chase", "jump"]
     is_kinetic = any(k in raw_prompt.lower() for k in kinetic_keywords)
-    regime = RegimeType.REGIME_2_KINETIC if is_kinetic else RegimeType.REGIME_1_ASMR_MACRO
+    regime = RegimeType.REGIME_2_KINETIC if is_kinetic else RegimeType.REGIME_1_ATMOSPHERIC
 
     title = raw_prompt[:40].strip().title()
     if not title:
@@ -232,12 +232,23 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
 class IntakeAndResearchAgent(BaseAgent):
     """Stage 1: Ingests user creative loglines, references, and research parameters."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="IntakeAndResearchAgent",
-            instruction="Ingests creative brief and grounds aesthetic tone, pacing, and visual style."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "IntakeAndResearchAgent"
+        super().__init__(
+            name=agent_name,
+            instruction="Ingests creative brief and grounds aesthetic tone, pacing, and visual style.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         prompt = context.get("raw_prompt") or ""
@@ -265,12 +276,23 @@ class IntakeAndResearchAgent(BaseAgent):
 class CreativeDirectorAgent(BaseAgent):
     """Stage 2: Single Source of Truth (SSOT). Synthesizes or loads the MasterProductionBible."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="CreativeDirectorAgent",
-            instruction=f"Authoritative director utilizing {config.director_model if config else 'gemini-4-argon'}."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "CreativeDirectorAgent"
+        super().__init__(
+            name=agent_name,
+            instruction=f"Authoritative director utilizing {self.config.director_model}.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.director_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         logger.info(f"[{self.name}] Synthesizing Master Production Bible...")
@@ -307,15 +329,10 @@ class CreativeDirectorAgent(BaseAgent):
                 except Exception as e:
                     logger.warning(f"[{self.name}] Live bible synthesis failed: {e}. Falling back to synthesizer.")
 
-            # Fallback or dry-run prompt synthesis
+            # Fallback or dry-run prompt synthesis:
+            # ONLY synthesize a custom bible when raw_prompt is provided, or default to ikea-asmr when both preset and prompt are empty.
             if bible is None:
-                if "sephora" in raw_prompt.lower() or "perfume" in raw_prompt.lower():
-                    bible = get_preset_bible("sephora-pulse")
-                elif "fabric" in raw_prompt.lower() or "aerodynamic" in raw_prompt.lower():
-                    bible = get_preset_bible("kinetic-fabric")
-                elif "ikea" in raw_prompt.lower() or "asmr" in raw_prompt.lower():
-                    bible = get_preset_bible("ikea-asmr")
-                elif raw_prompt.strip():
+                if raw_prompt and raw_prompt.strip():
                     bible = synthesize_custom_bible(raw_prompt, self.config)
                 else:
                     bible = get_preset_bible("ikea-asmr")
@@ -328,12 +345,23 @@ class CreativeDirectorAgent(BaseAgent):
 class VisualStoryboardAgent(BaseAgent):
     """Stage 3: Generates visual plates and keyframes via NanoBananaStoryboardEngine."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="VisualStoryboardAgent",
-            instruction="Generates turnaround sheets, environment plates, and keyframes."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "VisualStoryboardAgent"
+        super().__init__(
+            name=agent_name,
+            instruction="Generates turnaround sheets, environment plates, and keyframes.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.image_model
         self.engine = NanoBananaStoryboardEngine(config=self.config)
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -348,13 +376,25 @@ class VisualStoryboardAgent(BaseAgent):
 class ScenePromptAgent(BaseAgent):
     """Stage 4a: Builds and refines scene-level Gemini Omni prompts for a specific scene index."""
 
-    def __init__(self, scene_index: int, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name=f"ScenePromptAgent_{scene_index}",
-            instruction="Enforces CRAFT camera grammar, 1.0x speed lock, and acoustic foley cues."
-        )
+    def __init__(
+        self,
+        scene_index: int = 1,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.scene_index = scene_index
         self.config = config or cfg
+        agent_name = name or f"ScenePromptAgent_{scene_index}"
+        super().__init__(
+            name=agent_name,
+            instruction="Enforces CRAFT camera grammar, 1.0x speed lock, and acoustic foley cues.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -387,12 +427,23 @@ class ScenePromptAgent(BaseAgent):
 class BGMComposerAgent(BaseAgent):
     """Stage 4b: Film Composer agent structuring score blueprint."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="BGMComposerAgent",
-            instruction="Synthesizes musical score and Lyria prompt."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "BGMComposerAgent"
+        super().__init__(
+            name=agent_name,
+            instruction="Synthesizes musical score and Lyria prompt.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -419,20 +470,38 @@ class ParallelScenePromptAgent(ParallelAgent):
         self,
         sub_agents: Optional[List[BaseAgent]] = None,
         config: Optional[DirectorConfig] = None,
-        **kwargs: Any
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
     ) -> None:
         self.config = config or cfg
-        super().__init__(name="ParallelScenePromptAgent", sub_agents=sub_agents or [], **kwargs)
+        agent_name = name or "ParallelScenePromptAgent"
+        super().__init__(name=agent_name, sub_agents=sub_agents or [], **kwargs)
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
 
 class PromptAuditorAgent(BaseAgent):
     """Stage 5: 7-point prompt auditor evaluating scene prompts against Gemini Omni rules."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
+        self.config = config or cfg
+        agent_name = name or "PromptAuditorAgent"
         super().__init__(
-            name="PromptAuditorAgent",
-            instruction="Audits all scene prompts against the 7-Point Gemini Omni Prompt Standard."
+            name=agent_name,
+            instruction="Audits all scene prompts against the 7-Point Gemini Omni Prompt Standard.",
+            **kwargs,
         )
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -455,12 +524,23 @@ class PromptAuditorAgent(BaseAgent):
 class OmniVideoRenderAgent(BaseAgent):
     """Stage 6: Renders video via GeminiOmniVideoEngine (or dry-run simulation)."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="OmniVideoRenderAgent",
-            instruction="Executes video rendering via Gemini Omni or dry-run simulation."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "OmniVideoRenderAgent"
+        super().__init__(
+            name=agent_name,
+            instruction="Executes video rendering via Gemini Omni or dry-run simulation.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.video_model
         self.engine = GeminiOmniVideoEngine(config=self.config)
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -491,12 +571,23 @@ class OmniVideoRenderAgent(BaseAgent):
 class StoryboardCompilerAgent(BaseAgent):
     """Stage 7: Fan-in node generating Dark-Room HTML treatment & production_bundle.json."""
 
-    def __init__(self, config: Optional[DirectorConfig] = None) -> None:
-        super().__init__(
-            name="StoryboardCompilerAgent",
-            instruction="Compiles final dark-room storyboard HTML and production_bundle.json."
-        )
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        model_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         self.config = config or cfg
+        agent_name = name or "StoryboardCompilerAgent"
+        super().__init__(
+            name=agent_name,
+            instruction="Compiles final dark-room storyboard HTML and production_bundle.json.",
+            **kwargs,
+        )
+        self.name = agent_name
+        self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -532,6 +623,28 @@ StoryboardHTMLCompilerAgent = StoryboardCompilerAgent
 VisualBibleGeneratorAgent = VisualStoryboardAgent
 StoryboardParallelAgent = VisualStoryboardAgent
 
+__all__ = [
+    "BaseAgent",
+    "LlmAgent",
+    "SequentialAgent",
+    "ParallelAgent",
+    "IntakeAndResearchAgent",
+    "CreativeDirectorAgent",
+    "VisualStoryboardAgent",
+    "VisualBibleGeneratorAgent",
+    "ScenePromptAgent",
+    "ParallelScenePromptAgent",
+    "StoryboardParallelAgent",
+    "BGMComposerAgent",
+    "PromptAuditorAgent",
+    "OmniVideoRenderAgent",
+    "OptionalOmniVideoRenderAgent",
+    "StoryboardCompilerAgent",
+    "StoryboardHTMLCompilerAgent",
+    "DirectorPipeline",
+    "synthesize_custom_bible",
+]
+
 
 class DirectorPipeline:
     """The master ADK 2.0 Director Pipeline orchestrating the full production lifecycle."""
@@ -553,6 +666,7 @@ class DirectorPipeline:
         self,
         preset_name: Optional[str] = None,
         raw_prompt: Optional[str] = None,
+        prompt: Optional[str] = None,
         bible: Optional[MasterProductionBible] = None,
         output_dir: Optional[str] = None,
         render_video: bool = False,
@@ -561,6 +675,7 @@ class DirectorPipeline:
     ) -> ProductionBundle:
         """Executes the end-to-end multi-agent pipeline."""
         target_output_dir = output_dir or self.config.output_dir
+        effective_prompt = prompt or raw_prompt
 
         # Propagate dry_run across pipeline and engines
         self.config.dry_run = dry_run
@@ -571,7 +686,7 @@ class DirectorPipeline:
 
         context: Dict[str, Any] = {
             "preset_name": preset_name,
-            "raw_prompt": raw_prompt,
+            "raw_prompt": effective_prompt,
             "bible": bible,
             "output_dir": target_output_dir,
             "render_video": render_video,

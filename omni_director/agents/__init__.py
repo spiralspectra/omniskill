@@ -12,6 +12,7 @@ from omni_director.agents.agent import (
     ScenePromptAgent,
     StoryboardCompilerAgent,
     StoryboardHTMLCompilerAgent,
+    StoryboardParallelAgent,
     VisualBibleGeneratorAgent,
     VisualStoryboardAgent,
     synthesize_custom_bible,
@@ -31,6 +32,7 @@ __all__ = [
     "OptionalOmniVideoRenderAgent",
     "StoryboardHTMLCompilerAgent",
     "VisualBibleGeneratorAgent",
+    "StoryboardParallelAgent",
     "synthesize_custom_bible",
 ]
 
