@@ -5,6 +5,7 @@ from omni_director.agents.agent import (
     CreativeDirectorAgent,
     DirectorPipeline,
     IntakeAndResearchAgent,
+    OmniDirectorPipeline,
     OmniVideoRenderAgent,
     OptionalOmniVideoRenderAgent,
     ParallelScenePromptAgent,
@@ -17,9 +18,11 @@ from omni_director.agents.agent import (
     VisualStoryboardAgent,
     synthesize_custom_bible,
 )
+from omni_director.agents.council import ProductCouncilOrchestrator
 
 __all__ = [
     "DirectorPipeline",
+    "OmniDirectorPipeline",
     "IntakeAndResearchAgent",
     "CreativeDirectorAgent",
     "VisualStoryboardAgent",
@@ -34,5 +37,6 @@ __all__ = [
     "VisualBibleGeneratorAgent",
     "StoryboardParallelAgent",
     "synthesize_custom_bible",
+    "ProductCouncilOrchestrator",
 ]
 

@@ -419,7 +419,7 @@ When deploying the `omni-movie-director` skill in production:
 
 For deep-dive technical implementations and golden reference assets, consult:
 
-1. [references/director-intake-and-bible.md](file:///Users/ashikkay/Documents/omniskill/skills/omni-movie-director/references/director-intake-and-bible.md): Complete Pydantic v2 schemas, JSON contracts, and intake interview rubric.
-2. [references/nano-banana-storyboard-system.md](file:///Users/ashikkay/Documents/omniskill/skills/omni-movie-director/references/nano-banana-storyboard-system.md): 3-Anchor Nano Banana prompt templates, optics matrices, and darkroom cinema HTML template code.
-3. [references/adk-2-architecture.md](file:///Users/ashikkay/Documents/omniskill/skills/omni-movie-director/references/adk-2-architecture.md): Google ADK 2.0 multi-agent DAG implementation (`SequentialAgent`, `ParallelAgent`, `Workflow`).
-4. [references/golden-demos.md](file:///Users/ashikkay/Documents/omniskill/skills/omni-movie-director/references/golden-demos.md): Full production bibles and prompt suites for **IKEA ASMR 2.0 ("The Living Room Unfolds")** and **SEPHORA London Pulse 2.0 ("Midnight Velvet" in both Mode A Parallel and Mode B 40s Continuous Extension)**.
+1. [references/director-intake-and-bible.md](references/director-intake-and-bible.md): Complete Pydantic v2 schemas, JSON contracts, and intake interview rubric.
+2. [references/nano-banana-storyboard-system.md](references/nano-banana-storyboard-system.md): 3-Anchor Nano Banana prompt templates, optics matrices, and darkroom cinema HTML template code.
+3. [references/adk-2-architecture.md](references/adk-2-architecture.md): Google ADK 2.0 multi-agent DAG implementation (`SequentialAgent`, `ParallelAgent`, `Workflow`).
+4. [references/golden-demos.md](references/golden-demos.md): Full production bibles and prompt suites for **IKEA ASMR 2.0 ("The Living Room Unfolds")** and **SEPHORA London Pulse 2.0 ("Midnight Velvet" in both Mode A Parallel and Mode B 40s Continuous Extension)**.

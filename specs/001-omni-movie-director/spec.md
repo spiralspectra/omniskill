@@ -3,7 +3,7 @@ id: "001-omni-movie-director"
 title: "Omni Movie Director: 2026 Commercial & Film Multi-Agent Pipeline"
 version: "2.0.0"
 status: "done"
-owner: "Ashik Kay <ashikkay@google.com>"
+owner: "OmniSkill Product Council"
 repo: "spiralspectra/omniskill"
 created_at: "2026-10-27"
 target_models:

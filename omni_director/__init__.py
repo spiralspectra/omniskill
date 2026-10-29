@@ -9,9 +9,11 @@ from omni_director.agents import (
     CreativeDirectorAgent,
     DirectorPipeline,
     IntakeAndResearchAgent,
+    OmniDirectorPipeline,
     OmniVideoRenderAgent,
     OptionalOmniVideoRenderAgent,
     ParallelScenePromptAgent,
+    ProductCouncilOrchestrator,
     PromptAuditorAgent,
     ScenePromptAgent,
     StoryboardCompilerAgent,
@@ -22,12 +24,23 @@ from omni_director.agents import (
     synthesize_custom_bible,
 )
 from omni_director.config import DirectorConfig, cfg, get_settings
+from omni_director.doctor import (
+    CheckStatus,
+    DiagnosticCheck,
+    DoctorReport,
+    run_doctor,
+)
 from omni_director.presets import (
+    CURATED_PRESETS,
+    DOMAIN_ARCHETYPES,
+    DOMAIN_PRIORITY,
     IKEA_ASMR_BIBLE,
     KINETIC_FABRIC_BIBLE,
     PRESETS,
     SEPHORA_EXTENSION_40S_BIBLE,
     SEPHORA_PULSE_BIBLE,
+    classify_brief_domain,
+    get_preset,
     get_preset_bible,
 )
 from omni_director.schemas import (
@@ -35,6 +48,9 @@ from omni_director.schemas import (
     AspectRatio,
     AuditResult,
     CharacterTurnaroundSpec,
+    CouncilFinding,
+    CouncilFindingSeverity,
+    CouncilPersona,
     CraftCameraSpec,
     DiegeticSonicSpec,
     KineticContactChain,
@@ -42,30 +58,47 @@ from omni_director.schemas import (
     MasterEnvironmentSpec,
     MasterProductionBible,
     NanoBananaReference,
+    PersonaReviewResult,
+    ProductCouncilReport,
     ProductionBundle,
+    PromptAuditResult,
     RegimeType,
     SceneKeyframeSpec,
     ScenePromptSpec,
     StorytellingMode,
+    load_bible_from_json,
+)
+from omni_director.telemetry import (
+    RuntimeTelemetry,
+    StageTiming,
+    verify_bundle_checksums,
 )
 from omni_director.tools import (
     GeminiOmniVideoEngine,
     NanoBananaStoryboardEngine,
     audit_omni_scene_prompt,
     compile_storyboard_html,
+    generate_svg_storyboard_frame,
+    heal_omni_scene_prompt,
 )
 
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 
 __all__ = [
     # Top-Level Runner & Config
     "DirectorPipeline",
+    "OmniDirectorPipeline",
     "DirectorConfig",
     "cfg",
     "get_settings",
     # Presets
     "PRESETS",
+    "CURATED_PRESETS",
+    "get_preset",
     "get_preset_bible",
+    "classify_brief_domain",
+    "DOMAIN_ARCHETYPES",
+    "DOMAIN_PRIORITY",
     "IKEA_ASMR_BIBLE",
     "SEPHORA_PULSE_BIBLE",
     "SEPHORA_EXTENSION_40S_BIBLE",
@@ -75,6 +108,12 @@ __all__ = [
     "ScenePromptSpec",
     "ProductionBundle",
     "AuditResult",
+    "PromptAuditResult",
+    "ProductCouncilReport",
+    "CouncilPersona",
+    "CouncilFinding",
+    "CouncilFindingSeverity",
+    "PersonaReviewResult",
     "RegimeType",
     "StorytellingMode",
     "AspectRatio",
@@ -87,9 +126,20 @@ __all__ = [
     "CharacterTurnaroundSpec",
     "MasterEnvironmentSpec",
     "SceneKeyframeSpec",
+    "load_bible_from_json",
+    # Telemetry & Diagnostics
+    "RuntimeTelemetry",
+    "StageTiming",
+    "verify_bundle_checksums",
+    "DoctorReport",
+    "DiagnosticCheck",
+    "CheckStatus",
+    "run_doctor",
     # Tools
     "audit_omni_scene_prompt",
+    "heal_omni_scene_prompt",
     "compile_storyboard_html",
+    "generate_svg_storyboard_frame",
     "NanoBananaStoryboardEngine",
     "GeminiOmniVideoEngine",
     # Agents
@@ -107,4 +157,5 @@ __all__ = [
     "OptionalOmniVideoRenderAgent",
     "StoryboardHTMLCompilerAgent",
     "synthesize_custom_bible",
+    "ProductCouncilOrchestrator",
 ]

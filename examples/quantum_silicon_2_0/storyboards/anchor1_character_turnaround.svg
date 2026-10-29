@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: HERO SUBJECT | SILHOUETTE: Athletic minimalist silhouette with sharp aerodyna...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Matte black performance composite with irides...
+  </text>
+</svg>

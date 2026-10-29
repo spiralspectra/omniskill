@@ -3,7 +3,7 @@
 import html
 import os
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.config import DirectorConfig
 from omni_director.schemas import (
     AspectRatio,
@@ -329,8 +329,9 @@ class NanoBananaStoryboardEngine:
 
     def render_scene_keyframe_svg(
         self,
-        scene: SceneKeyframeSpec | any,
-        bible: MasterProductionBible
+        scene: Union[SceneKeyframeSpec, Any],
+        bible: MasterProductionBible,
+        show_safe_guides: bool = True,
     ) -> str:
         """Renders Anchor 3: Scene Keyframe / Boundary Plate SVG scaled to viewBox."""
         palette = bible.color_palette or ["#0F172A", "#38BDF8", "#F43F5E", "#E2E8F0"]
@@ -348,6 +349,23 @@ class NanoBananaStoryboardEngine:
         rig_info = scene.craft_camera.to_summary() if hasattr(scene, "craft_camera") and scene.craft_camera else "35mm Prime | Centered"
         regime_str = scene.regime.value.split(':')[0] if hasattr(scene.regime, "value") else str(scene.regime).split(':')[0]
 
+        safe_guides_markup = ""
+        if show_safe_guides:
+            action_w = int(view_w * 0.90)
+            action_h = int(view_h * 0.90)
+            action_x = (view_w - action_w) // 2
+            action_y = (view_h - action_h) // 2
+
+            title_w = int(view_w * 0.80)
+            title_h = int(view_h * 0.80)
+            title_x = (view_w - title_w) // 2
+            title_y = (view_h - title_h) // 2
+
+            safe_guides_markup = f"""
+  <!-- SMPTE Safe Guides -->
+  <rect class="safe-guide-action" x="{action_x}" y="{action_y}" width="{action_w}" height="{action_h}" fill="none" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,6" opacity="0.6"/>
+  <rect class="safe-guide-title" x="{title_x}" y="{title_y}" width="{title_w}" height="{title_h}" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>"""
+
         return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {view_w} {view_h}" width="100%" height="100%">
   <defs>
     <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -357,6 +375,7 @@ class NanoBananaStoryboardEngine:
   </defs>
 
   <rect width="{view_w}" height="{view_h}" fill="url(#sceneGrad)"/>
+{safe_guides_markup}
 
   <!-- Depth Staging Grid -->
   <circle cx="{center_x}" cy="{center_y}" r="{r_outer}" fill="none" stroke="#1E293B" stroke-width="1.5"/>
@@ -390,3 +409,22 @@ class NanoBananaStoryboardEngine:
     PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
   </text>
 </svg>"""
+
+    def generate_svg_storyboard_frame(
+        self,
+        scene: Union[SceneKeyframeSpec, Any],
+        bible: MasterProductionBible,
+        show_safe_guides: bool = True,
+    ) -> str:
+        """Alias for render_scene_keyframe_svg with SMPTE safe guides."""
+        return self.render_scene_keyframe_svg(scene, bible, show_safe_guides=show_safe_guides)
+
+
+def generate_svg_storyboard_frame(
+    scene: Union[SceneKeyframeSpec, Any],
+    bible: MasterProductionBible,
+    show_safe_guides: bool = True,
+) -> str:
+    """Module-level generator for storyboard frame SVG with SMPTE safe guides."""
+    engine = NanoBananaStoryboardEngine()
+    return engine.render_scene_keyframe_svg(scene, bible, show_safe_guides=show_safe_guides)

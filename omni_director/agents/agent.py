@@ -10,9 +10,10 @@ import json
 import logging
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
+from pydantic import ConfigDict
 
 from omni_director.config import DirectorConfig, cfg
-from omni_director.presets import get_preset_bible
+from omni_director.presets import DOMAIN_ARCHETYPES, classify_brief_domain, get_preset_bible
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -28,11 +29,14 @@ from omni_director.schemas import (
     RegimeType,
     ScenePromptSpec,
     StorytellingMode,
+    load_bible_from_json,
 )
+from omni_director.telemetry import RuntimeTelemetry
+from omni_director.agents.council import ProductCouncilOrchestrator
 from omni_director.tools.html_compiler import compile_storyboard_html
 from omni_director.tools.nano_banana import NanoBananaStoryboardEngine
 from omni_director.tools.omni_video import GeminiOmniVideoEngine
-from omni_director.tools.prompt_auditor import audit_omni_scene_prompt
+from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
 
 logger = logging.getLogger("omni_director.agents")
 
@@ -45,22 +49,23 @@ except ImportError:
     HAS_GOOGLE_ADK = False
 
     class BaseAgent:  # type: ignore[no-redef]
-        def __init__(self, name: str, instruction: str = "", **kwargs: Any) -> None:
+        def __init__(self, name: str, description: str = "", instruction: str = "", **kwargs: Any) -> None:
             self.name = name
-            self.instruction = instruction
+            self.description = description or instruction
+            self.instruction = self.description
             self.kwargs = kwargs
 
         def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
             return context
 
     class LlmAgent(BaseAgent):  # type: ignore[no-redef]
-        def __init__(self, name: str, model: str = "", instruction: str = "", **kwargs: Any) -> None:
-            super().__init__(name, instruction, **kwargs)
+        def __init__(self, name: str, model: str = "", description: str = "", instruction: str = "", **kwargs: Any) -> None:
+            super().__init__(name=name, description=description, instruction=instruction, **kwargs)
             self.model = model
 
     class SequentialAgent(BaseAgent):  # type: ignore[no-redef]
-        def __init__(self, name: str, sub_agents: List[BaseAgent], **kwargs: Any) -> None:
-            super().__init__(name, **kwargs)
+        def __init__(self, name: str, sub_agents: List[BaseAgent], description: str = "", instruction: str = "", **kwargs: Any) -> None:
+            super().__init__(name=name, description=description, instruction=instruction, **kwargs)
             self.sub_agents = sub_agents
 
         def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -69,8 +74,8 @@ except ImportError:
             return context
 
     class ParallelAgent(BaseAgent):  # type: ignore[no-redef]
-        def __init__(self, name: str, sub_agents: List[BaseAgent], **kwargs: Any) -> None:
-            super().__init__(name, **kwargs)
+        def __init__(self, name: str, sub_agents: List[BaseAgent], description: str = "", instruction: str = "", **kwargs: Any) -> None:
+            super().__init__(name=name, description=description, instruction=instruction, **kwargs)
             self.sub_agents = sub_agents
 
         def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -81,9 +86,17 @@ except ImportError:
 
 def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = None) -> MasterProductionBible:
     """Dynamically synthesizes a valid 7-Point compliant MasterProductionBible from custom raw_prompt."""
-    kinetic_keywords = ["speed", "race", "drone", "action", "kinetic", "car", "run", "fast", "motion", "chase", "jump"]
-    is_kinetic = any(k in raw_prompt.lower() for k in kinetic_keywords)
-    regime = RegimeType.REGIME_2_KINETIC if is_kinetic else RegimeType.REGIME_1_ATMOSPHERIC
+    domain = classify_brief_domain(raw_prompt)
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+
+    # Regime handling: support RegimeType enum and string "kinetic"
+    raw_regime = archetype.get("regime")
+    if raw_regime == RegimeType.REGIME_2_KINETIC or raw_regime == "kinetic" or (isinstance(raw_regime, str) and "kinetic" in raw_regime.lower()):
+        regime = RegimeType.REGIME_2_KINETIC
+        is_kinetic = True
+    else:
+        regime = RegimeType.REGIME_1_ATMOSPHERIC
+        is_kinetic = False
 
     title = raw_prompt[:40].strip().title()
     if not title:
@@ -92,24 +105,43 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
     scene_title_1 = f"{title} - Initiation"
     scene_title_2 = f"{title} - Climax"
 
+    palette = archetype.get("color_palette") or archetype.get("palette") or ["#0B132B", "#1C2541", "#3A506B", "#5BC0BE", "#6FFFE9"]
+    lighting = archetype.get("default_lighting") or archetype.get("lighting") or "High-contrast chiaroscuro with cold 5600K key and subtle rim lighting"
+    foley = archetype.get("default_foley") or archetype.get("foley") or ["Crisp physical movement rustle", "Low resonant ambient hum"]
+
+    default_cam = archetype.get("default_camera")
+    cam_rigs = archetype.get("camera_rigs", [])
+    if default_cam:
+        camera_rig_1 = default_cam
+        camera_rig_2 = cam_rigs[0] if cam_rigs else f"{default_cam} (Alternate Angle)"
+    elif cam_rigs:
+        camera_rig_1 = cam_rigs[0]
+        camera_rig_2 = cam_rigs[1] if len(cam_rigs) > 1 else "Steadicam"
+    else:
+        camera_rig_1 = "Dolly Track"
+        camera_rig_2 = "Steadicam"
+
+    focal_length_1 = archetype.get("default_focal_length", 35)
+    focal_length_2 = 50 if focal_length_1 != 50 else 85
+
     prose_1 = (
         f"Wide establishing tracking shot. {raw_prompt.strip()}. "
         f"Adhering to character aesthetic <image_1> and architectural staging <image_2>. "
-        f"Shot on 35mm Prime lens at f/2.8, smooth dolly forward along the central axis. "
+        f"Shot with {camera_rig_1} with {lighting}. "
         f"{'Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. ' if is_kinetic else 'Gentle macro motion with tactile physics. '}"
-        f"Diegetic audio captures synchronous low resonant ambient hum, crisp physical movement rustle, and high-frequency reverb."
+        f"Diegetic audio captures synchronous {foley[0]} and {foley[-1]}."
     )
     prose_2 = (
-        f"Dynamic medium close-up following the subject. Continuation of {raw_prompt.strip()}. "
+        f"Continuation of Scene 1 following the subject. Continuation of {raw_prompt.strip()}. "
         f"Maintaining continuity with keyframe <image_3>. "
-        f"Steadicam arc maneuver at eye-level capturing dramatic rim lighting. "
+        f"{camera_rig_2} maneuver at eye-level with {lighting}. "
         f"{'Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. ' if is_kinetic else 'Controlled tactile interaction with micro-acoustic detail. '}"
-        f"Diegetic sound design features immediate mechanical click, surface friction resonance, and atmospheric air wash."
+        f"Diegetic sound design features immediate {foley[0]} and atmospheric air wash."
     )
 
     craft_1 = CraftCameraSpec(
-        rig_type="Dolly Track",
-        focal_length_mm=35,
+        rig_type=camera_rig_1,
+        focal_length_mm=focal_length_1,
         composition="Wide establishing shot with centered horizon and geometric symmetry",
         route="Smooth forward dolly along the central camera axis",
         action_anchor="Hero subject entering the frame",
@@ -118,8 +150,8 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
     )
 
     craft_2 = CraftCameraSpec(
-        rig_type="Steadicam",
-        focal_length_mm=50,
+        rig_type=camera_rig_2,
+        focal_length_mm=focal_length_2,
         composition="Medium close-up at eye level with strong rim separation",
         route="Arced orbit maneuver sweeping 45 degrees around subject",
         action_anchor="Subject's hands and physical contact interface",
@@ -139,7 +171,7 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
             "Beat 2: Subject engages primary movement trajectory (00:02 - 00:05)",
         ],
         diegetic_sonic=DiegeticSonicSpec(
-            foley_cues=["Crisp material rustle", "Low frequency footstep impact"],
+            foley_cues=foley,
             dialogue_lines=[],
             room_acoustics="Controlled cinematic soundstage with damp low-end reverb",
         ),
@@ -158,7 +190,7 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
             "Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10)",
         ],
         diegetic_sonic=DiegeticSonicSpec(
-            foley_cues=["Mechanical latch snap", "Air displacement whoosh"],
+            foley_cues=foley,
             dialogue_lines=[],
             room_acoustics="Reflective dynamic spatial acoustics with crisp decay",
         ),
@@ -172,11 +204,11 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
         storytelling_mode=StorytellingMode.MODE_A_PARALLEL_CUT,
         aspect_ratio=AspectRatio.RATIO_16_9,
         total_runtime_seconds=10,
-        color_palette=["#0B132B", "#1C2541", "#3A506B", "#5BC0BE", "#6FFFE9"],
+        color_palette=palette,
         environment=MasterEnvironmentSpec(
             location_name="Hero Environment",
-            spatial_architecture="Expansive minimalist architectural hall with polished concrete and glass",
-            lighting_setup="High-contrast chiaroscuro with cold 5600K key and subtle rim lighting",
+            spatial_architecture=f"Architectural space styled for {domain.replace('_', ' ')}",
+            lighting_setup=lighting,
             atmospheric_particles="Ultra-fine suspended haze catching oblique light shafts",
             positive_invariants=["Polished floor surface", "Structural steel pillar grid"],
             generation_prompt="Master architectural environment showing clean lines and deep spatial perspective",
@@ -192,7 +224,7 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
         ],
         camera_rig=craft_1,
         sonic_blueprint=DiegeticSonicSpec(
-            foley_cues=["Synchronized mechanical clicks", "Tactile fabric rustle", "Resonant low-end impacts"],
+            foley_cues=foley,
             dialogue_lines=[],
             room_acoustics="Controlled cinematic soundstage",
         ),
@@ -203,7 +235,7 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
             key_signature="D Minor",
             instrumentation=["Modular synthesizer pulses", "Sub-bass rumble", "Acoustic strings"],
             dynamic_arc="Gentle rhythmic pulse building into an assertive cinematic climax",
-            lyria_prompt="Cinematic hybrid score, modular synthesizer pulses with deep sub-bass and crisp acoustic transients",
+            lyria_prompt=f"Cinematic score for {domain.replace('_', ' ')}, modular synthesizer pulses with deep sub-bass and crisp acoustic transients",
         ),
         nano_banana_assets=[
             NanoBananaReference(
@@ -226,11 +258,14 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
             ),
         ],
         scenes=[scene_1, scene_2],
+        domain_archetype=domain,
     )
 
 
 class IntakeAndResearchAgent(BaseAgent):
     """Stage 1: Ingests user creative loglines, references, and research parameters."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     def __init__(
         self,
@@ -240,14 +275,17 @@ class IntakeAndResearchAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
         agent_name = name or "IntakeAndResearchAgent"
+        cfg_val = config or cfg
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Ingests creative brief and grounds aesthetic tone, pacing, and visual style."))
         super().__init__(
             name=agent_name,
-            instruction="Ingests creative brief and grounds aesthetic tone, pacing, and visual style.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -276,6 +314,8 @@ class IntakeAndResearchAgent(BaseAgent):
 class CreativeDirectorAgent(BaseAgent):
     """Stage 2: Single Source of Truth (SSOT). Synthesizes or loads the MasterProductionBible."""
 
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
     def __init__(
         self,
         config: Optional[DirectorConfig] = None,
@@ -284,17 +324,25 @@ class CreativeDirectorAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "CreativeDirectorAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", f"Authoritative director utilizing {cfg_val.director_model}."))
         super().__init__(
             name=agent_name,
-            instruction=f"Authoritative director utilizing {self.config.director_model}.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.director_model
 
+    def synthesize_custom_bible(self, raw_prompt: str) -> MasterProductionBible:
+        """Synthesizes a domain-aware MasterProductionBible from custom creative brief."""
+        return synthesize_custom_bible(raw_prompt, self.config)
+
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+
         logger.info(f"[{self.name}] Synthesizing Master Production Bible...")
         bible = None
         if "bible" in context and isinstance(context["bible"], MasterProductionBible):
@@ -337,6 +385,10 @@ class CreativeDirectorAgent(BaseAgent):
                 else:
                     bible = get_preset_bible("ikea-asmr")
 
+        if bible is not None:
+            if not getattr(bible, "domain_archetype", None) and context.get("domain_archetype"):
+                bible.domain_archetype = context["domain_archetype"]
+
         context["bible"] = bible
         logger.info(f"[{self.name}] Sealed Bible: '{bible.project_title}' with {len(bible.scenes)} scenes.")
         return context
@@ -344,6 +396,8 @@ class CreativeDirectorAgent(BaseAgent):
 
 class VisualStoryboardAgent(BaseAgent):
     """Stage 3: Generates visual plates and keyframes via NanoBananaStoryboardEngine."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     def __init__(
         self,
@@ -353,14 +407,17 @@ class VisualStoryboardAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "VisualStoryboardAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Generates turnaround sheets, environment plates, and keyframes."))
         super().__init__(
             name=agent_name,
-            instruction="Generates turnaround sheets, environment plates, and keyframes.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.image_model
         self.engine = NanoBananaStoryboardEngine(config=self.config)
 
@@ -376,6 +433,8 @@ class VisualStoryboardAgent(BaseAgent):
 class ScenePromptAgent(BaseAgent):
     """Stage 4a: Builds and refines scene-level Gemini Omni prompts for a specific scene index."""
 
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
     def __init__(
         self,
         scene_index: int = 1,
@@ -385,15 +444,18 @@ class ScenePromptAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.scene_index = scene_index
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or f"ScenePromptAgent_{scene_index}"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Enforces CRAFT camera grammar, 1.0x speed lock, and acoustic foley cues."))
         super().__init__(
             name=agent_name,
-            instruction="Enforces CRAFT camera grammar, 1.0x speed lock, and acoustic foley cues.",
+            description=desc,
             **kwargs,
         )
+        self.scene_index = scene_index
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -427,6 +489,8 @@ class ScenePromptAgent(BaseAgent):
 class BGMComposerAgent(BaseAgent):
     """Stage 4b: Film Composer agent structuring score blueprint."""
 
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
     def __init__(
         self,
         config: Optional[DirectorConfig] = None,
@@ -435,14 +499,17 @@ class BGMComposerAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "BGMComposerAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Synthesizes musical score and Lyria prompt."))
         super().__init__(
             name=agent_name,
-            instruction="Synthesizes musical score and Lyria prompt.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -466,6 +533,8 @@ class BGMComposerAgent(BaseAgent):
 class ParallelScenePromptAgent(ParallelAgent):
     """Stage 4: Parallel scene prompt fan-out agent running on fast workhorse (gemini-3.8-flash)."""
 
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
     def __init__(
         self,
         sub_agents: Optional[List[BaseAgent]] = None,
@@ -475,15 +544,28 @@ class ParallelScenePromptAgent(ParallelAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "ParallelScenePromptAgent"
-        super().__init__(name=agent_name, sub_agents=sub_agents or [], **kwargs)
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Parallel scene prompt fan-out agent."))
+        sub_list = sub_agents or []
+        super().__init__(name=agent_name, description=desc, sub_agents=sub_list, **kwargs)
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        self.sub_agents = sub_list
+
+    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute all sub-agents over the shared context."""
+        for agent in self.sub_agents:
+            context = agent.run(context)
+        return context
 
 
 class PromptAuditorAgent(BaseAgent):
     """Stage 5: 7-point prompt auditor evaluating scene prompts against Gemini Omni rules."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     def __init__(
         self,
@@ -493,36 +575,56 @@ class PromptAuditorAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "PromptAuditorAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Audits all scene prompts against the 7-Point Gemini Omni Prompt Standard."))
         super().__init__(
             name=agent_name,
-            instruction="Audits all scene prompts against the 7-Point Gemini Omni Prompt Standard.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
 
-    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def run(self, context: Union[Dict[str, Any], MasterProductionBible]) -> Dict[str, Any]:
+        if isinstance(context, MasterProductionBible):
+            context = {"bible": context}
         bible: MasterProductionBible = context["bible"]
         logger.info(f"[{self.name}] Auditing {len(bible.scenes)} scene prompts...")
         audit_results: List[AuditResult] = []
         all_passed = True
 
         for scene in bible.scenes:
-            result = audit_omni_scene_prompt(scene, regime=bible.creative_regime)
+            result = audit_omni_scene_prompt(
+                scene,
+                regime=bible.creative_regime,
+                storytelling_mode=getattr(bible, "storytelling_mode", None),
+            )
+            if not result.passed or result.score < 100.0 or result.warnings:
+                logger.info(f"[{self.name}] Attempting self-healing for scene {scene.scene_index}...")
+                healed_target, result = heal_omni_scene_prompt(
+                    scene,
+                    audit_result=result,
+                    regime=bible.creative_regime,
+                    storytelling_mode=getattr(bible, "storytelling_mode", None),
+                )
             audit_results.append(result)
-            if not result.passed:
+            if not result.passed or result.score < 90.0:
                 all_passed = False
                 logger.warning(f"Scene {scene.scene_index} audit failed: {result.errors}")
 
         context["audit_results"] = audit_results
         context["audit_passed"] = all_passed
+        context["passed"] = all_passed
         return context
 
 
 class OmniVideoRenderAgent(BaseAgent):
     """Stage 6: Renders video via GeminiOmniVideoEngine (or dry-run simulation)."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     def __init__(
         self,
@@ -532,14 +634,17 @@ class OmniVideoRenderAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "OmniVideoRenderAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Executes video rendering via Gemini Omni or dry-run simulation."))
         super().__init__(
             name=agent_name,
-            instruction="Executes video rendering via Gemini Omni or dry-run simulation.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.video_model
         self.engine = GeminiOmniVideoEngine(config=self.config)
 
@@ -561,6 +666,28 @@ class OmniVideoRenderAgent(BaseAgent):
             ]
             return context
 
+        # Quality Gate Check before executing live video render
+        audit_passed = context.get("audit_passed")
+        if audit_passed is None:
+            audit_passed = context.get("passed", True)
+
+        audits = context.get("prompt_audits", context.get("audit_results", []))
+        audit_score_failed = False
+        for a in audits:
+            score = getattr(a, "total_score", getattr(a, "score", None))
+            if score is None and isinstance(a, dict):
+                score = a.get("total_score", a.get("score"))
+            if score is not None and score < 90.0:
+                audit_score_failed = True
+                break
+
+        if audit_passed is False or audit_score_failed:
+            logger.warning(f"[{self.name}] Blocking video render due to failed audit gate (audit_passed={audit_passed}, audit_score_failed={audit_score_failed}).")
+            context["video_render_status"] = "blocked_by_failed_audit"
+            context["video_manifests"] = []
+            context["rendered_videos"] = []
+            return context
+
         visual_plates = context.get("visual_plates", {})
         logger.info(f"[{self.name}] Executing video pipeline for '{bible.project_title}'...")
         rendered_videos = self.engine.render_production_scenes(bible, reference_plate_paths=visual_plates)
@@ -571,6 +698,8 @@ class OmniVideoRenderAgent(BaseAgent):
 class StoryboardCompilerAgent(BaseAgent):
     """Stage 7: Fan-in node generating Dark-Room HTML treatment & production_bundle.json."""
 
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
     def __init__(
         self,
         config: Optional[DirectorConfig] = None,
@@ -579,14 +708,17 @@ class StoryboardCompilerAgent(BaseAgent):
         model_name: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        self.config = config or cfg
+        cfg_val = config or cfg
         agent_name = name or "StoryboardCompilerAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", "Compiles final dark-room storyboard HTML and production_bundle.json."))
         super().__init__(
             name=agent_name,
-            instruction="Compiles final dark-room storyboard HTML and production_bundle.json.",
+            description=desc,
             **kwargs,
         )
+        self.config = cfg_val
         self.name = agent_name
+        self.instruction = desc
         self.model_name = model_name or self.config.fast_model
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -599,8 +731,8 @@ class StoryboardCompilerAgent(BaseAgent):
 
         bundle = ProductionBundle(
             bible=bible,
-            storyboard_html_path=str(html_path.resolve()),
-            bundle_json_path=str(json_path.resolve()),
+            storyboard_html_path=str(html_path),
+            bundle_json_path=str(json_path),
             visual_plates=context.get("visual_plates", {}),
             rendered_videos=context.get("rendered_videos", []),
             audit_reports=context.get("audit_results", []),
@@ -612,38 +744,9 @@ class StoryboardCompilerAgent(BaseAgent):
         html_file = compile_storyboard_html(bundle, output_dir=output_dir)
 
         context["bundle"] = bundle
-        context["storyboard_html_path"] = str(html_file.resolve())
-        context["bundle_json_path"] = str(json_path.resolve())
+        context["storyboard_html_path"] = str(html_file)
+        context["bundle_json_path"] = str(json_path)
         return context
-
-
-# ADK 2.0 Architectural Aliases
-OptionalOmniVideoRenderAgent = OmniVideoRenderAgent
-StoryboardHTMLCompilerAgent = StoryboardCompilerAgent
-VisualBibleGeneratorAgent = VisualStoryboardAgent
-StoryboardParallelAgent = VisualStoryboardAgent
-
-__all__ = [
-    "BaseAgent",
-    "LlmAgent",
-    "SequentialAgent",
-    "ParallelAgent",
-    "IntakeAndResearchAgent",
-    "CreativeDirectorAgent",
-    "VisualStoryboardAgent",
-    "VisualBibleGeneratorAgent",
-    "ScenePromptAgent",
-    "ParallelScenePromptAgent",
-    "StoryboardParallelAgent",
-    "BGMComposerAgent",
-    "PromptAuditorAgent",
-    "OmniVideoRenderAgent",
-    "OptionalOmniVideoRenderAgent",
-    "StoryboardCompilerAgent",
-    "StoryboardHTMLCompilerAgent",
-    "DirectorPipeline",
-    "synthesize_custom_bible",
-]
 
 
 class DirectorPipeline:
@@ -658,9 +761,27 @@ class DirectorPipeline:
         self.director_agent = CreativeDirectorAgent(self.config)
         self.visual_agent = VisualStoryboardAgent(self.config)
         self.bgm_agent = BGMComposerAgent(self.config)
-        self.prompt_auditor = PromptAuditorAgent()
+        self.prompt_auditor = PromptAuditorAgent(self.config)
         self.video_agent = OmniVideoRenderAgent(self.config)
         self.compiler_agent = StoryboardCompilerAgent(self.config)
+        self.council_orchestrator = ProductCouncilOrchestrator(self.config)
+        self.telemetry: Optional[RuntimeTelemetry] = None
+
+    def run_from_bible(
+        self,
+        bible: Union[MasterProductionBible, Path, str, Dict[str, Any]],
+        output_dir: Optional[str] = None,
+        run_council: bool = False,
+        **kwargs: Any,
+    ) -> ProductionBundle:
+        """Executes the pipeline directly from an existing MasterProductionBible."""
+        resolved_bible = load_bible_from_json(bible)
+        return self.run(
+            bible=resolved_bible,
+            output_dir=output_dir,
+            run_council=run_council,
+            **kwargs,
+        )
 
     def run(
         self,
@@ -672,9 +793,12 @@ class DirectorPipeline:
         render_video: bool = False,
         dry_run: bool = True,
         continuous_mode: bool = False,
+        run_council: bool = False,
     ) -> ProductionBundle:
-        """Executes the end-to-end multi-agent pipeline."""
+        """Executes the end-to-end multi-agent pipeline with telemetry and optional council audit."""
         target_output_dir = output_dir or self.config.output_dir
+        out_path = Path(target_output_dir)
+        out_path.mkdir(parents=True, exist_ok=True)
         effective_prompt = prompt or raw_prompt
 
         # Propagate dry_run across pipeline and engines
@@ -683,6 +807,32 @@ class DirectorPipeline:
         self.video_agent.engine.config.dry_run = dry_run
         self.visual_agent.config.dry_run = dry_run
         self.visual_agent.engine.config.dry_run = dry_run
+
+        # Reset RuntimeTelemetry per run to ensure clean, isolated stage timings and distinct session_id
+        existing = getattr(self, "telemetry", None)
+        has_run_before = getattr(self, "_has_run", False) or (existing and any(t.stage_name in ("compilation", "product_council") for t in existing.stage_timings))
+
+        if existing is not None and not has_run_before:
+            telemetry = existing
+            if not telemetry.model_matrix:
+                telemetry.model_matrix = {
+                    "director_model": self.config.director_model,
+                    "fast_model": self.config.fast_model,
+                    "image_model": self.config.image_model,
+                    "video_model": self.config.video_model,
+                }
+        else:
+            telemetry = RuntimeTelemetry(
+                project_title="",
+                model_matrix={
+                    "director_model": self.config.director_model,
+                    "fast_model": self.config.fast_model,
+                    "image_model": self.config.image_model,
+                    "video_model": self.config.video_model,
+                },
+            )
+        self.telemetry = telemetry
+        self._has_run = True
 
         context: Dict[str, Any] = {
             "preset_name": preset_name,
@@ -695,30 +845,97 @@ class DirectorPipeline:
         }
 
         # Stage 1: Intake & Research
-        context = self.intake_agent.run(context)
+        with telemetry.record_stage("intake_and_research"):
+            context = self.intake_agent.run(context)
 
         # Stage 2: Creative Director (Bible synthesis/load)
-        context = self.director_agent.run(context)
+        with telemetry.record_stage("creative_director"):
+            context = self.director_agent.run(context)
+
+        active_bible: MasterProductionBible = context["bible"]
+        telemetry.project_title = active_bible.project_title
 
         # Stage 3: Visual Concept / Nano Banana Anchor Plates
-        context = self.visual_agent.run(context)
+        with telemetry.record_stage("visual_storyboard"):
+            context = self.visual_agent.run(context)
 
         # Stage 4: Scene Prompt Expansion & BGM (Parallel Fan-Out)
-        active_bible: MasterProductionBible = context["bible"]
-        scene_agents = [ScenePromptAgent(s.scene_index, self.config) for s in active_bible.scenes]
-        fan_out = ParallelScenePromptAgent(
-            sub_agents=[*scene_agents, self.bgm_agent],
-            config=self.config,
-        )
-        context = fan_out.run(context)
+        with telemetry.record_stage("scene_prompts_and_bgm"):
+            self.bgm_agent = BGMComposerAgent(self.config)
+            scene_agents = [ScenePromptAgent(s.scene_index, self.config) for s in active_bible.scenes]
+            fan_out = ParallelScenePromptAgent(
+                sub_agents=[*scene_agents, self.bgm_agent],
+                config=self.config,
+            )
+            context = fan_out.run(context)
 
         # Stage 5: Prompt Auditor (7-point rule check)
-        context = self.prompt_auditor.run(context)
+        with telemetry.record_stage("prompt_auditor"):
+            context = self.prompt_auditor.run(context)
 
         # Stage 6: Video Rendering (Simulation / API)
-        context = self.video_agent.run(context)
+        with telemetry.record_stage("video_rendering"):
+            context = self.video_agent.run(context)
 
         # Stage 7: Compilation & Output Generation
-        context = self.compiler_agent.run(context)
+        with telemetry.record_stage("compilation"):
+            context = self.compiler_agent.run(context)
 
-        return context["bundle"]
+        bundle: ProductionBundle = context["bundle"]
+
+        # Write initial manifest prior to Stage 8 so ProductCouncilOrchestrator evaluates fresh checksums
+        telemetry.write_manifest(out_path)
+
+        # Stage 8: Autonomous Product Council
+        if run_council:
+            with telemetry.record_stage("product_council"):
+                report = self.council_orchestrator.audit(bundle, output_dir=out_path)
+                bundle.council_report = report
+
+        # Persist bundle.telemetry and bundle.council_report into production_bundle.json before manifest checksumming
+        bundle.telemetry = telemetry.to_dict()
+        bundle_json_file = out_path / "production_bundle.json"
+        bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+
+        # Write runtime telemetry and artifact checksums manifest
+        telemetry.write_manifest(out_path)
+        bundle.telemetry = telemetry.to_dict()
+
+        return bundle
+
+
+# ADK 2.0 Architectural Aliases
+CreativeStrategistAgent = CreativeDirectorAgent
+VisualContinuityAgent = VisualStoryboardAgent
+PromptArchitectAgent = PromptAuditorAgent
+OptionalOmniVideoRenderAgent = OmniVideoRenderAgent
+StoryboardHTMLCompilerAgent = StoryboardCompilerAgent
+VisualBibleGeneratorAgent = VisualStoryboardAgent
+StoryboardParallelAgent = VisualStoryboardAgent
+OmniDirectorPipeline = DirectorPipeline
+
+__all__ = [
+    "BaseAgent",
+    "LlmAgent",
+    "SequentialAgent",
+    "ParallelAgent",
+    "IntakeAndResearchAgent",
+    "CreativeStrategistAgent",
+    "CreativeDirectorAgent",
+    "VisualContinuityAgent",
+    "VisualStoryboardAgent",
+    "VisualBibleGeneratorAgent",
+    "ScenePromptAgent",
+    "ParallelScenePromptAgent",
+    "StoryboardParallelAgent",
+    "BGMComposerAgent",
+    "PromptArchitectAgent",
+    "PromptAuditorAgent",
+    "OmniVideoRenderAgent",
+    "OptionalOmniVideoRenderAgent",
+    "StoryboardCompilerAgent",
+    "StoryboardHTMLCompilerAgent",
+    "DirectorPipeline",
+    "OmniDirectorPipeline",
+    "synthesize_custom_bible",
+]

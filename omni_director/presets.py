@@ -1,6 +1,6 @@
-"""Built-in Golden Presets for omni-movie-director."""
+import re
+from typing import Any, Dict, List, Optional
 
-from typing import Dict
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -160,7 +160,8 @@ IKEA_ASMR_BIBLE = MasterProductionBible(
                 "Turn 3: Softly rack focus to the mustard throw blanket texture in the final 2 seconds."
             ]
         )
-    ]
+    ],
+    domain_archetype="architectural_sanctuary",
 )
 
 # 2. SEPHORA London Pulse (Mode A Parallel Cut)
@@ -320,7 +321,8 @@ SEPHORA_PULSE_BIBLE = MasterProductionBible(
                 "Turn 3: Shift the background bokeh color balance to rich ambers and golds."
             ]
         )
-    ]
+    ],
+    domain_archetype="luxury_fashion",
 )
 
 # 3. SEPHORA Continuous Extension 40s (Mode B)
@@ -395,7 +397,8 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
             omni_prose_prompt="The camera executes a smooth 50-centimeter punch-in toward the SEPHORA bag from <image_3>, locking the embossed brand logo dead-center in the vertical frame at 1.0x real-time playback speed. Maya holds the bag firmly at chest height as she reaches the outdoor threshold once more, glancing over her shoulder directly into the lens. At second 38, all motion snaps into an immaculate high-fashion freeze-frame on the crisp bag with unyielding geometric precision, with Maya's scarlet trench and the glowing store interior blurring into lush bokeh behind. Synchronized audio hits a climactic percussion impact and cuts instantly to dead silence, leaving only a single crisp SNAP and a faint decaying sub-bass hum. One continuous shot, no jump cuts.",
             conversational_edit_deltas=["Turn 2: Shift background bokeh to warm ambers."]
         )
-    ]
+    ],
+    domain_archetype="luxury_fashion",
 )
 
 # 4. Kinetic Fabric Golden Preset
@@ -528,15 +531,46 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
             omni_prose_prompt="The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
             conversational_edit_deltas=["Turn 2: Rack focus to the central carbon fiber thread in the final second."]
         )
-    ]
+    ],
+    domain_archetype="kinetic_action",
 )
+
+SEPHORA_LONDON_PULSE_BIBLE = SEPHORA_PULSE_BIBLE
+
+
+def build_ikea_asmr_bible() -> MasterProductionBible:
+    """Builds a fresh instance of the IKEA ASMR golden preset bible."""
+    return IKEA_ASMR_BIBLE.model_copy(deep=True)
+
+
+def build_sephora_pulse_bible() -> MasterProductionBible:
+    """Builds a fresh instance of the SEPHORA London Pulse preset bible."""
+    return SEPHORA_PULSE_BIBLE.model_copy(deep=True)
+
+
+def build_sephora_extension_40s_bible() -> MasterProductionBible:
+    """Builds a fresh instance of the SEPHORA 40s Continuous Extension preset bible."""
+    return SEPHORA_EXTENSION_40S_BIBLE.model_copy(deep=True)
+
+
+def build_kinetic_fabric_bible() -> MasterProductionBible:
+    """Builds a fresh instance of the Kinetic Fabric preset bible."""
+    return KINETIC_FABRIC_BIBLE.model_copy(deep=True)
+
+
+def build_sephora_london_pulse_bible() -> MasterProductionBible:
+    """Builds a fresh instance of the SEPHORA London Pulse preset bible."""
+    return SEPHORA_LONDON_PULSE_BIBLE.model_copy(deep=True)
+
 
 PRESETS: Dict[str, MasterProductionBible] = {
     "ikea-asmr": IKEA_ASMR_BIBLE,
     "sephora-pulse": SEPHORA_PULSE_BIBLE,
+    "sephora-london-pulse": SEPHORA_LONDON_PULSE_BIBLE,
     "sephora-extension-40s": SEPHORA_EXTENSION_40S_BIBLE,
     "kinetic-fabric": KINETIC_FABRIC_BIBLE,
 }
+CURATED_PRESETS = PRESETS
 
 
 def get_preset_bible(name: str) -> MasterProductionBible:
@@ -546,3 +580,165 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         available = ", ".join(PRESETS.keys())
         raise ValueError(f"Unknown preset: '{name}'. Available presets: {available}")
     return PRESETS[clean_name]
+
+
+get_preset = get_preset_bible
+
+DOMAIN_PRIORITY: List[str] = [
+    "automotive_robotics",
+    "culinary_asmr",
+    "luxury_fashion",
+    "kinetic_action",
+    "tech_hardware",
+    "architectural_sanctuary",
+]
+
+DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "keywords": [
+            "vehicle", "vehicles", "drone", "drones", "robot", "robotics", "hypercar", "hypercars", "car", "cars",
+            "motorsport", "motorsports", "motorcycle", "motorcycles", "pursuit", "engine", "chassis", "autonomous",
+            "telemetry", "hydraulic", "suspension", "carbon fiber", "speedway", "racing"
+        ],
+        "default_camera": "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
+        "default_focal_length": 28,
+        "default_lighting": "Cool 6500K high-contrast industrial LED with sharp metallic rim highlights",
+        "default_foley": [
+            "High-torque electric motor whine",
+            "Tire friction on slick asphalt",
+            "Pneumatic valve hiss",
+            "Mechanical robotic servo snaps"
+        ],
+        "color_palette": ["#0B0E14", "#00F0FF", "#FF3B30", "#8E8E93"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+    },
+    "culinary_asmr": {
+        "keywords": [
+            "food", "coffee", "matcha", "cooking", "beverage", "kitchen", "culinary", "chef", "sizzle",
+            "caramelization", "knife", "ingredient", "recipe", "baking", "espresso", "dining", "texture",
+            "crunch", "taste", "flavor", "dough", "tea"
+        ],
+        "default_camera": "100mm Macro Probe Lens with micro-fluidic pan and tilt",
+        "default_focal_length": 100,
+        "default_lighting": "Warm 3200K tungsten backlight emphasizing surface steam and glistening oils",
+        "default_foley": [
+            "Crisp blade cutting through textured crust",
+            "Gentle butter sizzle in cast iron",
+            "Tactile ceramic clink",
+            "Subtle simmering bubble pops"
+        ],
+        "color_palette": ["#1C1917", "#D97706", "#F59E0B", "#FEF3C7"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+    },
+    "luxury_fashion": {
+        "keywords": [
+            "fashion", "runway", "cosmetics", "perfume", "couture", "jewelry", "model", "models", "haute",
+            "makeup", "velvet", "silk", "wardrobe", "strut", "editorial", "beauty", "lipstick", "fragrance",
+            "vogue", "glamour", "apparel", "luxury", "monogram", "flagship"
+        ],
+        "default_camera": "50mm Prime on Steadicam Ultra with gentle vertical float",
+        "default_focal_length": 50,
+        "default_lighting": "5600K diffused commercial beauty illumination with reflective mirror bounce",
+        "default_foley": [
+            "Rhythmic stiletto heel clicks on polished marble",
+            "Crisp textile rustle of silk taffeta",
+            "Metallic snap of luxury compact",
+            "Subtle perfume atomizer mist spray"
+        ],
+        "color_palette": ["#09090B", "#F43F5E", "#E2E8F0", "#D4AF37"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+    },
+    "kinetic_action": {
+        "keywords": [
+            "sport", "sports", "running", "martial arts", "parkour", "athletics", "dance", "athlete",
+            "jump", "boxing", "climbing", "kick", "sprint", "workout", "fitness", "dynamic movement",
+            "stunt", "acrobatic", "action"
+        ],
+        "default_camera": "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
+        "default_focal_length": 24,
+        "default_lighting": "Dynamic high-noon direct daylight with deep hard directional shadows",
+        "default_foley": [
+            "Athletic shoe sole squeak and ground impact",
+            "Heavy synchronized breath cadence",
+            "Wind rush over aerodynamic limbs",
+            "Resonant physical force transfer thud"
+        ],
+        "color_palette": ["#18181B", "#22C55E", "#3B82F6", "#FAFAFA"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+    },
+    "tech_hardware": {
+        "keywords": [
+            "semiconductor", "semiconductors", "smartphone", "smartphones", "laptop", "laptops", "cnc aluminum",
+            "aluminum", "optics", "wearables", "wearable", "hardware", "chip", "silicon", "circuit", "processor",
+            "device", "gadget", "anodized", "microchip", "chassis", "motherboard", "cleanroom"
+        ],
+        "default_camera": "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
+        "default_focal_length": 85,
+        "default_lighting": "Cleanroom 5000K pure white illumination with razor-thin linear specular highlights",
+        "default_foley": [
+            "Precision magnetic latch click",
+            "Anodized aluminum bevel contact",
+            "Subtle ultrasonic cleanroom hum",
+            "Haptic motor vibration pulse"
+        ],
+        "color_palette": ["#030712", "#38BDF8", "#94A3B8", "#F8FAFC"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+    },
+    "architectural_sanctuary": {
+        "keywords": [
+            "architecture", "interior", "furniture", "brutalist", "home", "pavilion", "sanctuary",
+            "building", "concrete", "travertine", "limestone", "space", "facade", "gallery", "atrium",
+            "minimalist living", "structure", "courtyard", "zen", "residence", "sculpture"
+        ],
+        "default_camera": "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
+        "default_focal_length": 24,
+        "default_lighting": "Low-angle golden hour sunlight casting geometric window shadows through dust motes",
+        "default_foley": [
+            "Acoustic reverberation in tall stone hall",
+            "Subtle distant wind through bamboo atrium",
+            "Soft leather creak on timber seat",
+            "Gentle water fountain trickle"
+        ],
+        "color_palette": ["#1C1917", "#78716C", "#D6D3D1", "#E7E5E4"],
+        "regime": RegimeType.REGIME_1_ATMOSPHERIC,
+    },
+}
+
+
+def classify_brief_domain(brief_text: str) -> str:
+    """Classifies a user creative brief into one of 6 commercial domain archetypes.
+
+    Rules:
+    - Counts whole-word / substring keyword matches across all 6 archetypes.
+    - Selects the archetype with the highest match count.
+    - Breaks ties deterministically in priority order:
+      1. automotive_robotics
+      2. culinary_asmr
+      3. luxury_fashion
+      4. kinetic_action
+      5. tech_hardware
+      6. architectural_sanctuary
+    - Falls back to 'architectural_sanctuary' if match count is zero.
+    """
+    clean_text = brief_text.lower()
+    scores: Dict[str, int] = {}
+
+    for domain in DOMAIN_PRIORITY:
+        data = DOMAIN_ARCHETYPES[domain]
+        count = 0
+        for kw in data["keywords"]:
+            pattern = r"\b" + re.escape(kw) + r"\b"
+            matches = re.findall(pattern, clean_text)
+            count += len(matches)
+        scores[domain] = count
+
+    max_score = max(scores.values()) if scores else 0
+    if max_score == 0:
+        return "architectural_sanctuary"
+
+    for domain in DOMAIN_PRIORITY:
+        if scores.get(domain, 0) == max_score:
+            return domain
+
+    return "architectural_sanctuary"
+

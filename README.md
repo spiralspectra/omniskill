@@ -1,4 +1,4 @@
-# Omni Movie Director 2.0 (`omni-movie-director`)
+# Omni Movie Director 2.1 (`omni-movie-director`)
 
 > **Autonomous ADK 2.0 Multi-Agent Cinematic Production Suite for Gemini Omni 1.1**  
 > *Target Repository*: [https://github.com/spiralspectra/omniskill](https://github.com/spiralspectra/omniskill)  
@@ -6,20 +6,17 @@
 
 ---
 
-## 1. Executive Overview & The Opal Evolution
+## 1. Executive Overview & v2.1 Evolution
 
-**Omni Movie Director 2.0** represents the second-generation evolution of autonomous cinematic prompt synthesis, expanding beyond experimental monolithic prompt generation into an industrial-grade **ADK 2.0 multi-agent architecture**.
+**Omni Movie Director 2.1** represents the industrial-grade evolution of autonomous cinematic prompt synthesis, expanding beyond experimental prompt generators into a self-governing **ADK 2.0 multi-agent architecture** equipped with an **Autonomous Product Council**, **FDE Preflight Doctor**, **Self-Healing Prompt Loop**, and an **Interactive 24fps Animatic Director's Monitor**.
 
-In early cinematic video generation (e.g., Project Opal), monolithic "God-prompts" suffered from severe context rot:
-1. **Context Rot & Token Drift**: Overloading one prompt with character turnarounds, camera geometry, narrative beats, and audio foley caused the model to drop fine-grained constraints.
-2. **Cross-Scene Identity Bleed**: Subsequent cuts subtly shifted character wardrobe, face structure, or room dimensions.
-3. **Temporal Floatiness**: Lack of explicit real-time physical constraints caused AI video models to default to dreamy, disconnected slow-motion.
-4. **Silent Video Hallucinations**: Prompt headers (`### Camera`, `### Audio`) were frequently misinterpreted by video generation models as literal on-screen text overlays.
-
-### The ADK 2.0 Multi-Agent Solution
-Omni Movie Director 2.0 eliminates prompt corruption through:
-- **A Single Source of Truth (`MasterProductionBible`)**: Sealed once by the Lead Creative Director and enforced across every downstream agent.
-- **Micro-Specialized Agent Topology**: Specialized agents handle Intake, Creative Direction, 3-Tier Visual Continuity Plates, Scene Prompt Fan-Out, Musical Composition, 7-Point Prompt Auditing, and Dark-Room UI Compilation.
+### Key Architectural Pillars in v2.1
+- **Single Source of Truth (`MasterProductionBible`)**: Sealed once by the Lead Creative Director and enforced across every downstream agent.
+- **Autonomous Product Council (`ProductCouncilOrchestrator`)**: A four-persona automated governance board (`council-fde`, `council-agent-engineer`, `council-strategist`, `council-ux-designer`) scoring production bundles against a 100-point rubric.
+- **FDE Preflight Doctor (`run_doctor`)**: Deep diagnostic validation verifying Python `>=3.11`, package dependencies, 2026 Model Matrix compliance, and output directory permissions prior to pipeline execution.
+- **Self-Healing Prompt Loop (`heal_omni_scene_prompt`)**: Automatically repairs prompts violating 7-Point Omni standards (stripping markdown/HTML headings, restoring 1.0x real-time locks, injecting tactile foley, and enforcing Mode B continuity) across up to 3 iterative passes.
+- **6 Commercial Domain Archetypes (`classify_brief_domain`)**: Intelligent classification routing briefs to domain-specific treatments (`automotive_robotics`, `culinary_asmr`, `luxury_fashion`, `kinetic_action`, `tech_hardware`, `architectural_sanctuary`) with deterministic tie-breaking.
+- **Dark-Room Cinema HTML5 Animatic Monitor**: Interactive 24fps animatic player featuring SMPTE timecode (`HH:MM:SS:FF`), timeline scrubber, dynamic beat rows with color-coded audio badges, expandable 6-category audit drawers, JSON Production Bible export, non-blocking toast notifications, and WCAG 2.2 AA accessibility.
 - **Dual-Mode Storytelling**: Seamlessly switches between **Mode A** (parallel multi-scene montage cuts binding up to 3 reference images) and **Mode B** (continuous +10s scene extension chains maintaining camera continuity up to 40s).
 - **Zero-Credit Offline Dry-Run**: Built-in SVG vector rendering engine emulating Nano Banana pre-visualizations and Gemini Omni video simulation for instant local validation without consuming API credits.
 
@@ -27,7 +24,7 @@ Omni Movie Director 2.0 eliminates prompt corruption through:
 
 ## 2. Mandatory 2026 Model Matrix
 
-Per DeepMind 2026 architectural directives, **all legacy 3.1 models (`gemini-3.1-*`, `veo-3.1-*`) are strictly deprecated and rejected at runtime** by `omni_director.config.validate_no_legacy_3_1_models()`.
+Per DeepMind 2026 architectural directives, legacy models are strictly deprecated and rejected at runtime by `omni_director.config.validate_no_legacy_3_1_models()`.
 
 | Pipeline Stage | Model Identifier | Environment Variable | Role & Responsibility |
 |---|---|---|---|
@@ -38,23 +35,24 @@ Per DeepMind 2026 architectural directives, **all legacy 3.1 models (`gemini-3.1
 
 ---
 
-## 3. ADK 2.0 Architecture & Pipeline Flow
+## 3. ADK 2.0 Multi-Agent Pipeline & Council Architecture
 
 ```mermaid
 flowchart TD
-    User["User Creative Brief / Preset"] --> Intake["Stage 1: Intake & Research Agent<br><i>gemini-3.8-flash</i>"]
+    User["User Brief / Golden Preset / Bible JSON"] --> Doctor["Preflight Doctor<br><i>run_doctor()</i>"]
+    Doctor --> Intake["Stage 1: Intake & Research Agent<br><i>classify_brief_domain()</i>"]
     Intake --> Director["Stage 2: Creative Director Agent<br><i>gemini-4-argon (SSOT)</i>"]
     
     subgraph SSoT ["Single Source of Truth"]
-        Director --> Bible[("MasterProductionBible<br>• Regime 1/2 Lock<br>• 3-Tier Visual Anchors<br>• 4 Scene Slices<br>• BGM Directive")]
+        Director --> Bible[("MasterProductionBible<br>• Regime 1/2 Lock<br>• 3-Tier Visual Anchors<br>• Scene Slices<br>• BGM Directive")]
     end
 
     Bible --> Visuals["Stage 3: Visual Storyboard Agent<br><i>gemini-3-pro-image (Nano Banana)</i>"]
-    Visuals --> Plates[("Visual Continuity Plates<br>• Anchor 1: Turnaround<br>• Anchor 2: Env Plate<br>• Anchor 3: Keyframes")]
+    Visuals --> Plates[("Visual Continuity Plates<br>• Turnaround Anchor<br>• Environment Anchor<br>• Scene Keyframes")]
 
     Plates --> FanOut{"Stage 4: Parallel Fan-Out"}
     
-    subgraph ParallelFanOut ["Scene Prompt & Audio Fan-Out (gemini-3.8-flash)"]
+    subgraph ParallelFanOut ["Parallel Fan-Out (gemini-3.8-flash)"]
         FanOut --> S1["ScenePromptAgent 1<br>(CRAFT + 1.0x Lock)"]
         FanOut --> S2["ScenePromptAgent 2<br>(5-Stage Contact Chain)"]
         FanOut --> S3["ScenePromptAgent 3<br>(Diegetic Foley)"]
@@ -62,198 +60,189 @@ flowchart TD
         FanOut --> BGM["BGMComposerAgent<br>(Lyria Prompt & Stems)"]
     end
 
-    S1 & S2 & S3 & S4 --> Auditor["Stage 5: 7-Point Prompt Auditor<br><i>Zero Markdown Headers & Rule Enforcement</i>"]
+    S1 & S2 & S3 & S4 --> Auditor["Stage 5: 7-Point Prompt Auditor & Healer<br><i>heal_omni_scene_prompt(max_attempts=3)</i>"]
     Auditor --> VideoGate{"Live Render Enabled?"}
     
-    VideoGate -- Yes --> OmniEngine["Stage 6: Gemini Omni Video Engine<br><i>gemini-omni-1.1-flash-preview</i><br>• Mode A: reference_to_video<br>• Mode B: +10s interaction chain"]
+    VideoGate -- Yes --> OmniEngine["Stage 6: Gemini Omni Video Engine<br><i>gemini-omni-1.1-flash-preview</i>"]
     VideoGate -- No / Dry-Run --> SimEngine["Stage 6: Zero-Credit Simulation<br><i>SVG Visuals & Mock Containers</i>"]
 
-    OmniEngine & SimEngine & BGM --> Compiler["Stage 7: Storyboard Compiler Agent<br><i>Dark-Room Cinema HTML & JSON Bundle</i>"]
-    
-    Compiler --> HTML["storyboard_preview.html<br>(Interactive Dark-Room UI)"]
-    Compiler --> JSON["production_bundle.json<br>(Complete Machine-Readable Export)"]
+    OmniEngine & SimEngine & BGM --> Compiler["Stage 7: Storyboard HTML Compiler Agent<br><i>Dark-Room Cinema HTML5 & JSON Bundle</i>"]
+    Compiler --> Bundle[("ProductionBundle<br>• storyboard_preview.html<br>• production_bundle.json<br>• telemetry.json")]
+
+    Bundle --> Council["Stage 8: Autonomous Product Council<br><i>ProductCouncilOrchestrator (100 pts)</i>"]
 ```
 
 ---
 
-## 4. The 7-Point Gemini Omni Prompting Verification Checklist
+## 4. The 7-Point Prompting Standards & Self-Healing Loop
 
-Every generated scene prompt must strictly pass the 7-Point Prompt Auditor before execution:
+Every generated scene prompt must strictly pass the 7-Point Prompt Auditor:
 
-1. **Rule 1: Clean Natural Prose Formatting**: Zero internal markdown headers (`#`, `##`, `###`) inside the generation prompt. Gemini Omni's internal visual text engine misinterprets markdown headers as graphic overlay text instructions.
+1. **Rule 1: Clean Natural Prose Formatting**: Zero internal markdown headings (`#`, `##`, `###`) or HTML headings (`<h1>`–`<h6>`) inside the prompt. Gemini Omni's visual text engine misinterprets headings as literal graphic text overlay instructions.
 2. **Rule 2: Max 3 Serialized Action Beats per 10s Window**: Prevents temporal rushing, morphing limbs, and hallucinated physics.
-3. **Rule 3: Regime 2 Kinetic Constraints**: Enforces explicit `"1.0x"` or `"real-time"` speed lock and the 5-stage Kinetic Contact Chain:
+3. **Rule 3: Regime 2 Kinetic Constraints**: Enforces explicit `"1.0x"` or `"real-time"` speed locks and the 5-stage Kinetic Contact Chain:
    $$\text{Initiation} \longrightarrow \text{Contact Point} \longrightarrow \text{Force Transfer} \longrightarrow \text{Environmental Evidence} \longrightarrow \text{Recovery Stance}$$
-4. **Rule 4: CRAFT Kinetic Camera Grammar**: Explicit specifications for **C**amera model, **R**ig motion, **A**ngle, **F**raming, and **T**rack vector.
+4. **Rule 4: CRAFT Kinetic Camera Grammar**: Explicit specifications for Camera model, Rig motion, Angle, Framing, and Track vector.
 5. **Rule 5: 3-Image Reference Ceiling**: At most 3 Nano Banana references (`<image_1>`, `<image_2>`, `<image_3>`) per call, each bounded by the "One Job" contract.
 6. **Rule 6: Synchronized Diegetic Audio & Foley**: Surface friction, material impacts, room resonance, and dialogue cues embedded natively.
 7. **Rule 7: Mode B Extension Continuity**: Continuous +10s extensions must assert unbroken camera momentum (`"One continuous shot, no jump cuts"`).
 
----
-
-## 5. Built-in Golden Production Bibles
-
-Omni Movie Director 2.0 ships with 4 pre-compiled golden production bibles ready for immediate zero-credit compilation or live execution:
-
-### 1. `ikea-asmr` — *IKEA: The Living Room Unfolds*
-- **Creative Regime**: Regime 2 (High-Kinetic & Precision Commercial)
-- **Storytelling Mode**: Mode A (Parallel Montage Cut, 16:9, 32s)
-- **Concept**: A flat-pack IKEA box violently trembles on blonde Scandinavian ash floors, then self-assembles into a pristine, serene living sanctuary with hyper-tactile ASMR foley (cardboard rips, pine dowel clicks, down cushion settling).
-
-### 2. `sephora-pulse` — *SEPHORA: London Pulse (Midnight Velvet)*
-- **Creative Regime**: Regime 2 (High-Kinetic Fashion Commercial)
-- **Storytelling Mode**: Mode A (Parallel Montage Cut, 9:16 Vertical, 32s)
-- **Concept**: Rain-slicked Soho cobblestones at midnight under glowing neon signage. Features Model Maya in scarlet-red patent trench and Model Kaelen in charcoal blazer, enforcing high-contrast wardrobe polarity with 138 BPM UK Garage beats.
-
-### 3. `sephora-extension-40s` — *SEPHORA: London Pulse (Continuous 40s Oner)*
-- **Creative Regime**: Regime 2 (Continuous Steadicam Oner)
-- **Storytelling Mode**: Mode B (Continuous +10s Extension Chaining, 9:16 Vertical, 40s total runtime)
-- **Concept**: An unbroken 40-second continuous Steadicam shot tracking Maya and Kaelen from the wet streets of Soho, through opening glass doors into 5600K beauty lights, concluding with an immaculate freeze-frame on the embossed SEPHORA bag.
-
-### 4. `kinetic-fabric` — *The Kinetic Fabric: Grounded Innovation*
-- **Creative Regime**: Regime 2 (Scientific Material Innovation)
-- **Storytelling Mode**: Mode A (Parallel Montage Cut, 16:9, 32s)
-- **Concept**: Exploration of an ultra-lightweight carbon-weave textile inside an aerodynamic wind tunnel laboratory, moving from microscopic fiber macro-shots to high-speed smoke deflection and elastic rebound.
+### Automated Self-Healing (`heal_omni_scene_prompt`)
+When prompt defects are flagged, the self-healing loop automatically repairs the prompt:
+- Strips markdown headings and HTML tags while preserving narrative context.
+- Injects explicit `"1.0x real-time speed"` and physical invariants when in Regime 2.
+- Injects synchronized tactile foley and room acoustics if diegetic audio is missing.
+- Appends unbroken continuity markers for Mode B extension shots.
+- Re-verifies the prompt across up to 3 iterative healing attempts.
 
 ---
 
-## 6. Installation & Quickstart
+## 5. 6 Commercial Domain Archetypes (`classify_brief_domain`)
 
-### Prerequisites
-- Python 3.10+ (tested on Python 3.14)
-- `uv` package manager (recommended) or standard `pip`
+Omni Movie Director 2.1 intelligently classifies input creative briefs into 6 domain archetypes:
 
+| Domain Archetype | Dominant Visual Language | Sonic Profile | Typical Regime |
+|---|---|---|---|
+| `automotive_robotics` | High-precision robotic welding, carbon fiber, telemetry | Industrial hydraulic whirs, pneumatic snaps | Regime 2 (Kinetic) |
+| `culinary_asmr` | Micro-textures, sizzles, caramelization, knife cuts | Tactile friction, crisp crunch, sizzle foley | Regime 2 (Precision) |
+| `luxury_fashion` | Haute couture fabrics, architectural lighting, models | Minimalist ambient drone, high-tempo chic BGM | Regime 2 (Kinetic) |
+| `kinetic_action` | High-velocity momentum, rapid tracking, debris | Sub-bass impacts, aerodynamic wind rush | Regime 2 (Kinetic) |
+| `tech_hardware` | CNC anodized aluminum, microchip macro, cleanrooms | Subtle electrical hum, precision haptic clicks | Regime 2 (Precision) |
+| `architectural_sanctuary` | Brutalist concrete, light shafts, serene acoustics | Environmental reverb, warm natural ambience | Regime 1 / 2 |
+
+---
+
+## 6. Built-in Golden Presets & Canonical Showcases
+
+### Golden Presets
+- `ikea-asmr` — *IKEA: The Living Room Unfolds* (Regime 2, Mode A, 16:9, 32s)
+- `sephora-pulse` — *SEPHORA: London Pulse (Midnight Velvet)* (Regime 2, Mode A, 9:16, 32s)
+- `sephora-extension-40s` — *SEPHORA: London Pulse (Continuous 40s Oner)* (Regime 2, Mode B, 9:16, 40s)
+- `kinetic-fabric` — *The Kinetic Fabric: Grounded Innovation* (Regime 2, Mode A, 16:9, 32s)
+
+### Canonical Showcases
+- `examples/cyberpunk_noir_2_0` — High-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways.
+- `examples/solarpunk_utopia_2_0` — Cascading vertical gardens and curved bamboo pavilions in morning mist.
+- `examples/minimalist_luxury_2_0` — Brutalist travertine marble gallery and structured haute couture coats.
+
+---
+
+## 7. Interactive Dark-Room Cinema HTML5 Monitor
+
+The compiled `storyboard_preview.html` delivers a complete director's screening room:
+- **Animatic Transport Bar & SMPTE Scrubber**: Play/Pause (`#btn-play-animatic`), 24fps SMPTE timecode monitor (`#smpte-timecode`), speed toggles (`0.5x`–`2.0x`), and draggable `.scrubber-track` scaled to total runtime.
+- **Dynamic Beat Timeline Visualization**: Visual beat rows matching `len(scene.action_beats)` with color-coded badges (`[Dialogue]`, `[SFX]`, `[Ambience]`, `[Music]`).
+- **Expandable Prompt Audit Drawers**: Clickable audit badges toggle `.audit-drawer` displaying the 6-category compliance breakdown.
+- **One-Click Production Bible Export**: `#btn-export-bible` downloads the embedded `MasterProductionBible` JSON via Blob URL.
+- **Non-Blocking Cinema Toast**: Real-time action feedback via `.cinema-toast` (zero blocking dialog calls).
+- **WCAG 2.2 AA Accessibility & Shortcuts**: `Space` (Play/Pause), `ArrowLeft`/`ArrowRight` (Seek 1s), `1`/`2`/`3` (Jump to Scene), `T` (Cycle Tabs), `E` (Export Bible JSON).
+
+---
+
+## 8. Installation & CLI Usage (`omni` / `omni-director`)
+
+### Prerequisites & Setup
 ```bash
-# Clone the repository
 git clone https://github.com/spiralspectra/omniskill.git
 cd omniskill
-
-# Create virtual environment and install dependencies
-uv venv
-source .venv/bin/activate
+uv venv && source .venv/bin/activate
 uv pip install -e .
-```
-
-### Environment Setup
-Create a `.env` file based on `.env.example`:
-
-```bash
 cp .env.example .env
 ```
 
-Configure your credentials:
-```ini
-GOOGLE_API_KEY="your-gemini-api-key"
-DIRECTOR_MODEL="gemini-4-argon"
-FAST_MODEL="gemini-3.8-flash"
-IMAGE_MODEL="gemini-3-pro-image"
-VIDEO_MODEL="gemini-omni-1.1-flash-preview"
-```
-
-### Running the CLI (`omni-director`)
-
+### CLI Commands
 ```bash
-# List all built-in golden presets
-omni-director --list-presets
+# 1. Run Preflight Doctor diagnostics
+omni doctor
 
-# Compile IKEA ASMR treatment in dry-run mode (instant SVG storyboard + bundle JSON)
-omni-director --preset ikea-asmr -o examples/ikea_asmr_2_0
+# 2. Compile a Golden Preset in dry-run simulation mode
+omni --preset ikea-asmr -o output/ikea_asmr
 
-# Compile Sephora 40s Continuous Oner (Mode B extension chaining)
-omni-director --preset sephora-extension-40s -o examples/sephora_extension_40s_2_0
+# 3. Direct Production Bible JSON Ingestion
+omni --bible-file path/to/custom_bible.json -o output/custom_bible_run
 
-# Run with a custom prompt
-omni-director --prompt "A cyberpunk courier racing through Neo-Kyoto on an electric motorcycle" -o ./output/cyberpunk
+# 4. Synthesize brief with domain classification and council audit
+omni --prompt "Precision robotics assembling carbon-fiber hypercar chassis" -o output/robotics --council
 
-# Run with live video rendering (consumes Gemini Omni credits)
-omni-director --preset ikea-asmr --render-video -o ./output/ikea_live
+# 5. Enforce strict council quality gate (exits 2 on failure)
+omni --preset sephora-pulse -o output/sephora --council-strict
+
+# 6. Run full multi-persona council evaluation across all presets
+omni council
 ```
 
 ---
 
-## 7. Python Programmatic API
+## 9. Autonomous Product Council Protocol & Daily Routine
 
-```python
-from omni_director import DirectorPipeline, get_preset_bible
+The **Product Council** convenes 4 expert personas scoring up to 25 points each:
+1. **FDE (`council-fde`, 25 pts)**: Environment doctor, 2026 Model Matrix, telemetry, Bible ingestion.
+2. **Agent Engineer (`council-agent-engineer`, 25 pts)**: Pydantic schemas, 7-point audit, self-healing loop.
+3. **Agent Strategist (`council-strategist`, 25 pts)**: 6 domain archetypes, commercial narrative, sonic blueprint.
+4. **UX/UI Designer (`council-ux-designer`, 25 pts)**: Animatic player, SMPTE scrubber, dynamic beats, WCAG AA.
 
-# Initialize pipeline
-pipeline = DirectorPipeline()
-
-# Load a golden preset
-bible = get_preset_bible("sephora-pulse")
-
-# Execute pipeline
-bundle = pipeline.run(
-    bible=bible,
-    output_dir="./output/my_campaign",
-    dry_run=True,
-)
-
-print(f"Compiled Dark-Room Cinema UI: {bundle.storyboard_html_path}")
-print(f"Compiled Production Bundle:   {bundle.bundle_json_path}")
-print(f"Auditor status:               {all(r.passed for r in bundle.audit_reports)}")
-```
-
----
-
-## 8. Running the Automated Test Suite
-
-Omni Movie Director 2.0 includes a comprehensive test suite enforcing model tiering, Pydantic contracts, prompt rules, preset integrity, and end-to-end execution:
-
+### Running Daily Council Verification
 ```bash
-# Run pytest with uv
-uv run pytest tests/test_director_suite.py -v
+# Run the autonomous daily council runner
+python3 scripts/run_daily_council.py
+```
+This regenerates all 3 showcase bundles, audits each against the 100-point rubric, outputs `docs/council_reports/latest_council_report.json` and `.md`, and enforces quality gates (`composite_score >= 90.0`, all scene audits `>= 90`).
+
+### Automated Test Suite
+```bash
+python3 -m pytest tests/test_director_suite.py -v
 ```
 
 ---
 
-## 9. Repository Structure
+## 10. Repository Structure
 
 ```
 omniskill/
-├── omni_director/                  # Core Python ADK 2.0 Package
-│   ├── __init__.py                 # Top-level exports
-│   ├── config.py                   # Strict 2026 Model Matrix & Runtime Config
-│   ├── schemas.py                  # Pydantic V2 State Contracts (SSOT)
-│   ├── presets.py                  # Golden Production Bibles (IKEA, Sephora, Fabric)
-│   ├── cli.py                      # omni-director CLI Command
-│   ├── agents/                     # ADK 2.0 Multi-Agent Definitions
-│   │   ├── __init__.py
-│   │   └── agent.py                # Pipeline, Director, Visual, Fan-Out, Compiler Agents
-│   └── tools/                      # Core Production Tools
-│       ├── __init__.py
-│       ├── prompt_auditor.py       # 7-Point Gemini Omni Prompt Auditor
-│       ├── nano_banana.py          # Nano Banana 3-Tier SVG Storyboard Engine
-│       ├── omni_video.py           # Gemini Omni Video & Synchronized Audio Engine
-│       └── html_compiler.py        # Dark-Room Cinema HTML Animatic Compiler
-├── skills/                         # Agent Skill Definitions
-│   ├── gemini-omni-prompting/      # 7-Point Gemini Omni Prompting Specification
-│   │   └── SKILL.md
-│   └── omni-movie-director/        # ADK 2.0 Movie Director Orchestration Skill
-│       ├── SKILL.md
-│       └── references/             # Deep technical reference guides
-│           ├── craft-camera-grammar.md
-│           ├── nano-banana-character-anchors.md
-│           ├── regime-1-vs-regime-2.md
-│           └── seedance-contact-chains.md
-├── examples/                       # Pre-compiled Golden Treatments
-│   ├── ikea_asmr_2_0/
-│   │   ├── storyboard_preview.html
-│   │   └── production_bundle.json
-│   ├── sephora_london_pulse_2_0/
-│   └── sephora_extension_40s_2_0/
-├── scripts/                        # Utility & Publishing Scripts
-│   └── publish_github.sh           # GitHub repository publishing script
-├── tests/                          # Automated Pytest Suite
-│   └── test_director_suite.py
+├── AGENTS.md                       # Constitutional law & 2026 Model Matrix invariants
+├── README.md                       # Complete v2.1 documentation
 ├── pyproject.toml                  # Package configuration & dependencies
-├── .env.example                    # Environment template
-└── README.md                       # Comprehensive documentation
+├── .env.example                    # Environment credentials template
+├── omni_director/                  # Core ADK 2.0 Package
+│   ├── __init__.py                 # Top-level exports
+│   ├── config.py                   # Strict 2026 Model Matrix & config
+│   ├── schemas.py                  # Pydantic v2 Single Source of Truth
+│   ├── presets.py                  # 4 Golden Presets & 6 Domain Archetypes
+│   ├── doctor.py                   # FDE Preflight Diagnostic Doctor
+│   ├── telemetry.py                # Zero-leak execution telemetry
+│   ├── cli.py                      # omni CLI command implementation
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── agent.py                # 9 ADK Multi-Agent implementations
+│   │   └── council.py              # ProductCouncilOrchestrator (4 Personas)
+│   └── tools/
+│       ├── __init__.py
+│       ├── prompt_auditor.py       # 7-Point Auditor & Self-Healing Loop
+│       ├── nano_banana.py          # Nano Banana SVG Pre-Vis Engine
+│       ├── omni_video.py           # Gemini Omni Video Engine
+│       └── html_compiler.py        # Dark-Room Cinema HTML5 Compiler
+├── skills/
+│   ├── gemini-omni-prompting/      # 7-Point Gemini Omni Prompting Specification
+│   ├── omni-movie-director/        # ADK 2.0 Director Orchestration Skill
+│   └── omni-product-council/       # Autonomous 4-Persona Product Council Skill
+├── examples/                       # Showcase Bundles
+│   ├── cyberpunk_noir_2_0/
+│   ├── solarpunk_utopia_2_0/
+│   ├── minimalist_luxury_2_0/
+│   ├── ikea_asmr_2_0/
+│   └── sephora_extension_40s_2_0/
+├── scripts/
+│   ├── run_daily_council.py        # Daily Autonomous Council Routine
+│   └── publish_github.sh           # GitHub publishing automation
+├── docs/
+│   └── council_reports/            # Automated council audit reports
+└── tests/
+    └── test_director_suite.py      # Full Pytest Verification Suite
 ```
 
 ---
 
-## 10. License & Credits
+## 11. License & Credits
 
 Developed for the Google Gemini Omni & ADK 2.0 cinematic ecosystem.  
 Target Repository: [spiralspectra/omniskill](https://github.com/spiralspectra/omniskill)

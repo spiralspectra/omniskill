@@ -480,3 +480,799 @@ class TestAdversaryReviewFindings:
         monkeypatch.setenv("GEMINI_API_KEY", "test-gemini-key")
         settings = get_settings(reload=True)
         assert settings.api_key == "test-gemini-key"
+
+
+# ==============================================================================
+# 8. V2.1 Doctor, Diagnostics & Structured Telemetry Tests (AC-2, AC-4)
+# ==============================================================================
+class TestV21DoctorAndTelemetry:
+    """Verifies FDE preflight doctor and structured runtime telemetry."""
+
+    def test_run_doctor_valid_environment(self):
+        from omni_director.doctor import run_doctor
+        report = run_doctor()
+        assert report.passed is True
+        assert report.exit_code == 0
+        assert len(report.checks) >= 4
+
+    def test_run_doctor_rejects_legacy_3_1_models(self):
+        from omni_director.doctor import run_doctor
+        cfg = DirectorConfig()
+        cfg.fast_model = "gemini-3.1-flash"
+        report = run_doctor(cfg)
+        assert report.passed is False
+        assert report.exit_code == 1
+        assert any(c.name == "model_matrix_compliance" and c.status.value in ("FAIL", "FAILED") for c in report.checks)
+
+    def test_doctor_cli_subcommands(self):
+        from omni_director.cli import main
+        assert main(["doctor"]) == 0
+        assert main(["--doctor"]) == 0
+
+    def test_runtime_telemetry_emission_and_redaction(self, tmp_path):
+        import json
+        from omni_director.telemetry import RuntimeTelemetry
+        pipeline = DirectorPipeline()
+        pipeline.telemetry = RuntimeTelemetry()
+        pipeline.telemetry.metadata["api_key"] = "AIzaSyTestSecretKey123456"
+        pipeline.telemetry.add_timing(
+            "custom_auth",
+            5.0,
+            details={"token": "sk-secret123", "secret_key": "AIzaSyTestSecretKey123456"},
+        )
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        telemetry_file = tmp_path / "telemetry.json"
+        assert telemetry_file.is_file(), "telemetry.json must be written to output directory"
+        data = json.loads(telemetry_file.read_text(encoding="utf-8"))
+        for required_key in ["session_id", "model_matrix", "stage_timings", "total_duration_ms", "audit_summary"]:
+            assert required_key in data, f"telemetry.json missing key: {required_key}"
+        assert data["total_duration_ms"] >= 0
+        telemetry_text = telemetry_file.read_text(encoding="utf-8")
+        assert "AIzaSyTestSecretKey123456" not in telemetry_text
+        assert "sk-secret123" not in telemetry_text
+        assert "[REDACTED]" in telemetry_text
+        assert data["metadata"]["api_key"] == "[REDACTED]"
+
+
+# ==============================================================================
+# 9. V2.1 Bible Ingestion & Round-Trip Tests (AC-3)
+# ==============================================================================
+class TestV21BibleRoundTrip:
+    """Verifies MasterProductionBible and ProductionBundle JSON serialization/ingestion."""
+
+    def test_load_bible_from_raw_bible_json(self, tmp_path):
+        from omni_director.schemas import load_bible_from_json
+        bible_path = tmp_path / "raw_bible.json"
+        bible_path.write_text(IKEA_ASMR_BIBLE.model_dump_json(indent=2), encoding="utf-8")
+        loaded = load_bible_from_json(bible_path)
+        assert isinstance(loaded, MasterProductionBible)
+        assert loaded.project_title == IKEA_ASMR_BIBLE.project_title
+        assert len(loaded.scenes) == len(IKEA_ASMR_BIBLE.scenes)
+
+    def test_load_bible_from_bundle_json(self, tmp_path):
+        from omni_director.schemas import load_bible_from_json
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        loaded = load_bible_from_json(bundle.bundle_json_path)
+        assert isinstance(loaded, MasterProductionBible)
+        assert loaded.project_title == IKEA_ASMR_BIBLE.project_title
+
+    def test_load_bible_from_dict(self):
+        from omni_director.schemas import load_bible_from_json
+        loaded = load_bible_from_json(IKEA_ASMR_BIBLE.model_dump())
+        assert isinstance(loaded, MasterProductionBible)
+        assert loaded.project_title == IKEA_ASMR_BIBLE.project_title
+
+    def test_load_bible_invalid_json_raises_value_error(self, tmp_path):
+        from omni_director.schemas import load_bible_from_json
+        non_existent = tmp_path / "does_not_exist.json"
+        with pytest.raises(ValueError):
+            load_bible_from_json(non_existent)
+
+        malformed = tmp_path / "malformed.json"
+        malformed.write_text('{"project_title": 12345, "invalid": true}', encoding="utf-8")
+        with pytest.raises(ValueError):
+            load_bible_from_json(malformed)
+
+    def test_pipeline_run_from_bible(self, tmp_path):
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run_from_bible(
+            bible=IKEA_ASMR_BIBLE,
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        assert isinstance(bundle, ProductionBundle)
+        assert Path(bundle.storyboard_html_path).is_file()
+        assert Path(bundle.bundle_json_path).is_file()
+
+    def test_cli_bible_file_flag(self, tmp_path):
+        from omni_director.cli import main
+        bible_path = tmp_path / "cli_bible.json"
+        bible_path.write_text(IKEA_ASMR_BIBLE.model_dump_json(), encoding="utf-8")
+        out_dir = tmp_path / "cli_out"
+        exit_code = main(["--bible-file", str(bible_path), "-o", str(out_dir), "--dry-run"])
+        assert exit_code == 0
+        assert (out_dir / "storyboard_preview.html").is_file()
+
+
+# ==============================================================================
+# 10. V2.1 Prompt Self-Healing Tests (AC-5)
+# ==============================================================================
+class TestV21PromptSelfHealing:
+    """Verifies prompt self-healing loop repairing all 7-point audit defects."""
+
+    def test_healing_strips_markdown_and_html_headers(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        defective_scene = ScenePromptSpec(
+            scene_index=1,
+            timestamp_range="00:00 - 00:08",
+            scene_title="Header Defect Scene",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            action_beats=[
+                ActionBeatSpec(beat_index=1, beat_title="Beat 1", action_description="Action 1", timecode="00:00 - 00:08")
+            ],
+            prompt_text="# SCENE 1: THE REVEAL\n### Camera: 35mm\n<h1>Defective HTML Header</h1>\nObservational wide static shot with natural room tone foley.",
+            camera_spec=CraftCameraSpec(
+                rig_type="Tripod", focal_length_mm=35, composition="Wide", route="Static", action_anchor="Anchor", focus_axis="Deep", tone_rig="Clean"
+            ),
+            diegetic_sound=DiegeticSonicSpec(foley_cues=["Natural room tone"], dialogue_lines=[], room_acoustics="Quiet room"),
+        )
+        initial_audit = audit_omni_scene_prompt(defective_scene, regime=RegimeType.REGIME_1_ATMOSPHERIC)
+        assert initial_audit.passed is False
+        assert initial_audit.rule_details["rule_1_no_markdown_headers"]["passed"] is False
+
+        healed_scene, healed_audit = heal_omni_scene_prompt(defective_scene, audit_result=initial_audit, regime=RegimeType.REGIME_1_ATMOSPHERIC)
+        assert "#" not in healed_scene.prompt_text
+        assert "<h1>" not in healed_scene.prompt_text
+        assert healed_audit.rule_details["rule_1_no_markdown_headers"]["passed"] is True
+
+    def test_healing_adds_speed_lock_in_regime_2(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        defective_scene = ScenePromptSpec(
+            scene_index=1,
+            timestamp_range="00:00 - 00:08",
+            scene_title="Speed Lock Defect Scene",
+            regime=RegimeType.REGIME_2_KINETIC,
+            action_beats=[
+                ActionBeatSpec(beat_index=1, beat_title="Beat 1", action_description="Action 1", timecode="00:00 - 00:08")
+            ],
+            prompt_text="Kinetic camera tracking shot of high-velocity vehicle with loud tire friction foley.",
+            camera_spec=CraftCameraSpec(
+                rig_type="Russian Arm", focal_length_mm=28, composition="Low tracking", route="Linear", action_anchor="Chassis", focus_axis="Sharp", tone_rig="Kinetic"
+            ),
+            diegetic_sound=DiegeticSonicSpec(foley_cues=["Loud tire friction"], dialogue_lines=[], room_acoustics="Open road"),
+        )
+        initial_audit = audit_omni_scene_prompt(defective_scene, regime=RegimeType.REGIME_2_KINETIC)
+        assert initial_audit.rule_details["rule_3_speed_lock_regime_2"]["passed"] is False
+
+        healed_scene, healed_audit = heal_omni_scene_prompt(defective_scene, audit_result=initial_audit, regime=RegimeType.REGIME_2_KINETIC)
+        assert "1.0x" in healed_scene.prompt_text
+        assert healed_audit.rule_details["rule_3_speed_lock_regime_2"]["passed"] is True
+
+    def test_healing_adds_diegetic_foley(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        defective_scene = ScenePromptSpec(
+            scene_index=1,
+            timestamp_range="00:00 - 00:08",
+            scene_title="Silent Scene Defect",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            action_beats=[
+                ActionBeatSpec(beat_index=1, beat_title="Beat 1", action_description="Action 1", timecode="00:00 - 00:08")
+            ],
+            prompt_text="Observational wide static shot with zero cues mentioned.",
+            camera_spec=CraftCameraSpec(
+                rig_type="Tripod", focal_length_mm=35, composition="Wide", route="Static", action_anchor="Anchor", focus_axis="Deep", tone_rig="Clean"
+            ),
+            diegetic_sound=DiegeticSonicSpec(foley_cues=[], dialogue_lines=[], room_acoustics="Quiet"),
+        )
+        initial_audit = audit_omni_scene_prompt(defective_scene, regime=RegimeType.REGIME_1_ATMOSPHERIC)
+        assert initial_audit.rule_details["rule_6_diegetic_audio_cues"]["passed"] is False
+
+        healed_scene, healed_audit = heal_omni_scene_prompt(defective_scene, audit_result=initial_audit, regime=RegimeType.REGIME_1_ATMOSPHERIC)
+        assert healed_audit.rule_details["rule_6_diegetic_audio_cues"]["passed"] is True
+        assert len(healed_scene.diegetic_sound.foley_cues) >= 1
+
+    def test_healing_mode_b_continuous_continuity(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        defective_scene = ScenePromptSpec(
+            scene_index=2,
+            timestamp_range="00:08 - 00:16",
+            scene_title="Mode B Discontinuous Scene",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            action_beats=[
+                ActionBeatSpec(beat_index=1, beat_title="Beat 1", action_description="Action 1", timecode="00:08 - 00:16")
+            ],
+            prompt_text="A completely disconnected shot of a mountain with birds singing foley.",
+            camera_spec=CraftCameraSpec(
+                rig_type="Tripod", focal_length_mm=35, composition="Wide", route="Static", action_anchor="Anchor", focus_axis="Deep", tone_rig="Clean"
+            ),
+            diegetic_sound=DiegeticSonicSpec(foley_cues=["Birds singing"], dialogue_lines=[], room_acoustics="Mountain air"),
+        )
+        initial_audit = audit_omni_scene_prompt(
+            defective_scene,
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            storytelling_mode=StorytellingMode.MODE_B_CONTINUOUS_CHAIN,
+        )
+        assert initial_audit.rule_details["rule_7_continuous_continuity"]["passed"] is False
+
+        healed_scene, healed_audit = heal_omni_scene_prompt(
+            defective_scene,
+            audit_result=initial_audit,
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            storytelling_mode=StorytellingMode.MODE_B_CONTINUOUS_CHAIN,
+        )
+        assert healed_audit.rule_details["rule_7_continuous_continuity"]["passed"] is True
+        assert healed_audit.score >= 90
+
+    def test_prompt_auditor_agent_auto_heals_failing_scene_in_pipeline(self):
+        from omni_director.agents.agent import PromptAuditorAgent
+        import copy
+        bible = copy.deepcopy(IKEA_ASMR_BIBLE)
+        bible.storytelling_mode = StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        # Break scene 1 with markdown headers and missing continuity cues
+        bible.scenes[0].prompt_text = "# SCENE 1: BROKEN HEADER\nObservational wide static shot with natural room tone foley. No speed lock."
+
+        agent = PromptAuditorAgent()
+        context = agent.run(bible)
+        assert context["passed"] is True
+        assert context["audit_results"][0].passed is True
+        assert context["audit_results"][0].score >= 90.0
+        assert "#" not in bible.scenes[0].prompt_text
+
+
+# ==============================================================================
+# 11. V2.1 Autonomous Product Council & Strict Gate Tests (AC-1, AC-6, AC-9)
+# ==============================================================================
+class TestV21ProductCouncilAndStrictGate:
+    """Verifies 4-persona Product Council evaluation, 100-pt rubric, and strict gate enforcement."""
+
+    def test_ac1_all_agents_and_council_instantiation(self):
+        from omni_director.agents.agent import (
+            BGMComposerAgent,
+            CreativeDirectorAgent,
+            IntakeAndResearchAgent,
+            OmniVideoRenderAgent,
+            ParallelScenePromptAgent,
+            PromptAuditorAgent,
+            ScenePromptAgent,
+            StoryboardHTMLCompilerAgent,
+            StoryboardParallelAgent,
+            VisualBibleGeneratorAgent,
+            VisualStoryboardAgent,
+        )
+        from omni_director.agents.council import ProductCouncilOrchestrator
+
+        agents = [
+            IntakeAndResearchAgent(),
+            CreativeDirectorAgent(),
+            VisualStoryboardAgent(),
+            VisualBibleGeneratorAgent(),
+            StoryboardParallelAgent(),
+            ScenePromptAgent(),
+            ParallelScenePromptAgent(),
+            BGMComposerAgent(),
+            PromptAuditorAgent(),
+            OmniVideoRenderAgent(),
+            StoryboardHTMLCompilerAgent(),
+            ProductCouncilOrchestrator(),
+        ]
+        assert len(agents) == 12
+
+    def test_council_scores_all_canonical_presets_above_90(self):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        orchestrator = ProductCouncilOrchestrator()
+        preset_names = ["ikea-asmr", "sephora-pulse", "sephora-extension-40s", "kinetic-fabric"]
+
+        for name in preset_names:
+            bible = get_preset_bible(name)
+            report = orchestrator.audit(bible)
+            assert report.passed is True, f"Preset '{name}' failed council audit"
+            assert report.overall_score >= 90.0, f"Preset '{name}' scored {report.overall_score} < 90.0"
+            assert report.critical_findings_count == 0, f"Preset '{name}' has critical findings"
+            assert len(report.persona_results) == 4
+
+    def test_council_strict_negative_falsification_exit_code_2(self, tmp_path):
+        import copy
+        from omni_director.cli import main
+
+        defective_bible = copy.deepcopy(IKEA_ASMR_BIBLE)
+        # Inject forbidden legacy model to trigger CRITICAL finding and cause score failure
+        defective_bible.logline = "Defective run violating 2026 model rules with gemini-3.1-pro."
+        defective_path = tmp_path / "defective_strict_bible.json"
+        defective_path.write_text(defective_bible.model_dump_json(), encoding="utf-8")
+
+        out_dir = tmp_path / "strict_out"
+        exit_code = main(["--bible-file", str(defective_path), "-o", str(out_dir), "--council-strict", "--dry-run"])
+        assert exit_code == 2, f"Expected exit code 2 on strict council violation, got {exit_code}"
+
+    def test_ac9_council_artifacts_and_runner_presence(self):
+        assert Path("AGENTS.md").is_file(), "AGENTS.md constitutional law must exist"
+        assert Path("skills/omni-product-council/SKILL.md").is_file(), "Council skill must exist"
+        assert Path("scripts/run_daily_council.py").is_file(), "scripts/run_daily_council.py must exist"
+
+
+# ==============================================================================
+# 12. V2.1 Domain Archetypes & Custom Brief Synthesis Tests (AC-7)
+# ==============================================================================
+class TestV21DomainArchetypes:
+    """Verifies deterministic 6-archetype domain classification, tie-breaking, and synthesis."""
+
+    def test_domain_classification_all_six_archetypes(self):
+        from omni_director.presets import classify_brief_domain
+        archetype_samples = {
+            "automotive_robotics": "Autonomous electric hypercar drone pursuit through neon streets at night",
+            "culinary_asmr": "Slow pour matcha latte with frothy steamed oat milk in a minimalist kitchen",
+            "luxury_fashion": "High-fashion catwalk runway show with couture velvet gown and diamond jewelry",
+            "kinetic_action": "Extreme parkour athlete jumping across skyscraper rooftops with martial arts agility",
+            "tech_hardware": "CNC machined aluminum smartphone chassis unibody with cleanroom silicon chip",
+            "architectural_sanctuary": "Brutalist concrete museum sanctuary with serene travertine courtyard and pavilion",
+        }
+        for expected_domain, prompt in archetype_samples.items():
+            detected = classify_brief_domain(prompt)
+            assert detected == expected_domain, f"Prompt '{prompt}' detected as '{detected}', expected '{expected_domain}'"
+
+    def test_domain_classification_fallback_and_tie_breaking(self):
+        from omni_director.presets import classify_brief_domain
+        # Zero-keyword fallback to architectural_sanctuary
+        assert classify_brief_domain("A completely abstract entity dissolved in empty timeless void") == "architectural_sanctuary"
+
+        # Deterministic tie-breaking: 1 automotive kw vs 1 architectural kw -> automotive_robotics wins priority
+        assert classify_brief_domain("Drone pavilion") == "automotive_robotics"
+
+    def test_custom_bible_synthesis_per_domain_without_preset_hijacking(self):
+        from omni_director.agents.agent import CreativeDirectorAgent
+        agent = CreativeDirectorAgent()
+        domain_prompts = [
+            ("Hypercar race at dusk", "automotive_robotics"),
+            ("Artisanal bread baking in ceramic oven", "culinary_asmr"),
+            ("Runway perfume launch with silk wardrobe", "luxury_fashion"),
+            ("Boxing athlete heavy bag training workout", "kinetic_action"),
+            ("Semiconductor microchip macro probe inspection", "tech_hardware"),
+            ("Zen garden stone architecture residence", "architectural_sanctuary"),
+        ]
+        for prompt, expected_domain in domain_prompts:
+            bible = agent.synthesize_custom_bible(prompt)
+            assert bible.domain_archetype == expected_domain
+            assert "IKEA" not in bible.project_title
+            assert "Sephora" not in bible.project_title
+            for scene in bible.scenes:
+                audit = audit_omni_scene_prompt(scene, regime=bible.creative_regime)
+                assert audit.passed is True, f"Scene {scene.scene_index} in synthesized {expected_domain} failed audit: {audit.errors}"
+
+
+# ==============================================================================
+# 13. V2.1 Interactive Animatic HTML Screening Room Tests (AC-8)
+# ==============================================================================
+class TestV21InteractiveAnimaticHTML:
+    """Verifies dark-room cinema animatic transport, SMPTE scrubber, and a11y compliance."""
+
+    def test_animatic_html_contains_all_v21_elements(self, tmp_path):
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        html_content = Path(bundle.storyboard_html_path).read_text(encoding="utf-8")
+
+        assert 'id="btn-play-animatic"' in html_content
+        assert 'id="btn-loop-animatic"' in html_content
+        assert 'class="hud-hotkeys"' in html_content
+        assert 'id="smpte-timecode"' in html_content
+        assert 'class="scrubber-track"' in html_content
+        assert 'class="audit-drawer"' in html_content
+        assert 'id="btn-export-bible"' in html_content
+        assert 'aria-live="polite"' in html_content
+        assert "alert(" not in html_content
+
+    def test_animatic_html_beat_timecodes_match_scene_action_beats(self, tmp_path):
+        import re
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        html_content = Path(bundle.storyboard_html_path).read_text(encoding="utf-8")
+        assert "beat-timecode" in html_content
+        total_beats = sum(len(s.action_beats) for s in bundle.bible.scenes)
+        rendered_beats = len(re.findall(r'data-beat-index="(\d+)"', html_content))
+        assert rendered_beats == total_beats
+
+        for scene in bundle.bible.scenes:
+            for beat in scene.action_beats:
+                assert (beat.beat_title if hasattr(beat, "beat_title") else str(beat)) in html_content
+
+        for preview_file in Path(__file__).parent.parent.glob("examples/*_2_0/storyboard_preview.html"):
+            content = preview_file.read_text(encoding="utf-8")
+            assert "alert(" not in content, f"alert( found in {preview_file}"
+
+    def test_council_ux_designer_audits_transport_controls(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+            run_council=True,
+        )
+        orchestrator = ProductCouncilOrchestrator()
+        report = orchestrator.audit(bundle.bible, bundle=bundle)
+        ux_review = report.persona_results["council-ux-designer"]
+        assert ux_review.score == 25.0
+        assert not any(f.category == "animatic_transport" for f in ux_review.findings)
+        assert not any(f.category == "animatic_loop_control" for f in ux_review.findings)
+
+
+# ==============================================================================
+# 14. V2.1 Product Council Proposals Tests (AC-4 proposals)
+# ==============================================================================
+class TestV21CouncilProposals:
+    """Verifies the 4 surgical improvements proposed by the autonomous Product Council."""
+
+    def test_telemetry_artifact_checksums_and_verify_bundle(self, tmp_path):
+        """FDE proposal: RuntimeTelemetry records sha256 checksums and verify_bundle_checksums detects tampering."""
+        from omni_director.telemetry import verify_bundle_checksums
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        # Verify telemetry recorded artifact_checksums in manifest
+        manifest_path = tmp_path / "telemetry.json"
+        assert manifest_path.is_file()
+        assert pipeline.telemetry.artifact_checksums
+        assert "storyboard_preview.html" in pipeline.telemetry.artifact_checksums
+
+        # Verify bundle integrity passes
+        is_valid, errors = verify_bundle_checksums(tmp_path)
+        assert is_valid is True, f"Expected clean bundle verification, got errors: {errors}"
+        assert errors == []
+
+        # Tamper with an artifact
+        html_file = tmp_path / "storyboard_preview.html"
+        html_file.write_text(html_file.read_text(encoding="utf-8") + "<!-- tampered -->", encoding="utf-8")
+
+        # Verify bundle integrity detects mismatch
+        is_valid_tampered, errors_tampered = verify_bundle_checksums(tmp_path)
+        assert is_valid_tampered is False
+        assert any("Checksum mismatch" in err for err in errors_tampered)
+
+    def test_cli_verify_bundle_flag(self, tmp_path):
+        """CLI flag --verify-bundle returns 0 on valid bundle and non-zero on tampered bundle."""
+        from omni_director.cli import main
+        pipeline = DirectorPipeline()
+        pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        assert main(["--verify-bundle", str(tmp_path)]) == 0
+
+        # Tamper
+        (tmp_path / "production_bundle.json").write_text("{}", encoding="utf-8")
+        assert main(["--verify-bundle", str(tmp_path)]) == 1
+
+    def test_video_render_agent_blocked_by_failed_audit(self):
+        """Agent Engineer proposal: OmniVideoRenderAgent blocks video rendering when prompt audit fails."""
+        from omni_director.agents.agent import OmniVideoRenderAgent
+        agent = OmniVideoRenderAgent()
+        context = {
+            "bible": IKEA_ASMR_BIBLE,
+            "render_video": True,
+            "audit_passed": False,
+            "audit_results": [],
+        }
+        out_ctx = agent.run(context)
+        assert out_ctx["video_render_status"] == "blocked_by_failed_audit"
+        assert out_ctx["video_manifests"] == []
+        assert out_ctx["rendered_videos"] == []
+
+    def test_custom_bible_uses_domain_archetype_defaults(self):
+        """Strategist proposal: synthesize_custom_bible incorporates DOMAIN_ARCHETYPES camera, lighting, foley defaults."""
+        from omni_director.agents.agent import synthesize_custom_bible
+        from omni_director.presets import DOMAIN_ARCHETYPES
+
+        archetype = DOMAIN_ARCHETYPES["automotive_robotics"]
+        bible = synthesize_custom_bible("Autonomous electric vehicle robotics pursuit across asphalt with high-torque motor")
+        assert bible.domain_archetype == "automotive_robotics"
+        assert bible.creative_regime == RegimeType.REGIME_2_KINETIC
+        assert bible.camera_rig.rig_type == archetype["default_camera"]
+        assert bible.environment.lighting_setup == archetype["default_lighting"]
+        assert bible.sonic_blueprint.foley_cues == archetype["default_foley"]
+        assert bible.color_palette == archetype["color_palette"]
+
+    def test_html_compiler_beat_row_click_to_seek(self, tmp_path):
+        """UX/UI Designer proposal: Animatic .beat-row has interactive click-to-seek, keyboard handling, and jumpToBeat."""
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+        )
+        html_content = Path(bundle.storyboard_html_path).read_text(encoding="utf-8")
+
+        # Verify interactive attributes on beat-row
+        assert 'role="button"' in html_content
+        assert 'tabindex="0"' in html_content
+        assert 'onclick="jumpToBeat(' in html_content
+        assert 'jumpToBeat(' in html_content
+        assert 'cursor: pointer;' in html_content
+
+    def test_verify_bundle_checksums_path_traversal_and_directory_guard(self, tmp_path):
+        """Verifies verify_bundle_checksums guards against directory paths and path traversal."""
+        import json
+        from omni_director.telemetry import verify_bundle_checksums
+
+        manifest_traversal = {
+            "session_id": "test-session",
+            "artifact_checksums": {
+                "../../etc/hosts": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "/etc/passwd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                ".": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            },
+        }
+        (tmp_path / "telemetry.json").write_text(json.dumps(manifest_traversal), encoding="utf-8")
+        is_valid, errors = verify_bundle_checksums(tmp_path)
+        assert is_valid is False
+        assert any("Path traversal" in err for err in errors)
+        assert any("Missing or non-file artifact" in err or "Path traversal" in err for err in errors)
+
+    def test_pipeline_sequential_runs_have_isolated_telemetry(self, tmp_path):
+        """Verifies that sequential runs on the same DirectorPipeline instance have isolated telemetry."""
+        pipeline = DirectorPipeline()
+        dir1 = tmp_path / "run1"
+        dir2 = tmp_path / "run2"
+
+        bundle1 = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(dir1),
+            dry_run=True,
+            run_council=True,
+        )
+        assert len(pipeline.telemetry.stage_timings) == 8
+        session1 = pipeline.telemetry.session_id
+
+        bundle2 = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(dir2),
+            dry_run=True,
+            run_council=True,
+        )
+        assert len(pipeline.telemetry.stage_timings) == 8
+        session2 = pipeline.telemetry.session_id
+        assert session1 != session2
+
+    def test_production_bundle_persists_telemetry_and_council_report(self, tmp_path):
+        """Verifies that production_bundle.json on disk includes telemetry and council_report with valid checksum."""
+        import json
+        from omni_director.telemetry import verify_bundle_checksums
+
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            run_council=True,
+        )
+        disk_bundle_path = tmp_path / "production_bundle.json"
+        assert disk_bundle_path.is_file()
+        disk_data = json.loads(disk_bundle_path.read_text(encoding="utf-8"))
+
+        assert disk_data.get("telemetry") is not None
+        assert disk_data["telemetry"]["session_id"] == pipeline.telemetry.session_id
+        assert disk_data.get("council_report") is not None
+        assert disk_data["council_report"]["overall_score"] >= 88.0
+
+        is_valid, errors = verify_bundle_checksums(tmp_path)
+        assert is_valid is True, f"Expected valid checksums, got: {errors}"
+        assert errors == []
+
+    def test_preset_builders_and_domain_archetypes(self):
+        """Verifies preset builder functions and their domain_archetype assignments."""
+        from omni_director.presets import (
+            build_ikea_asmr_bible,
+            build_sephora_pulse_bible,
+            build_sephora_extension_40s_bible,
+            build_kinetic_fabric_bible,
+            build_sephora_london_pulse_bible,
+        )
+
+        b1 = build_ikea_asmr_bible()
+        assert b1.domain_archetype == "architectural_sanctuary"
+
+        b2 = build_sephora_pulse_bible()
+        assert b2.domain_archetype == "luxury_fashion"
+
+        b3 = build_sephora_extension_40s_bible()
+        assert b3.domain_archetype == "luxury_fashion"
+
+        b4 = build_kinetic_fabric_bible()
+        assert b4.domain_archetype == "kinetic_action"
+
+        b5 = build_sephora_london_pulse_bible()
+        assert b5.domain_archetype == "luxury_fashion"
+
+
+class TestV21CouncilIteration2:
+    """Council Iteration 2 Test Suite:
+    1. FDE active SHA-256 integrity verification during council review
+    2. Agent Systems Engineer prompt healing history telemetry
+    3. Agent Strategist 6-domain coverage in daily council showcases
+    4. UX/UI Designer animatic loop toggle and copy prompt controls
+    """
+
+    def test_fde_council_detects_tampered_artifact_checksum(self, tmp_path):
+        from omni_director.agents.agent import DirectorPipeline
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.schemas import CouncilFindingSeverity
+
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(tmp_path),
+            dry_run=True,
+            render_video=False,
+            run_council=True,
+        )
+
+        orchestrator = ProductCouncilOrchestrator()
+        clean_report = orchestrator.audit(bundle, output_dir=tmp_path)
+        fde_clean = next(r for r in clean_report.reviews if r.persona.value == "council-fde")
+        integrity_clean_findings = [f for f in fde_clean.findings if f.category == "artifact_integrity"]
+        assert len(integrity_clean_findings) == 0
+
+        # Tamper with an artifact
+        html_file = tmp_path / "storyboard_preview.html"
+        assert html_file.exists()
+        original_content = html_file.read_text(encoding="utf-8")
+        html_file.write_text(original_content + "\n<!-- Tampered content by adversary -->\n", encoding="utf-8")
+
+        # Re-audit with tampered artifact
+        tampered_report = orchestrator.audit(bundle, output_dir=tmp_path)
+        fde_tampered = next(r for r in tampered_report.reviews if r.persona.value == "council-fde")
+        integrity_findings = [f for f in fde_tampered.findings if f.category == "artifact_integrity"]
+        assert len(integrity_findings) >= 1
+        assert any(f.severity == CouncilFindingSeverity.CRITICAL for f in integrity_findings)
+        assert any("Checksum mismatch" in f.message for f in integrity_findings)
+        assert fde_tampered.score < fde_clean.score
+
+    def test_agent_engineer_prompt_healing_history_telemetry(self):
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+        from omni_director.schemas import RegimeType
+
+        unhealed_prompt = (
+            "### SCENE 1 - INITIATION\n"
+            "Subject standing in room. A dynamic cut to wide angle.\n"
+            "* Point 1: Slow camera pan across surface.\n"
+            "* Point 2: Visual glance toward horizon.\n"
+            "Reference tags: <image_1>, <image_2>, <image_3>, <image_4>."
+        )
+
+        initial_audit = audit_omni_scene_prompt(
+            scene=unhealed_prompt,
+            regime=RegimeType.REGIME_2_KINETIC,
+        )
+        assert initial_audit.score < 90
+
+        healed_prompt, final_audit = heal_omni_scene_prompt(
+            scene=unhealed_prompt,
+            regime=RegimeType.REGIME_2_KINETIC,
+            max_attempts=3,
+        )
+
+        assert "healing_history" in final_audit.details
+        history = final_audit.details["healing_history"]
+        assert "applied_patches" in history
+        assert "attempts_executed" in history
+        assert "initial_score" in history
+        assert "final_score" in history
+        assert "healed" in history
+
+        assert isinstance(history["applied_patches"], list)
+        assert len(history["applied_patches"]) > 0
+        assert history["attempts_executed"] >= 1
+        assert history["final_score"] >= history["initial_score"]
+        assert history["healed"] is True
+
+        # Test ScenePromptSpec structural field healing (short kinetic_contact_chain & empty action_beats)
+        from omni_director.schemas import ScenePromptSpec
+        spec = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Kinetic Sprint",
+            timestamp_range="00:00 - 00:08",
+            regime=RegimeType.REGIME_2_KINETIC,
+            kinetic_contact_chain="short",
+            action_beats=[],
+            omni_prose_prompt="Runner accelerates at natural 1.0x real-time speed with solid momentum and ground friction. Synchronized diegetic audio has heavy footsteps.",
+        )
+        healed_spec, spec_audit = heal_omni_scene_prompt(
+            scene=spec,
+            regime=RegimeType.REGIME_2_KINETIC,
+        )
+        spec_history = spec_audit.details.get("healing_history", {})
+        assert "repaired_kinetic_contact_chain" in spec_history.get("applied_patches", [])
+        assert "populated_action_beats" in spec_history.get("applied_patches", [])
+        assert spec_history.get("healed") is True
+
+    def test_strategist_all_six_domains_in_daily_council_showcases(self):
+        from scripts.run_daily_council import CANONICAL_SHOWCASES
+        from omni_director.presets import DOMAIN_ARCHETYPES, classify_brief_domain, get_preset_bible
+
+        assert len(CANONICAL_SHOWCASES) == 10
+
+        constitutional_domains = set(DOMAIN_ARCHETYPES.keys())
+        assert len(constitutional_domains) == 6
+
+        observed_domains = set()
+        for item in CANONICAL_SHOWCASES:
+            if item.get("preset"):
+                bible = get_preset_bible(item["preset"])
+                domain = getattr(bible, "domain_archetype", None)
+                if not domain:
+                    domain = classify_brief_domain(bible.logline)
+            else:
+                domain = classify_brief_domain(item["brief"])
+            observed_domains.add(domain)
+
+        assert observed_domains == constitutional_domains, (
+            f"Missing domain coverage! Expected {constitutional_domains}, got {observed_domains}"
+        )
+
+    def test_ux_loop_toggle_and_copy_prompt_in_animatic_html(self, tmp_path):
+        from pathlib import Path
+        from omni_director.presets import build_ikea_asmr_bible
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.agents.council import ProductCouncilOrchestrator
+
+        bible = build_ikea_asmr_bible()
+        html_file = compile_storyboard_html(bible, output_dir=tmp_path)
+        html_content = Path(html_file).read_text(encoding="utf-8")
+
+        assert 'id="btn-loop-animatic"' in html_content
+        assert 'aria-pressed="false"' in html_content
+        assert 'onclick="toggleLoop()"' in html_content
+        assert 'toggleLoop()' in html_content
+        assert "btn-copy-prompt" in html_content
+        assert "copyScenePrompt(" in html_content
+        assert "fallbackCopyText(" in html_content
+        assert "jumpToBeat(" in html_content
+        assert "e.key >= '1' && e.key <= '9'" in html_content
+
+        orchestrator = ProductCouncilOrchestrator()
+        report = orchestrator.audit(bible, output_dir=tmp_path)
+        ux_review = next(r for r in report.reviews if r.persona.value == "council-ux-designer")
+        transport_findings = [f for f in ux_review.findings if f.category == "animatic_transport"]
+        assert len(transport_findings) == 0
+
+        # Negative test: strip btn-loop-animatic and verify council detects missing transport control
+        tampered_html = html_content.replace('id="btn-loop-animatic"', 'id="btn-loop-disabled"')
+        Path(html_file).write_text(tampered_html, encoding="utf-8")
+
+        tampered_report = orchestrator.audit(bible, output_dir=tmp_path)
+        tampered_ux = next(r for r in tampered_report.reviews if r.persona.value == "council-ux-designer")
+        missing_transport = [f for f in tampered_ux.findings if f.category == "animatic_transport"]
+        assert len(missing_transport) >= 1
+        assert any("btn-loop-animatic" in f.message for f in missing_transport)
+
+
+
+

@@ -1,7 +1,7 @@
-"""Pydantic V2 state contracts and schema models for omni-movie-director."""
-
+import json
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
@@ -108,9 +108,29 @@ class KineticContactChain(BaseModel):
 
 class ActionBeatSpec(BaseModel):
     """A single serialized cause-and-effect action beat within a 10s window."""
-    beat_index: int = Field(..., ge=1, le=3)
-    timestamp: str = Field(..., description="Timing marker, e.g. '00:00 - 00:03'")
-    description: str = Field(..., description="Concrete physical event or action")
+    beat_index: int = Field(default=1, ge=1, le=3)
+    timestamp: str = Field(default="00:00 - 00:03", description="Timing marker, e.g. '00:00 - 00:03'")
+    description: str = Field(default="", description="Concrete physical event or action")
+    beat_title: Optional[str] = None
+    timecode: Optional[str] = None
+    action_description: Optional[str] = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_beat(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            if "timecode" in data and ("timestamp" not in data or not data["timestamp"]):
+                data["timestamp"] = data["timecode"]
+            if "action_description" in data and ("description" not in data or not data["description"]):
+                data["description"] = data["action_description"]
+            if "beat_title" in data and ("description" not in data or not data["description"]):
+                data["description"] = data["beat_title"]
+        return data
+
+    def __str__(self) -> str:
+        desc = self.description or self.action_description or self.beat_title or ""
+        title = self.beat_title or f"Beat {self.beat_index}"
+        return f"{title}: {desc}".strip()
 
 
 class DiegeticSonicSpec(BaseModel):
@@ -184,6 +204,68 @@ class ScenePromptSpec(BaseModel):
         default_factory=list,
         description="Curated single-turn edit variations (e.g. Turn 2 lighting adjustment)"
     )
+    keyframe_spec: Optional[Any] = Field(
+        default=None,
+        description="Optional pre-rendered keyframe or SVG plate spec"
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_scene_inputs(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            if "prompt_text" in data and "omni_prose_prompt" not in data:
+                data["omni_prose_prompt"] = data["prompt_text"]
+            if "camera_spec" in data and "craft_camera" not in data:
+                data["craft_camera"] = data["camera_spec"]
+            if "diegetic_sound" in data and "diegetic_sonic" not in data:
+                data["diegetic_sonic"] = data["diegetic_sound"]
+            if "action_beats" in data and isinstance(data["action_beats"], list):
+                norm_beats = []
+                for b in data["action_beats"]:
+                    if isinstance(b, str):
+                        norm_beats.append(b)
+                    elif isinstance(b, ActionBeatSpec):
+                        norm_beats.append(str(b))
+                    elif isinstance(b, dict):
+                        desc = b.get("description") or b.get("action_description") or b.get("beat_title") or ""
+                        title = b.get("beat_title") or f"Beat {b.get('beat_index', 1)}"
+                        norm_beats.append(f"{title}: {desc}".strip())
+                    else:
+                        norm_beats.append(str(b))
+                data["action_beats"] = norm_beats
+        return data
+
+    @property
+    def scene_prompt(self) -> str:
+        return self.omni_prose_prompt
+
+    @scene_prompt.setter
+    def scene_prompt(self, value: str) -> None:
+        self.omni_prose_prompt = value
+
+    @property
+    def prompt_text(self) -> str:
+        return self.omni_prose_prompt
+
+    @prompt_text.setter
+    def prompt_text(self, value: str) -> None:
+        self.omni_prose_prompt = value
+
+    @property
+    def camera_spec(self) -> Optional[CraftCameraSpec]:
+        return self.craft_camera
+
+    @camera_spec.setter
+    def camera_spec(self, value: Optional[CraftCameraSpec]) -> None:
+        self.craft_camera = value
+
+    @property
+    def diegetic_sound(self) -> Optional[DiegeticSonicSpec]:
+        return self.diegetic_sonic
+
+    @diegetic_sound.setter
+    def diegetic_sound(self, value: Optional[DiegeticSonicSpec]) -> None:
+        self.diegetic_sonic = value
 
     @field_validator("action_beats")
     @classmethod
@@ -219,6 +301,7 @@ class MasterProductionBible(BaseModel):
         description="Gemini Omni accepts a maximum ceiling of 3 image references"
     )
     scenes: List[ScenePromptSpec]
+    domain_archetype: Optional[str] = None
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -252,9 +335,124 @@ class AuditResult(BaseModel):
     """Results from auditing a scene prompt against the 7-Point Gemini Omni prompt standards."""
     scene_index: int
     passed: bool
+    score: float = Field(default=100.0, ge=0.0, le=100.0)
     errors: List[str] = Field(default_factory=list)
     warnings: List[str] = Field(default_factory=list)
     details: Dict[str, Any] = Field(default_factory=dict)
+
+    @property
+    def rule_details(self) -> Dict[str, Any]:
+        return {
+            "rule_1_no_markdown_headers": {
+                "passed": not any("Rule 1" in e for e in self.errors),
+            },
+            "rule_2_action_beats_cap": {
+                "passed": not any("Rule 2" in e for e in self.errors),
+            },
+            "rule_3_speed_lock_regime_2": {
+                "passed": not any("Rule 3" in e for e in self.errors),
+            },
+            "rule_4_craft_camera": {
+                "passed": not any("Rule 4" in e for e in self.errors),
+            },
+            "rule_5_nano_banana_references": {
+                "passed": not any("Rule 5" in e for e in self.errors),
+            },
+            "rule_6_diegetic_audio_cues": {
+                "passed": not any("Rule 6" in e for e in self.errors),
+            },
+            "rule_7_continuous_continuity": {
+                "passed": not any("Rule 7" in e for e in self.errors),
+            },
+        }
+
+
+PromptAuditResult = AuditResult
+
+
+class CouncilPersona(str, Enum):
+    """The four disciplines of the Autonomous Product Council."""
+    FORWARD_DEPLOYED_ENGINEER = "council-fde"
+    AGENT_SYSTEMS_ENGINEER = "council-agent-engineer"
+    AGENT_STRATEGIST = "council-strategist"
+    UX_UI_DESIGNER = "council-ux-designer"
+
+    # Aliases
+    COUNCIL_FDE = "council-fde"
+    COUNCIL_AGENT_ENGINEER = "council-agent-engineer"
+    COUNCIL_STRATEGIST = "council-strategist"
+    COUNCIL_UX_DESIGNER = "council-ux-designer"
+
+
+class CouncilFindingSeverity(str, Enum):
+    """Severity classification for Product Council audit findings."""
+    INFO = "info"
+    WARNING = "warning"
+    CRITICAL = "critical"
+    # Aliases
+    HIGH = "warning"
+    MEDIUM = "warning"
+    LOW = "info"
+
+
+class CouncilFinding(BaseModel):
+    """A specific evaluation finding produced by a Council persona."""
+    severity: CouncilFindingSeverity = CouncilFindingSeverity.INFO
+    category: str
+    message: str
+    remediation: Optional[str] = None
+    suggested_fix: Optional[str] = None
+    details: Optional[Dict[str, Any]] = None
+
+    @model_validator(mode="after")
+    def sync_remediation(self) -> "CouncilFinding":
+        if self.suggested_fix and not self.remediation:
+            self.remediation = self.suggested_fix
+        elif self.remediation and not self.suggested_fix:
+            self.suggested_fix = self.remediation
+        return self
+
+
+class PersonaReviewResult(BaseModel):
+    """Evaluation score and findings from a single council persona (max 25.0 pts)."""
+    persona: CouncilPersona
+    score: float = Field(default=25.0, ge=0.0, le=25.0)
+    max_score: float = 25.0
+    passed: bool = True
+    persona_title: str = ""
+    findings: List[CouncilFinding] = Field(default_factory=list)
+    summary: str = ""
+
+    @property
+    def critical_count(self) -> int:
+        return sum(
+            1 for f in self.findings
+            if str(f.severity).lower() in ("critical", "councilfindingseverity.critical")
+        )
+
+
+class ProductCouncilReport(BaseModel):
+    """Unified 100-point 4-persona Product Council evaluation report."""
+    version: str = "2.1.0"
+    project_title: str = ""
+    timestamp: str = ""
+    overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
+    passed: bool = True
+    critical_findings_count: int = 0
+    reviews: List[PersonaReviewResult] = Field(default_factory=list)
+    recommendations: List[str] = Field(default_factory=list)
+
+    @property
+    def persona_reviews(self) -> Dict[str, PersonaReviewResult]:
+        res: Dict[str, PersonaReviewResult] = {}
+        for r in self.reviews:
+            key = r.persona.value if hasattr(r.persona, "value") else str(r.persona)
+            res[key] = r
+        return res
+
+    @property
+    def persona_results(self) -> Dict[str, PersonaReviewResult]:
+        return self.persona_reviews
 
 
 class ProductionBundle(BaseModel):
@@ -266,3 +464,61 @@ class ProductionBundle(BaseModel):
     rendered_videos: Optional[List[Dict[str, Any]]] = Field(default=None)
     audit_reports: List[AuditResult] = Field(default_factory=list)
     mode: str = Field(default="dry-run", description="dry-run, hybrid, or full-render")
+    telemetry: Optional[Dict[str, Any]] = Field(default=None)
+    council_report: Optional[ProductCouncilReport] = Field(default=None)
+
+    def __getitem__(self, key: str) -> Any:
+        if hasattr(self, key):
+            return getattr(self, key)
+        raise KeyError(key)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
+
+    def __contains__(self, key: str) -> bool:
+        return hasattr(self, key)
+
+
+def load_bible_from_json(path_or_payload: Union[MasterProductionBible, ProductionBundle, str, Path, Dict[str, Any]]) -> MasterProductionBible:
+    """Loads and validates a MasterProductionBible from a file path, JSON string, dict, or object.
+
+    Accepts either a raw MasterProductionBible dictionary or a ProductionBundle dictionary
+    containing a "bible" key. Raises ValueError on invalid inputs or missing files.
+    """
+    if isinstance(path_or_payload, MasterProductionBible):
+        return path_or_payload
+    if isinstance(path_or_payload, ProductionBundle):
+        return path_or_payload.bible
+
+    if isinstance(path_or_payload, (str, Path)):
+        path = Path(path_or_payload)
+        if path.is_file():
+            try:
+                content = path.read_text(encoding="utf-8")
+                data = json.loads(content)
+            except Exception as e:
+                raise ValueError(f"Failed to read or parse JSON file '{path}': {e}") from e
+        else:
+            raw_str = str(path_or_payload).strip()
+            if raw_str.startswith("{"):
+                try:
+                    data = json.loads(raw_str)
+                except Exception as e:
+                    raise ValueError(f"Failed to parse JSON string: {e}") from e
+            else:
+                raise ValueError(f"Bible file not found: {path_or_payload}")
+    elif isinstance(path_or_payload, dict):
+        data = path_or_payload
+    else:
+        raise ValueError(f"Unsupported payload type for load_bible_from_json: {type(path_or_payload)}")
+
+    if not isinstance(data, dict):
+        raise ValueError("Decoded JSON payload must be an object/dict")
+
+    try:
+        if "bible" in data and isinstance(data["bible"], dict):
+            return MasterProductionBible.model_validate(data["bible"])
+        return MasterProductionBible.model_validate(data)
+    except Exception as e:
+        raise ValueError(f"Invalid MasterProductionBible schema: {e}") from e
+
