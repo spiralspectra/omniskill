@@ -855,12 +855,12 @@
           Advanced Quantum Computing Silicon Proce Theme
         </div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry); margin-bottom: 12px;">
-          120 BPM | D Minor | Cinematic Hybrid Score
+          110 BPM | D Minor | Minimalist Glitch & Micro-Acoustic Electronic Pulse
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
           <span class="meta-tag">Modular synthesizer pulses</span><span class="meta-tag">Sub-bass rumble</span><span class="meta-tag">Acoustic strings</span>
         </div>
-        <button type="button" class="btn-copy-sm" onclick="copyText(this, `Cinematic score for tech hardware, modular synthesizer pulses with deep sub-bass and crisp acoustic transients`)">
+        <button type="button" class="btn-copy-sm" onclick="copyText(this, `Cinematic score for tech hardware, minimalist glitch & micro-acoustic electronic pulse at 110 BPM in D Minor`)">
           Copy Lyria BGM Prompt
         </button>
       </section>
@@ -1485,8 +1485,8 @@
   },
   "master_bgm": {
     "track_title": "Advanced Quantum Computing Silicon Proce Theme",
-    "genre_style": "Cinematic Hybrid Score",
-    "tempo_bpm": 120,
+    "genre_style": "Minimalist Glitch & Micro-Acoustic Electronic Pulse",
+    "tempo_bpm": 110,
     "key_signature": "D Minor",
     "instrumentation": [
       "Modular synthesizer pulses",
@@ -1494,7 +1494,7 @@
       "Acoustic strings"
     ],
     "dynamic_arc": "Gentle rhythmic pulse building into an assertive cinematic climax",
-    "lyria_prompt": "Cinematic score for tech hardware, modular synthesizer pulses with deep sub-bass and crisp acoustic transients"
+    "lyria_prompt": "Cinematic score for tech hardware, minimalist glitch & micro-acoustic electronic pulse at 110 BPM in D Minor"
   },
   "nano_banana_assets": [
     {
@@ -1866,7 +1866,6 @@
     function jumpToBeat(startSec) {
       const targetSec = Math.max(0, Math.min(TOTAL_RUNTIME, startSec));
       renderFrame(Math.floor(targetSec * FPS));
-      if (typeof syncUI === 'function') syncUI();
     }
 
     // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E)

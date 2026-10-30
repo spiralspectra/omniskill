@@ -522,3 +522,8 @@ def load_bible_from_json(path_or_payload: Union[MasterProductionBible, Productio
     except Exception as e:
         raise ValueError(f"Invalid MasterProductionBible schema: {e}") from e
 
+
+# ADK 2.0 Architectural Schema Aliases
+ScenePromptPayload = ScenePromptSpec
+
+

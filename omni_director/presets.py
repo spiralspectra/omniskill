@@ -609,6 +609,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Pneumatic valve hiss",
             "Mechanical robotic servo snaps"
         ],
+        "default_bpm": 130,
+        "default_key": "F Minor",
+        "default_bgm_genre": "Industrial Electronic & Cybernetic Kinetic Score",
         "color_palette": ["#0B0E14", "#00F0FF", "#FF3B30", "#8E8E93"],
         "regime": RegimeType.REGIME_2_KINETIC,
     },
@@ -627,6 +630,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Tactile ceramic clink",
             "Subtle simmering bubble pops"
         ],
+        "default_bpm": 68,
+        "default_key": "C Major",
+        "default_bgm_genre": "Intimate Acoustic & Organic Ambient ASMR",
         "color_palette": ["#1C1917", "#D97706", "#F59E0B", "#FEF3C7"],
         "regime": RegimeType.REGIME_2_KINETIC,
     },
@@ -645,6 +651,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Metallic snap of luxury compact",
             "Subtle perfume atomizer mist spray"
         ],
+        "default_bpm": 118,
+        "default_key": "A Minor",
+        "default_bgm_genre": "Deep House Runway & Parisian Haute Couture Pulse",
         "color_palette": ["#09090B", "#F43F5E", "#E2E8F0", "#D4AF37"],
         "regime": RegimeType.REGIME_2_KINETIC,
     },
@@ -663,6 +672,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Wind rush over aerodynamic limbs",
             "Resonant physical force transfer thud"
         ],
+        "default_bpm": 140,
+        "default_key": "E Minor",
+        "default_bgm_genre": "High-Velocity Orchestral Breakbeat & Hybrid Trap",
         "color_palette": ["#18181B", "#22C55E", "#3B82F6", "#FAFAFA"],
         "regime": RegimeType.REGIME_2_KINETIC,
     },
@@ -681,6 +693,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Subtle ultrasonic cleanroom hum",
             "Haptic motor vibration pulse"
         ],
+        "default_bpm": 110,
+        "default_key": "D Minor",
+        "default_bgm_genre": "Minimalist Glitch & Micro-Acoustic Electronic Pulse",
         "color_palette": ["#030712", "#38BDF8", "#94A3B8", "#F8FAFC"],
         "regime": RegimeType.REGIME_2_KINETIC,
     },
@@ -699,6 +714,9 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "Soft leather creak on timber seat",
             "Gentle water fountain trickle"
         ],
+        "default_bpm": 60,
+        "default_key": "G Major",
+        "default_bgm_genre": "Neo-Classical Piano & Spatial Drone Sanctuary",
         "color_palette": ["#1C1917", "#78716C", "#D6D3D1", "#E7E5E4"],
         "regime": RegimeType.REGIME_1_ATMOSPHERIC,
     },

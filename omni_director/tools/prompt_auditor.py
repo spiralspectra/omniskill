@@ -59,8 +59,8 @@ def audit_omni_scene_prompt(
         effective_regime = regime or RegimeType.REGIME_1_ATMOSPHERIC
 
     # Rule 1: Clean natural prose formatting (NO markdown or HTML headers inside prompt)
-    heading_match = re.search(r"(^|\n)\s*#{1,6}\s+", prompt)
-    html_heading_match = re.search(r"<h[1-6][^>]*>", prompt, re.IGNORECASE)
+    heading_match = re.search(r"(?:^|\n)\s*#{1,6}\s+", prompt)
+    html_heading_match = re.search(r"</?h[1-6][^>]*>", prompt, re.IGNORECASE)
     if heading_match or html_heading_match:
         errors.append(
             "Rule 1 Violation: Markdown heading ('#', '##', '###') or HTML heading ('<h1>'-'<h6>') detected inside omni_prose_prompt. "
@@ -368,6 +368,10 @@ def heal_omni_scene_prompt(
                     applied_patches.append("populated_diegetic_sonic")
             target_to_audit = scene
         else:
+            if "action_beats" in kwargs and isinstance(kwargs["action_beats"], list) and len(kwargs["action_beats"]) > 3:
+                kwargs["action_beats"] = kwargs["action_beats"][:3]
+                if "trimmed_action_beats" not in applied_patches:
+                    applied_patches.append("trimmed_action_beats")
             target_to_audit = working_prompt
 
         current_audit = audit_omni_scene_prompt(

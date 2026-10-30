@@ -98,18 +98,31 @@ def run_doctor(
         ))
 
     # 3. Core dependencies
-    required_packages = ["google.adk", "google.genai", "rich"]
+    required_packages = ["google.genai", "rich"]
+    optional_packages = ["google.adk"]
     missing_packages = []
+    missing_optional = []
     for pkg in required_packages:
         spec = importlib.util.find_spec(pkg)
         if spec is None:
             missing_packages.append(pkg)
+    for pkg in optional_packages:
+        spec = importlib.util.find_spec(pkg)
+        if spec is None:
+            missing_optional.append(pkg)
 
-    if not missing_packages:
+    if not missing_packages and not missing_optional:
         checks.append(DiagnosticCheck(
             name="core_dependencies",
             status=CheckStatus.PASS,
-            message=f"All required core packages available ({', '.join(required_packages)})",
+            message=f"All required and optional core packages available ({', '.join(required_packages + optional_packages)})",
+        ))
+    elif not missing_packages and missing_optional:
+        checks.append(DiagnosticCheck(
+            name="core_dependencies",
+            status=CheckStatus.WARN,
+            message=f"Core packages available ({', '.join(required_packages)}); optional extras missing: {', '.join(missing_optional)} (offline ADK fallback active)",
+            details={"missing_optional": missing_optional},
         ))
     else:
         checks.append(DiagnosticCheck(
@@ -117,7 +130,7 @@ def run_doctor(
             status=CheckStatus.FAIL,
             message=f"Missing required dependencies: {', '.join(missing_packages)}",
             remediation=f"Install missing dependencies: pip install {' '.join(missing_packages)}",
-            details={"missing": missing_packages},
+            details={"missing": missing_packages, "missing_optional": missing_optional},
         ))
 
     # 4. Model Matrix Check (Zero 3.1 / Legacy Models)

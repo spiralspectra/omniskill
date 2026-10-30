@@ -84,7 +84,11 @@ except ImportError:
             return context
 
 
-def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = None) -> MasterProductionBible:
+def synthesize_custom_bible(
+    raw_prompt: str,
+    config: Optional[DirectorConfig] = None,
+    storytelling_mode: StorytellingMode = StorytellingMode.MODE_A_PARALLEL_CUT,
+) -> MasterProductionBible:
     """Dynamically synthesizes a valid 7-Point compliant MasterProductionBible from custom raw_prompt."""
     domain = classify_brief_domain(raw_prompt)
     archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
@@ -197,11 +201,16 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
         omni_prose_prompt=prose_2,
     )
 
+    # Sonic Profile and BPM from Archetype
+    bgm_bpm = archetype.get("default_bpm", 120 if is_kinetic else 72)
+    bgm_key = archetype.get("default_key", "D Minor")
+    bgm_genre = archetype.get("default_bgm_genre", "Cinematic Hybrid Score")
+
     return MasterProductionBible(
         project_title=title,
         logline=raw_prompt,
         creative_regime=regime,
-        storytelling_mode=StorytellingMode.MODE_A_PARALLEL_CUT,
+        storytelling_mode=storytelling_mode,
         aspect_ratio=AspectRatio.RATIO_16_9,
         total_runtime_seconds=10,
         color_palette=palette,
@@ -230,12 +239,12 @@ def synthesize_custom_bible(raw_prompt: str, config: Optional[DirectorConfig] = 
         ),
         master_bgm=MasterBgmSpec(
             track_title=f"{title} Theme",
-            genre_style="Cinematic Hybrid Score",
-            tempo_bpm=120 if is_kinetic else 72,
-            key_signature="D Minor",
+            genre_style=bgm_genre,
+            tempo_bpm=bgm_bpm,
+            key_signature=bgm_key,
             instrumentation=["Modular synthesizer pulses", "Sub-bass rumble", "Acoustic strings"],
             dynamic_arc="Gentle rhythmic pulse building into an assertive cinematic climax",
-            lyria_prompt=f"Cinematic score for {domain.replace('_', ' ')}, modular synthesizer pulses with deep sub-bass and crisp acoustic transients",
+            lyria_prompt=f"Cinematic score for {domain.replace('_', ' ')}, {bgm_genre.lower()} at {bgm_bpm} BPM in {bgm_key}",
         ),
         nano_banana_assets=[
             NanoBananaReference(

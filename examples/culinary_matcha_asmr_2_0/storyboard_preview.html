@@ -855,12 +855,12 @@
           Artisanal Japanese Culinary Ceremonial M Theme
         </div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry); margin-bottom: 12px;">
-          120 BPM | D Minor | Cinematic Hybrid Score
+          68 BPM | C Major | Intimate Acoustic & Organic Ambient ASMR
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
           <span class="meta-tag">Modular synthesizer pulses</span><span class="meta-tag">Sub-bass rumble</span><span class="meta-tag">Acoustic strings</span>
         </div>
-        <button type="button" class="btn-copy-sm" onclick="copyText(this, `Cinematic score for culinary asmr, modular synthesizer pulses with deep sub-bass and crisp acoustic transients`)">
+        <button type="button" class="btn-copy-sm" onclick="copyText(this, `Cinematic score for culinary asmr, intimate acoustic & organic ambient asmr at 68 BPM in C Major`)">
           Copy Lyria BGM Prompt
         </button>
       </section>
@@ -1485,16 +1485,16 @@
   },
   "master_bgm": {
     "track_title": "Artisanal Japanese Culinary Ceremonial M Theme",
-    "genre_style": "Cinematic Hybrid Score",
-    "tempo_bpm": 120,
-    "key_signature": "D Minor",
+    "genre_style": "Intimate Acoustic & Organic Ambient ASMR",
+    "tempo_bpm": 68,
+    "key_signature": "C Major",
     "instrumentation": [
       "Modular synthesizer pulses",
       "Sub-bass rumble",
       "Acoustic strings"
     ],
     "dynamic_arc": "Gentle rhythmic pulse building into an assertive cinematic climax",
-    "lyria_prompt": "Cinematic score for culinary asmr, modular synthesizer pulses with deep sub-bass and crisp acoustic transients"
+    "lyria_prompt": "Cinematic score for culinary asmr, intimate acoustic & organic ambient asmr at 68 BPM in C Major"
   },
   "nano_banana_assets": [
     {
@@ -1866,7 +1866,6 @@
     function jumpToBeat(startSec) {
       const targetSec = Math.max(0, Math.min(TOTAL_RUNTIME, startSec));
       renderFrame(Math.floor(targetSec * FPS));
-      if (typeof syncUI === 'function') syncUI();
     }
 
     // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E)

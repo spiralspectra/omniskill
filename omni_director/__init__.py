@@ -64,6 +64,7 @@ from omni_director.schemas import (
     PromptAuditResult,
     RegimeType,
     SceneKeyframeSpec,
+    ScenePromptPayload,
     ScenePromptSpec,
     StorytellingMode,
     load_bible_from_json,
@@ -126,6 +127,8 @@ __all__ = [
     "CharacterTurnaroundSpec",
     "MasterEnvironmentSpec",
     "SceneKeyframeSpec",
+    "ScenePromptSpec",
+    "ScenePromptPayload",
     "load_bible_from_json",
     # Telemetry & Diagnostics
     "RuntimeTelemetry",

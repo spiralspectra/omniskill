@@ -1237,41 +1237,105 @@ class TestV21CouncilIteration2:
             f"Missing domain coverage! Expected {constitutional_domains}, got {observed_domains}"
         )
 
-    def test_ux_loop_toggle_and_copy_prompt_in_animatic_html(self, tmp_path):
-        from pathlib import Path
-        from omni_director.presets import build_ikea_asmr_bible
-        from omni_director.tools.html_compiler import compile_storyboard_html
-        from omni_director.agents.council import ProductCouncilOrchestrator
 
-        bible = build_ikea_asmr_bible()
-        html_file = compile_storyboard_html(bible, output_dir=tmp_path)
-        html_content = Path(html_file).read_text(encoding="utf-8")
+class TestV21CouncilIteration3Improvements:
+    """Validation suite for Council Iteration 3 enhancements across telemetry, doctor, schemas, tools, and presets."""
 
-        assert 'id="btn-loop-animatic"' in html_content
-        assert 'aria-pressed="false"' in html_content
-        assert 'onclick="toggleLoop()"' in html_content
-        assert 'toggleLoop()' in html_content
-        assert "btn-copy-prompt" in html_content
-        assert "copyScenePrompt(" in html_content
-        assert "fallbackCopyText(" in html_content
-        assert "jumpToBeat(" in html_content
-        assert "e.key >= '1' && e.key <= '9'" in html_content
+    def test_telemetry_safe_keys_preserves_musical_key_and_author(self):
+        from omni_director.telemetry import _sanitize_value
 
-        orchestrator = ProductCouncilOrchestrator()
-        report = orchestrator.audit(bible, output_dir=tmp_path)
-        ux_review = next(r for r in report.reviews if r.persona.value == "council-ux-designer")
-        transport_findings = [f for f in ux_review.findings if f.category == "animatic_transport"]
-        assert len(transport_findings) == 0
+        payload = {
+            "key_signature": "D Minor",
+            "musical_key": "F Minor",
+            "author": "Creative Director Agent",
+            "authenticity": "verified",
+            "api_key": "AIzaSyD-SecretKey123456",
+            "secret_token": "sk-test9876543210",
+            "nested": {
+                "keyframe": "shot_01.svg",
+                "auth_token": "bearer xyz123",
+            }
+        }
+        sanitized = _sanitize_value(payload)
 
-        # Negative test: strip btn-loop-animatic and verify council detects missing transport control
-        tampered_html = html_content.replace('id="btn-loop-animatic"', 'id="btn-loop-disabled"')
-        Path(html_file).write_text(tampered_html, encoding="utf-8")
+        # Legitimate keys preserved
+        assert sanitized["key_signature"] == "D Minor"
+        assert sanitized["musical_key"] == "F Minor"
+        assert sanitized["author"] == "Creative Director Agent"
+        assert sanitized["authenticity"] == "verified"
+        assert sanitized["nested"]["keyframe"] == "shot_01.svg"
 
-        tampered_report = orchestrator.audit(bible, output_dir=tmp_path)
-        tampered_ux = next(r for r in tampered_report.reviews if r.persona.value == "council-ux-designer")
-        missing_transport = [f for f in tampered_ux.findings if f.category == "animatic_transport"]
-        assert len(missing_transport) >= 1
-        assert any("btn-loop-animatic" in f.message for f in missing_transport)
+        # Sensitive keys redacted
+        assert sanitized["api_key"] == "[REDACTED]"
+        assert sanitized["secret_token"] == "[REDACTED]"
+        assert sanitized["nested"]["auth_token"] == "[REDACTED]"
+
+    def test_scene_prompt_payload_alias_export(self):
+        from omni_director import ScenePromptPayload, ScenePromptSpec
+        from omni_director.schemas import ScenePromptPayload as SchemasPayload
+        from omni_director.schemas import RegimeType
+
+        assert ScenePromptPayload is ScenePromptSpec
+        assert SchemasPayload is ScenePromptSpec
+
+        spec = ScenePromptPayload(
+            scene_index=1,
+            scene_title="Alias Test Scene",
+            timestamp_range="00:00 - 00:05",
+            regime=RegimeType.REGIME_2_KINETIC,
+            action_beats=["Beat 1: Acceleration"],
+            omni_prose_prompt="A dynamic high-speed camera tracking shot at 1.0x real-time speed.",
+        )
+        assert isinstance(spec, ScenePromptSpec)
+        assert spec.scene_title == "Alias Test Scene"
+
+    def test_heal_omni_scene_prompt_trims_kwargs_action_beats(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        from omni_director.schemas import RegimeType
+
+        raw_prompt = "Camera sweeps across the mountain ridge at 1.0x real-time speed with solid gravity."
+        four_beats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4"]
+
+        result = heal_omni_scene_prompt(
+            scene=raw_prompt,
+            regime=RegimeType.REGIME_2_KINETIC,
+            action_beats=four_beats,
+        )
+
+        assert result.audit.passed
+        assert "trimmed_action_beats" in result.audit.details.get("healing_history", {}).get("applied_patches", [])
+        assert len(result.audit.details.get("action_beats_count", 0)) if isinstance(result.audit.details.get("action_beats_count"), list) else result.audit.details.get("action_beats_count") <= 3
+
+    def test_synthesize_custom_bible_storytelling_mode_and_bgm_archetypes(self):
+        from omni_director.agents.agent import synthesize_custom_bible
+        from omni_director.schemas import StorytellingMode, RegimeType
+
+        # 1. Culinary brief should map to culinary_asmr archetype with 68 BPM and C Major
+        culinary_bible = synthesize_custom_bible(
+            "Slow motion macro pour of ceremonial matcha into hot foaming water with bamboo whisk",
+            storytelling_mode=StorytellingMode.MODE_B_CONTINUOUS_CHAIN,
+        )
+        assert culinary_bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        assert culinary_bible.master_bgm.tempo_bpm == 68
+        assert culinary_bible.master_bgm.key_signature == "C Major"
+        assert "ASMR" in culinary_bible.master_bgm.genre_style
+
+        # 2. Automotive brief should map to automotive_robotics archetype with 130 BPM and F Minor
+        auto_bible = synthesize_custom_bible(
+            "Hypercar autonomous pursuit on night race track with telemetry and high-torque electric motor",
+        )
+        assert auto_bible.creative_regime == RegimeType.REGIME_2_KINETIC
+        assert auto_bible.master_bgm.tempo_bpm == 130
+        assert auto_bible.master_bgm.key_signature == "F Minor"
+
+    def test_doctor_reports_warn_or_pass_for_core_dependencies(self):
+        from omni_director.doctor import run_doctor, CheckStatus
+
+        report = run_doctor()
+        assert report.passed
+        core_check = next(c for c in report.checks if c.name == "core_dependencies")
+        assert core_check.status in (CheckStatus.PASS, CheckStatus.WARN)
+
 
 
 

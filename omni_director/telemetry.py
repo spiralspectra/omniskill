@@ -11,16 +11,19 @@ from pathlib import Path
 from typing import Any, Dict, Generator, List, Optional, Union
 from pydantic import BaseModel, Field
 
-SAFE_KEYS = {"keyframe", "keyframes", "preset_key"}
-SENSITIVE_KEY_TERMS = ("key", "token", "secret", "password", "credential", "auth")
+SAFE_KEYS = {"keyframe", "keyframes", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority"}
+SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(r"AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+")
 
 
 def _is_sensitive_key(key: str) -> bool:
     """Checks if a dictionary key contains sensitive credential terms while preserving safe keys."""
     k_lower = str(key).lower()
-    if any(safe in k_lower for safe in ("keyframe", "preset_key")):
+    if k_lower in SAFE_KEYS or any(safe in k_lower for safe in ("keyframe", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority")):
         return False
+    # Check exact match or boundary match for 'key' or 'auth' to avoid redacting legitimate descriptive fields
+    if k_lower in ("key", "auth"):
+        return True
     return any(term in k_lower for term in SENSITIVE_KEY_TERMS)
 
 

@@ -1540,7 +1540,6 @@ def compile_storyboard_html(
     function jumpToBeat(startSec) {{
       const targetSec = Math.max(0, Math.min(TOTAL_RUNTIME, startSec));
       renderFrame(Math.floor(targetSec * FPS));
-      if (typeof syncUI === 'function') syncUI();
     }}
 
     // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E)
