@@ -204,6 +204,33 @@ def run_doctor(
             details={"error": str(e)},
         ))
 
+    # 7. Output directory free disk space check (>= 50 MB)
+    import shutil
+    try:
+        usage = shutil.disk_usage(target_out)
+        free_mb = usage.free / (1024 * 1024)
+        if free_mb >= 50.0:
+            checks.append(DiagnosticCheck(
+                name="disk_space",
+                status=CheckStatus.PASS,
+                message=f"Sufficient storage available ({free_mb:.1f} MB free, >= 50 MB required)",
+                details={"free_mb": round(free_mb, 2)},
+            ))
+        else:
+            checks.append(DiagnosticCheck(
+                name="disk_space",
+                status=CheckStatus.WARN,
+                message=f"Low disk space on output volume ({free_mb:.1f} MB free < 50 MB)",
+                remediation="Free up disk space on the target volume before running full bundle renders.",
+                details={"free_mb": round(free_mb, 2)},
+            ))
+    except Exception as e:
+        checks.append(DiagnosticCheck(
+            name="disk_space",
+            status=CheckStatus.WARN,
+            message=f"Could not check storage capacity: {e}",
+        ))
+
     pass_count = sum(1 for c in checks if c.status == CheckStatus.PASS)
     warn_count = sum(1 for c in checks if c.status == CheckStatus.WARN)
     fail_count = sum(1 for c in checks if c.status == CheckStatus.FAIL)

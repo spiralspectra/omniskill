@@ -183,6 +183,12 @@ def verify_bundle_checksums(output_dir: Union[str, Path]) -> tuple[bool, List[st
     if not checksums or not isinstance(checksums, dict):
         return False, ["artifact_checksums is empty or missing in telemetry.json"]
 
+    # Ensure core required bundle artifacts are present in the manifest
+    mandatory_files = ("production_bundle.json", "storyboard_preview.html")
+    for mandatory in mandatory_files:
+        if mandatory not in checksums:
+            errors.append(f"Mandatory bundle file '{mandatory}' is missing from artifact_checksums manifest.")
+
     for rel_path, expected_hash in checksums.items():
         p = Path(rel_path)
         if p.is_absolute() or ".." in p.parts:

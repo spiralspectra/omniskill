@@ -384,7 +384,10 @@ class ProductCouncilOrchestrator(BaseAgent):
         archetype = DOMAIN_ARCHETYPES.get(detected_domain, {})
 
         # Check positive invariants across scene prompts (no negative prompt constraints)
-        negative_phrases = ["don't ", "do not ", "avoid ", "no blur", "never ", "without any "]
+        negative_phrases = [
+            "don't ", "do not ", "avoid ", "no blur", "never ", "without any ",
+            "no shaking", "no camera shake", "no cuts", "without cuts", "not blurry",
+        ]
         for scene in bible.scenes:
             prompt_str = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
             prompt_lower = prompt_str.lower()
@@ -513,6 +516,14 @@ class ProductCouncilOrchestrator(BaseAgent):
                         category="animatic_transport",
                         message="Compiled storyboard preview HTML lacks continuous loop playback toggle button (#btn-loop-animatic) or jumpToBeat controls.",
                         suggested_fix="Ensure compile_storyboard_html generates #btn-loop-animatic and jumpToBeat handlers."
+                    ))
+                    score -= 1.0
+                if 'role="tablist"' not in html_content or "cinema-toast" not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_accessibility",
+                        message="Compiled storyboard preview HTML lacks accessible tablist semantics or non-blocking cinema-toast container.",
+                        suggested_fix="Ensure compile_storyboard_html generates role='tablist' and #cinema-toast elements."
                     ))
                     score -= 1.0
             except Exception:

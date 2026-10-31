@@ -1337,6 +1337,101 @@ class TestV21CouncilIteration3Improvements:
         assert core_check.status in (CheckStatus.PASS, CheckStatus.WARN)
 
 
+class TestV21CouncilIteration4ProductCouncilImprovements:
+    """Verifies council iteration 4 audit findings and product improvements."""
+
+    def test_cli_bible_file_nonexistent_returns_exit_1(self, capsys):
+        from omni_director.cli import main
+        ret = main(["run", "--bible-file", "nonexistent_file_xyz.json"])
+        assert ret == 1
+        captured = capsys.readouterr()
+        assert "does not exist" in captured.err or "does not exist" in captured.out
+
+    def test_cli_verify_bundle_flag_order_disambiguation(self, tmp_path):
+        from omni_director.cli import main
+        ret = main(["verify-bundle", "--strict", str(tmp_path / "missing")])
+        assert ret == 1
+
+    def test_doctor_disk_space_check(self):
+        from omni_director.doctor import run_doctor, CheckStatus
+        report = run_doctor()
+        disk_check = next((c for c in report.checks if c.name == "disk_space"), None)
+        assert disk_check is not None
+        assert disk_check.status in (CheckStatus.PASS, CheckStatus.WARN)
+
+    def test_telemetry_mandatory_bundle_files_enforced(self, tmp_path):
+        import json
+        from omni_director.telemetry import verify_bundle_checksums
+        manifest = tmp_path / "telemetry.json"
+        manifest.write_text(json.dumps({"artifact_checksums": {"dummy.txt": "abc"}}), encoding="utf-8")
+        is_valid, errors = verify_bundle_checksums(tmp_path)
+        assert not is_valid
+        assert any("Mandatory bundle file" in e for e in errors)
+
+    def test_prompt_auditor_zero_image_reference_rejection_and_healing(self):
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+        from omni_director.schemas import RegimeType
+
+        prompt_with_zero = "A camera pans across the horizon adhering to character <image_0> at 1.0x real-time speed."
+        audit = audit_omni_scene_prompt(prompt_with_zero, regime=RegimeType.REGIME_2_KINETIC)
+        assert not audit.passed
+        assert any("Rule 5 Violation" in e for e in audit.errors)
+
+        healed = heal_omni_scene_prompt(prompt_with_zero, regime=RegimeType.REGIME_2_KINETIC)
+        assert "<image_1>" in healed.healed_prompt
+        assert "<image_0>" not in healed.healed_prompt
+        assert "capped_image_references" in healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+
+    def test_prompt_healing_sanitizes_negative_constraints(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        from omni_director.schemas import RegimeType
+
+        negative_prompt = "Camera pans across room with no blur and without camera shake at 1.0x real-time speed."
+        healed = heal_omni_scene_prompt(negative_prompt, regime=RegimeType.REGIME_2_KINETIC)
+        assert "no blur" not in healed.healed_prompt.lower()
+        assert "without camera shake" not in healed.healed_prompt.lower()
+        assert "sanitized_negative_constraints" in healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+
+    def test_bible_is_mode_b_continuous_property(self):
+        from omni_director.presets import SEPHORA_EXTENSION_40S_BIBLE, IKEA_ASMR_BIBLE
+        assert SEPHORA_EXTENSION_40S_BIBLE.is_mode_b_continuous is True
+        assert IKEA_ASMR_BIBLE.is_mode_b_continuous is False
+
+    def test_agent_model_validation_rejects_legacy_models(self):
+        import pytest
+        from omni_director.agents.agent import ScenePromptAgent, CreativeDirectorAgent
+
+        with pytest.raises(ValueError, match="not in the approved 2026 model whitelist|deprecated"):
+            ScenePromptAgent(scene_index=1, model_name="gemini-1.5-pro")
+
+        with pytest.raises(ValueError, match="not in the approved 2026 model whitelist|deprecated"):
+            CreativeDirectorAgent(model_name="gemini-1.0-ultra")
+
+    def test_html_compiler_contrast_and_keyboard_nav(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        assert "--text-dim: #7E88A4;" in content
+        assert "⌨ [Space] Play" in content
+        assert "[,/.] Frame" in content
+        assert "Home/0" in content
+        assert "renderFrame(currentFrame - 1)" in content
+        assert "renderFrame(currentFrame + 1)" in content
+        assert "renderFrame(0)" in content
+
+
+
 
 
 

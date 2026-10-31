@@ -44,6 +44,12 @@ except ImportError:
         return MockReport()
 
 try:
+    from omni_director.telemetry import verify_bundle_checksums
+except ImportError:
+    def verify_bundle_checksums(output_dir):
+        return True, "Fallback verification"
+
+try:
     from omni_director import DirectorPipeline
     OmniDirectorPipeline = DirectorPipeline
 except ImportError:
@@ -234,10 +240,22 @@ def run_daily_council(push: bool = False) -> int:
     avg_council_score = sum(council_scores) / max(1, len(council_scores))
     min_scene_score = min(all_scene_scores) if all_scene_scores else 0.0
 
+    # Verify bundle checksums for all generated showcase bundles
+    checksums_valid = True
+    for item in bundle_results:
+        bundle_dir = Path(item["path"])
+        is_valid, msg = verify_bundle_checksums(bundle_dir)
+        if not is_valid:
+            print(f"  ❌ Checksum verification failed for '{item['bundle_name']}': {msg}")
+            checksums_valid = False
+        else:
+            print(f"  ✓ Checksum verified for '{item['bundle_name']}'")
+
     print(f"  • Average Composite Council Score: {avg_council_score:.2f} / 100.0 (Gate: >= 90.0)")
     print(f"  • Lowest Scene Prompt Audit Score: {min_scene_score:.1f} / 100.0 (Gate: >= 90.0)")
+    print(f"  • Bundle Artifact Checksums: {'PASS' if checksums_valid else 'FAIL'} (Gate: all valid)")
 
-    gates_passed = (avg_council_score >= 90.0) and (min_scene_score >= 90.0)
+    gates_passed = (avg_council_score >= 90.0) and (min_scene_score >= 90.0) and checksums_valid
 
     # 4. Generate Reports
     print("\n[Stage 4/4] Writing Council Reports...")

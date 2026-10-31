@@ -168,6 +168,10 @@ def handle_council(args_list: List[str]) -> int:
 
     targets: List[tuple[str, Optional[MasterProductionBible]]] = []
     if args.bible_file:
+        bible_p = Path(args.bible_file)
+        if not bible_p.exists() or not bible_p.is_file():
+            print(f"Error: Bible file does not exist at '{args.bible_file}'", file=sys.stderr)
+            return 1
         try:
             bible = load_bible_from_json(args.bible_file)
             targets.append((Path(args.bible_file).stem, bible))
@@ -245,9 +249,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     if args_list and args_list[0] == "council":
         return handle_council(args_list[1:])
     if args_list and args_list[0] == "verify-bundle":
-        verify_target = args_list[1] if len(args_list) > 1 and not args_list[1].startswith("-") else "./output"
-        extra = [a for a in args_list[1:] if a.startswith("-")]
-        return main(["--verify-bundle", verify_target] + extra)
+        positionals = [a for a in args_list[1:] if not a.startswith("-")]
+        flags = [a for a in args_list[1:] if a.startswith("-")]
+        verify_target = positionals[0] if positionals else "./output"
+        return main(["--verify-bundle", verify_target] + flags)
     if "--doctor" in args_list:
         clean_args = [a for a in args_list if a != "--doctor"]
         return handle_doctor(clean_args)
@@ -328,6 +333,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
     parser.add_argument(
         "--council-strict",
+        "--strict",
+        dest="council_strict",
         action="store_true",
         default=False,
         help="Exit code 2 if council audit score < 88.0 or critical findings count > 0.",
@@ -389,6 +396,13 @@ def main(argv: Optional[list[str]] = None) -> int:
     # Ingest Bible file if provided
     loaded_bible: Optional[MasterProductionBible] = None
     if args.bible_file:
+        bible_p = Path(args.bible_file)
+        if not bible_p.exists() or not bible_p.is_file():
+            if HAS_RICH:
+                Console().print(f"[bold red]Error: Bible file does not exist at '{args.bible_file}'[/bold red]")
+            else:
+                print(f"Error: Bible file does not exist at '{args.bible_file}'", file=sys.stderr)
+            return 1
         try:
             loaded_bible = load_bible_from_json(args.bible_file)
         except ValidationError as val_err:

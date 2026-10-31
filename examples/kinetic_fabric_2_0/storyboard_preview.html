@@ -20,7 +20,7 @@
       --green-pass: #10B981;
       --text-main: #F0F2F8;
       --text-muted: #8E95AA;
-      --text-dim: #545B73;
+      --text-dim: #7E88A4;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -800,7 +800,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [←/→] Seek 1s · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -2243,6 +2243,15 @@
       } else if (e.code === 'ArrowRight') {
         e.preventDefault();
         renderFrame(currentFrame + FPS); // Seek forward 1s
+      } else if (e.key === ',' || e.code === 'Comma') {
+        e.preventDefault();
+        renderFrame(currentFrame - 1); // Step back 1 frame
+      } else if (e.key === '.' || e.code === 'Period') {
+        e.preventDefault();
+        renderFrame(currentFrame + 1); // Step forward 1 frame
+      } else if (e.key === 'Home' || e.key === '0') {
+        e.preventDefault();
+        renderFrame(0); // Rewind to head
       } else if (e.key >= '1' && e.key <= '9') {
         const card = document.getElementById('scene-' + e.key);
         if (card) {

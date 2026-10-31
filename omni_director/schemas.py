@@ -331,6 +331,19 @@ class MasterProductionBible(BaseModel):
         return self
 
 
+    @property
+    def is_mode_b_continuous(self) -> bool:
+        """Validates that a Mode B production bible preserves continuity and runtime invariants."""
+        if self.storytelling_mode != StorytellingMode.MODE_B_CONTINUOUS_CHAIN:
+            return False
+        if len(self.scenes) <= 1:
+            return True
+        # Mode B maximum runtime is capped at 40s (4x 10s extensions)
+        if self.total_runtime_seconds > 40:
+            return False
+        return True
+
+
 class AuditResult(BaseModel):
     """Results from auditing a scene prompt against the 7-Point Gemini Omni prompt standards."""
     scene_index: int

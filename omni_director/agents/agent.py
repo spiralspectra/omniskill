@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
 from pydantic import ConfigDict
 
-from omni_director.config import DirectorConfig, cfg
+from omni_director.config import DirectorConfig, cfg, validate_model_identifier
 from omni_director.presets import DOMAIN_ARCHETYPES, classify_brief_domain, get_preset_bible
 from omni_director.schemas import (
     ActionBeatSpec,
@@ -296,6 +296,7 @@ class IntakeAndResearchAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         prompt = context.get("raw_prompt") or ""
@@ -345,6 +346,7 @@ class CreativeDirectorAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.director_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def synthesize_custom_bible(self, raw_prompt: str) -> MasterProductionBible:
         """Synthesizes a domain-aware MasterProductionBible from custom creative brief."""
@@ -428,6 +430,7 @@ class VisualStoryboardAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.image_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
         self.engine = NanoBananaStoryboardEngine(config=self.config)
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -466,6 +469,7 @@ class ScenePromptAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -520,6 +524,7 @@ class BGMComposerAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]
@@ -562,6 +567,7 @@ class ParallelScenePromptAgent(ParallelAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
         self.sub_agents = sub_list
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -596,6 +602,7 @@ class PromptAuditorAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def run(self, context: Union[Dict[str, Any], MasterProductionBible]) -> Dict[str, Any]:
         if isinstance(context, MasterProductionBible):
@@ -655,6 +662,7 @@ class OmniVideoRenderAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.video_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
         self.engine = GeminiOmniVideoEngine(config=self.config)
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -729,6 +737,7 @@ class StoryboardCompilerAgent(BaseAgent):
         self.name = agent_name
         self.instruction = desc
         self.model_name = model_name or self.config.fast_model
+        validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         bible: MasterProductionBible = context["bible"]

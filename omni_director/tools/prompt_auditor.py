@@ -117,11 +117,12 @@ def audit_omni_scene_prompt(
     # Rule 5: Max 3 Nano Banana image references ceiling
     image_refs = re.findall(r"<image_?(\d+)>", prompt)
     if image_refs:
-        max_ref = max(int(idx) for idx in image_refs)
+        int_refs = [int(idx) for idx in image_refs]
         details["image_refs_detected"] = [f"<image_{idx}>" for idx in set(image_refs)]
-        if max_ref > 3:
+        invalid_refs = [idx for idx in int_refs if idx < 1 or idx > 3]
+        if invalid_refs:
             errors.append(
-                f"Rule 5 Violation: Reference <image_{max_ref}> detected. "
+                f"Rule 5 Violation: Invalid image reference index {invalid_refs} detected. "
                 "Gemini Omni enforces an architectural ceiling of at most 3 image references (<image_1>, <image_2>, <image_3>)."
             )
 
@@ -178,6 +179,12 @@ class HealedPromptResult(tuple):
     @property
     def healed(self) -> Union[ScenePromptSpec, str]:
         return self[0]
+
+    @property
+    def healed_prompt(self) -> str:
+        if isinstance(self[0], ScenePromptSpec):
+            return self[0].omni_prose_prompt
+        return str(self[0])
 
     @property
     def audit(self) -> AuditResult:
@@ -275,6 +282,20 @@ def heal_omni_scene_prompt(
         if working_prompt != prev and "sanitized_headings" not in applied_patches:
             applied_patches.append("sanitized_headings")
 
+        # 1b. Sanitize negative constraints into affirmative physical descriptions
+        prev = working_prompt
+        working_prompt = re.sub(r"\bno\s+blur\b", "sharp edge focus", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bwithout\s+blur\b", "sharp edge focus", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bnot\s+blurry\b", "sharp and clear", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:no|without)\s+(?:camera\s+)?(?:shake|shaking)\b", "steady fluid framing", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bno\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bwithout\s+(?:any\s+)?jump\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bdo\s+not\s+", "", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bdon't\s+", "", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bavoid\s+", "", working_prompt, flags=re.IGNORECASE)
+        if working_prompt != prev and "sanitized_negative_constraints" not in applied_patches:
+            applied_patches.append("sanitized_negative_constraints")
+
         # 2. Check speed lock and physics invariants for Regime 2
         prev = working_prompt
         if eff_regime == RegimeType.REGIME_2_KINETIC:
@@ -293,8 +314,9 @@ def heal_omni_scene_prompt(
         if working_prompt != prev and "expanded_narrative_prose" not in applied_patches:
             applied_patches.append("expanded_narrative_prose")
 
-        # 4. Check image references ceiling (>3)
+        # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
+        working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
         working_prompt = re.sub(r"<image_?([4-9]|\d{2,})>", "<image_3>", working_prompt)
         if working_prompt != prev and "capped_image_references" not in applied_patches:
             applied_patches.append("capped_image_references")
