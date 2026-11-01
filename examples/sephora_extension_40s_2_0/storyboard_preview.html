@@ -31,6 +31,15 @@
       padding-bottom: 120px;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
     /* Non-blocking Cinema Toast Overlay */
     .cinema-toast {
       position: fixed;
@@ -2235,13 +2244,16 @@
     function togglePlay(forceState) {
       isPlaying = typeof forceState === 'boolean' ? forceState : !isPlaying;
       const btn = document.getElementById('btn-play-animatic');
+      const smpteEl = document.getElementById('smpte-timecode');
       if (isPlaying) {
         if (currentFrame >= TOTAL_FRAMES) currentFrame = 0;
         if (btn) btn.innerText = "⏸ Pause Animatic";
+        if (smpteEl) smpteEl.setAttribute('aria-live', 'off');
         lastTimestamp = 0;
         animFrameReq = requestAnimationFrame(playLoop);
       } else {
         if (btn) btn.innerText = "▶ Play Animatic";
+        if (smpteEl) smpteEl.setAttribute('aria-live', 'polite');
         if (animFrameReq) cancelAnimationFrame(animFrameReq);
       }
     }

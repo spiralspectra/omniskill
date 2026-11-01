@@ -288,6 +288,8 @@ def heal_omni_scene_prompt(
         working_prompt = re.sub(r"\bwithout\s+blur\b", "sharp edge focus", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bnot\s+blurry\b", "sharp and clear", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\b(?:no|without)\s+(?:camera\s+)?(?:shake|shaking)\b", "steady fluid framing", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:no|without)\s+jitter\b", "steady and stable motion", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:no|without)\s+artifacts?\b", "pristine organic texture", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bno\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bwithout\s+(?:any\s+)?jump\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bdo\s+not\s+", "", working_prompt, flags=re.IGNORECASE)

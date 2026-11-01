@@ -387,6 +387,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         negative_phrases = [
             "don't ", "do not ", "avoid ", "no blur", "never ", "without any ",
             "no shaking", "no camera shake", "no cuts", "without cuts", "not blurry",
+            "no jitter", "without jitter", "no artifact", "without artifact",
         ]
         for scene in bible.scenes:
             prompt_str = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
@@ -398,6 +399,23 @@ class ProductCouncilOrchestrator(BaseAgent):
                         category="positive_invariants",
                         message=f"Scene {scene.scene_index} uses negative constraint '{phrase}'. Use positive direction instead.",
                         suggested_fix=f"Rephrase Scene {scene.scene_index} prompt with affirmative physical descriptions."
+                    ))
+                    score -= 1.0
+
+        # Mode B Continuous Narrative Verification
+        if getattr(bible, "is_mode_b_continuous", False) and len(bible.scenes) > 1:
+            for scene in bible.scenes[1:]:
+                prompt_str = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", "")).lower()
+                has_continuity_anchor = any(
+                    kw in prompt_str
+                    for kw in ("continue", "continuous", "unbroken", "maintains", "extending", "momentum", "anchor")
+                )
+                if not has_continuity_anchor:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="narrative_continuity",
+                        message=f"Mode B scene {scene.scene_index} lacks clear temporal/camera continuity anchor.",
+                        suggested_fix=f"Add continuous camera momentum or anchor marker to scene {scene.scene_index}."
                     ))
                     score -= 1.0
 

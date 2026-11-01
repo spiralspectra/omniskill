@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import importlib
+import importlib.metadata
 import importlib.util
 import os
 import re
@@ -73,13 +75,19 @@ def run_doctor(
     # 2. Pydantic check (>= 2.0)
     try:
         import pydantic
-        pyd_ver = getattr(pydantic, "__version__", "unknown")
-        if int(pyd_ver.split(".")[0]) >= 2:
+        pyd_ver = getattr(pydantic, "__version__", None)
+        if not pyd_ver:
+            try:
+                pyd_ver = importlib.metadata.version("pydantic")
+            except Exception:
+                pyd_ver = "unknown"
+        major_ver = int(pyd_ver.split(".")[0]) if pyd_ver and pyd_ver[0].isdigit() else 0
+        if major_ver >= 2 and issubclass(pydantic.BaseModel, object):
             checks.append(DiagnosticCheck(
                 name="pydantic_version",
                 status=CheckStatus.PASS,
                 message=f"Pydantic {pyd_ver} meets requirement (>= 2.0)",
-                details={"version": pyd_ver},
+                details={"version": pyd_ver, "major": major_ver},
             ))
         else:
             checks.append(DiagnosticCheck(

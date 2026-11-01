@@ -13,7 +13,9 @@ from pydantic import BaseModel, Field
 
 SAFE_KEYS = {"keyframe", "keyframes", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority"}
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
-SECRET_PATTERN = re.compile(r"AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+")
+SECRET_PATTERN = re.compile(
+    r"AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+|ya29\.[0-9A-Za-z\-_]+|ghp_[0-9A-Za-z]+|github_pat_[0-9A-Za-z_]+"
+)
 
 
 def _is_sensitive_key(key: str) -> bool:
@@ -172,7 +174,7 @@ def verify_bundle_checksums(output_dir: Union[str, Path]) -> tuple[bool, List[st
     if not telemetry_file.is_file():
         telemetry_file = out_path / "telemetry_manifest.json"
     if not telemetry_file.is_file():
-        return False, [f"telemetry manifest not found in {out_path}"]
+        return False, [f"Bundle verification failed: telemetry.json manifest not found in directory '{out_path}'"]
 
     try:
         data = json.loads(telemetry_file.read_text(encoding="utf-8"))
@@ -202,6 +204,10 @@ def verify_bundle_checksums(output_dir: Union[str, Path]) -> tuple[bool, List[st
 
         if not artifact_path.exists() or not artifact_path.is_file():
             errors.append(f"Missing or non-file artifact: {rel_path}")
+            continue
+
+        if artifact_path.stat().st_size == 0:
+            errors.append(f"Zero-byte empty artifact: {rel_path}")
             continue
 
         hasher = hashlib.sha256()

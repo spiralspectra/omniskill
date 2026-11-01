@@ -1431,6 +1431,185 @@ class TestV21CouncilIteration4ProductCouncilImprovements:
         assert "renderFrame(0)" in content
 
 
+class TestV21CouncilIteration5ProductCouncilExcellence:
+    """Verifies Council Iteration 5 specialist findings, accessibility, and strategic rigor."""
+
+    def test_doctor_dependency_version_check(self):
+        from omni_director.doctor import run_doctor, CheckStatus
+        report = run_doctor()
+        pyd_check = next((c for c in report.checks if c.name == "pydantic_version"), None)
+        assert pyd_check is not None
+        assert pyd_check.status == CheckStatus.PASS
+        assert pyd_check.details.get("major", 0) >= 2
+
+    def test_verify_bundle_missing_telemetry_diagnostic(self, tmp_path):
+        from omni_director.telemetry import verify_bundle_checksums
+        empty_dir = tmp_path / "empty_bundle"
+        empty_dir.mkdir(parents=True)
+        is_valid, errors = verify_bundle_checksums(empty_dir)
+        assert not is_valid
+        assert any("manifest not found" in e for e in errors)
+
+    def test_prompt_auditor_heals_extended_negative_phrases(self):
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        from omni_director.schemas import RegimeType
+
+        raw_prompt = "Tracking shot with no jitter, without artifacts, and natural speed."
+        healed = heal_omni_scene_prompt(raw_prompt, regime=RegimeType.REGIME_2_KINETIC)
+        assert "no jitter" not in healed.healed_prompt.lower()
+        assert "without artifacts" not in healed.healed_prompt.lower()
+        assert "steady and stable motion" in healed.healed_prompt.lower()
+        assert "pristine organic texture" in healed.healed_prompt.lower()
+        assert "sanitized_negative_constraints" in healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+
+    def test_strategist_mode_b_continuous_narrative_continuity(self):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import SEPHORA_EXTENSION_40S_BIBLE
+        orchestrator = ProductCouncilOrchestrator()
+        review = orchestrator._review_strategist(SEPHORA_EXTENSION_40S_BIBLE)
+        assert review.score >= 24.0
+        # Check that no narrative continuity defect was found for valid Mode B preset
+        continuity_defects = [f for f in review.findings if f.category == "narrative_continuity"]
+        assert len(continuity_defects) == 0
+
+    def test_animatic_reduced_motion_and_aria_live_management(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        # Reduced motion check
+        assert "@media (prefers-reduced-motion: reduce)" in content
+        # Dynamic ARIA-live management check
+        assert "smpteEl.setAttribute('aria-live', 'off')" in content
+        assert "smpteEl.setAttribute('aria-live', 'polite')" in content
+
+    def test_all_six_domain_archetypes_sonic_and_visual_integrity(self):
+        from omni_director.agents.agent import synthesize_custom_bible
+        from omni_director.presets import DOMAIN_ARCHETYPES
+
+        archetype_briefs = {
+            "automotive_robotics": "Precision CNC robotics assembling carbon-fiber hypercar chassis on high-speed track",
+            "culinary_asmr": "Macro 100mm optics tracking ceremonial matcha powder sifting into black ceramic bowl with steam",
+            "luxury_fashion": "Haute couture silk velvet runway fashion campaign in brutalist travertine marble gallery",
+            "kinetic_action": "High-speed parkour athletic sprint and acrobatic martial arts stunt sequence with dynamic movement and jumping across rooftops",
+            "tech_hardware": "Cleanroom nanoscale silicon wafer positioning under laser etching beams in anodized aluminum cryo-chamber",
+            "architectural_sanctuary": "Curved bamboo pavilions and cascading vertical gardens with photovoltaic glass domes in morning mist",
+        }
+
+        for domain, brief in archetype_briefs.items():
+            bible = synthesize_custom_bible(brief)
+            assert bible.domain_archetype == domain
+            assert bible.master_bgm.tempo_bpm > 0
+            assert len(bible.master_bgm.key_signature) > 0
+            assert len(bible.master_bgm.instrumentation) > 0
+            assert len(bible.scenes) >= 2
+            for scene in bible.scenes:
+                assert scene.craft_camera is not None
+                assert scene.diegetic_sonic is not None
+
+    def test_svg_vector_plates_all_aspect_ratios(self):
+        from omni_director.tools.nano_banana import NanoBananaStoryboardEngine
+        from omni_director.schemas import (
+            AspectRatio,
+            CraftCameraSpec,
+            MasterProductionBible,
+            RegimeType,
+            ScenePromptSpec,
+        )
+
+        dummy_scene = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Sanctuary Arrival",
+            timestamp_range="00:00 - 00:08",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            action_beats=["Beat 1: Establishing initial movement", "Beat 2: Kinetic culmination"],
+            omni_prose_prompt="Wide shot of architectural sanctuary.",
+            craft_camera=CraftCameraSpec(
+                rig_type="35mm Prime",
+                focal_length_mm=35,
+                composition="Wide establishing",
+                route="Static",
+                action_anchor="Center",
+                focus_axis="180-degree",
+                tone_rig="Cinematic Prime",
+            )
+        )
+
+        ratios = [
+            (AspectRatio.RATIO_16_9, "viewBox=\"0 0 1920 1080\""),
+            (AspectRatio.RATIO_9_16, "viewBox=\"0 0 1080 1920\""),
+            (AspectRatio.RATIO_1_1, "viewBox=\"0 0 1080 1080\""),
+            (AspectRatio.RATIO_2_39_1, "viewBox=\"0 0 2560 1071\""),
+        ]
+
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        engine = NanoBananaStoryboardEngine()
+        for ratio, expected_viewbox in ratios:
+            dummy_bible = IKEA_ASMR_BIBLE.model_copy(update={"aspect_ratio": ratio})
+            svg = engine.render_scene_keyframe_svg(dummy_bible.scenes[0], dummy_bible, show_safe_guides=True)
+            assert expected_viewbox in svg
+            assert "safe-guide-action" in svg or 'stroke-dasharray="6,6"' in svg or 'stroke-dasharray="8 6"' in svg
+            assert "safe-guide-title" in svg or 'stroke-dasharray="3,3"' in svg or 'stroke-dasharray="4 4"' in svg
+
+    def test_telemetry_redacts_oauth_and_github_tokens(self):
+        from omni_director.telemetry import _sanitize_value
+
+        sample_data = {
+            "oauth_token": "ya29.a0AfH6SMB_secret_oauth_token_payload",
+            "gh_pat": "ghp_1234567890abcdefghijklmnopqrstuvwxyz",
+            "fine_grained": "github_pat_11ABCDEF_very_secret_personal_token",
+            "api_key": "AIzaSyD-dummy_google_api_key_for_testing",
+            "musical_key": "C Major",
+            "key_signature": "D Minor",
+            "author": "Creative Director",
+        }
+        sanitized = _sanitize_value(sample_data)
+        assert sanitized["oauth_token"] == "[REDACTED]"
+        assert sanitized["gh_pat"] == "[REDACTED]"
+        assert sanitized["fine_grained"] == "[REDACTED]"
+        assert sanitized["api_key"] == "[REDACTED]"
+        assert sanitized["musical_key"] == "C Major"
+        assert sanitized["key_signature"] == "D Minor"
+        assert sanitized["author"] == "Creative Director"
+
+    def test_verify_bundle_detects_zero_byte_corrupted_files(self, tmp_path):
+        import hashlib
+        import json
+        from omni_director.telemetry import verify_bundle_checksums
+
+        bundle_dir = tmp_path / "corrupted_bundle"
+        bundle_dir.mkdir(parents=True)
+        corrupted_html = bundle_dir / "storyboard_preview.html"
+        corrupted_html.touch()  # 0 bytes!
+
+        bundle_json = bundle_dir / "production_bundle.json"
+        bundle_json.write_text("{\"test\": 1}", encoding="utf-8")
+
+        telemetry_file = bundle_dir / "telemetry.json"
+        telemetry_payload = {
+            "artifact_checksums": {
+                "production_bundle.json": hashlib.sha256(bundle_json.read_bytes()).hexdigest(),
+                "storyboard_preview.html": hashlib.sha256(b"").hexdigest(),
+            }
+        }
+        telemetry_file.write_text(json.dumps(telemetry_payload), encoding="utf-8")
+
+        is_valid, errors = verify_bundle_checksums(bundle_dir)
+        assert not is_valid
+        assert any("Zero-byte empty artifact" in e for e in errors)
+
+
+
 
 
 
