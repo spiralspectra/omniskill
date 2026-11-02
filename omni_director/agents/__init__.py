@@ -18,7 +18,7 @@ from omni_director.agents.agent import (
     VisualStoryboardAgent,
     synthesize_custom_bible,
 )
-from omni_director.agents.council import ProductCouncilOrchestrator
+from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
 
 __all__ = [
     "DirectorPipeline",
@@ -38,5 +38,6 @@ __all__ = [
     "StoryboardParallelAgent",
     "synthesize_custom_bible",
     "ProductCouncilOrchestrator",
+    "ProductManagerAgent",
 ]
 

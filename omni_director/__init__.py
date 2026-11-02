@@ -14,6 +14,7 @@ from omni_director.agents import (
     OptionalOmniVideoRenderAgent,
     ParallelScenePromptAgent,
     ProductCouncilOrchestrator,
+    ProductManagerAgent,
     PromptAuditorAgent,
     ScenePromptAgent,
     StoryboardCompilerAgent,
@@ -60,9 +61,11 @@ from omni_director.schemas import (
     NanoBananaReference,
     PersonaReviewResult,
     ProductCouncilReport,
+    ProductFeatureProposal,
     ProductionBundle,
     PromptAuditResult,
     RegimeType,
+    SENIOR_PM_PERSONA_PROMPT,
     SceneKeyframeSpec,
     ScenePromptPayload,
     ScenePromptSpec,
@@ -75,15 +78,27 @@ from omni_director.telemetry import (
     verify_bundle_checksums,
 )
 from omni_director.tools import (
+    CoverageType,
+    CoverageVariant,
     GeminiOmniVideoEngine,
     NanoBananaStoryboardEngine,
+    audit_dialogue_pacing,
     audit_omni_scene_prompt,
     compile_storyboard_html,
+    compile_subtitles_srt,
+    compile_subtitles_vtt,
+    export_all_nle_artifacts,
+    export_cmx3600_edl,
+    export_fcpxml,
+    export_production_callsheet_md,
+    export_shot_list_csv,
+    generate_scene_coverage,
     generate_svg_storyboard_frame,
     heal_omni_scene_prompt,
+    synthesize_conversational_deltas,
 )
 
-__version__ = "2.1.0"
+__version__ = "2.2.0"
 
 __all__ = [
     # Top-Level Runner & Config
@@ -111,6 +126,8 @@ __all__ = [
     "AuditResult",
     "PromptAuditResult",
     "ProductCouncilReport",
+    "ProductFeatureProposal",
+    "SENIOR_PM_PERSONA_PROMPT",
     "CouncilPersona",
     "CouncilFinding",
     "CouncilFindingSeverity",
@@ -145,6 +162,18 @@ __all__ = [
     "generate_svg_storyboard_frame",
     "NanoBananaStoryboardEngine",
     "GeminiOmniVideoEngine",
+    "export_cmx3600_edl",
+    "export_fcpxml",
+    "export_shot_list_csv",
+    "export_production_callsheet_md",
+    "export_all_nle_artifacts",
+    "audit_dialogue_pacing",
+    "compile_subtitles_srt",
+    "compile_subtitles_vtt",
+    "CoverageType",
+    "CoverageVariant",
+    "generate_scene_coverage",
+    "synthesize_conversational_deltas",
     # Agents
     "IntakeAndResearchAgent",
     "CreativeDirectorAgent",
@@ -161,4 +190,5 @@ __all__ = [
     "StoryboardHTMLCompilerAgent",
     "synthesize_custom_bible",
     "ProductCouncilOrchestrator",
+    "ProductManagerAgent",
 ]

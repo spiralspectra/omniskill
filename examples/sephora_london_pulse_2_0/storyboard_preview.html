@@ -767,6 +767,56 @@
     .tab-panel {
       padding: 12px;
     }
+    .coverage-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .coverage-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-right: 4px;
+    }
+    .btn-coverage-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-coverage-pill:hover, .btn-coverage-pill:focus-visible {
+      border-color: var(--cyan-telemetry);
+      color: var(--text-main);
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .btn-coverage-pill.active {
+      background: rgba(0, 240, 255, 0.14);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .animatic-cc-hud {
+      background: rgba(4, 5, 8, 0.92);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--cyan-telemetry);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .animatic-cc-hud.hidden {
+      display: none !important;
+    }
     .prompt-text {
       font-size: 13px;
       line-height: 1.6;
@@ -829,7 +879,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -846,6 +896,9 @@
         </button>
         <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [L]" aria-pressed="false">
           🔁 Loop [L]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
+          CC [C]
         </button>
         <div class="smpte-display" id="smpte-timecode" role="timer" aria-live="polite" aria-label="SMPTE Timecode Display">
           00:00:00:00
@@ -867,6 +920,9 @@
     <div class="scrubber-track-wrap">
       <input type="range" class="scrubber-track" id="animatic-scrubber" min="0" max="768" value="0" aria-label="Animatic Timeline Scrubber" oninput="onScrub(this.value)">
       <span class="scrubber-info" id="scrubber-info">0.0s / 32.0s (24fps)</span>
+    </div>
+    <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
+      [CC] Scene 01 Ready
     </div>
   </aside>
 
@@ -1140,7 +1196,7 @@
     <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (4 SEQUENTIAL CUTS)</div>
     <section class="timeline-list" role="region" aria-label="Shot by Shot Timeline">
       
-        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="8.00" role="region" aria-label="Scene 1">
+        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="8.00" data-caption="[SFX: Tactile surface contact rustle]" role="region" aria-label="Scene 1">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 1</span>
@@ -1219,8 +1275,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking
+              <div class="camera-telemetry" id="craft-telemetry-1">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-1">35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking</span>
               </div>
             </div>
 
@@ -1281,6 +1337,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-1" role="tabpanel" aria-labelledby="tab-prompt-1">
+                  <div class="coverage-selector" role="group" aria-label="Scene 1 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. Grounded with rigid material physics, natural gravity, and surface friction invariants. Synchronized diegetic audio captures Tactile surface contact rustle, Resonant low-frequency impact." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(1, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. Grounded with rigid material physics, natural gravity, and surface friction invariants." data-cam="35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking" onclick="selectCoverage(1, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. Grounded with rigid material physics, natural gravity, and surface friction invariants. Synchronized diegetic audio captures Tactile surface contact rustle, Resonant low-frequency impact." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(1, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-1">A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. Grounded with rigid material physics, natural gravity, and surface friction invariants.</div>
                 </div>
 
@@ -1308,7 +1370,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="8.00" data-end-sec="16.00" role="region" aria-label="Scene 2">
+        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="8.00" data-end-sec="16.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 2">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 2</span>
@@ -1387,8 +1449,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-2">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-2">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1449,6 +1511,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-2" role="tabpanel" aria-labelledby="tab-prompt-2">
+                  <div class="coverage-selector" role="group" aria-label="Scene 2 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(2, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(2, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(2, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-2">Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.</div>
                 </div>
 
@@ -1476,7 +1544,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-3" data-scene-index="3" data-start-sec="16.00" data-end-sec="24.00" role="region" aria-label="Scene 3">
+        <div class="scene-card" id="scene-3" data-scene-index="3" data-start-sec="16.00" data-end-sec="24.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 3">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 3</span>
@@ -1555,8 +1623,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-3">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-3">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1617,6 +1685,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-3" role="tabpanel" aria-labelledby="tab-prompt-3">
+                  <div class="coverage-selector" role="group" aria-label="Scene 3 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(3, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(3, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(3, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-3">A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.</div>
                 </div>
 
@@ -1644,7 +1718,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-4" data-scene-index="4" data-start-sec="24.00" data-end-sec="32.00" role="region" aria-label="Scene 4">
+        <div class="scene-card" id="scene-4" data-scene-index="4" data-start-sec="24.00" data-end-sec="32.00" data-caption="[SFX: Tactile surface contact rustle]" role="region" aria-label="Scene 4">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 4</span>
@@ -1723,8 +1797,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking
+              <div class="camera-telemetry" id="craft-telemetry-4">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-4">35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking</span>
               </div>
             </div>
 
@@ -1785,6 +1859,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-4" role="tabpanel" aria-labelledby="tab-prompt-4">
+                  <div class="coverage-selector" role="group" aria-label="Scene 4 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. Grounded with rigid material physics, natural gravity, and surface friction invariants. Synchronized diegetic audio captures Tactile surface contact rustle, Resonant low-frequency impact." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(4, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. Grounded with rigid material physics, natural gravity, and surface friction invariants." data-cam="35mm Prime (35mm) | Balanced wide composition with centered focus | Route: Forward dolly tracking" onclick="selectCoverage(4, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. Grounded with rigid material physics, natural gravity, and surface friction invariants. Synchronized diegetic audio captures Tactile surface contact rustle, Resonant low-frequency impact." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(4, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-4">The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. Grounded with rigid material physics, natural gravity, and surface friction invariants.</div>
                 </div>
 
@@ -2178,7 +2258,38 @@
     let currentFrame = 0;
     let isPlaying = false;
     let isLooping = false;
+    let isCCEnabled = true;
     let playbackSpeed = 1.0;
+
+    function toggleCC() {
+      isCCEnabled = !isCCEnabled;
+      const btn = document.getElementById('btn-cc-animatic');
+      const hud = document.getElementById('animatic-cc-hud');
+      if (btn) {
+        btn.classList.toggle('active', isCCEnabled);
+        btn.setAttribute('aria-pressed', isCCEnabled ? 'true' : 'false');
+      }
+      if (hud) {
+        hud.classList.toggle('hidden', !isCCEnabled);
+      }
+      showToast(isCCEnabled ? "Closed Captions (CC): ON" : "Closed Captions (CC): OFF");
+    }
+
+    function selectCoverage(sceneIdx, covKey, btnEl) {
+      if (!btnEl) return;
+      const group = btnEl.parentElement;
+      if (group) {
+        group.querySelectorAll('.btn-coverage-pill').forEach(b => b.classList.remove('active'));
+      }
+      btnEl.classList.add('active');
+      const promptEl = document.getElementById('prompt-' + sceneIdx);
+      const camEl = document.getElementById('craft-summary-' + sceneIdx);
+      const newPrompt = btnEl.getAttribute('data-prompt');
+      const newCam = btnEl.getAttribute('data-cam');
+      if (promptEl && newPrompt) promptEl.innerText = newPrompt;
+      if (camEl && newCam) camEl.innerText = newCam;
+      showToast("Scene " + sceneIdx + " coverage switched to [" + covKey.toUpperCase() + "]");
+    }
     let animFrameReq = null;
     let lastTimestamp = 0;
 
@@ -2213,7 +2324,14 @@
         // If at the very end of playback, keep last card active
         if (tSec >= TOTAL_RUNTIME - 0.05) {
           sceneCards[sceneCards.length - 1].classList.add('active-scene');
+          currentActiveCard = sceneCards[sceneCards.length - 1];
         }
+      }
+      const ccHud = document.getElementById('animatic-cc-hud');
+      if (ccHud && currentActiveCard) {
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const cap = currentActiveCard.getAttribute('data-caption') || '';
+        ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }
 
       // Update jump pills
@@ -2391,6 +2509,8 @@
         exportProductionBible();
       } else if (e.key === 'l' || e.key === 'L') {
         toggleLoop();
+      } else if (e.key === 'c' || e.key === 'C') {
+        toggleCC();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleSafeGuides();
       }

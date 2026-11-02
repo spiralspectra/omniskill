@@ -767,6 +767,56 @@
     .tab-panel {
       padding: 12px;
     }
+    .coverage-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .coverage-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-right: 4px;
+    }
+    .btn-coverage-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-coverage-pill:hover, .btn-coverage-pill:focus-visible {
+      border-color: var(--cyan-telemetry);
+      color: var(--text-main);
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .btn-coverage-pill.active {
+      background: rgba(0, 240, 255, 0.14);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .animatic-cc-hud {
+      background: rgba(4, 5, 8, 0.92);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--cyan-telemetry);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .animatic-cc-hud.hidden {
+      display: none !important;
+    }
     .prompt-text {
       font-size: 13px;
       line-height: 1.6;
@@ -829,7 +879,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -846,6 +896,9 @@
         </button>
         <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [L]" aria-pressed="false">
           🔁 Loop [L]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
+          CC [C]
         </button>
         <div class="smpte-display" id="smpte-timecode" role="timer" aria-live="polite" aria-label="SMPTE Timecode Display">
           00:00:00:00
@@ -867,6 +920,9 @@
     <div class="scrubber-track-wrap">
       <input type="range" class="scrubber-track" id="animatic-scrubber" min="0" max="768" value="0" aria-label="Animatic Timeline Scrubber" oninput="onScrub(this.value)">
       <span class="scrubber-info" id="scrubber-info">0.0s / 32.0s (24fps)</span>
+    </div>
+    <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
+      [CC] Scene 01 Ready
     </div>
   </aside>
 
@@ -1140,7 +1196,7 @@
     <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (4 SEQUENTIAL CUTS)</div>
     <section class="timeline-list" role="region" aria-label="Shot by Shot Timeline">
       
-        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="8.00" role="region" aria-label="Scene 1">
+        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="8.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 1">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 1</span>
@@ -1219,8 +1275,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-1">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-1">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1281,6 +1337,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-1" role="tabpanel" aria-labelledby="tab-prompt-1">
+                  <div class="coverage-selector" role="group" aria-label="Scene 1 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(1, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(1, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(1, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-1">A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound.</div>
                 </div>
 
@@ -1308,7 +1370,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="8.00" data-end-sec="16.00" role="region" aria-label="Scene 2">
+        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="8.00" data-end-sec="16.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 2">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 2</span>
@@ -1387,8 +1449,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-2">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-2">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1449,6 +1511,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-2" role="tabpanel" aria-labelledby="tab-prompt-2">
+                  <div class="coverage-selector" role="group" aria-label="Scene 2 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(2, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(2, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(2, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-2">A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score.</div>
                 </div>
 
@@ -1476,7 +1544,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-3" data-scene-index="3" data-start-sec="16.00" data-end-sec="24.00" role="region" aria-label="Scene 3">
+        <div class="scene-card" id="scene-3" data-scene-index="3" data-start-sec="16.00" data-end-sec="24.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 3">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 3</span>
@@ -1555,8 +1623,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-3">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-3">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1617,6 +1685,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-3" role="tabpanel" aria-labelledby="tab-prompt-3">
+                  <div class="coverage-selector" role="group" aria-label="Scene 3 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(3, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(3, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(3, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-3">The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest.</div>
                 </div>
 
@@ -1644,7 +1718,7 @@
         </div>
         
 
-        <div class="scene-card" id="scene-4" data-scene-index="4" data-start-sec="24.00" data-end-sec="32.00" role="region" aria-label="Scene 4">
+        <div class="scene-card" id="scene-4" data-scene-index="4" data-start-sec="24.00" data-end-sec="32.00" data-caption="[SFX: Controlled Studio Acoustics]" role="region" aria-label="Scene 4">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 4</span>
@@ -1723,8 +1797,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> 35mm Studio Prime | Centered
+              <div class="camera-telemetry" id="craft-telemetry-4">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-4">35mm Studio Prime | Centered</span>
               </div>
             </div>
 
@@ -1785,6 +1859,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-4" role="tabpanel" aria-labelledby="tab-prompt-4">
+                  <div class="coverage-selector" role="group" aria-label="Scene 4 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(4, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside." data-cam="35mm Studio Prime | Centered" onclick="selectCoverage(4, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside. Synchronized diegetic audio captures crisp tactile surface contact foley and balanced room acoustics." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(4, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-4">The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside.</div>
                 </div>
 
@@ -2127,7 +2207,38 @@
     let currentFrame = 0;
     let isPlaying = false;
     let isLooping = false;
+    let isCCEnabled = true;
     let playbackSpeed = 1.0;
+
+    function toggleCC() {
+      isCCEnabled = !isCCEnabled;
+      const btn = document.getElementById('btn-cc-animatic');
+      const hud = document.getElementById('animatic-cc-hud');
+      if (btn) {
+        btn.classList.toggle('active', isCCEnabled);
+        btn.setAttribute('aria-pressed', isCCEnabled ? 'true' : 'false');
+      }
+      if (hud) {
+        hud.classList.toggle('hidden', !isCCEnabled);
+      }
+      showToast(isCCEnabled ? "Closed Captions (CC): ON" : "Closed Captions (CC): OFF");
+    }
+
+    function selectCoverage(sceneIdx, covKey, btnEl) {
+      if (!btnEl) return;
+      const group = btnEl.parentElement;
+      if (group) {
+        group.querySelectorAll('.btn-coverage-pill').forEach(b => b.classList.remove('active'));
+      }
+      btnEl.classList.add('active');
+      const promptEl = document.getElementById('prompt-' + sceneIdx);
+      const camEl = document.getElementById('craft-summary-' + sceneIdx);
+      const newPrompt = btnEl.getAttribute('data-prompt');
+      const newCam = btnEl.getAttribute('data-cam');
+      if (promptEl && newPrompt) promptEl.innerText = newPrompt;
+      if (camEl && newCam) camEl.innerText = newCam;
+      showToast("Scene " + sceneIdx + " coverage switched to [" + covKey.toUpperCase() + "]");
+    }
     let animFrameReq = null;
     let lastTimestamp = 0;
 
@@ -2162,7 +2273,14 @@
         // If at the very end of playback, keep last card active
         if (tSec >= TOTAL_RUNTIME - 0.05) {
           sceneCards[sceneCards.length - 1].classList.add('active-scene');
+          currentActiveCard = sceneCards[sceneCards.length - 1];
         }
+      }
+      const ccHud = document.getElementById('animatic-cc-hud');
+      if (ccHud && currentActiveCard) {
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const cap = currentActiveCard.getAttribute('data-caption') || '';
+        ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }
 
       // Update jump pills
@@ -2340,6 +2458,8 @@
         exportProductionBible();
       } else if (e.key === 'l' || e.key === 'L') {
         toggleLoop();
+      } else if (e.key === 'c' || e.key === 'C') {
+        toggleCC();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleSafeGuides();
       }

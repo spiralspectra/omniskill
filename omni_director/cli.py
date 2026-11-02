@@ -235,6 +235,102 @@ def handle_council(args_list: List[str]) -> int:
     return 0 if overall_success else (2 if args.council_strict else 0)
 
 
+def handle_export(args_list: List[str]) -> int:
+    """Exports NLE timeline, shot list CSV, call sheet MD, and SRT/VTT subtitles for a preset or Bible file."""
+    from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
+    from omni_director.tools.nle_export import (
+        export_all_nle_artifacts,
+        export_cmx3600_edl,
+        export_fcpxml,
+        export_production_callsheet_md,
+        export_shot_list_csv,
+    )
+
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, and subtitles")
+    parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
+    parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
+    parser.add_argument(
+        "--format",
+        "-f",
+        type=str,
+        default="all",
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt"],
+        help="Artifact format to export (default: all)",
+    )
+    parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
+    parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
+    parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
+
+    args = parser.parse_args(args_list)
+    out_dir = Path(args.output_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if args.bible_file:
+        bible_p = Path(args.bible_file)
+        if not bible_p.exists() or not bible_p.is_file():
+            print(f"Error: Bible file does not exist at '{args.bible_file}'", file=sys.stderr)
+            return 1
+        try:
+            bible = load_bible_from_json(args.bible_file)
+        except Exception as exc:
+            print(f"Error loading bible file '{args.bible_file}': {exc}", file=sys.stderr)
+            return 1
+    else:
+        preset_key = args.preset or "ikea-asmr"
+        bible = get_preset_bible(preset_key)
+
+    exported_files: Dict[str, str] = {}
+    fmt = args.format.lower()
+
+    if fmt == "all":
+        exported_files.update(export_all_nle_artifacts(bible, out_dir, fps=args.fps))
+        srt_path = out_dir / "subtitles.srt"
+        vtt_path = out_dir / "subtitles.vtt"
+        srt_path.write_text(compile_subtitles_srt(bible, fps=args.fps), encoding="utf-8")
+        vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
+        exported_files["srt"] = str(srt_path.resolve())
+        exported_files["vtt"] = str(vtt_path.resolve())
+    elif fmt == "edl":
+        p = out_dir / "timeline.edl"
+        p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
+        exported_files["edl"] = str(p.resolve())
+    elif fmt == "fcpxml":
+        p = out_dir / "sequence.fcpxml"
+        p.write_text(export_fcpxml(bible, fps=args.fps), encoding="utf-8")
+        exported_files["fcpxml"] = str(p.resolve())
+    elif fmt == "csv":
+        p = out_dir / "shot_list.csv"
+        p.write_text(export_shot_list_csv(bible), encoding="utf-8")
+        exported_files["csv"] = str(p.resolve())
+    elif fmt == "md":
+        p = out_dir / "call_sheet.md"
+        p.write_text(export_production_callsheet_md(bible), encoding="utf-8")
+        exported_files["md"] = str(p.resolve())
+    elif fmt == "srt":
+        p = out_dir / "subtitles.srt"
+        p.write_text(compile_subtitles_srt(bible, fps=args.fps), encoding="utf-8")
+        exported_files["srt"] = str(p.resolve())
+    elif fmt == "vtt":
+        p = out_dir / "subtitles.vtt"
+        p.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
+        exported_files["vtt"] = str(p.resolve())
+
+    if args.json:
+        print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))
+    elif HAS_RICH:
+        console = Console()
+        print_banner()
+        console.print(f"[bold green]✓ Exported {len(exported_files)} post-production artifact(s) for '{bible.project_title}':[/bold green]")
+        for k, v in exported_files.items():
+            console.print(f"  • [bold cyan]{k.upper()}[/bold cyan]: {v}")
+    else:
+        print(f"Exported {len(exported_files)} artifact(s) for '{bible.project_title}':")
+        for k, v in exported_files.items():
+            print(f"  - {k}: {v}")
+
+    return 0
+
+
 def main(argv: Optional[list[str]] = None) -> int:
     args_list = list(sys.argv[1:] if argv is None else argv)
 
@@ -248,6 +344,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return handle_doctor(args_list[1:])
     if args_list and args_list[0] == "council":
         return handle_council(args_list[1:])
+    if args_list and args_list[0] == "export":
+        return handle_export(args_list[1:])
     if args_list and args_list[0] == "verify-bundle":
         positionals = [a for a in args_list[1:] if not a.startswith("-")]
         flags = [a for a in args_list[1:] if a.startswith("-")]
@@ -360,6 +458,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         type=str,
         default=None,
         help="Verify SHA-256 artifact checksums of an existing bundle directory",
+    )
+    parser.add_argument(
+        "--export-nle",
+        action="store_true",
+        default=False,
+        help="Export CMX 3600 EDL, FCPXML, CSV shot list, Markdown call sheet, and SRT/VTT subtitles into output-dir.",
     )
 
     args = parser.parse_args(args_list)
@@ -484,6 +588,14 @@ def main(argv: Optional[list[str]] = None) -> int:
                 continuous_mode=continuous_mode,
                 run_council=run_council,
             )
+
+        if args.export_nle:
+            from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
+            from omni_director.tools.nle_export import export_all_nle_artifacts
+            out_p = Path(args.output_dir)
+            export_all_nle_artifacts(bundle.bible, out_p, fps=24)
+            (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
+            (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

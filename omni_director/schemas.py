@@ -399,18 +399,38 @@ class AuditResult(BaseModel):
 PromptAuditResult = AuditResult
 
 
+SENIOR_PM_PERSONA_PROMPT = (
+    "You are a world-class senior product manager that recently joined this project "
+    "from a top software company. You will inspect everything about this product and "
+    "recommend new features and improvements to the product council who will then implement it."
+)
+
+
 class CouncilPersona(str, Enum):
-    """The four disciplines of the Autonomous Product Council."""
+    """The four scoring disciplines of the Autonomous Product Council plus the Senior Product Manager."""
     FORWARD_DEPLOYED_ENGINEER = "council-fde"
     AGENT_SYSTEMS_ENGINEER = "council-agent-engineer"
     AGENT_STRATEGIST = "council-strategist"
     UX_UI_DESIGNER = "council-ux-designer"
+    PRODUCT_MANAGER = "council-product-manager"
 
     # Aliases
     COUNCIL_FDE = "council-fde"
     COUNCIL_AGENT_ENGINEER = "council-agent-engineer"
     COUNCIL_STRATEGIST = "council-strategist"
     COUNCIL_UX_DESIGNER = "council-ux-designer"
+    COUNCIL_PRODUCT_MANAGER = "council-product-manager"
+
+
+class ProductFeatureProposal(BaseModel):
+    """A feature or product improvement recommended by the Senior Product Manager."""
+    feature_id: str
+    title: str
+    problem_statement: str
+    proposed_solution: str
+    target_modules: List[str] = Field(default_factory=list)
+    priority: str = "P0"
+    status: str = "implemented"
 
 
 class CouncilFindingSeverity(str, Enum):
@@ -461,8 +481,8 @@ class PersonaReviewResult(BaseModel):
 
 
 class ProductCouncilReport(BaseModel):
-    """Unified 100-point 4-persona Product Council evaluation report."""
-    version: str = "2.1.0"
+    """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
+    version: str = "2.2.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -470,6 +490,8 @@ class ProductCouncilReport(BaseModel):
     critical_findings_count: int = 0
     reviews: List[PersonaReviewResult] = Field(default_factory=list)
     recommendations: List[str] = Field(default_factory=list)
+    pm_persona_prompt: str = SENIOR_PM_PERSONA_PROMPT
+    pm_recommendations: List[ProductFeatureProposal] = Field(default_factory=list)
 
     @property
     def persona_reviews(self) -> Dict[str, PersonaReviewResult]:

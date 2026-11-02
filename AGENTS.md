@@ -4,9 +4,9 @@ This repository is governed by the constitutional rules set forth in this file. 
 
 ---
 
-## 1. Purpose & Architecture of Omni-Director (`v2.1.0`)
+## 1. Purpose & Architecture of Omni-Director (`v2.2.0`)
 
-Omni Movie Director is an industrial-grade **Google Agent Development Kit 2.0 (`google.adk`)** multi-agent cinematic production system orchestrating the 2026 Gemini Model Matrix. It synthesizes full-length cinematic treatments, visual continuity bibles, synchronized diegetic audio specifications, and SMPTE-accurate interactive animatics from raw creative briefs.
+Omni Movie Director is an industrial-grade **Google Agent Development Kit 2.0 (`google.adk`)** multi-agent cinematic production system orchestrating the 2026 Gemini Model Matrix. It synthesizes full-length cinematic treatments, visual continuity bibles, synchronized diegetic audio specifications, NLE post-production timelines (EDL/FCPXML/SRT/VTT), and SMPTE-accurate interactive animatics from raw creative briefs.
 
 ### Core Architectural Hierarchy
 1. **Single Source of Truth (SSOT)**: The `MasterProductionBible` is synthesized by `CreativeDirectorAgent` and remains immutable throughout the downstream pipeline.
@@ -18,8 +18,9 @@ Omni Movie Director is an industrial-grade **Google Agent Development Kit 2.0 (`
    - `BGMComposerAgent`: Authors musical blueprints with tempo, key, stems, and Lyria prompts.
    - `PromptAuditorAgent`: Evaluates prompts against the 7-Point Gemini Omni Prompting Standard and applies self-healing.
    - `OptionalOmniVideoRenderAgent`: Zero-credit offline simulation by default; live render only when explicitly requested.
-   - `StoryboardHTMLCompilerAgent`: Generates dark-room cinema HTML5 animatic with SMPTE scrubber and exportable JSON.
-   - `ProductCouncilOrchestrator`: Multi-persona governance board auditing technical, architectural, strategic, and UX excellence.
+   - `StoryboardHTMLCompilerAgent`: Generates dark-room cinema HTML5 animatic with SMPTE scrubber, multi-cam coverage selector, Closed Caption (`CC`) HUD, and exportable JSON.
+   - `ProductManagerAgent`: World-class Senior Product Manager inspecting the product daily and recommending new features and improvements to the Product Council.
+   - `ProductCouncilOrchestrator`: Multi-persona governance board implementing PM features and auditing technical, architectural, strategic, and UX excellence.
 
 ---
 
@@ -41,11 +42,15 @@ Under DeepMind 2026 architectural directives, legacy models are strictly depreca
 
 ---
 
-## 3. Autonomous Product Council Protocol
+## 3. Autonomous Product Council & Senior Product Manager Protocol
 
-All production bundles and codebase modifications are subject to review by the autonomous 4-persona Product Council:
+All production bundles, daily feature releases, and codebase modifications are governed by the **Senior Product Manager (`council-product-manager`)** and the autonomous 4-persona Product Council:
 
-### The Four Personas (100-Point Rubric)
+### Senior Product Manager (`council-product-manager`)
+- **Persona Directive**: *"You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it."*
+- Every daily run consults `ProductManagerAgent` first to inspect the product, recommend new features and improvements, have the Product Council implement and test them, bump the semantic version release (`pyproject.toml`, `omni_director/__init__.py`, `CHANGELOG.md`, git tag `vX.Y.Z`), and push to `origin`.
+
+### The Four Scoring Personas (100-Point Rubric)
 1. **Forward Deployed Engineer (`council-fde`, 25 Points)**:
    - Validates Python compatibility, dependency health, zero-leak telemetry, and preflight doctor status.
 2. **Agent Systems Engineer (`council-agent-engineer`, 25 Points)**:

@@ -767,6 +767,56 @@
     .tab-panel {
       padding: 12px;
     }
+    .coverage-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .coverage-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-right: 4px;
+    }
+    .btn-coverage-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-coverage-pill:hover, .btn-coverage-pill:focus-visible {
+      border-color: var(--cyan-telemetry);
+      color: var(--text-main);
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .btn-coverage-pill.active {
+      background: rgba(0, 240, 255, 0.14);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .animatic-cc-hud {
+      background: rgba(4, 5, 8, 0.92);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--cyan-telemetry);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .animatic-cc-hud.hidden {
+      display: none !important;
+    }
     .prompt-text {
       font-size: 13px;
       line-height: 1.6;
@@ -829,7 +879,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -846,6 +896,9 @@
         </button>
         <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [L]" aria-pressed="false">
           🔁 Loop [L]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
+          CC [C]
         </button>
         <div class="smpte-display" id="smpte-timecode" role="timer" aria-live="polite" aria-label="SMPTE Timecode Display">
           00:00:00:00
@@ -865,6 +918,9 @@
     <div class="scrubber-track-wrap">
       <input type="range" class="scrubber-track" id="animatic-scrubber" min="0" max="240" value="0" aria-label="Animatic Timeline Scrubber" oninput="onScrub(this.value)">
       <span class="scrubber-info" id="scrubber-info">0.0s / 10.0s (24fps)</span>
+    </div>
+    <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
+      [CC] Scene 01 Ready
     </div>
   </aside>
 
@@ -1138,7 +1194,7 @@
     <div class="section-title" id="timeline-section">SHOT-BY-SHOT TIMELINE (2 SEQUENTIAL CUTS)</div>
     <section class="timeline-list" role="region" aria-label="Shot by Shot Timeline">
       
-        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="5.00" role="region" aria-label="Scene 1">
+        <div class="scene-card" id="scene-1" data-scene-index="1" data-start-sec="0.00" data-end-sec="5.00" data-caption="[SFX: Precision magnetic latch click]" role="region" aria-label="Scene 1">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 1</span>
@@ -1217,8 +1273,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (85mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis
+              <div class="camera-telemetry" id="craft-telemetry-1">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-1">CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (85mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis</span>
               </div>
             </div>
 
@@ -1268,6 +1324,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-1" role="tabpanel" aria-labelledby="tab-prompt-1">
+                  <div class="coverage-selector" role="group" aria-label="Scene 1 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse. Synchronized diegetic audio captures Precision magnetic latch click, Anodized aluminum bevel contact." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(1, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse." data-cam="CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (85mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis" onclick="selectCoverage(1, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse. Synchronized diegetic audio captures Precision magnetic latch click, Anodized aluminum bevel contact." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(1, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-1">Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse.</div>
                 </div>
 
@@ -1289,13 +1351,13 @@
                 </div>
               </div>
 
-              
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2 Delta (Lighting & Atmosphere): Preserve exact subject identity, wardrobe, and spatial blocking from Scene 01. Deepen the key-to-fill contrast ratio along palette anchors (#030712, #38BDF8, #94A3B8) while intensifying volumetric rim-light separation during the [02s-05s] escalation beat. | Turn 3 Delta (Camera & Optics): Keep all physical choreography locked at 1.0x real-time speed. Tighten the 85mm CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus framing by 15% and pull focus smoothly onto the hero contact surface at [05s-08s] with crisp optical separation. | Turn 4 Delta (Diegetic Audio & Surface Micro-Detail): Maintain visual timing and camera path. Amplify close-mic transient clarity for 'Precision magnetic latch click' above 'Controlled cinematic soundstage with damp low-end reverb' and sharpen specular micro-reflections at peak impact.</div>
             </div>
           </div>
         </div>
         
 
-        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="5.00" data-end-sec="10.00" role="region" aria-label="Scene 2">
+        <div class="scene-card" id="scene-2" data-scene-index="2" data-start-sec="5.00" data-end-sec="10.00" data-caption="[SFX: Precision magnetic latch click]" role="region" aria-label="Scene 2">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE 2</span>
@@ -1374,8 +1436,8 @@
   </text>
 </svg>
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject
+              <div class="camera-telemetry" id="craft-telemetry-2">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-2">CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject</span>
               </div>
             </div>
 
@@ -1425,6 +1487,12 @@
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-2" role="tabpanel" aria-labelledby="tab-prompt-2">
+                  <div class="coverage-selector" role="group" aria-label="Scene 2 Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash. Synchronized diegetic audio captures Precision magnetic latch click, Anodized aluminum bevel contact." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(2, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash." data-cam="CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject" onclick="selectCoverage(2, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash. Synchronized diegetic audio captures Precision magnetic latch click, Anodized aluminum bevel contact." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(2, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-2">Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash.</div>
                 </div>
 
@@ -1446,7 +1514,7 @@
                 </div>
               </div>
 
-              
+              <div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> Turn 2 Delta (Lighting & Atmosphere): Preserve exact subject identity, wardrobe, and spatial blocking from Scene 02. Deepen the key-to-fill contrast ratio along palette anchors (#030712, #38BDF8, #94A3B8) while intensifying volumetric rim-light separation during the [02s-05s] escalation beat. | Turn 3 Delta (Camera & Optics): Keep all physical choreography locked at 1.0x real-time speed. Tighten the 50mm CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus framing by 15% and pull focus smoothly onto the hero contact surface at [05s-08s] with crisp optical separation. | Turn 4 Delta (Diegetic Audio & Surface Micro-Detail): Maintain visual timing and camera path. Amplify close-mic transient clarity for 'Precision magnetic latch click' above 'Reflective dynamic spatial acoustics with crisp decay' and sharpen specular micro-reflections at peak impact.</div>
             </div>
           </div>
         </div>
@@ -1760,7 +1828,38 @@
     let currentFrame = 0;
     let isPlaying = false;
     let isLooping = false;
+    let isCCEnabled = true;
     let playbackSpeed = 1.0;
+
+    function toggleCC() {
+      isCCEnabled = !isCCEnabled;
+      const btn = document.getElementById('btn-cc-animatic');
+      const hud = document.getElementById('animatic-cc-hud');
+      if (btn) {
+        btn.classList.toggle('active', isCCEnabled);
+        btn.setAttribute('aria-pressed', isCCEnabled ? 'true' : 'false');
+      }
+      if (hud) {
+        hud.classList.toggle('hidden', !isCCEnabled);
+      }
+      showToast(isCCEnabled ? "Closed Captions (CC): ON" : "Closed Captions (CC): OFF");
+    }
+
+    function selectCoverage(sceneIdx, covKey, btnEl) {
+      if (!btnEl) return;
+      const group = btnEl.parentElement;
+      if (group) {
+        group.querySelectorAll('.btn-coverage-pill').forEach(b => b.classList.remove('active'));
+      }
+      btnEl.classList.add('active');
+      const promptEl = document.getElementById('prompt-' + sceneIdx);
+      const camEl = document.getElementById('craft-summary-' + sceneIdx);
+      const newPrompt = btnEl.getAttribute('data-prompt');
+      const newCam = btnEl.getAttribute('data-cam');
+      if (promptEl && newPrompt) promptEl.innerText = newPrompt;
+      if (camEl && newCam) camEl.innerText = newCam;
+      showToast("Scene " + sceneIdx + " coverage switched to [" + covKey.toUpperCase() + "]");
+    }
     let animFrameReq = null;
     let lastTimestamp = 0;
 
@@ -1795,7 +1894,14 @@
         // If at the very end of playback, keep last card active
         if (tSec >= TOTAL_RUNTIME - 0.05) {
           sceneCards[sceneCards.length - 1].classList.add('active-scene');
+          currentActiveCard = sceneCards[sceneCards.length - 1];
         }
+      }
+      const ccHud = document.getElementById('animatic-cc-hud');
+      if (ccHud && currentActiveCard) {
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const cap = currentActiveCard.getAttribute('data-caption') || '';
+        ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }
 
       // Update jump pills
@@ -1973,6 +2079,8 @@
         exportProductionBible();
       } else if (e.key === 'l' || e.key === 'L') {
         toggleLoop();
+      } else if (e.key === 'c' || e.key === 'C') {
+        toggleCC();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleSafeGuides();
       }

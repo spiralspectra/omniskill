@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from omni_director.schemas import AuditResult, MasterProductionBible, ProductionBundle, ScenePromptSpec
+from omni_director.tools.coverage import generate_scene_coverage, synthesize_conversational_deltas
 
 
 def _render_plate_html(plate_value: Optional[str], alt: str = "Visual Plate") -> str:
@@ -292,8 +293,28 @@ def compile_storyboard_html(
         diegetic_foley_str = ", ".join(scene.diegetic_sonic.foley_cues) if (scene.diegetic_sonic and scene.diegetic_sonic.foley_cues) else "Tactile contact foley"
         room_acoustics_str = scene.diegetic_sonic.room_acoustics if scene.diegetic_sonic else "Controlled Studio Acoustics"
 
+        # Closed Caption Cue for Scene
+        if scene.diegetic_sonic and scene.diegetic_sonic.dialogue_lines:
+            scene_caption_raw = " — ".join(scene.diegetic_sonic.dialogue_lines)
+        elif scene.diegetic_sonic and scene.diegetic_sonic.foley_cues:
+            scene_caption_raw = f"[SFX: {scene.diegetic_sonic.foley_cues[0]}]"
+        else:
+            scene_caption_raw = f"[SFX: {room_acoustics_str}]"
+        scene_caption_attr = scene_caption_raw.replace('"', '&quot;')
+
+        # Multi-Cam Coverage Variants (A: Master, B: Dynamic, C: Macro)
+        cov_map = generate_scene_coverage(scene, bible)
+        cov_master_prompt = cov_map["master"].prompt_text.replace('"', '&quot;')
+        cov_dynamic_prompt = scene.omni_prose_prompt.replace('"', '&quot;')
+        cov_macro_prompt = cov_map["macro"].prompt_text.replace('"', '&quot;')
+        cov_master_cam = cov_map["master"].craft_camera.to_summary().replace('"', '&quot;')
+        cov_dynamic_cam = craft_summary.replace('"', '&quot;')
+        cov_macro_cam = cov_map["macro"].craft_camera.to_summary().replace('"', '&quot;')
+
+        effective_deltas = scene.conversational_edit_deltas or synthesize_conversational_deltas(scene, bible)
+
         scenes_html.append(f"""
-        <div class="scene-card" id="scene-{s_idx}" data-scene-index="{s_idx}" data-start-sec="{scene_start_sec:.2f}" data-end-sec="{scene_end_sec:.2f}" role="region" aria-label="Scene {s_idx}">
+        <div class="scene-card" id="scene-{s_idx}" data-scene-index="{s_idx}" data-start-sec="{scene_start_sec:.2f}" data-end-sec="{scene_end_sec:.2f}" data-caption="{scene_caption_attr}" role="region" aria-label="Scene {s_idx}">
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE {s_idx}</span>
@@ -315,8 +336,8 @@ def compile_storyboard_html(
               <div class="scene-visual-frame aspect-{bible.aspect_ratio.value.replace(':', '-').replace('.', '_')}">
                 {scene_plate_svg}
               </div>
-              <div class="camera-telemetry">
-                <span class="craft-tag">CRAFT CAMERA</span> {craft_summary}
+              <div class="camera-telemetry" id="craft-telemetry-{s_idx}">
+                <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-{s_idx}">{craft_summary}</span>
               </div>
             </div>
 
@@ -345,6 +366,12 @@ def compile_storyboard_html(
                 </div>
 
                 <div class="tab-panel active" id="panel-prompt-{s_idx}" role="tabpanel" aria-labelledby="tab-prompt-{s_idx}">
+                  <div class="coverage-selector" role="group" aria-label="Scene {s_idx} Multi-Cam Coverage">
+                    <span class="coverage-label">MULTI-CAM COVERAGE:</span>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="{cov_master_prompt}" data-cam="{cov_master_cam}" onclick="selectCoverage({s_idx}, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="{cov_dynamic_prompt}" data-cam="{cov_dynamic_cam}" onclick="selectCoverage({s_idx}, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="{cov_macro_prompt}" data-cam="{cov_macro_cam}" onclick="selectCoverage({s_idx}, 'macro', this)">[C: Macro 100mm]</button>
+                  </div>
                   <div class="prompt-text" id="prompt-{s_idx}">{scene.omni_prose_prompt}</div>
                 </div>
 
@@ -366,7 +393,7 @@ def compile_storyboard_html(
                 </div>
               </div>
 
-              {f'<div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> {" | ".join(scene.conversational_edit_deltas)}</div>' if scene.conversational_edit_deltas else ''}
+              {f'<div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> {" | ".join(effective_deltas)}</div>' if effective_deltas else ''}
             </div>
           </div>
         </div>
@@ -1152,6 +1179,56 @@ def compile_storyboard_html(
     .tab-panel {{
       padding: 12px;
     }}
+    .coverage-selector {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }}
+    .coverage-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-right: 4px;
+    }}
+    .btn-coverage-pill {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }}
+    .btn-coverage-pill:hover, .btn-coverage-pill:focus-visible {{
+      border-color: var(--cyan-telemetry);
+      color: var(--text-main);
+      outline: 2px solid var(--cyan-telemetry);
+    }}
+    .btn-coverage-pill.active {{
+      background: rgba(0, 240, 255, 0.14);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }}
+    .animatic-cc-hud {{
+      background: rgba(4, 5, 8, 0.92);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--cyan-telemetry);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }}
+    .animatic-cc-hud.hidden {{
+      display: none !important;
+    }}
     .prompt-text {{
       font-size: 13px;
       line-height: 1.6;
@@ -1214,7 +1291,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -1231,6 +1308,9 @@ def compile_storyboard_html(
         </button>
         <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [L]" aria-pressed="false">
           🔁 Loop [L]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
+          CC [C]
         </button>
         <div class="smpte-display" id="smpte-timecode" role="timer" aria-live="polite" aria-label="SMPTE Timecode Display">
           00:00:00:00
@@ -1249,6 +1329,9 @@ def compile_storyboard_html(
     <div class="scrubber-track-wrap">
       <input type="range" class="scrubber-track" id="animatic-scrubber" min="0" max="{total_frames}" value="0" aria-label="Animatic Timeline Scrubber" oninput="onScrub(this.value)">
       <span class="scrubber-info" id="scrubber-info">0.0s / {total_runtime_sec}.0s (24fps)</span>
+    </div>
+    <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
+      [CC] Scene 01 Ready
     </div>
   </aside>
 
@@ -1428,7 +1511,38 @@ def compile_storyboard_html(
     let currentFrame = 0;
     let isPlaying = false;
     let isLooping = false;
+    let isCCEnabled = true;
     let playbackSpeed = 1.0;
+
+    function toggleCC() {{
+      isCCEnabled = !isCCEnabled;
+      const btn = document.getElementById('btn-cc-animatic');
+      const hud = document.getElementById('animatic-cc-hud');
+      if (btn) {{
+        btn.classList.toggle('active', isCCEnabled);
+        btn.setAttribute('aria-pressed', isCCEnabled ? 'true' : 'false');
+      }}
+      if (hud) {{
+        hud.classList.toggle('hidden', !isCCEnabled);
+      }}
+      showToast(isCCEnabled ? "Closed Captions (CC): ON" : "Closed Captions (CC): OFF");
+    }}
+
+    function selectCoverage(sceneIdx, covKey, btnEl) {{
+      if (!btnEl) return;
+      const group = btnEl.parentElement;
+      if (group) {{
+        group.querySelectorAll('.btn-coverage-pill').forEach(b => b.classList.remove('active'));
+      }}
+      btnEl.classList.add('active');
+      const promptEl = document.getElementById('prompt-' + sceneIdx);
+      const camEl = document.getElementById('craft-summary-' + sceneIdx);
+      const newPrompt = btnEl.getAttribute('data-prompt');
+      const newCam = btnEl.getAttribute('data-cam');
+      if (promptEl && newPrompt) promptEl.innerText = newPrompt;
+      if (camEl && newCam) camEl.innerText = newCam;
+      showToast("Scene " + sceneIdx + " coverage switched to [" + covKey.toUpperCase() + "]");
+    }}
     let animFrameReq = null;
     let lastTimestamp = 0;
 
@@ -1463,7 +1577,14 @@ def compile_storyboard_html(
         // If at the very end of playback, keep last card active
         if (tSec >= TOTAL_RUNTIME - 0.05) {{
           sceneCards[sceneCards.length - 1].classList.add('active-scene');
+          currentActiveCard = sceneCards[sceneCards.length - 1];
         }}
+      }}
+      const ccHud = document.getElementById('animatic-cc-hud');
+      if (ccHud && currentActiveCard) {{
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const cap = currentActiveCard.getAttribute('data-caption') || '';
+        ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }}
 
       // Update jump pills
@@ -1641,6 +1762,8 @@ def compile_storyboard_html(
         exportProductionBible();
       }} else if (e.key === 'l' || e.key === 'L') {{
         toggleLoop();
+      }} else if (e.key === 'c' || e.key === 'C') {{
+        toggleCC();
       }} else if (e.key === 'g' || e.key === 'G') {{
         toggleSafeGuides();
       }}

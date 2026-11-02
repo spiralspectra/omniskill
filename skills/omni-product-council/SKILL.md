@@ -1,13 +1,26 @@
 ---
 name: omni-product-council
-description: Convene the autonomous 4-persona Product Council (FDE, Agent Systems Engineer, Agent Strategist, UX/UI Designer) to audit production bundles, code health, 2026 Model Matrix compliance, and cinematic storyboards for Omni Movie Director.
+description: Convene the Senior Product Manager and autonomous 4-persona Product Council (FDE, Agent Systems Engineer, Agent Strategist, UX/UI Designer) to recommend and implement daily product features, audit production bundles, verify 2026 Model Matrix compliance, and cut daily version releases for Omni Movie Director.
 ---
 
-# Omni Product Council Skill (`omni-product-council`)
+# Omni Product Council & Senior Product Manager Skill (`omni-product-council`)
 
-The **Omni Product Council** is an autonomous multi-agent governance board established to maintain production excellence across all facets of the Omni Movie Director cinematic production suite.
+The **Omni Product Council** is an autonomous multi-agent product and governance board established to drive daily feature innovation and maintain production excellence across all facets of the Omni Movie Director cinematic production suite.
 
-This skill guides agents through convening the council, auditing system health, running multi-persona evaluations, executing automated prompt healing, and verifying quality gates.
+Every daily cycle begins by consulting the **Senior Product Manager (`council-product-manager`)**, followed by the four specialist engineering/design personas who implement the recommended features, audit all 10 showcase bundles, expand the pytest verification suite, and cut a version release pushed to `origin`.
+
+---
+
+## 0. Senior Product Manager Persona (`council-product-manager`)
+
+Before the 4 scoring council personas evaluate the repository, the Council ALWAYS consults the **Senior Product Manager (`ProductManagerAgent`)** with the mandatory persona prompt:
+
+> *"You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it."*
+
+- **Responsibilities**:
+  1. Inspect the end-to-end codebase, CLI ergonomics, post-production workflows, and HTML5 dark-room animatic UX.
+  2. Propose high-impact, differentiated product features (`ProductFeatureProposal`) with clear user value and acceptance criteria.
+  3. Hand off the prioritized feature specs to the 4 Product Council personas to implement, test in `tests/test_director_suite.py`, and release with a semantic version bump (`vX.Y.Z`).
 
 ---
 
@@ -85,12 +98,12 @@ Verify that all quality gates are satisfied:
 3. All scene prompt audit scores $\ge 90 / 100$
 4. Output HTML contains `#btn-play-animatic`, `#smpte-timecode`, `.scrubber-track`, `.audit-drawer`, and zero blocking dialog calls.
 
-### Step 5: Verification & Daily Routine
-Run the full test suite and daily council routine:
+### Step 5: Verification, Version Release & Daily Routine
+Run the full test suite and daily PM + council release routine:
 ```bash
 # Pytest suite
 python3 -m pytest tests/test_director_suite.py -v
 
-# Daily multi-archetype council routine
-python3 scripts/run_daily_council.py
+# Daily Senior PM consultation, multi-archetype council routine, version release & git push
+python3 scripts/run_daily_council.py --release --push
 ```

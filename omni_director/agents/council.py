@@ -26,7 +26,9 @@ from omni_director.schemas import (
     MasterProductionBible,
     PersonaReviewResult,
     ProductCouncilReport,
+    ProductFeatureProposal,
     ProductionBundle,
+    SENIOR_PM_PERSONA_PROMPT,
     load_bible_from_json,
 )
 from omni_director.telemetry import verify_bundle_checksums
@@ -56,6 +58,92 @@ FORBIDDEN_COUNCIL_MODEL_PATTERNS = [
 ]
 
 
+class ProductManagerAgent(BaseAgent):
+    """Senior Product Manager agent (`council-product-manager`) inspecting product capabilities and driving daily feature releases."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
+    def __init__(
+        self,
+        config: Optional[DirectorConfig] = None,
+        *,
+        name: Optional[str] = None,
+        persona_prompt: str = SENIOR_PM_PERSONA_PROMPT,
+        **kwargs: Any,
+    ) -> None:
+        agent_name = name or "ProductManagerAgent"
+        desc = kwargs.pop("description", kwargs.pop("instruction", persona_prompt))
+        super().__init__(name=agent_name, description=desc, **kwargs)
+        self.config = config or cfg
+        self.persona = CouncilPersona.PRODUCT_MANAGER
+        self.persona_prompt = persona_prompt
+
+    def inspect_product(
+        self,
+        bible: Optional[MasterProductionBible] = None,
+        bundle: Optional[ProductionBundle] = None,
+        output_dir: Optional[Path] = None,
+    ) -> List[ProductFeatureProposal]:
+        """Inspects the product end-to-end and returns high-impact feature recommendations for the Product Council."""
+        del bundle, output_dir
+        project_ctx = f" for '{bible.project_title}'" if bible else ""
+        return [
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-001",
+                title="Industry NLE Timeline & Production Export Suite (EDL, FCPXML, CSV, Call Sheet)",
+                problem_statement=(
+                    f"Commercial directors and post-production editors reviewing pre-vis storyboards{project_ctx} "
+                    "need direct timeline handoff into DaVinci Resolve, Premiere Pro, and Final Cut Pro without manual re-logging."
+                ),
+                proposed_solution=(
+                    "Ship omni_director.tools.nle_export (CMX 3600 24fps EDL, FCPXML v1.10, CSV shot list, "
+                    "and Markdown Production Call Sheet) plus the `omni export` CLI subcommand."
+                ),
+                target_modules=["omni_director/tools/nle_export.py", "omni_director/cli.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-002",
+                title="SMPTE Dialogue Pacing Guardrail & Closed Caption Suite (SRT & WebVTT)",
+                problem_statement=(
+                    "Over-stuffed spoken dialogue in 8-second clips causes accelerated lip-sync artifacts, and "
+                    "enterprise creative reviews require synchronized closed captions (SRT/VTT) and live animatic CC overlays."
+                ),
+                proposed_solution=(
+                    "Ship omni_director.tools.dialogue with a 2.5 WPS speech-rate guardrail, SubRip (.srt) and "
+                    "WebVTT (.vtt) compilers, and an interactive #animatic-cc-hud overlay ([C] hotkey) in the Cinema UI."
+                ),
+                target_modules=["omni_director/tools/dialogue.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-003",
+                title="Multi-Cam Coverage & Conversational Delta Branching Engine",
+                problem_statement=(
+                    "Single-angle scene prompts limit editorial cutting flexibility; directors need A/B/C camera coverage "
+                    "(24mm Master Wide, 50mm Dynamic Hero, 100mm Macro Insert) and Turn 2-4 conversational edit deltas."
+                ),
+                proposed_solution=(
+                    "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) "
+                    "and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic."
+                ),
+                target_modules=["omni_director/tools/coverage.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+        ]
+
+    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """ADK 2.0 Agent invocation hook."""
+        bible = context.get("bible")
+        bundle = context.get("bundle")
+        out_dir = Path(context["output_dir"]) if context.get("output_dir") else None
+        context["pm_recommendations"] = self.inspect_product(bible=bible, bundle=bundle, output_dir=out_dir)
+        return context
+
+
 class ProductCouncilOrchestrator(BaseAgent):
     """Orchestrates 4-persona autonomous product council audit of production bibles and bundles."""
 
@@ -72,6 +160,16 @@ class ProductCouncilOrchestrator(BaseAgent):
         desc = kwargs.pop("description", kwargs.pop("instruction", "Autonomous Product Council Orchestrator"))
         super().__init__(name=agent_name, description=desc, **kwargs)
         self.config = config or cfg
+        self.product_manager = ProductManagerAgent(config=self.config)
+
+    def consult_product_manager(
+        self,
+        bible: Optional[MasterProductionBible] = None,
+        bundle: Optional[ProductionBundle] = None,
+        output_dir: Optional[Path] = None,
+    ) -> List[ProductFeatureProposal]:
+        """Consults the Senior Product Manager persona to inspect the product and recommend features."""
+        return self.product_manager.inspect_product(bible=bible, bundle=bundle, output_dir=output_dir)
 
     def audit(
         self,
@@ -154,8 +252,10 @@ class ProductCouncilOrchestrator(BaseAgent):
                 if f.suggested_fix and f.suggested_fix not in recommendations:
                     recommendations.append(f.suggested_fix)
 
+        pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
+
         report = ProductCouncilReport(
-            version="2.1.0",
+            version="2.2.0",
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -163,6 +263,8 @@ class ProductCouncilOrchestrator(BaseAgent):
             critical_findings_count=critical_count,
             reviews=reviews,
             recommendations=recommendations,
+            pm_persona_prompt=self.product_manager.persona_prompt,
+            pm_recommendations=pm_proposals,
         )
 
         if bundle is not None:
@@ -604,6 +706,22 @@ class ProductCouncilOrchestrator(BaseAgent):
                     if f.suggested_fix:
                         lines.append(f"  - *Suggested Fix*: {f.suggested_fix}")
                 lines.append("")
+
+        if report.pm_recommendations:
+            lines.extend([
+                "## Senior Product Manager Roadmap & Feature Inspection",
+                "",
+                f"> **Persona (`{CouncilPersona.PRODUCT_MANAGER.value}`)**: *{report.pm_persona_prompt}*",
+                "",
+                "| ID | Priority | Status | Feature Title | Target Modules |",
+                "| :--- | :---: | :---: | :--- | :--- |",
+            ])
+            for feat in report.pm_recommendations:
+                mods = ", ".join(f"`{m}`" for m in feat.target_modules)
+                lines.append(
+                    f"| `{feat.feature_id}` | **{feat.priority}** | `{feat.status}` | **{feat.title}**: {feat.proposed_solution} | {mods} |"
+                )
+            lines.append("")
 
         if report.recommendations:
             lines.extend([

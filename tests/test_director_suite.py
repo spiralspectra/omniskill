@@ -1748,6 +1748,223 @@ class TestV21CouncilIteration5ProductCouncilExcellence:
         assert validate_model_identifier("claude-3-opus") is False
 
 
+class TestV22ProductManagerFeatures:
+    """Verifies v2.2.0 features recommended by the Senior Product Manager (council-product-manager):
+    1. NLE Post-Production Exporter (CMX 3600 EDL, FCPXML v1.10, CSV Shot List, Call Sheet MD, CLI omni export)
+    2. Dialogue Pacing Guardrail (2.5 WPS ceiling) & Subtitle Compiler (SRT/VTT + Animatic CC HUD)
+    3. Multi-Cam Coverage & Conversational Iteration Engine (3-angle coverage + Turn 2-4 deltas + UI tabs)
+    4. Senior Product Manager Persona & Daily Council Consultation
+    """
+
+    def test_nle_exporter_edl_fcpxml_csv_callsheet(self, tmp_path):
+        import xml.etree.ElementTree as ET
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.nle_export import (
+            export_all_nle_artifacts,
+            export_cmx3600_edl,
+            export_fcpxml,
+            export_production_callsheet_md,
+            export_shot_list_csv,
+        )
+
+        # 1. CMX 3600 EDL
+        edl_text = export_cmx3600_edl(IKEA_ASMR_BIBLE, fps=24)
+        assert "TITLE:" in edl_text
+        assert "FCM: NON-DROP FRAME" in edl_text
+        assert "001  AX       V     C        00:00:00:00" in edl_text
+        assert "* FROM CLIP NAME:" in edl_text
+
+        # 2. FCPXML v1.10
+        fcpxml_text = export_fcpxml(IKEA_ASMR_BIBLE, fps=24)
+        root = ET.fromstring(fcpxml_text)
+        assert root.tag == "fcpxml"
+        assert root.attrib.get("version") == "1.10"
+        spine_clips = list(root.iter("asset-clip"))
+        assert len(spine_clips) == len(IKEA_ASMR_BIBLE.scenes)
+
+        # 3. CSV Shot List
+        csv_text = export_shot_list_csv(IKEA_ASMR_BIBLE)
+        lines = [line for line in csv_text.strip().splitlines() if line.strip()]
+        assert len(lines) == len(IKEA_ASMR_BIBLE.scenes) + 1
+        assert "scene_index,timecode_start,timecode_end,rig_type,focal_length_mm,composition,action_beats,audio_cues" in lines[0]
+
+        # 4. Call Sheet Markdown
+        md_text = export_production_callsheet_md(IKEA_ASMR_BIBLE)
+        assert "# Production Call Sheet:" in md_text
+        assert "## 1. Visual Continuity & Lighting Setup" in md_text
+        assert "## 3. Scene-by-Scene Shooting Schedule" in md_text
+
+        # 5. Export All Bundle
+        artifacts = export_all_nle_artifacts(IKEA_ASMR_BIBLE, tmp_path, fps=24)
+        assert set(artifacts.keys()) == {"edl", "fcpxml", "csv", "call_sheet"}
+        for path_str in artifacts.values():
+            p = Path(path_str)
+            assert p.is_file() and p.stat().st_size > 0
+
+    def test_cli_export_subcommand_all_formats(self, tmp_path):
+        from omni_director.cli import main
+
+        ret = main(["export", "--preset", "sephora-pulse", "--format", "all", "-o", str(tmp_path)])
+        assert ret == 0
+        expected_files = [
+            "timeline.edl",
+            "sequence.fcpxml",
+            "shot_list.csv",
+            "call_sheet.md",
+            "subtitles.srt",
+            "subtitles.vtt",
+        ]
+        for fname in expected_files:
+            fpath = tmp_path / fname
+            assert fpath.is_file(), f"Missing exported artifact: {fname}"
+            assert fpath.stat().st_size > 0
+
+    def test_dialogue_pacing_guardrail_and_srt_vtt_subtitles(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.dialogue import (
+            audit_dialogue_pacing,
+            compile_subtitles_srt,
+            compile_subtitles_vtt,
+        )
+
+        # Clean scene with concise dialogue passes <= 2.5 WPS
+        concise_scene = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Whisper Reveal",
+            timestamp_range="00:00 - 00:08",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            action_beats=["Beat 1: Slow reveal"],
+            omni_prose_prompt="Observational camera captures the quiet room.",
+            diegetic_sonic=DiegeticSonicSpec(
+                foley_cues=["Soft linen rustle"],
+                dialogue_lines=['Narrator: "Welcome home to stillness."'],
+                room_acoustics="Warm damped studio",
+            ),
+        )
+        passed_ok, wps_ok, warnings_ok = audit_dialogue_pacing(concise_scene)
+        assert passed_ok is True
+        assert wps_ok <= 2.5
+        assert warnings_ok == []
+
+        # Overloaded dialogue (> 20 words in 8s) triggers pacing violation
+        overloaded_scene = concise_scene.model_copy(
+            update={
+                "diegetic_sonic": DiegeticSonicSpec(
+                    foley_cues=["Footsteps"],
+                    dialogue_lines=[
+                        "Lead: This dialogue line contains far too many spoken words for an eight second cinematic window and will rush lip sync articulation significantly."
+                    ],
+                    room_acoustics="Hall",
+                )
+            }
+        )
+        passed_fail, wps_fail, warnings_fail = audit_dialogue_pacing(overloaded_scene)
+        assert passed_fail is False
+        assert wps_fail > 2.5
+        assert len(warnings_fail) >= 1
+
+        # SRT and WebVTT generation
+        srt = compile_subtitles_srt(IKEA_ASMR_BIBLE)
+        vtt = compile_subtitles_vtt(IKEA_ASMR_BIBLE)
+        assert "00:00:00,000 -->" in srt
+        assert "WEBVTT" in vtt
+        assert "00:00:00.000 -->" in vtt
+
+    def test_multicam_coverage_and_conversational_deltas(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE, KINETIC_FABRIC_BIBLE
+        from omni_director.tools.coverage import (
+            generate_scene_coverage,
+            synthesize_conversational_deltas,
+        )
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt
+
+        for bible in (IKEA_ASMR_BIBLE, KINETIC_FABRIC_BIBLE):
+            scene = bible.scenes[0]
+            variants = generate_scene_coverage(scene, bible)
+            assert len(variants) == 3
+            assert list(variants.keys()) == ["master", "dynamic", "macro"]
+
+            for v in variants.values():
+                # Every coverage variant must pass the 7-Point Gemini Omni Prompting Standard
+                variant_scene = scene.model_copy(
+                    update={
+                        "craft_camera": v.craft_camera,
+                        "omni_prose_prompt": v.prompt_text,
+                    }
+                )
+                audit = audit_omni_scene_prompt(
+                    variant_scene,
+                    regime=bible.creative_regime,
+                    storytelling_mode=bible.storytelling_mode,
+                )
+                assert audit.passed is True, f"Coverage variant {v.coverage_type} failed audit: {audit.errors}"
+                assert audit.score >= 90.0
+
+            deltas = synthesize_conversational_deltas(scene, bible)
+            assert len(deltas) == 3
+            assert any("Turn 2" in d for d in deltas)
+            assert any("Turn 3" in d for d in deltas)
+            assert any("Turn 4" in d for d in deltas)
+
+    def test_animatic_cc_hud_and_coverage_tabs(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        # Closed Caption HUD & Toggle
+        assert 'id="animatic-cc-hud"' in content
+        assert 'id="btn-cc-animatic"' in content
+        assert "function toggleCC()" in content
+        assert "CC [C]" in content
+
+        # Multi-Cam Coverage Selector Tabs
+        assert 'class="coverage-selector"' in content
+        assert "function selectCoverage(" in content
+        assert "[A: Master 24mm]" in content
+        assert "[B: Dynamic Hero]" in content
+        assert "[C: Macro 100mm]" in content
+
+    def test_senior_product_manager_persona_and_council_consultation(self):
+        from omni_director import (
+            ProductCouncilOrchestrator,
+            ProductFeatureProposal,
+            ProductManagerAgent,
+            SENIOR_PM_PERSONA_PROMPT,
+            __version__,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        assert __version__ == "2.2.0"
+        assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
+
+        pm_agent = ProductManagerAgent()
+        assert pm_agent.persona_prompt == SENIOR_PM_PERSONA_PROMPT
+        proposals = pm_agent.inspect_product(IKEA_ASMR_BIBLE)
+        assert len(proposals) >= 3
+        assert all(isinstance(p, ProductFeatureProposal) for p in proposals)
+        assert {p.feature_id for p in proposals} >= {"PM-FEAT-001", "PM-FEAT-002", "PM-FEAT-003"}
+
+        orchestrator = ProductCouncilOrchestrator()
+        report = orchestrator.audit(IKEA_ASMR_BIBLE)
+        assert report.version == "2.2.0"
+        assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
+        assert len(report.pm_recommendations) >= 3
+        md = orchestrator.generate_markdown_report(report)
+        assert "Senior Product Manager Roadmap & Feature Inspection" in md
+        assert "PM-FEAT-001" in md
+
+
+
 
 
 

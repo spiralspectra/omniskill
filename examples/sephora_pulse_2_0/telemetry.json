@@ -1,7 +1,7 @@
 {
-  "session_id": "96537e69-5ed2-4432-b9c1-d2d290916a34",
+  "session_id": "a5756c22-9c4d-4b91-85f0-44bc4b327e5d",
   "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-  "timestamp": "2026-11-02T10:41:12.942688+00:00",
+  "timestamp": "2026-11-02T11:30:49.545671+00:00",
   "model_matrix": {
     "director_model": "gemini-4-argon",
     "fast_model": "gemini-3.8-flash",
@@ -11,67 +11,73 @@
   "stage_timings": [
     {
       "stage_name": "intake_and_research",
-      "start_time": "2026-11-02T10:41:12.942701+00:00",
-      "end_time": "2026-11-02T10:41:12.942709+00:00",
+      "start_time": "2026-11-02T11:30:49.545692+00:00",
+      "end_time": "2026-11-02T11:30:49.545700+00:00",
       "duration_ms": 0.01,
       "details": {}
     },
     {
       "stage_name": "creative_director",
-      "start_time": "2026-11-02T10:41:12.942721+00:00",
-      "end_time": "2026-11-02T10:41:12.942729+00:00",
+      "start_time": "2026-11-02T11:30:49.545718+00:00",
+      "end_time": "2026-11-02T11:30:49.545727+00:00",
       "duration_ms": 0.01,
       "details": {}
     },
     {
       "stage_name": "visual_storyboard",
-      "start_time": "2026-11-02T10:41:12.942735+00:00",
-      "end_time": "2026-11-02T10:41:12.944793+00:00",
-      "duration_ms": 2.06,
+      "start_time": "2026-11-02T11:30:49.545734+00:00",
+      "end_time": "2026-11-02T11:30:49.548174+00:00",
+      "duration_ms": 2.44,
       "details": {}
     },
     {
       "stage_name": "scene_prompts_and_bgm",
-      "start_time": "2026-11-02T10:41:12.944807+00:00",
-      "end_time": "2026-11-02T10:41:12.944993+00:00",
-      "duration_ms": 0.19,
+      "start_time": "2026-11-02T11:30:49.548199+00:00",
+      "end_time": "2026-11-02T11:30:49.548508+00:00",
+      "duration_ms": 0.31,
       "details": {}
     },
     {
       "stage_name": "prompt_auditor",
-      "start_time": "2026-11-02T10:41:12.945003+00:00",
-      "end_time": "2026-11-02T10:41:12.947059+00:00",
-      "duration_ms": 2.06,
+      "start_time": "2026-11-02T11:30:49.548526+00:00",
+      "end_time": "2026-11-02T11:30:49.550963+00:00",
+      "duration_ms": 2.44,
       "details": {}
     },
     {
       "stage_name": "video_rendering",
-      "start_time": "2026-11-02T10:41:12.947072+00:00",
-      "end_time": "2026-11-02T10:41:12.947076+00:00",
-      "duration_ms": 0.0,
+      "start_time": "2026-11-02T11:30:49.550986+00:00",
+      "end_time": "2026-11-02T11:30:49.550992+00:00",
+      "duration_ms": 0.01,
       "details": {}
     },
     {
       "stage_name": "compilation",
-      "start_time": "2026-11-02T10:41:12.947082+00:00",
-      "end_time": "2026-11-02T10:41:12.949134+00:00",
-      "duration_ms": 2.05,
+      "start_time": "2026-11-02T11:30:49.550999+00:00",
+      "end_time": "2026-11-02T11:30:49.553969+00:00",
+      "duration_ms": 2.97,
       "details": {}
     },
     {
       "stage_name": "product_council",
-      "start_time": "2026-11-02T10:41:12.951201+00:00",
-      "end_time": "2026-11-02T10:41:12.977724+00:00",
-      "duration_ms": 26.52,
+      "start_time": "2026-11-02T11:30:49.556631+00:00",
+      "end_time": "2026-11-02T11:30:49.563376+00:00",
+      "duration_ms": 6.75,
       "details": {}
     }
   ],
-  "total_duration_ms": 32.9,
+  "total_duration_ms": 14.94,
   "audit_summary": {},
   "metadata": {},
   "artifact_checksums": {
-    "production_bundle.json": "7fad519585480a7dce39ee794c24e01a2b5de05cb6128db41b12faa6c8357281",
-    "storyboard_preview.html": "8774008f23bfedf9101106f260fb8401e04f14b8a87257a99a4704c48956bd0b",
+    "production_bundle.json": "1f9eb83beb56e08a59c6b573f0e3aa2030d5873bb294b4d8eab36de1b71b96f0",
+    "storyboard_preview.html": "e8037eb83fe1152da85a70897999a9297363a2ca2b622fb0f6ae66e17790c79b",
+    "timeline.edl": "6f3e69eb21eac542befab7136b55e9a3411a72e7443600c861b2e5487a7a7d49",
+    "sequence.fcpxml": "5f8b33467f783f0b05b0b667add44e9d74a71a545d4eea75165626c9677674b9",
+    "shot_list.csv": "054d3f59509c9333487cf22257fcdb2851d817f53b66ec280df5ceb0d2417c3c",
+    "call_sheet.md": "823bcf79300542f37525f8cde542e1d355444d8d9d7e17aaea7947cc9e1f5eca",
+    "subtitles.srt": "322fbc260422d206205f45d61ab568f0985b98f61e5a3aabaf7a70b312486af6",
+    "subtitles.vtt": "05eb52fb8903aa31323f6c222fb8dc5e04273fe65abb1c80b24f8bba046b6e1f",
     "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
     "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
     "storyboards/anchor3_scene_1_keyframe.svg": "af4a12bd825cad55352a2a6de04f1eb5d135311dfb66ffc5e857204f4143add8",

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="192/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="192/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r4" name="SCENE_03" start="0s" duration="192/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r5" name="SCENE_04" start="0s" duration="192/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="The Kinetic Fabric: Grounded Innovation">
+            <project name="The Kinetic Fabric: Grounded Innovation Timeline">
+                <sequence format="r1" duration="768/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_The Microscopic Weave" ref="r2" offset="0/24s" duration="192/24s" start="0s" format="r1">
+                            <note>35mm Locked-off Tripod - The Microscopic Weave</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_The Airflow Ignition" ref="r3" offset="192/24s" duration="192/24s" start="0s" format="r1">
+                            <note>35mm Locked-off Tripod - The Airflow Ignition</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_03_The Aerodynamic Deflection" ref="r4" offset="384/24s" duration="192/24s" start="0s" format="r1">
+                            <note>35mm Locked-off Tripod - The Aerodynamic Deflection</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_04_The Deceleration &amp; The Form Lock" ref="r5" offset="576/24s" duration="192/24s" start="0s" format="r1">
+                            <note>35mm Locked-off Tripod - The Deceleration &amp; The Form Lock</note>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

@@ -119,7 +119,17 @@ class RuntimeTelemetry(BaseModel):
         checksums: Dict[str, str] = {}
         target_files: List[Path] = []
 
-        for name in ["production_bundle.json", "production_bible.json", "storyboard_preview.html"]:
+        for name in [
+            "production_bundle.json",
+            "production_bible.json",
+            "storyboard_preview.html",
+            "timeline.edl",
+            "sequence.fcpxml",
+            "shot_list.csv",
+            "call_sheet.md",
+            "subtitles.srt",
+            "subtitles.vtt",
+        ]:
             p = out_path / name
             if p.is_file() and p not in target_files:
                 target_files.append(p)

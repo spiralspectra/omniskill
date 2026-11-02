@@ -47,7 +47,7 @@ class DiagnosticCheck(BaseModel):
 
 
 class DoctorReport(BaseModel):
-    version: str = "2.1.0"
+    version: str = "2.2.0"
     checks: List[DiagnosticCheck] = Field(default_factory=list)
     passed: bool = True
     has_warnings: bool = False
@@ -270,7 +270,7 @@ def run_doctor(
     summary = f"Doctor check complete: {pass_count} passed, {warn_count} warnings, {fail_count} failures."
 
     return DoctorReport(
-        version="2.1.0",
+        version="2.2.0",
         checks=checks,
         passed=passed,
         has_warnings=has_warnings,
