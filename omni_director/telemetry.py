@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 import re
 import time
 import uuid
@@ -149,13 +150,15 @@ class RuntimeTelemetry(BaseModel):
         return _sanitize_value(data)
 
     def write_json(self, file_path: Union[str, Path]) -> Path:
-        """Writes telemetry payload to a JSON file safely."""
+        """Writes telemetry payload to a JSON file safely and atomically."""
         target = Path(file_path)
         target.parent.mkdir(parents=True, exist_ok=True)
         if not self.artifact_checksums and target.parent.is_dir():
             self.compute_artifact_checksums(target.parent)
         payload = self.to_dict()
-        target.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        tmp_target = target.with_suffix(f".tmp_{os.getpid()}")
+        tmp_target.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        os.replace(tmp_target, target)
         return target
 
     def save_json(self, file_path: Union[str, Path]) -> Path:

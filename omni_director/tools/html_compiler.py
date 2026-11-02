@@ -189,8 +189,8 @@ def compile_storyboard_html(
 
         checklist_items = [
             ("Temporal Pacing", "Max 3 Action Beats per 10s Window", 2),
-            ("Camera Physics", "CRAFT Grammar & 1.0x Real-Time Lock", 3),
-            ("Visual & Lighting", "Aspect Ratio & Lighting Grammar", 4),
+            ("CRAFT Camera", "Camera Grammar & Physical Framing", 4),
+            ("Kinetic Physics", "1.0x Real-Time Speed & Kinetic Chain", 3),
             ("Spatial Audio", "Synchronized Diegetic Audio & Foley", 6),
             ("Continuity Locks", "Max 3 Image References (<image_1-3>)", 5),
             ("Negative Constraints", "Zero Internal Markdown/HTML Headings", 1),
@@ -312,7 +312,7 @@ def compile_storyboard_html(
 
           <div class="scene-body">
             <div class="scene-visual-col">
-              <div class="scene-visual-frame aspect-{bible.aspect_ratio.value.replace(':', '-')}">
+              <div class="scene-visual-frame aspect-{bible.aspect_ratio.value.replace(':', '-').replace('.', '_')}">
                 {scene_plate_svg}
               </div>
               <div class="camera-telemetry">
@@ -623,6 +623,14 @@ def compile_storyboard_html(
       padding: 3px 8px;
       border-radius: 3px;
       cursor: pointer;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }}
+    .speed-btn:focus-visible, .btn-jump-pill:focus-visible, .beat-row:focus-visible {{
+      outline: 2px solid var(--cyan-telemetry);
+      outline-offset: 1px;
     }}
     .speed-btn.active {{
       background: var(--cyan-telemetry);
@@ -644,6 +652,10 @@ def compile_storyboard_html(
       border-radius: 3px;
       cursor: pointer;
       white-space: nowrap;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }}
     .btn-jump-pill.active {{
       border-color: var(--cyan-telemetry);
@@ -989,12 +1001,20 @@ def compile_storyboard_html(
     }}
     .scene-visual-frame {{
       width: 100%;
-      height: 270px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       background: #050508;
+      position: relative;
+    }}
+    .aspect-16-9 {{ aspect-ratio: 16 / 9; max-height: 270px; }}
+    .aspect-9-16 {{ aspect-ratio: 9 / 16; max-height: 480px; }}
+    .aspect-1-1  {{ aspect-ratio: 1 / 1; max-height: 320px; }}
+    .aspect-2_39-1, .aspect-2-39-1 {{ aspect-ratio: 2.39 / 1; max-height: 220px; }}
+    body.hide-safe-guides .safe-guide-action,
+    body.hide-safe-guides .safe-guide-title {{
+      display: none !important;
     }}
     .scene-visual-frame svg {{
       width: 100%;
@@ -1194,7 +1214,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Loop · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
@@ -1357,13 +1377,22 @@ def compile_storyboard_html(
       showToast("Production Bible exported successfully as JSON!");
     }}
 
+    function toggleSafeGuides() {{
+      document.body.classList.toggle('hide-safe-guides');
+      const isHidden = document.body.classList.contains('hide-safe-guides');
+      showToast(isHidden ? "Safe Action & Title Guides: HIDDEN" : "Safe Action & Title Guides: VISIBLE");
+    }}
+
     function toggleAuditDrawer(sceneIdx) {{
       const drawer = document.getElementById('audit-drawer-' + sceneIdx);
       if (!drawer) return;
       const isHidden = drawer.style.display === 'none';
       drawer.style.display = isHidden ? 'block' : 'none';
       const btn = drawer.parentElement.querySelector('.btn-audit-toggle');
-      if (btn) btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      if (btn) {{
+        btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        btn.innerText = btn.innerText.replace(isHidden ? '▾' : '▴', isHidden ? '▴' : '▾');
+      }}
     }}
 
     function selectTab(sceneIdx, tabName) {{
@@ -1404,8 +1433,9 @@ def compile_storyboard_html(
     let lastTimestamp = 0;
 
     function formatSMPTE(frame) {{
-      const totalSec = Math.floor(frame / FPS);
-      const ff = frame % FPS;
+      const safeFrame = Math.floor(Math.max(0, frame));
+      const totalSec = Math.floor(safeFrame / FPS);
+      const ff = safeFrame % FPS;
       const ss = totalSec % 60;
       const mm = Math.floor(totalSec / 60) % 60;
       const hh = Math.floor(totalSec / 3600);
@@ -1450,15 +1480,22 @@ def compile_storyboard_html(
 
       // Update beat rows
       const beatRows = document.querySelectorAll('.beat-row');
+      let currentActiveBeat = null;
       beatRows.forEach(row => {{
         const start = parseFloat(row.getAttribute('data-start-sec') || '0');
         const end = parseFloat(row.getAttribute('data-end-sec') || '0');
         if (tSec >= start && tSec < end) {{
           row.classList.add('active-beat');
+          currentActiveBeat = row;
         }} else {{
           row.classList.remove('active-beat');
         }}
       }});
+      if (!currentActiveBeat && beatRows.length > 0) {{
+        if (tSec >= TOTAL_RUNTIME - 0.05) {{
+          beatRows[beatRows.length - 1].classList.add('active-beat');
+        }}
+      }}
     }}
 
     function renderFrame(frame) {{
@@ -1483,7 +1520,8 @@ def compile_storyboard_html(
     function playLoop(timestamp) {{
       if (!isPlaying) return;
       if (!lastTimestamp) lastTimestamp = timestamp;
-      const deltaSec = (timestamp - lastTimestamp) / 1000;
+      const rawDelta = (timestamp - lastTimestamp) / 1000;
+      const deltaSec = Math.min(0.1, Math.max(0, rawDelta));
       lastTimestamp = timestamp;
 
       const deltaFrames = deltaSec * FPS * playbackSpeed;
@@ -1554,12 +1592,15 @@ def compile_storyboard_html(
       renderFrame(Math.floor(targetSec * FPS));
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, G, E, L)
     window.addEventListener('keydown', (e) => {{
       const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
       if (activeTag === 'input' || activeTag === 'textarea') return;
 
       if (e.code === 'Space') {{
+        if (activeTag === 'button' || activeTag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) {{
+          return;
+        }}
         e.preventDefault();
         togglePlay();
       }} else if (e.code === 'ArrowLeft') {{
@@ -1600,6 +1641,8 @@ def compile_storyboard_html(
         exportProductionBible();
       }} else if (e.key === 'l' || e.key === 'L') {{
         toggleLoop();
+      }} else if (e.key === 'g' || e.key === 'G') {{
+        toggleSafeGuides();
       }}
     }});
 

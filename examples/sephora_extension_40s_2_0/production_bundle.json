@@ -69,7 +69,7 @@
       "room_acoustics": "Wet, reverberant London street exterior transitioning sharply into hyper-clean, acoustically dampened luxury retail interior."
     },
     "master_bgm": {
-      "track_title": "Midnight Velvet: UK Garage Pulse",
+      "track_title": "Midnight Velvet: UK Garage Pulse (40s Continuous Oner)",
       "genre_style": "Syncopated UK Garage / Hyper-Pop Runway Sizzle",
       "tempo_bpm": 138,
       "key_signature": "F Minor",
@@ -79,7 +79,13 @@
         "Glittering hyper-pop synth arpeggios and vocal chops",
         "Dramatic snare roll risers and white-noise sweeps"
       ],
-      "dynamic_arc": "Seconds 00-08: Snappy 2-step rhythm kicks in on the wink. Seconds 08-16: Heavy bassline drops inside flagship. Seconds 16-24: Massive riser sweep building energy. Seconds 24-32: Sudden cut to dead silence on final freeze-frame bag snap, leaving only a sub-bass decay.",
+      "stems": {
+        "percussion": "Syncopated 2-step garage kicks, snappy rimshots, and shaker syncopations",
+        "bass": "Heavy rolling Reese bassline and sub drone",
+        "harmony": "Glittering hyper-pop synth arpeggios and atmospheric pads",
+        "lead": "Processed vocal chops and staccato melodic hooks"
+      },
+      "dynamic_arc": "Seconds 00-10: Intimate street rain ambiance and skipping 2-step groove during Soho approach. Seconds 10-20: Rolling Reese bass drops as models enter the flagship, whispering 'London, wake up'. Seconds 20-30: Soaring hyper-pop synth arpeggios and white-noise riser as bag is lifted. Seconds 30-40: Climactic percussion impact at second 38 snapping into dead silence on bag freeze.",
       "lyria_prompt": "High-energy UK Garage fashion runway track, 138 BPM, F Minor. Syncopated skipping 2-step beats, punchy kick drum, driving Moog bassline, glittering hyper-pop synth arpeggios, and edgy vocal chops. Builds rapidly with dramatic snare roll risers into an explosive, sleek high-fashion drop, ending abruptly on a crisp impact hit."
     },
     "nano_banana_assets": [
@@ -311,9 +317,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "72bb37d8-8025-4245-b552-707823518c39",
+    "session_id": "40b4bca9-7c0b-49fd-a7c6-7c0019997a2b",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-01T18:56:28.051235+00:00",
+    "timestamp": "2026-11-02T09:23:48.287134+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -323,67 +329,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-01T18:56:28.051254+00:00",
-        "end_time": "2026-11-01T18:56:28.051260+00:00",
+        "start_time": "2026-11-02T09:23:48.287144+00:00",
+        "end_time": "2026-11-02T09:23:48.287153+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-01T18:56:28.051274+00:00",
-        "end_time": "2026-11-01T18:56:28.051280+00:00",
+        "start_time": "2026-11-02T09:23:48.287162+00:00",
+        "end_time": "2026-11-02T09:23:48.287168+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-01T18:56:28.051287+00:00",
-        "end_time": "2026-11-01T18:56:28.053153+00:00",
-        "duration_ms": 1.87,
+        "start_time": "2026-11-02T09:23:48.287174+00:00",
+        "end_time": "2026-11-02T09:23:48.288581+00:00",
+        "duration_ms": 1.41,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-01T18:56:28.053180+00:00",
-        "end_time": "2026-11-01T18:56:28.053346+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-02T09:23:48.288592+00:00",
+        "end_time": "2026-11-02T09:23:48.288747+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-01T18:56:28.053359+00:00",
-        "end_time": "2026-11-01T18:56:28.054004+00:00",
-        "duration_ms": 0.65,
+        "start_time": "2026-11-02T09:23:48.288755+00:00",
+        "end_time": "2026-11-02T09:23:48.289338+00:00",
+        "duration_ms": 0.58,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-01T18:56:28.054020+00:00",
-        "end_time": "2026-11-01T18:56:28.054026+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-02T09:23:48.289346+00:00",
+        "end_time": "2026-11-02T09:23:48.289348+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-01T18:56:28.054036+00:00",
-        "end_time": "2026-11-01T18:56:28.056177+00:00",
-        "duration_ms": 2.14,
+        "start_time": "2026-11-02T09:23:48.289354+00:00",
+        "end_time": "2026-11-02T09:23:48.290701+00:00",
+        "duration_ms": 1.35,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-01T18:56:28.057974+00:00",
-        "end_time": "2026-11-01T18:56:28.063387+00:00",
-        "duration_ms": 5.41,
+        "start_time": "2026-11-02T09:23:48.292355+00:00",
+        "end_time": "2026-11-02T09:23:48.297057+00:00",
+        "duration_ms": 4.7,
         "details": {}
       }
     ],
-    "total_duration_ms": 10.27,
+    "total_duration_ms": 8.21,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "f3bf8832dda8ba96c52fb6a9975c43e5ccf102430228a4b7cc0490b0096f2160",
-      "storyboard_preview.html": "a98daa8f97ebd945872fcba638f5e68416c5c108517ecdf4b5946b63071be908",
+      "production_bundle.json": "8c77406c12b73aea43da15e0e219e8b8980edc9f66b015ccd4dcf91f69deeab1",
+      "storyboard_preview.html": "ee30973bcebc3e4229607b2434382c8bc92be4dff13f73aa327895cec54c0f9d",
       "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
       "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
       "storyboards/anchor3_scene_1_keyframe.svg": "9e5481a296afa51106653036d9682e5f173ec57b6021ac21740d14b6cecb13c1",
@@ -395,7 +401,7 @@
   "council_report": {
     "version": "2.1.0",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-01T18:56:28.062413+00:00",
+    "timestamp": "2026-11-02T09:23:48.296308+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,

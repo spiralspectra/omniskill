@@ -77,7 +77,7 @@ class MasterEnvironmentSpec(BaseModel):
 class CraftCameraSpec(BaseModel):
     """Kinetic Camera Grammar (CRAFT Framework)."""
     rig_type: str = Field(..., description="Locked-off tripod, Dolly track, Steadicam, Technocrane, etc.")
-    focal_length_mm: int = Field(default=35, description="Focal length in millimeters")
+    focal_length_mm: int = Field(default=35, ge=10, le=500, description="Focal length in millimeters (10mm to 500mm)")
     composition: str = Field(..., description="Framing geometry, horizon line, rule of thirds, subject placement")
     route: str = Field(..., description="Trajectory vector, pan/tilt/roll axis, dolly speed")
     action_anchor: str = Field(..., description="Physical subject or contact point that guides tracking")
@@ -147,6 +147,15 @@ class MasterBgmSpec(BaseModel):
     tempo_bpm: int = Field(..., ge=40, le=220)
     key_signature: str = Field(..., description="e.g. D Major, F Minor")
     instrumentation: List[str] = Field(default_factory=list)
+    stems: Dict[str, str] = Field(
+        default_factory=lambda: {
+            "percussion": "Rhythmic pulse and transient acoustic hits",
+            "bass": "Sub-harmonic foundation and low-end drone",
+            "harmony": "Mid-range chord progression and ambient pads",
+            "lead": "Hero melodic motif or lead arpeggio",
+        },
+        description="Acoustic stem layers for dynamic mixing and foley sidechaining"
+    )
     dynamic_arc: str = Field(..., description="Progression across runtime (Intro, Build, Climax, Outro)")
     lyria_prompt: str = Field(..., description="Ready-to-use text prompt for Lyria / audio model")
 
@@ -219,6 +228,8 @@ class ScenePromptSpec(BaseModel):
                 data["craft_camera"] = data["camera_spec"]
             if "diegetic_sound" in data and "diegetic_sonic" not in data:
                 data["diegetic_sonic"] = data["diegetic_sound"]
+            if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
+                data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
                 norm_beats = []
                 for b in data["action_beats"]:
@@ -328,6 +339,11 @@ class MasterProductionBible(BaseModel):
                     "High-contrast wardrobe polarity collision: Multiple characters have identical wardrobe descriptions. "
                     "Distinct colors/fabrics are required to prevent limb/identity blend in video generation."
                 )
+        if self.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN and self.total_runtime_seconds > 40:
+            raise ValueError(
+                f"Mode B continuous chain runtime violation: total_runtime_seconds={self.total_runtime_seconds} "
+                "exceeds the 40-second ceiling (maximum 4 continuous 10s extensions)."
+            )
         return self
 
 

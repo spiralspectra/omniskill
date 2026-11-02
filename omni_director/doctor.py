@@ -8,6 +8,7 @@ import importlib.util
 import os
 import re
 import sys
+import uuid
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
@@ -15,7 +16,20 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field
 
-from omni_director.config import FORBIDDEN_LEGACY_PATTERNS, DirectorConfig, get_settings
+from omni_director.config import (
+    FORBIDDEN_LEGACY_PATTERNS,
+    DirectorConfig,
+    get_settings,
+    validate_model_identifier as _validate_model_identifier,
+)
+
+
+def validate_model_identifier(model_name: str, field_name: str = "model") -> bool:
+    """Safe validator returning boolean status for doctor and CLI checks."""
+    try:
+        return bool(_validate_model_identifier(model_name, field_name))
+    except Exception:
+        return False
 
 
 class CheckStatus(str, Enum):
@@ -141,7 +155,7 @@ def run_doctor(
             details={"missing": missing_packages, "missing_optional": missing_optional},
         ))
 
-    # 4. Model Matrix Check (Zero 3.1 / Legacy Models)
+    # 4. Model Matrix Check (Zero 3.1 / Legacy Models + 2026 Whitelist)
     cfg = config or get_settings()
     model_matrix = {
         "director_model": cfg.director_model,
@@ -150,6 +164,7 @@ def run_doctor(
         "video_model": cfg.video_model,
     }
     legacy_hits = []
+    whitelist_hits = []
     for field_name, model_name in model_matrix.items():
         if not model_name:
             continue
@@ -157,30 +172,35 @@ def run_doctor(
             if pat.search(model_name):
                 legacy_hits.append(f"{field_name}='{model_name}' (matched {pat.pattern})")
                 break
+        try:
+            validate_model_identifier(model_name, field_name)
+        except ValueError as exc:
+            whitelist_hits.append(str(exc))
 
-    if legacy_hits:
+    all_violations = legacy_hits + [w for w in whitelist_hits if w not in legacy_hits]
+    if all_violations:
         checks.append(DiagnosticCheck(
             name="model_matrix_compliance",
             status=CheckStatus.FAIL,
-            message=f"Deprecated legacy models detected: {'; '.join(legacy_hits)}. Zero 3.1 models allowed.",
+            message=f"Model matrix violation detected: {'; '.join(all_violations)}. Strict 2026 DeepMind models mandated.",
             remediation="Update your model configuration in DirectorConfig or environment variables to use 2026 models (e.g. gemini-4-argon, gemini-3.8-flash, gemini-3-pro-image, gemini-omni-1.1-flash-preview).",
-            details={"violations": legacy_hits, "matrix": model_matrix},
+            details={"violations": all_violations, "matrix": model_matrix},
         ))
     else:
         checks.append(DiagnosticCheck(
             name="model_matrix_compliance",
             status=CheckStatus.PASS,
-            message="Model matrix compliant with 2026 DeepMind standards (zero 3.1 models)",
+            message="Model matrix compliant with 2026 DeepMind standards (zero 3.1 models, approved 2026 models)",
             details={"matrix": model_matrix},
         ))
 
     # 5. Credentials Check
-    has_creds = bool(os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"))
+    has_creds = bool((cfg.api_key if cfg else None) or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"))
     if has_creds:
         checks.append(DiagnosticCheck(
             name="credentials",
             status=CheckStatus.PASS,
-            message="Google Gemini API credentials detected in environment",
+            message="Google Gemini API credentials detected in environment or configuration",
         ))
     else:
         checks.append(DiagnosticCheck(
@@ -194,9 +214,11 @@ def run_doctor(
     target_out = Path(output_dir or cfg.output_dir)
     try:
         target_out.mkdir(parents=True, exist_ok=True)
-        probe_file = target_out / ".doctor_probe_test"
-        probe_file.write_text("probe", encoding="utf-8")
-        probe_file.unlink(missing_ok=True)
+        probe_file = target_out / f".doctor_probe_{uuid.uuid4().hex[:8]}"
+        try:
+            probe_file.write_text("probe", encoding="utf-8")
+        finally:
+            probe_file.unlink(missing_ok=True)
         checks.append(DiagnosticCheck(
             name="output_directory",
             status=CheckStatus.PASS,

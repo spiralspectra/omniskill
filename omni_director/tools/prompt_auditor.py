@@ -276,9 +276,9 @@ def heal_omni_scene_prompt(
         prev = working_prompt
         working_prompt = re.sub(r"(^|\n)\s*#{1,6}\s*", r"\1", working_prompt)
         working_prompt = re.sub(r"</?h[1-6][^>]*>", " ", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"gemini[-_]?3\.1(?:[-_][a-z0-9]+)*", "gemini-4-argon", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"veo[-_]?3\.1(?:[-_][a-z0-9]+)*", "gemini-omni-1.1-flash-preview", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\b3\.1\b", "4.0", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bgemini[-_ ]?3\.1\b", "gemini-4-argon", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bveo[-_ ]?3\.1\b", "gemini-omni-1.1-flash-preview", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bmodel[-_ ]?3\.1\b", "model 4.0", working_prompt, flags=re.IGNORECASE)
         if working_prompt != prev and "sanitized_headings" not in applied_patches:
             applied_patches.append("sanitized_headings")
 
@@ -292,9 +292,12 @@ def heal_omni_scene_prompt(
         working_prompt = re.sub(r"\b(?:no|without)\s+artifacts?\b", "pristine organic texture", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bno\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bwithout\s+(?:any\s+)?jump\s+cuts\b", "one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bdo\s+not\s+", "", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bdon't\s+", "", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bavoid\s+", "", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:do\s+not|don't)\s+(?:pan|rotate|move)\s+(?:the\s+)?camera\b", "maintain locked static framing", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:do\s+not|don't)\s+(?:cut|switch\s+angles?)\b", "maintain one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:do\s+not|don't)\s+obscure\b", "keep fully visible and unobstructed", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bavoid\s+(?:any\s+)?(?:cuts?|editing)\b", "maintain one continuous unbroken shot", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bavoid\s+(?:camera\s+)?(?:shake|shaking|jitter)\b", "maintain steady fluid framing", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\b(?:do\s+not|don't|avoid)\s+", "refrain from ", working_prompt, flags=re.IGNORECASE)
         if working_prompt != prev and "sanitized_negative_constraints" not in applied_patches:
             applied_patches.append("sanitized_negative_constraints")
 

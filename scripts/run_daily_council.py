@@ -32,58 +32,11 @@ from typing import Any, Dict, List
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-try:
-    from omni_director.doctor import run_doctor
-except ImportError:
-    # Graceful fallback if doctor module is being initialized
-    def run_doctor(*args, **kwargs):
-        class MockReport:
-            passed = True
-            summary = "Preflight checks passed (fallback)."
-            checks = []
-        return MockReport()
-
-try:
-    from omni_director.telemetry import verify_bundle_checksums
-except ImportError:
-    def verify_bundle_checksums(output_dir):
-        return True, "Fallback verification"
-
-try:
-    from omni_director import DirectorPipeline
-    OmniDirectorPipeline = DirectorPipeline
-except ImportError:
-    from omni_director.agents.agent import DirectorPipeline
-    OmniDirectorPipeline = DirectorPipeline
-
-try:
-    from omni_director.agents.council import ProductCouncilOrchestrator
-except ImportError:
-    # Fallback placeholder if council module is in flight
-    class ProductCouncilOrchestrator:
-        def audit(self, bundle, output_dir=None):
-            class MockReview:
-                def __init__(self, p, s):
-                    self.persona = type("Persona", (), {"value": p})()
-                    self.score = s
-                    self.findings = []
-            class MockReport:
-                overall_score = 94.0
-                passed = True
-                critical_findings_count = 0
-                reviews = [
-                    MockReview("council-fde", 24.0),
-                    MockReview("council-agent-engineer", 24.0),
-                    MockReview("council-strategist", 23.0),
-                    MockReview("council-ux-designer", 23.0),
-                ]
-                def model_dump(self):
-                    return {
-                        "overall_score": self.overall_score,
-                        "passed": self.passed,
-                        "critical_findings_count": self.critical_findings_count,
-                    }
-            return MockReport()
+from omni_director.doctor import run_doctor
+from omni_director.telemetry import verify_bundle_checksums
+from omni_director import DirectorPipeline
+OmniDirectorPipeline = DirectorPipeline
+from omni_director.agents.council import ProductCouncilOrchestrator
 
 
 CANONICAL_SHOWCASES = [

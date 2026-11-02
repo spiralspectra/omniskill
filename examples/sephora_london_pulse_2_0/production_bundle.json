@@ -79,6 +79,12 @@
         "Glittering hyper-pop synth arpeggios and vocal chops",
         "Dramatic snare roll risers and white-noise sweeps"
       ],
+      "stems": {
+        "percussion": "Rhythmic pulse and transient acoustic hits",
+        "bass": "Sub-harmonic foundation and low-end drone",
+        "harmony": "Mid-range chord progression and ambient pads",
+        "lead": "Hero melodic motif or lead arpeggio"
+      },
       "dynamic_arc": "Seconds 00-08: Snappy 2-step rhythm kicks in on the wink. Seconds 08-16: Heavy bassline drops inside flagship. Seconds 16-24: Massive riser sweep building energy. Seconds 24-32: Sudden cut to dead silence on final freeze-frame bag snap, leaving only a sub-bass decay.",
       "lyria_prompt": "High-energy UK Garage fashion runway track, 138 BPM, F Minor. Syncopated skipping 2-step beats, punchy kick drum, driving Moog bassline, glittering hyper-pop synth arpeggios, and edgy vocal chops. Builds rapidly with dramatic snare roll risers into an explosive, sleek high-fashion drop, ending abruptly on a crisp impact hit."
     },
@@ -299,8 +305,8 @@
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
-          "<image_3>",
-          "<image_1>"
+          "<image_1>",
+          "<image_3>"
         ]
       }
     },
@@ -321,9 +327,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "9abed100-8d16-498f-ac99-0c81e054a56d",
+    "session_id": "13c29758-b813-4060-87fe-a952751d70ec",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-01T18:56:28.078364+00:00",
+    "timestamp": "2026-11-02T09:23:48.310556+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -333,67 +339,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-01T18:56:28.078373+00:00",
-        "end_time": "2026-11-01T18:56:28.078379+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-02T09:23:48.310565+00:00",
+        "end_time": "2026-11-02T09:23:48.310569+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-01T18:56:28.078387+00:00",
-        "end_time": "2026-11-01T18:56:28.078392+00:00",
+        "start_time": "2026-11-02T09:23:48.310581+00:00",
+        "end_time": "2026-11-02T09:23:48.310586+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-01T18:56:28.078399+00:00",
-        "end_time": "2026-11-01T18:56:28.080613+00:00",
-        "duration_ms": 2.21,
+        "start_time": "2026-11-02T09:23:48.310592+00:00",
+        "end_time": "2026-11-02T09:23:48.312276+00:00",
+        "duration_ms": 1.68,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-01T18:56:28.080641+00:00",
-        "end_time": "2026-11-01T18:56:28.080801+00:00",
+        "start_time": "2026-11-02T09:23:48.312286+00:00",
+        "end_time": "2026-11-02T09:23:48.312443+00:00",
         "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-01T18:56:28.080811+00:00",
-        "end_time": "2026-11-01T18:56:28.081237+00:00",
-        "duration_ms": 0.43,
+        "start_time": "2026-11-02T09:23:48.312450+00:00",
+        "end_time": "2026-11-02T09:23:48.312796+00:00",
+        "duration_ms": 0.35,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-01T18:56:28.081249+00:00",
-        "end_time": "2026-11-01T18:56:28.081254+00:00",
+        "start_time": "2026-11-02T09:23:48.312803+00:00",
+        "end_time": "2026-11-02T09:23:48.312806+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-01T18:56:28.081261+00:00",
-        "end_time": "2026-11-01T18:56:28.083043+00:00",
-        "duration_ms": 1.78,
+        "start_time": "2026-11-02T09:23:48.312811+00:00",
+        "end_time": "2026-11-02T09:23:48.314227+00:00",
+        "duration_ms": 1.42,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-01T18:56:28.085000+00:00",
-        "end_time": "2026-11-01T18:56:28.090170+00:00",
-        "duration_ms": 5.17,
+        "start_time": "2026-11-02T09:23:48.315953+00:00",
+        "end_time": "2026-11-02T09:23:48.320358+00:00",
+        "duration_ms": 4.41,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.76,
+    "total_duration_ms": 8.02,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "9b97d94d8cfd79bab041c96190f5096a293b711633147d07694ec8034f43a81b",
-      "storyboard_preview.html": "070a70b705dfb19cf833ebc581caf31432ac7881b6d01dc225c29ec2f129876a",
+      "production_bundle.json": "addcb04c3d42b924ba1fcac612cf99eac5dff5e7e301165ca86791677d2096a8",
+      "storyboard_preview.html": "0e771600a2e1507c20edf071d4997d7845432ddf106c912cb524eb9615356396",
       "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
       "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
       "storyboards/anchor3_scene_1_keyframe.svg": "abf185333d12ea9c1edd1d719490b44e56fc1a6519f3b7595cd10c373b28d8e8",
@@ -405,7 +411,7 @@
   "council_report": {
     "version": "2.1.0",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-01T18:56:28.089245+00:00",
+    "timestamp": "2026-11-02T09:23:48.319689+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,

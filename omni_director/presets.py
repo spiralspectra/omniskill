@@ -338,7 +338,26 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
     environment=SEPHORA_PULSE_BIBLE.environment,
     camera_rig=SEPHORA_PULSE_BIBLE.camera_rig,
     sonic_blueprint=SEPHORA_PULSE_BIBLE.sonic_blueprint,
-    master_bgm=SEPHORA_PULSE_BIBLE.master_bgm,
+    master_bgm=MasterBgmSpec(
+        track_title="Midnight Velvet: UK Garage Pulse (40s Continuous Oner)",
+        genre_style="Syncopated UK Garage / Hyper-Pop Runway Sizzle",
+        tempo_bpm=138,
+        key_signature="F Minor",
+        instrumentation=SEPHORA_PULSE_BIBLE.master_bgm.instrumentation,
+        stems={
+            "percussion": "Syncopated 2-step garage kicks, snappy rimshots, and shaker syncopations",
+            "bass": "Heavy rolling Reese bassline and sub drone",
+            "harmony": "Glittering hyper-pop synth arpeggios and atmospheric pads",
+            "lead": "Processed vocal chops and staccato melodic hooks",
+        },
+        dynamic_arc=(
+            "Seconds 00-10: Intimate street rain ambiance and skipping 2-step groove during Soho approach. "
+            "Seconds 10-20: Rolling Reese bass drops as models enter the flagship, whispering 'London, wake up'. "
+            "Seconds 20-30: Soaring hyper-pop synth arpeggios and white-noise riser as bag is lifted. "
+            "Seconds 30-40: Climactic percussion impact at second 38 snapping into dead silence on bag freeze."
+        ),
+        lyria_prompt=SEPHORA_PULSE_BIBLE.master_bgm.lyria_prompt,
+    ),
     nano_banana_assets=SEPHORA_PULSE_BIBLE.nano_banana_assets,
     scenes=[
         ScenePromptSpec(
@@ -598,11 +617,25 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
         "keywords": [
             "vehicle", "vehicles", "drone", "drones", "robot", "robotics", "hypercar", "hypercars", "car", "cars",
             "motorsport", "motorsports", "motorcycle", "motorcycles", "pursuit", "engine", "chassis", "autonomous",
-            "telemetry", "hydraulic", "suspension", "carbon fiber", "speedway", "racing"
+            "telemetry", "hydraulic", "suspension", "carbon fiber", "speedway", "racing", "supercar", "drivetrain"
         ],
         "default_camera": "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
+        "camera_rigs": [
+            "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
+            "Technocrane 35mm Prime tracking lateral drift arc",
+        ],
         "default_focal_length": 28,
         "default_lighting": "Cool 6500K high-contrast industrial LED with sharp metallic rim highlights",
+        "default_character": {
+            "name": "Lead Test Pilot / Telematics Specialist",
+            "silhouette": "Aerodynamic high-speed racing posture with locked kinetic poise",
+            "wardrobe_polarity": "Matte graphite fire-retardant racing suit with reflective telemetry piping",
+            "movement_signature": "Instantaneous micrometric steering corrections and decisive torque control",
+        },
+        "default_invariants": [
+            "Carbon fiber aerodynamic chassis maintains unyielding physical rigidity",
+            "Wet tarmac surface reflects neon horizon with true raytraced consistency"
+        ],
         "default_foley": [
             "High-torque electric motor whine",
             "Tire friction on slick asphalt",
@@ -619,11 +652,26 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
         "keywords": [
             "food", "coffee", "matcha", "cooking", "beverage", "kitchen", "culinary", "chef", "sizzle",
             "caramelization", "knife", "ingredient", "recipe", "baking", "espresso", "dining", "texture",
-            "crunch", "taste", "flavor", "dough", "tea"
+            "crunch", "taste", "flavor", "dough", "tea", "asmr", "whisk", "gastronomy", "pour", "plate",
+            "roast", "brew", "steam", "cocktail"
         ],
         "default_camera": "100mm Macro Probe Lens with micro-fluidic pan and tilt",
+        "camera_rigs": [
+            "100mm Macro Probe Lens with micro-fluidic pan and tilt",
+            "50mm Overhead Top-Down Rig with locked vertical axis",
+        ],
         "default_focal_length": 100,
         "default_lighting": "Warm 3200K tungsten backlight emphasizing surface steam and glistening oils",
+        "default_character": {
+            "name": "Master Artisanal Chef / Tea Master",
+            "silhouette": "Minimalist focused posture with steady hands and rolled linen sleeves",
+            "wardrobe_polarity": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "movement_signature": "Deliberate, rhythmic, micro-fluidic hand gestures with zero tremor",
+        },
+        "default_invariants": [
+            "Handmade ceramic vessel lip retains exact physical geometry",
+            "Natural hinoki cedar countertop surface grain remains mechanically rigid"
+        ],
         "default_foley": [
             "Crisp blade cutting through textured crust",
             "Gentle butter sizzle in cast iron",
@@ -643,8 +691,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "vogue", "glamour", "apparel", "luxury", "monogram", "flagship"
         ],
         "default_camera": "50mm Prime on Steadicam Ultra with gentle vertical float",
+        "camera_rigs": [
+            "50mm Prime on Steadicam Ultra with gentle vertical float",
+            "85mm Portrait Prime tracking eye-level beauty framing",
+        ],
         "default_focal_length": 50,
         "default_lighting": "5600K diffused commercial beauty illumination with reflective mirror bounce",
+        "default_character": {
+            "name": "Haute Couture Runway Model",
+            "silhouette": "Statuesque architectural posture with dynamic high-fashion stride",
+            "wardrobe_polarity": "Sculptural black velvet evening coat with structured iridescent silk lapels",
+            "movement_signature": "Fluid, confident, momentum-conserving runway cadence",
+        },
+        "default_invariants": [
+            "Haute couture garment maintains structural textile tension and crisp drape",
+            "Polished runway mirror floor reflects silhouettes with optical clarity"
+        ],
         "default_foley": [
             "Rhythmic stiletto heel clicks on polished marble",
             "Crisp textile rustle of silk taffeta",
@@ -661,11 +723,25 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
         "keywords": [
             "sport", "sports", "running", "martial arts", "parkour", "athletics", "dance", "athlete",
             "jump", "boxing", "climbing", "kick", "sprint", "workout", "fitness", "dynamic movement",
-            "stunt", "acrobatic", "action"
+            "stunt", "acrobatic", "action", "kinetic", "velocity", "aerodynamic", "speed", "agility", "impact"
         ],
         "default_camera": "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
+        "camera_rigs": [
+            "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
+            "Cable-Cam 35mm Prime following ballistic trajectory",
+        ],
         "default_focal_length": 24,
         "default_lighting": "Dynamic high-noon direct daylight with deep hard directional shadows",
+        "default_character": {
+            "name": "Elite Parkour / Calisthenics Athlete",
+            "silhouette": "Athletic minimalist silhouette with sharp aerodynamic contours",
+            "wardrobe_polarity": "Matte black performance composite with high-visibility amber accents",
+            "movement_signature": "Explosive, decisive, momentum-conserving kinetic vaults and landings",
+        },
+        "default_invariants": [
+            "Reinforced concrete ledge structure remains completely unyielding",
+            "Friction contact point exhibits micro-surface dust without floating"
+        ],
         "default_foley": [
             "Athletic shoe sole squeak and ground impact",
             "Heavy synchronized breath cadence",
@@ -682,11 +758,26 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
         "keywords": [
             "semiconductor", "semiconductors", "smartphone", "smartphones", "laptop", "laptops", "cnc aluminum",
             "aluminum", "optics", "wearables", "wearable", "hardware", "chip", "silicon", "circuit", "processor",
-            "device", "gadget", "anodized", "microchip", "chassis", "motherboard", "cleanroom"
+            "device", "gadget", "anodized", "microchip", "chassis", "motherboard", "cleanroom", "quantum",
+            "nanoscale", "etching", "wafer", "pcb", "transistor", "fabrication"
         ],
         "default_camera": "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
+        "camera_rigs": [
+            "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
+            "Telecentric 100mm Inspection Rig with zero optical distortion",
+        ],
         "default_focal_length": 85,
         "default_lighting": "Cleanroom 5000K pure white illumination with razor-thin linear specular highlights",
+        "default_character": {
+            "name": "Cleanroom Nanotech Systems Engineer",
+            "silhouette": "Methodical ergonomic posture inside sterile cleanroom envelope",
+            "wardrobe_polarity": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
+            "movement_signature": "Micrometric, steady-handed vacuum wand positioning with sub-millimeter precision",
+        },
+        "default_invariants": [
+            "Silicon wafer mirror finish reflects sterile yellow lithography lighting",
+            "CNC unibody chamfered edges retain micron-level geometric tolerance"
+        ],
         "default_foley": [
             "Precision magnetic latch click",
             "Anodized aluminum bevel contact",
@@ -706,8 +797,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "minimalist living", "structure", "courtyard", "zen", "residence", "sculpture"
         ],
         "default_camera": "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
+        "camera_rigs": [
+            "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
+            "Slow Motion 35mm Dolly along central reflecting pool",
+        ],
         "default_focal_length": 24,
         "default_lighting": "Low-angle golden hour sunlight casting geometric window shadows through dust motes",
+        "default_character": {
+            "name": "Resident Spatial Architect / Meditator",
+            "silhouette": "Serene contemplative silhouette framed by monumental spatial geometry",
+            "wardrobe_polarity": "Monochrome architectural linen tunic in warm ecru and charcoal",
+            "movement_signature": "Calm, deliberate pacing along cardinal spatial axes",
+        },
+        "default_invariants": [
+            "Monolithic board-formed concrete walls remain immovable and textured",
+            "Travertine stone floor slabs maintain continuous geometric perspective"
+        ],
         "default_foley": [
             "Acoustic reverberation in tall stone hall",
             "Subtle distant wind through bamboo atrium",

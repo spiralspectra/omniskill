@@ -1608,6 +1608,145 @@ class TestV21CouncilIteration5ProductCouncilExcellence:
         assert not is_valid
         assert any("Zero-byte empty artifact" in e for e in errors)
 
+    def test_prompt_healing_preserves_aperture_and_timestamps(self):
+        """Verifies prompt self-healing replaces legacy model IDs without corrupting optical apertures or timestamps."""
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+
+        raw_prompt = (
+            "Shot on 35mm at f/3.1 aperture with soft bokeh. At 3.1s into the scene, "
+            "reference model gemini-3.1-pro or gemini-3.1-flash should not appear. "
+            "Do not rotate camera."
+        )
+        healed_text, result = heal_omni_scene_prompt(
+            scene=raw_prompt,
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            scene_index=1,
+            storytelling_mode=StorytellingMode.MODE_A_PARALLEL_CUT,
+        )
+        # Aperture and timestamps must be strictly preserved
+        assert "f/3.1" in healed_text
+        assert "3.1s" in healed_text
+        # Legacy model IDs must be healed to 2026 standard
+        assert "gemini-3.1" not in healed_text
+        assert "gemini-4-argon" in healed_text
+        # Negative constraint converted affirmatively
+        assert "do not rotate" not in healed_text.lower()
+        assert "maintain locked static framing" in healed_text.lower()
+
+    def test_craft_camera_focal_length_bounds(self):
+        """Verifies CraftCameraSpec enforces optical focal length limits between 10mm and 500mm."""
+        # Valid focal lengths
+        spec = CraftCameraSpec(
+            rig_type="Tripod",
+            focal_length_mm=24,
+            composition="Centered",
+            route="Static",
+            action_anchor="Subject",
+            focus_axis="180-degree",
+            tone_rig="Anamorphic",
+        )
+        assert spec.focal_length_mm == 24
+
+        spec_tele = CraftCameraSpec(
+            rig_type="Technocrane",
+            focal_length_mm=400,
+            composition="Tight",
+            route="Crane Up",
+            action_anchor="Subject",
+            focus_axis="Locked",
+            tone_rig="Spherical",
+        )
+        assert spec_tele.focal_length_mm == 400
+
+        # Below 10mm
+        with pytest.raises(ValidationError):
+            CraftCameraSpec(
+                rig_type="Tripod",
+                focal_length_mm=5,
+                composition="Centered",
+                route="Static",
+                action_anchor="Subject",
+                focus_axis="180-degree",
+                tone_rig="Anamorphic",
+            )
+
+        # Above 500mm
+        with pytest.raises(ValidationError):
+            CraftCameraSpec(
+                rig_type="Tripod",
+                focal_length_mm=800,
+                composition="Centered",
+                route="Static",
+                action_anchor="Subject",
+                focus_axis="180-degree",
+                tone_rig="Anamorphic",
+            )
+
+    def test_master_production_bible_mode_b_40s_ceiling(self):
+        """Verifies MasterProductionBible enforces a 40-second ceiling on continuous oner Mode B scenes."""
+        from omni_director.presets import SEPHORA_EXTENSION_40S_BIBLE
+
+        # 40s Mode B scene is valid
+        assert SEPHORA_EXTENSION_40S_BIBLE.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        assert len(SEPHORA_EXTENSION_40S_BIBLE.scenes) == 4
+        assert SEPHORA_EXTENSION_40S_BIBLE.total_runtime_seconds == 40
+        assert SEPHORA_EXTENSION_40S_BIBLE.is_mode_b_continuous is True
+
+        # A continuous Mode B scene with total_runtime_seconds > 40 must raise ValidationError
+        with pytest.raises(ValidationError, match="40-second ceiling"):
+            SEPHORA_EXTENSION_40S_BIBLE.model_validate(
+                {**SEPHORA_EXTENSION_40S_BIBLE.model_dump(), "total_runtime_seconds": 45}
+            )
+
+    def test_custom_bible_domain_dna_characters_and_invariants(self):
+        """Verifies synthesize_custom_bible loads domain-specific characters and invariants."""
+        from omni_director.agents.agent import CreativeDirectorAgent
+
+        agent = CreativeDirectorAgent(DirectorConfig())
+
+        # Culinary ASMR domain
+        culinary_bible = agent.synthesize_custom_bible(
+            project_title="Artisan Truffle Symphony",
+            creative_brief="Handcrafted artisanal chocolate truffle dusting and tempering",
+            genre="culinary_asmr",
+            aspect_ratio=AspectRatio.RATIO_1_1,
+            total_runtime_sec=20,
+        )
+        assert len(culinary_bible.characters) > 0
+        char_desc = (culinary_bible.characters[0].name + " " + culinary_bible.characters[0].wardrobe_polarity).lower()
+        assert "chef" in char_desc or "apron" in char_desc or "artisan" in char_desc or "hero" in char_desc
+        invariants_str = " ".join(culinary_bible.environment.positive_invariants).lower()
+        assert "ceramic" in invariants_str or "hinoki" in invariants_str or "rigid" in invariants_str
+
+        # Tech Hardware domain
+        tech_bible = agent.synthesize_custom_bible(
+            project_title="Neural Core Matrix",
+            creative_brief="Quantum silicon chip assembly in cleanroom",
+            genre="tech_hardware",
+            aspect_ratio=AspectRatio.RATIO_16_9,
+            total_runtime_sec=20,
+        )
+        assert len(tech_bible.characters) > 0
+        tech_char = (tech_bible.characters[0].name + " " + tech_bible.characters[0].wardrobe_polarity).lower()
+        assert "cleanroom" in tech_char or "bunny suit" in tech_char or "hero" in tech_char or "engineer" in tech_char
+        tech_invariants_str = " ".join(tech_bible.environment.positive_invariants).lower()
+        assert "cleanroom" in tech_invariants_str or "silicon" in tech_invariants_str or "rigid" in tech_invariants_str
+
+    def test_doctor_model_whitelist_enforcement(self):
+        """Verifies doctor preflight fails on unapproved model identifiers."""
+        from omni_director.doctor import validate_model_identifier
+
+        # Valid 2026 models
+        assert validate_model_identifier("gemini-4-argon") is True
+        assert validate_model_identifier("gemini-3.8-flash") is True
+        assert validate_model_identifier("gemini-3-pro-image") is True
+        assert validate_model_identifier("gemini-omni-1.1-flash-preview") is True
+
+        # Unapproved / legacy models
+        assert validate_model_identifier("gemini-3.1-pro") is False
+        assert validate_model_identifier("gpt-4o") is False
+        assert validate_model_identifier("claude-3-opus") is False
+
 
 
 

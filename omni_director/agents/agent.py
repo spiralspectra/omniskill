@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
 from pydantic import ConfigDict
@@ -88,9 +89,15 @@ def synthesize_custom_bible(
     raw_prompt: str,
     config: Optional[DirectorConfig] = None,
     storytelling_mode: StorytellingMode = StorytellingMode.MODE_A_PARALLEL_CUT,
+    project_title: Optional[str] = None,
+    creative_brief: Optional[str] = None,
+    genre: Optional[str] = None,
+    aspect_ratio: Optional[AspectRatio] = None,
+    total_runtime_sec: Optional[int] = None,
 ) -> MasterProductionBible:
     """Dynamically synthesizes a valid 7-Point compliant MasterProductionBible from custom raw_prompt."""
-    domain = classify_brief_domain(raw_prompt)
+    effective_prompt = creative_brief or raw_prompt
+    domain = genre or classify_brief_domain(effective_prompt)
     archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
 
     # Regime handling: support RegimeType enum and string "kinetic"
@@ -102,7 +109,7 @@ def synthesize_custom_bible(
         regime = RegimeType.REGIME_1_ATMOSPHERIC
         is_kinetic = False
 
-    title = raw_prompt[:40].strip().title()
+    title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
         title = "Omni Vision Sequence"
 
@@ -206,29 +213,40 @@ def synthesize_custom_bible(
     bgm_key = archetype.get("default_key", "D Minor")
     bgm_genre = archetype.get("default_bgm_genre", "Cinematic Hybrid Score")
 
+    char_data = archetype.get("default_character", {
+        "name": "Hero Subject",
+        "silhouette": f"Distinctive posture and professional poise appropriate for {domain.replace('_', ' ')}",
+        "wardrobe_polarity": "Matte charcoal tailored suit with crisp architectural contrasts",
+        "movement_signature": "Precise, deliberate, momentum-conserving movement",
+    })
+    env_invariants = archetype.get("default_invariants", [
+        f"Physical ground surface and spatial boundaries for {domain.replace('_', ' ')} remain rigid",
+        "Key hero subjects maintain optical edge consistency"
+    ])
+
     return MasterProductionBible(
         project_title=title,
-        logline=raw_prompt,
+        logline=effective_prompt,
         creative_regime=regime,
         storytelling_mode=storytelling_mode,
-        aspect_ratio=AspectRatio.RATIO_16_9,
-        total_runtime_seconds=10,
+        aspect_ratio=aspect_ratio or AspectRatio.RATIO_16_9,
+        total_runtime_seconds=total_runtime_sec or 10,
         color_palette=palette,
         environment=MasterEnvironmentSpec(
-            location_name="Hero Environment",
+            location_name=f"{domain.replace('_', ' ').title()} Sanctuary",
             spatial_architecture=f"Architectural space styled for {domain.replace('_', ' ')}",
             lighting_setup=lighting,
             atmospheric_particles="Ultra-fine suspended haze catching oblique light shafts",
-            positive_invariants=["Polished floor surface", "Structural steel pillar grid"],
-            generation_prompt="Master architectural environment showing clean lines and deep spatial perspective",
+            positive_invariants=env_invariants,
+            generation_prompt=f"Master architectural environment for {domain.replace('_', ' ')} showing clean lines and deep spatial perspective",
         ),
         characters=[
             CharacterTurnaroundSpec(
-                name="Hero Subject",
-                silhouette="Athletic minimalist silhouette with sharp aerodynamic contours",
-                wardrobe_polarity="Matte black performance composite with iridescent teal accents",
-                movement_signature="Precise, decisive, momentum-conserving kinetic movement",
-                generation_prompt="Character turnaround orthographic sheet showing front, profile, and three-quarter angles",
+                name=char_data.get("name", "Hero Subject"),
+                silhouette=char_data.get("silhouette", "Precise kinetic silhouette"),
+                wardrobe_polarity=char_data.get("wardrobe_polarity", "Matte charcoal with crisp contrast accents"),
+                movement_signature=char_data.get("movement_signature", "Precise, decisive, momentum-conserving kinetic movement"),
+                generation_prompt=f"Character turnaround orthographic sheet for {char_data.get('name', 'Hero Subject')} showing front, profile, and three-quarter angles",
             )
         ],
         camera_rig=craft_1,
@@ -348,9 +366,25 @@ class CreativeDirectorAgent(BaseAgent):
         self.model_name = model_name or self.config.director_model
         validate_model_identifier(self.model_name, f"{agent_name}.model_name")
 
-    def synthesize_custom_bible(self, raw_prompt: str) -> MasterProductionBible:
+    def synthesize_custom_bible(
+        self,
+        raw_prompt: str = "",
+        project_title: Optional[str] = None,
+        creative_brief: Optional[str] = None,
+        genre: Optional[str] = None,
+        aspect_ratio: Optional[AspectRatio] = None,
+        total_runtime_sec: Optional[int] = None,
+    ) -> MasterProductionBible:
         """Synthesizes a domain-aware MasterProductionBible from custom creative brief."""
-        return synthesize_custom_bible(raw_prompt, self.config)
+        return synthesize_custom_bible(
+            raw_prompt=raw_prompt,
+            config=self.config,
+            project_title=project_title,
+            creative_brief=creative_brief,
+            genre=genre,
+            aspect_ratio=aspect_ratio,
+            total_runtime_sec=total_runtime_sec,
+        )
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
 
@@ -494,7 +528,7 @@ class ScenePromptAgent(BaseAgent):
                     logger.warning(f"[{self.name}] Live prompt refinement failed: {e}")
 
             # Ensure speed lock is in prompt if Regime 2
-            if scene.regime == RegimeType.REGIME_2_KINETIC and "1.0x" not in scene.omni_prose_prompt:
+            if scene.regime == RegimeType.REGIME_2_KINETIC and not re.search(r"\b1\.0x\b|real-time|natural speed", scene.omni_prose_prompt, re.IGNORECASE):
                 scene.omni_prose_prompt += " Rendered at natural 1.0x real-time speed."
         return context
 

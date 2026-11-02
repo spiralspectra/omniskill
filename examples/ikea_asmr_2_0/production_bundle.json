@@ -58,6 +58,12 @@
         "Subtle wooden xylophone clicks tuned to foley impacts",
         "Warm analog sub-bass drone resolving into absolute stillness"
       ],
+      "stems": {
+        "percussion": "Rhythmic pulse and transient acoustic hits",
+        "bass": "Sub-harmonic foundation and low-end drone",
+        "harmony": "Mid-range chord progression and ambient pads",
+        "lead": "Hero melodic motif or lead arpeggio"
+      },
       "dynamic_arc": "Seconds 00-08: Tense, playful pizzicato rhythm ticking like a clockwork box. Seconds 08-16: Rapid, polyrhythmic wooden mallet pulses synchronizing with furniture clicks. Seconds 16-24: Swelling warm cello and piano harmony. Seconds 24-32: All music decrescendos instantly on the final blanket drop, leaving only a sustained pure piano chord and serene silence.",
       "lyria_prompt": "Minimalist Scandinavian ASMR neo-classical acoustic cue, 84 BPM, D Major. Opens with delicate plucked cello pizzicato and light woodblock clicks. Builds into an intricate, satisfying, rhythmic clockwork pattern with felted upright piano. Resolves gracefully into a lush, peaceful ambient string chord that rings out into pristine silence."
     },
@@ -269,9 +275,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "39070a37-e4e7-462a-9747-a3c6fecd096e",
+    "session_id": "b9cc7a39-db2e-400b-bfa8-f815fafe170c",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-01T18:56:27.993493+00:00",
+    "timestamp": "2026-11-02T09:23:48.236692+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -281,67 +287,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-01T18:56:27.993503+00:00",
-        "end_time": "2026-11-01T18:56:27.993513+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-02T09:23:48.236705+00:00",
+        "end_time": "2026-11-02T09:23:48.236720+00:00",
+        "duration_ms": 0.02,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-01T18:56:27.993531+00:00",
-        "end_time": "2026-11-01T18:56:27.993538+00:00",
+        "start_time": "2026-11-02T09:23:48.236735+00:00",
+        "end_time": "2026-11-02T09:23:48.236743+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-01T18:56:27.993550+00:00",
-        "end_time": "2026-11-01T18:56:27.995228+00:00",
-        "duration_ms": 1.68,
+        "start_time": "2026-11-02T09:23:48.236753+00:00",
+        "end_time": "2026-11-02T09:23:48.238900+00:00",
+        "duration_ms": 2.15,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-01T18:56:27.995256+00:00",
-        "end_time": "2026-11-01T18:56:27.995418+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-02T09:23:48.238914+00:00",
+        "end_time": "2026-11-02T09:23:48.239134+00:00",
+        "duration_ms": 0.22,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-01T18:56:27.995427+00:00",
-        "end_time": "2026-11-01T18:56:27.996103+00:00",
-        "duration_ms": 0.68,
+        "start_time": "2026-11-02T09:23:48.239144+00:00",
+        "end_time": "2026-11-02T09:23:48.239595+00:00",
+        "duration_ms": 0.45,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-01T18:56:27.996116+00:00",
-        "end_time": "2026-11-01T18:56:27.996122+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-02T09:23:48.239607+00:00",
+        "end_time": "2026-11-02T09:23:48.239611+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-01T18:56:27.996129+00:00",
-        "end_time": "2026-11-01T18:56:27.998328+00:00",
-        "duration_ms": 2.2,
+        "start_time": "2026-11-02T09:23:48.239617+00:00",
+        "end_time": "2026-11-02T09:23:48.241862+00:00",
+        "duration_ms": 2.25,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-01T18:56:28.001976+00:00",
-        "end_time": "2026-11-01T18:56:28.008135+00:00",
-        "duration_ms": 6.16,
+        "start_time": "2026-11-02T09:23:48.244674+00:00",
+        "end_time": "2026-11-02T09:23:48.250692+00:00",
+        "duration_ms": 6.02,
         "details": {}
       }
     ],
-    "total_duration_ms": 10.91,
+    "total_duration_ms": 11.12,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "248f3dfb9c955b1deb42648ad21d75c5dec6b4beedac060804a8ffa3d2ce2411",
-      "storyboard_preview.html": "dbf2c69682721ee5bbe5539fffff1c459cedad78ad0a37caf211cdcefc506ace",
+      "production_bundle.json": "dfcfee83c563c071ee28ae14816ee56cb3199d2c9cd82f3824bf2ecc990a8bb2",
+      "storyboard_preview.html": "0d8a23a6ab40fc778276e0bdb99d8bd5f67a6858ad1e5a23df1fbd654a0191f3",
       "storyboards/anchor1_character_turnaround.svg": "5f6252244617ed1fe3fcd4ce1f2c1e1fed58ca68f5ea07557f49c1366284e0a1",
       "storyboards/anchor2_environment_master.svg": "07d8aa410a42776c1c3aa6988b99273ce9f041429bf3a4d278f533006138ad64",
       "storyboards/anchor3_scene_1_keyframe.svg": "658d1a10d70d4cf55ef249059d58d905831c5575ce2862fab4a39fb3c43c1886",
@@ -353,7 +359,7 @@
   "council_report": {
     "version": "2.1.0",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-01T18:56:28.007100+00:00",
+    "timestamp": "2026-11-02T09:23:48.249759+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -383,7 +389,7 @@
         "passed": true,
         "persona_title": "",
         "findings": [],
-        "summary": "Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary)."
+        "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
       },
       {
         "persona": "council-ux-designer",

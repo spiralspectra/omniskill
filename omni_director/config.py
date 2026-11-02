@@ -32,15 +32,18 @@ APPROVED_2026_MODEL_PREFIXES = (
 )
 
 
-def validate_model_identifier(model_name: str, field_name: str = "model") -> None:
+def validate_model_identifier(model_name: str, field_name: str = "model") -> bool:
     """Validates that a model identifier complies with the 2026 standards and whitelist.
+
+    Returns:
+        bool: True if model is valid.
 
     Raises:
         ValueError: If a legacy model (1.5, 2.0, 2.5, 3.0, 3.1, veo, imagen-3) is detected
                     or if the model is not on the approved 2026 whitelist.
     """
     if not model_name:
-        return
+        return True
 
     # Specific check for 3.1 to preserve precise deprecation notice
     if re.search(r"gemini[-_]?3\.1|veo[-_]?3\.1|\b3\.1\b|[-_]3\.1", model_name, re.IGNORECASE):
@@ -66,6 +69,8 @@ def validate_model_identifier(model_name: str, field_name: str = "model") -> Non
             f"Model '{model_name}' for {field_name} is not in the approved 2026 model whitelist: "
             f"{APPROVED_2026_MODEL_PREFIXES}."
         )
+
+    return True
 
 
 def validate_no_legacy_3_1_models(model_name: str, field_name: str = "model") -> None:
