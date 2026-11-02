@@ -37,6 +37,13 @@ Per DeepMind 2026 architectural directives, legacy models are strictly deprecate
 
 ## 3. ADK 2.0 Multi-Agent Pipeline & Council Architecture
 
+<p align="center">
+  <img src="docs/assets/architecture_diagram.svg" alt="Omni Movie Director 2.1 Multi-Agent Architecture (Nano Banana Pro)" width="100%">
+</p>
+
+<details>
+<summary><b>Click to view ASCII / Mermaid Architecture Flowchart</b></summary>
+
 ```mermaid
 flowchart TD
     User["User Brief / Golden Preset / Bible JSON"] --> Doctor["Preflight Doctor<br><i>run_doctor()</i>"]
@@ -71,6 +78,8 @@ flowchart TD
 
     Bundle --> Council["Stage 8: Autonomous Product Council<br><i>ProductCouncilOrchestrator (100 pts)</i>"]
 ```
+
+</details>
 
 ---
 
@@ -233,8 +242,11 @@ omniskill/
 │   └── sephora_extension_40s_2_0/
 ├── scripts/
 │   ├── run_daily_council.py        # Daily Autonomous Council Routine
+│   ├── generate_architecture_svg.py # Nano Banana Architecture Diagram Generator
 │   └── publish_github.sh           # GitHub publishing automation
 ├── docs/
+│   ├── assets/                     # Vector diagrams & visual media
+│   │   └── architecture_diagram.svg
 │   └── council_reports/            # Automated council audit reports
 └── tests/
     └── test_director_suite.py      # Full Pytest Verification Suite
