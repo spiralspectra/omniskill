@@ -43,7 +43,9 @@
       "route": "Smooth forward dolly along the central camera axis",
       "action_anchor": "Hero subject entering the frame",
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -118,7 +120,9 @@
           "route": "Smooth forward dolly along the central camera axis",
           "action_anchor": "Hero subject entering the frame",
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -130,9 +134,51 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse.",
+        "omni_prose_prompt": "Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "constant_realtime",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Natural 180-degree optical shutter motion blur"
+        },
+        "scene_color_look": {
+          "look_preset": "rec709_neutral",
+          "working_color_space": "Rec.709",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "offset": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "power": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "saturation": 1.0
+          },
+          "contrast_pivot": 0.435,
+          "halation_bloom": 0.0
+        }
       },
       {
         "scene_index": 2,
@@ -151,7 +197,9 @@
           "route": "Arced orbit maneuver sweeping 45 degrees around subject",
           "action_anchor": "Subject's hands and physical contact interface",
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
-          "tone_rig": "Warm spherical glass with smooth circular bokeh"
+          "tone_rig": "Warm spherical glass with smooth circular bokeh",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -163,12 +211,121 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash.",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "constant_realtime",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Natural 180-degree optical shutter motion blur"
+        },
+        "scene_color_look": {
+          "look_preset": "rec709_neutral",
+          "working_color_space": "Rec.709",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "offset": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "power": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "saturation": 1.0
+          },
+          "contrast_pivot": 0.435,
+          "halation_bloom": 0.0
+        }
       }
     ],
-    "domain_archetype": "tech_hardware"
+    "domain_archetype": "tech_hardware",
+    "master_color_look": {
+      "look_preset": "rec709_neutral",
+      "working_color_space": "Rec.709",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "power": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "saturation": 1.0
+      },
+      "contrast_pivot": 0.435,
+      "halation_bloom": 0.0
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 0.5,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -20.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -4.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -26.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": -2.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/quantum_silicon_2_0/production_bundle.json",
@@ -202,6 +359,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_1>",
@@ -217,6 +377,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_3>"
@@ -226,9 +389,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "f9e9b578-2290-416f-9451-3d77c457afd8",
+    "session_id": "c2814c3b-072c-42ac-af4f-35fc9eb7512e",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-02T11:30:49.752901+00:00",
+    "timestamp": "2026-11-03T10:21:28.517342+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -238,67 +401,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.752921+00:00",
-        "end_time": "2026-11-02T11:30:49.752930+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.517350+00:00",
+        "end_time": "2026-11-03T10:21:28.517964+00:00",
+        "duration_ms": 0.61,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.752945+00:00",
-        "end_time": "2026-11-02T11:30:49.753631+00:00",
-        "duration_ms": 0.69,
+        "start_time": "2026-11-03T10:21:28.517975+00:00",
+        "end_time": "2026-11-03T10:21:28.518616+00:00",
+        "duration_ms": 0.64,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.753643+00:00",
-        "end_time": "2026-11-02T11:30:49.755299+00:00",
-        "duration_ms": 1.65,
+        "start_time": "2026-11-03T10:21:28.518624+00:00",
+        "end_time": "2026-11-03T10:21:28.519794+00:00",
+        "duration_ms": 1.17,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.755325+00:00",
-        "end_time": "2026-11-02T11:30:49.755481+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-03T10:21:28.519805+00:00",
+        "end_time": "2026-11-03T10:21:28.519929+00:00",
+        "duration_ms": 0.12,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.755490+00:00",
-        "end_time": "2026-11-02T11:30:49.755696+00:00",
-        "duration_ms": 0.21,
+        "start_time": "2026-11-03T10:21:28.519937+00:00",
+        "end_time": "2026-11-03T10:21:28.520189+00:00",
+        "duration_ms": 0.25,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.755708+00:00",
-        "end_time": "2026-11-02T11:30:49.755711+00:00",
+        "start_time": "2026-11-03T10:21:28.520196+00:00",
+        "end_time": "2026-11-03T10:21:28.520199+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.755717+00:00",
-        "end_time": "2026-11-02T11:30:49.757375+00:00",
-        "duration_ms": 1.66,
+        "start_time": "2026-11-03T10:21:28.520204+00:00",
+        "end_time": "2026-11-03T10:21:28.521519+00:00",
+        "duration_ms": 1.31,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.759750+00:00",
-        "end_time": "2026-11-02T11:30:49.765011+00:00",
-        "duration_ms": 5.26,
+        "start_time": "2026-11-03T10:21:28.524243+00:00",
+        "end_time": "2026-11-03T10:21:28.529219+00:00",
+        "duration_ms": 4.98,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.64,
+    "total_duration_ms": 9.08,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "65e26212600be36449a4378b808ba245af81af0d86e34620b7085fd69ee3d133",
-      "storyboard_preview.html": "93d51e4f1147d7e8d8b07729300ad13bb4ce2fe74de95c15fee67227edcbc1be",
+      "production_bundle.json": "78aeb30d5434ba06b75f1f04b335ecfe8727719d753b5e698575f150f15a61ec",
+      "storyboard_preview.html": "c81e04d94b90ace3f5ca4fb67210e8927dae7e5b52377af3a0d056c91b55bb4a",
+      "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
+      "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
+      "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
+      "call_sheet.md": "d5a0d3707eb74fbbca48c6c36f839f64a2420798e39906e902b1c47897d8d0be",
+      "subtitles.srt": "c5513f6e967d7c14c7496f61f0c13273d1404f7775ff2cd2ece8dfeace7ee3e5",
+      "subtitles.vtt": "100d626a9a8b44b4b82d0e5ca2c42ef1ff85a73e181fe20d0c1603c47d607344",
       "storyboards/anchor1_character_turnaround.svg": "d9f4e8312df0655feaaebf0729586f217c4d79a21556d351b66707f0a2425ed2",
       "storyboards/anchor2_environment_master.svg": "467bdfa2dc732b74012d25b2adafd6a1d5a122b5c83cf872cfbc49ad9e84daa6",
       "storyboards/anchor3_scene_1_keyframe.svg": "871ffb56a79bc932e70c1c8a350b10e9fc06be8659987b9e822cbeee9e03e4b2",
@@ -306,9 +475,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-02T11:30:49.763574+00:00",
+    "timestamp": "2026-11-03T10:21:28.528233+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -337,7 +506,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.REC709_NEUTRAL' for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "preset": "ColorLookPreset.REC709_NEUTRAL"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'tech_hardware' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 2 scenes for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "scene_count": 2
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: tech_hardware)."
       },
       {
@@ -384,6 +592,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'Advanced Quantum Computing Silicon Proce' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'Advanced Quantum Computing Silicon Proce' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'Advanced Quantum Computing Silicon Proce', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

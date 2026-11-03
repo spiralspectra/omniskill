@@ -80,7 +80,17 @@ def export_cmx3600_edl(bible: MasterProductionBible, fps: int = 24) -> str:
         lines.append(f"* ACTION ANCHOR: {anchor}")
         lines.append("")
 
-    return "\n".join(lines).strip() + "\n"
+    edl_text = "\n".join(lines).strip() + "\n"
+
+    # Embed CDL if master or scene color looks are defined
+    has_color_look = (bible.master_color_look is not None) or any(
+        getattr(s, "scene_color_look", None) is not None for s in bible.scenes
+    )
+    if has_color_look:
+        from omni_director.tools.color_grade import embed_cdl_in_edl
+        edl_text = embed_cdl_in_edl(edl_text, bible)
+
+    return edl_text
 
 
 def export_fcpxml(bible: MasterProductionBible, fps: int = 24) -> str:
@@ -117,11 +127,16 @@ def export_fcpxml(bible: MasterProductionBible, fps: int = 24) -> str:
             f'        <asset id="{res_id}" name="SCENE_{scene.scene_index:02d}" '
             f'start="0s" duration="{clip_frames}/{fps}s" hasVideo="1" hasAudio="1" format="r1"/>'
         )
+        timemap_block = ""
+        if getattr(scene, "speed_ramp", None) is not None:
+            from omni_director.tools.speed_ramp import export_fcpxml_timemap
+            timemap_block = "\n" + export_fcpxml_timemap(scene, sequence_fps=float(fps))
+
         spine_xml.append(
             f'                        <asset-clip name="{clip_name}" ref="{res_id}" '
             f'offset="{offset_frames}/{fps}s" duration="{clip_frames}/{fps}s" '
             f'start="0s" format="r1">\n'
-            f'                            <note>{cam_note}</note>\n'
+            f'                            <note>{cam_note}</note>{timemap_block}\n'
             f'                        </asset-clip>'
         )
         offset_frames += clip_frames
@@ -294,9 +309,21 @@ def export_all_nle_artifacts(
     csv_path.write_text(export_shot_list_csv(bible), encoding="utf-8")
     md_path.write_text(export_production_callsheet_md(bible), encoding="utf-8")
 
-    return {
+    res = {
         "edl": str(edl_path),
         "fcpxml": str(fcpxml_path),
         "csv": str(csv_path),
         "call_sheet": str(md_path),
     }
+
+    try:
+        from omni_director.tools.color_grade import export_asc_cdl_file
+        from omni_director.tools.audio_mixer import export_audio_stems_file
+        cdl_path = export_asc_cdl_file(bible, out_path / "production_grade.cdl")
+        stems_path = export_audio_stems_file(bible, out_path / "audio_stems_manifest.json")
+        res["cdl"] = str(cdl_path)
+        res["audio_stems"] = str(stems_path)
+    except Exception:
+        pass
+
+    return res

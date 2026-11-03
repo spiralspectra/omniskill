@@ -25,7 +25,7 @@
 | Scene 01 (The Soho Approach) | `00:00 - 00:10 (Base Clip)` | 35mm `Locked-off Tripod` | The Soho Approach | Tactile foley |
 | Scene 02 (The Store Transition) | `+10s extension (00:10 - 00:20)` | 35mm `Locked-off Tripod` | The Store Transition | Tactile foley |
 | Scene 03 (The Product Flourish) | `+10s extension (00:20 - 00:30)` | 35mm `Locked-off Tripod` | The Product Flourish | Tactile foley |
-| Scene 04 (The Climactic Hero Lock) | `+10s extension (00:30 - 00:40)` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
+| Scene 04 (The Climactic Hero Lock) | `+10s extension (00:30 - 00:40)` | 35mm `Locked-off Tripod` | The Climactic Hero Lock | Tactile foley |
 
 ## 4. Musical Score & Acoustic Direction
 - **Track Title**: Midnight Velvet: UK Garage Pulse (40s Continuous Oner) (Syncopated UK Garage / Hyper-Pop Runway Sizzle)

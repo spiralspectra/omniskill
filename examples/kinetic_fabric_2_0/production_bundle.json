@@ -33,7 +33,9 @@
       "route": "High-precision linear tracking along the air velocity axis with micro-rotational rolls.",
       "action_anchor": "Woven yarn contact points and laser streamline vortices.",
       "focus_axis": "Razor-thin f/2.8 macro depth of field with micro-racks across thread layers.",
-      "tone_rig": "Hyper-technical industrial commercial."
+      "tone_rig": "Hyper-technical industrial commercial.",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -105,11 +107,65 @@
         "kinetic_contact_chain": "Relaxed fibers -> Tensile load applied -> Yarn elongation under force -> Surface micro-flattening -> Stable high-tension lock.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
+        "omni_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing while maintaining continuous kinetic momentum conservation and tensile inertia under physical load. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
         "conversational_edit_deltas": [
           "Turn 2: Add visible micro-dust particle displacement upon tension snap."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "acceleration_burst",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.2,
+              1.0
+            ],
+            [
+              0.45,
+              2.5
+            ],
+            [
+              0.7,
+              2.5
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Kinetic acceleration burst with 180-degree motion streak"
+        },
+        "scene_color_look": {
+          "look_preset": "teal_and_orange_blockbuster",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.18,
+              1.02,
+              0.88
+            ],
+            "offset": [
+              -0.04,
+              0.01,
+              0.06
+            ],
+            "power": [
+              0.92,
+              0.98,
+              1.12
+            ],
+            "saturation": 1.22
+          },
+          "contrast_pivot": 0.46,
+          "halation_bloom": 0.12
+        }
       },
       {
         "scene_index": 2,
@@ -124,11 +180,65 @@
         "kinetic_contact_chain": "Nozzle airflow discharge -> Air pressure boundary layer forms -> Fluid-structure interaction on fabric -> Aerodynamic ripple wave propagation -> Stable laminar wave state.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
+        "omni_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation while maintaining continuous kinetic momentum conservation and aerodynamic inertia across the high-speed flow. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
         "conversational_edit_deltas": [
           "Turn 2: Enhance the brightness of the smoke streamlines under the blue laser light."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "acceleration_burst",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.2,
+              1.0
+            ],
+            [
+              0.45,
+              2.5
+            ],
+            [
+              0.7,
+              2.5
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Kinetic acceleration burst with 180-degree motion streak"
+        },
+        "scene_color_look": {
+          "look_preset": "teal_and_orange_blockbuster",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.18,
+              1.02,
+              0.88
+            ],
+            "offset": [
+              -0.04,
+              0.01,
+              0.06
+            ],
+            "power": [
+              0.92,
+              0.98,
+              1.12
+            ],
+            "saturation": 1.22
+          },
+          "contrast_pivot": 0.46,
+          "halation_bloom": 0.12
+        }
       },
       {
         "scene_index": 3,
@@ -143,11 +253,65 @@
         "kinetic_contact_chain": "Peak wind velocity -> Aerodynamic lift force generates deflection -> Flexible composite arm reaches planned bend angle -> Trailing edge sheds micro-vortex -> Dynamic equilibrium under load.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
+        "omni_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. Dynamic tracking preserves continuous kinetic momentum conservation and steady aerodynamic inertia as the winglet flexes under aerodynamic load. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
         "conversational_edit_deltas": [
           "Turn 2: Increase the camber of the fabric winglet curve."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "acceleration_burst",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.2,
+              1.0
+            ],
+            [
+              0.45,
+              2.5
+            ],
+            [
+              0.7,
+              2.5
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Kinetic acceleration burst with 180-degree motion streak"
+        },
+        "scene_color_look": {
+          "look_preset": "teal_and_orange_blockbuster",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.18,
+              1.02,
+              0.88
+            ],
+            "offset": [
+              -0.04,
+              0.01,
+              0.06
+            ],
+            "power": [
+              0.92,
+              0.98,
+              1.12
+            ],
+            "saturation": 1.22
+          },
+          "contrast_pivot": 0.46,
+          "halation_bloom": 0.12
+        }
       },
       {
         "scene_index": 4,
@@ -162,14 +326,135 @@
         "kinetic_contact_chain": "Airflow cutoff -> Pressure drop -> Elastic restoring force snaps fabric -> Momentum damping oscillation -> Absolute static resting state.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
+        "omni_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed, tracking continuous kinetic momentum conservation and physical inertia until the turbines power down and elastic restoring forces bring the textile into static rest. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
         "conversational_edit_deltas": [
           "Turn 2: Rack focus to the central carbon fiber thread in the final second."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "acceleration_burst",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.2,
+              1.0
+            ],
+            [
+              0.45,
+              2.5
+            ],
+            [
+              0.7,
+              2.5
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Kinetic acceleration burst with 180-degree motion streak"
+        },
+        "scene_color_look": {
+          "look_preset": "teal_and_orange_blockbuster",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.18,
+              1.02,
+              0.88
+            ],
+            "offset": [
+              -0.04,
+              0.01,
+              0.06
+            ],
+            "power": [
+              0.92,
+              0.98,
+              1.12
+            ],
+            "saturation": 1.22
+          },
+          "contrast_pivot": 0.46,
+          "halation_bloom": 0.12
+        }
       }
     ],
-    "domain_archetype": "kinetic_action"
+    "domain_archetype": "kinetic_action",
+    "master_color_look": {
+      "look_preset": "teal_and_orange_blockbuster",
+      "working_color_space": "ACEScg",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          1.18,
+          1.02,
+          0.88
+        ],
+        "offset": [
+          -0.04,
+          0.01,
+          0.06
+        ],
+        "power": [
+          0.92,
+          0.98,
+          1.12
+        ],
+        "saturation": 1.22
+      },
+      "contrast_pivot": 0.46,
+      "halation_bloom": 0.12
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 2.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -3.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -24.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": 1.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -16.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/kinetic_fabric_2_0/production_bundle.json",
@@ -267,9 +552,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "53cac99c-a232-4cf4-b7d3-5c8171cf47aa",
+    "session_id": "ff78082c-2657-4604-b796-e583c762136a",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-02T11:30:49.604995+00:00",
+    "timestamp": "2026-11-03T10:21:28.405814+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -279,67 +564,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.605016+00:00",
-        "end_time": "2026-11-02T11:30:49.605022+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.405824+00:00",
+        "end_time": "2026-11-03T10:21:28.405829+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.605036+00:00",
-        "end_time": "2026-11-02T11:30:49.605043+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.405839+00:00",
+        "end_time": "2026-11-03T10:21:28.405994+00:00",
+        "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.605049+00:00",
-        "end_time": "2026-11-02T11:30:49.613449+00:00",
-        "duration_ms": 8.4,
+        "start_time": "2026-11-03T10:21:28.406002+00:00",
+        "end_time": "2026-11-03T10:21:28.407469+00:00",
+        "duration_ms": 1.47,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.613488+00:00",
-        "end_time": "2026-11-02T11:30:49.614079+00:00",
-        "duration_ms": 0.59,
+        "start_time": "2026-11-03T10:21:28.407480+00:00",
+        "end_time": "2026-11-03T10:21:28.407621+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.614303+00:00",
-        "end_time": "2026-11-02T11:30:49.614973+00:00",
-        "duration_ms": 0.67,
+        "start_time": "2026-11-03T10:21:28.407628+00:00",
+        "end_time": "2026-11-03T10:21:28.407985+00:00",
+        "duration_ms": 0.36,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.614993+00:00",
-        "end_time": "2026-11-02T11:30:49.614999+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.407991+00:00",
+        "end_time": "2026-11-03T10:21:28.407994+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.615006+00:00",
-        "end_time": "2026-11-02T11:30:49.618942+00:00",
-        "duration_ms": 3.93,
+        "start_time": "2026-11-03T10:21:28.407999+00:00",
+        "end_time": "2026-11-03T10:21:28.409745+00:00",
+        "duration_ms": 1.75,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.622297+00:00",
-        "end_time": "2026-11-02T11:30:49.629244+00:00",
-        "duration_ms": 6.95,
+        "start_time": "2026-11-03T10:21:28.412517+00:00",
+        "end_time": "2026-11-03T10:21:28.417363+00:00",
+        "duration_ms": 4.85,
         "details": {}
       }
     ],
-    "total_duration_ms": 20.57,
+    "total_duration_ms": 8.73,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "c0c4e157970546677275c494f917552206232d1883f919d929d392cde86c4b7a",
-      "storyboard_preview.html": "12fd0c729c9e816b9a43cb5587b06c9808adbad8cefc4f10530155bb91c6fa19",
+      "production_bundle.json": "c594be227523d6a6d15ff9de8497cc6798ac76a56d97542c0136f5e303e321cb",
+      "storyboard_preview.html": "88ac537ea75fa0eaf72c60b2fe3993828a2bfb297201eacffebd2eae1d91d121",
+      "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
+      "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
+      "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
+      "call_sheet.md": "af26e1c391e52336b6151f21baff9fad54129db61b3ae5afae3b434031fd51ad",
+      "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
+      "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
       "storyboards/anchor1_character_turnaround.svg": "05706815bdc1181349cc711fa3f72c3a59e95fdf94f0fa44c5eb67c31e395121",
       "storyboards/anchor2_environment_master.svg": "6e154ec59cc638c7e5be5464114645663d4ba06ba84be94046b4155299044420",
       "storyboards/anchor3_scene_1_keyframe.svg": "0a99c197f89e53c7fb37a7fbe7052a126d4fea4acda11ad5d44782021a8c202d",
@@ -349,9 +640,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-02T11:30:49.628240+00:00",
+    "timestamp": "2026-11-03T10:21:28.416612+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -380,7 +671,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER' for domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "preset": "ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'kinetic_action' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 4 scenes for domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "scene_count": 4
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: kinetic_action)."
       },
       {
@@ -427,6 +757,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'The Kinetic Fabric: Grounded Innovation' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'The Kinetic Fabric: Grounded Innovation' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'The Kinetic Fabric: Grounded Innovation', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

@@ -76,11 +76,49 @@ def audit_omni_scene_prompt(
             "Gemini Omni enforces a strict ceiling of max 3 serialized cause-and-effect beats per 10s window."
         )
 
+    # Detect speed ramp configuration
+    speed_ramp_spec = getattr(scene, "speed_ramp", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("speed_ramp")
+    has_speed_ramp = False
+    if speed_ramp_spec is not None:
+        mode_val = getattr(speed_ramp_spec, "mode", None)
+        mode_str = mode_val.value if hasattr(mode_val, "value") else str(mode_val)
+        if mode_str != "constant_realtime":
+            has_speed_ramp = True
+    elif re.search(r"\b(?:speed\s*ramp|time-?warp|time\s*dilation|deceleration\s*impact|acceleration\s*burst|snap\s*freeze)\b", prompt, re.IGNORECASE):
+        has_speed_ramp = True
+
+    # Shutter angle recognition & reward
+    shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
+    shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
+    has_shutter_spec = bool(
+        craft_camera and (
+            getattr(craft_camera, "shutter_timing_token", None) or
+            getattr(craft_camera, "shutter_angle_deg", None) is not None
+        )
+    )
+    if shutter_match or has_shutter_spec:
+        details["shutter_angle_compliant"] = True
+        desc = shutter_match.group(0) if shutter_match else (craft_camera.shutter_timing_token or f"{craft_camera.shutter_angle_deg}° shutter")
+        details["shutter_angle_descriptor"] = desc
+        details["shutter_angle_reward"] = 5.0
+
     # Rule 3: Regime 2 High-Kinetic & Precision Commercial constraints
     if effective_regime == RegimeType.REGIME_2_KINETIC:
-        # Check 1.0x real-time playback lock
+        # Check 1.0x real-time playback lock or speed-ramp timing
         has_speed_lock = bool(re.search(r"\b1\.0x\b|real-time|natural speed", prompt, re.IGNORECASE))
-        if not has_speed_lock:
+        if has_speed_ramp:
+            has_momentum_conservation = bool(re.search(r"momentum|inertia|kinetic\s+(?:energy|transfer|conservation|continuity)|velocity\s+(?:vector|continuity)|force\s+dissipation", prompt, re.IGNORECASE))
+            if not has_momentum_conservation:
+                errors.append(
+                    "Rule 3 Violation (Speed Ramp): Speed-ramped scenes must explicitly preserve kinetic momentum conservation "
+                    "(momentum, inertia, or continuous velocity vector across velocity shifts) to prevent temporal detachment or smearing."
+                )
+            if not has_speed_lock and not bool(re.search(r"24fps|base\s+fps|real-time|1\.0x|speed\s*ramp|\b\d+fps\b", prompt, re.IGNORECASE)):
+                errors.append(
+                    "Rule 3 Violation: Regime 2 requires explicit '1.0x' or 'real-time' playback speed lock "
+                    "to eliminate floatiness and prevent the model from defaulting to dreamy slow motion."
+                )
+        elif not has_speed_lock:
             errors.append(
                 "Rule 3 Violation: Regime 2 requires explicit '1.0x' or 'real-time' playback speed lock "
                 "to eliminate floatiness and prevent the model from defaulting to dreamy slow motion."
@@ -99,6 +137,13 @@ def audit_omni_scene_prompt(
             warnings.append(
                 "Rule 3 Warning: Regime 2 prompt should explicitly invoke physical invariants "
                 "(gravity, friction, rigid materials, or momentum) to prevent elastic cushioning."
+            )
+    elif has_speed_ramp:
+        has_momentum_conservation = bool(re.search(r"momentum|inertia|kinetic\s+(?:energy|transfer|conservation|continuity)|velocity\s+(?:vector|continuity)|force\s+dissipation", prompt, re.IGNORECASE))
+        if not has_momentum_conservation:
+            errors.append(
+                "Rule 3 Violation (Speed Ramp): Speed-ramped scenes must explicitly preserve kinetic momentum conservation "
+                "(momentum, inertia, or continuous velocity vector across velocity shifts) to prevent temporal detachment or smearing."
             )
 
     # Rule 4: CRAFT camera completeness
@@ -159,6 +204,8 @@ def audit_omni_scene_prompt(
         score = max(0.0, 100.0 - (len(errors) * 15.0) - (len(warnings) * 2.0))
     else:
         score = max(80.0, 100.0 - (len(warnings) * 2.0))
+        if details.get("shutter_angle_compliant"):
+            score = min(100.0, score + 2.0)
 
     return AuditResult(
         scene_index=effective_scene_index,
@@ -301,8 +348,15 @@ def heal_omni_scene_prompt(
         if working_prompt != prev and "sanitized_negative_constraints" not in applied_patches:
             applied_patches.append("sanitized_negative_constraints")
 
-        # 2. Check speed lock and physics invariants for Regime 2
+        # 2. Check speed lock and physics invariants for Regime 2 and speed ramp momentum
         prev = working_prompt
+        speed_ramp_obj = getattr(scene, "speed_ramp", None) if is_spec else kwargs.get("speed_ramp")
+        ramp_active = bool(speed_ramp_obj and getattr(speed_ramp_obj, "mode", None) != "constant_realtime") or bool(re.search(r"\b(?:speed\s*ramp|time-?warp|time\s*dilation|deceleration\s*impact|acceleration\s*burst|snap\s*freeze)\b", working_prompt, re.IGNORECASE))
+        if ramp_active and not re.search(r"momentum|inertia|kinetic\s+(?:energy|transfer|conservation|continuity)|velocity\s+(?:vector|continuity)|force\s+dissipation", working_prompt, re.IGNORECASE):
+            working_prompt = working_prompt.rstrip() + " Preserving continuous kinetic momentum and physical inertia across speed transitions."
+            if "injected_speed_ramp_momentum" not in applied_patches:
+                applied_patches.append("injected_speed_ramp_momentum")
+
         if eff_regime == RegimeType.REGIME_2_KINETIC:
             if not re.search(r"\b1\.0x\b|real-time|natural speed", working_prompt, re.IGNORECASE):
                 working_prompt = working_prompt.rstrip() + " Rendered at natural 1.0x real-time speed with solid gravity and friction invariants."
@@ -315,7 +369,7 @@ def heal_omni_scene_prompt(
         prev = working_prompt
         camera_terms = ["camera", "shot", "lens", "framing", "dolly", "steadicam", "tripod", "pan", "tracking", "close-up", "wide", "prime"]
         if not any(k in working_prompt.lower() for k in camera_terms):
-            working_prompt = working_prompt.rstrip() + " Shot on 35mm Prime lens with dynamic forward tracking movement."
+            working_prompt = working_prompt.rstrip() + " Shot on 35mm Prime lens with dynamic forward tracking movement, 180° shutter at 1/48s."
         if working_prompt != prev and "expanded_narrative_prose" not in applied_patches:
             applied_patches.append("expanded_narrative_prose")
 

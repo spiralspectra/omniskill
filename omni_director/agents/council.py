@@ -133,6 +133,53 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-004",
+                title="ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+                problem_statement=(
+                    f"Commercial directors, DPs, and colorists reviewing storyboards{project_ctx} require industry-standard "
+                    "ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, "
+                    "Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes."
+                ),
+                proposed_solution=(
+                    "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export "
+                    "and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/color_grade.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-005",
+                title="Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+                problem_statement=(
+                    f"High-velocity commercial spots{project_ctx} require dynamic speed ramping (time-warp keyframe curves) "
+                    "and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation."
+                ),
+                proposed_solution=(
+                    "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp "
+                    "(FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/speed_ramp.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-006",
+                title="Interactive Diegetic Stem Audio Mixer & Metering Console",
+                problem_statement=(
+                    f"Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM){project_ctx}, "
+                    "but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness "
+                    "(EBU R128 / ATSC A/85) compliance metering."
+                ),
+                proposed_solution=(
+                    "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), "
+                    "and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/audio_mixer.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -255,7 +302,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
 
         report = ProductCouncilReport(
-            version="2.2.0",
+            version="2.3.0",
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -545,6 +592,62 @@ class ProductCouncilOrchestrator(BaseAgent):
                 suggested_fix="Define clear tempo, instrumentation, and sonic atmosphere in master_bgm."
             ))
             score -= 3.0
+
+        # Check domain color grading spec
+        if hasattr(bible, "master_color_look") and bible.master_color_look:
+            preset = getattr(bible.master_color_look, "look_preset", getattr(bible.master_color_look, "preset", None))
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_color_grading",
+                message=f"Deterministic ASC CDL look preset aligned: '{preset}' for domain '{detected_domain}'.",
+                details={"domain": detected_domain, "preset": str(preset)},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_color_grading",
+                message="Master color look spec missing from production bible.",
+                suggested_fix="Assign master_color_look via get_domain_color_look().",
+            ))
+            score -= 0.25
+
+        # Check calibrated 4-stem audio mixer
+        if hasattr(bible, "master_audio_mixer") and bible.master_audio_mixer:
+            channels = getattr(bible.master_audio_mixer, "channels", {})
+            lufs = getattr(bible.master_audio_mixer, "master_lufs_target", -23.0)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="sonic_mixer_calibration",
+                message=f"Calibrated 4-stem audio mixer verified for domain '{detected_domain}' with target {lufs} LUFS across {len(channels)} channels.",
+                details={"domain": detected_domain, "channels": list(channels.keys()) if isinstance(channels, dict) else []},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="sonic_mixer_calibration",
+                message="Master 4-stem audio mixer missing from production bible.",
+                suggested_fix="Assign master_audio_mixer via get_domain_audio_mixer().",
+            ))
+            score -= 0.25
+
+        # Check scene speed ramp curves
+        scenes_with_ramp = [s for s in bible.scenes if getattr(s, "speed_ramp", None) is not None]
+        if len(scenes_with_ramp) == len(bible.scenes) and len(bible.scenes) > 0:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="speed_ramp_alignment",
+                message=f"Kinetic speed ramp curves verified across all {len(bible.scenes)} scenes for domain '{detected_domain}'.",
+                details={"domain": detected_domain, "scene_count": len(bible.scenes)},
+            ))
+        else:
+            missing_count = len(bible.scenes) - len(scenes_with_ramp)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="speed_ramp_alignment",
+                message=f"{missing_count} scene(s) lack kinetic speed ramp curves.",
+                suggested_fix="Assign scene.speed_ramp via get_domain_speed_ramp().",
+            ))
+            score -= 0.25
 
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."

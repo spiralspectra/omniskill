@@ -43,7 +43,9 @@
       "route": "Smooth forward dolly along the central camera axis",
       "action_anchor": "Hero subject entering the frame",
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -118,7 +120,9 @@
           "route": "Smooth forward dolly along the central camera axis",
           "action_anchor": "Hero subject entering the frame",
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -130,9 +134,67 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with Russian Arm 28mm Anamorphic with dynamic low-angle tracking with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous High-torque electric motor whine and Mechanical robotic servo snaps.",
+        "omni_prose_prompt": "Wide establishing tracking shot. Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with Russian Arm 28mm Anamorphic with dynamic low-angle tracking with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous High-torque electric motor whine and Mechanical robotic servo snaps.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "snap_freeze_resume",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 90.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.35,
+              1.0
+            ],
+            [
+              0.4,
+              0.0
+            ],
+            [
+              0.65,
+              0.0
+            ],
+            [
+              0.7,
+              1.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Zero-velocity freeze frame transitioning into 90-degree optical motion"
+        },
+        "scene_color_look": {
+          "look_preset": "bleach_bypass_silver",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.25,
+              1.25,
+              1.25
+            ],
+            "offset": [
+              -0.08,
+              -0.08,
+              -0.08
+            ],
+            "power": [
+              1.15,
+              1.15,
+              1.15
+            ],
+            "saturation": 0.35
+          },
+          "contrast_pivot": 0.5,
+          "halation_bloom": 0.0
+        }
       },
       {
         "scene_index": 2,
@@ -151,7 +213,9 @@
           "route": "Arced orbit maneuver sweeping 45 degrees around subject",
           "action_anchor": "Subject's hands and physical contact interface",
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
-          "tone_rig": "Warm spherical glass with smooth circular bokeh"
+          "tone_rig": "Warm spherical glass with smooth circular bokeh",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -163,12 +227,137 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Maintaining continuity with keyframe <image_3>. Russian Arm 28mm Anamorphic with dynamic low-angle tracking maneuver at eye-level with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate High-torque electric motor whine and atmospheric air wash.",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Maintaining continuity with keyframe <image_3>. Russian Arm 28mm Anamorphic with dynamic low-angle tracking maneuver at eye-level with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate High-torque electric motor whine and atmospheric air wash.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "snap_freeze_resume",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 90.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.35,
+              1.0
+            ],
+            [
+              0.4,
+              0.0
+            ],
+            [
+              0.65,
+              0.0
+            ],
+            [
+              0.7,
+              1.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Zero-velocity freeze frame transitioning into 90-degree optical motion"
+        },
+        "scene_color_look": {
+          "look_preset": "bleach_bypass_silver",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.25,
+              1.25,
+              1.25
+            ],
+            "offset": [
+              -0.08,
+              -0.08,
+              -0.08
+            ],
+            "power": [
+              1.15,
+              1.15,
+              1.15
+            ],
+            "saturation": 0.35
+          },
+          "contrast_pivot": 0.5,
+          "halation_bloom": 0.0
+        }
       }
     ],
-    "domain_archetype": "automotive_robotics"
+    "domain_archetype": "automotive_robotics",
+    "master_color_look": {
+      "look_preset": "bleach_bypass_silver",
+      "working_color_space": "ACEScg",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          1.25,
+          1.25,
+          1.25
+        ],
+        "offset": [
+          -0.08,
+          -0.08,
+          -0.08
+        ],
+        "power": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "saturation": 0.35
+      },
+      "contrast_pivot": 0.5,
+      "halation_bloom": 0.0
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 2.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -3.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -24.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": -2.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/cyberpunk_noir_2_0/production_bundle.json",
@@ -202,6 +391,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_1>",
@@ -217,6 +409,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_3>"
@@ -226,9 +421,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "8fb02cdc-5f1c-4dff-9d96-53f54d1be45f",
+    "session_id": "02f064fc-6875-4635-a0ab-012631fe453d",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-02T11:30:49.666720+00:00",
+    "timestamp": "2026-11-03T10:21:28.445200+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -238,67 +433,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.666739+00:00",
-        "end_time": "2026-11-02T11:30:49.666747+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.445211+00:00",
+        "end_time": "2026-11-03T10:21:28.445619+00:00",
+        "duration_ms": 0.41,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.666762+00:00",
-        "end_time": "2026-11-02T11:30:49.667291+00:00",
-        "duration_ms": 0.53,
+        "start_time": "2026-11-03T10:21:28.445629+00:00",
+        "end_time": "2026-11-03T10:21:28.446100+00:00",
+        "duration_ms": 0.47,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.667302+00:00",
-        "end_time": "2026-11-02T11:30:49.668688+00:00",
-        "duration_ms": 1.39,
+        "start_time": "2026-11-03T10:21:28.446108+00:00",
+        "end_time": "2026-11-03T10:21:28.447214+00:00",
+        "duration_ms": 1.11,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.668731+00:00",
-        "end_time": "2026-11-02T11:30:49.668953+00:00",
-        "duration_ms": 0.22,
-        "details": {}
-      },
-      {
-        "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.668968+00:00",
-        "end_time": "2026-11-02T11:30:49.669092+00:00",
+        "start_time": "2026-11-03T10:21:28.447224+00:00",
+        "end_time": "2026-11-03T10:21:28.447340+00:00",
         "duration_ms": 0.12,
         "details": {}
       },
       {
+        "stage_name": "prompt_auditor",
+        "start_time": "2026-11-03T10:21:28.447348+00:00",
+        "end_time": "2026-11-03T10:21:28.447555+00:00",
+        "duration_ms": 0.21,
+        "details": {}
+      },
+      {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.669100+00:00",
-        "end_time": "2026-11-02T11:30:49.669104+00:00",
+        "start_time": "2026-11-03T10:21:28.447561+00:00",
+        "end_time": "2026-11-03T10:21:28.447564+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.669111+00:00",
-        "end_time": "2026-11-02T11:30:49.670963+00:00",
-        "duration_ms": 1.85,
+        "start_time": "2026-11-03T10:21:28.447569+00:00",
+        "end_time": "2026-11-03T10:21:28.449042+00:00",
+        "duration_ms": 1.47,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.672976+00:00",
-        "end_time": "2026-11-02T11:30:49.677924+00:00",
-        "duration_ms": 4.95,
+        "start_time": "2026-11-03T10:21:28.451480+00:00",
+        "end_time": "2026-11-03T10:21:28.456087+00:00",
+        "duration_ms": 4.61,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.07,
+    "total_duration_ms": 8.4,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "7a0e215f611b40eb7f3d32e213eda5ac35e285ec52c2ee439d2a808cb25cbaf0",
-      "storyboard_preview.html": "461053fafcc54d3453e129ac4f0686a87c3f9fc993a162b8b1512f723a8d9615",
+      "production_bundle.json": "3dd1871348a12077b5cd26d0a1230139c576ef3c2da85919dccb9539a5dc05bb",
+      "storyboard_preview.html": "2ebb1f2a2bf7c5ee6d00527c5c33f09c254832f1a339f13f5751f8030e6d34d5",
+      "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
+      "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
+      "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
+      "call_sheet.md": "911b6787939d6493fac19000075a35f8bd52d667383a1619fba02e4ffb2f44ba",
+      "subtitles.srt": "23492ef4af8b6eb71b1ef3b843275960572deb61bdfe6b1a778c2713f19bdec9",
+      "subtitles.vtt": "c6237e4b792362b535df222a3422a116c27dd5d366935a6e8955e62e22ce398a",
       "storyboards/anchor1_character_turnaround.svg": "6fe05754a2307303f0026fafee912853eb5678a6122250fbdaa7e4d27a3de121",
       "storyboards/anchor2_environment_master.svg": "280a27068876a5cd81b6be8ada54eb57417fadb13b22ec65b1f9565f7dff8972",
       "storyboards/anchor3_scene_1_keyframe.svg": "0d4958438163583ed492d93a00a88392becc547a0144d874b35853cd85620678",
@@ -306,9 +507,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-02T11:30:49.676250+00:00",
+    "timestamp": "2026-11-03T10:21:28.455171+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -337,7 +538,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.BLEACH_BYPASS_SILVER' for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "preset": "ColorLookPreset.BLEACH_BYPASS_SILVER"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'automotive_robotics' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 2 scenes for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "scene_count": 2
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics)."
       },
       {
@@ -384,6 +624,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'Cyberpunk Neon-Lit High-Speed Electric M' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'Cyberpunk Neon-Lit High-Speed Electric M' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'Cyberpunk Neon-Lit High-Speed Electric M', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

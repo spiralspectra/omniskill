@@ -1,5 +1,18 @@
 """Tools module exports for omni-movie-director."""
 
+from omni_director.tools.audio_mixer import (
+    estimate_broadcast_loudness,
+    export_audio_stems_file,
+    export_audio_stems_manifest,
+    synthesize_default_stem_mixer,
+)
+from omni_director.tools.color_grade import (
+    cdl_to_svg_matrix_filter,
+    embed_cdl_in_edl,
+    export_asc_cdl_file,
+    export_asc_cdl_xml,
+    get_preset_color_look,
+)
 from omni_director.tools.coverage import (
     CoverageType,
     CoverageVariant,
@@ -28,6 +41,11 @@ from omni_director.tools.prompt_auditor import (
     audit_omni_scene_prompt,
     heal_omni_scene_prompt,
 )
+from omni_director.tools.speed_ramp import (
+    export_fcpxml_timemap,
+    format_craft_shutter_tokens,
+    synthesize_speed_ramp_curve,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -48,4 +66,19 @@ __all__ = [
     "CoverageVariant",
     "generate_scene_coverage",
     "synthesize_conversational_deltas",
+    # Color grading
+    "get_preset_color_look",
+    "export_asc_cdl_xml",
+    "export_asc_cdl_file",
+    "embed_cdl_in_edl",
+    "cdl_to_svg_matrix_filter",
+    # Speed ramp
+    "synthesize_speed_ramp_curve",
+    "format_craft_shutter_tokens",
+    "export_fcpxml_timemap",
+    # Audio mixer
+    "synthesize_default_stem_mixer",
+    "export_audio_stems_manifest",
+    "export_audio_stems_file",
+    "estimate_broadcast_loudness",
 ]

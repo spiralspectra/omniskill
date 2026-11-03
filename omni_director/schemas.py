@@ -1,7 +1,7 @@
 import json
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
@@ -74,6 +74,74 @@ class MasterEnvironmentSpec(BaseModel):
     svg_markup: Optional[str] = Field(default=None, description="Crisp SVG storyboard plate for dry-run/preview")
 
 
+class AscCdlSpec(BaseModel):
+    """ASC CDL (American Society of Cinematographers Color Decision List) grading parameters."""
+    slope: Tuple[float, float, float] = Field(default=(1.0, 1.0, 1.0), description="RGB Slope multiplier (gain)")
+    offset: Tuple[float, float, float] = Field(default=(0.0, 0.0, 0.0), description="RGB Offset offset (lift)")
+    power: Tuple[float, float, float] = Field(default=(1.0, 1.0, 1.0), description="RGB Power exponent (gamma)")
+    saturation: float = Field(default=1.0, ge=0.0, le=4.0, description="Color saturation multiplier")
+
+
+class ColorLookPreset(str, Enum):
+    """Cinematic Look & Film Stock Presets."""
+    REC709_NEUTRAL = "rec709_neutral"
+    KODAK_5219_VISION3 = "kodak_5219_vision3"
+    FUJI_ETERNA_500T = "fuji_eterna_500t"
+    BLEACH_BYPASS_SILVER = "bleach_bypass_silver"
+    TEAL_AND_ORANGE_BLOCKBUSTER = "teal_and_orange_blockbuster"
+    MONOCHROME_PANATOMIC_X = "monochrome_panatomic_x"
+
+    # Lowercase aliases
+    rec709_neutral = "rec709_neutral"
+    kodak_5219_vision3 = "kodak_5219_vision3"
+    fuji_eterna_500t = "fuji_eterna_500t"
+    bleach_bypass_silver = "bleach_bypass_silver"
+    teal_and_orange_blockbuster = "teal_and_orange_blockbuster"
+    monochrome_panatomic_x = "monochrome_panatomic_x"
+
+
+class ColorLookSpec(BaseModel):
+    """Scene or Master Color Grading specification."""
+    look_preset: ColorLookPreset = Field(default=ColorLookPreset.REC709_NEUTRAL)
+    working_color_space: str = Field(default="ACEScg", description="ACEScg, Rec.709, ARRI Wide Gamut 4")
+    target_display: str = Field(default="Rec.709 Gamma 2.4", description="Target viewing transform")
+    cdl: AscCdlSpec = Field(default_factory=AscCdlSpec)
+    contrast_pivot: float = Field(default=0.435, ge=0.0, le=1.0)
+    halation_bloom: float = Field(default=0.0, ge=0.0, le=1.0, description="Analog film halation level")
+
+
+class SpeedRampMode(str, Enum):
+    """Dynamic speed ramping and time-warp modes."""
+    CONSTANT_REALTIME = "constant_realtime"
+    DECELERATION_IMPACT = "deceleration_impact"
+    ACCELERATION_BURST = "acceleration_burst"
+    SNAP_FREEZE_RESUME = "snap_freeze_resume"
+    PULSE_TIME_DILATION = "pulse_time_dilation"
+
+    # Lowercase aliases
+    constant_realtime = "constant_realtime"
+    deceleration_impact = "deceleration_impact"
+    acceleration_burst = "acceleration_burst"
+    snap_freeze_resume = "snap_freeze_resume"
+    pulse_time_dilation = "pulse_time_dilation"
+
+
+class SpeedRampCurveSpec(BaseModel):
+    """Dynamic speed ramp and motion timing specification."""
+    mode: SpeedRampMode = Field(default=SpeedRampMode.CONSTANT_REALTIME)
+    base_fps: int = Field(default=24, ge=12, le=120)
+    peak_capture_fps: int = Field(default=120, ge=24, le=1000)
+    shutter_angle_deg: float = Field(default=180.0, ge=11.25, le=360.0)
+    curve_keyframe_points: List[Tuple[float, float]] = Field(
+        default_factory=lambda: [(0.0, 1.0), (1.0, 1.0)],
+        description="List of (normalized_time_0_to_1, speed_multiplier)"
+    )
+    motion_blur_character: str = Field(
+        default="natural 180-degree cinematic blur",
+        description="Deterministic kinetic motion blur descriptor"
+    )
+
+
 class CraftCameraSpec(BaseModel):
     """Kinetic Camera Grammar (CRAFT Framework)."""
     rig_type: str = Field(..., description="Locked-off tripod, Dolly track, Steadicam, Technocrane, etc.")
@@ -83,6 +151,8 @@ class CraftCameraSpec(BaseModel):
     action_anchor: str = Field(..., description="Physical subject or contact point that guides tracking")
     focus_axis: str = Field(..., description="Depth of field, rack focus timing, 180-degree axis lock")
     tone_rig: str = Field(..., description="Lens characteristics, anamorphic bokeh, optical texture")
+    shutter_angle_deg: float = Field(default=180.0, ge=11.25, le=360.0, description="Shutter angle in degrees (e.g. 180.0 standard, 90.0 staccato)")
+    shutter_timing_token: Optional[str] = Field(default=None, description="Cinematic shutter timing prompt token (e.g. '180° shutter at 1/48s')")
 
     def to_summary(self) -> str:
         return f"{self.rig_type} ({self.focal_length_mm}mm) | {self.composition} | Route: {self.route}"
@@ -160,6 +230,78 @@ class MasterBgmSpec(BaseModel):
     lyria_prompt: str = Field(..., description="Ready-to-use text prompt for Lyria / audio model")
 
 
+class StemType(str, Enum):
+    """Post-production audio stem types."""
+    DIALOGUE = "dialogue"
+    FOLEY = "foley"
+    AMBIENCE = "ambience"
+    MUSIC = "music"
+
+    # Lowercase aliases
+    dialogue = "dialogue"
+    foley = "foley"
+    ambience = "ambience"
+    music = "music"
+
+
+class StemChannelStrip(BaseModel):
+    """Individual audio stem mixer channel settings."""
+    stem: StemType
+    label: str
+    gain_db: float = Field(default=0.0, ge=-60.0, le=12.0)
+    pan: float = Field(default=0.0, ge=-1.0, le=1.0)
+    muted: bool = False
+    solo: bool = False
+    target_lufs: float = Field(default=-24.0, ge=-36.0, le=-12.0)
+
+
+def _default_audio_stem_channels() -> Dict[str, StemChannelStrip]:
+    return {
+        "dialogue": StemChannelStrip(stem=StemType.DIALOGUE, label="Dialogue", gain_db=0.0, pan=0.0, target_lufs=-18.0),
+        "foley": StemChannelStrip(stem=StemType.FOLEY, label="Foley / SFX", gain_db=0.0, pan=0.0, target_lufs=-20.0),
+        "ambience": StemChannelStrip(stem=StemType.AMBIENCE, label="Ambience", gain_db=-3.0, pan=0.0, target_lufs=-24.0),
+        "music": StemChannelStrip(stem=StemType.MUSIC, label="BGM Score", gain_db=-2.0, pan=0.0, target_lufs=-18.0),
+    }
+
+
+class AudioStemMixerSpec(BaseModel):
+    """Complete 4-stem post-production audio mixing blueprint."""
+    master_gain_db: float = Field(default=0.0, ge=-60.0, le=6.0)
+    master_lufs_target: float = Field(default=-23.0, description="EBU R128 (-23 LUFS) or ATSC A/85 (-24 LUFS)")
+    channels: Dict[str, StemChannelStrip] = Field(default_factory=_default_audio_stem_channels)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_channels(cls, data: Any) -> Any:
+        if isinstance(data, dict) and "channels" in data and isinstance(data["channels"], dict):
+            norm_channels = {}
+            for k, v in data["channels"].items():
+                key_str = k.value if hasattr(k, "value") else str(k)
+                norm_channels[key_str] = v
+            data["channels"] = norm_channels
+        return data
+
+    def __getitem__(self, key: Union[str, StemType]) -> StemChannelStrip:
+        key_str = key.value if hasattr(key, "value") else str(key)
+        return self.channels[key_str]
+
+    def __contains__(self, key: Union[str, StemType]) -> bool:
+        key_str = key.value if hasattr(key, "value") else str(key)
+        return key_str in self.channels
+
+    def get(self, key: Union[str, StemType], default: Any = None) -> Any:
+        key_str = key.value if hasattr(key, "value") else str(key)
+        return self.channels.get(key_str, default)
+
+    @classmethod
+    def create_default(cls) -> "AudioStemMixerSpec":
+        return cls(
+            master_gain_db=0.0,
+            master_lufs_target=-23.0,
+            channels=_default_audio_stem_channels(),
+        )
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -217,6 +359,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Optional pre-rendered keyframe or SVG plate spec"
     )
+    speed_ramp: Optional[SpeedRampCurveSpec] = Field(
+        default=None,
+        description="Dynamic speed ramp and motion timing specification"
+    )
+    scene_color_look: Optional[ColorLookSpec] = Field(
+        default=None,
+        description="Scene-specific ASC CDL color grading specification"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -228,6 +378,12 @@ class ScenePromptSpec(BaseModel):
                 data["craft_camera"] = data["camera_spec"]
             if "diegetic_sound" in data and "diegetic_sonic" not in data:
                 data["diegetic_sonic"] = data["diegetic_sound"]
+            if "color_look" in data and "scene_color_look" not in data:
+                data["scene_color_look"] = data["color_look"]
+            if "speed_ramp_spec" in data and "speed_ramp" not in data:
+                data["speed_ramp"] = data["speed_ramp_spec"]
+            if "speed_ramp_curve" in data and "speed_ramp" not in data:
+                data["speed_ramp"] = data["speed_ramp_curve"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -313,6 +469,14 @@ class MasterProductionBible(BaseModel):
     )
     scenes: List[ScenePromptSpec]
     domain_archetype: Optional[str] = None
+    master_color_look: Optional[ColorLookSpec] = Field(
+        default=None,
+        description="Master ASC CDL color grading specification and look preset"
+    )
+    master_audio_mixer: Optional[AudioStemMixerSpec] = Field(
+        default=None,
+        description="Master 4-stem post-production audio mixing blueprint"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -482,7 +646,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.2.0"
+    version: str = "2.3.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

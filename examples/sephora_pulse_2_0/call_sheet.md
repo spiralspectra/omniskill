@@ -22,10 +22,10 @@
 
 | Scene | Timestamp | Camera & Lens | Action Anchor | Key Foley / Audio |
 |---|---|---|---|---|
-| Scene 01 (The Soho Stare & The Night Pan) | `00:00 - 00:08` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
+| Scene 01 (The Soho Stare & The Night Pan) | `00:00 - 00:08` | 35mm `Locked-off Tripod` | The Soho Stare & The Night Pan | Tactile foley |
 | Scene 02 (The Flagship Infiltration: Tactile Glamour) | `00:08 - 00:16` | 35mm `Locked-off Tripod` | The Flagship Infiltration: Tactile Glamour | Tactile foley |
 | Scene 03 (The Soho Runway Strut) | `00:16 - 00:24` | 35mm `Locked-off Tripod` | The Soho Runway Strut | Tactile foley |
-| Scene 04 (The Bag Lock & The Soho Freeze) | `00:24 - 00:32` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
+| Scene 04 (The Bag Lock & The Soho Freeze) | `00:24 - 00:32` | 35mm `Locked-off Tripod` | The Bag Lock & The Soho Freeze | Tactile foley |
 
 ## 4. Musical Score & Acoustic Direction
 - **Track Title**: Midnight Velvet: UK Garage Pulse (Syncopated UK Garage / Hyper-Pop Runway Sizzle)

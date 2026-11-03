@@ -4,7 +4,10 @@ from typing import Any, Dict, List, Optional
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
+    AudioStemMixerSpec,
     CharacterTurnaroundSpec,
+    ColorLookPreset,
+    ColorLookSpec,
     CraftCameraSpec,
     DiegeticSonicSpec,
     MasterBgmSpec,
@@ -13,8 +16,375 @@ from omni_director.schemas import (
     NanoBananaReference,
     RegimeType,
     ScenePromptSpec,
+    SpeedRampCurveSpec,
+    SpeedRampMode,
+    StemChannelStrip,
+    StemType,
     StorytellingMode,
 )
+from omni_director.tools.color_grade import get_preset_color_look
+from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+
+DOMAIN_PRIORITY: List[str] = [
+    "automotive_robotics",
+    "culinary_asmr",
+    "luxury_fashion",
+    "kinetic_action",
+    "tech_hardware",
+    "architectural_sanctuary",
+]
+
+DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "keywords": [
+            "vehicle", "vehicles", "drone", "drones", "robot", "robotics", "hypercar", "hypercars", "car", "cars",
+            "motorsport", "motorsports", "motorcycle", "motorcycles", "pursuit", "engine", "chassis", "autonomous",
+            "telemetry", "hydraulic", "suspension", "carbon fiber", "speedway", "racing", "supercar", "drivetrain"
+        ],
+        "default_camera": "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
+        "camera_rigs": [
+            "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
+            "Technocrane 35mm Prime tracking lateral drift arc",
+        ],
+        "default_focal_length": 28,
+        "default_lighting": "Cool 6500K high-contrast industrial LED with sharp metallic rim highlights",
+        "default_character": {
+            "name": "Lead Test Pilot / Telematics Specialist",
+            "silhouette": "Aerodynamic high-speed racing posture with locked kinetic poise",
+            "wardrobe_polarity": "Matte graphite fire-retardant racing suit with reflective telemetry piping",
+            "movement_signature": "Instantaneous micrometric steering corrections and decisive torque control",
+        },
+        "default_invariants": [
+            "Carbon fiber aerodynamic chassis maintains unyielding physical rigidity",
+            "Wet tarmac surface reflects neon horizon with true raytraced consistency"
+        ],
+        "default_foley": [
+            "High-torque electric motor whine",
+            "Tire friction on slick asphalt",
+            "Pneumatic valve hiss",
+            "Mechanical robotic servo snaps"
+        ],
+        "default_bpm": 130,
+        "default_key": "F Minor",
+        "default_bgm_genre": "Industrial Electronic & Cybernetic Kinetic Score",
+        "color_palette": ["#0B0E14", "#00F0FF", "#FF3B30", "#8E8E93"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+        "color_look_preset": ColorLookPreset.BLEACH_BYPASS_SILVER,
+        "speed_ramp_mode": SpeedRampMode.SNAP_FREEZE_RESUME,
+        "default_shutter_angle": 90.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": 2.0, "target_lufs": -18.0},
+            "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
+            "music": {"gain_db": -2.0, "target_lufs": -18.0},
+        },
+    },
+    "culinary_asmr": {
+        "keywords": [
+            "food", "coffee", "matcha", "cooking", "beverage", "kitchen", "culinary", "chef", "sizzle",
+            "caramelization", "knife", "ingredient", "recipe", "baking", "espresso", "dining", "texture",
+            "crunch", "taste", "flavor", "dough", "tea", "asmr", "whisk", "gastronomy", "pour", "plate",
+            "roast", "brew", "steam", "cocktail"
+        ],
+        "default_camera": "100mm Macro Probe Lens with micro-fluidic pan and tilt",
+        "camera_rigs": [
+            "100mm Macro Probe Lens with micro-fluidic pan and tilt",
+            "50mm Overhead Top-Down Rig with locked vertical axis",
+        ],
+        "default_focal_length": 100,
+        "default_lighting": "Warm 3200K tungsten backlight emphasizing surface steam and glistening oils",
+        "default_character": {
+            "name": "Master Artisanal Chef / Tea Master",
+            "silhouette": "Minimalist focused posture with steady hands and rolled linen sleeves",
+            "wardrobe_polarity": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "movement_signature": "Deliberate, rhythmic, micro-fluidic hand gestures with zero tremor",
+        },
+        "default_invariants": [
+            "Handmade ceramic vessel lip retains exact physical geometry",
+            "Natural hinoki cedar countertop surface grain remains mechanically rigid"
+        ],
+        "default_foley": [
+            "Crisp blade cutting through textured crust",
+            "Gentle butter sizzle in cast iron",
+            "Tactile ceramic clink",
+            "Subtle simmering bubble pops"
+        ],
+        "default_bpm": 68,
+        "default_key": "C Major",
+        "default_bgm_genre": "Intimate Acoustic & Organic Ambient ASMR",
+        "color_palette": ["#1C1917", "#D97706", "#F59E0B", "#FEF3C7"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+        "color_look_preset": ColorLookPreset.KODAK_5219_VISION3,
+        "speed_ramp_mode": SpeedRampMode.DECELERATION_IMPACT,
+        "default_shutter_angle": 180.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": 2.5, "target_lufs": -20.0},
+            "ambience": {"gain_db": -4.0, "target_lufs": -26.0},
+            "music": {"gain_db": -4.0, "target_lufs": -22.0},
+        },
+    },
+    "luxury_fashion": {
+        "keywords": [
+            "fashion", "runway", "cosmetics", "perfume", "couture", "jewelry", "model", "models", "haute",
+            "makeup", "velvet", "silk", "wardrobe", "strut", "editorial", "beauty", "lipstick", "fragrance",
+            "vogue", "glamour", "apparel", "luxury", "monogram", "flagship"
+        ],
+        "default_camera": "50mm Prime on Steadicam Ultra with gentle vertical float",
+        "camera_rigs": [
+            "50mm Prime on Steadicam Ultra with gentle vertical float",
+            "85mm Portrait Prime tracking eye-level beauty framing",
+        ],
+        "default_focal_length": 50,
+        "default_lighting": "5600K diffused commercial beauty illumination with reflective mirror bounce",
+        "default_character": {
+            "name": "Haute Couture Runway Model",
+            "silhouette": "Statuesque architectural posture with dynamic high-fashion stride",
+            "wardrobe_polarity": "Sculptural black velvet evening coat with structured iridescent silk lapels",
+            "movement_signature": "Fluid, confident, momentum-conserving runway cadence",
+        },
+        "default_invariants": [
+            "Haute couture garment maintains structural textile tension and crisp drape",
+            "Polished runway mirror floor reflects silhouettes with optical clarity"
+        ],
+        "default_foley": [
+            "Rhythmic stiletto heel clicks on polished marble",
+            "Crisp textile rustle of silk taffeta",
+            "Metallic snap of luxury compact",
+            "Subtle perfume atomizer mist spray"
+        ],
+        "default_bpm": 118,
+        "default_key": "A Minor",
+        "default_bgm_genre": "Deep House Runway & Parisian Haute Couture Pulse",
+        "color_palette": ["#09090B", "#F43F5E", "#E2E8F0", "#D4AF37"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+        "color_look_preset": ColorLookPreset.FUJI_ETERNA_500T,
+        "speed_ramp_mode": SpeedRampMode.PULSE_TIME_DILATION,
+        "default_shutter_angle": 180.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": 0.0, "target_lufs": -20.0},
+            "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
+            "music": {"gain_db": 1.0, "target_lufs": -16.0},
+        },
+    },
+    "kinetic_action": {
+        "keywords": [
+            "sport", "sports", "running", "martial arts", "parkour", "athletics", "dance", "athlete",
+            "jump", "boxing", "climbing", "kick", "sprint", "workout", "fitness", "dynamic movement",
+            "stunt", "acrobatic", "action", "kinetic", "velocity", "aerodynamic", "speed", "agility", "impact"
+        ],
+        "default_camera": "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
+        "camera_rigs": [
+            "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
+            "Cable-Cam 35mm Prime following ballistic trajectory",
+        ],
+        "default_focal_length": 24,
+        "default_lighting": "Dynamic high-noon direct daylight with deep hard directional shadows",
+        "default_character": {
+            "name": "Elite Parkour / Calisthenics Athlete",
+            "silhouette": "Athletic minimalist silhouette with sharp aerodynamic contours",
+            "wardrobe_polarity": "Matte black performance composite with high-visibility amber accents",
+            "movement_signature": "Explosive, decisive, momentum-conserving kinetic vaults and landings",
+        },
+        "default_invariants": [
+            "Reinforced concrete ledge structure remains completely unyielding",
+            "Friction contact point exhibits micro-surface dust without floating"
+        ],
+        "default_foley": [
+            "Athletic shoe sole squeak and ground impact",
+            "Heavy synchronized breath cadence",
+            "Wind rush over aerodynamic limbs",
+            "Resonant physical force transfer thud"
+        ],
+        "default_bpm": 140,
+        "default_key": "E Minor",
+        "default_bgm_genre": "High-Velocity Orchestral Breakbeat & Hybrid Trap",
+        "color_palette": ["#18181B", "#22C55E", "#3B82F6", "#FAFAFA"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+        "color_look_preset": ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER,
+        "speed_ramp_mode": SpeedRampMode.ACCELERATION_BURST,
+        "default_shutter_angle": 180.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": 2.0, "target_lufs": -18.0},
+            "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
+            "music": {"gain_db": 1.0, "target_lufs": -16.0},
+        },
+    },
+    "tech_hardware": {
+        "keywords": [
+            "semiconductor", "semiconductors", "smartphone", "smartphones", "laptop", "laptops", "cnc aluminum",
+            "aluminum", "optics", "wearables", "wearable", "hardware", "chip", "silicon", "circuit", "processor",
+            "device", "gadget", "anodized", "microchip", "chassis", "motherboard", "cleanroom", "quantum",
+            "nanoscale", "etching", "wafer", "pcb", "transistor", "fabrication"
+        ],
+        "default_camera": "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
+        "camera_rigs": [
+            "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
+            "Telecentric 100mm Inspection Rig with zero optical distortion",
+        ],
+        "default_focal_length": 85,
+        "default_lighting": "Cleanroom 5000K pure white illumination with razor-thin linear specular highlights",
+        "default_character": {
+            "name": "Cleanroom Nanotech Systems Engineer",
+            "silhouette": "Methodical ergonomic posture inside sterile cleanroom envelope",
+            "wardrobe_polarity": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
+            "movement_signature": "Micrometric, steady-handed vacuum wand positioning with sub-millimeter precision",
+        },
+        "default_invariants": [
+            "Silicon wafer mirror finish reflects sterile yellow lithography lighting",
+            "CNC unibody chamfered edges retain micron-level geometric tolerance"
+        ],
+        "default_foley": [
+            "Precision magnetic latch click",
+            "Anodized aluminum bevel contact",
+            "Subtle ultrasonic cleanroom hum",
+            "Haptic motor vibration pulse"
+        ],
+        "default_bpm": 110,
+        "default_key": "D Minor",
+        "default_bgm_genre": "Minimalist Glitch & Micro-Acoustic Electronic Pulse",
+        "color_palette": ["#030712", "#38BDF8", "#94A3B8", "#F8FAFC"],
+        "regime": RegimeType.REGIME_2_KINETIC,
+        "color_look_preset": ColorLookPreset.REC709_NEUTRAL,
+        "speed_ramp_mode": SpeedRampMode.CONSTANT_REALTIME,
+        "default_shutter_angle": 180.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": 0.5, "target_lufs": -20.0},
+            "ambience": {"gain_db": -4.0, "target_lufs": -26.0},
+            "music": {"gain_db": -2.0, "target_lufs": -18.0},
+        },
+    },
+    "architectural_sanctuary": {
+        "keywords": [
+            "architecture", "interior", "furniture", "brutalist", "home", "pavilion", "sanctuary",
+            "building", "concrete", "travertine", "limestone", "space", "facade", "gallery", "atrium",
+            "minimalist living", "structure", "courtyard", "zen", "residence", "sculpture"
+        ],
+        "default_camera": "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
+        "camera_rigs": [
+            "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
+            "Slow Motion 35mm Dolly along central reflecting pool",
+        ],
+        "default_focal_length": 24,
+        "default_lighting": "Low-angle golden hour sunlight casting geometric window shadows through dust motes",
+        "default_character": {
+            "name": "Resident Spatial Architect / Meditator",
+            "silhouette": "Serene contemplative silhouette framed by monumental spatial geometry",
+            "wardrobe_polarity": "Monochrome architectural linen tunic in warm ecru and charcoal",
+            "movement_signature": "Calm, deliberate pacing along cardinal spatial axes",
+        },
+        "default_invariants": [
+            "Monolithic board-formed concrete walls remain immovable and textured",
+            "Travertine stone floor slabs maintain continuous geometric perspective"
+        ],
+        "default_foley": [
+            "Acoustic reverberation in tall stone hall",
+            "Subtle distant wind through bamboo atrium",
+            "Soft leather creak on timber seat",
+            "Gentle water fountain trickle"
+        ],
+        "default_bpm": 60,
+        "default_key": "G Major",
+        "default_bgm_genre": "Neo-Classical Piano & Spatial Drone Sanctuary",
+        "color_palette": ["#1C1917", "#78716C", "#D6D3D1", "#E7E5E4"],
+        "regime": RegimeType.REGIME_1_ATMOSPHERIC,
+        "color_look_preset": ColorLookPreset.REC709_NEUTRAL,
+        "speed_ramp_mode": SpeedRampMode.CONSTANT_REALTIME,
+        "default_shutter_angle": 180.0,
+        "default_stem_levels": {
+            "dialogue": {"gain_db": 0.0, "target_lufs": -18.0},
+            "foley": {"gain_db": -2.0, "target_lufs": -24.0},
+            "ambience": {"gain_db": -1.0, "target_lufs": -22.0},
+            "music": {"gain_db": -2.0, "target_lufs": -18.0},
+        },
+    },
+}
+
+
+def classify_brief_domain(brief_text: str) -> str:
+    """Classifies a user creative brief into one of 6 commercial domain archetypes."""
+    clean_text = brief_text.lower()
+    scores: Dict[str, int] = {}
+
+    for domain in DOMAIN_PRIORITY:
+        data = DOMAIN_ARCHETYPES[domain]
+        count = 0
+        for kw in data["keywords"]:
+            pattern = r"\b" + re.escape(kw) + r"\b"
+            matches = re.findall(pattern, clean_text)
+            count += len(matches)
+        scores[domain] = count
+
+    max_score = max(scores.values()) if scores else 0
+    if max_score == 0:
+        return "architectural_sanctuary"
+
+    for domain in DOMAIN_PRIORITY:
+        if scores.get(domain, 0) == max_score:
+            return domain
+
+    return "architectural_sanctuary"
+
+
+def get_domain_color_look(domain: str) -> ColorLookSpec:
+    """Retrieves the deterministically mapped ASC CDL color look spec for a commercial domain archetype."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    preset = archetype.get("color_look_preset", ColorLookPreset.REC709_NEUTRAL)
+    return get_preset_color_look(preset)
+
+
+def get_domain_speed_ramp(domain: str) -> SpeedRampCurveSpec:
+    """Retrieves the deterministically mapped speed ramp curve spec for a commercial domain archetype."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    mode = archetype.get("speed_ramp_mode", SpeedRampMode.CONSTANT_REALTIME)
+    shutter = archetype.get("default_shutter_angle", 180.0)
+    return synthesize_speed_ramp_curve(mode=mode, shutter_angle_deg=shutter)
+
+
+def get_domain_audio_mixer(domain: str) -> AudioStemMixerSpec:
+    """Retrieves the calibrated 4-stem post-production audio mixer for a commercial domain archetype."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    stem_levels = archetype.get("default_stem_levels", {})
+
+    channels = {
+        "dialogue": StemChannelStrip(
+            stem=StemType.DIALOGUE,
+            label="Dialogue",
+            gain_db=stem_levels.get("dialogue", {}).get("gain_db", 0.0),
+            pan=0.0,
+            target_lufs=stem_levels.get("dialogue", {}).get("target_lufs", -18.0),
+        ),
+        "foley": StemChannelStrip(
+            stem=StemType.FOLEY,
+            label="Foley / SFX",
+            gain_db=stem_levels.get("foley", {}).get("gain_db", 0.0),
+            pan=0.0,
+            target_lufs=stem_levels.get("foley", {}).get("target_lufs", -20.0),
+        ),
+        "ambience": StemChannelStrip(
+            stem=StemType.AMBIENCE,
+            label="Room Ambience",
+            gain_db=stem_levels.get("ambience", {}).get("gain_db", -3.0),
+            pan=0.0,
+            target_lufs=stem_levels.get("ambience", {}).get("target_lufs", -24.0),
+        ),
+        "music": StemChannelStrip(
+            stem=StemType.MUSIC,
+            label="BGM Score",
+            gain_db=stem_levels.get("music", {}).get("gain_db", -2.0),
+            pan=0.0,
+            target_lufs=stem_levels.get("music", {}).get("target_lufs", -18.0),
+        ),
+    }
+    return AudioStemMixerSpec(
+        master_gain_db=0.0,
+        master_lufs_target=-23.0,
+        channels=channels,
+    )
+
 
 # 1. IKEA ASMR Golden Preset
 IKEA_ASMR_BIBLE = MasterProductionBible(
@@ -264,7 +634,7 @@ SEPHORA_PULSE_BIBLE = MasterProductionBible(
                 "On the wink, camera whip-pans 90 degrees right to reveal a rain-slicked Soho street with a motion-blurred red double-decker bus streaking past."
             ],
             kinetic_contact_chain="Micro-eye movement -> High-velocity eyelid closure (wink) -> Triggered camera whip-pan acceleration -> Rapid rotational deceleration -> Wet asphalt perspective stabilization.",
-            omni_prose_prompt="A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.",
+            omni_prose_prompt="A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Preserving continuous kinetic momentum and rotational inertia across the rapid whip-pan. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.",
             conversational_edit_deltas=[
                 "Turn 2: Enhance the neon reflections in the street puddles and add more visible rain mist.",
                 "Turn 3: Change the lipstick color on Maya to a deeper midnight burgundy while keeping the wink identical."
@@ -281,7 +651,7 @@ SEPHORA_PULSE_BIBLE = MasterProductionBible(
                 "A large soft makeup brush sweeps across Maya's cheekbone in a rapid beauty montage, dusting fine shimmering particles."
             ],
             kinetic_contact_chain="Door glide -> Hand grips weighted lipstick tube -> Thumb drives cap removal with magnetic click -> Brush fibers compress against cheek skin -> Shimmer cloud dispersion.",
-            omni_prose_prompt="Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
+            omni_prose_prompt="Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Forward camera glide preserves continuous kinetic momentum conservation and physical inertia as the models enter. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
             conversational_edit_deltas=[
                 "Turn 2: Make the cosmetic shimmer dust reflect rainbow sparkles under the beauty lights.",
                 "Turn 3: Rack focus from the lipstick bullet directly to Kaelen's smiling eyes."
@@ -298,7 +668,7 @@ SEPHORA_PULSE_BIBLE = MasterProductionBible(
                 "Maya swings the iconic black-and-white SEPHORA shopping bag forward in an assertive arc toward camera."
             ],
             kinetic_contact_chain="Stiletto strike on wet cobblestone -> Ground reaction force pushes hip forward -> Arm swings bag from shoulder -> Centrifugal arc of braided handle -> Forward presentation.",
-            omni_prose_prompt="A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
+            omni_prose_prompt="A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya and Kaelen preserve forward kinetic momentum conservation and continuous physical inertia with rhythmic stride cadence. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
             conversational_edit_deltas=[
                 "Turn 2: Increase the stride speed slightly and add dramatic billow to Maya's red trench coat hem.",
                 "Turn 3: Add steam rising from a nearby underground subway grate in the background."
@@ -315,7 +685,7 @@ SEPHORA_PULSE_BIBLE = MasterProductionBible(
                 "At second 30, the video cuts to a crisp editorial freeze-frame on the bag and SEPHORA logo, with blurred glowing Soho neon behind."
             ],
             kinetic_contact_chain="Punch-in camera motion -> Arm locks bag at chest height -> Rope handles tension under gravity -> Abrupt momentum cessation -> Total frozen frame.",
-            omni_prose_prompt="The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.",
+            omni_prose_prompt="The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the punch-in camera preserves kinetic momentum conservation before locking into the static freeze. The bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.",
             conversational_edit_deltas=[
                 "Turn 2: Add a bold white sans-serif kinetic text overlay in the center that pops in reading 'FEEL THE PULSE'.",
                 "Turn 3: Shift the background bokeh color balance to rich ambers and golds."
@@ -371,7 +741,7 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
                 "Maya reaches the glowing glass facade of the SEPHORA flagship, heels clicking firmly on wet stone."
             ],
             kinetic_contact_chain="Stiletto strike -> Ground reaction force -> Arm swing momentum -> Controlled approach -> Hand touches entrance door handle.",
-            omni_prose_prompt="A 10-second continuous 9:16 vertical tracking shot glides backward at natural 1.0x real-time speed ahead of Model Maya matching <image_1>, who struts down a rain-slicked Soho cobblestone avenue at midnight. Maya wears a high-gloss scarlet-red patent trench coat with metallic stiletto boots, her eyes adorned with vivid holographic emerald eyeshadow. Neon signage from vintage clubs reflects across the wet asphalt with genuine physical reflections as an iconic red London bus streaks past in the background with wet asphalt tire hiss. Maya approaches the glowing glass facade of a SEPHORA flagship, her heels clicking crisply against the stones with unyielding physical gravity. Synchronized diegetic audio features rhythmic stiletto clicks, wet tire hisses, city rain mist, and a skipping 138 BPM UK Garage drum rhythm, ending as Maya extends her hand to push open the store entrance.",
+            omni_prose_prompt="A 10-second continuous 9:16 vertical tracking shot glides backward at natural 1.0x real-time speed ahead of Model Maya matching <image_1>, who struts down a rain-slicked Soho cobblestone avenue at midnight. Maya wears a high-gloss scarlet-red patent trench coat with metallic stiletto boots, her eyes adorned with vivid holographic emerald eyeshadow. Maya's stride preserves forward kinetic momentum conservation and continuous physical inertia with crisp ground contact. Neon signage from vintage clubs reflects across the wet asphalt with genuine physical reflections as an iconic red London bus streaks past in the background with wet asphalt tire hiss. Maya approaches the glowing glass facade of a SEPHORA flagship, her heels clicking crisply against the stones with unyielding physical gravity. Synchronized diegetic audio features rhythmic stiletto clicks, wet tire hisses, city rain mist, and a skipping 138 BPM UK Garage drum rhythm, ending as Maya extends her hand to push open the store entrance.",
             conversational_edit_deltas=["Turn 2: Enhance neon puddle reflections."]
         ),
         ScenePromptSpec(
@@ -385,7 +755,7 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
                 "Kaelen flicks open a gold lipstick case with a crisp mechanical snap as Maya whispers 'London, wake up.'"
             ],
             kinetic_contact_chain="Door glide momentum -> Footfall cadence unchanged -> Thumb drives lipstick cap removal -> Snappy mechanical disengagement -> Side-by-side synchronized stride.",
-            omni_prose_prompt="The camera continues backward in one unbroken continuous shot through the opening glass doors as Maya struts inside without missing a beat, continuing at 1.0x real-time speed. The lighting shifts dynamically from wet moody London night into brilliant 5600K diffused beauty lighting bouncing off black-lacquered mirrored aisles. Model Kaelen from <image_2>, wearing a tailored charcoal blazer with chalk-white striped cuffs, steps smoothly into frame alongside her. Kaelen flicks open a gold lipstick case with a crisp mechanical snap, smiling as Maya whispers: 'London, wake up.' The 138 BPM music drops into a heavy Moog bassline as both models strut in side-by-side synchronization down the central cosmetics corridor with rigid physical postures. One continuous shot, no jump cuts.",
+            omni_prose_prompt="The camera continues backward in one unbroken continuous shot through the opening glass doors as Maya struts inside without missing a beat, continuing at 1.0x real-time speed. The unbroken camera preserves continuous kinetic momentum conservation and physical inertia as both models advance. The lighting shifts dynamically from wet moody London night into brilliant 5600K diffused beauty lighting bouncing off black-lacquered mirrored aisles. Model Kaelen from <image_2>, wearing a tailored charcoal blazer with chalk-white striped cuffs, steps smoothly into frame alongside her. Kaelen flicks open a gold lipstick case with a crisp mechanical snap, smiling as Maya whispers: 'London, wake up.' The 138 BPM music drops into a heavy Moog bassline as both models strut in side-by-side synchronization down the central cosmetics corridor with rigid physical postures. One continuous shot, no jump cuts.",
             conversational_edit_deltas=["Turn 2: Increase beauty light bounce off mirrors."]
         ),
         ScenePromptSpec(
@@ -399,7 +769,7 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
                 "The bag swings forward in a controlled arc, catching overhead beauty lights with rigid paper folds."
             ],
             kinetic_contact_chain="Tracking arc -> Fingers grasp braided rope handle -> Upward impulse lifts bag -> Centrifugal acceleration swings bag forward -> Stable chest-height carry.",
-            omni_prose_prompt="The camera continues its unbroken vertical tracking movement at 1.0x real-time speed, arcing 45 degrees to frame Maya from a low-angle three-quarter perspective as she reaches a central vanity display. In one fluid motion without stopping her stride, she picks up the iconic black-and-white striped SEPHORA shopping bag from <image_3> by its braided black rope handles. The bag swings forward in a controlled arc, its sharp paper folds and clean monochrome stripes catching the overhead beauty lights with pristine geometric rigidity and natural fabric weight. Kaelen pivots smoothly in the background, examining a shimmering powder compact. Synchronized diegetic audio features the crisp rustle of thick luxury paper, rope handle tension, stiletto clicks echoing on mirrored tiles, and a building bassline with white-noise sweeps. One continuous shot, no jump cuts.",
+            omni_prose_prompt="The camera continues its unbroken vertical tracking movement at 1.0x real-time speed, arcing 45 degrees to frame Maya from a low-angle three-quarter perspective as she reaches a central vanity display. Maya's fluid stride preserves continuous kinetic momentum conservation and physical inertia as the shopping bag swings forward. In one fluid motion without stopping her stride, she picks up the iconic black-and-white striped SEPHORA shopping bag from <image_3> by its braided black rope handles. The bag swings forward in a controlled arc, its sharp paper folds and clean monochrome stripes catching the overhead beauty lights with pristine geometric rigidity and natural fabric weight. Kaelen pivots smoothly in the background, examining a shimmering powder compact. Synchronized diegetic audio features the crisp rustle of thick luxury paper, rope handle tension, stiletto clicks echoing on mirrored tiles, and a building bassline with white-noise sweeps. One continuous shot, no jump cuts.",
             conversational_edit_deltas=["Turn 2: Enhance white-noise sweep intensity."]
         ),
         ScenePromptSpec(
@@ -413,7 +783,7 @@ SEPHORA_EXTENSION_40S_BIBLE = MasterProductionBible(
                 "At second 38, motion snaps into a high-fashion freeze-frame on the bag, with neon bokeh behind."
             ],
             kinetic_contact_chain="Punch-in deceleration -> Arm locks bag upright -> Rope handles hold vertical tension -> Immediate kinetic freeze -> Sustained static frame.",
-            omni_prose_prompt="The camera executes a smooth 50-centimeter punch-in toward the SEPHORA bag from <image_3>, locking the embossed brand logo dead-center in the vertical frame at 1.0x real-time playback speed. Maya holds the bag firmly at chest height as she reaches the outdoor threshold once more, glancing over her shoulder directly into the lens. At second 38, all motion snaps into an immaculate high-fashion freeze-frame on the crisp bag with unyielding geometric precision, with Maya's scarlet trench and the glowing store interior blurring into lush bokeh behind. Synchronized audio hits a climactic percussion impact and cuts instantly to dead silence, leaving only a single crisp SNAP and a faint decaying sub-bass hum. One continuous shot, no jump cuts.",
+            omni_prose_prompt="The camera executes a smooth 50-centimeter punch-in toward the SEPHORA bag from <image_3>, locking the embossed brand logo dead-center in the vertical frame at 1.0x real-time playback speed. The smooth camera move preserves continuous kinetic momentum conservation and physical inertia before snapping into the final static freeze-frame. Maya holds the bag firmly at chest height as she reaches the outdoor threshold once more, glancing over her shoulder directly into the lens. At second 38, all motion snaps into an immaculate high-fashion freeze-frame on the crisp bag with unyielding geometric precision, with Maya's scarlet trench and the glowing store interior blurring into lush bokeh behind. Synchronized audio hits a climactic percussion impact and cuts instantly to dead silence, leaving only a single crisp SNAP and a faint decaying sub-bass hum. One continuous shot, no jump cuts.",
             conversational_edit_deltas=["Turn 2: Shift background bokeh to warm ambers."]
         )
     ],
@@ -505,7 +875,7 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
                 "Laser line sweeps across the weave, highlighting microscopic fiber textures."
             ],
             kinetic_contact_chain="Relaxed fibers -> Tensile load applied -> Yarn elongation under force -> Surface micro-flattening -> Stable high-tension lock.",
-            omni_prose_prompt="An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
+            omni_prose_prompt="An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing while maintaining continuous kinetic momentum conservation and tensile inertia under physical load. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
             conversational_edit_deltas=["Turn 2: Add visible micro-dust particle displacement upon tension snap."]
         ),
         ScenePromptSpec(
@@ -519,7 +889,7 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
                 "The fabric ripples rhythmically with high-frequency aerodynamic waves."
             ],
             kinetic_contact_chain="Nozzle airflow discharge -> Air pressure boundary layer forms -> Fluid-structure interaction on fabric -> Aerodynamic ripple wave propagation -> Stable laminar wave state.",
-            omni_prose_prompt="The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
+            omni_prose_prompt="The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation while maintaining continuous kinetic momentum conservation and aerodynamic inertia across the high-speed flow. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
             conversational_edit_deltas=["Turn 2: Enhance the brightness of the smoke streamlines under the blue laser light."]
         ),
         ScenePromptSpec(
@@ -533,7 +903,7 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
                 "The material maintains rigid structural integrity under maximum velocity."
             ],
             kinetic_contact_chain="Peak wind velocity -> Aerodynamic lift force generates deflection -> Flexible composite arm reaches planned bend angle -> Trailing edge sheds micro-vortex -> Dynamic equilibrium under load.",
-            omni_prose_prompt="A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
+            omni_prose_prompt="A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. Dynamic tracking preserves continuous kinetic momentum conservation and steady aerodynamic inertia as the winglet flexes under aerodynamic load. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
             conversational_edit_deltas=["Turn 2: Increase the camber of the fabric winglet curve."]
         ),
         ScenePromptSpec(
@@ -547,7 +917,7 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
                 "Laser illumination freezes on the pristine weave as smoke gently dissipates into stillness."
             ],
             kinetic_contact_chain="Airflow cutoff -> Pressure drop -> Elastic restoring force snaps fabric -> Momentum damping oscillation -> Absolute static resting state.",
-            omni_prose_prompt="The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
+            omni_prose_prompt="The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed, tracking continuous kinetic momentum conservation and physical inertia until the turbines power down and elastic restoring forces bring the textile into static rest. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
             conversational_edit_deltas=["Turn 2: Rack focus to the central carbon fiber thread in the final second."]
         )
     ],
@@ -556,6 +926,18 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
 
 SEPHORA_LONDON_PULSE_BIBLE = SEPHORA_PULSE_BIBLE
 
+for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_BIBLE, KINETIC_FABRIC_BIBLE]:
+    _arch = _bible_inst.domain_archetype or classify_brief_domain(f"{_bible_inst.project_title} {_bible_inst.logline}")
+    _bible_inst.domain_archetype = _arch
+    if not _bible_inst.master_color_look:
+        _bible_inst.master_color_look = get_domain_color_look(_arch)
+    if not _bible_inst.master_audio_mixer:
+        _bible_inst.master_audio_mixer = get_domain_audio_mixer(_arch)
+    for _sc in _bible_inst.scenes:
+        if not _sc.speed_ramp:
+            _sc.speed_ramp = get_domain_speed_ramp(_arch)
+        if not _sc.scene_color_look:
+            _sc.scene_color_look = _bible_inst.master_color_look
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -598,270 +980,20 @@ def get_preset_bible(name: str) -> MasterProductionBible:
     if clean_name not in PRESETS:
         available = ", ".join(PRESETS.keys())
         raise ValueError(f"Unknown preset: '{name}'. Available presets: {available}")
-    return PRESETS[clean_name]
+    bible = PRESETS[clean_name].model_copy(deep=True)
+    if not bible.domain_archetype:
+        bible.domain_archetype = classify_brief_domain(f"{bible.project_title} {bible.logline}")
+    if not bible.master_color_look:
+        bible.master_color_look = get_domain_color_look(bible.domain_archetype)
+    if not bible.master_audio_mixer:
+        bible.master_audio_mixer = get_domain_audio_mixer(bible.domain_archetype)
+    for scene in bible.scenes:
+        if not scene.speed_ramp:
+            scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
+        if not scene.scene_color_look:
+            scene.scene_color_look = bible.master_color_look
+    return bible
 
 
 get_preset = get_preset_bible
-
-DOMAIN_PRIORITY: List[str] = [
-    "automotive_robotics",
-    "culinary_asmr",
-    "luxury_fashion",
-    "kinetic_action",
-    "tech_hardware",
-    "architectural_sanctuary",
-]
-
-DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
-    "automotive_robotics": {
-        "keywords": [
-            "vehicle", "vehicles", "drone", "drones", "robot", "robotics", "hypercar", "hypercars", "car", "cars",
-            "motorsport", "motorsports", "motorcycle", "motorcycles", "pursuit", "engine", "chassis", "autonomous",
-            "telemetry", "hydraulic", "suspension", "carbon fiber", "speedway", "racing", "supercar", "drivetrain"
-        ],
-        "default_camera": "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
-        "camera_rigs": [
-            "Russian Arm 28mm Anamorphic with dynamic low-angle tracking",
-            "Technocrane 35mm Prime tracking lateral drift arc",
-        ],
-        "default_focal_length": 28,
-        "default_lighting": "Cool 6500K high-contrast industrial LED with sharp metallic rim highlights",
-        "default_character": {
-            "name": "Lead Test Pilot / Telematics Specialist",
-            "silhouette": "Aerodynamic high-speed racing posture with locked kinetic poise",
-            "wardrobe_polarity": "Matte graphite fire-retardant racing suit with reflective telemetry piping",
-            "movement_signature": "Instantaneous micrometric steering corrections and decisive torque control",
-        },
-        "default_invariants": [
-            "Carbon fiber aerodynamic chassis maintains unyielding physical rigidity",
-            "Wet tarmac surface reflects neon horizon with true raytraced consistency"
-        ],
-        "default_foley": [
-            "High-torque electric motor whine",
-            "Tire friction on slick asphalt",
-            "Pneumatic valve hiss",
-            "Mechanical robotic servo snaps"
-        ],
-        "default_bpm": 130,
-        "default_key": "F Minor",
-        "default_bgm_genre": "Industrial Electronic & Cybernetic Kinetic Score",
-        "color_palette": ["#0B0E14", "#00F0FF", "#FF3B30", "#8E8E93"],
-        "regime": RegimeType.REGIME_2_KINETIC,
-    },
-    "culinary_asmr": {
-        "keywords": [
-            "food", "coffee", "matcha", "cooking", "beverage", "kitchen", "culinary", "chef", "sizzle",
-            "caramelization", "knife", "ingredient", "recipe", "baking", "espresso", "dining", "texture",
-            "crunch", "taste", "flavor", "dough", "tea", "asmr", "whisk", "gastronomy", "pour", "plate",
-            "roast", "brew", "steam", "cocktail"
-        ],
-        "default_camera": "100mm Macro Probe Lens with micro-fluidic pan and tilt",
-        "camera_rigs": [
-            "100mm Macro Probe Lens with micro-fluidic pan and tilt",
-            "50mm Overhead Top-Down Rig with locked vertical axis",
-        ],
-        "default_focal_length": 100,
-        "default_lighting": "Warm 3200K tungsten backlight emphasizing surface steam and glistening oils",
-        "default_character": {
-            "name": "Master Artisanal Chef / Tea Master",
-            "silhouette": "Minimalist focused posture with steady hands and rolled linen sleeves",
-            "wardrobe_polarity": "Unbleached raw natural linen apron over matte charcoal tunic",
-            "movement_signature": "Deliberate, rhythmic, micro-fluidic hand gestures with zero tremor",
-        },
-        "default_invariants": [
-            "Handmade ceramic vessel lip retains exact physical geometry",
-            "Natural hinoki cedar countertop surface grain remains mechanically rigid"
-        ],
-        "default_foley": [
-            "Crisp blade cutting through textured crust",
-            "Gentle butter sizzle in cast iron",
-            "Tactile ceramic clink",
-            "Subtle simmering bubble pops"
-        ],
-        "default_bpm": 68,
-        "default_key": "C Major",
-        "default_bgm_genre": "Intimate Acoustic & Organic Ambient ASMR",
-        "color_palette": ["#1C1917", "#D97706", "#F59E0B", "#FEF3C7"],
-        "regime": RegimeType.REGIME_2_KINETIC,
-    },
-    "luxury_fashion": {
-        "keywords": [
-            "fashion", "runway", "cosmetics", "perfume", "couture", "jewelry", "model", "models", "haute",
-            "makeup", "velvet", "silk", "wardrobe", "strut", "editorial", "beauty", "lipstick", "fragrance",
-            "vogue", "glamour", "apparel", "luxury", "monogram", "flagship"
-        ],
-        "default_camera": "50mm Prime on Steadicam Ultra with gentle vertical float",
-        "camera_rigs": [
-            "50mm Prime on Steadicam Ultra with gentle vertical float",
-            "85mm Portrait Prime tracking eye-level beauty framing",
-        ],
-        "default_focal_length": 50,
-        "default_lighting": "5600K diffused commercial beauty illumination with reflective mirror bounce",
-        "default_character": {
-            "name": "Haute Couture Runway Model",
-            "silhouette": "Statuesque architectural posture with dynamic high-fashion stride",
-            "wardrobe_polarity": "Sculptural black velvet evening coat with structured iridescent silk lapels",
-            "movement_signature": "Fluid, confident, momentum-conserving runway cadence",
-        },
-        "default_invariants": [
-            "Haute couture garment maintains structural textile tension and crisp drape",
-            "Polished runway mirror floor reflects silhouettes with optical clarity"
-        ],
-        "default_foley": [
-            "Rhythmic stiletto heel clicks on polished marble",
-            "Crisp textile rustle of silk taffeta",
-            "Metallic snap of luxury compact",
-            "Subtle perfume atomizer mist spray"
-        ],
-        "default_bpm": 118,
-        "default_key": "A Minor",
-        "default_bgm_genre": "Deep House Runway & Parisian Haute Couture Pulse",
-        "color_palette": ["#09090B", "#F43F5E", "#E2E8F0", "#D4AF37"],
-        "regime": RegimeType.REGIME_2_KINETIC,
-    },
-    "kinetic_action": {
-        "keywords": [
-            "sport", "sports", "running", "martial arts", "parkour", "athletics", "dance", "athlete",
-            "jump", "boxing", "climbing", "kick", "sprint", "workout", "fitness", "dynamic movement",
-            "stunt", "acrobatic", "action", "kinetic", "velocity", "aerodynamic", "speed", "agility", "impact"
-        ],
-        "default_camera": "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
-        "camera_rigs": [
-            "High-Speed Wire Rig with 24mm Ultra-Wide lens and zero horizon roll",
-            "Cable-Cam 35mm Prime following ballistic trajectory",
-        ],
-        "default_focal_length": 24,
-        "default_lighting": "Dynamic high-noon direct daylight with deep hard directional shadows",
-        "default_character": {
-            "name": "Elite Parkour / Calisthenics Athlete",
-            "silhouette": "Athletic minimalist silhouette with sharp aerodynamic contours",
-            "wardrobe_polarity": "Matte black performance composite with high-visibility amber accents",
-            "movement_signature": "Explosive, decisive, momentum-conserving kinetic vaults and landings",
-        },
-        "default_invariants": [
-            "Reinforced concrete ledge structure remains completely unyielding",
-            "Friction contact point exhibits micro-surface dust without floating"
-        ],
-        "default_foley": [
-            "Athletic shoe sole squeak and ground impact",
-            "Heavy synchronized breath cadence",
-            "Wind rush over aerodynamic limbs",
-            "Resonant physical force transfer thud"
-        ],
-        "default_bpm": 140,
-        "default_key": "E Minor",
-        "default_bgm_genre": "High-Velocity Orchestral Breakbeat & Hybrid Trap",
-        "color_palette": ["#18181B", "#22C55E", "#3B82F6", "#FAFAFA"],
-        "regime": RegimeType.REGIME_2_KINETIC,
-    },
-    "tech_hardware": {
-        "keywords": [
-            "semiconductor", "semiconductors", "smartphone", "smartphones", "laptop", "laptops", "cnc aluminum",
-            "aluminum", "optics", "wearables", "wearable", "hardware", "chip", "silicon", "circuit", "processor",
-            "device", "gadget", "anodized", "microchip", "chassis", "motherboard", "cleanroom", "quantum",
-            "nanoscale", "etching", "wafer", "pcb", "transistor", "fabrication"
-        ],
-        "default_camera": "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
-        "camera_rigs": [
-            "CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus",
-            "Telecentric 100mm Inspection Rig with zero optical distortion",
-        ],
-        "default_focal_length": 85,
-        "default_lighting": "Cleanroom 5000K pure white illumination with razor-thin linear specular highlights",
-        "default_character": {
-            "name": "Cleanroom Nanotech Systems Engineer",
-            "silhouette": "Methodical ergonomic posture inside sterile cleanroom envelope",
-            "wardrobe_polarity": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
-            "movement_signature": "Micrometric, steady-handed vacuum wand positioning with sub-millimeter precision",
-        },
-        "default_invariants": [
-            "Silicon wafer mirror finish reflects sterile yellow lithography lighting",
-            "CNC unibody chamfered edges retain micron-level geometric tolerance"
-        ],
-        "default_foley": [
-            "Precision magnetic latch click",
-            "Anodized aluminum bevel contact",
-            "Subtle ultrasonic cleanroom hum",
-            "Haptic motor vibration pulse"
-        ],
-        "default_bpm": 110,
-        "default_key": "D Minor",
-        "default_bgm_genre": "Minimalist Glitch & Micro-Acoustic Electronic Pulse",
-        "color_palette": ["#030712", "#38BDF8", "#94A3B8", "#F8FAFC"],
-        "regime": RegimeType.REGIME_2_KINETIC,
-    },
-    "architectural_sanctuary": {
-        "keywords": [
-            "architecture", "interior", "furniture", "brutalist", "home", "pavilion", "sanctuary",
-            "building", "concrete", "travertine", "limestone", "space", "facade", "gallery", "atrium",
-            "minimalist living", "structure", "courtyard", "zen", "residence", "sculpture"
-        ],
-        "default_camera": "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
-        "camera_rigs": [
-            "24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control",
-            "Slow Motion 35mm Dolly along central reflecting pool",
-        ],
-        "default_focal_length": 24,
-        "default_lighting": "Low-angle golden hour sunlight casting geometric window shadows through dust motes",
-        "default_character": {
-            "name": "Resident Spatial Architect / Meditator",
-            "silhouette": "Serene contemplative silhouette framed by monumental spatial geometry",
-            "wardrobe_polarity": "Monochrome architectural linen tunic in warm ecru and charcoal",
-            "movement_signature": "Calm, deliberate pacing along cardinal spatial axes",
-        },
-        "default_invariants": [
-            "Monolithic board-formed concrete walls remain immovable and textured",
-            "Travertine stone floor slabs maintain continuous geometric perspective"
-        ],
-        "default_foley": [
-            "Acoustic reverberation in tall stone hall",
-            "Subtle distant wind through bamboo atrium",
-            "Soft leather creak on timber seat",
-            "Gentle water fountain trickle"
-        ],
-        "default_bpm": 60,
-        "default_key": "G Major",
-        "default_bgm_genre": "Neo-Classical Piano & Spatial Drone Sanctuary",
-        "color_palette": ["#1C1917", "#78716C", "#D6D3D1", "#E7E5E4"],
-        "regime": RegimeType.REGIME_1_ATMOSPHERIC,
-    },
-}
-
-
-def classify_brief_domain(brief_text: str) -> str:
-    """Classifies a user creative brief into one of 6 commercial domain archetypes.
-
-    Rules:
-    - Counts whole-word / substring keyword matches across all 6 archetypes.
-    - Selects the archetype with the highest match count.
-    - Breaks ties deterministically in priority order:
-      1. automotive_robotics
-      2. culinary_asmr
-      3. luxury_fashion
-      4. kinetic_action
-      5. tech_hardware
-      6. architectural_sanctuary
-    - Falls back to 'architectural_sanctuary' if match count is zero.
-    """
-    clean_text = brief_text.lower()
-    scores: Dict[str, int] = {}
-
-    for domain in DOMAIN_PRIORITY:
-        data = DOMAIN_ARCHETYPES[domain]
-        count = 0
-        for kw in data["keywords"]:
-            pattern = r"\b" + re.escape(kw) + r"\b"
-            matches = re.findall(pattern, clean_text)
-            count += len(matches)
-        scores[domain] = count
-
-    max_score = max(scores.values()) if scores else 0
-    if max_score == 0:
-        return "architectural_sanctuary"
-
-    for domain in DOMAIN_PRIORITY:
-        if scores.get(domain, 0) == max_score:
-            return domain
-
-    return "architectural_sanctuary"
 

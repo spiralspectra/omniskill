@@ -53,7 +53,9 @@
       "route": "Rapid tracking shots, snappy whip-pans, and stabilizing push-ins.",
       "action_anchor": "Model facial expressions and tactile product interactions.",
       "focus_axis": "Shallow f/1.8 depth of field creating vertical oval anamorphic bokeh in wet city lights.",
-      "tone_rig": "High-fashion commercial editorial."
+      "tone_rig": "High-fashion commercial editorial.",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -126,29 +128,68 @@
           "On the wink, camera whip-pans 90 degrees right to reveal a rain-slicked Soho street with a motion-blurred red double-decker bus streaking past."
         ],
         "kinetic_contact_chain": "Micro-eye movement -> High-velocity eyelid closure (wink) -> Triggered camera whip-pan acceleration -> Rapid rotational deceleration -> Wet asphalt perspective stabilization.",
-        "craft_camera": {
-          "rig_type": "35mm Prime",
-          "focal_length_mm": 35,
-          "composition": "Balanced wide composition with centered focus",
-          "route": "Forward dolly tracking",
-          "action_anchor": "Hero subject movement",
-          "focus_axis": "180-degree axis",
-          "tone_rig": "Cinematic Prime"
-        },
-        "diegetic_sonic": {
-          "foley_cues": [
-            "Tactile surface contact rustle",
-            "Resonant low-frequency impact"
-          ],
-          "dialogue_lines": [],
-          "room_acoustics": "Controlled cinematic soundstage"
-        },
-        "omni_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. Grounded with rigid material physics, natural gravity, and surface friction invariants.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Preserving continuous kinetic momentum and rotational inertia across the rapid whip-pan. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus.",
         "conversational_edit_deltas": [
           "Turn 2: Enhance the neon reflections in the street puddles and add more visible rain mist.",
           "Turn 3: Change the lipstick color on Maya to a deeper midnight burgundy while keeping the wink identical."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       },
       {
         "scene_index": 2,
@@ -163,12 +204,66 @@
         "kinetic_contact_chain": "Door glide -> Hand grips weighted lipstick tube -> Thumb drives cap removal with magnetic click -> Brush fibers compress against cheek skin -> Shimmer cloud dispersion.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
+        "omni_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Forward camera glide preserves continuous kinetic momentum conservation and physical inertia as the models enter. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline.",
         "conversational_edit_deltas": [
           "Turn 2: Make the cosmetic shimmer dust reflect rainbow sparkles under the beauty lights.",
           "Turn 3: Rack focus from the lipstick bullet directly to Kaelen's smiling eyes."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       },
       {
         "scene_index": 3,
@@ -183,12 +278,66 @@
         "kinetic_contact_chain": "Stiletto strike on wet cobblestone -> Ground reaction force pushes hip forward -> Arm swings bag from shoulder -> Centrifugal arc of braided handle -> Forward presentation.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
+        "omni_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya and Kaelen preserve forward kinetic momentum conservation and continuous physical inertia with rhythmic stride cadence. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity.",
         "conversational_edit_deltas": [
           "Turn 2: Increase the stride speed slightly and add dramatic billow to Maya's red trench coat hem.",
           "Turn 3: Add steam rising from a nearby underground subway grate in the background."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       },
       {
         "scene_index": 4,
@@ -201,32 +350,138 @@
           "At second 30, the video cuts to a crisp editorial freeze-frame on the bag and SEPHORA logo, with blurred glowing Soho neon behind."
         ],
         "kinetic_contact_chain": "Punch-in camera motion -> Arm locks bag at chest height -> Rope handles tension under gravity -> Abrupt momentum cessation -> Total frozen frame.",
-        "craft_camera": {
-          "rig_type": "35mm Prime",
-          "focal_length_mm": 35,
-          "composition": "Balanced wide composition with centered focus",
-          "route": "Forward dolly tracking",
-          "action_anchor": "Hero subject movement",
-          "focus_axis": "180-degree axis",
-          "tone_rig": "Cinematic Prime"
-        },
-        "diegetic_sonic": {
-          "foley_cues": [
-            "Tactile surface contact rustle",
-            "Resonant low-frequency impact"
-          ],
-          "dialogue_lines": [],
-          "room_acoustics": "Controlled cinematic soundstage"
-        },
-        "omni_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. Grounded with rigid material physics, natural gravity, and surface friction invariants.",
+        "craft_camera": null,
+        "diegetic_sonic": null,
+        "omni_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the punch-in camera preserves kinetic momentum conservation before locking into the static freeze. The bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence.",
         "conversational_edit_deltas": [
           "Turn 2: Add a bold white sans-serif kinetic text overlay in the center that pops in reading 'FEEL THE PULSE'.",
           "Turn 3: Shift the background bokeh color balance to rich ambers and golds."
         ],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       }
     ],
-    "domain_archetype": "luxury_fashion"
+    "domain_archetype": "luxury_fashion",
+    "master_color_look": {
+      "look_preset": "fuji_eterna_500t",
+      "working_color_space": "ACEScg",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          0.96,
+          1.03,
+          1.06
+        ],
+        "offset": [
+          0.018,
+          0.008,
+          -0.012
+        ],
+        "power": [
+          1.04,
+          0.98,
+          0.95
+        ],
+        "saturation": 0.92
+      },
+      "contrast_pivot": 0.42,
+      "halation_bloom": 0.08
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -20.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -3.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -24.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": 1.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -16.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/sephora_pulse_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/sephora_pulse_2_0/production_bundle.json",
@@ -274,21 +529,10 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
-        "craft_camera_configured": true,
+        "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
-        ],
-        "healing_history": {
-          "applied_patches": [
-            "injected_speed_and_physics_locks",
-            "populated_craft_camera",
-            "populated_diegetic_sonic"
-          ],
-          "attempts_executed": 1,
-          "initial_score": 98.0,
-          "final_score": 100.0,
-          "healed": true
-        }
+        ]
       }
     },
     {
@@ -316,8 +560,8 @@
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>",
-          "<image_2>",
-          "<image_3>"
+          "<image_3>",
+          "<image_2>"
         ]
       }
     },
@@ -329,29 +573,18 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
-        "craft_camera_configured": true,
+        "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
-        ],
-        "healing_history": {
-          "applied_patches": [
-            "injected_speed_and_physics_locks",
-            "populated_craft_camera",
-            "populated_diegetic_sonic"
-          ],
-          "attempts_executed": 1,
-          "initial_score": 98.0,
-          "final_score": 100.0,
-          "healed": true
-        }
+        ]
       }
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "a5756c22-9c4d-4b91-85f0-44bc4b327e5d",
+    "session_id": "21201e07-38d7-4720-bc31-63b93405e694",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-02T11:30:49.545671+00:00",
+    "timestamp": "2026-11-03T10:21:28.366713+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -361,67 +594,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.545692+00:00",
-        "end_time": "2026-11-02T11:30:49.545700+00:00",
+        "start_time": "2026-11-03T10:21:28.366722+00:00",
+        "end_time": "2026-11-03T10:21:28.366729+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.545718+00:00",
-        "end_time": "2026-11-02T11:30:49.545727+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.366739+00:00",
+        "end_time": "2026-11-03T10:21:28.366918+00:00",
+        "duration_ms": 0.18,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.545734+00:00",
-        "end_time": "2026-11-02T11:30:49.548174+00:00",
-        "duration_ms": 2.44,
+        "start_time": "2026-11-03T10:21:28.366927+00:00",
+        "end_time": "2026-11-03T10:21:28.368269+00:00",
+        "duration_ms": 1.34,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.548199+00:00",
-        "end_time": "2026-11-02T11:30:49.548508+00:00",
-        "duration_ms": 0.31,
+        "start_time": "2026-11-03T10:21:28.368281+00:00",
+        "end_time": "2026-11-03T10:21:28.368451+00:00",
+        "duration_ms": 0.17,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.548526+00:00",
-        "end_time": "2026-11-02T11:30:49.550963+00:00",
-        "duration_ms": 2.44,
+        "start_time": "2026-11-03T10:21:28.368459+00:00",
+        "end_time": "2026-11-03T10:21:28.369162+00:00",
+        "duration_ms": 0.7,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.550986+00:00",
-        "end_time": "2026-11-02T11:30:49.550992+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.369172+00:00",
+        "end_time": "2026-11-03T10:21:28.369175+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.550999+00:00",
-        "end_time": "2026-11-02T11:30:49.553969+00:00",
-        "duration_ms": 2.97,
+        "start_time": "2026-11-03T10:21:28.369181+00:00",
+        "end_time": "2026-11-03T10:21:28.371397+00:00",
+        "duration_ms": 2.22,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.556631+00:00",
-        "end_time": "2026-11-02T11:30:49.563376+00:00",
-        "duration_ms": 6.75,
+        "start_time": "2026-11-03T10:21:28.375056+00:00",
+        "end_time": "2026-11-03T10:21:28.380821+00:00",
+        "duration_ms": 5.76,
         "details": {}
       }
     ],
-    "total_duration_ms": 14.94,
+    "total_duration_ms": 10.38,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "04cbfc6b207e57bcfc7385eb5ca970965a23fabdaf946c0486f6fe07889f18d5",
-      "storyboard_preview.html": "e8037eb83fe1152da85a70897999a9297363a2ca2b622fb0f6ae66e17790c79b",
+      "production_bundle.json": "a6041b59a3e435926c4dfd5a5078672315486cca6270a2487d61ec4216632f0f",
+      "storyboard_preview.html": "a346896bba68d9baa2dc773c17d907b557e629d911722d79b476e343e3d3afc9",
+      "timeline.edl": "5613ed790f2cfd16162dad289743f0659d46173ce0dfadff07925ae48d5494b3",
+      "sequence.fcpxml": "26d07e61efc9b0ad13e31bc0ecbff46a6378cab97c79667e1d90a6a9a7961466",
+      "shot_list.csv": "4819dd786ad60ebbf5925a17751fddf6111c5ff990829d8e708b322b670966db",
+      "call_sheet.md": "4aae19d5f7745f2b2f92019c9635f86c27b1eae23f91bfdccf8d11008841171d",
+      "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
+      "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
       "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
       "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
       "storyboards/anchor3_scene_1_keyframe.svg": "af4a12bd825cad55352a2a6de04f1eb5d135311dfb66ffc5e857204f4143add8",
@@ -431,9 +670,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-02T11:30:49.561240+00:00",
+    "timestamp": "2026-11-03T10:21:28.380005+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -462,7 +701,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "preset": "ColorLookPreset.FUJI_ETERNA_500T"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'luxury_fashion' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 4 scenes for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "scene_count": 4
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
       },
       {
@@ -509,6 +787,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'SEPHORA: London Pulse (Midnight Velvet)' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'SEPHORA: London Pulse (Midnight Velvet)' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'SEPHORA: London Pulse (Midnight Velvet)', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

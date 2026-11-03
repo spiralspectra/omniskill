@@ -12,7 +12,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from omni_director.schemas import AuditResult, MasterProductionBible, ProductionBundle, ScenePromptSpec
+from omni_director.tools.audio_mixer import synthesize_default_stem_mixer
+from omni_director.tools.color_grade import (
+    LOOK_PRESET_REGISTRY,
+    cdl_to_svg_matrix_filter,
+    get_preset_color_look,
+)
 from omni_director.tools.coverage import generate_scene_coverage, synthesize_conversational_deltas
+from omni_director.tools.speed_ramp import format_craft_shutter_tokens
+
 
 
 def _render_plate_html(plate_value: Optional[str], alt: str = "Visual Plate") -> str:
@@ -151,6 +159,29 @@ def compile_storyboard_html(
         """)
     continuity_grid_html = "\n".join(bible_cards_html)
 
+    # Build 6 ASC CDL SVG Matrix Filters for real-time Look Grading
+    svg_filters_list = []
+    for preset_key, spec in LOOK_PRESET_REGISTRY.items():
+        svg_filters_list.append(cdl_to_svg_matrix_filter(spec.cdl, filter_id=f"cdl-filter-{preset_key.value}"))
+    svg_filters_markup = f'<svg style="display:none;" aria-hidden="true"><defs>{"".join(svg_filters_list)}</defs></svg>'
+
+    # Master Audio Stem Mixer spec (from bible or synthesized default)
+    mixer_spec = getattr(bible, "master_audio_mixer", None) or synthesize_default_stem_mixer()
+    ch_dia = mixer_spec.channels.get("dialogue")
+    ch_sfx = mixer_spec.channels.get("foley")
+    ch_amb = mixer_spec.channels.get("ambience")
+    ch_mus = mixer_spec.channels.get("music")
+    dia_gain = ch_dia.gain_db if ch_dia else 0.0
+    sfx_gain = ch_sfx.gain_db if ch_sfx else 0.0
+    amb_gain = ch_amb.gain_db if ch_amb else -3.0
+    mus_gain = ch_mus.gain_db if ch_mus else -2.0
+    dia_lufs = ch_dia.target_lufs if ch_dia else -18.0
+    sfx_lufs = ch_sfx.target_lufs if ch_sfx else -20.0
+    amb_lufs = ch_amb.target_lufs if ch_amb else -24.0
+    mus_lufs = ch_mus.target_lufs if ch_mus else -18.0
+    master_gain = mixer_spec.master_gain_db or 0.0
+    master_lufs = mixer_spec.master_lufs_target or -23.0
+
     # Build Shot-by-Shot Timeline Scenes
     scenes_html = []
     jump_pills_html = []
@@ -160,6 +191,7 @@ def compile_storyboard_html(
         s_idx = scene.scene_index
         scene_start_sec, scene_end_sec = _parse_scene_times(scene, s_idx, total_scenes_count, total_runtime_sec)
         scene_duration = max(1.0, scene_end_sec - scene_start_sec)
+
 
         # Audit breakdown and score
         audit_rep = next((a for a in bundle.audit_reports if a.scene_index == s_idx), None)
@@ -313,6 +345,21 @@ def compile_storyboard_html(
 
         effective_deltas = scene.conversational_edit_deltas or synthesize_conversational_deltas(scene, bible)
 
+        # Dynamic Speed Ramping Telemetry Badge
+        speed_ramp_badge_html = ""
+        if getattr(scene, "speed_ramp", None):
+            s_ramp = scene.speed_ramp
+            peak_fps = getattr(s_ramp, "peak_capture_fps", 120.0)
+            shutter_deg = getattr(s_ramp, "shutter_angle_deg", 180.0)
+            mode_val = s_ramp.mode.value if hasattr(s_ramp.mode, "value") else str(s_ramp.mode)
+            mode_title = mode_val.replace("_", " ").title()
+            shutter_token = format_craft_shutter_tokens(shutter_deg, 24)
+            speed_ramp_badge_html = f'<span class="badge-speed-ramp" title="{shutter_token}">⚡ {peak_fps:.0f}fps {mode_title} · {shutter_deg:.0f}° Shutter</span>'
+        elif getattr(scene, "craft_camera", None) and getattr(scene.craft_camera, "shutter_angle_deg", 180.0) != 180.0:
+            shutter_deg = scene.craft_camera.shutter_angle_deg
+            shutter_token = format_craft_shutter_tokens(shutter_deg, 24)
+            speed_ramp_badge_html = f'<span class="badge-speed-ramp" title="{shutter_token}">⚡ {shutter_deg:.0f}° Shutter</span>'
+
         scenes_html.append(f"""
         <div class="scene-card" id="scene-{s_idx}" data-scene-index="{s_idx}" data-start-sec="{scene_start_sec:.2f}" data-end-sec="{scene_end_sec:.2f}" data-caption="{scene_caption_attr}" role="region" aria-label="Scene {s_idx}">
           <div class="scene-header">
@@ -320,6 +367,7 @@ def compile_storyboard_html(
               <span class="scene-badge">SCENE {s_idx}</span>
               <h3 class="scene-title">{scene.scene_title}</h3>
               <span class="scene-time">{scene.timestamp_range}</span>
+              {speed_ramp_badge_html}
             </div>
             <div class="scene-actions">
               <button type="button" class="{audit_badge_class} btn-audit-toggle" onclick="toggleAuditDrawer({s_idx})" aria-expanded="false" aria-controls="audit-drawer-{s_idx}">
@@ -401,6 +449,29 @@ def compile_storyboard_html(
 
     timeline_html = "\n".join(scenes_html)
     jump_pills_bar = "\n".join(jump_pills_html)
+
+    # Build Speed Ramp / Velocity Gradient Track Markers
+    speed_ramp_markers = []
+    for s in bible.scenes:
+        s_start, s_end = _parse_scene_times(s, s.scene_index, total_scenes_count, total_runtime_sec)
+        s_dur = max(1.0, s_end - s_start)
+        pct_left = (s_start / max(1.0, total_runtime_sec)) * 100.0
+        pct_width = (s_dur / max(1.0, total_runtime_sec)) * 100.0
+        if getattr(s, "speed_ramp", None):
+            r = s.speed_ramp
+            r_fps = getattr(r, "peak_capture_fps", 120.0)
+            r_mode = r.mode.value if hasattr(r.mode, "value") else str(r.mode)
+            speed_ramp_markers.append(
+                f'<div class="velocity-marker ramp-active" style="left:{pct_left:.1f}%;width:{pct_width:.1f}%;" '
+                f'title="Scene {s.scene_index} Speed Ramp: {r_fps:.0f}fps ({r_mode})">⚡ S{s.scene_index} {r_fps:.0f}fps</div>'
+            )
+        else:
+            speed_ramp_markers.append(
+                f'<div class="velocity-marker" style="left:{pct_left:.1f}%;width:{pct_width:.1f}%;" '
+                f'title="Scene {s.scene_index}: 24fps 1.0x Real-time">S{s.scene_index} 24fps</div>'
+            )
+    velocity_markers_html = "".join(speed_ramp_markers)
+
 
     # Master BGM Sonic Card
     bgm = bible.master_bgm
@@ -1255,6 +1326,437 @@ def compile_storyboard_html(
       text-align: center;
     }}
 
+    /* Look Grading Controls */
+    .look-grading-controls {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }}
+    .look-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+    }}
+    .look-selector {{
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 6px;
+      cursor: pointer;
+    }}
+    .look-selector:focus-visible {{
+      outline: 2px solid var(--cyan-telemetry);
+    }}
+    .look-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--cyan-telemetry);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      white-space: nowrap;
+    }}
+
+    /* Velocity Track & Speed Ramp Badge */
+    .badge-speed-ramp {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: rgba(255, 184, 0, 0.15);
+      color: #FFB800;
+      border: 1px solid rgba(255, 184, 0, 0.4);
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }}
+    .velocity-track-container {{
+      position: relative;
+      width: 100%;
+      height: 18px;
+      background: #07080B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+      margin-bottom: 4px;
+      overflow: hidden;
+    }}
+    .velocity-track-bar {{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }}
+    .velocity-marker {{
+      position: absolute;
+      top: 0;
+      height: 100%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      line-height: 18px;
+      color: var(--text-dim);
+      background: rgba(20, 23, 34, 0.7);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      padding: 0 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      user-select: none;
+      transition: background 0.2s;
+    }}
+    .velocity-marker.ramp-active {{
+      background: rgba(255, 184, 0, 0.22);
+      color: #FFD166;
+      font-weight: 700;
+      border-right: 1px solid rgba(255, 184, 0, 0.45);
+    }}
+
+    /* Audio Mixer Button & Slide-Out Drawer */
+    .btn-mixer {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }}
+    .btn-mixer:hover {{
+      border-color: var(--cyan-telemetry);
+      color: #FFF;
+    }}
+    .btn-mixer.active {{
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }}
+    .btn-mixer:focus-visible {{
+      outline: 2px solid var(--cyan-telemetry);
+    }}
+
+    .audio-mixer-drawer {{
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 440px;
+      height: 100vh;
+      background: #0E1017;
+      border-left: 1px solid var(--border-subtle);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+      padding: 16px;
+    }}
+    .audio-mixer-drawer.open {{
+      right: 0;
+    }}
+    .mixer-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+    }}
+    .mixer-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }}
+    .mixer-icon {{
+      font-size: 20px;
+    }}
+    .mixer-heading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFF;
+      letter-spacing: 0.8px;
+      margin: 0;
+    }}
+    .mixer-subheading {{
+      font-size: 10px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }}
+    .btn-mixer-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }}
+    .btn-mixer-close:hover {{
+      color: #FFF;
+      border-color: var(--red-alert);
+      background: rgba(255, 51, 102, 0.15);
+    }}
+    .mixer-toolbar {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 10px;
+    }}
+    .btn-preview-audio {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      flex: 1;
+      text-align: left;
+    }}
+    .btn-preview-audio.active {{
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--green-pass);
+      color: #34D399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }}
+    .mixer-broadcast-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 6px 8px;
+      background: #07080B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      color: var(--cyan-telemetry);
+      white-space: nowrap;
+    }}
+
+    /* Channel Strips */
+    .mixer-strips-container {{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      flex: 1;
+      overflow-y: auto;
+    }}
+    .channel-strip {{
+      background: #07080B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }}
+    .channel-strip.master-strip {{
+      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.03);
+    }}
+    .strip-header {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      width: 100%;
+    }}
+    .strip-tag {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }}
+    .tag-dia {{ background: rgba(0, 240, 255, 0.15); color: var(--cyan-telemetry); border: 1px solid rgba(0, 240, 255, 0.3); }}
+    .tag-sfx {{ background: rgba(255, 184, 0, 0.15); color: #FFB800; border: 1px solid rgba(255, 184, 0, 0.3); }}
+    .tag-amb {{ background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }}
+    .tag-mus {{ background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }}
+    .tag-master {{ background: rgba(255, 51, 102, 0.15); color: var(--red-alert); border: 1px solid rgba(255, 51, 102, 0.3); }}
+    .strip-title {{
+      font-size: 9px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 65px;
+    }}
+
+    .strip-fader-zone {{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 160px;
+      width: 100%;
+    }}
+    .fader-val {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--cyan-telemetry);
+      margin-bottom: 6px;
+    }}
+    .fader-vertical {{
+      -webkit-appearance: slider-vertical;
+      writing-mode: bt-lr;
+      width: 24px;
+      height: 120px;
+      cursor: pointer;
+      accent-color: var(--cyan-telemetry);
+    }}
+
+    .strip-pan-zone {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 2px;
+    }}
+    .pan-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+    .pan-slider {{
+      width: 48px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: var(--cyan-telemetry);
+    }}
+
+    .strip-btns {{
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      justify-content: center;
+    }}
+    .btn-mute, .btn-solo {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 3px;
+      width: 24px;
+      height: 22px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.12s;
+    }}
+    .btn-mute.active {{
+      background: var(--red-alert);
+      color: #FFF;
+      border-color: var(--red-alert);
+      box-shadow: 0 0 8px rgba(255, 51, 102, 0.4);
+    }}
+    .btn-solo.active {{
+      background: #FFB800;
+      color: #000;
+      border-color: #FFB800;
+      box-shadow: 0 0 8px rgba(255, 184, 0, 0.4);
+    }}
+
+    .strip-lufs-target {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--text-dim);
+      text-align: center;
+      line-height: 1.2;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 4px;
+      width: 100%;
+    }}
+
+    .master-meter-fader-group {{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 160px;
+    }}
+    .vu-meters-wrap {{
+      display: flex;
+      gap: 3px;
+      background: #000;
+      padding: 3px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+    }}
+    .vu-col {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }}
+    .vu-ch-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--text-dim);
+    }}
+    .vu-col canvas {{
+      background: #050608;
+      border-radius: 2px;
+    }}
+    .master-lufs-box {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #050608;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 6px 4px;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }}
+    .lufs-num {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan-telemetry);
+    }}
+    .lufs-lbl {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--text-dim);
+      letter-spacing: 0.4px;
+    }}
+    .lufs-target-hint {{
+      font-size: 7px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }}
+
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
@@ -1268,6 +1770,8 @@ def compile_storyboard_html(
   </style>
 </head>
 <body>
+
+  {svg_filters_markup}
 
   <!-- Non-blocking Cinema Toast Overlay -->
   <div id="cinema-toast" class="cinema-toast" role="status" aria-live="polite"></div>
@@ -1291,8 +1795,11 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
+      <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
+        🎚️ AUDIO [M]
+      </button>
       <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
         ⤓ Export Production Bible (.json)
       </button>
@@ -1306,12 +1813,24 @@ def compile_storyboard_html(
         <button type="button" class="btn-play" id="btn-play-animatic" onclick="togglePlay()" aria-label="Play or Pause Animatic [Space]">
           ▶ Play Animatic
         </button>
-        <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [L]" aria-pressed="false">
-          🔁 Loop [L]
+        <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [K]" aria-pressed="false">
+          🔁 Loop [K]
         </button>
         <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
           CC [C]
         </button>
+        <div class="look-grading-controls" role="group" aria-label="Color Science and Look Grading">
+          <label for="look-selector" class="look-label">LOOK:</label>
+          <select id="look-selector" class="look-selector" onchange="setLook(this.value)" aria-label="ASC CDL Look Preset [L]">
+            <option value="rec709_neutral">Rec.709 Neutral</option>
+            <option value="kodak_5219_vision3">Kodak 5219 Vision3</option>
+            <option value="fuji_eterna_500t">Fuji Eterna 500T</option>
+            <option value="bleach_bypass_silver">Bleach Bypass Silver</option>
+            <option value="teal_and_orange_blockbuster">Teal &amp; Orange Blockbuster</option>
+            <option value="monochrome_panatomic_x">Monochrome Panatomic-X</option>
+          </select>
+          <span id="look-badge" class="look-badge" aria-live="polite">REC709</span>
+        </div>
         <div class="smpte-display" id="smpte-timecode" role="timer" aria-live="polite" aria-label="SMPTE Timecode Display">
           00:00:00:00
         </div>
@@ -1327,11 +1846,162 @@ def compile_storyboard_html(
       </div>
     </div>
     <div class="scrubber-track-wrap">
+      <div class="velocity-track-container" aria-label="Timeline Velocity and Speed Ramp Map">
+        <div class="velocity-track-bar">
+          {velocity_markers_html}
+        </div>
+      </div>
       <input type="range" class="scrubber-track" id="animatic-scrubber" min="0" max="{total_frames}" value="0" aria-label="Animatic Timeline Scrubber" oninput="onScrub(this.value)">
       <span class="scrubber-info" id="scrubber-info">0.0s / {total_runtime_sec}.0s (24fps)</span>
     </div>
     <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
       [CC] Scene 01 Ready
+    </div>
+  </aside>
+
+  <!-- Dark-Room Cinema Audio Mixing Console Drawer -->
+  <aside id="animatic-audio-mixer" class="audio-mixer-drawer" role="region" aria-label="Audio Mixing Console" aria-hidden="true">
+    <div class="mixer-header">
+      <div class="mixer-title-wrap">
+        <span class="mixer-icon">🎚️</span>
+        <div>
+          <h3 class="mixer-heading">CINEMA AUDIO MIXER</h3>
+          <span class="mixer-subheading">EBU R128 Broadcast Loudness Engine</span>
+        </div>
+      </div>
+      <button type="button" class="btn-mixer-close" onclick="toggleMixer()" aria-label="Close Audio Mixer">✕</button>
+    </div>
+
+    <div class="mixer-toolbar">
+      <button type="button" id="btn-audio-preview" class="btn-preview-audio" onclick="toggleAudioPreview()" aria-label="Preview Stems via Web Audio Synthesis">
+        🔊 Tone Preview: <strong id="preview-status-text">OFF</strong>
+      </button>
+      <div class="mixer-broadcast-badge" id="mixer-loudness-badge" title="Master Integrated Loudness">
+        INTEGRATED: <span id="master-lufs-display">{master_lufs:.1f}</span> LUFS
+      </div>
+    </div>
+
+    <div class="mixer-strips-container">
+      <!-- DIA Channel Strip -->
+      <div class="channel-strip" data-stem="dia" id="strip-dia">
+        <div class="strip-header">
+          <span class="strip-tag tag-dia">DIA</span>
+          <span class="strip-title">Dialogue</span>
+        </div>
+        <div class="strip-fader-zone">
+          <span class="fader-val" id="val-fader-dia">{dia_gain:+.1f}dB</span>
+          <input type="range" class="fader-vertical" id="fader-dia" min="-48" max="6" step="0.5" value="{dia_gain}" orient="vertical" aria-label="Dialogue Stem Fader (-48 to +6 dB)" oninput="updateChannelFader('dia', this.value)">
+        </div>
+        <div class="strip-pan-zone">
+          <label for="pan-dia" class="pan-label">PAN: <span id="val-pan-dia">C</span></label>
+          <input type="range" class="pan-slider" id="pan-dia" min="-1" max="1" step="0.05" value="0" aria-label="Dialogue Stem Pan (-1 to +1)" oninput="updateChannelPan('dia', this.value)">
+        </div>
+        <div class="strip-btns">
+          <button type="button" class="btn-mute" id="mute-dia" onclick="toggleMute('dia')" aria-label="Mute Dialogue Stem" aria-pressed="false">M</button>
+          <button type="button" class="btn-solo" id="solo-dia" onclick="toggleSolo('dia')" aria-label="Solo Dialogue Stem" aria-pressed="false">S</button>
+        </div>
+        <div class="strip-lufs-target" title="Channel Target LUFS">
+          TARGET: <strong>{dia_lufs:.1f}</strong> LUFS
+        </div>
+      </div>
+
+      <!-- SFX Channel Strip -->
+      <div class="channel-strip" data-stem="sfx" id="strip-sfx">
+        <div class="strip-header">
+          <span class="strip-tag tag-sfx">SFX</span>
+          <span class="strip-title">Foley / FX</span>
+        </div>
+        <div class="strip-fader-zone">
+          <span class="fader-val" id="val-fader-sfx">{sfx_gain:+.1f}dB</span>
+          <input type="range" class="fader-vertical" id="fader-sfx" min="-48" max="6" step="0.5" value="{sfx_gain}" orient="vertical" aria-label="Foley FX Stem Fader (-48 to +6 dB)" oninput="updateChannelFader('sfx', this.value)">
+        </div>
+        <div class="strip-pan-zone">
+          <label for="pan-sfx" class="pan-label">PAN: <span id="val-pan-sfx">C</span></label>
+          <input type="range" class="pan-slider" id="pan-sfx" min="-1" max="1" step="0.05" value="0" aria-label="Foley FX Stem Pan (-1 to +1)" oninput="updateChannelPan('sfx', this.value)">
+        </div>
+        <div class="strip-btns">
+          <button type="button" class="btn-mute" id="mute-sfx" onclick="toggleMute('sfx')" aria-label="Mute Foley FX Stem" aria-pressed="false">M</button>
+          <button type="button" class="btn-solo" id="solo-sfx" onclick="toggleSolo('sfx')" aria-label="Solo Foley FX Stem" aria-pressed="false">S</button>
+        </div>
+        <div class="strip-lufs-target" title="Channel Target LUFS">
+          TARGET: <strong>{sfx_lufs:.1f}</strong> LUFS
+        </div>
+      </div>
+
+      <!-- AMB Channel Strip -->
+      <div class="channel-strip" data-stem="amb" id="strip-amb">
+        <div class="strip-header">
+          <span class="strip-tag tag-amb">AMB</span>
+          <span class="strip-title">Ambience</span>
+        </div>
+        <div class="strip-fader-zone">
+          <span class="fader-val" id="val-fader-amb">{amb_gain:+.1f}dB</span>
+          <input type="range" class="fader-vertical" id="fader-amb" min="-48" max="6" step="0.5" value="{amb_gain}" orient="vertical" aria-label="Ambience Stem Fader (-48 to +6 dB)" oninput="updateChannelFader('amb', this.value)">
+        </div>
+        <div class="strip-pan-zone">
+          <label for="pan-amb" class="pan-label">PAN: <span id="val-pan-amb">C</span></label>
+          <input type="range" class="pan-slider" id="pan-amb" min="-1" max="1" step="0.05" value="0" aria-label="Ambience Stem Pan (-1 to +1)" oninput="updateChannelPan('amb', this.value)">
+        </div>
+        <div class="strip-btns">
+          <button type="button" class="btn-mute" id="mute-amb" onclick="toggleMute('amb')" aria-label="Mute Ambience Stem" aria-pressed="false">M</button>
+          <button type="button" class="btn-solo" id="solo-amb" onclick="toggleSolo('amb')" aria-label="Solo Ambience Stem" aria-pressed="false">S</button>
+        </div>
+        <div class="strip-lufs-target" title="Channel Target LUFS">
+          TARGET: <strong>{amb_lufs:.1f}</strong> LUFS
+        </div>
+      </div>
+
+      <!-- MUS Channel Strip -->
+      <div class="channel-strip" data-stem="mus" id="strip-mus">
+        <div class="strip-header">
+          <span class="strip-tag tag-mus">MUS</span>
+          <span class="strip-title">Music Score</span>
+        </div>
+        <div class="strip-fader-zone">
+          <span class="fader-val" id="val-fader-mus">{mus_gain:+.1f}dB</span>
+          <input type="range" class="fader-vertical" id="fader-mus" min="-48" max="6" step="0.5" value="{mus_gain}" orient="vertical" aria-label="Music Score Stem Fader (-48 to +6 dB)" oninput="updateChannelFader('mus', this.value)">
+        </div>
+        <div class="strip-pan-zone">
+          <label for="pan-mus" class="pan-label">PAN: <span id="val-pan-mus">C</span></label>
+          <input type="range" class="pan-slider" id="pan-mus" min="-1" max="1" step="0.05" value="0" aria-label="Music Score Stem Pan (-1 to +1)" oninput="updateChannelPan('mus', this.value)">
+        </div>
+        <div class="strip-btns">
+          <button type="button" class="btn-mute" id="mute-mus" onclick="toggleMute('mus')" aria-label="Mute Music Score Stem" aria-pressed="false">M</button>
+          <button type="button" class="btn-solo" id="solo-mus" onclick="toggleSolo('mus')" aria-label="Solo Music Score Stem" aria-pressed="false">S</button>
+        </div>
+        <div class="strip-lufs-target" title="Channel Target LUFS">
+          TARGET: <strong>{mus_lufs:.1f}</strong> LUFS
+        </div>
+      </div>
+
+      <!-- Master Bus Strip -->
+      <div class="channel-strip master-strip" id="strip-master">
+        <div class="strip-header">
+          <span class="strip-tag tag-master">MST</span>
+          <span class="strip-title">Master Bus</span>
+        </div>
+        <div class="master-meter-fader-group">
+          <div class="strip-fader-zone">
+            <span class="fader-val" id="val-fader-master">{master_gain:+.1f}dB</span>
+            <input type="range" class="fader-vertical" id="fader-master" min="-48" max="6" step="0.5" value="{master_gain}" orient="vertical" aria-label="Master Output Fader (-48 to +6 dB)" oninput="updateMasterFader(this.value)">
+          </div>
+          <div class="vu-meters-wrap" aria-label="Stereo Peak VU Meters">
+            <div class="vu-col">
+              <span class="vu-ch-label">L</span>
+              <canvas id="vu-meter-left" width="16" height="120" role="img" aria-label="Left VU Meter"></canvas>
+            </div>
+            <div class="vu-col">
+              <span class="vu-ch-label">R</span>
+              <canvas id="vu-meter-right" width="16" height="120" role="img" aria-label="Right VU Meter"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="master-lufs-box">
+          <div class="lufs-num" id="val-master-lufs">{master_lufs:.1f}</div>
+          <div class="lufs-lbl">INTEGRATED LUFS</div>
+          <div class="lufs-target-hint">EBU R128 (-23.0)</div>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -1713,10 +2383,403 @@ def compile_storyboard_html(
       renderFrame(Math.floor(targetSec * FPS));
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, G, E, L)
+    // Color Science & Look Grading SVG Filter System
+    const LOOK_PRESETS = [
+      'rec709_neutral',
+      'kodak_5219_vision3',
+      'fuji_eterna_500t',
+      'bleach_bypass_silver',
+      'teal_and_orange_blockbuster',
+      'monochrome_panatomic_x'
+    ];
+    let currentLook = 'rec709_neutral';
+
+    function setLook(preset) {{
+      if (!LOOK_PRESETS.includes(preset)) preset = 'rec709_neutral';
+      currentLook = preset;
+      const filterVal = 'url(#cdl-filter-' + preset + ')';
+      const targets = document.querySelectorAll('.plate-svg-container, .scene-visual-frame');
+      targets.forEach(el => {{
+        el.style.filter = filterVal;
+      }});
+      const selector = document.getElementById('look-selector');
+      if (selector && selector.value !== preset) selector.value = preset;
+      const badge = document.getElementById('look-badge');
+      if (badge) {{
+        const badgeText = preset.replace(/_/g, ' ').toUpperCase();
+        badge.textContent = badgeText.length > 14 ? badgeText.slice(0, 12) + '..' : badgeText;
+      }}
+      showToast('🎨 Look Grade: ' + preset.replace(/_/g, ' ').toUpperCase());
+    }}
+
+    function cycleLook() {{
+      const currentIdx = LOOK_PRESETS.indexOf(currentLook);
+      const nextIdx = (currentIdx + 1) % LOOK_PRESETS.length;
+      setLook(LOOK_PRESETS[nextIdx]);
+    }}
+
+    // Dark-Room Cinema Audio Mixing Console & Web Audio Tone Engine
+    let audioCtx = null;
+    let isAudioPreviewRunning = false;
+    let masterGainNode = null;
+    let analyserLeft = null;
+    let analyserRight = null;
+    let vuAnimReq = null;
+    let peakL = -48.0;
+    let peakR = -48.0;
+    let currentLufsEstimate = {master_lufs};
+
+    const CHANNEL_DEFAULTS = {{
+      dia: {{ gain: {dia_gain}, pan: 0.0, mute: false, solo: false, targetLufs: {dia_lufs} }},
+      sfx: {{ gain: {sfx_gain}, pan: 0.0, mute: false, solo: false, targetLufs: {sfx_lufs} }},
+      amb: {{ gain: {amb_gain}, pan: 0.0, mute: false, solo: false, targetLufs: {amb_lufs} }},
+      mus: {{ gain: {mus_gain}, pan: 0.0, mute: false, solo: false, targetLufs: {mus_lufs} }}
+    }};
+    const channelState = JSON.parse(JSON.stringify(CHANNEL_DEFAULTS));
+    let masterGainVal = {master_gain};
+    const channelNodes = {{}};
+
+    function toggleMixer() {{
+      const mixer = document.getElementById('animatic-audio-mixer');
+      const btn = document.getElementById('btn-toggle-mixer');
+      if (!mixer) return;
+      const isOpen = mixer.classList.toggle('open');
+      mixer.setAttribute('aria-hidden', !isOpen);
+      if (btn) {{
+        btn.classList.toggle('active', isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }}
+      showToast(isOpen ? '🎚️ Audio Mixer Opened [M]' : '🎚️ Audio Mixer Closed [M]');
+    }}
+
+    function initWebAudio() {{
+      if (audioCtx) return;
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtxClass) return;
+      audioCtx = new AudioCtxClass();
+
+      // Master bus gain
+      masterGainNode = audioCtx.createGain();
+      masterGainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+
+      // Stereo analysers for peak VU meters
+      analyserLeft = audioCtx.createAnalyser();
+      analyserRight = audioCtx.createAnalyser();
+      analyserLeft.fftSize = 256;
+      analyserRight.fftSize = 256;
+      analyserLeft.smoothingTimeConstant = 0.3; // 300ms ballistic decay
+      analyserRight.smoothingTimeConstant = 0.3;
+
+      const splitter = audioCtx.createChannelSplitter(2);
+      masterGainNode.connect(splitter);
+      splitter.connect(analyserLeft, 0);
+      splitter.connect(analyserRight, 1);
+      masterGainNode.connect(audioCtx.destination);
+
+      // Channel 1: Dialogue (formant synthesis)
+      const diaGain = audioCtx.createGain();
+      const diaPan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+      const diaOsc1 = audioCtx.createOscillator();
+      const diaOsc2 = audioCtx.createOscillator();
+      const diaFilter = audioCtx.createBiquadFilter();
+      diaOsc1.type = 'sawtooth';
+      diaOsc1.frequency.setValueAtTime(180, audioCtx.currentTime);
+      diaOsc2.type = 'triangle';
+      diaOsc2.frequency.setValueAtTime(360, audioCtx.currentTime);
+      diaFilter.type = 'bandpass';
+      diaFilter.frequency.setValueAtTime(950, audioCtx.currentTime);
+      diaFilter.Q.setValueAtTime(3.0, audioCtx.currentTime);
+      diaOsc1.connect(diaFilter);
+      diaOsc2.connect(diaFilter);
+      diaFilter.connect(diaGain);
+      if (diaPan) {{
+        diaGain.connect(diaPan);
+        diaPan.connect(masterGainNode);
+      }} else {{
+        diaGain.connect(masterGainNode);
+      }}
+      diaOsc1.start();
+      diaOsc2.start();
+      channelNodes.dia = {{ gainNode: diaGain, panner: diaPan }};
+
+      // Channel 2: SFX (impulse foley burst / tick)
+      const sfxGain = audioCtx.createGain();
+      const sfxPan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+      const sfxOsc = audioCtx.createOscillator();
+      const sfxFilter = audioCtx.createBiquadFilter();
+      sfxOsc.type = 'sine';
+      sfxOsc.frequency.setValueAtTime(60, audioCtx.currentTime);
+      sfxFilter.type = 'highpass';
+      sfxFilter.frequency.setValueAtTime(120, audioCtx.currentTime);
+      sfxOsc.connect(sfxFilter);
+      sfxFilter.connect(sfxGain);
+      if (sfxPan) {{
+        sfxGain.connect(sfxPan);
+        sfxPan.connect(masterGainNode);
+      }} else {{
+        sfxGain.connect(masterGainNode);
+      }}
+      sfxOsc.start();
+      channelNodes.sfx = {{ gainNode: sfxGain, panner: sfxPan }};
+
+      // Channel 3: Ambience (gentle lowpass noise)
+      const ambGain = audioCtx.createGain();
+      const ambPan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+      const bufferSize = audioCtx.sampleRate * 2;
+      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {{
+        output[i] = (Math.random() * 2 - 1) * 0.2;
+      }}
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+      whiteNoise.loop = true;
+      const ambFilter = audioCtx.createBiquadFilter();
+      ambFilter.type = 'lowpass';
+      ambFilter.frequency.setValueAtTime(400, audioCtx.currentTime);
+      whiteNoise.connect(ambFilter);
+      ambFilter.connect(ambGain);
+      if (ambPan) {{
+        ambGain.connect(ambPan);
+        ambPan.connect(masterGainNode);
+      }} else {{
+        ambGain.connect(masterGainNode);
+      }}
+      whiteNoise.start();
+      channelNodes.amb = {{ gainNode: ambGain, panner: ambPan }};
+
+      // Channel 4: Music (cinematic minor triad pad)
+      const musGain = audioCtx.createGain();
+      const musPan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+      const musFilter = audioCtx.createBiquadFilter();
+      musFilter.type = 'lowpass';
+      musFilter.frequency.setValueAtTime(800, audioCtx.currentTime);
+      const freqs = [130.81, 155.56, 196.00];
+      freqs.forEach(f => {{
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+        osc.connect(musFilter);
+        osc.start();
+      }});
+      musFilter.connect(musGain);
+      if (musPan) {{
+        musGain.connect(musPan);
+        musPan.connect(masterGainNode);
+      }} else {{
+        musGain.connect(masterGainNode);
+      }}
+      channelNodes.mus = {{ gainNode: musGain, panner: musPan }};
+
+      updateRoutingGains();
+    }}
+
+    function toggleAudioPreview() {{
+      if (!audioCtx) {{
+        initWebAudio();
+      }}
+      if (audioCtx && audioCtx.state === 'suspended') {{
+        audioCtx.resume();
+      }}
+      isAudioPreviewRunning = !isAudioPreviewRunning;
+      const btn = document.getElementById('btn-audio-preview');
+      const statusTxt = document.getElementById('preview-status-text');
+      if (isAudioPreviewRunning) {{
+        if (btn) btn.classList.add('active');
+        if (statusTxt) statusTxt.textContent = 'LIVE (ACTIVE)';
+        updateRoutingGains();
+        startVUMeterLoop();
+        showToast('🔊 Audio Preview Engine: LIVE');
+      }} else {{
+        if (btn) btn.classList.remove('active');
+        if (statusTxt) statusTxt.textContent = 'OFF';
+        updateRoutingGains();
+        showToast('🔇 Audio Preview Engine: OFF');
+      }}
+    }}
+
+    function updateRoutingGains() {{
+      if (!audioCtx) return;
+      const stems = ['dia', 'sfx', 'amb', 'mus'];
+      const hasSolo = stems.some(s => channelState[s].solo);
+      stems.forEach(s => {{
+        if (channelNodes[s] && channelNodes[s].gainNode) {{
+          const isAudible = isAudioPreviewRunning && (hasSolo ? channelState[s].solo : !channelState[s].mute);
+          const targetLinear = isAudible ? Math.pow(10, channelState[s].gain / 20) : 0.00001;
+          channelNodes[s].gainNode.gain.setTargetAtTime(targetLinear, audioCtx.currentTime, 0.02);
+        }}
+      }});
+      if (masterGainNode) {{
+        const masterLinear = isAudioPreviewRunning ? Math.pow(10, masterGainVal / 20) : 0.00001;
+        masterGainNode.gain.setTargetAtTime(masterLinear, audioCtx.currentTime, 0.02);
+      }}
+    }}
+
+    function updateChannelFader(stem, val) {{
+      const db = parseFloat(val);
+      if (channelState[stem]) channelState[stem].gain = db;
+      const label = document.getElementById('val-fader-' + stem);
+      if (label) label.textContent = (db > 0 ? '+' : '') + db.toFixed(1) + 'dB';
+      updateRoutingGains();
+      recalcBroadcastLoudness();
+    }}
+
+    function updateChannelPan(stem, val) {{
+      const panVal = parseFloat(val);
+      if (channelState[stem]) channelState[stem].pan = panVal;
+      const label = document.getElementById('val-pan-' + stem);
+      if (label) {{
+        if (Math.abs(panVal) < 0.05) label.textContent = 'C';
+        else if (panVal < 0) label.textContent = 'L' + Math.round(Math.abs(panVal) * 100);
+        else label.textContent = 'R' + Math.round(panVal * 100);
+      }}
+      if (channelNodes[stem] && channelNodes[stem].panner) {{
+        channelNodes[stem].panner.pan.setTargetAtTime(panVal, audioCtx ? audioCtx.currentTime : 0, 0.02);
+      }}
+    }}
+
+    function toggleMute(stem) {{
+      if (!channelState[stem]) return;
+      channelState[stem].mute = !channelState[stem].mute;
+      const btn = document.getElementById('mute-' + stem);
+      if (btn) {{
+        btn.classList.toggle('active', channelState[stem].mute);
+        btn.setAttribute('aria-pressed', channelState[stem].mute ? 'true' : 'false');
+      }}
+      updateRoutingGains();
+      recalcBroadcastLoudness();
+    }}
+
+    function toggleSolo(stem) {{
+      if (!channelState[stem]) return;
+      channelState[stem].solo = !channelState[stem].solo;
+      const btn = document.getElementById('solo-' + stem);
+      if (btn) {{
+        btn.classList.toggle('active', channelState[stem].solo);
+        btn.setAttribute('aria-pressed', channelState[stem].solo ? 'true' : 'false');
+      }}
+      updateRoutingGains();
+      recalcBroadcastLoudness();
+    }}
+
+    function updateMasterFader(val) {{
+      masterGainVal = parseFloat(val);
+      const label = document.getElementById('val-fader-master');
+      if (label) label.textContent = (masterGainVal > 0 ? '+' : '') + masterGainVal.toFixed(1) + 'dB';
+      updateRoutingGains();
+      recalcBroadcastLoudness();
+    }}
+
+    function recalcBroadcastLoudness() {{
+      let linearSum = 0;
+      const stems = ['dia', 'sfx', 'amb', 'mus'];
+      const hasSolo = stems.some(s => channelState[s].solo);
+      stems.forEach(s => {{
+        const isAudible = hasSolo ? channelState[s].solo : !channelState[s].mute;
+        if (isAudible) {{
+          const effGainDb = channelState[s].gain;
+          const targetLufs = channelState[s].targetLufs;
+          const chLufs = targetLufs + effGainDb;
+          linearSum += Math.pow(10, chLufs / 10);
+        }}
+      }});
+      let estimatedLufs = linearSum > 0 ? 10 * Math.log10(linearSum) + masterGainVal : -70.0;
+      estimatedLufs = Math.max(-70.0, Math.min(6.0, estimatedLufs));
+      currentLufsEstimate = estimatedLufs;
+      const disp1 = document.getElementById('master-lufs-display');
+      const disp2 = document.getElementById('val-master-lufs');
+      if (disp1) disp1.textContent = estimatedLufs.toFixed(1);
+      if (disp2) disp2.textContent = estimatedLufs.toFixed(1);
+    }}
+
+    function drawVUMeter(canvas, levelDb) {{
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw dark background
+      ctx.fillStyle = '#050608';
+      ctx.fillRect(0, 0, w, h);
+
+      // 24 LED segments
+      const totalSegments = 24;
+      const segH = (h - 2) / totalSegments;
+      const clampedDb = Math.max(-48, Math.min(6, levelDb));
+      const activeFrac = (clampedDb + 48) / 54;
+      const activeSegs = Math.round(activeFrac * totalSegments);
+
+      for (let i = 0; i < totalSegments; i++) {{
+        const segIndexFromBottom = i;
+        const y = h - 2 - (i + 1) * segH;
+        const isLit = segIndexFromBottom < activeSegs;
+
+        const segDb = -48 + (segIndexFromBottom / totalSegments) * 54;
+        let colorLit = '#10B981';
+        let colorDim = '#062817';
+        if (segDb > -3) {{
+          colorLit = '#FF3366';
+          colorDim = '#2B0B14';
+        }} else if (segDb > -12) {{
+          colorLit = '#FFB800';
+          colorDim = '#2D2005';
+        }}
+
+        ctx.fillStyle = isLit ? colorLit : colorDim;
+        ctx.fillRect(2, y + 1, w - 4, segH - 2);
+      }}
+    }}
+
+    function startVUMeterLoop() {{
+      if (vuAnimReq) cancelAnimationFrame(vuAnimReq);
+
+      const canvasL = document.getElementById('vu-meter-left');
+      const canvasR = document.getElementById('vu-meter-right');
+      const bufL = new Float32Array(analyserLeft ? analyserLeft.fftSize : 256);
+      const bufR = new Float32Array(analyserRight ? analyserRight.fftSize : 256);
+
+      function loop() {{
+        if (!isAudioPreviewRunning) {{
+          peakL = Math.max(-48, peakL - 1.5);
+          peakR = Math.max(-48, peakR - 1.5);
+          drawVUMeter(canvasL, peakL);
+          drawVUMeter(canvasR, peakR);
+          if (peakL > -47.9 || peakR > -47.9) {{
+            vuAnimReq = requestAnimationFrame(loop);
+          }}
+          return;
+        }}
+
+        if (analyserLeft && analyserRight) {{
+          analyserLeft.getFloatTimeDomainData(bufL);
+          analyserRight.getFloatTimeDomainData(bufR);
+
+          let sumL = 0;
+          for (let i = 0; i < bufL.length; i++) sumL += bufL[i] * bufL[i];
+          const rmsL = Math.sqrt(sumL / bufL.length);
+          const dbL = rmsL > 0.00001 ? 20 * Math.log10(rmsL) : -48;
+
+          let sumR = 0;
+          for (let i = 0; i < bufR.length; i++) sumR += bufR[i] * bufR[i];
+          const rmsR = Math.sqrt(sumR / bufR.length);
+          const dbR = rmsR > 0.00001 ? 20 * Math.log10(rmsR) : -48;
+
+          peakL = dbL > peakL ? dbL : Math.max(-48, peakL - 0.8);
+          peakR = dbR > peakR ? dbR : Math.max(-48, peakR - 0.8);
+        }}
+
+        drawVUMeter(canvasL, peakL);
+        drawVUMeter(canvasR, peakR);
+        vuAnimReq = requestAnimationFrame(loop);
+      }}
+      loop();
+    }}
+
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, G, E, L, M, K, C)
     window.addEventListener('keydown', (e) => {{
       const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-      if (activeTag === 'input' || activeTag === 'textarea') return;
+      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
 
       if (e.code === 'Space') {{
         if (activeTag === 'button' || activeTag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) {{
@@ -1761,6 +2824,10 @@ def compile_storyboard_html(
       }} else if (e.key === 'e' || e.key === 'E') {{
         exportProductionBible();
       }} else if (e.key === 'l' || e.key === 'L') {{
+        cycleLook();
+      }} else if (e.key === 'm' || e.key === 'M') {{
+        toggleMixer();
+      }} else if (e.key === 'k' || e.key === 'K') {{
         toggleLoop();
       }} else if (e.key === 'c' || e.key === 'C') {{
         toggleCC();
@@ -1769,9 +2836,12 @@ def compile_storyboard_html(
       }}
     }});
 
-    // Initialize first frame
+    // Initialize first frame and default look
     document.addEventListener('DOMContentLoaded', () => {{
       renderFrame(0);
+      setLook('rec709_neutral');
+      drawVUMeter(document.getElementById('vu-meter-left'), -48);
+      drawVUMeter(document.getElementById('vu-meter-right'), -48);
     }});
     renderFrame(0);
   </script>

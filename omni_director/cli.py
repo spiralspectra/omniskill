@@ -245,8 +245,10 @@ def handle_export(args_list: List[str]) -> int:
         export_production_callsheet_md,
         export_shot_list_csv,
     )
+    from omni_director.tools.color_grade import export_asc_cdl_file
+    from omni_director.tools.audio_mixer import export_audio_stems_file
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, and subtitles")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, and audio stem manifests")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -254,7 +256,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
@@ -290,6 +292,12 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
+        cdl_path = out_dir / "production_grade.cdl"
+        stems_path = out_dir / "audio_stems_manifest.json"
+        export_asc_cdl_file(bible, cdl_path)
+        export_audio_stems_file(bible, stems_path)
+        exported_files["cdl"] = str(cdl_path.resolve())
+        exported_files["stems"] = str(stems_path.resolve())
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -314,6 +322,14 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "subtitles.vtt"
         p.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["vtt"] = str(p.resolve())
+    elif fmt == "cdl":
+        p = out_dir / "production_grade.cdl"
+        export_asc_cdl_file(bible, p)
+        exported_files["cdl"] = str(p.resolve())
+    elif fmt == "stems":
+        p = out_dir / "audio_stems_manifest.json"
+        export_audio_stems_file(bible, p)
+        exported_files["stems"] = str(p.resolve())
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))
@@ -592,10 +608,14 @@ def main(argv: Optional[list[str]] = None) -> int:
         if args.export_nle:
             from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
             from omni_director.tools.nle_export import export_all_nle_artifacts
+            from omni_director.tools.color_grade import export_asc_cdl_file
+            from omni_director.tools.audio_mixer import export_audio_stems_file
             out_p = Path(args.output_dir)
             export_all_nle_artifacts(bundle.bible, out_p, fps=24)
             (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
             (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
+            export_asc_cdl_file(bundle.bible, out_p / "production_grade.cdl")
+            export_audio_stems_file(bundle.bible, out_p / "audio_stems_manifest.json")
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

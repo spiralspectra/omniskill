@@ -43,7 +43,9 @@
       "route": "Smooth forward dolly along the central camera axis",
       "action_anchor": "Hero subject entering the frame",
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -118,7 +120,9 @@
           "route": "Smooth forward dolly along the central camera axis",
           "action_anchor": "Hero subject entering the frame",
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -130,9 +134,63 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 50mm Prime on Steadicam Ultra with gentle vertical float with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Rhythmic stiletto heel clicks on polished marble and Subtle perfume atomizer mist spray.",
+        "omni_prose_prompt": "Wide establishing tracking shot. Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 50mm Prime on Steadicam Ultra with gentle vertical float with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Rhythmic stiletto heel clicks on polished marble and Subtle perfume atomizer mist spray.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       },
       {
         "scene_index": 2,
@@ -151,7 +209,9 @@
           "route": "Arced orbit maneuver sweeping 45 degrees around subject",
           "action_anchor": "Subject's hands and physical contact interface",
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
-          "tone_rig": "Warm spherical glass with smooth circular bokeh"
+          "tone_rig": "Warm spherical glass with smooth circular bokeh",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -163,12 +223,133 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Maintaining continuity with keyframe <image_3>. 50mm Prime on Steadicam Ultra with gentle vertical float maneuver at eye-level with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Rhythmic stiletto heel clicks on polished marble and atmospheric air wash.",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Maintaining continuity with keyframe <image_3>. 50mm Prime on Steadicam Ultra with gentle vertical float maneuver at eye-level with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Rhythmic stiletto heel clicks on polished marble and atmospheric air wash.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "pulse_time_dilation",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.25,
+              0.35
+            ],
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.35
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "Pulsing temporal dilation with calibrated 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "fuji_eterna_500t",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              0.96,
+              1.03,
+              1.06
+            ],
+            "offset": [
+              0.018,
+              0.008,
+              -0.012
+            ],
+            "power": [
+              1.04,
+              0.98,
+              0.95
+            ],
+            "saturation": 0.92
+          },
+          "contrast_pivot": 0.42,
+          "halation_bloom": 0.08
+        }
       }
     ],
-    "domain_archetype": "luxury_fashion"
+    "domain_archetype": "luxury_fashion",
+    "master_color_look": {
+      "look_preset": "fuji_eterna_500t",
+      "working_color_space": "ACEScg",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          0.96,
+          1.03,
+          1.06
+        ],
+        "offset": [
+          0.018,
+          0.008,
+          -0.012
+        ],
+        "power": [
+          1.04,
+          0.98,
+          0.95
+        ],
+        "saturation": 0.92
+      },
+      "contrast_pivot": 0.42,
+      "halation_bloom": 0.08
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -20.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -3.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -24.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": 1.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -16.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/minimalist_luxury_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/minimalist_luxury_2_0/production_bundle.json",
@@ -202,6 +383,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_1>",
@@ -217,6 +401,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_3>"
@@ -226,9 +413,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "585121cc-c331-4b3b-b8bc-3deb16eefa33",
+    "session_id": "32deaf96-772e-4c52-96d5-2a9848e3acd9",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-02T11:30:49.710567+00:00",
+    "timestamp": "2026-11-03T10:21:28.478989+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -238,67 +425,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.710598+00:00",
-        "end_time": "2026-11-02T11:30:49.710605+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.479001+00:00",
+        "end_time": "2026-11-03T10:21:28.479440+00:00",
+        "duration_ms": 0.44,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.710620+00:00",
-        "end_time": "2026-11-02T11:30:49.711129+00:00",
+        "start_time": "2026-11-03T10:21:28.479453+00:00",
+        "end_time": "2026-11-03T10:21:28.479967+00:00",
         "duration_ms": 0.51,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.711139+00:00",
-        "end_time": "2026-11-02T11:30:49.713013+00:00",
-        "duration_ms": 1.87,
+        "start_time": "2026-11-03T10:21:28.479976+00:00",
+        "end_time": "2026-11-03T10:21:28.481484+00:00",
+        "duration_ms": 1.51,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.713043+00:00",
-        "end_time": "2026-11-02T11:30:49.713193+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-03T10:21:28.481495+00:00",
+        "end_time": "2026-11-03T10:21:28.481621+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.713202+00:00",
-        "end_time": "2026-11-02T11:30:49.713356+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-03T10:21:28.481629+00:00",
+        "end_time": "2026-11-03T10:21:28.481887+00:00",
+        "duration_ms": 0.26,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.713363+00:00",
-        "end_time": "2026-11-02T11:30:49.713367+00:00",
+        "start_time": "2026-11-03T10:21:28.481893+00:00",
+        "end_time": "2026-11-03T10:21:28.481896+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.713372+00:00",
-        "end_time": "2026-11-02T11:30:49.715059+00:00",
-        "duration_ms": 1.69,
+        "start_time": "2026-11-03T10:21:28.481901+00:00",
+        "end_time": "2026-11-03T10:21:28.483586+00:00",
+        "duration_ms": 1.68,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.717554+00:00",
-        "end_time": "2026-11-02T11:30:49.723998+00:00",
-        "duration_ms": 6.44,
+        "start_time": "2026-11-03T10:21:28.486428+00:00",
+        "end_time": "2026-11-03T10:21:28.492919+00:00",
+        "duration_ms": 6.49,
         "details": {}
       }
     ],
-    "total_duration_ms": 10.82,
+    "total_duration_ms": 11.02,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "570a9d2664a1db518ddec173f595cb4cff32ad9b829f7f674e4c1a5b89dac3f7",
-      "storyboard_preview.html": "a7fbfc1c7a4fcc9f3b672194ef6e7502a83c4779f320fb34f28df69556015d78",
+      "production_bundle.json": "8176aa1817273d86c3020bfdb0a38071fca534bf1e401d36744add7ce318a760",
+      "storyboard_preview.html": "3ec226cf20dba9a559efc20017c864f4fc41c2d0b4db65cb29acd1c27bf7acae",
+      "timeline.edl": "72ba67d55f2b8b2ece89297d8c651d0c3483be4b4f78695f76cfacd64eae4527",
+      "sequence.fcpxml": "c3cc20a01c3ef0cb096b8efa6b3e20c6f6736956705775e50b05532cd94187c3",
+      "shot_list.csv": "3d2cb0835a542a6a34520e631da55b1073278f3dfead2f6e29aa0f95c901a21a",
+      "call_sheet.md": "4cbfc9d652554131c1e9533d36f9307a0101cf8495516cf2d58fcea8693cdd5b",
+      "subtitles.srt": "a638a46bcb247d1923a013f00c20f9387257dd475f5f6183876eed9258731b4d",
+      "subtitles.vtt": "62ffbd03a59c23d21e3303a5c1977669c1a47590d918165630eb18f479aaa140",
       "storyboards/anchor1_character_turnaround.svg": "755b580bc8708343824f964ce4d67d847b7e630be03c1968a9a1f273c6f252f6",
       "storyboards/anchor2_environment_master.svg": "794b41dd0b00f6074ba182b1324d2e6d54d0017ce01591676309d5092cfcd6a4",
       "storyboards/anchor3_scene_1_keyframe.svg": "f9b4ed8913c9d5c06020e0354652363a958ef9cb4caed1b32461c88e9fa3303f",
@@ -306,9 +499,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-02T11:30:49.722549+00:00",
+    "timestamp": "2026-11-03T10:21:28.490377+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -337,7 +530,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "preset": "ColorLookPreset.FUJI_ETERNA_500T"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'luxury_fashion' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 2 scenes for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "scene_count": 2
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
       },
       {
@@ -384,6 +616,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'Minimalist Luxury Haute Couture Silk Vel' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'Minimalist Luxury Haute Couture Silk Vel' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'Minimalist Luxury Haute Couture Silk Vel', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

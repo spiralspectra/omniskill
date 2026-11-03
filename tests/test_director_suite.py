@@ -1796,7 +1796,7 @@ class TestV22ProductManagerFeatures:
 
         # 5. Export All Bundle
         artifacts = export_all_nle_artifacts(IKEA_ASMR_BIBLE, tmp_path, fps=24)
-        assert set(artifacts.keys()) == {"edl", "fcpxml", "csv", "call_sheet"}
+        assert {"edl", "fcpxml", "csv", "call_sheet"}.issubset(set(artifacts.keys()))
         for path_str in artifacts.values():
             p = Path(path_str)
             assert p.is_file() and p.stat().st_size > 0
@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ == "2.2.0"
+        assert __version__ in ("2.2.0", "2.3.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,12 +1956,662 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version == "2.2.0"
+        assert report.version in ("2.2.0", "2.3.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
         assert "Senior Product Manager Roadmap & Feature Inspection" in md
         assert "PM-FEAT-001" in md
+
+
+class TestV23SchemaAndPromptAuditor:
+    """Verifies v2.3.0 schema models, shutter camera grammar, speed-ramp kinetic momentum auditing, and PM proposals."""
+
+    def test_asc_cdl_and_color_look_spec_serialization(self):
+        from omni_director.schemas import AscCdlSpec, ColorLookPreset, ColorLookSpec
+
+        cdl = AscCdlSpec(slope=(1.05, 0.98, 0.95), offset=(-0.01, 0.0, 0.02), power=(1.0, 1.02, 1.05), saturation=1.1)
+        spec = ColorLookSpec(
+            look_preset=ColorLookPreset.KODAK_5219_VISION3,
+            working_color_space="ACEScg",
+            target_display="Rec.709",
+            cdl=cdl,
+            contrast_pivot=0.435,
+            halation_bloom=0.15,
+        )
+
+        dumped = spec.model_dump()
+        assert dumped["look_preset"] == "kodak_5219_vision3"
+        assert dumped["cdl"]["saturation"] == 1.1
+        json_str = spec.model_dump_json()
+        assert "kodak_5219_vision3" in json_str
+
+        # Test defaults
+        default_look = ColorLookSpec()
+        assert default_look.look_preset == ColorLookPreset.REC709_NEUTRAL
+        assert default_look.cdl.slope == (1.0, 1.0, 1.0)
+        assert default_look.cdl.saturation == 1.0
+
+    def test_speed_ramp_curve_spec(self):
+        from omni_director.schemas import SpeedRampCurveSpec, SpeedRampMode
+
+        ramp = SpeedRampCurveSpec(
+            mode=SpeedRampMode.PULSE_TIME_DILATION,
+            base_fps=24.0,
+            peak_capture_fps=120.0,
+            shutter_angle_deg=90.0,
+            curve_keyframe_points=[(0.0, 1.0), (0.4, 0.2), (0.7, 0.2), (1.0, 1.0)],
+            motion_blur_character="crisp staccato action trail",
+        )
+        assert ramp.mode == SpeedRampMode.PULSE_TIME_DILATION
+        assert ramp.peak_capture_fps == 120.0
+        assert len(ramp.curve_keyframe_points) == 4
+
+        # Bounds validation
+        import pytest
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError):
+            SpeedRampCurveSpec(shutter_angle_deg=400.0)
+
+    def test_audio_stem_mixer_spec_and_stem_types(self):
+        from omni_director.schemas import AudioStemMixerSpec, StemChannelStrip, StemType
+
+        mixer = AudioStemMixerSpec()
+        assert len(mixer.channels) == 4
+        assert StemType.DIALOGUE in mixer
+        assert StemType.MUSIC in mixer
+        assert mixer["dialogue"].target_lufs == -18.0
+        assert mixer.master_lufs_target == -23.0
+
+        # String dict input normalization
+        custom_mixer = AudioStemMixerSpec(
+            master_gain_db=-1.5,
+            channels={
+                "dialogue": StemChannelStrip(stem=StemType.DIALOGUE, label="Main Vocals", gain_db=-2.0),
+                "foley": StemChannelStrip(stem=StemType.FOLEY, label="Foley SFX", gain_db=-6.0),
+                "ambience": StemChannelStrip(stem=StemType.AMBIENCE, label="Room Tone", gain_db=-12.0),
+                "music": StemChannelStrip(stem=StemType.MUSIC, label="Lyria Score", gain_db=-3.0),
+            },
+        )
+        assert custom_mixer["dialogue"].label == "Main Vocals"
+        assert custom_mixer.model_dump()["master_gain_db"] == -1.5
+
+    def test_craft_camera_spec_shutter_angle_extension(self):
+        from omni_director.schemas import CraftCameraSpec
+
+        cam = CraftCameraSpec(
+            rig_type="Steadicam",
+            focal_length_mm=28,
+            composition="Dynamic low-angle",
+            route="Tracking forward",
+            action_anchor="Subject torso",
+            focus_axis="Continuous follow",
+            tone_rig="Spherical Prime",
+            shutter_angle_deg=90.0,
+            shutter_timing_token="90° action staccato shutter",
+        )
+        assert cam.shutter_angle_deg == 90.0
+        assert cam.shutter_timing_token == "90° action staccato shutter"
+
+        # Default shutter values
+        default_cam = CraftCameraSpec(
+            rig_type="Tripod",
+            focal_length_mm=50,
+            composition="Center",
+            route="Static",
+            action_anchor="Face",
+            focus_axis="Locked",
+            tone_rig="Spherical",
+        )
+        assert default_cam.shutter_angle_deg == 180.0
+        assert default_cam.shutter_timing_token is None
+
+    def test_bible_and_scene_spec_v23_fields_integration(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import (
+            AudioStemMixerSpec,
+            ColorLookPreset,
+            ColorLookSpec,
+            SpeedRampCurveSpec,
+            SpeedRampMode,
+        )
+
+        bible = IKEA_ASMR_BIBLE.model_copy(
+            update={
+                "master_color_look": ColorLookSpec(look_preset=ColorLookPreset.FUJI_ETERNA_500T),
+                "master_audio_mixer": AudioStemMixerSpec(),
+            }
+        )
+        assert bible.master_color_look.look_preset == ColorLookPreset.FUJI_ETERNA_500T
+        assert len(bible.master_audio_mixer.channels) == 4
+
+        scene = bible.scenes[0].model_copy(
+            update={
+                "speed_ramp": SpeedRampCurveSpec(mode=SpeedRampMode.DECELERATION_IMPACT),
+                "scene_color_look": ColorLookSpec(look_preset=ColorLookPreset.BLEACH_BYPASS_SILVER),
+            }
+        )
+        assert scene.speed_ramp.mode == SpeedRampMode.DECELERATION_IMPACT
+        assert scene.scene_color_look.look_preset == ColorLookPreset.BLEACH_BYPASS_SILVER
+
+    def test_prompt_auditor_shutter_recognition_and_reward(self):
+        from omni_director.schemas import RegimeType
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt
+
+        prompt_with_shutter = (
+            "A fluid Steadicam moves through the rain-swept courtyard at natural 1.0x real-time speed. "
+            "Filmed with a 90° staccato shutter angle at 1/48s exposure timing, rendering crisp micro-droplet kinetic contact. "
+            "Synchronized diegetic audio captures heavy rhythmic downpour."
+        )
+        audit = audit_omni_scene_prompt(prompt_with_shutter, regime=RegimeType.REGIME_2_KINETIC)
+        assert audit.passed is True
+        assert audit.details.get("shutter_angle_compliant") is True
+        assert audit.details.get("shutter_angle_reward") == 5.0
+
+    def test_prompt_auditor_speed_ramp_kinetic_momentum_check_and_healing(self):
+        from omni_director.schemas import RegimeType, ScenePromptSpec, SpeedRampCurveSpec, SpeedRampMode
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        # Scene with speed ramp but missing kinetic momentum descriptors
+        scene = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Impact Burst",
+            timestamp_range="00:00 - 00:05",
+            regime=RegimeType.REGIME_2_KINETIC,
+            action_beats=["Beat 1: Explosive burst"],
+            omni_prose_prompt="Subject leaps into frame in slow motion with floating drift and disconnected weight.",
+            speed_ramp=SpeedRampCurveSpec(mode=SpeedRampMode.DECELERATION_IMPACT, peak_capture_fps=120.0),
+        )
+
+        audit = audit_omni_scene_prompt(scene, regime=RegimeType.REGIME_2_KINETIC)
+        assert any("kinetic momentum conservation" in e for e in audit.errors)
+
+        healed_scene, healed_audit = heal_omni_scene_prompt(scene, regime=RegimeType.REGIME_2_KINETIC)
+        assert "injected_speed_ramp_momentum" in healed_audit.details.get("healing_history", {}).get("applied_patches", [])
+        assert healed_audit.passed is True
+
+    def test_senior_pm_proposals_include_v23_roadmap_features(self):
+        from omni_director.agents.council import ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
+        feature_ids = {p.feature_id for p in proposals}
+        assert {"PM-FEAT-001", "PM-FEAT-002", "PM-FEAT-003", "PM-FEAT-004", "PM-FEAT-005", "PM-FEAT-006"} <= feature_ids
+
+        p4 = next(p for p in proposals if p.feature_id == "PM-FEAT-004")
+        assert p4.title == "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine"
+        assert p4.priority == "P0"
+
+        p5 = next(p for p in proposals if p.feature_id == "PM-FEAT-005")
+        assert p5.title == "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine"
+        assert p5.priority == "P0"
+
+        p6 = next(p for p in proposals if p.feature_id == "PM-FEAT-006")
+        assert p6.title == "Interactive Diegetic Stem Audio Mixer & Metering Console"
+        assert p6.priority == "P0"
+
+
+class TestV23ToolsAndExports:
+    """Tests for PM-FEAT-004, PM-FEAT-005, and PM-FEAT-006 tool and export layers."""
+
+    def test_color_grade_presets_and_cdl_xml(self, tmp_path):
+        import xml.etree.ElementTree as ET
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ColorLookPreset
+        from omni_director.tools.color_grade import (
+            cdl_to_svg_matrix_filter,
+            embed_cdl_in_edl,
+            export_asc_cdl_file,
+            export_asc_cdl_xml,
+            get_preset_color_look,
+        )
+
+        # 1. Preset look verification for all 6 presets
+        presets = [
+            ColorLookPreset.REC709_NEUTRAL,
+            ColorLookPreset.KODAK_5219_VISION3,
+            ColorLookPreset.FUJI_ETERNA_500T,
+            ColorLookPreset.BLEACH_BYPASS_SILVER,
+            ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER,
+            ColorLookPreset.MONOCHROME_PANATOMIC_X,
+        ]
+        for p in presets:
+            look = get_preset_color_look(p)
+            assert look.look_preset == p
+            assert len(look.cdl.slope) == 3
+            assert len(look.cdl.offset) == 3
+            assert len(look.cdl.power) == 3
+            assert 0.0 <= look.cdl.saturation <= 4.0
+
+        # String lookup check
+        look_str = get_preset_color_look("kodak_5219_vision3")
+        assert look_str.look_preset == ColorLookPreset.KODAK_5219_VISION3
+
+        # 2. ASC CDL XML export
+        cdl_xml = export_asc_cdl_xml(IKEA_ASMR_BIBLE)
+        root = ET.fromstring(cdl_xml)
+        assert "ColorDecisionList" in root.tag
+        decisions = list(root.iter("{urn:ASC:CDL:v1.01}ColorDecision")) or list(root.iter("ColorDecision"))
+        assert len(decisions) >= 1
+
+        # File export
+        out_cdl = tmp_path / "test_grade.cdl"
+        res_path = export_asc_cdl_file(IKEA_ASMR_BIBLE, out_cdl)
+        assert res_path.is_file() and res_path.stat().st_size > 0
+
+        # 3. EDL comment injection
+        edl_mock = (
+            "TITLE: TEST\nFCM: NON-DROP FRAME\n\n"
+            "001  AX       V     C        00:00:00:00 00:00:08:00 00:00:00:00 00:00:08:00\n"
+            "* FROM CLIP NAME: SCENE_01_PLATE.MP4\n"
+        )
+        embedded_edl = embed_cdl_in_edl(edl_mock, IKEA_ASMR_BIBLE)
+        assert "*ASC_SOP" in embedded_edl
+        assert "*ASC_SAT" in embedded_edl
+
+        # 4. SVG matrix filter
+        svg_filt = cdl_to_svg_matrix_filter(look_str.cdl, filter_id="custom-filter")
+        assert '<filter id="custom-filter"' in svg_filt
+        assert "<feColorMatrix" in svg_filt
+        assert "<feComponentTransfer" in svg_filt
+
+    def test_speed_ramp_curves_and_fcpxml_timemap(self):
+        import xml.etree.ElementTree as ET
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import SpeedRampMode
+        from omni_director.tools.speed_ramp import (
+            export_fcpxml_timemap,
+            format_craft_shutter_tokens,
+            synthesize_speed_ramp_curve,
+        )
+
+        # 1. Synthesize curves across all modes
+        modes = [
+            SpeedRampMode.CONSTANT_REALTIME,
+            SpeedRampMode.DECELERATION_IMPACT,
+            SpeedRampMode.ACCELERATION_BURST,
+            SpeedRampMode.SNAP_FREEZE_RESUME,
+            SpeedRampMode.PULSE_TIME_DILATION,
+        ]
+        for m in modes:
+            curve = synthesize_speed_ramp_curve(m, base_fps=24, peak_capture_fps=120, shutter_angle_deg=180.0)
+            assert curve.mode == m
+            assert len(curve.curve_keyframe_points) >= 2
+            assert curve.curve_keyframe_points[0][0] == 0.0
+            assert curve.curve_keyframe_points[-1][0] == 1.0
+
+        # 2. Shutter token formatting
+        token_180 = format_craft_shutter_tokens(180.0, base_fps=24)
+        assert token_180 == "180° optical shutter at 1/48s exposure"
+        token_90 = format_craft_shutter_tokens(90.0, base_fps=24)
+        assert token_90 == "90° optical shutter at 1/96s exposure"
+
+        # 3. FCPXML timemap export
+        scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        scene.speed_ramp = synthesize_speed_ramp_curve(SpeedRampMode.DECELERATION_IMPACT)
+        timemap_xml = export_fcpxml_timemap(scene, sequence_fps=24.0)
+        timemap_root = ET.fromstring(timemap_xml.strip())
+        assert timemap_root.tag == "timeMap"
+        timepts = list(timemap_root.iter("timept"))
+        assert len(timepts) >= 2
+
+    def test_audio_mixer_stems_and_loudness(self, tmp_path):
+        import json
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.audio_mixer import (
+            estimate_broadcast_loudness,
+            export_audio_stems_file,
+            export_audio_stems_manifest,
+            synthesize_default_stem_mixer,
+        )
+
+        mixer = synthesize_default_stem_mixer(master_lufs_target=-23.0)
+        assert len(mixer.channels) == 4
+        assert "dialogue" in mixer.channels
+        assert "music" in mixer.channels
+
+        loudness = estimate_broadcast_loudness(mixer)
+        assert "integrated_lufs" in loudness
+        assert "true_peak_dbfs" in loudness
+        assert loudness["integrated_lufs"] < 0.0
+
+        # Export manifest dict
+        manifest = export_audio_stems_manifest(IKEA_ASMR_BIBLE)
+        assert manifest["project_title"] == IKEA_ASMR_BIBLE.project_title
+        assert "stems" in manifest
+        assert len(manifest["stems"]) == 4
+        assert "fairlight_routing" in manifest
+        assert "premiere_layout" in manifest
+
+        # Export file
+        out_file = tmp_path / "audio_stems_manifest.json"
+        res_file = export_audio_stems_file(IKEA_ASMR_BIBLE, out_file)
+        assert res_file.is_file()
+        loaded = json.loads(res_file.read_text(encoding="utf-8"))
+        assert loaded["project_title"] == IKEA_ASMR_BIBLE.project_title
+
+    def test_nle_export_integration_with_cdl_and_speed_ramp(self, tmp_path):
+        import xml.etree.ElementTree as ET
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ColorLookPreset, SpeedRampMode
+        from omni_director.tools.color_grade import get_preset_color_look
+        from omni_director.tools.nle_export import export_cmx3600_edl, export_fcpxml
+        from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.master_color_look = get_preset_color_look(ColorLookPreset.KODAK_5219_VISION3)
+        bible.scenes[0].speed_ramp = synthesize_speed_ramp_curve(SpeedRampMode.DECELERATION_IMPACT)
+
+        # 1. CMX 3600 EDL embeds CDL
+        edl_text = export_cmx3600_edl(bible, fps=24)
+        assert "*ASC_SOP" in edl_text
+        assert "*ASC_SAT" in edl_text
+
+        # 2. FCPXML embeds timeMap
+        fcpxml_text = export_fcpxml(bible, fps=24)
+        root = ET.fromstring(fcpxml_text)
+        assert root.tag == "fcpxml"
+        timemaps = list(root.iter("timeMap"))
+        assert len(timemaps) >= 1
+
+    def test_cli_export_cdl_and_stems(self, tmp_path):
+        from omni_director.cli import main
+
+        # 1. Export cdl only
+        ret_cdl = main(["export", "--preset", "ikea-asmr", "--format", "cdl", "-o", str(tmp_path)])
+        assert ret_cdl == 0
+        assert (tmp_path / "production_grade.cdl").is_file()
+
+        # 2. Export stems only
+        ret_stems = main(["export", "--preset", "ikea-asmr", "--format", "stems", "-o", str(tmp_path)])
+        assert ret_stems == 0
+        assert (tmp_path / "audio_stems_manifest.json").is_file()
+
+
+class TestV23DarkRoomCinemaAnimatic:
+    """Verifies Council UX Designer v2.3.0 Dark-Room Cinema Animatic features."""
+
+    def test_animatic_svg_cdl_filters_and_look_selector(self, tmp_path):
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle, ColorLookPreset
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.color_grade import get_preset_color_look
+
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.master_color_look = get_preset_color_look(ColorLookPreset.KODAK_5219_VISION3)
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        # 1. All 6 SVG CDL Filter definitions present
+        assert 'id="cdl-filter-rec709_neutral"' in content
+        assert 'id="cdl-filter-kodak_5219_vision3"' in content
+        assert 'id="cdl-filter-fuji_eterna_500t"' in content
+        assert 'id="cdl-filter-bleach_bypass_silver"' in content
+        assert 'id="cdl-filter-teal_and_orange_blockbuster"' in content
+        assert 'id="cdl-filter-monochrome_panatomic_x"' in content
+
+        # 2. Transport Look controls
+        assert 'id="look-selector"' in content
+        assert 'id="look-badge"' in content
+        assert 'class="look-grading-controls"' in content
+
+        # 3. Look Switching Logic & Hotkey [L]
+        assert "function setLook(preset)" in content
+        assert "function cycleLook()" in content
+        assert "cycleLook()" in content
+
+    def test_animatic_speed_ramp_badge_and_velocity_track(self, tmp_path):
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle, SpeedRampMode
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.scenes[0].speed_ramp = synthesize_speed_ramp_curve(
+            SpeedRampMode.DECELERATION_IMPACT,
+            peak_capture_fps=120,
+            shutter_angle_deg=180.0
+        )
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        # 1. Velocity track bar inside scrubber track wrap
+        assert 'class="velocity-track-container"' in content
+        assert 'class="velocity-track-bar"' in content
+        assert 'class="velocity-marker' in content
+        assert '⚡ S1 120fps' in content
+
+        # 2. Speed ramp badge in scene card header
+        assert 'class="badge-speed-ramp"' in content
+        assert "120fps Deceleration Impact" in content
+        assert "180° Shutter" in content
+
+    def test_animatic_dark_room_audio_mixer_console(self, tmp_path):
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.audio_mixer import synthesize_default_stem_mixer
+
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.master_audio_mixer = synthesize_default_stem_mixer()
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+
+        html_path = compile_storyboard_html(bundle, output_dir=tmp_path)
+        content = Path(html_path).read_text(encoding="utf-8")
+
+        # 1. Mixer Toggle Button in HUD Actions
+        assert 'id="btn-toggle-mixer"' in content
+        assert 'AUDIO [M]' in content
+
+        # 2. Mixer Slide-out Drawer & Accessibility
+        assert 'id="animatic-audio-mixer"' in content
+        assert 'role="region"' in content
+        assert 'aria-label="Audio Mixing Console"' in content
+
+        # 3. 4 Channel Strips + Master Strip
+        assert 'id="strip-dia"' in content
+        assert 'id="strip-sfx"' in content
+        assert 'id="strip-amb"' in content
+        assert 'id="strip-mus"' in content
+        assert 'id="strip-master"' in content
+
+        # 4. Faders, Pans, Mutes, Solos, and LUFS readouts
+        assert 'id="fader-dia"' in content
+        assert 'id="pan-dia"' in content
+        assert 'id="mute-dia"' in content
+        assert 'id="solo-dia"' in content
+        assert 'id="fader-master"' in content
+        assert 'id="master-lufs-display"' in content
+        assert 'id="val-master-lufs"' in content
+
+        # 5. Dual LED VU meters
+        assert 'id="vu-meter-left"' in content
+        assert 'id="vu-meter-right"' in content
+
+        # 6. Web Audio tone synthesis engine & hotkey [M]
+        assert "function toggleMixer()" in content
+        assert "function initWebAudio()" in content
+        assert "function toggleAudioPreview()" in content
+        assert "function drawVUMeter(canvas, levelDb)" in content
+        assert "function startVUMeterLoop()" in content
+        assert "function recalcBroadcastLoudness()" in content
+        assert "toggleMixer()" in content
+
+
+class TestCouncilStrategistCommercialDomainAlignment:
+    """Verifies Council Strategist domain mapping across all 6 Commercial Domain Archetypes."""
+
+    def test_six_domain_archetypes_return_expected_cdl_looks_and_speed_ramps(self):
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            get_domain_color_look,
+            get_domain_speed_ramp,
+            get_domain_audio_mixer,
+        )
+        from omni_director.schemas import ColorLookPreset, SpeedRampMode
+
+        expected_mappings = {
+            "automotive_robotics": (ColorLookPreset.BLEACH_BYPASS_SILVER, SpeedRampMode.SNAP_FREEZE_RESUME, 90.0),
+            "culinary_asmr": (ColorLookPreset.KODAK_5219_VISION3, SpeedRampMode.DECELERATION_IMPACT, 180.0),
+            "luxury_fashion": (ColorLookPreset.FUJI_ETERNA_500T, SpeedRampMode.PULSE_TIME_DILATION, 180.0),
+            "kinetic_action": (ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER, SpeedRampMode.ACCELERATION_BURST, 180.0),
+            "tech_hardware": (ColorLookPreset.REC709_NEUTRAL, SpeedRampMode.CONSTANT_REALTIME, 180.0),
+            "architectural_sanctuary": (ColorLookPreset.REC709_NEUTRAL, SpeedRampMode.CONSTANT_REALTIME, 180.0),
+        }
+
+        for domain, (exp_look, exp_ramp, exp_shutter) in expected_mappings.items():
+            assert domain in DOMAIN_ARCHETYPES
+            arch_meta = DOMAIN_ARCHETYPES[domain]
+            assert arch_meta["color_look_preset"] == exp_look
+            assert arch_meta["speed_ramp_mode"] == exp_ramp
+            assert arch_meta["default_shutter_angle"] == exp_shutter
+
+            look = get_domain_color_look(domain)
+            assert look.look_preset == exp_look
+
+            ramp = get_domain_speed_ramp(domain)
+            assert ramp.mode == exp_ramp
+            assert ramp.shutter_angle_deg == exp_shutter
+
+            mixer = get_domain_audio_mixer(domain)
+            assert len(mixer.channels) == 4
+            for ch_name in ["dialogue", "foley", "ambience", "music"]:
+                assert ch_name in mixer.channels
+                assert mixer.channels[ch_name].gain_db == arch_meta["default_stem_levels"][ch_name]["gain_db"]
+                assert mixer.channels[ch_name].target_lufs == arch_meta["default_stem_levels"][ch_name]["target_lufs"]
+
+    def test_golden_preset_bibles_have_aligned_domain_specs(self):
+        from omni_director.presets import (
+            IKEA_ASMR_BIBLE,
+            SEPHORA_PULSE_BIBLE,
+            SEPHORA_EXTENSION_40S_BIBLE,
+            KINETIC_FABRIC_BIBLE,
+        )
+        from omni_director.schemas import ColorLookPreset, SpeedRampMode
+
+        bibles = [
+            (IKEA_ASMR_BIBLE, "architectural_sanctuary", ColorLookPreset.REC709_NEUTRAL, SpeedRampMode.CONSTANT_REALTIME),
+            (SEPHORA_PULSE_BIBLE, "luxury_fashion", ColorLookPreset.FUJI_ETERNA_500T, SpeedRampMode.PULSE_TIME_DILATION),
+            (SEPHORA_EXTENSION_40S_BIBLE, "luxury_fashion", ColorLookPreset.FUJI_ETERNA_500T, SpeedRampMode.PULSE_TIME_DILATION),
+            (KINETIC_FABRIC_BIBLE, "kinetic_action", ColorLookPreset.TEAL_AND_ORANGE_BLOCKBUSTER, SpeedRampMode.ACCELERATION_BURST),
+        ]
+
+        for bible, exp_domain, exp_look, exp_ramp in bibles:
+            assert bible.domain_archetype == exp_domain
+            assert bible.master_color_look is not None
+            assert bible.master_color_look.look_preset == exp_look
+            assert bible.master_audio_mixer is not None
+            for scene in bible.scenes:
+                assert scene.speed_ramp is not None
+                assert scene.speed_ramp.mode == exp_ramp
+                assert scene.scene_color_look is not None
+                assert scene.scene_color_look.look_preset == exp_look
+
+    def test_council_strategist_review_awards_full_score_on_aligned_bibles(self):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, KINETIC_FABRIC_BIBLE
+
+        orchestrator = ProductCouncilOrchestrator()
+        for bible in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, KINETIC_FABRIC_BIBLE]:
+            review = orchestrator._review_strategist(bible)
+            assert review.score == 25.0
+            assert review.max_score == 25.0
+            assert not any(f.severity == "critical" for f in review.findings)
+            finding_msgs = [f.message for f in review.findings]
+            assert any("Deterministic ASC CDL look preset aligned" in m for m in finding_msgs)
+            assert any("Calibrated 4-stem audio mixer verified" in m for m in finding_msgs)
+            assert any("Kinetic speed ramp curves verified" in m for m in finding_msgs)
+
+    def test_council_strategist_penalizes_missing_domain_alignment(self):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        unaligned_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        unaligned_bible.master_color_look = None
+        unaligned_bible.master_audio_mixer = None
+        for sc in unaligned_bible.scenes:
+            sc.speed_ramp = None
+
+        orchestrator = ProductCouncilOrchestrator()
+        review = orchestrator._review_strategist(unaligned_bible)
+        assert review.score < 25.0
+        finding_msgs = [f.message for f in review.findings]
+        assert any("Master color look spec missing" in m for m in finding_msgs)
+        assert any("Master 4-stem audio mixer missing" in m for m in finding_msgs)
+        assert any("lack kinetic speed ramp curves" in m for m in finding_msgs)
+
+    def test_cli_export_cdl_and_stems_for_all_golden_presets(self, tmp_path):
+        import json
+        from omni_director.cli import main
+
+        for preset_name in ["ikea-asmr", "sephora-pulse", "kinetic-fabric"]:
+            target_dir = tmp_path / preset_name
+            ret_cdl = main(["export", "--preset", preset_name, "--format", "cdl", "-o", str(target_dir)])
+            assert ret_cdl == 0
+            cdl_file = target_dir / "production_grade.cdl"
+            assert cdl_file.is_file()
+            assert "<ColorCorrection" in cdl_file.read_text(encoding="utf-8")
+
+            ret_stems = main(["export", "--preset", preset_name, "--format", "stems", "-o", str(target_dir)])
+            assert ret_stems == 0
+            stems_file = target_dir / "audio_stems_manifest.json"
+            assert stems_file.is_file()
+            manifest = json.loads(stems_file.read_text(encoding="utf-8"))
+            assert "stems" in manifest
+            assert len(manifest["stems"]) == 4
+            assert "fairlight_routing" in manifest
+
+    def test_synthesized_custom_bible_domain_alignment_and_council_passing(self, tmp_path):
+        from omni_director.agents.agent import synthesize_custom_bible
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.schemas import ColorLookPreset, SpeedRampMode, ProductionBundle
+
+        custom_brief = "Autonomous electric hypercar pursuit through neo-Tokyo streets with telemetry HUD and ceramic brake glow."
+        bible = synthesize_custom_bible(custom_brief)
+        assert bible.domain_archetype == "automotive_robotics"
+        assert bible.master_color_look is not None
+        assert bible.master_color_look.look_preset == ColorLookPreset.BLEACH_BYPASS_SILVER
+        assert bible.scenes[0].speed_ramp.mode == SpeedRampMode.SNAP_FREEZE_RESUME
+
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        orchestrator = ProductCouncilOrchestrator()
+        report = orchestrator.audit(bundle, bible=bible, auto_heal=True, output_dir=tmp_path)
+        assert report.passed is True
+        assert report.overall_score >= 90.0
+        assert report.critical_findings_count == 0
+        assert report.persona_reviews["council-strategist"].score == 25.0
+
+
+
 
 
 

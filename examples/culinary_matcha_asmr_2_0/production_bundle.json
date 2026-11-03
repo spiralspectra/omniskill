@@ -43,7 +43,9 @@
       "route": "Smooth forward dolly along the central camera axis",
       "action_anchor": "Hero subject entering the frame",
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+      "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+      "shutter_angle_deg": 180.0,
+      "shutter_timing_token": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -118,7 +120,9 @@
           "route": "Smooth forward dolly along the central camera axis",
           "action_anchor": "Hero subject entering the frame",
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
-          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare"
+          "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -130,9 +134,63 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops.",
+        "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "deceleration_impact",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.3,
+              1.0
+            ],
+            [
+              0.5,
+              0.2
+            ],
+            [
+              0.7,
+              0.2
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "High-speed 120fps capture decelerated to 24fps playback at 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "kodak_5219_vision3",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.08,
+              1.02,
+              0.94
+            ],
+            "offset": [
+              -0.015,
+              -0.005,
+              0.012
+            ],
+            "power": [
+              0.95,
+              0.98,
+              1.04
+            ],
+            "saturation": 1.12
+          },
+          "contrast_pivot": 0.45,
+          "halation_bloom": 0.18
+        }
       },
       {
         "scene_index": 2,
@@ -151,7 +209,9 @@
           "route": "Arced orbit maneuver sweeping 45 degrees around subject",
           "action_anchor": "Subject's hands and physical contact interface",
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
-          "tone_rig": "Warm spherical glass with smooth circular bokeh"
+          "tone_rig": "Warm spherical glass with smooth circular bokeh",
+          "shutter_angle_deg": 180.0,
+          "shutter_timing_token": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -163,12 +223,133 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash.",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash.",
         "conversational_edit_deltas": [],
-        "keyframe_spec": null
+        "keyframe_spec": null,
+        "speed_ramp": {
+          "mode": "deceleration_impact",
+          "base_fps": 24,
+          "peak_capture_fps": 120,
+          "shutter_angle_deg": 180.0,
+          "curve_keyframe_points": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.3,
+              1.0
+            ],
+            [
+              0.5,
+              0.2
+            ],
+            [
+              0.7,
+              0.2
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "motion_blur_character": "High-speed 120fps capture decelerated to 24fps playback at 180-degree shutter"
+        },
+        "scene_color_look": {
+          "look_preset": "kodak_5219_vision3",
+          "working_color_space": "ACEScg",
+          "target_display": "Rec.709 Gamma 2.4",
+          "cdl": {
+            "slope": [
+              1.08,
+              1.02,
+              0.94
+            ],
+            "offset": [
+              -0.015,
+              -0.005,
+              0.012
+            ],
+            "power": [
+              0.95,
+              0.98,
+              1.04
+            ],
+            "saturation": 1.12
+          },
+          "contrast_pivot": 0.45,
+          "halation_bloom": 0.18
+        }
       }
     ],
-    "domain_archetype": "culinary_asmr"
+    "domain_archetype": "culinary_asmr",
+    "master_color_look": {
+      "look_preset": "kodak_5219_vision3",
+      "working_color_space": "ACEScg",
+      "target_display": "Rec.709 Gamma 2.4",
+      "cdl": {
+        "slope": [
+          1.08,
+          1.02,
+          0.94
+        ],
+        "offset": [
+          -0.015,
+          -0.005,
+          0.012
+        ],
+        "power": [
+          0.95,
+          0.98,
+          1.04
+        ],
+        "saturation": 1.12
+      },
+      "contrast_pivot": 0.45,
+      "halation_bloom": 0.18
+    },
+    "master_audio_mixer": {
+      "master_gain_db": 0.0,
+      "master_lufs_target": -23.0,
+      "channels": {
+        "dialogue": {
+          "stem": "dialogue",
+          "label": "Dialogue",
+          "gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -18.0
+        },
+        "foley": {
+          "stem": "foley",
+          "label": "Foley / SFX",
+          "gain_db": 2.5,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -20.0
+        },
+        "ambience": {
+          "stem": "ambience",
+          "label": "Room Ambience",
+          "gain_db": -4.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -26.0
+        },
+        "music": {
+          "stem": "music",
+          "label": "BGM Score",
+          "gain_db": -4.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "target_lufs": -22.0
+        }
+      }
+    }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
   "bundle_json_path": "examples/culinary_matcha_asmr_2_0/production_bundle.json",
@@ -202,6 +383,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_1>",
@@ -217,6 +401,9 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "shutter_angle_compliant": true,
+        "shutter_angle_descriptor": "180.0° shutter",
+        "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
           "<image_3>"
@@ -226,9 +413,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "a40e74ff-60d8-4d30-b47f-1694424b6c04",
+    "session_id": "8e7ae2e9-141c-401d-a9ba-79cf1ecc1457",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-02T11:30:49.733297+00:00",
+    "timestamp": "2026-11-03T10:21:28.499282+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -238,67 +425,73 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-02T11:30:49.733317+00:00",
-        "end_time": "2026-11-02T11:30:49.733324+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-03T10:21:28.499295+00:00",
+        "end_time": "2026-11-03T10:21:28.499908+00:00",
+        "duration_ms": 0.61,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-02T11:30:49.733341+00:00",
-        "end_time": "2026-11-02T11:30:49.734059+00:00",
-        "duration_ms": 0.72,
+        "start_time": "2026-11-03T10:21:28.499920+00:00",
+        "end_time": "2026-11-03T10:21:28.500613+00:00",
+        "duration_ms": 0.69,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-02T11:30:49.734080+00:00",
-        "end_time": "2026-11-02T11:30:49.735334+00:00",
-        "duration_ms": 1.25,
+        "start_time": "2026-11-03T10:21:28.500622+00:00",
+        "end_time": "2026-11-03T10:21:28.501775+00:00",
+        "duration_ms": 1.15,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-02T11:30:49.735352+00:00",
-        "end_time": "2026-11-02T11:30:49.735503+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-03T10:21:28.501791+00:00",
+        "end_time": "2026-11-03T10:21:28.501932+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-02T11:30:49.735513+00:00",
-        "end_time": "2026-11-02T11:30:49.735698+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-03T10:21:28.501940+00:00",
+        "end_time": "2026-11-03T10:21:28.502243+00:00",
+        "duration_ms": 0.3,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-02T11:30:49.735705+00:00",
-        "end_time": "2026-11-02T11:30:49.735709+00:00",
+        "start_time": "2026-11-03T10:21:28.502250+00:00",
+        "end_time": "2026-11-03T10:21:28.502253+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-02T11:30:49.735715+00:00",
-        "end_time": "2026-11-02T11:30:49.738666+00:00",
-        "duration_ms": 2.95,
+        "start_time": "2026-11-03T10:21:28.502258+00:00",
+        "end_time": "2026-11-03T10:21:28.503687+00:00",
+        "duration_ms": 1.43,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-02T11:30:49.740664+00:00",
-        "end_time": "2026-11-02T11:30:49.746100+00:00",
-        "duration_ms": 5.44,
+        "start_time": "2026-11-03T10:21:28.506807+00:00",
+        "end_time": "2026-11-03T10:21:28.511997+00:00",
+        "duration_ms": 5.19,
         "details": {}
       }
     ],
-    "total_duration_ms": 10.7,
+    "total_duration_ms": 9.51,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "7e99fc526121d5bad90a27d4a730529b8042f5968e8ae4276b84f21ee6c6c5e2",
-      "storyboard_preview.html": "03757b598f1c71b54257c25326ee569948c199a934da1f942997c4026faf05a4",
+      "production_bundle.json": "cbd57ae498cfd1d2b3ddb3b42bd703f13429d4f75137b774c14cd967da477851",
+      "storyboard_preview.html": "3da2c095a877d111a05071f922ef633905c3a899968a9b3d6100f22b68655637",
+      "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
+      "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
+      "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
+      "call_sheet.md": "7a6ed5936008a95d72d8a2cfac48abb39e0925824e0bb72c821b64948d5fd5c2",
+      "subtitles.srt": "d9368a02278f1c21a8b173aba10697393b488c1b990fe948493fa0efe5d3f154",
+      "subtitles.vtt": "7518c8d3de7916e78b0f6f269de602837b0ea125af5d26a40226c566fae871f1",
       "storyboards/anchor1_character_turnaround.svg": "49ac46caa0989d8e794c7b6a3ad955ef0bdac50829f056bffcac8d0d99327318",
       "storyboards/anchor2_environment_master.svg": "5996c07b6c1d1cc8a7ae5b336a2f98054b926655c1e957d2331bd774287c67bc",
       "storyboards/anchor3_scene_1_keyframe.svg": "e59e554ef651f1f3ca069cec3a26f410cff48ac0b8bda32f0454fd83e4e8d775",
@@ -306,9 +499,9 @@
     }
   },
   "council_report": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-02T11:30:49.744639+00:00",
+    "timestamp": "2026-11-03T10:21:28.510944+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -337,7 +530,46 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "domain_color_grading",
+            "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.KODAK_5219_VISION3' for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "preset": "ColorLookPreset.KODAK_5219_VISION3"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "sonic_mixer_calibration",
+            "message": "Calibrated 4-stem audio mixer verified for domain 'culinary_asmr' with target -23.0 LUFS across 4 channels.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "channels": [
+                "dialogue",
+                "foley",
+                "ambience",
+                "music"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "speed_ramp_alignment",
+            "message": "Kinetic speed ramp curves verified across all 2 scenes for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "scene_count": 2
+            }
+          }
+        ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
       },
       {
@@ -384,6 +616,46 @@
         "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
         "target_modules": [
           "omni_director/tools/coverage.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-004",
+        "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+        "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'Artisanal Japanese Culinary Ceremonial M' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+        "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/color_grade.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-005",
+        "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+        "problem_statement": "High-velocity commercial spots for 'Artisanal Japanese Culinary Ceremonial M' require dynamic speed ramping (time-warp keyframe curves) and explicit 180° / 90° shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+        "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/speed_ramp.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-006",
+        "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+        "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'Artisanal Japanese Culinary Ceremonial M', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+        "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/audio_mixer.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

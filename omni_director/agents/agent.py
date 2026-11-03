@@ -14,7 +14,14 @@ from typing import Any, Callable, Dict, List, Optional, Union
 from pydantic import ConfigDict
 
 from omni_director.config import DirectorConfig, cfg, validate_model_identifier
-from omni_director.presets import DOMAIN_ARCHETYPES, classify_brief_domain, get_preset_bible
+from omni_director.presets import (
+    DOMAIN_ARCHETYPES,
+    classify_brief_domain,
+    get_domain_audio_mixer,
+    get_domain_color_look,
+    get_domain_speed_ramp,
+    get_preset_bible,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -109,6 +116,10 @@ def synthesize_custom_bible(
         regime = RegimeType.REGIME_1_ATMOSPHERIC
         is_kinetic = False
 
+    domain_color_look = get_domain_color_look(domain)
+    domain_audio_mixer = get_domain_audio_mixer(domain)
+    domain_speed_ramp = get_domain_speed_ramp(domain)
+
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
         title = "Omni Vision Sequence"
@@ -139,14 +150,14 @@ def synthesize_custom_bible(
         f"Wide establishing tracking shot. {raw_prompt.strip()}. "
         f"Adhering to character aesthetic <image_1> and architectural staging <image_2>. "
         f"Shot with {camera_rig_1} with {lighting}. "
-        f"{'Rendered at natural 1.0x real-time speed with solid gravity and friction invariants. ' if is_kinetic else 'Gentle macro motion with tactile physics. '}"
+        f"{'Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. ' if is_kinetic else 'Gentle macro motion with tactile physics, kinetic continuity, and continuous velocity vector. '}"
         f"Diegetic audio captures synchronous {foley[0]} and {foley[-1]}."
     )
     prose_2 = (
         f"Continuation of Scene 1 following the subject. Continuation of {raw_prompt.strip()}. "
         f"Maintaining continuity with keyframe <image_3>. "
         f"{camera_rig_2} maneuver at eye-level with {lighting}. "
-        f"{'Rendered at natural 1.0x real-time speed with solid momentum and ground contact reaction. ' if is_kinetic else 'Controlled tactile interaction with micro-acoustic detail. '}"
+        f"{'Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. ' if is_kinetic else 'Controlled tactile interaction with micro-acoustic detail and kinetic continuity. '}"
         f"Diegetic sound design features immediate {foley[0]} and atmospheric air wash."
     )
 
@@ -176,6 +187,8 @@ def synthesize_custom_bible(
         timestamp_range="00:00 - 00:05",
         regime=regime,
         craft_camera=craft_1,
+        speed_ramp=domain_speed_ramp,
+        scene_color_look=domain_color_look,
         kinetic_contact_chain="1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance." if is_kinetic else None,
         action_beats=[
             "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)",
@@ -195,6 +208,8 @@ def synthesize_custom_bible(
         timestamp_range="00:05 - 00:10",
         regime=regime,
         craft_camera=craft_2,
+        speed_ramp=domain_speed_ramp,
+        scene_color_look=domain_color_look,
         kinetic_contact_chain="1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose." if is_kinetic else None,
         action_beats=[
             "Beat 1: Peak acceleration and directional transition (00:05 - 00:08)",
@@ -286,6 +301,8 @@ def synthesize_custom_bible(
         ],
         scenes=[scene_1, scene_2],
         domain_archetype=domain,
+        master_color_look=domain_color_look,
+        master_audio_mixer=domain_audio_mixer,
     )
 
 
@@ -334,6 +351,9 @@ class IntakeAndResearchAgent(BaseAgent):
                     context["research_notes"] = response.text
             except Exception as e:
                 logger.warning(f"[{self.name}] Live intake query failed: {e}. Falling back to dry-run analysis.")
+
+        if not context.get("domain_archetype") and prompt:
+            context["domain_archetype"] = classify_brief_domain(prompt)
 
         context["intake_complete"] = True
         return context
@@ -431,8 +451,18 @@ class CreativeDirectorAgent(BaseAgent):
                     bible = get_preset_bible("ikea-asmr")
 
         if bible is not None:
-            if not getattr(bible, "domain_archetype", None) and context.get("domain_archetype"):
-                bible.domain_archetype = context["domain_archetype"]
+            if not getattr(bible, "domain_archetype", None):
+                bible.domain_archetype = context.get("domain_archetype") or classify_brief_domain(f"{bible.project_title} {bible.logline}")
+            arch = bible.domain_archetype
+            if not getattr(bible, "master_color_look", None):
+                bible.master_color_look = get_domain_color_look(arch)
+            if not getattr(bible, "master_audio_mixer", None):
+                bible.master_audio_mixer = get_domain_audio_mixer(arch)
+            for scene in bible.scenes:
+                if not getattr(scene, "speed_ramp", None):
+                    scene.speed_ramp = get_domain_speed_ramp(arch)
+                if not getattr(scene, "scene_color_look", None):
+                    scene.scene_color_look = bible.master_color_look
 
         context["bible"] = bible
         logger.info(f"[{self.name}] Sealed Bible: '{bible.project_title}' with {len(bible.scenes)} scenes.")

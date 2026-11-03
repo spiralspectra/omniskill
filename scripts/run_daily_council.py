@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.2.0).
+"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.3.0).
 
 Executes the automated daily product management, feature verification, quality assurance, and release routine:
 1. Preflight environment & 2026 Model Matrix health diagnostics (run_doctor).
@@ -136,7 +136,7 @@ CANONICAL_SHOWCASES = [
 
 def bump_project_version(bump_type: str) -> str:
     """Bumps semantic version across pyproject.toml, omni_director/__init__.py, doctor.py, schemas.py, and CHANGELOG.md."""
-    current = getattr(omni_director, "__version__", "2.2.0")
+    current = getattr(omni_director, "__version__", "2.3.0")
     parts = [int(x) for x in current.split(".")[:3]]
     while len(parts) < 3:
         parts.append(0)
@@ -193,7 +193,7 @@ def run_daily_council(
         active_version = bump_project_version(bump_version)
         print(f"🔖 Bumped project version to v{active_version}")
     else:
-        active_version = getattr(omni_director, "__version__", "2.2.0")
+        active_version = getattr(omni_director, "__version__", "2.3.0")
 
     start_time = datetime.datetime.now(datetime.timezone.utc)
     print("=" * 70)

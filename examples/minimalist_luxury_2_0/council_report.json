@@ -1,7 +1,7 @@
 {
-  "version": "2.2.0",
+  "version": "2.3.0",
   "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-  "timestamp": "2026-11-02T11:30:49.722549+00:00",
+  "timestamp": "2026-11-03T10:21:28.490377+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -30,7 +30,46 @@
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
-      "findings": [],
+      "findings": [
+        {
+          "severity": "info",
+          "category": "domain_color_grading",
+          "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "preset": "ColorLookPreset.FUJI_ETERNA_500T"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "sonic_mixer_calibration",
+          "message": "Calibrated 4-stem audio mixer verified for domain 'luxury_fashion' with target -23.0 LUFS across 4 channels.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "channels": [
+              "dialogue",
+              "foley",
+              "ambience",
+              "music"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "speed_ramp_alignment",
+          "message": "Kinetic speed ramp curves verified across all 2 scenes for domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "scene_count": 2
+          }
+        }
+      ],
       "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
     },
     {
@@ -77,6 +116,46 @@
       "proposed_solution": "Ship omni_director.tools.coverage (generate_scene_coverage & synthesize_conversational_deltas) and interactive .coverage-selector multi-cam tabs inside each scene card in the HTML5 animatic.",
       "target_modules": [
         "omni_director/tools/coverage.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-004",
+      "title": "ASC CDL Color Science, Cinematic Look Presets & SVG Filter Grading Engine",
+      "problem_statement": "Commercial directors, DPs, and colorists reviewing storyboards for 'Minimalist Luxury Haute Couture Silk Vel' require industry-standard ASC CDL transfer functions (Slope, Offset, Power, Saturation) and established look presets (Kodak 5219, Fuji Eterna, Bleach Bypass, Teal & Orange) for DaVinci Resolve handoff rather than raw static hex codes.",
+      "proposed_solution": "Implement AscCdlSpec and ColorLookSpec schemas, omni_director.tools.color_grade (Resolve CDL XML export and EDL SOP/SAT comments), and real-time SVG filter grading matrices in the HTML5 animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/color_grade.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-005",
+      "title": "Dynamic Speed Ramping, Shutter Angle & Motion Timing Engine",
+      "problem_statement": "High-velocity commercial spots for 'Minimalist Luxury Haute Couture Silk Vel' require dynamic speed ramping (time-warp keyframe curves) and explicit 180\u00b0 / 90\u00b0 shutter angle calibration to eliminate temporal smearing or stutter in Gemini Omni video generation.",
+      "proposed_solution": "Implement SpeedRampCurveSpec, shutter timing camera grammar in CraftCameraSpec, omni_director.tools.speed_ramp (FCPXML timeMap export), prompt auditor shutter verification, and animatic velocity curve scrubbing.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/speed_ramp.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-006",
+      "title": "Interactive Diegetic Stem Audio Mixer & Metering Console",
+      "problem_statement": "Omni Director models high-fidelity 4-stem sound design (Dialogue, Foley, Ambience, BGM) for 'Minimalist Luxury Haute Couture Silk Vel', but pitch reviews require interactive channel balance, solo/mute auditioning, and broadcast loudness (EBU R128 / ATSC A/85) compliance metering.",
+      "proposed_solution": "Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/audio_mixer.py",
         "omni_director/tools/html_compiler.py"
       ],
       "priority": "P0",
