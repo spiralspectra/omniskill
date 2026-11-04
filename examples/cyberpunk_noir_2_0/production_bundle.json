@@ -45,7 +45,20 @@
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
       "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
       "shutter_angle_deg": 180.0,
-      "shutter_timing_token": null
+      "shutter_timing_token": null,
+      "optical_lens": {
+        "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+        "anamorphic_squeeze": 1.8,
+        "focal_length_mm": 28,
+        "aperture_t_stop": 2.0,
+        "lens_series": "ARRI Rental DNA Anamorphic",
+        "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+        "chromatic_aberration": "controlled blue lateral chromatic fringing",
+        "distortion_profile": "barrel 1.2% anamorphic edge compression",
+        "horizontal_fov_deg": 99.42,
+        "vertical_fov_deg": 49.03,
+        "hyperfocal_distance_m": 13.07
+      }
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -122,7 +135,20 @@
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
           "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+            "anamorphic_squeeze": 1.8,
+            "focal_length_mm": 28,
+            "aperture_t_stop": 2.0,
+            "lens_series": "ARRI Rental DNA Anamorphic",
+            "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+            "chromatic_aberration": "controlled blue lateral chromatic fringing",
+            "distortion_profile": "barrel 1.2% anamorphic edge compression",
+            "horizontal_fov_deg": 99.42,
+            "vertical_fov_deg": 49.03,
+            "hyperfocal_distance_m": 13.07
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -194,6 +220,91 @@
           },
           "contrast_pivot": 0.5,
           "halation_bloom": 0.0
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.8,
+          "focal_length_mm": 28,
+          "aperture_t_stop": 2.0,
+          "lens_series": "ARRI Rental DNA Anamorphic",
+          "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+          "chromatic_aberration": "controlled blue lateral chromatic fringing",
+          "distortion_profile": "barrel 1.2% anamorphic edge compression",
+          "horizontal_fov_deg": 99.42,
+          "vertical_fov_deg": 49.03,
+          "hyperfocal_distance_m": 13.07
+        },
+        "virtual_production": {
+          "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -215,7 +326,20 @@
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
           "tone_rig": "Warm spherical glass with smooth circular bokeh",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+            "anamorphic_squeeze": 1.8,
+            "focal_length_mm": 28,
+            "aperture_t_stop": 2.0,
+            "lens_series": "ARRI Rental DNA Anamorphic",
+            "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+            "chromatic_aberration": "controlled blue lateral chromatic fringing",
+            "distortion_profile": "barrel 1.2% anamorphic edge compression",
+            "horizontal_fov_deg": 99.42,
+            "vertical_fov_deg": 49.03,
+            "hyperfocal_distance_m": 13.07
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -287,6 +411,91 @@
           },
           "contrast_pivot": 0.5,
           "halation_bloom": 0.0
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.8,
+          "focal_length_mm": 28,
+          "aperture_t_stop": 2.0,
+          "lens_series": "ARRI Rental DNA Anamorphic",
+          "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+          "chromatic_aberration": "controlled blue lateral chromatic fringing",
+          "distortion_profile": "barrel 1.2% anamorphic edge compression",
+          "horizontal_fov_deg": 99.42,
+          "vertical_fov_deg": 49.03,
+          "hyperfocal_distance_m": 13.07
+        },
+        "virtual_production": {
+          "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       }
     ],
@@ -357,6 +566,91 @@
           "target_lufs": -18.0
         }
       }
+    },
+    "master_lens_package": {
+      "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+      "anamorphic_squeeze": 1.8,
+      "focal_length_mm": 28,
+      "aperture_t_stop": 2.0,
+      "lens_series": "ARRI Rental DNA Anamorphic",
+      "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+      "chromatic_aberration": "controlled blue lateral chromatic fringing",
+      "distortion_profile": "barrel 1.2% anamorphic edge compression",
+      "horizontal_fov_deg": 99.42,
+      "vertical_fov_deg": 49.03,
+      "hyperfocal_distance_m": 13.07
+    },
+    "virtual_production": {
+      "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+      "led_wall": {
+        "shape": "curved_horseshoe",
+        "diameter_meters": 24.0,
+        "height_meters": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "resolution_width_px": 15360,
+        "resolution_height_px": 2880,
+        "has_ceiling_led": true,
+        "has_floor_led": false
+      },
+      "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+      "ue_ndisplay_config_version": "5.4",
+      "parallax_depth_planes": {
+        "foreground_prop_m": 1.5,
+        "actor_stage_m": 3.5,
+        "led_wall_m": 8.0,
+        "virtual_bg_infinity_m": 500.0
+      },
+      "dmx_lighting_rig": [
+        {
+          "fixture_id": "KEY_SKY_01",
+          "fixture_type": "Arri SkyPanel S360-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 1,
+          "intensity_percent": 85.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        },
+        {
+          "fixture_id": "FILL_SKY_02",
+          "fixture_type": "Arri SkyPanel S120-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 16,
+          "intensity_percent": 55.0,
+          "color_temp_kelvin": 5200,
+          "gel_tint_cie_xy": [
+            0.315,
+            0.332
+          ]
+        },
+        {
+          "fixture_id": "RIM_ASTERA_01",
+          "fixture_type": "Astera Titan Tube FP1",
+          "dmx_universe": 2,
+          "dmx_channel_start": 1,
+          "intensity_percent": 70.0,
+          "color_temp_kelvin": 6000,
+          "gel_tint_cie_xy": [
+            0.308,
+            0.321
+          ]
+        },
+        {
+          "fixture_id": "CEILING_LITEMAT_01",
+          "fixture_type": "LiteMat Plus 4",
+          "dmx_universe": 2,
+          "dmx_channel_start": 32,
+          "intensity_percent": 40.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        }
+      ],
+      "lut_calibration_profile": "ACEScg_OCIO_v1.3"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -391,6 +685,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "28mm T2.0 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "StageCraft Volume Apex (Automotive Dynamic) (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -409,6 +709,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "28mm T2.0 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "StageCraft Volume Apex (Automotive Dynamic) (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -421,9 +727,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "02f064fc-6875-4635-a0ab-012631fe453d",
+    "session_id": "2a096d5f-c240-4584-94a5-ac133515a761",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-03T10:21:28.445200+00:00",
+    "timestamp": "2026-11-04T09:32:25.721094+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -433,67 +739,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-03T10:21:28.445211+00:00",
-        "end_time": "2026-11-03T10:21:28.445619+00:00",
-        "duration_ms": 0.41,
+        "start_time": "2026-11-04T09:32:25.721109+00:00",
+        "end_time": "2026-11-04T09:32:25.721534+00:00",
+        "duration_ms": 0.42,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-03T10:21:28.445629+00:00",
-        "end_time": "2026-11-03T10:21:28.446100+00:00",
-        "duration_ms": 0.47,
+        "start_time": "2026-11-04T09:32:25.721547+00:00",
+        "end_time": "2026-11-04T09:32:25.722063+00:00",
+        "duration_ms": 0.52,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-03T10:21:28.446108+00:00",
-        "end_time": "2026-11-03T10:21:28.447214+00:00",
-        "duration_ms": 1.11,
+        "start_time": "2026-11-04T09:32:25.722072+00:00",
+        "end_time": "2026-11-04T09:32:25.723573+00:00",
+        "duration_ms": 1.5,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-03T10:21:28.447224+00:00",
-        "end_time": "2026-11-03T10:21:28.447340+00:00",
-        "duration_ms": 0.12,
+        "start_time": "2026-11-04T09:32:25.723601+00:00",
+        "end_time": "2026-11-04T09:32:25.723777+00:00",
+        "duration_ms": 0.18,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-03T10:21:28.447348+00:00",
-        "end_time": "2026-11-03T10:21:28.447555+00:00",
-        "duration_ms": 0.21,
+        "start_time": "2026-11-04T09:32:25.723789+00:00",
+        "end_time": "2026-11-04T09:32:25.724206+00:00",
+        "duration_ms": 0.42,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-03T10:21:28.447561+00:00",
-        "end_time": "2026-11-03T10:21:28.447564+00:00",
+        "start_time": "2026-11-04T09:32:25.724221+00:00",
+        "end_time": "2026-11-04T09:32:25.724225+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-03T10:21:28.447569+00:00",
-        "end_time": "2026-11-03T10:21:28.449042+00:00",
-        "duration_ms": 1.47,
+        "start_time": "2026-11-04T09:32:25.724232+00:00",
+        "end_time": "2026-11-04T09:32:25.726279+00:00",
+        "duration_ms": 2.05,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-03T10:21:28.451480+00:00",
-        "end_time": "2026-11-03T10:21:28.456087+00:00",
-        "duration_ms": 4.61,
+        "start_time": "2026-11-04T09:32:25.729877+00:00",
+        "end_time": "2026-11-04T09:32:25.735770+00:00",
+        "duration_ms": 5.89,
         "details": {}
       }
     ],
-    "total_duration_ms": 8.4,
+    "total_duration_ms": 10.98,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "3dd1871348a12077b5cd26d0a1230139c576ef3c2da85919dccb9539a5dc05bb",
-      "storyboard_preview.html": "2ebb1f2a2bf7c5ee6d00527c5c33f09c254832f1a339f13f5751f8030e6d34d5",
+      "production_bundle.json": "9a6e122e52d1aa841aecf1df3c54535a82610e61a42422ea3114b6a558ee4618",
+      "storyboard_preview.html": "11b7b7a878ecbd5d2a26bd52c5655f96fb9580da4f23405f00fec763229af343",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -507,9 +813,9 @@
     }
   },
   "council_report": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-03T10:21:28.455171+00:00",
+    "timestamp": "2026-11-04T09:32:25.734527+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -575,6 +881,28 @@
             "details": {
               "domain": "automotive_robotics",
               "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "optical_lens_alignment",
+            "message": "Cinematic optical lens package verified: 28mm T2.0 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "focal_length_mm": 28
+            }
+          },
+          {
+            "severity": "info",
+            "category": "virtual_production_alignment",
+            "message": "Virtual Production stage manifest verified: 'StageCraft Volume Apex (Automotive Dynamic)' with 4 DMX fixtures for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "stage_name": "StageCraft Volume Apex (Automotive Dynamic)"
             }
           }
         ],
@@ -664,6 +992,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/audio_mixer.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-007",
+        "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+        "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'Cyberpunk Neon-Lit High-Speed Electric M' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+        "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/optical_lens.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-008",
+        "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+        "problem_statement": "High-end commercial productions for 'Cyberpunk Neon-Lit High-Speed Electric M' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+        "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

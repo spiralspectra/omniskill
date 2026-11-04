@@ -142,6 +142,112 @@ class SpeedRampCurveSpec(BaseModel):
     )
 
 
+class SensorFormat(str, Enum):
+    """Cinematic camera sensor formats and physical active sensor gate dimensions."""
+    SUPER_35 = "Super35 (24.89 x 18.66mm)"
+    FULL_FRAME = "Full Frame (36.00 x 24.00mm)"
+    ARRI_LF = "Large Format / ARRI LF (36.70 x 25.54mm)"
+    IMAX_70MM = "IMAX 15/70mm (70.41 x 52.63mm)"
+    VISTAVISION = "VistaVision (40.96 x 21.60mm)"
+
+    # Lowercase / canonical aliases for resilient deserialization
+    super_35 = "Super35 (24.89 x 18.66mm)"
+    full_frame = "Full Frame (36.00 x 24.00mm)"
+    arri_lf = "Large Format / ARRI LF (36.70 x 25.54mm)"
+    imax_70mm = "IMAX 15/70mm (70.41 x 52.63mm)"
+    vistavision = "VistaVision (40.96 x 21.60mm)"
+
+
+class AnamorphicSqueeze(float, Enum):
+    """Anamorphic optical squeeze ratio factors."""
+    SPHERICAL_1_0X = 1.0
+    ANAMORPHIC_1_33X = 1.33
+    ANAMORPHIC_1_5X = 1.5
+    ANAMORPHIC_1_8X = 1.8
+    ANAMORPHIC_2_0X = 2.0
+
+
+class OpticalLensSpec(BaseModel):
+    """Cinematic optical lens and sensor framing specification (PM-FEAT-007)."""
+    sensor_format: SensorFormat = Field(default=SensorFormat.FULL_FRAME)
+    anamorphic_squeeze: float = Field(default=1.0, ge=1.0, le=2.0)
+    focal_length_mm: int = Field(default=35, ge=10, le=500)
+    aperture_t_stop: float = Field(default=2.8, ge=1.3, le=22.0)
+    lens_series: str = Field(default="Cooke S4/i Prime")
+    bokeh_characteristic: str = Field(default="circular 9-blade buttery falloff")
+    chromatic_aberration: str = Field(default="zero-dispersion apochromatic")
+    distortion_profile: str = Field(default="barrel 0.2% edge compression")
+    horizontal_fov_deg: Optional[float] = None
+    vertical_fov_deg: Optional[float] = None
+    hyperfocal_distance_m: Optional[float] = None
+
+    @field_validator("sensor_format", mode="before")
+    @classmethod
+    def normalize_sensor_format(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower()
+            if "super35" in v_clean or "super_35" in v_clean or "super 35" in v_clean:
+                return SensorFormat.SUPER_35
+            if "arri" in v_clean or "large format" in v_clean:
+                return SensorFormat.ARRI_LF
+            if "imax" in v_clean:
+                return SensorFormat.IMAX_70MM
+            if "vistavision" in v_clean or "vista" in v_clean:
+                return SensorFormat.VISTAVISION
+            if "full" in v_clean or "frame" in v_clean:
+                return SensorFormat.FULL_FRAME
+        return v
+
+
+class LedWallGeometry(BaseModel):
+    """Physical and digital geometry of the Virtual Production LED Volume."""
+    shape: str = Field(default="curved_horseshoe")
+    diameter_meters: float = Field(default=24.0, ge=5.0, le=100.0)
+    height_meters: float = Field(default=6.5, ge=2.5, le=25.0)
+    pixel_pitch_mm: float = Field(default=2.3)
+    resolution_width_px: int = Field(default=15360)
+    resolution_height_px: int = Field(default=2880)
+    has_ceiling_led: bool = Field(default=True)
+    has_floor_led: bool = Field(default=False)
+
+
+class DmxLightingFixture(BaseModel):
+    """DMX512 intelligent lighting fixture mapped to the stage."""
+    fixture_id: str
+    fixture_type: str = Field(default="Arri SkyPanel S360-C")
+    dmx_universe: int = Field(default=1, ge=1, le=255)
+    dmx_channel_start: int = Field(default=1, ge=1, le=512)
+    intensity_percent: float = Field(default=85.0, ge=0.0, le=100.0)
+    color_temp_kelvin: int = Field(default=5600, ge=2000, le=10000)
+    gel_tint_cie_xy: Optional[Tuple[float, float]] = None
+
+    @property
+    def color_temperature_k(self) -> int:
+        return self.color_temp_kelvin
+
+
+class VirtualProductionStageSpec(BaseModel):
+    """Virtual Production LED Volume and Unreal Engine ICVFX Stage manifest (PM-FEAT-008)."""
+    stage_name: str = Field(default="StageCraft Volume Alpha")
+    led_wall: LedWallGeometry = Field(default_factory=LedWallGeometry)
+    frustum_tracking_protocol: str = Field(default="FreeD / OptiTrack Active Optical")
+    ue_ndisplay_config_version: str = Field(default="5.4")
+    parallax_depth_planes: Dict[str, float] = Field(
+        default_factory=lambda: {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0,
+        }
+    )
+    dmx_lighting_rig: List[DmxLightingFixture] = Field(default_factory=list)
+    lut_calibration_profile: str = Field(default="ACEScg_OCIO_v1.3")
+
+    @property
+    def dmx_fixtures(self) -> List[DmxLightingFixture]:
+        return self.dmx_lighting_rig
+
+
 class CraftCameraSpec(BaseModel):
     """Kinetic Camera Grammar (CRAFT Framework)."""
     rig_type: str = Field(..., description="Locked-off tripod, Dolly track, Steadicam, Technocrane, etc.")
@@ -153,6 +259,7 @@ class CraftCameraSpec(BaseModel):
     tone_rig: str = Field(..., description="Lens characteristics, anamorphic bokeh, optical texture")
     shutter_angle_deg: float = Field(default=180.0, ge=11.25, le=360.0, description="Shutter angle in degrees (e.g. 180.0 standard, 90.0 staccato)")
     shutter_timing_token: Optional[str] = Field(default=None, description="Cinematic shutter timing prompt token (e.g. '180° shutter at 1/48s')")
+    optical_lens: Optional[OpticalLensSpec] = Field(default=None, description="Detailed optical lens and sensor framing specification")
 
     def to_summary(self) -> str:
         return f"{self.rig_type} ({self.focal_length_mm}mm) | {self.composition} | Route: {self.route}"
@@ -367,6 +474,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific ASC CDL color grading specification"
     )
+    optical_lens: Optional[OpticalLensSpec] = Field(
+        default=None,
+        description="Scene-specific optical lens and sensor framing specification (PM-FEAT-007)"
+    )
+    virtual_production: Optional[VirtualProductionStageSpec] = Field(
+        default=None,
+        description="In-camera VFX / Virtual Production LED volume stage manifest (PM-FEAT-008)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -384,6 +499,14 @@ class ScenePromptSpec(BaseModel):
                 data["speed_ramp"] = data["speed_ramp_spec"]
             if "speed_ramp_curve" in data and "speed_ramp" not in data:
                 data["speed_ramp"] = data["speed_ramp_curve"]
+            if "lens_spec" in data and "optical_lens" not in data:
+                data["optical_lens"] = data["lens_spec"]
+            if "optical_lens_spec" in data and "optical_lens" not in data:
+                data["optical_lens"] = data["optical_lens_spec"]
+            if "virtual_production_spec" in data and "virtual_production" not in data:
+                data["virtual_production"] = data["virtual_production_spec"]
+            if "vp_stage" in data and "virtual_production" not in data:
+                data["virtual_production"] = data["vp_stage"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -434,6 +557,22 @@ class ScenePromptSpec(BaseModel):
     def diegetic_sound(self, value: Optional[DiegeticSonicSpec]) -> None:
         self.diegetic_sonic = value
 
+    @property
+    def lens_spec(self) -> Optional[OpticalLensSpec]:
+        return self.optical_lens
+
+    @lens_spec.setter
+    def lens_spec(self, value: Optional[OpticalLensSpec]) -> None:
+        self.optical_lens = value
+
+    @property
+    def vp_stage(self) -> Optional[VirtualProductionStageSpec]:
+        return self.virtual_production
+
+    @vp_stage.setter
+    def vp_stage(self, value: Optional[VirtualProductionStageSpec]) -> None:
+        self.virtual_production = value
+
     @field_validator("action_beats")
     @classmethod
     def validate_action_beats_cap(cls, beats: List[str]) -> List[str]:
@@ -476,6 +615,14 @@ class MasterProductionBible(BaseModel):
     master_audio_mixer: Optional[AudioStemMixerSpec] = Field(
         default=None,
         description="Master 4-stem post-production audio mixing blueprint"
+    )
+    master_lens_package: Optional[OpticalLensSpec] = Field(
+        default=None,
+        description="Master optical lens package and sensor framing specification (PM-FEAT-007)"
+    )
+    virtual_production: Optional[VirtualProductionStageSpec] = Field(
+        default=None,
+        description="Virtual Production LED Volume & Unreal Engine Stage Manifest (PM-FEAT-008)"
     )
 
     @field_validator("nano_banana_assets")
@@ -646,7 +793,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.3.0"
+    version: str = "2.4.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

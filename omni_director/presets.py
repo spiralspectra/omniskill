@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 
 from omni_director.schemas import (
     ActionBeatSpec,
+    AnamorphicSqueeze,
     AspectRatio,
     AudioStemMixerSpec,
     CharacterTurnaroundSpec,
@@ -10,20 +11,27 @@ from omni_director.schemas import (
     ColorLookSpec,
     CraftCameraSpec,
     DiegeticSonicSpec,
+    DmxLightingFixture,
+    LedWallGeometry,
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
     NanoBananaReference,
+    OpticalLensSpec,
     RegimeType,
     ScenePromptSpec,
+    SensorFormat,
     SpeedRampCurveSpec,
     SpeedRampMode,
     StemChannelStrip,
     StemType,
     StorytellingMode,
+    VirtualProductionStageSpec,
 )
 from omni_director.tools.color_grade import get_preset_color_look
+from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
 from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+from omni_director.tools.virtual_production import synthesize_default_vp_stage
 
 DOMAIN_PRIORITY: List[str] = [
     "automotive_robotics",
@@ -78,6 +86,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
             "music": {"gain_db": -2.0, "target_lufs": -18.0},
         },
+        "optical_lens": {
+            "sensor_format": SensorFormat.ARRI_LF,
+            "anamorphic_squeeze": 1.8,
+            "focal_length_mm": 28,
+            "aperture_t_stop": 2.0,
+            "lens_series": "ARRI Rental DNA Anamorphic",
+            "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+            "chromatic_aberration": "controlled blue lateral chromatic fringing",
+            "distortion_profile": "barrel 1.2% anamorphic edge compression",
+        },
     },
     "culinary_asmr": {
         "keywords": [
@@ -123,6 +141,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "ambience": {"gain_db": -4.0, "target_lufs": -26.0},
             "music": {"gain_db": -4.0, "target_lufs": -22.0},
         },
+        "optical_lens": {
+            "sensor_format": SensorFormat.FULL_FRAME,
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 100,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Zeiss Supreme 100mm Macro Prime",
+            "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+            "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+            "distortion_profile": "zero geometric distortion rectilinear",
+        },
     },
     "luxury_fashion": {
         "keywords": [
@@ -167,6 +195,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
             "music": {"gain_db": 1.0, "target_lufs": -16.0},
         },
+        "optical_lens": {
+            "sensor_format": SensorFormat.ARRI_LF,
+            "anamorphic_squeeze": 1.5,
+            "focal_length_mm": 50,
+            "aperture_t_stop": 1.8,
+            "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+            "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+            "chromatic_aberration": "delicate warm axial flare roll-off",
+            "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+        },
     },
     "kinetic_action": {
         "keywords": [
@@ -210,6 +248,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "foley": {"gain_db": 2.0, "target_lufs": -18.0},
             "ambience": {"gain_db": -3.0, "target_lufs": -24.0},
             "music": {"gain_db": 1.0, "target_lufs": -16.0},
+        },
+        "optical_lens": {
+            "sensor_format": SensorFormat.IMAX_70MM,
+            "anamorphic_squeeze": 1.33,
+            "focal_length_mm": 35,
+            "aperture_t_stop": 2.0,
+            "lens_series": "Panavision Ultra Vista Large Format",
+            "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+            "chromatic_aberration": "apochromatic high-contrast edge rendering",
+            "distortion_profile": "low-dispersion edge compression 0.8%",
         },
     },
     "tech_hardware": {
@@ -256,6 +304,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "ambience": {"gain_db": -4.0, "target_lufs": -26.0},
             "music": {"gain_db": -2.0, "target_lufs": -18.0},
         },
+        "optical_lens": {
+            "sensor_format": SensorFormat.FULL_FRAME,
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 85,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Leitz Prime Apochromatic Macro Rig",
+            "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+            "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+            "distortion_profile": "zero geometric distortion 0.05%",
+        },
     },
     "architectural_sanctuary": {
         "keywords": [
@@ -299,6 +357,16 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "foley": {"gain_db": -2.0, "target_lufs": -24.0},
             "ambience": {"gain_db": -1.0, "target_lufs": -22.0},
             "music": {"gain_db": -2.0, "target_lufs": -18.0},
+        },
+        "optical_lens": {
+            "sensor_format": SensorFormat.ARRI_LF,
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 24,
+            "aperture_t_stop": 4.0,
+            "lens_series": "ARRI Signature Prime Tilt-Shift Perspective Rig",
+            "bokeh_characteristic": "pristine planar depth with zero field curvature",
+            "chromatic_aberration": "zero-dispersion apochromatic glass",
+            "distortion_profile": "perspective-corrected rectilinear 0.1%",
         },
     },
 }
@@ -384,6 +452,62 @@ def get_domain_audio_mixer(domain: str) -> AudioStemMixerSpec:
         master_lufs_target=-23.0,
         channels=channels,
     )
+
+
+def get_domain_optical_lens(domain: str) -> OpticalLensSpec:
+    """Retrieves the calibrated optical lens & sensor framing spec for a commercial domain archetype."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    lens_data = archetype.get("optical_lens", {})
+    if isinstance(lens_data, OpticalLensSpec):
+        return lens_data.model_copy(deep=True)
+
+    sensor = lens_data.get("sensor_format", SensorFormat.FULL_FRAME)
+    squeeze = lens_data.get("anamorphic_squeeze", 1.0)
+    focal = lens_data.get("focal_length_mm", archetype.get("default_focal_length", 35))
+    aperture = lens_data.get("aperture_t_stop", 2.8)
+    series = lens_data.get("lens_series", "Cooke S4/i Prime")
+    bokeh = lens_data.get("bokeh_characteristic", "circular 9-blade buttery falloff")
+    ca = lens_data.get("chromatic_aberration", "zero-dispersion apochromatic")
+    dist = lens_data.get("distortion_profile", "barrel 0.2% edge compression")
+
+    h_fov, v_fov = calculate_sensor_fov(sensor, focal, squeeze)
+    hyper = calculate_hyperfocal_distance(focal, aperture)
+
+    return OpticalLensSpec(
+        sensor_format=sensor,
+        anamorphic_squeeze=squeeze,
+        focal_length_mm=focal,
+        aperture_t_stop=aperture,
+        lens_series=series,
+        bokeh_characteristic=bokeh,
+        chromatic_aberration=ca,
+        distortion_profile=dist,
+        horizontal_fov_deg=h_fov,
+        vertical_fov_deg=v_fov,
+        hyperfocal_distance_m=hyper,
+    )
+
+
+def get_domain_virtual_production(domain: str) -> VirtualProductionStageSpec:
+    """Retrieves the virtual production LED volume stage spec for a commercial domain archetype."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    vp_data = archetype.get("virtual_production")
+    if isinstance(vp_data, VirtualProductionStageSpec):
+        return vp_data.model_copy(deep=True)
+
+    stage_name_map = {
+        "automotive_robotics": "StageCraft Volume Apex (Automotive Dynamic)",
+        "culinary_asmr": "Micro-Acoustic Tabletop Volume Beta",
+        "luxury_fashion": "High-CRI Runway Prism Volume Gamma",
+        "kinetic_action": "Deep Horseshoe High-Velocity Volume Delta",
+        "tech_hardware": "Cleanroom Micron LED Chamber Epsilon",
+        "architectural_sanctuary": "Panoramic 180 Cyclorama Volume Zeta",
+    }
+    stage_name = stage_name_map.get(domain, "StageCraft LED Volume Alpha")
+    return synthesize_default_vp_stage(stage_name=stage_name)
+
+
+DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
 # 1. IKEA ASMR Golden Preset
@@ -933,11 +1057,19 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_color_look = get_domain_color_look(_arch)
     if not _bible_inst.master_audio_mixer:
         _bible_inst.master_audio_mixer = get_domain_audio_mixer(_arch)
+    if not _bible_inst.master_lens_package:
+        _bible_inst.master_lens_package = get_domain_optical_lens(_arch)
+    if not _bible_inst.virtual_production:
+        _bible_inst.virtual_production = get_domain_virtual_production(_arch)
     for _sc in _bible_inst.scenes:
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
         if not _sc.scene_color_look:
             _sc.scene_color_look = _bible_inst.master_color_look
+        if not _sc.optical_lens:
+            _sc.optical_lens = _bible_inst.master_lens_package
+        if not _sc.virtual_production:
+            _sc.virtual_production = _bible_inst.virtual_production
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -987,11 +1119,19 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_color_look = get_domain_color_look(bible.domain_archetype)
     if not bible.master_audio_mixer:
         bible.master_audio_mixer = get_domain_audio_mixer(bible.domain_archetype)
+    if not bible.master_lens_package:
+        bible.master_lens_package = get_domain_optical_lens(bible.domain_archetype)
+    if not bible.virtual_production:
+        bible.virtual_production = get_domain_virtual_production(bible.domain_archetype)
     for scene in bible.scenes:
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
         if not scene.scene_color_look:
             scene.scene_color_look = bible.master_color_look
+        if not scene.optical_lens:
+            scene.optical_lens = bible.master_lens_package
+        if not scene.virtual_production:
+            scene.virtual_production = bible.virtual_production
     return bible
 
 

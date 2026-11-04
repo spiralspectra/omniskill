@@ -49,6 +49,7 @@ from omni_director.presets import (
 )
 from omni_director.schemas import (
     ActionBeatSpec,
+    AnamorphicSqueeze,
     AscCdlSpec,
     AspectRatio,
     AudioStemMixerSpec,
@@ -61,11 +62,14 @@ from omni_director.schemas import (
     CouncilPersona,
     CraftCameraSpec,
     DiegeticSonicSpec,
+    DmxLightingFixture,
     KineticContactChain,
+    LedWallGeometry,
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
     NanoBananaReference,
+    OpticalLensSpec,
     PersonaReviewResult,
     ProductCouncilReport,
     ProductFeatureProposal,
@@ -76,11 +80,13 @@ from omni_director.schemas import (
     SceneKeyframeSpec,
     ScenePromptPayload,
     ScenePromptSpec,
+    SensorFormat,
     SpeedRampCurveSpec,
     SpeedRampMode,
     StemChannelStrip,
     StemType,
     StorytellingMode,
+    VirtualProductionStageSpec,
     load_bible_from_json,
 )
 from omni_director.telemetry import (
@@ -95,6 +101,8 @@ from omni_director.tools import (
     NanoBananaStoryboardEngine,
     audit_dialogue_pacing,
     audit_omni_scene_prompt,
+    calculate_hyperfocal_distance,
+    calculate_sensor_fov,
     cdl_to_svg_matrix_filter,
     compile_storyboard_html,
     compile_subtitles_srt,
@@ -107,21 +115,28 @@ from omni_director.tools import (
     export_audio_stems_file,
     export_audio_stems_manifest,
     export_cmx3600_edl,
+    export_dmx_patch_csv,
     export_fcpxml,
     export_fcpxml_timemap,
+    export_lens_metadata_csv,
+    export_lens_metadata_file,
     export_production_callsheet_md,
     export_shot_list_csv,
+    export_ue_ndisplay_manifest,
+    export_virtual_production_bundle,
     format_craft_shutter_tokens,
+    format_optical_prompt_token,
     generate_scene_coverage,
     generate_svg_storyboard_frame,
     get_preset_color_look,
     heal_omni_scene_prompt,
     synthesize_conversational_deltas,
     synthesize_default_stem_mixer,
+    synthesize_default_vp_stage,
     synthesize_speed_ramp_curve,
 )
 
-__version__ = "2.3.0"
+__version__ = "2.4.0"
 
 __all__ = [
     # Top-Level Runner & Config
@@ -180,6 +195,12 @@ __all__ = [
     "StemType",
     "StemChannelStrip",
     "AudioStemMixerSpec",
+    "SensorFormat",
+    "AnamorphicSqueeze",
+    "OpticalLensSpec",
+    "LedWallGeometry",
+    "DmxLightingFixture",
+    "VirtualProductionStageSpec",
     "load_bible_from_json",
     # Telemetry & Diagnostics
     "RuntimeTelemetry",
@@ -220,6 +241,17 @@ __all__ = [
     "export_audio_stems_manifest",
     "export_audio_stems_file",
     "estimate_broadcast_loudness",
+    # Optical Lens Suite (PM-FEAT-007)
+    "calculate_sensor_fov",
+    "calculate_hyperfocal_distance",
+    "format_optical_prompt_token",
+    "export_lens_metadata_csv",
+    "export_lens_metadata_file",
+    # Virtual Production Suite (PM-FEAT-008)
+    "synthesize_default_vp_stage",
+    "export_ue_ndisplay_manifest",
+    "export_dmx_patch_csv",
+    "export_virtual_production_bundle",
     # Agents
     "IntakeAndResearchAgent",
     "CreativeDirectorAgent",

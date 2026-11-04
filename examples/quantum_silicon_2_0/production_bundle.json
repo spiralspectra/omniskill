@@ -45,7 +45,20 @@
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
       "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
       "shutter_angle_deg": 180.0,
-      "shutter_timing_token": null
+      "shutter_timing_token": null,
+      "optical_lens": {
+        "sensor_format": "Full Frame (36.00 x 24.00mm)",
+        "anamorphic_squeeze": 1.0,
+        "focal_length_mm": 85,
+        "aperture_t_stop": 2.8,
+        "lens_series": "Leitz Prime Apochromatic Macro Rig",
+        "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+        "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+        "distortion_profile": "zero geometric distortion 0.05%",
+        "horizontal_fov_deg": 23.91,
+        "vertical_fov_deg": 16.07,
+        "hyperfocal_distance_m": 86.01
+      }
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -122,7 +135,20 @@
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
           "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Full Frame (36.00 x 24.00mm)",
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 85,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Leitz Prime Apochromatic Macro Rig",
+            "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+            "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+            "distortion_profile": "zero geometric distortion 0.05%",
+            "horizontal_fov_deg": 23.91,
+            "vertical_fov_deg": 16.07,
+            "hyperfocal_distance_m": 86.01
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -178,6 +204,91 @@
           },
           "contrast_pivot": 0.435,
           "halation_bloom": 0.0
+        },
+        "optical_lens": {
+          "sensor_format": "Full Frame (36.00 x 24.00mm)",
+          "anamorphic_squeeze": 1.0,
+          "focal_length_mm": 85,
+          "aperture_t_stop": 2.8,
+          "lens_series": "Leitz Prime Apochromatic Macro Rig",
+          "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+          "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+          "distortion_profile": "zero geometric distortion 0.05%",
+          "horizontal_fov_deg": 23.91,
+          "vertical_fov_deg": 16.07,
+          "hyperfocal_distance_m": 86.01
+        },
+        "virtual_production": {
+          "stage_name": "Cleanroom Micron LED Chamber Epsilon",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -199,7 +310,20 @@
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
           "tone_rig": "Warm spherical glass with smooth circular bokeh",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Full Frame (36.00 x 24.00mm)",
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 85,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Leitz Prime Apochromatic Macro Rig",
+            "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+            "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+            "distortion_profile": "zero geometric distortion 0.05%",
+            "horizontal_fov_deg": 23.91,
+            "vertical_fov_deg": 16.07,
+            "hyperfocal_distance_m": 86.01
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -255,6 +379,91 @@
           },
           "contrast_pivot": 0.435,
           "halation_bloom": 0.0
+        },
+        "optical_lens": {
+          "sensor_format": "Full Frame (36.00 x 24.00mm)",
+          "anamorphic_squeeze": 1.0,
+          "focal_length_mm": 85,
+          "aperture_t_stop": 2.8,
+          "lens_series": "Leitz Prime Apochromatic Macro Rig",
+          "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+          "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+          "distortion_profile": "zero geometric distortion 0.05%",
+          "horizontal_fov_deg": 23.91,
+          "vertical_fov_deg": 16.07,
+          "hyperfocal_distance_m": 86.01
+        },
+        "virtual_production": {
+          "stage_name": "Cleanroom Micron LED Chamber Epsilon",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       }
     ],
@@ -325,6 +534,91 @@
           "target_lufs": -18.0
         }
       }
+    },
+    "master_lens_package": {
+      "sensor_format": "Full Frame (36.00 x 24.00mm)",
+      "anamorphic_squeeze": 1.0,
+      "focal_length_mm": 85,
+      "aperture_t_stop": 2.8,
+      "lens_series": "Leitz Prime Apochromatic Macro Rig",
+      "bokeh_characteristic": "razor-sharp clean telecentric falloff",
+      "chromatic_aberration": "zero chromatic fringing under lithography lighting",
+      "distortion_profile": "zero geometric distortion 0.05%",
+      "horizontal_fov_deg": 23.91,
+      "vertical_fov_deg": 16.07,
+      "hyperfocal_distance_m": 86.01
+    },
+    "virtual_production": {
+      "stage_name": "Cleanroom Micron LED Chamber Epsilon",
+      "led_wall": {
+        "shape": "curved_horseshoe",
+        "diameter_meters": 24.0,
+        "height_meters": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "resolution_width_px": 15360,
+        "resolution_height_px": 2880,
+        "has_ceiling_led": true,
+        "has_floor_led": false
+      },
+      "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+      "ue_ndisplay_config_version": "5.4",
+      "parallax_depth_planes": {
+        "foreground_prop_m": 1.5,
+        "actor_stage_m": 3.5,
+        "led_wall_m": 8.0,
+        "virtual_bg_infinity_m": 500.0
+      },
+      "dmx_lighting_rig": [
+        {
+          "fixture_id": "KEY_SKY_01",
+          "fixture_type": "Arri SkyPanel S360-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 1,
+          "intensity_percent": 85.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        },
+        {
+          "fixture_id": "FILL_SKY_02",
+          "fixture_type": "Arri SkyPanel S120-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 16,
+          "intensity_percent": 55.0,
+          "color_temp_kelvin": 5200,
+          "gel_tint_cie_xy": [
+            0.315,
+            0.332
+          ]
+        },
+        {
+          "fixture_id": "RIM_ASTERA_01",
+          "fixture_type": "Astera Titan Tube FP1",
+          "dmx_universe": 2,
+          "dmx_channel_start": 1,
+          "intensity_percent": 70.0,
+          "color_temp_kelvin": 6000,
+          "gel_tint_cie_xy": [
+            0.308,
+            0.321
+          ]
+        },
+        {
+          "fixture_id": "CEILING_LITEMAT_01",
+          "fixture_type": "LiteMat Plus 4",
+          "dmx_universe": 2,
+          "dmx_channel_start": 32,
+          "intensity_percent": 40.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        }
+      ],
+      "lut_calibration_profile": "ACEScg_OCIO_v1.3"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -359,6 +653,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "85mm T2.8 (Full Frame (36.00 x 24.00mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Cleanroom Micron LED Chamber Epsilon (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -377,6 +677,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "85mm T2.8 (Full Frame (36.00 x 24.00mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Cleanroom Micron LED Chamber Epsilon (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -389,9 +695,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "c2814c3b-072c-42ac-af4f-35fc9eb7512e",
+    "session_id": "1aad2d50-e22b-4c0f-9c53-c6ec76f7783a",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-03T10:21:28.517342+00:00",
+    "timestamp": "2026-11-04T09:32:25.812823+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -401,67 +707,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-03T10:21:28.517350+00:00",
-        "end_time": "2026-11-03T10:21:28.517964+00:00",
-        "duration_ms": 0.61,
+        "start_time": "2026-11-04T09:32:25.812834+00:00",
+        "end_time": "2026-11-04T09:32:25.813415+00:00",
+        "duration_ms": 0.58,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-03T10:21:28.517975+00:00",
-        "end_time": "2026-11-03T10:21:28.518616+00:00",
-        "duration_ms": 0.64,
+        "start_time": "2026-11-04T09:32:25.813425+00:00",
+        "end_time": "2026-11-04T09:32:25.814093+00:00",
+        "duration_ms": 0.67,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-03T10:21:28.518624+00:00",
-        "end_time": "2026-11-03T10:21:28.519794+00:00",
-        "duration_ms": 1.17,
+        "start_time": "2026-11-04T09:32:25.814104+00:00",
+        "end_time": "2026-11-04T09:32:25.815251+00:00",
+        "duration_ms": 1.15,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-03T10:21:28.519805+00:00",
-        "end_time": "2026-11-03T10:21:28.519929+00:00",
-        "duration_ms": 0.12,
+        "start_time": "2026-11-04T09:32:25.815261+00:00",
+        "end_time": "2026-11-04T09:32:25.815392+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-03T10:21:28.519937+00:00",
-        "end_time": "2026-11-03T10:21:28.520189+00:00",
-        "duration_ms": 0.25,
+        "start_time": "2026-11-04T09:32:25.815400+00:00",
+        "end_time": "2026-11-04T09:32:25.815845+00:00",
+        "duration_ms": 0.44,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-03T10:21:28.520196+00:00",
-        "end_time": "2026-11-03T10:21:28.520199+00:00",
+        "start_time": "2026-11-04T09:32:25.815852+00:00",
+        "end_time": "2026-11-04T09:32:25.815855+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-03T10:21:28.520204+00:00",
-        "end_time": "2026-11-03T10:21:28.521519+00:00",
-        "duration_ms": 1.31,
+        "start_time": "2026-11-04T09:32:25.815860+00:00",
+        "end_time": "2026-11-04T09:32:25.817512+00:00",
+        "duration_ms": 1.65,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-03T10:21:28.524243+00:00",
-        "end_time": "2026-11-03T10:21:28.529219+00:00",
-        "duration_ms": 4.98,
+        "start_time": "2026-11-04T09:32:25.820269+00:00",
+        "end_time": "2026-11-04T09:32:25.825806+00:00",
+        "duration_ms": 5.54,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.08,
+    "total_duration_ms": 10.16,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "78aeb30d5434ba06b75f1f04b335ecfe8727719d753b5e698575f150f15a61ec",
-      "storyboard_preview.html": "c81e04d94b90ace3f5ca4fb67210e8927dae7e5b52377af3a0d056c91b55bb4a",
+      "production_bundle.json": "18acf49f244c36ab3a824bed74bd30fed58b60a36beba257754ba5b02a9e6091",
+      "storyboard_preview.html": "0c01e5cb2bdda060818e2aba97768901876b42f25a8aba35c25d40e2c153039f",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -475,9 +781,9 @@
     }
   },
   "council_report": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-03T10:21:28.528233+00:00",
+    "timestamp": "2026-11-04T09:32:25.824847+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -543,6 +849,28 @@
             "details": {
               "domain": "tech_hardware",
               "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "optical_lens_alignment",
+            "message": "Cinematic optical lens package verified: 85mm T2.8 (Full Frame (36.00 x 24.00mm)) for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "focal_length_mm": 85
+            }
+          },
+          {
+            "severity": "info",
+            "category": "virtual_production_alignment",
+            "message": "Virtual Production stage manifest verified: 'Cleanroom Micron LED Chamber Epsilon' with 4 DMX fixtures for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "stage_name": "Cleanroom Micron LED Chamber Epsilon"
             }
           }
         ],
@@ -632,6 +960,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/audio_mixer.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-007",
+        "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+        "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'Advanced Quantum Computing Silicon Proce' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+        "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/optical_lens.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-008",
+        "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+        "problem_statement": "High-end commercial productions for 'Advanced Quantum Computing Silicon Proce' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+        "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

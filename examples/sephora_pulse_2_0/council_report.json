@@ -1,7 +1,7 @@
 {
-  "version": "2.3.0",
+  "version": "2.4.0",
   "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-  "timestamp": "2026-11-03T10:21:28.380005+00:00",
+  "timestamp": "2026-11-04T09:32:25.611828+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -67,6 +67,28 @@
           "details": {
             "domain": "luxury_fashion",
             "scene_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "optical_lens_alignment",
+          "message": "Cinematic optical lens package verified: 50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "focal_length_mm": 50
+          }
+        },
+        {
+          "severity": "info",
+          "category": "virtual_production_alignment",
+          "message": "Virtual Production stage manifest verified: 'High-CRI Runway Prism Volume Gamma' with 4 DMX fixtures for domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "stage_name": "High-CRI Runway Prism Volume Gamma"
           }
         }
       ],
@@ -156,6 +178,34 @@
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/audio_mixer.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-007",
+      "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+      "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'SEPHORA: London Pulse (Midnight Velvet)' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+      "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/optical_lens.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-008",
+      "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+      "problem_statement": "High-end commercial productions for 'SEPHORA: London Pulse (Midnight Velvet)' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+      "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/virtual_production.py",
+        "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py"
       ],
       "priority": "P0",

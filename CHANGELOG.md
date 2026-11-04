@@ -2,6 +2,28 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.4.0] - 2026-11-04
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-007: Cinematic Optical Lens & Sensor Framing Suite**:
+  - Module: `omni_director/tools/optical_lens.py`.
+  - Added `SensorFormat`, `AnamorphicSqueeze`, and `OpticalLensSpec` schemas modeling standard physical sensor dimensions (Super35, Full Frame, ARRI LF, IMAX 70mm, VistaVision) and anamorphic squeeze factors (1.0x to 2.0x).
+  - Exact trigonometric Field of View (`calculate_sensor_fov`) and hyperfocal distance calculations (`calculate_hyperfocal_distance`).
+  - CRAFT camera grammar prompt token formatting (`format_optical_prompt_token`) embedding sensor size, lens series, focal length, T-stop, squeeze factor, and distortion profile.
+  - Optical lens metadata CSV export (`export_lens_metadata_csv` and `export_lens_metadata_file`) via `omni export --format lens` and `--format all`.
+  - Dark-Room Cinema Animatic Interactive Viewfinder HUD (`#animatic-viewfinder-overlay`, hotkey `V`) displaying 90% action-safe, 80% title-safe, 2.39:1 / 1.85:1 aspect crop lines, center crosshairs, and live optical badges (`.badge-lens`).
+- **PM-FEAT-008: Virtual Production LED Volume & Unreal Engine Stage Manifest / In-Camera VFX (ICVFX) Config**:
+  - Module: `omni_director/tools/virtual_production.py`.
+  - Added `LedWallGeometry`, `DmxLightingFixture`, and `VirtualProductionStageSpec` schemas modeling curved LED volumes, active ceiling canopies, DMX512 intelligent lighting rigs, and ACEScg OCIO color calibration.
+  - Unreal Engine 5.4 nDisplay stage configuration manifest generator (`export_ue_ndisplay_manifest`).
+  - GrandMA3 / Avolites DMX lighting patch sheet CSV generator (`export_dmx_patch_csv`).
+  - Virtual Production production bundle packaging (`export_virtual_production_bundle`) via `omni export --format vp` and `--format all`.
+  - Dark-Room Cinema Animatic Virtual Production Stage Modal (`#animatic-vp-stage-modal`, hotkey `P`) rendering an interactive top-down vector schematic of curved LED walls, active ceiling canopy, tracked camera position, and dynamic frustum.
+- **Autonomous Product Council Governance Expansion**:
+  - Integrated `PM-FEAT-007` and `PM-FEAT-008` verification into `ProductCouncilOrchestrator` across `council-strategist` and `council-ux-designer`.
+  - Added `convene_council` entrypoint to `ProductCouncilOrchestrator`.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated optical lens packages and virtual production stage specifications.
+
 ## [2.3.0] - 2026-11-03
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

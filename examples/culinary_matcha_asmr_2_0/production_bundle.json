@@ -45,7 +45,20 @@
       "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
       "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
       "shutter_angle_deg": 180.0,
-      "shutter_timing_token": null
+      "shutter_timing_token": null,
+      "optical_lens": {
+        "sensor_format": "Full Frame (36.00 x 24.00mm)",
+        "anamorphic_squeeze": 1.0,
+        "focal_length_mm": 100,
+        "aperture_t_stop": 2.8,
+        "lens_series": "Zeiss Supreme 100mm Macro Prime",
+        "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+        "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+        "distortion_profile": "zero geometric distortion rectilinear",
+        "horizontal_fov_deg": 20.41,
+        "vertical_fov_deg": 13.69,
+        "hyperfocal_distance_m": 119.05
+      }
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -122,7 +135,20 @@
           "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
           "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Full Frame (36.00 x 24.00mm)",
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 100,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Zeiss Supreme 100mm Macro Prime",
+            "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+            "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+            "distortion_profile": "zero geometric distortion rectilinear",
+            "horizontal_fov_deg": 20.41,
+            "vertical_fov_deg": 13.69,
+            "hyperfocal_distance_m": 119.05
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -190,6 +216,91 @@
           },
           "contrast_pivot": 0.45,
           "halation_bloom": 0.18
+        },
+        "optical_lens": {
+          "sensor_format": "Full Frame (36.00 x 24.00mm)",
+          "anamorphic_squeeze": 1.0,
+          "focal_length_mm": 100,
+          "aperture_t_stop": 2.8,
+          "lens_series": "Zeiss Supreme 100mm Macro Prime",
+          "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+          "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+          "distortion_profile": "zero geometric distortion rectilinear",
+          "horizontal_fov_deg": 20.41,
+          "vertical_fov_deg": 13.69,
+          "hyperfocal_distance_m": 119.05
+        },
+        "virtual_production": {
+          "stage_name": "Micro-Acoustic Tabletop Volume Beta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -211,7 +322,20 @@
           "focus_axis": "Shallow depth of field with locked subject focal tracking",
           "tone_rig": "Warm spherical glass with smooth circular bokeh",
           "shutter_angle_deg": 180.0,
-          "shutter_timing_token": null
+          "shutter_timing_token": null,
+          "optical_lens": {
+            "sensor_format": "Full Frame (36.00 x 24.00mm)",
+            "anamorphic_squeeze": 1.0,
+            "focal_length_mm": 100,
+            "aperture_t_stop": 2.8,
+            "lens_series": "Zeiss Supreme 100mm Macro Prime",
+            "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+            "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+            "distortion_profile": "zero geometric distortion rectilinear",
+            "horizontal_fov_deg": 20.41,
+            "vertical_fov_deg": 13.69,
+            "hyperfocal_distance_m": 119.05
+          }
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -279,6 +403,91 @@
           },
           "contrast_pivot": 0.45,
           "halation_bloom": 0.18
+        },
+        "optical_lens": {
+          "sensor_format": "Full Frame (36.00 x 24.00mm)",
+          "anamorphic_squeeze": 1.0,
+          "focal_length_mm": 100,
+          "aperture_t_stop": 2.8,
+          "lens_series": "Zeiss Supreme 100mm Macro Prime",
+          "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+          "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+          "distortion_profile": "zero geometric distortion rectilinear",
+          "horizontal_fov_deg": 20.41,
+          "vertical_fov_deg": 13.69,
+          "hyperfocal_distance_m": 119.05
+        },
+        "virtual_production": {
+          "stage_name": "Micro-Acoustic Tabletop Volume Beta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       }
     ],
@@ -349,6 +558,91 @@
           "target_lufs": -22.0
         }
       }
+    },
+    "master_lens_package": {
+      "sensor_format": "Full Frame (36.00 x 24.00mm)",
+      "anamorphic_squeeze": 1.0,
+      "focal_length_mm": 100,
+      "aperture_t_stop": 2.8,
+      "lens_series": "Zeiss Supreme 100mm Macro Prime",
+      "bokeh_characteristic": "buttery circular 9-blade macro falloff",
+      "chromatic_aberration": "apochromatic zero-dispersion fluorite",
+      "distortion_profile": "zero geometric distortion rectilinear",
+      "horizontal_fov_deg": 20.41,
+      "vertical_fov_deg": 13.69,
+      "hyperfocal_distance_m": 119.05
+    },
+    "virtual_production": {
+      "stage_name": "Micro-Acoustic Tabletop Volume Beta",
+      "led_wall": {
+        "shape": "curved_horseshoe",
+        "diameter_meters": 24.0,
+        "height_meters": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "resolution_width_px": 15360,
+        "resolution_height_px": 2880,
+        "has_ceiling_led": true,
+        "has_floor_led": false
+      },
+      "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+      "ue_ndisplay_config_version": "5.4",
+      "parallax_depth_planes": {
+        "foreground_prop_m": 1.5,
+        "actor_stage_m": 3.5,
+        "led_wall_m": 8.0,
+        "virtual_bg_infinity_m": 500.0
+      },
+      "dmx_lighting_rig": [
+        {
+          "fixture_id": "KEY_SKY_01",
+          "fixture_type": "Arri SkyPanel S360-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 1,
+          "intensity_percent": 85.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        },
+        {
+          "fixture_id": "FILL_SKY_02",
+          "fixture_type": "Arri SkyPanel S120-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 16,
+          "intensity_percent": 55.0,
+          "color_temp_kelvin": 5200,
+          "gel_tint_cie_xy": [
+            0.315,
+            0.332
+          ]
+        },
+        {
+          "fixture_id": "RIM_ASTERA_01",
+          "fixture_type": "Astera Titan Tube FP1",
+          "dmx_universe": 2,
+          "dmx_channel_start": 1,
+          "intensity_percent": 70.0,
+          "color_temp_kelvin": 6000,
+          "gel_tint_cie_xy": [
+            0.308,
+            0.321
+          ]
+        },
+        {
+          "fixture_id": "CEILING_LITEMAT_01",
+          "fixture_type": "LiteMat Plus 4",
+          "dmx_universe": 2,
+          "dmx_channel_start": 32,
+          "intensity_percent": 40.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        }
+      ],
+      "lut_calibration_profile": "ACEScg_OCIO_v1.3"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -383,6 +677,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "100mm T2.8 (Full Frame (36.00 x 24.00mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Micro-Acoustic Tabletop Volume Beta (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -401,6 +701,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 2,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "100mm T2.8 (Full Frame (36.00 x 24.00mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Micro-Acoustic Tabletop Volume Beta (FreeD / OptiTrack Active Optical)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -413,9 +719,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "8e7ae2e9-141c-401d-a9ba-79cf1ecc1457",
+    "session_id": "1ce1e5a7-4491-4fc0-9a9b-d3d04d3741c5",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-03T10:21:28.499282+00:00",
+    "timestamp": "2026-11-04T09:32:25.791820+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -425,67 +731,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-03T10:21:28.499295+00:00",
-        "end_time": "2026-11-03T10:21:28.499908+00:00",
+        "start_time": "2026-11-04T09:32:25.791832+00:00",
+        "end_time": "2026-11-04T09:32:25.792444+00:00",
         "duration_ms": 0.61,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-03T10:21:28.499920+00:00",
-        "end_time": "2026-11-03T10:21:28.500613+00:00",
-        "duration_ms": 0.69,
+        "start_time": "2026-11-04T09:32:25.792455+00:00",
+        "end_time": "2026-11-04T09:32:25.793191+00:00",
+        "duration_ms": 0.74,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-03T10:21:28.500622+00:00",
-        "end_time": "2026-11-03T10:21:28.501775+00:00",
-        "duration_ms": 1.15,
+        "start_time": "2026-11-04T09:32:25.793204+00:00",
+        "end_time": "2026-11-04T09:32:25.794598+00:00",
+        "duration_ms": 1.39,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-03T10:21:28.501791+00:00",
-        "end_time": "2026-11-03T10:21:28.501932+00:00",
-        "duration_ms": 0.14,
+        "start_time": "2026-11-04T09:32:25.794609+00:00",
+        "end_time": "2026-11-04T09:32:25.794744+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-03T10:21:28.501940+00:00",
-        "end_time": "2026-11-03T10:21:28.502243+00:00",
-        "duration_ms": 0.3,
+        "start_time": "2026-11-04T09:32:25.794752+00:00",
+        "end_time": "2026-11-04T09:32:25.795179+00:00",
+        "duration_ms": 0.43,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-03T10:21:28.502250+00:00",
-        "end_time": "2026-11-03T10:21:28.502253+00:00",
+        "start_time": "2026-11-04T09:32:25.795189+00:00",
+        "end_time": "2026-11-04T09:32:25.795191+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-03T10:21:28.502258+00:00",
-        "end_time": "2026-11-03T10:21:28.503687+00:00",
-        "duration_ms": 1.43,
+        "start_time": "2026-11-04T09:32:25.795197+00:00",
+        "end_time": "2026-11-04T09:32:25.797074+00:00",
+        "duration_ms": 1.88,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-03T10:21:28.506807+00:00",
-        "end_time": "2026-11-03T10:21:28.511997+00:00",
-        "duration_ms": 5.19,
+        "start_time": "2026-11-04T09:32:25.800666+00:00",
+        "end_time": "2026-11-04T09:32:25.806079+00:00",
+        "duration_ms": 5.41,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.51,
+    "total_duration_ms": 10.59,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "cbd57ae498cfd1d2b3ddb3b42bd703f13429d4f75137b774c14cd967da477851",
-      "storyboard_preview.html": "3da2c095a877d111a05071f922ef633905c3a899968a9b3d6100f22b68655637",
+      "production_bundle.json": "cfd6b62f80a78bb64bfa3aff8feb8026f742d279cd0f8a7f3d81afdb564ad55b",
+      "storyboard_preview.html": "a808e41dac4c050d9fb3fa4229d453610c6cad78bd9fb2e7a06a013b5a6977be",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -499,9 +805,9 @@
     }
   },
   "council_report": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-03T10:21:28.510944+00:00",
+    "timestamp": "2026-11-04T09:32:25.805189+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -567,6 +873,28 @@
             "details": {
               "domain": "culinary_asmr",
               "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "optical_lens_alignment",
+            "message": "Cinematic optical lens package verified: 100mm T2.8 (Full Frame (36.00 x 24.00mm)) for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "focal_length_mm": 100
+            }
+          },
+          {
+            "severity": "info",
+            "category": "virtual_production_alignment",
+            "message": "Virtual Production stage manifest verified: 'Micro-Acoustic Tabletop Volume Beta' with 4 DMX fixtures for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "stage_name": "Micro-Acoustic Tabletop Volume Beta"
             }
           }
         ],
@@ -656,6 +984,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/audio_mixer.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-007",
+        "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+        "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'Artisanal Japanese Culinary Ceremonial M' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+        "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/optical_lens.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-008",
+        "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+        "problem_statement": "High-end commercial productions for 'Artisanal Japanese Culinary Ceremonial M' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+        "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

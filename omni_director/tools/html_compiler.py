@@ -360,6 +360,30 @@ def compile_storyboard_html(
             shutter_token = format_craft_shutter_tokens(shutter_deg, 24)
             speed_ramp_badge_html = f'<span class="badge-speed-ramp" title="{shutter_token}">⚡ {shutter_deg:.0f}° Shutter</span>'
 
+        # Optical Lens Spec Badge (PM-FEAT-007)
+        lens_spec = getattr(scene, "optical_lens", None)
+        if lens_spec is None and getattr(scene, "craft_camera", None) is not None:
+            lens_spec = getattr(scene.craft_camera, "optical_lens", None)
+        if lens_spec is None and getattr(bible, "master_lens_package", None) is not None:
+            lens_spec = bible.master_lens_package
+
+        lens_badge_html = ""
+        lens_hud_text = "VF: 35mm T2.8 Full Frame"
+        if lens_spec is not None:
+            sensor_str = lens_spec.sensor_format.value if hasattr(lens_spec.sensor_format, "value") else str(lens_spec.sensor_format)
+            short_sensor = sensor_str.split(" ")[0]
+            lens_badge_html = f'<span class="badge-lens" title="Sensor: {sensor_str}, Squeeze: {lens_spec.anamorphic_squeeze}x, Lens: {lens_spec.lens_series}">🔭 {lens_spec.focal_length_mm}mm T{lens_spec.aperture_t_stop} ({short_sensor})</span>'
+            fov_part = f"{lens_spec.horizontal_fov_deg:.1f}° FOV" if lens_spec.horizontal_fov_deg is not None else ""
+            hyper_part = f"H: {lens_spec.hyperfocal_distance_m:.1f}m" if lens_spec.hyperfocal_distance_m is not None else ""
+            lens_hud_text = f"VF: {lens_spec.focal_length_mm}mm T{lens_spec.aperture_t_stop} · {short_sensor} · {fov_part} · {hyper_part}".strip(" ·")
+
+        # Virtual Production Stage Badge (PM-FEAT-008)
+        vp_spec = getattr(scene, "virtual_production", None) or getattr(bible, "virtual_production", None)
+        vp_badge_html = ""
+        if vp_spec is not None:
+            proto_val = vp_spec.frustum_tracking_protocol.value if hasattr(vp_spec.frustum_tracking_protocol, "value") else str(vp_spec.frustum_tracking_protocol)
+            vp_badge_html = f'<span class="badge-vp" title="LED Volume: {vp_spec.stage_name}, Tracking: {proto_val}">🎬 {vp_spec.stage_name}</span>'
+
         scenes_html.append(f"""
         <div class="scene-card" id="scene-{s_idx}" data-scene-index="{s_idx}" data-start-sec="{scene_start_sec:.2f}" data-end-sec="{scene_end_sec:.2f}" data-caption="{scene_caption_attr}" role="region" aria-label="Scene {s_idx}">
           <div class="scene-header">
@@ -368,6 +392,8 @@ def compile_storyboard_html(
               <h3 class="scene-title">{scene.scene_title}</h3>
               <span class="scene-time">{scene.timestamp_range}</span>
               {speed_ramp_badge_html}
+              {lens_badge_html}
+              {vp_badge_html}
             </div>
             <div class="scene-actions">
               <button type="button" class="{audit_badge_class} btn-audit-toggle" onclick="toggleAuditDrawer({s_idx})" aria-expanded="false" aria-controls="audit-drawer-{s_idx}">
@@ -383,6 +409,13 @@ def compile_storyboard_html(
             <div class="scene-visual-col">
               <div class="scene-visual-frame aspect-{bible.aspect_ratio.value.replace(':', '-').replace('.', '_')}">
                 {scene_plate_svg}
+                <div class="viewfinder-overlay" id="viewfinder-overlay-{s_idx}" aria-hidden="true">
+                  <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
+                  <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
+                  <div class="vf-scope-reticle" title="2.39:1 Scope Reticle"></div>
+                  <div class="vf-crosshair" title="Center Crosshair"></div>
+                  <div class="vf-lens-hud"><span class="vf-hud-text">{lens_hud_text}</span></div>
+                </div>
               </div>
               <div class="camera-telemetry" id="craft-telemetry-{s_idx}">
                 <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-{s_idx}">{craft_summary}</span>
@@ -477,6 +510,41 @@ def compile_storyboard_html(
     bgm = bible.master_bgm
     bgm_stems_html = "".join([f'<span class="meta-tag">{s}</span>' for s in bgm.instrumentation])
     escaped_lyria = bgm.lyria_prompt.replace('`', "'")
+
+    # Master Lens & Virtual Production extraction for HUD and Modals (PM-FEAT-007, PM-FEAT-008)
+    master_lens = getattr(bible, "master_lens_package", None)
+    master_lens_text = "35mm Prime T2.8 · Full Frame 35mm"
+    if master_lens:
+        s_val = master_lens.sensor_format.value if hasattr(master_lens.sensor_format, "value") else str(master_lens.sensor_format)
+        master_lens_text = f"{master_lens.focal_length_mm}mm T{master_lens.aperture_t_stop} · {s_val} · {master_lens.anamorphic_squeeze}x Squeeze · {master_lens.lens_series}"
+
+    master_vp = getattr(bible, "virtual_production", None)
+    vp_stage_name = getattr(master_vp, "stage_name", "Artemis Volume Alpha") if master_vp else "Artemis Volume Alpha"
+    vp_tracking = getattr(master_vp, "frustum_tracking_protocol", "OptiTrack eSync") if master_vp else "OptiTrack eSync"
+    vp_tracking_protocol = vp_tracking.value if hasattr(vp_tracking, "value") else str(vp_tracking)
+    vp_wall_curve = f"{master_vp.wall_curve_radius_m:.1f}m Radius (Horseshoe)" if master_vp and getattr(master_vp, "wall_curve_radius_m", None) else "12.0m Radius"
+    vp_wall_dims = f"{getattr(master_vp, 'wall_width_m', 24.0):.1f}m W × {getattr(master_vp, 'wall_height_m', 6.5):.1f}m H" if master_vp else "24.0m W × 6.5m H"
+    vp_ceiling_info = "Active LED Canopy (6.0m Elev, 800 nits)" if master_vp and getattr(master_vp, "has_ceiling_canopy", True) else "None"
+    vp_fixtures_count = len(getattr(master_vp, "dmx_fixtures", [])) if master_vp else 0
+
+    dmx_rows = []
+    if master_vp and getattr(master_vp, "dmx_fixtures", None):
+        for fix in master_vp.dmx_fixtures:
+            k_temp = getattr(fix, "color_temp_kelvin", getattr(fix, "color_temperature_k", 5600))
+            dmx_rows.append(f'<div class="vp-dmx-row"><span class="dmx-id">{fix.fixture_id}</span> <span class="dmx-type">{fix.fixture_type}</span> <span class="dmx-addr">Ch {fix.dmx_universe}.{fix.dmx_channel_start:03d}</span> <span class="dmx-temp">{k_temp}K</span></div>')
+    vp_dmx_rows_html = "".join(dmx_rows) if dmx_rows else '<div class="vp-dmx-row" style="color: var(--text-dim);">No DMX fixtures mapped.</div>'
+
+    vp_schematic_svg = """<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" class="vp-schematic-svg">
+  <rect width="400" height="240" fill="#05060A" rx="6"/>
+  <path d="M 50 180 C 50 60, 350 60, 350 180" fill="none" stroke="#00F0FF" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="200" cy="80" rx="110" ry="25" fill="none" stroke="#FFB800" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="200,200 130,90 270,90" fill="rgba(0,240,255,0.08)" stroke="#00F0FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="200" cy="205" r="7" fill="#FF3366"/>
+  <text x="200" y="225" font-family="monospace" font-size="10" fill="#F0F2F8" text-anchor="middle">TRACKED CAMERA</text>
+  <text x="200" y="45" font-family="monospace" font-size="10" fill="#FFB800" text-anchor="middle">ACTIVE LED CEILING CANOPY</text>
+  <text x="200" y="140" font-family="monospace" font-size="10" fill="#00F0FF" text-anchor="middle">DYNAMIC ICVFX FRUSTUM</text>
+  <text x="40" y="200" font-family="monospace" font-size="9" fill="#7E88A4">STAGE ORIGIN [0,0,0]</text>
+</svg>"""
 
     # Serialize bible for client-side export
     bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
@@ -1757,6 +1825,245 @@ def compile_storyboard_html(
       margin-top: 2px;
     }}
 
+    /* Optical Lens & VP Badges */
+    .badge-lens {{
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: help;
+    }}
+    .badge-vp {{
+      background: rgba(255, 51, 102, 0.12);
+      border: 1px solid rgba(255, 51, 102, 0.35);
+      color: var(--crimson-accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+    }}
+
+    /* Viewfinder Safe Guides HUD Overlay */
+    .viewfinder-overlay {{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 10;
+      transition: opacity 0.2s ease;
+    }}
+    body.hide-viewfinder .viewfinder-overlay,
+    body.hide-viewfinder .animatic-viewfinder-overlay {{
+      display: none !important;
+    }}
+    .vf-action-safe {{
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      right: 5%;
+      bottom: 5%;
+      border: 1px dashed rgba(0, 240, 255, 0.45);
+      border-radius: 2px;
+    }}
+    .vf-title-safe {{
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      right: 10%;
+      bottom: 10%;
+      border: 1px dotted rgba(255, 184, 0, 0.45);
+      border-radius: 2px;
+    }}
+    .vf-scope-reticle {{
+      position: absolute;
+      top: 12.5%;
+      left: 0;
+      right: 0;
+      bottom: 12.5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }}
+    .vf-crosshair {{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+    }}
+    .vf-crosshair::before {{
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: rgba(0, 240, 255, 0.7);
+    }}
+    .vf-crosshair::after {{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 7px;
+      width: 2px;
+      height: 16px;
+      background: rgba(0, 240, 255, 0.7);
+    }}
+    .vf-lens-hud {{
+      position: absolute;
+      bottom: 8px;
+      left: 12px;
+      background: rgba(7, 8, 11, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--cyan-telemetry);
+    }}
+    .animatic-viewfinder-overlay {{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }}
+
+    /* Virtual Production Stage Modal */
+    .vp-stage-modal {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 8, 11, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }}
+    .vp-stage-modal-content {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      max-width: 860px;
+      width: 100%;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }}
+    .vp-stage-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }}
+    .vp-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .vp-icon {{ font-size: 24px; }}
+    .vp-heading {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }}
+    .vp-subheading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+    }}
+    .btn-vp-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }}
+    .btn-vp-close:hover {{
+      color: #FFF;
+      border-color: var(--crimson-accent);
+      background: rgba(255, 51, 102, 0.15);
+    }}
+    .vp-stage-body {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }}
+    @media (max-width: 768px) {{
+      .vp-stage-body {{ grid-template-columns: 1fr; }}
+    }}
+    .vp-schematic-wrap {{
+      background: #05060A;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }}
+    .vp-schematic-svg {{
+      width: 100%;
+      height: auto;
+      display: block;
+    }}
+    .vp-telemetry-block {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }}
+    .vp-telemetry-block strong {{ color: var(--text-main); }}
+    .vp-dmx-list {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 12px;
+    }}
+    .vp-dmx-row {{
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 3px;
+    }}
+    .vp-dmx-row:last-child {{ border-bottom: none; padding-bottom: 0; }}
+    .dmx-id {{ color: var(--cyan-telemetry); font-weight: 700; }}
+    .dmx-addr {{ color: var(--amber-gold); }}
+    .dmx-temp {{ color: var(--green-pass); }}
+
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
@@ -1795,7 +2102,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [V] Viewfinder · [P] VP Stage · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -1818,6 +2125,12 @@ def compile_storyboard_html(
         </button>
         <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
           CC [C]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-viewfinder-animatic" onclick="toggleViewfinder()" aria-label="Toggle Optical Viewfinder Safe Guides [V]" aria-pressed="true">
+          🔭 VF [V]
+        </button>
+        <button type="button" class="btn-loop" id="btn-vp-stage-animatic" onclick="toggleVPStageModal()" aria-label="Toggle Virtual Production Stage Modal [P]" aria-pressed="false">
+          🎬 VP Stage [P]
         </button>
         <div class="look-grading-controls" role="group" aria-label="Color Science and Look Grading">
           <label for="look-selector" class="look-label">LOOK:</label>
@@ -1856,6 +2169,13 @@ def compile_storyboard_html(
     </div>
     <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
       [CC] Scene 01 Ready
+    </div>
+    <div id="animatic-viewfinder-overlay" class="animatic-viewfinder-overlay" style="display: none;" aria-hidden="true">
+      <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
+      <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
+      <div class="vf-scope-reticle" title="2.39:1 Scope Reticle"></div>
+      <div class="vf-crosshair" title="Center Crosshair"></div>
+      <div class="vf-lens-hud"><span id="vf-master-lens-text">{master_lens_text}</span></div>
     </div>
   </aside>
 
@@ -2005,6 +2325,46 @@ def compile_storyboard_html(
     </div>
   </aside>
 
+  <!-- Virtual Production LED Volume Stage Modal (PM-FEAT-008) -->
+  <div id="animatic-vp-stage-modal" class="vp-stage-modal" role="dialog" aria-modal="true" aria-label="Virtual Production LED Volume Stage Schematic" style="display: none;">
+    <div class="vp-stage-modal-content">
+      <div class="vp-stage-modal-header">
+        <div class="vp-title-wrap">
+          <span class="vp-icon">🎬</span>
+          <div>
+            <h3 class="vp-heading">VIRTUAL PRODUCTION LED VOLUME</h3>
+            <span class="vp-subheading">{vp_stage_name} · {vp_tracking_protocol}</span>
+          </div>
+        </div>
+        <button type="button" class="btn-vp-close" onclick="toggleVPStageModal()" aria-label="Close Virtual Production Modal">✕</button>
+      </div>
+      <div class="vp-stage-body">
+        <div class="vp-schematic-col">
+          <div class="col-heading">LED STAGE GEOMETRY SCHEMATIC</div>
+          <div class="vp-schematic-wrap">
+            {vp_schematic_svg}
+          </div>
+        </div>
+        <div class="vp-specs-col">
+          <div class="col-heading">ICVFX &amp; NDISPLAY TELEMETRY</div>
+          <div class="vp-telemetry-block">
+            <strong>Stage Name:</strong> {vp_stage_name}<br>
+            <strong>LED Wall Curve:</strong> {vp_wall_curve}<br>
+            <strong>Dimensions:</strong> {vp_wall_dims}<br>
+            <strong>Ceiling Canopy:</strong> {vp_ceiling_info}<br>
+            <strong>Tracking Protocol:</strong> {vp_tracking_protocol}<br>
+            <strong>Unreal Engine:</strong> UE 5.4 ICVFX nDisplay<br>
+            <strong>Color Space:</strong> ACEScg / DCI-P3 LED Panels
+          </div>
+          <div class="col-heading" style="margin-top: 12px;">DMX LIGHTING FIXTURES ({vp_fixtures_count} FIXTURES)</div>
+          <div class="vp-dmx-list">
+            {vp_dmx_rows_html}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -2134,6 +2494,32 @@ def compile_storyboard_html(
       document.body.classList.toggle('hide-safe-guides');
       const isHidden = document.body.classList.contains('hide-safe-guides');
       showToast(isHidden ? "Safe Action & Title Guides: HIDDEN" : "Safe Action & Title Guides: VISIBLE");
+    }}
+
+    let isViewfinderEnabled = true;
+    function toggleViewfinder() {{
+      isViewfinderEnabled = !isViewfinderEnabled;
+      document.body.classList.toggle('hide-viewfinder', !isViewfinderEnabled);
+      const btn = document.getElementById('btn-viewfinder-animatic');
+      if (btn) {{
+        btn.classList.toggle('active', isViewfinderEnabled);
+        btn.setAttribute('aria-pressed', isViewfinderEnabled ? 'true' : 'false');
+      }}
+      showToast(isViewfinderEnabled ? "Optical Viewfinder & Safe Guides: ON" : "Optical Viewfinder & Safe Guides: OFF");
+    }}
+
+    let isVPStageModalOpen = false;
+    function toggleVPStageModal() {{
+      isVPStageModalOpen = !isVPStageModalOpen;
+      const modal = document.getElementById('animatic-vp-stage-modal');
+      const btn = document.getElementById('btn-vp-stage-animatic');
+      if (modal) {{
+        modal.style.display = isVPStageModalOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isVPStageModalOpen);
+        btn.setAttribute('aria-pressed', isVPStageModalOpen ? 'true' : 'false');
+      }}
     }}
 
     function toggleAuditDrawer(sceneIdx) {{
@@ -2833,6 +3219,10 @@ def compile_storyboard_html(
         toggleCC();
       }} else if (e.key === 'g' || e.key === 'G') {{
         toggleSafeGuides();
+      }} else if (e.key === 'v' || e.key === 'V') {{
+        toggleViewfinder();
+      }} else if (e.key === 'p' || e.key === 'P') {{
+        toggleVPStageModal();
       }}
     }});
 

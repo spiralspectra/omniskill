@@ -35,7 +35,8 @@
       "focus_axis": "Razor-thin f/2.8 macro depth of field with micro-racks across thread layers.",
       "tone_rig": "Hyper-technical industrial commercial.",
       "shutter_angle_deg": 180.0,
-      "shutter_timing_token": null
+      "shutter_timing_token": null,
+      "optical_lens": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -165,6 +166,91 @@
           },
           "contrast_pivot": 0.46,
           "halation_bloom": 0.12
+        },
+        "optical_lens": {
+          "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
+          "anamorphic_squeeze": 1.33,
+          "focal_length_mm": 35,
+          "aperture_t_stop": 2.0,
+          "lens_series": "Panavision Ultra Vista Large Format",
+          "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+          "chromatic_aberration": "apochromatic high-contrast edge rendering",
+          "distortion_profile": "low-dispersion edge compression 0.8%",
+          "horizontal_fov_deg": 106.44,
+          "vertical_fov_deg": 73.88,
+          "hyperfocal_distance_m": 20.42
+        },
+        "virtual_production": {
+          "stage_name": "Deep Horseshoe High-Velocity Volume Delta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -238,6 +324,91 @@
           },
           "contrast_pivot": 0.46,
           "halation_bloom": 0.12
+        },
+        "optical_lens": {
+          "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
+          "anamorphic_squeeze": 1.33,
+          "focal_length_mm": 35,
+          "aperture_t_stop": 2.0,
+          "lens_series": "Panavision Ultra Vista Large Format",
+          "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+          "chromatic_aberration": "apochromatic high-contrast edge rendering",
+          "distortion_profile": "low-dispersion edge compression 0.8%",
+          "horizontal_fov_deg": 106.44,
+          "vertical_fov_deg": 73.88,
+          "hyperfocal_distance_m": 20.42
+        },
+        "virtual_production": {
+          "stage_name": "Deep Horseshoe High-Velocity Volume Delta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -311,6 +482,91 @@
           },
           "contrast_pivot": 0.46,
           "halation_bloom": 0.12
+        },
+        "optical_lens": {
+          "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
+          "anamorphic_squeeze": 1.33,
+          "focal_length_mm": 35,
+          "aperture_t_stop": 2.0,
+          "lens_series": "Panavision Ultra Vista Large Format",
+          "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+          "chromatic_aberration": "apochromatic high-contrast edge rendering",
+          "distortion_profile": "low-dispersion edge compression 0.8%",
+          "horizontal_fov_deg": 106.44,
+          "vertical_fov_deg": 73.88,
+          "hyperfocal_distance_m": 20.42
+        },
+        "virtual_production": {
+          "stage_name": "Deep Horseshoe High-Velocity Volume Delta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -384,6 +640,91 @@
           },
           "contrast_pivot": 0.46,
           "halation_bloom": 0.12
+        },
+        "optical_lens": {
+          "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
+          "anamorphic_squeeze": 1.33,
+          "focal_length_mm": 35,
+          "aperture_t_stop": 2.0,
+          "lens_series": "Panavision Ultra Vista Large Format",
+          "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+          "chromatic_aberration": "apochromatic high-contrast edge rendering",
+          "distortion_profile": "low-dispersion edge compression 0.8%",
+          "horizontal_fov_deg": 106.44,
+          "vertical_fov_deg": 73.88,
+          "hyperfocal_distance_m": 20.42
+        },
+        "virtual_production": {
+          "stage_name": "Deep Horseshoe High-Velocity Volume Delta",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       }
     ],
@@ -454,6 +795,91 @@
           "target_lufs": -16.0
         }
       }
+    },
+    "master_lens_package": {
+      "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
+      "anamorphic_squeeze": 1.33,
+      "focal_length_mm": 35,
+      "aperture_t_stop": 2.0,
+      "lens_series": "Panavision Ultra Vista Large Format",
+      "bokeh_characteristic": "dynamic wide-angle elliptical focus falloff",
+      "chromatic_aberration": "apochromatic high-contrast edge rendering",
+      "distortion_profile": "low-dispersion edge compression 0.8%",
+      "horizontal_fov_deg": 106.44,
+      "vertical_fov_deg": 73.88,
+      "hyperfocal_distance_m": 20.42
+    },
+    "virtual_production": {
+      "stage_name": "Deep Horseshoe High-Velocity Volume Delta",
+      "led_wall": {
+        "shape": "curved_horseshoe",
+        "diameter_meters": 24.0,
+        "height_meters": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "resolution_width_px": 15360,
+        "resolution_height_px": 2880,
+        "has_ceiling_led": true,
+        "has_floor_led": false
+      },
+      "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+      "ue_ndisplay_config_version": "5.4",
+      "parallax_depth_planes": {
+        "foreground_prop_m": 1.5,
+        "actor_stage_m": 3.5,
+        "led_wall_m": 8.0,
+        "virtual_bg_infinity_m": 500.0
+      },
+      "dmx_lighting_rig": [
+        {
+          "fixture_id": "KEY_SKY_01",
+          "fixture_type": "Arri SkyPanel S360-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 1,
+          "intensity_percent": 85.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        },
+        {
+          "fixture_id": "FILL_SKY_02",
+          "fixture_type": "Arri SkyPanel S120-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 16,
+          "intensity_percent": 55.0,
+          "color_temp_kelvin": 5200,
+          "gel_tint_cie_xy": [
+            0.315,
+            0.332
+          ]
+        },
+        {
+          "fixture_id": "RIM_ASTERA_01",
+          "fixture_type": "Astera Titan Tube FP1",
+          "dmx_universe": 2,
+          "dmx_channel_start": 1,
+          "intensity_percent": 70.0,
+          "color_temp_kelvin": 6000,
+          "gel_tint_cie_xy": [
+            0.308,
+            0.321
+          ]
+        },
+        {
+          "fixture_id": "CEILING_LITEMAT_01",
+          "fixture_type": "LiteMat Plus 4",
+          "dmx_universe": 2,
+          "dmx_channel_start": 32,
+          "intensity_percent": 40.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        }
+      ],
+      "lut_calibration_profile": "ACEScg_OCIO_v1.3"
     }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
@@ -502,6 +928,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "35mm T2.0 (IMAX 15/70mm (70.41 x 52.63mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Deep Horseshoe High-Velocity Volume Delta (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>",
@@ -517,6 +949,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "35mm T2.0 (IMAX 15/70mm (70.41 x 52.63mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Deep Horseshoe High-Velocity Volume Delta (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>",
@@ -532,6 +970,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "35mm T2.0 (IMAX 15/70mm (70.41 x 52.63mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Deep Horseshoe High-Velocity Volume Delta (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -546,15 +990,21 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "35mm T2.0 (IMAX 15/70mm (70.41 x 52.63mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "Deep Horseshoe High-Velocity Volume Delta (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true
       }
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "ff78082c-2657-4604-b796-e583c762136a",
+    "session_id": "7ca41ee5-afb7-428d-b853-6d569ea68feb",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-03T10:21:28.405814+00:00",
+    "timestamp": "2026-11-04T09:32:25.655320+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -564,67 +1014,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-03T10:21:28.405824+00:00",
-        "end_time": "2026-11-03T10:21:28.405829+00:00",
-        "duration_ms": 0.0,
+        "start_time": "2026-11-04T09:32:25.655337+00:00",
+        "end_time": "2026-11-04T09:32:25.655345+00:00",
+        "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-03T10:21:28.405839+00:00",
-        "end_time": "2026-11-03T10:21:28.405994+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-04T09:32:25.655358+00:00",
+        "end_time": "2026-11-04T09:32:25.655581+00:00",
+        "duration_ms": 0.22,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-03T10:21:28.406002+00:00",
-        "end_time": "2026-11-03T10:21:28.407469+00:00",
-        "duration_ms": 1.47,
+        "start_time": "2026-11-04T09:32:25.655601+00:00",
+        "end_time": "2026-11-04T09:32:25.658228+00:00",
+        "duration_ms": 2.63,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-03T10:21:28.407480+00:00",
-        "end_time": "2026-11-03T10:21:28.407621+00:00",
-        "duration_ms": 0.14,
+        "start_time": "2026-11-04T09:32:25.658249+00:00",
+        "end_time": "2026-11-04T09:32:25.658462+00:00",
+        "duration_ms": 0.21,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-03T10:21:28.407628+00:00",
-        "end_time": "2026-11-03T10:21:28.407985+00:00",
-        "duration_ms": 0.36,
+        "start_time": "2026-11-04T09:32:25.658478+00:00",
+        "end_time": "2026-11-04T09:32:25.659319+00:00",
+        "duration_ms": 0.84,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-03T10:21:28.407991+00:00",
-        "end_time": "2026-11-03T10:21:28.407994+00:00",
+        "start_time": "2026-11-04T09:32:25.659328+00:00",
+        "end_time": "2026-11-04T09:32:25.659331+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-03T10:21:28.407999+00:00",
-        "end_time": "2026-11-03T10:21:28.409745+00:00",
-        "duration_ms": 1.75,
+        "start_time": "2026-11-04T09:32:25.659337+00:00",
+        "end_time": "2026-11-04T09:32:25.664510+00:00",
+        "duration_ms": 5.17,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-03T10:21:28.412517+00:00",
-        "end_time": "2026-11-03T10:21:28.417363+00:00",
-        "duration_ms": 4.85,
+        "start_time": "2026-11-04T09:32:25.668591+00:00",
+        "end_time": "2026-11-04T09:32:25.679856+00:00",
+        "duration_ms": 11.26,
         "details": {}
       }
     ],
-    "total_duration_ms": 8.73,
+    "total_duration_ms": 20.34,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "c594be227523d6a6d15ff9de8497cc6798ac76a56d97542c0136f5e303e321cb",
-      "storyboard_preview.html": "88ac537ea75fa0eaf72c60b2fe3993828a2bfb297201eacffebd2eae1d91d121",
+      "production_bundle.json": "ed5dfbfbb2215d2a08b74f7e56833920cf59369a09ab477ba9ef334781b49357",
+      "storyboard_preview.html": "fdcb260afce12fc92176a9b3bcebbf0daed49e634d13c62f9e15847b4f53ad87",
       "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
       "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
       "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
@@ -640,9 +1090,9 @@
     }
   },
   "council_report": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-03T10:21:28.416612+00:00",
+    "timestamp": "2026-11-04T09:32:25.677065+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -708,6 +1158,28 @@
             "details": {
               "domain": "kinetic_action",
               "scene_count": 4
+            }
+          },
+          {
+            "severity": "info",
+            "category": "optical_lens_alignment",
+            "message": "Cinematic optical lens package verified: 35mm T2.0 (IMAX 15/70mm (70.41 x 52.63mm)) for domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "focal_length_mm": 35
+            }
+          },
+          {
+            "severity": "info",
+            "category": "virtual_production_alignment",
+            "message": "Virtual Production stage manifest verified: 'Deep Horseshoe High-Velocity Volume Delta' with 4 DMX fixtures for domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "stage_name": "Deep Horseshoe High-Velocity Volume Delta"
             }
           }
         ],
@@ -797,6 +1269,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/audio_mixer.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-007",
+        "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+        "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'The Kinetic Fabric: Grounded Innovation' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+        "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/optical_lens.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-008",
+        "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+        "problem_statement": "High-end commercial productions for 'The Kinetic Fabric: Grounded Innovation' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+        "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

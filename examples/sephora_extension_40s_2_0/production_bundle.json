@@ -55,7 +55,8 @@
       "focus_axis": "Shallow f/1.8 depth of field creating vertical oval anamorphic bokeh in wet city lights.",
       "tone_rig": "High-fashion commercial editorial.",
       "shutter_angle_deg": 180.0,
-      "shutter_timing_token": null
+      "shutter_timing_token": null,
+      "optical_lens": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -188,6 +189,91 @@
           },
           "contrast_pivot": 0.42,
           "halation_bloom": 0.08
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.5,
+          "focal_length_mm": 50,
+          "aperture_t_stop": 1.8,
+          "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+          "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+          "chromatic_aberration": "delicate warm axial flare roll-off",
+          "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+          "horizontal_fov_deg": 57.67,
+          "vertical_fov_deg": 28.65,
+          "hyperfocal_distance_m": 46.3
+        },
+        "virtual_production": {
+          "stage_name": "High-CRI Runway Prism Volume Gamma",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -261,6 +347,91 @@
           },
           "contrast_pivot": 0.42,
           "halation_bloom": 0.08
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.5,
+          "focal_length_mm": 50,
+          "aperture_t_stop": 1.8,
+          "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+          "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+          "chromatic_aberration": "delicate warm axial flare roll-off",
+          "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+          "horizontal_fov_deg": 57.67,
+          "vertical_fov_deg": 28.65,
+          "hyperfocal_distance_m": 46.3
+        },
+        "virtual_production": {
+          "stage_name": "High-CRI Runway Prism Volume Gamma",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -334,6 +505,91 @@
           },
           "contrast_pivot": 0.42,
           "halation_bloom": 0.08
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.5,
+          "focal_length_mm": 50,
+          "aperture_t_stop": 1.8,
+          "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+          "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+          "chromatic_aberration": "delicate warm axial flare roll-off",
+          "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+          "horizontal_fov_deg": 57.67,
+          "vertical_fov_deg": 28.65,
+          "hyperfocal_distance_m": 46.3
+        },
+        "virtual_production": {
+          "stage_name": "High-CRI Runway Prism Volume Gamma",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       },
       {
@@ -407,6 +663,91 @@
           },
           "contrast_pivot": 0.42,
           "halation_bloom": 0.08
+        },
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.5,
+          "focal_length_mm": 50,
+          "aperture_t_stop": 1.8,
+          "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+          "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+          "chromatic_aberration": "delicate warm axial flare roll-off",
+          "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+          "horizontal_fov_deg": 57.67,
+          "vertical_fov_deg": 28.65,
+          "hyperfocal_distance_m": 46.3
+        },
+        "virtual_production": {
+          "stage_name": "High-CRI Runway Prism Volume Gamma",
+          "led_wall": {
+            "shape": "curved_horseshoe",
+            "diameter_meters": 24.0,
+            "height_meters": 6.5,
+            "pixel_pitch_mm": 2.3,
+            "resolution_width_px": 15360,
+            "resolution_height_px": 2880,
+            "has_ceiling_led": true,
+            "has_floor_led": false
+          },
+          "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+          "ue_ndisplay_config_version": "5.4",
+          "parallax_depth_planes": {
+            "foreground_prop_m": 1.5,
+            "actor_stage_m": 3.5,
+            "led_wall_m": 8.0,
+            "virtual_bg_infinity_m": 500.0
+          },
+          "dmx_lighting_rig": [
+            {
+              "fixture_id": "KEY_SKY_01",
+              "fixture_type": "Arri SkyPanel S360-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 1,
+              "intensity_percent": 85.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            },
+            {
+              "fixture_id": "FILL_SKY_02",
+              "fixture_type": "Arri SkyPanel S120-C",
+              "dmx_universe": 1,
+              "dmx_channel_start": 16,
+              "intensity_percent": 55.0,
+              "color_temp_kelvin": 5200,
+              "gel_tint_cie_xy": [
+                0.315,
+                0.332
+              ]
+            },
+            {
+              "fixture_id": "RIM_ASTERA_01",
+              "fixture_type": "Astera Titan Tube FP1",
+              "dmx_universe": 2,
+              "dmx_channel_start": 1,
+              "intensity_percent": 70.0,
+              "color_temp_kelvin": 6000,
+              "gel_tint_cie_xy": [
+                0.308,
+                0.321
+              ]
+            },
+            {
+              "fixture_id": "CEILING_LITEMAT_01",
+              "fixture_type": "LiteMat Plus 4",
+              "dmx_universe": 2,
+              "dmx_channel_start": 32,
+              "intensity_percent": 40.0,
+              "color_temp_kelvin": 5600,
+              "gel_tint_cie_xy": [
+                0.3127,
+                0.329
+              ]
+            }
+          ],
+          "lut_calibration_profile": "ACEScg_OCIO_v1.3"
         }
       }
     ],
@@ -477,6 +818,91 @@
           "target_lufs": -16.0
         }
       }
+    },
+    "master_lens_package": {
+      "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+      "anamorphic_squeeze": 1.5,
+      "focal_length_mm": 50,
+      "aperture_t_stop": 1.8,
+      "lens_series": "Cooke Anamorphic /i Full Frame Plus",
+      "bokeh_characteristic": "creamy organic Cooke look with subtle oval flares",
+      "chromatic_aberration": "delicate warm axial flare roll-off",
+      "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
+      "horizontal_fov_deg": 57.67,
+      "vertical_fov_deg": 28.65,
+      "hyperfocal_distance_m": 46.3
+    },
+    "virtual_production": {
+      "stage_name": "High-CRI Runway Prism Volume Gamma",
+      "led_wall": {
+        "shape": "curved_horseshoe",
+        "diameter_meters": 24.0,
+        "height_meters": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "resolution_width_px": 15360,
+        "resolution_height_px": 2880,
+        "has_ceiling_led": true,
+        "has_floor_led": false
+      },
+      "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+      "ue_ndisplay_config_version": "5.4",
+      "parallax_depth_planes": {
+        "foreground_prop_m": 1.5,
+        "actor_stage_m": 3.5,
+        "led_wall_m": 8.0,
+        "virtual_bg_infinity_m": 500.0
+      },
+      "dmx_lighting_rig": [
+        {
+          "fixture_id": "KEY_SKY_01",
+          "fixture_type": "Arri SkyPanel S360-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 1,
+          "intensity_percent": 85.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        },
+        {
+          "fixture_id": "FILL_SKY_02",
+          "fixture_type": "Arri SkyPanel S120-C",
+          "dmx_universe": 1,
+          "dmx_channel_start": 16,
+          "intensity_percent": 55.0,
+          "color_temp_kelvin": 5200,
+          "gel_tint_cie_xy": [
+            0.315,
+            0.332
+          ]
+        },
+        {
+          "fixture_id": "RIM_ASTERA_01",
+          "fixture_type": "Astera Titan Tube FP1",
+          "dmx_universe": 2,
+          "dmx_channel_start": 1,
+          "intensity_percent": 70.0,
+          "color_temp_kelvin": 6000,
+          "gel_tint_cie_xy": [
+            0.308,
+            0.321
+          ]
+        },
+        {
+          "fixture_id": "CEILING_LITEMAT_01",
+          "fixture_type": "LiteMat Plus 4",
+          "dmx_universe": 2,
+          "dmx_channel_start": 32,
+          "intensity_percent": 40.0,
+          "color_temp_kelvin": 5600,
+          "gel_tint_cie_xy": [
+            0.3127,
+            0.329
+          ]
+        }
+      ],
+      "lut_calibration_profile": "ACEScg_OCIO_v1.3"
     }
   },
   "storyboard_html_path": "examples/sephora_extension_40s_2_0/storyboard_preview.html",
@@ -525,6 +951,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
@@ -539,6 +971,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>"
@@ -553,6 +991,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -567,6 +1011,12 @@
       "warnings": [],
       "details": {
         "action_beats_count": 3,
+        "optical_lens_compliant": true,
+        "optical_lens_reward": 2.0,
+        "optical_lens_descriptor": "50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm))",
+        "virtual_production_compliant": true,
+        "virtual_production_reward": 2.0,
+        "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -576,9 +1026,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "16142dec-f3b2-477f-a7ad-3d3e59009df7",
+    "session_id": "b4ce247d-a179-4098-947e-0f7491e1d345",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-03T10:21:28.386592+00:00",
+    "timestamp": "2026-11-04T09:32:25.623560+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -588,67 +1038,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-03T10:21:28.386602+00:00",
-        "end_time": "2026-11-03T10:21:28.386608+00:00",
+        "start_time": "2026-11-04T09:32:25.623575+00:00",
+        "end_time": "2026-11-04T09:32:25.623581+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-03T10:21:28.386617+00:00",
-        "end_time": "2026-11-03T10:21:28.386782+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-04T09:32:25.623595+00:00",
+        "end_time": "2026-11-04T09:32:25.623812+00:00",
+        "duration_ms": 0.22,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-03T10:21:28.386792+00:00",
-        "end_time": "2026-11-03T10:21:28.388231+00:00",
-        "duration_ms": 1.44,
+        "start_time": "2026-11-04T09:32:25.623821+00:00",
+        "end_time": "2026-11-04T09:32:25.626318+00:00",
+        "duration_ms": 2.5,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-03T10:21:28.388242+00:00",
-        "end_time": "2026-11-03T10:21:28.388391+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-04T09:32:25.626345+00:00",
+        "end_time": "2026-11-04T09:32:25.626526+00:00",
+        "duration_ms": 0.18,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-03T10:21:28.388398+00:00",
-        "end_time": "2026-11-03T10:21:28.388785+00:00",
-        "duration_ms": 0.39,
+        "start_time": "2026-11-04T09:32:25.626536+00:00",
+        "end_time": "2026-11-04T09:32:25.627516+00:00",
+        "duration_ms": 0.98,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-03T10:21:28.388792+00:00",
-        "end_time": "2026-11-03T10:21:28.388795+00:00",
+        "start_time": "2026-11-04T09:32:25.627524+00:00",
+        "end_time": "2026-11-04T09:32:25.627528+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-03T10:21:28.388801+00:00",
-        "end_time": "2026-11-03T10:21:28.391001+00:00",
-        "duration_ms": 2.2,
+        "start_time": "2026-11-04T09:32:25.627533+00:00",
+        "end_time": "2026-11-04T09:32:25.630600+00:00",
+        "duration_ms": 3.07,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-03T10:21:28.394311+00:00",
-        "end_time": "2026-11-03T10:21:28.399895+00:00",
-        "duration_ms": 5.58,
+        "start_time": "2026-11-04T09:32:25.635970+00:00",
+        "end_time": "2026-11-04T09:32:25.644678+00:00",
+        "duration_ms": 8.71,
         "details": {}
       }
     ],
-    "total_duration_ms": 9.94,
+    "total_duration_ms": 15.67,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "093b47271dfe3fbc144400cc7c6f734e96fee564a5640f43e199120833bacd80",
-      "storyboard_preview.html": "fc7daaf19f73c747f849e23565913ecfd2c372a0dd92ab75b513124260daf810",
+      "production_bundle.json": "9da40d02ba58f9e0ff1c4121dd41b31d4cc6d900b725d154636486e35f173297",
+      "storyboard_preview.html": "8c19f3d33088dc924e36f3d523d2c863ebed11a6e2882ce0712c77bc7a8c0c3f",
       "timeline.edl": "08dcb103e51c3d2b0a4aac008dc826a9826041dcb6063b166d2742157706845b",
       "sequence.fcpxml": "6d0e4276cbaab001c802aa3ea3464f8346d23d79adcf646ef0a061db511ce999",
       "shot_list.csv": "fcc6562f930acf26ad9321b2e5f9103e8f0d9ce31dd78e966aadfc69a229da74",
@@ -664,9 +1114,9 @@
     }
   },
   "council_report": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-03T10:21:28.399084+00:00",
+    "timestamp": "2026-11-04T09:32:25.643239+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -732,6 +1182,28 @@
             "details": {
               "domain": "luxury_fashion",
               "scene_count": 4
+            }
+          },
+          {
+            "severity": "info",
+            "category": "optical_lens_alignment",
+            "message": "Cinematic optical lens package verified: 50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "focal_length_mm": 50
+            }
+          },
+          {
+            "severity": "info",
+            "category": "virtual_production_alignment",
+            "message": "Virtual Production stage manifest verified: 'High-CRI Runway Prism Volume Gamma' with 4 DMX fixtures for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "stage_name": "High-CRI Runway Prism Volume Gamma"
             }
           }
         ],
@@ -821,6 +1293,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/audio_mixer.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-007",
+        "title": "Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+        "problem_statement": "Directors of Photography and camera operators reviewing storyboards for 'SEPHORA: London Pulse (Continuous 40s Oner)' require precise optical modeling (sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic.",
+        "proposed_solution": "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/optical_lens.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-008",
+        "title": "Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+        "problem_statement": "High-end commercial productions for 'SEPHORA: London Pulse (Continuous 40s Oner)' increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible.",
+        "proposed_solution": "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],
         "priority": "P0",

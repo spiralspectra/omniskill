@@ -247,8 +247,10 @@ def handle_export(args_list: List[str]) -> int:
     )
     from omni_director.tools.color_grade import export_asc_cdl_file
     from omni_director.tools.audio_mixer import export_audio_stems_file
+    from omni_director.tools.optical_lens import export_lens_metadata_file
+    from omni_director.tools.virtual_production import export_virtual_production_bundle
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, and audio stem manifests")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, and virtual production stage manifests")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -256,7 +258,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
@@ -298,6 +300,11 @@ def handle_export(args_list: List[str]) -> int:
         export_audio_stems_file(bible, stems_path)
         exported_files["cdl"] = str(cdl_path.resolve())
         exported_files["stems"] = str(stems_path.resolve())
+        lens_path = out_dir / "lens_package.csv"
+        export_lens_metadata_file(bible, lens_path)
+        exported_files["lens"] = str(lens_path.resolve())
+        vp_files = export_virtual_production_bundle(bible, out_dir)
+        exported_files.update(vp_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -330,6 +337,13 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "audio_stems_manifest.json"
         export_audio_stems_file(bible, p)
         exported_files["stems"] = str(p.resolve())
+    elif fmt == "lens":
+        p = out_dir / "lens_package.csv"
+        export_lens_metadata_file(bible, p)
+        exported_files["lens"] = str(p.resolve())
+    elif fmt == "vp":
+        vp_files = export_virtual_production_bundle(bible, out_dir)
+        exported_files.update(vp_files)
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))
@@ -610,12 +624,16 @@ def main(argv: Optional[list[str]] = None) -> int:
             from omni_director.tools.nle_export import export_all_nle_artifacts
             from omni_director.tools.color_grade import export_asc_cdl_file
             from omni_director.tools.audio_mixer import export_audio_stems_file
+            from omni_director.tools.optical_lens import export_lens_metadata_file
+            from omni_director.tools.virtual_production import export_virtual_production_bundle
             out_p = Path(args.output_dir)
             export_all_nle_artifacts(bundle.bible, out_p, fps=24)
             (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
             (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
             export_asc_cdl_file(bundle.bible, out_p / "production_grade.cdl")
             export_audio_stems_file(bundle.bible, out_p / "audio_stems_manifest.json")
+            export_lens_metadata_file(bundle.bible, out_p / "lens_package.csv")
+            export_virtual_production_bundle(bundle.bible, out_p)
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

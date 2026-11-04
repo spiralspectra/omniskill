@@ -19,7 +19,9 @@ from omni_director.presets import (
     classify_brief_domain,
     get_domain_audio_mixer,
     get_domain_color_look,
+    get_domain_optical_lens,
     get_domain_speed_ramp,
+    get_domain_virtual_production,
     get_preset_bible,
 )
 from omni_director.schemas import (
@@ -119,6 +121,8 @@ def synthesize_custom_bible(
     domain_color_look = get_domain_color_look(domain)
     domain_audio_mixer = get_domain_audio_mixer(domain)
     domain_speed_ramp = get_domain_speed_ramp(domain)
+    domain_lens = get_domain_optical_lens(domain)
+    domain_vp = get_domain_virtual_production(domain)
 
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
@@ -169,6 +173,7 @@ def synthesize_custom_bible(
         action_anchor="Hero subject entering the frame",
         focus_axis="Locked focus plane at f/2.8 maintaining 180-degree axis",
         tone_rig="Cinematic anamorphic prime with subtle horizontal flare",
+        optical_lens=domain_lens,
     )
 
     craft_2 = CraftCameraSpec(
@@ -179,6 +184,7 @@ def synthesize_custom_bible(
         action_anchor="Subject's hands and physical contact interface",
         focus_axis="Shallow depth of field with locked subject focal tracking",
         tone_rig="Warm spherical glass with smooth circular bokeh",
+        optical_lens=domain_lens,
     )
 
     scene_1 = ScenePromptSpec(
@@ -189,6 +195,8 @@ def synthesize_custom_bible(
         craft_camera=craft_1,
         speed_ramp=domain_speed_ramp,
         scene_color_look=domain_color_look,
+        optical_lens=domain_lens,
+        virtual_production=domain_vp,
         kinetic_contact_chain="1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance." if is_kinetic else None,
         action_beats=[
             "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)",
@@ -210,6 +218,8 @@ def synthesize_custom_bible(
         craft_camera=craft_2,
         speed_ramp=domain_speed_ramp,
         scene_color_look=domain_color_look,
+        optical_lens=domain_lens,
+        virtual_production=domain_vp,
         kinetic_contact_chain="1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose." if is_kinetic else None,
         action_beats=[
             "Beat 1: Peak acceleration and directional transition (00:05 - 00:08)",
@@ -303,6 +313,8 @@ def synthesize_custom_bible(
         domain_archetype=domain,
         master_color_look=domain_color_look,
         master_audio_mixer=domain_audio_mixer,
+        master_lens_package=domain_lens,
+        virtual_production=domain_vp,
     )
 
 

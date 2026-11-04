@@ -244,6 +244,10 @@ def run_daily_council(
             vtt_file = out_path / "subtitles.vtt"
             srt_file.write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
             vtt_file.write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
+            from omni_director.tools.optical_lens import export_lens_metadata_file
+            from omni_director.tools.virtual_production import export_virtual_production_bundle
+            export_lens_metadata_file(bundle.bible, out_path / "optical_lens_framing.csv")
+            export_virtual_production_bundle(bundle.bible, out_path)
             # Refresh telemetry manifest so all exported NLE & subtitle artifacts are SHA-256 verified
             pipeline.telemetry.write_manifest(out_path)
 

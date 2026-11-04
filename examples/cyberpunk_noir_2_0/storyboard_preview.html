@@ -1274,6 +1274,245 @@
       margin-top: 2px;
     }
 
+    /* Optical Lens & VP Badges */
+    .badge-lens {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: help;
+    }
+    .badge-vp {
+      background: rgba(255, 51, 102, 0.12);
+      border: 1px solid rgba(255, 51, 102, 0.35);
+      color: var(--crimson-accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Viewfinder Safe Guides HUD Overlay */
+    .viewfinder-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 10;
+      transition: opacity 0.2s ease;
+    }
+    body.hide-viewfinder .viewfinder-overlay,
+    body.hide-viewfinder .animatic-viewfinder-overlay {
+      display: none !important;
+    }
+    .vf-action-safe {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      right: 5%;
+      bottom: 5%;
+      border: 1px dashed rgba(0, 240, 255, 0.45);
+      border-radius: 2px;
+    }
+    .vf-title-safe {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      right: 10%;
+      bottom: 10%;
+      border: 1px dotted rgba(255, 184, 0, 0.45);
+      border-radius: 2px;
+    }
+    .vf-scope-reticle {
+      position: absolute;
+      top: 12.5%;
+      left: 0;
+      right: 0;
+      bottom: 12.5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .vf-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+    }
+    .vf-crosshair::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: rgba(0, 240, 255, 0.7);
+    }
+    .vf-crosshair::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 7px;
+      width: 2px;
+      height: 16px;
+      background: rgba(0, 240, 255, 0.7);
+    }
+    .vf-lens-hud {
+      position: absolute;
+      bottom: 8px;
+      left: 12px;
+      background: rgba(7, 8, 11, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--cyan-telemetry);
+    }
+    .animatic-viewfinder-overlay {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Virtual Production Stage Modal */
+    .vp-stage-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 8, 11, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .vp-stage-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      max-width: 860px;
+      width: 100%;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .vp-stage-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+    .vp-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .vp-icon { font-size: 24px; }
+    .vp-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .vp-subheading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+    }
+    .btn-vp-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-vp-close:hover {
+      color: #FFF;
+      border-color: var(--crimson-accent);
+      background: rgba(255, 51, 102, 0.15);
+    }
+    .vp-stage-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .vp-stage-body { grid-template-columns: 1fr; }
+    }
+    .vp-schematic-wrap {
+      background: #05060A;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vp-schematic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .vp-telemetry-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .vp-telemetry-block strong { color: var(--text-main); }
+    .vp-dmx-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 12px;
+    }
+    .vp-dmx-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 3px;
+    }
+    .vp-dmx-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .dmx-id { color: var(--cyan-telemetry); font-weight: 700; }
+    .dmx-addr { color: var(--amber-gold); }
+    .dmx-temp { color: var(--green-pass); }
+
     /* Print Stylesheet */
     @media print {
       body { background: #FFF !important; color: #000 !important; }
@@ -1408,7 +1647,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [V] Viewfinder · [P] VP Stage · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -1431,6 +1670,12 @@
         </button>
         <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
           CC [C]
+        </button>
+        <button type="button" class="btn-loop active" id="btn-viewfinder-animatic" onclick="toggleViewfinder()" aria-label="Toggle Optical Viewfinder Safe Guides [V]" aria-pressed="true">
+          🔭 VF [V]
+        </button>
+        <button type="button" class="btn-loop" id="btn-vp-stage-animatic" onclick="toggleVPStageModal()" aria-label="Toggle Virtual Production Stage Modal [P]" aria-pressed="false">
+          🎬 VP Stage [P]
         </button>
         <div class="look-grading-controls" role="group" aria-label="Color Science and Look Grading">
           <label for="look-selector" class="look-label">LOOK:</label>
@@ -1470,6 +1715,13 @@
     </div>
     <div id="animatic-cc-hud" class="animatic-cc-hud" role="status" aria-live="polite" aria-label="Closed Captions Display">
       [CC] Scene 01 Ready
+    </div>
+    <div id="animatic-viewfinder-overlay" class="animatic-viewfinder-overlay" style="display: none;" aria-hidden="true">
+      <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
+      <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
+      <div class="vf-scope-reticle" title="2.39:1 Scope Reticle"></div>
+      <div class="vf-crosshair" title="Center Crosshair"></div>
+      <div class="vf-lens-hud"><span id="vf-master-lens-text">28mm T2.0 · Large Format / ARRI LF (36.70 x 25.54mm) · 1.8x Squeeze · ARRI Rental DNA Anamorphic</span></div>
     </div>
   </aside>
 
@@ -1618,6 +1870,56 @@
       </div>
     </div>
   </aside>
+
+  <!-- Virtual Production LED Volume Stage Modal (PM-FEAT-008) -->
+  <div id="animatic-vp-stage-modal" class="vp-stage-modal" role="dialog" aria-modal="true" aria-label="Virtual Production LED Volume Stage Schematic" style="display: none;">
+    <div class="vp-stage-modal-content">
+      <div class="vp-stage-modal-header">
+        <div class="vp-title-wrap">
+          <span class="vp-icon">🎬</span>
+          <div>
+            <h3 class="vp-heading">VIRTUAL PRODUCTION LED VOLUME</h3>
+            <span class="vp-subheading">StageCraft Volume Apex (Automotive Dynamic) · FreeD / OptiTrack Active Optical</span>
+          </div>
+        </div>
+        <button type="button" class="btn-vp-close" onclick="toggleVPStageModal()" aria-label="Close Virtual Production Modal">✕</button>
+      </div>
+      <div class="vp-stage-body">
+        <div class="vp-schematic-col">
+          <div class="col-heading">LED STAGE GEOMETRY SCHEMATIC</div>
+          <div class="vp-schematic-wrap">
+            <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" class="vp-schematic-svg">
+  <rect width="400" height="240" fill="#05060A" rx="6"/>
+  <path d="M 50 180 C 50 60, 350 60, 350 180" fill="none" stroke="#00F0FF" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="200" cy="80" rx="110" ry="25" fill="none" stroke="#FFB800" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="200,200 130,90 270,90" fill="rgba(0,240,255,0.08)" stroke="#00F0FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="200" cy="205" r="7" fill="#FF3366"/>
+  <text x="200" y="225" font-family="monospace" font-size="10" fill="#F0F2F8" text-anchor="middle">TRACKED CAMERA</text>
+  <text x="200" y="45" font-family="monospace" font-size="10" fill="#FFB800" text-anchor="middle">ACTIVE LED CEILING CANOPY</text>
+  <text x="200" y="140" font-family="monospace" font-size="10" fill="#00F0FF" text-anchor="middle">DYNAMIC ICVFX FRUSTUM</text>
+  <text x="40" y="200" font-family="monospace" font-size="9" fill="#7E88A4">STAGE ORIGIN [0,0,0]</text>
+</svg>
+          </div>
+        </div>
+        <div class="vp-specs-col">
+          <div class="col-heading">ICVFX &amp; NDISPLAY TELEMETRY</div>
+          <div class="vp-telemetry-block">
+            <strong>Stage Name:</strong> StageCraft Volume Apex (Automotive Dynamic)<br>
+            <strong>LED Wall Curve:</strong> 12.0m Radius<br>
+            <strong>Dimensions:</strong> 24.0m W × 6.5m H<br>
+            <strong>Ceiling Canopy:</strong> Active LED Canopy (6.0m Elev, 800 nits)<br>
+            <strong>Tracking Protocol:</strong> FreeD / OptiTrack Active Optical<br>
+            <strong>Unreal Engine:</strong> UE 5.4 ICVFX nDisplay<br>
+            <strong>Color Space:</strong> ACEScg / DCI-P3 LED Panels
+          </div>
+          <div class="col-heading" style="margin-top: 12px;">DMX LIGHTING FIXTURES (4 FIXTURES)</div>
+          <div class="vp-dmx-list">
+            <div class="vp-dmx-row"><span class="dmx-id">KEY_SKY_01</span> <span class="dmx-type">Arri SkyPanel S360-C</span> <span class="dmx-addr">Ch 1.001</span> <span class="dmx-temp">5600K</span></div><div class="vp-dmx-row"><span class="dmx-id">FILL_SKY_02</span> <span class="dmx-type">Arri SkyPanel S120-C</span> <span class="dmx-addr">Ch 1.016</span> <span class="dmx-temp">5200K</span></div><div class="vp-dmx-row"><span class="dmx-id">RIM_ASTERA_01</span> <span class="dmx-type">Astera Titan Tube FP1</span> <span class="dmx-addr">Ch 2.001</span> <span class="dmx-temp">6000K</span></div><div class="vp-dmx-row"><span class="dmx-id">CEILING_LITEMAT_01</span> <span class="dmx-type">LiteMat Plus 4</span> <span class="dmx-addr">Ch 2.032</span> <span class="dmx-temp">5600K</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -1896,6 +2198,8 @@
               <h3 class="scene-title">Cyberpunk Neon-Lit High-Speed Electric M - Initiation</h3>
               <span class="scene-time">00:00 - 00:05</span>
               <span class="badge-speed-ramp" title="90° optical shutter at 1/96s exposure">⚡ 120fps Snap Freeze Resume · 90° Shutter</span>
+              <span class="badge-lens" title="Sensor: Large Format / ARRI LF (36.70 x 25.54mm), Squeeze: 1.8x, Lens: ARRI Rental DNA Anamorphic">🔭 28mm T2.0 (Large)</span>
+              <span class="badge-vp" title="LED Volume: StageCraft Volume Apex (Automotive Dynamic), Tracking: FreeD / OptiTrack Active Optical">🎬 StageCraft Volume Apex (Automotive Dynamic)</span>
             </div>
             <div class="scene-actions">
               <button type="button" class="badge-pass btn-audit-toggle" onclick="toggleAuditDrawer(1)" aria-expanded="false" aria-controls="audit-drawer-1">
@@ -1968,6 +2272,13 @@
     PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
   </text>
 </svg>
+                <div class="viewfinder-overlay" id="viewfinder-overlay-1" aria-hidden="true">
+                  <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
+                  <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
+                  <div class="vf-scope-reticle" title="2.39:1 Scope Reticle"></div>
+                  <div class="vf-crosshair" title="Center Crosshair"></div>
+                  <div class="vf-lens-hud"><span class="vf-hud-text">VF: 28mm T2.0 · Large · 99.4° FOV · H: 13.1m</span></div>
+                </div>
               </div>
               <div class="camera-telemetry" id="craft-telemetry-1">
                 <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-1">Russian Arm 28mm Anamorphic with dynamic low-angle tracking (28mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis</span>
@@ -2060,6 +2371,8 @@
               <h3 class="scene-title">Cyberpunk Neon-Lit High-Speed Electric M - Climax</h3>
               <span class="scene-time">00:05 - 00:10</span>
               <span class="badge-speed-ramp" title="90° optical shutter at 1/96s exposure">⚡ 120fps Snap Freeze Resume · 90° Shutter</span>
+              <span class="badge-lens" title="Sensor: Large Format / ARRI LF (36.70 x 25.54mm), Squeeze: 1.8x, Lens: ARRI Rental DNA Anamorphic">🔭 28mm T2.0 (Large)</span>
+              <span class="badge-vp" title="LED Volume: StageCraft Volume Apex (Automotive Dynamic), Tracking: FreeD / OptiTrack Active Optical">🎬 StageCraft Volume Apex (Automotive Dynamic)</span>
             </div>
             <div class="scene-actions">
               <button type="button" class="badge-pass btn-audit-toggle" onclick="toggleAuditDrawer(2)" aria-expanded="false" aria-controls="audit-drawer-2">
@@ -2132,6 +2445,13 @@
     PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
   </text>
 </svg>
+                <div class="viewfinder-overlay" id="viewfinder-overlay-2" aria-hidden="true">
+                  <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
+                  <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
+                  <div class="vf-scope-reticle" title="2.39:1 Scope Reticle"></div>
+                  <div class="vf-crosshair" title="Center Crosshair"></div>
+                  <div class="vf-lens-hud"><span class="vf-hud-text">VF: 28mm T2.0 · Large · 99.4° FOV · H: 13.1m</span></div>
+                </div>
               </div>
               <div class="camera-telemetry" id="craft-telemetry-2">
                 <span class="craft-tag">CRAFT CAMERA</span> <span id="craft-summary-2">Russian Arm 28mm Anamorphic with dynamic low-angle tracking (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject</span>
@@ -2267,7 +2587,20 @@
     "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
     "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
     "shutter_angle_deg": 180.0,
-    "shutter_timing_token": null
+    "shutter_timing_token": null,
+    "optical_lens": {
+      "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+      "anamorphic_squeeze": 1.8,
+      "focal_length_mm": 28,
+      "aperture_t_stop": 2.0,
+      "lens_series": "ARRI Rental DNA Anamorphic",
+      "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+      "chromatic_aberration": "controlled blue lateral chromatic fringing",
+      "distortion_profile": "barrel 1.2% anamorphic edge compression",
+      "horizontal_fov_deg": 99.42,
+      "vertical_fov_deg": 49.03,
+      "hyperfocal_distance_m": 13.07
+    }
   },
   "sonic_blueprint": {
     "foley_cues": [
@@ -2344,7 +2677,20 @@
         "focus_axis": "Locked focus plane at f/2.8 maintaining 180-degree axis",
         "tone_rig": "Cinematic anamorphic prime with subtle horizontal flare",
         "shutter_angle_deg": 180.0,
-        "shutter_timing_token": null
+        "shutter_timing_token": null,
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.8,
+          "focal_length_mm": 28,
+          "aperture_t_stop": 2.0,
+          "lens_series": "ARRI Rental DNA Anamorphic",
+          "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+          "chromatic_aberration": "controlled blue lateral chromatic fringing",
+          "distortion_profile": "barrel 1.2% anamorphic edge compression",
+          "horizontal_fov_deg": 99.42,
+          "vertical_fov_deg": 49.03,
+          "hyperfocal_distance_m": 13.07
+        }
       },
       "diegetic_sonic": {
         "foley_cues": [
@@ -2416,6 +2762,91 @@
         },
         "contrast_pivot": 0.5,
         "halation_bloom": 0.0
+      },
+      "optical_lens": {
+        "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+        "anamorphic_squeeze": 1.8,
+        "focal_length_mm": 28,
+        "aperture_t_stop": 2.0,
+        "lens_series": "ARRI Rental DNA Anamorphic",
+        "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+        "chromatic_aberration": "controlled blue lateral chromatic fringing",
+        "distortion_profile": "barrel 1.2% anamorphic edge compression",
+        "horizontal_fov_deg": 99.42,
+        "vertical_fov_deg": 49.03,
+        "hyperfocal_distance_m": 13.07
+      },
+      "virtual_production": {
+        "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+        "led_wall": {
+          "shape": "curved_horseshoe",
+          "diameter_meters": 24.0,
+          "height_meters": 6.5,
+          "pixel_pitch_mm": 2.3,
+          "resolution_width_px": 15360,
+          "resolution_height_px": 2880,
+          "has_ceiling_led": true,
+          "has_floor_led": false
+        },
+        "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+        "ue_ndisplay_config_version": "5.4",
+        "parallax_depth_planes": {
+          "foreground_prop_m": 1.5,
+          "actor_stage_m": 3.5,
+          "led_wall_m": 8.0,
+          "virtual_bg_infinity_m": 500.0
+        },
+        "dmx_lighting_rig": [
+          {
+            "fixture_id": "KEY_SKY_01",
+            "fixture_type": "Arri SkyPanel S360-C",
+            "dmx_universe": 1,
+            "dmx_channel_start": 1,
+            "intensity_percent": 85.0,
+            "color_temp_kelvin": 5600,
+            "gel_tint_cie_xy": [
+              0.3127,
+              0.329
+            ]
+          },
+          {
+            "fixture_id": "FILL_SKY_02",
+            "fixture_type": "Arri SkyPanel S120-C",
+            "dmx_universe": 1,
+            "dmx_channel_start": 16,
+            "intensity_percent": 55.0,
+            "color_temp_kelvin": 5200,
+            "gel_tint_cie_xy": [
+              0.315,
+              0.332
+            ]
+          },
+          {
+            "fixture_id": "RIM_ASTERA_01",
+            "fixture_type": "Astera Titan Tube FP1",
+            "dmx_universe": 2,
+            "dmx_channel_start": 1,
+            "intensity_percent": 70.0,
+            "color_temp_kelvin": 6000,
+            "gel_tint_cie_xy": [
+              0.308,
+              0.321
+            ]
+          },
+          {
+            "fixture_id": "CEILING_LITEMAT_01",
+            "fixture_type": "LiteMat Plus 4",
+            "dmx_universe": 2,
+            "dmx_channel_start": 32,
+            "intensity_percent": 40.0,
+            "color_temp_kelvin": 5600,
+            "gel_tint_cie_xy": [
+              0.3127,
+              0.329
+            ]
+          }
+        ],
+        "lut_calibration_profile": "ACEScg_OCIO_v1.3"
       }
     },
     {
@@ -2437,7 +2868,20 @@
         "focus_axis": "Shallow depth of field with locked subject focal tracking",
         "tone_rig": "Warm spherical glass with smooth circular bokeh",
         "shutter_angle_deg": 180.0,
-        "shutter_timing_token": null
+        "shutter_timing_token": null,
+        "optical_lens": {
+          "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+          "anamorphic_squeeze": 1.8,
+          "focal_length_mm": 28,
+          "aperture_t_stop": 2.0,
+          "lens_series": "ARRI Rental DNA Anamorphic",
+          "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+          "chromatic_aberration": "controlled blue lateral chromatic fringing",
+          "distortion_profile": "barrel 1.2% anamorphic edge compression",
+          "horizontal_fov_deg": 99.42,
+          "vertical_fov_deg": 49.03,
+          "hyperfocal_distance_m": 13.07
+        }
       },
       "diegetic_sonic": {
         "foley_cues": [
@@ -2509,6 +2953,91 @@
         },
         "contrast_pivot": 0.5,
         "halation_bloom": 0.0
+      },
+      "optical_lens": {
+        "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+        "anamorphic_squeeze": 1.8,
+        "focal_length_mm": 28,
+        "aperture_t_stop": 2.0,
+        "lens_series": "ARRI Rental DNA Anamorphic",
+        "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+        "chromatic_aberration": "controlled blue lateral chromatic fringing",
+        "distortion_profile": "barrel 1.2% anamorphic edge compression",
+        "horizontal_fov_deg": 99.42,
+        "vertical_fov_deg": 49.03,
+        "hyperfocal_distance_m": 13.07
+      },
+      "virtual_production": {
+        "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+        "led_wall": {
+          "shape": "curved_horseshoe",
+          "diameter_meters": 24.0,
+          "height_meters": 6.5,
+          "pixel_pitch_mm": 2.3,
+          "resolution_width_px": 15360,
+          "resolution_height_px": 2880,
+          "has_ceiling_led": true,
+          "has_floor_led": false
+        },
+        "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+        "ue_ndisplay_config_version": "5.4",
+        "parallax_depth_planes": {
+          "foreground_prop_m": 1.5,
+          "actor_stage_m": 3.5,
+          "led_wall_m": 8.0,
+          "virtual_bg_infinity_m": 500.0
+        },
+        "dmx_lighting_rig": [
+          {
+            "fixture_id": "KEY_SKY_01",
+            "fixture_type": "Arri SkyPanel S360-C",
+            "dmx_universe": 1,
+            "dmx_channel_start": 1,
+            "intensity_percent": 85.0,
+            "color_temp_kelvin": 5600,
+            "gel_tint_cie_xy": [
+              0.3127,
+              0.329
+            ]
+          },
+          {
+            "fixture_id": "FILL_SKY_02",
+            "fixture_type": "Arri SkyPanel S120-C",
+            "dmx_universe": 1,
+            "dmx_channel_start": 16,
+            "intensity_percent": 55.0,
+            "color_temp_kelvin": 5200,
+            "gel_tint_cie_xy": [
+              0.315,
+              0.332
+            ]
+          },
+          {
+            "fixture_id": "RIM_ASTERA_01",
+            "fixture_type": "Astera Titan Tube FP1",
+            "dmx_universe": 2,
+            "dmx_channel_start": 1,
+            "intensity_percent": 70.0,
+            "color_temp_kelvin": 6000,
+            "gel_tint_cie_xy": [
+              0.308,
+              0.321
+            ]
+          },
+          {
+            "fixture_id": "CEILING_LITEMAT_01",
+            "fixture_type": "LiteMat Plus 4",
+            "dmx_universe": 2,
+            "dmx_channel_start": 32,
+            "intensity_percent": 40.0,
+            "color_temp_kelvin": 5600,
+            "gel_tint_cie_xy": [
+              0.3127,
+              0.329
+            ]
+          }
+        ],
+        "lut_calibration_profile": "ACEScg_OCIO_v1.3"
       }
     }
   ],
@@ -2579,6 +3108,91 @@
         "target_lufs": -18.0
       }
     }
+  },
+  "master_lens_package": {
+    "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
+    "anamorphic_squeeze": 1.8,
+    "focal_length_mm": 28,
+    "aperture_t_stop": 2.0,
+    "lens_series": "ARRI Rental DNA Anamorphic",
+    "bokeh_characteristic": "oval horizontal streak anamorphic flare",
+    "chromatic_aberration": "controlled blue lateral chromatic fringing",
+    "distortion_profile": "barrel 1.2% anamorphic edge compression",
+    "horizontal_fov_deg": 99.42,
+    "vertical_fov_deg": 49.03,
+    "hyperfocal_distance_m": 13.07
+  },
+  "virtual_production": {
+    "stage_name": "StageCraft Volume Apex (Automotive Dynamic)",
+    "led_wall": {
+      "shape": "curved_horseshoe",
+      "diameter_meters": 24.0,
+      "height_meters": 6.5,
+      "pixel_pitch_mm": 2.3,
+      "resolution_width_px": 15360,
+      "resolution_height_px": 2880,
+      "has_ceiling_led": true,
+      "has_floor_led": false
+    },
+    "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+    "ue_ndisplay_config_version": "5.4",
+    "parallax_depth_planes": {
+      "foreground_prop_m": 1.5,
+      "actor_stage_m": 3.5,
+      "led_wall_m": 8.0,
+      "virtual_bg_infinity_m": 500.0
+    },
+    "dmx_lighting_rig": [
+      {
+        "fixture_id": "KEY_SKY_01",
+        "fixture_type": "Arri SkyPanel S360-C",
+        "dmx_universe": 1,
+        "dmx_channel_start": 1,
+        "intensity_percent": 85.0,
+        "color_temp_kelvin": 5600,
+        "gel_tint_cie_xy": [
+          0.3127,
+          0.329
+        ]
+      },
+      {
+        "fixture_id": "FILL_SKY_02",
+        "fixture_type": "Arri SkyPanel S120-C",
+        "dmx_universe": 1,
+        "dmx_channel_start": 16,
+        "intensity_percent": 55.0,
+        "color_temp_kelvin": 5200,
+        "gel_tint_cie_xy": [
+          0.315,
+          0.332
+        ]
+      },
+      {
+        "fixture_id": "RIM_ASTERA_01",
+        "fixture_type": "Astera Titan Tube FP1",
+        "dmx_universe": 2,
+        "dmx_channel_start": 1,
+        "intensity_percent": 70.0,
+        "color_temp_kelvin": 6000,
+        "gel_tint_cie_xy": [
+          0.308,
+          0.321
+        ]
+      },
+      {
+        "fixture_id": "CEILING_LITEMAT_01",
+        "fixture_type": "LiteMat Plus 4",
+        "dmx_universe": 2,
+        "dmx_channel_start": 32,
+        "intensity_percent": 40.0,
+        "color_temp_kelvin": 5600,
+        "gel_tint_cie_xy": [
+          0.3127,
+          0.329
+        ]
+      }
+    ],
+    "lut_calibration_profile": "ACEScg_OCIO_v1.3"
   }
 };
 
@@ -2667,6 +3281,32 @@
       document.body.classList.toggle('hide-safe-guides');
       const isHidden = document.body.classList.contains('hide-safe-guides');
       showToast(isHidden ? "Safe Action & Title Guides: HIDDEN" : "Safe Action & Title Guides: VISIBLE");
+    }
+
+    let isViewfinderEnabled = true;
+    function toggleViewfinder() {
+      isViewfinderEnabled = !isViewfinderEnabled;
+      document.body.classList.toggle('hide-viewfinder', !isViewfinderEnabled);
+      const btn = document.getElementById('btn-viewfinder-animatic');
+      if (btn) {
+        btn.classList.toggle('active', isViewfinderEnabled);
+        btn.setAttribute('aria-pressed', isViewfinderEnabled ? 'true' : 'false');
+      }
+      showToast(isViewfinderEnabled ? "Optical Viewfinder & Safe Guides: ON" : "Optical Viewfinder & Safe Guides: OFF");
+    }
+
+    let isVPStageModalOpen = false;
+    function toggleVPStageModal() {
+      isVPStageModalOpen = !isVPStageModalOpen;
+      const modal = document.getElementById('animatic-vp-stage-modal');
+      const btn = document.getElementById('btn-vp-stage-animatic');
+      if (modal) {
+        modal.style.display = isVPStageModalOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isVPStageModalOpen);
+        btn.setAttribute('aria-pressed', isVPStageModalOpen ? 'true' : 'false');
+      }
     }
 
     function toggleAuditDrawer(sceneIdx) {
@@ -3366,6 +4006,10 @@
         toggleCC();
       } else if (e.key === 'g' || e.key === 'G') {
         toggleSafeGuides();
+      } else if (e.key === 'v' || e.key === 'V') {
+        toggleViewfinder();
+      } else if (e.key === 'p' || e.key === 'P') {
+        toggleVPStageModal();
       }
     });
 

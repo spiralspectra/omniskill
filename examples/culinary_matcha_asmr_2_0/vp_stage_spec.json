@@ -1,0 +1,72 @@
+{
+  "stage_name": "Micro-Acoustic Tabletop Volume Beta",
+  "led_wall": {
+    "shape": "curved_horseshoe",
+    "diameter_meters": 24.0,
+    "height_meters": 6.5,
+    "pixel_pitch_mm": 2.3,
+    "resolution_width_px": 15360,
+    "resolution_height_px": 2880,
+    "has_ceiling_led": true,
+    "has_floor_led": false
+  },
+  "frustum_tracking_protocol": "FreeD / OptiTrack Active Optical",
+  "ue_ndisplay_config_version": "5.4",
+  "parallax_depth_planes": {
+    "foreground_prop_m": 1.5,
+    "actor_stage_m": 3.5,
+    "led_wall_m": 8.0,
+    "virtual_bg_infinity_m": 500.0
+  },
+  "dmx_lighting_rig": [
+    {
+      "fixture_id": "KEY_SKY_01",
+      "fixture_type": "Arri SkyPanel S360-C",
+      "dmx_universe": 1,
+      "dmx_channel_start": 1,
+      "intensity_percent": 85.0,
+      "color_temp_kelvin": 5600,
+      "gel_tint_cie_xy": [
+        0.3127,
+        0.329
+      ]
+    },
+    {
+      "fixture_id": "FILL_SKY_02",
+      "fixture_type": "Arri SkyPanel S120-C",
+      "dmx_universe": 1,
+      "dmx_channel_start": 16,
+      "intensity_percent": 55.0,
+      "color_temp_kelvin": 5200,
+      "gel_tint_cie_xy": [
+        0.315,
+        0.332
+      ]
+    },
+    {
+      "fixture_id": "RIM_ASTERA_01",
+      "fixture_type": "Astera Titan Tube FP1",
+      "dmx_universe": 2,
+      "dmx_channel_start": 1,
+      "intensity_percent": 70.0,
+      "color_temp_kelvin": 6000,
+      "gel_tint_cie_xy": [
+        0.308,
+        0.321
+      ]
+    },
+    {
+      "fixture_id": "CEILING_LITEMAT_01",
+      "fixture_type": "LiteMat Plus 4",
+      "dmx_universe": 2,
+      "dmx_channel_start": 32,
+      "intensity_percent": 40.0,
+      "color_temp_kelvin": 5600,
+      "gel_tint_cie_xy": [
+        0.3127,
+        0.329
+      ]
+    }
+  ],
+  "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+}

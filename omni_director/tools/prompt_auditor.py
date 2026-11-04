@@ -9,6 +9,7 @@ from omni_director.schemas import (
     ScenePromptSpec,
     StorytellingMode,
 )
+from omni_director.tools.optical_lens import format_optical_prompt_token
 
 
 def audit_omni_scene_prompt(
@@ -86,6 +87,30 @@ def audit_omni_scene_prompt(
             has_speed_ramp = True
     elif re.search(r"\b(?:speed\s*ramp|time-?warp|time\s*dilation|deceleration\s*impact|acceleration\s*burst|snap\s*freeze)\b", prompt, re.IGNORECASE):
         has_speed_ramp = True
+
+    # Optical lens recognition & reward (PM-FEAT-007)
+    optical_lens_spec = getattr(scene, "optical_lens", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("optical_lens")
+    if optical_lens_spec is None and craft_camera is not None:
+        optical_lens_spec = getattr(craft_camera, "optical_lens", None)
+    lens_patterns = r"(?:\bT\s*\d+(?:\.\d+)?\b|focal\s*length|\b\d+mm\b|anamorphic|spherical|Super35|Full\s*Frame|ARRI\s*LF|IMAX|VistaVision|bokeh|Cooke|Zeiss|apochromatic|hyperfocal)"
+    lens_match = re.search(lens_patterns, prompt, re.IGNORECASE)
+    if optical_lens_spec is not None or lens_match:
+        details["optical_lens_compliant"] = True
+        details["optical_lens_reward"] = 2.0
+        if optical_lens_spec is not None:
+            sensor_str = optical_lens_spec.sensor_format.value if hasattr(optical_lens_spec.sensor_format, "value") else str(optical_lens_spec.sensor_format)
+            details["optical_lens_descriptor"] = f"{optical_lens_spec.focal_length_mm}mm T{optical_lens_spec.aperture_t_stop} ({sensor_str})"
+
+    # Virtual Production stage recognition & reward (PM-FEAT-008)
+    vp_stage_spec = getattr(scene, "virtual_production", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("virtual_production")
+    vp_patterns = r"(?:LED\s*(?:wall|volume)|nDisplay|virtual\s*production|frustum|in-camera\s*VFX|ICVFX|DMX|parallax\s*depth)"
+    vp_match = re.search(vp_patterns, prompt, re.IGNORECASE)
+    if vp_stage_spec is not None or vp_match:
+        details["virtual_production_compliant"] = True
+        details["virtual_production_reward"] = 2.0
+        if vp_stage_spec is not None:
+            proto_str = vp_stage_spec.frustum_tracking_protocol.value if hasattr(vp_stage_spec.frustum_tracking_protocol, "value") else str(vp_stage_spec.frustum_tracking_protocol)
+            details["virtual_production_descriptor"] = f"{vp_stage_spec.stage_name} ({proto_str})"
 
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
@@ -206,6 +231,10 @@ def audit_omni_scene_prompt(
         score = max(80.0, 100.0 - (len(warnings) * 2.0))
         if details.get("shutter_angle_compliant"):
             score = min(100.0, score + 2.0)
+        if details.get("optical_lens_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("virtual_production_compliant"):
+            score = min(100.0, score + 1.0)
 
     return AuditResult(
         scene_index=effective_scene_index,
@@ -372,6 +401,25 @@ def heal_omni_scene_prompt(
             working_prompt = working_prompt.rstrip() + " Shot on 35mm Prime lens with dynamic forward tracking movement, 180° shutter at 1/48s."
         if working_prompt != prev and "expanded_narrative_prose" not in applied_patches:
             applied_patches.append("expanded_narrative_prose")
+
+        # 3b. Inject Optical Lens Spec tokens if configured
+        prev = working_prompt
+        opt_lens = getattr(scene, "optical_lens", None) if is_spec else kwargs.get("optical_lens")
+        if opt_lens is None and is_spec and getattr(scene, "craft_camera", None):
+            opt_lens = getattr(scene.craft_camera, "optical_lens", None)
+        if opt_lens is not None and not re.search(r"\bT\s*\d+(?:\.\d+)?\b|focal\s*length|\b\d+mm\b", working_prompt, re.IGNORECASE):
+            token = format_optical_prompt_token(opt_lens)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_optical_lens_spec" not in applied_patches:
+                applied_patches.append("injected_optical_lens_spec")
+
+        # 3c. Inject Virtual Production frustum tracking anchor if configured
+        prev = working_prompt
+        vp_stage = getattr(scene, "virtual_production", None) if is_spec else kwargs.get("virtual_production")
+        if vp_stage is not None and not re.search(r"LED\s*volume|nDisplay|virtual\s*production|frustum", working_prompt, re.IGNORECASE):
+            working_prompt = working_prompt.rstrip() + " Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes."
+            if "injected_vp_stage_frustum" not in applied_patches:
+                applied_patches.append("injected_vp_stage_frustum")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt

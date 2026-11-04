@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2609,6 +2609,258 @@ class TestCouncilStrategistCommercialDomainAlignment:
         assert report.overall_score >= 90.0
         assert report.critical_findings_count == 0
         assert report.persona_reviews["council-strategist"].score == 25.0
+
+
+# ==============================================================================
+# Optical Lens & Virtual Production Stage Suite (PM-FEAT-007 & PM-FEAT-008)
+# ==============================================================================
+class TestOpticalLensAndVirtualProduction:
+    """Verifies PM-FEAT-007 (Optical Lens Suite) and PM-FEAT-008 (Virtual Production Stage)."""
+
+    def test_optical_lens_schemas_and_fov_calculations(self):
+        from omni_director.schemas import (
+            AnamorphicSqueeze,
+            OpticalLensSpec,
+            SensorFormat,
+        )
+        from omni_director.tools.optical_lens import (
+            calculate_hyperfocal_distance,
+            calculate_sensor_fov,
+            format_optical_prompt_token,
+        )
+
+        assert SensorFormat.SUPER_35 == "Super35 (24.89 x 18.66mm)"
+        assert SensorFormat.FULL_FRAME == "Full Frame (36.00 x 24.00mm)"
+        assert SensorFormat.ARRI_LF == "Large Format / ARRI LF (36.70 x 25.54mm)"
+        assert SensorFormat.IMAX_70MM == "IMAX 15/70mm (70.41 x 52.63mm)"
+        assert SensorFormat.VISTAVISION == "VistaVision (40.96 x 21.60mm)"
+        assert AnamorphicSqueeze.ANAMORPHIC_2_0X == 2.0
+
+        lens = OpticalLensSpec(
+            sensor_format=SensorFormat.FULL_FRAME,
+            focal_length_mm=35,
+            aperture_t_stop=2.8,
+            anamorphic_squeeze=1.0,
+        )
+        hfov, vfov = calculate_sensor_fov(lens.sensor_format, lens.focal_length_mm, lens.anamorphic_squeeze)
+        assert hfov == 54.43
+        assert vfov == 37.85
+
+        hyperfocal = calculate_hyperfocal_distance(lens.focal_length_mm, lens.aperture_t_stop)
+        assert hyperfocal == 14.58
+
+        token = format_optical_prompt_token(lens)
+        assert "Full Frame" in token
+        assert "35mm T2.8" in token
+        assert "spherical" in token
+
+        # Test anamorphic 2.0x on Super35
+        lens_ana = OpticalLensSpec(
+            sensor_format="super35",
+            focal_length_mm=50,
+            aperture_t_stop=2.0,
+            anamorphic_squeeze=2.0,
+            lens_series="Kowa Anamorphic",
+        )
+        assert lens_ana.sensor_format == SensorFormat.SUPER_35
+        h_ana, v_ana = calculate_sensor_fov(lens_ana.sensor_format, lens_ana.focal_length_mm, lens_ana.anamorphic_squeeze)
+        assert h_ana > 50.0  # Wider field of view due to 2.0x horizontal squeeze
+        token_ana = format_optical_prompt_token(lens_ana)
+        assert "2.00x anamorphic squeeze" in token_ana
+
+    def test_lens_metadata_csv_export(self, tmp_path):
+        import csv
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.optical_lens import export_lens_metadata_csv, export_lens_metadata_file
+
+        csv_str = export_lens_metadata_csv(IKEA_ASMR_BIBLE)
+        assert "scene_index,scene_title,sensor_format" in csv_str
+        assert "ARRI Signature Prime" in csv_str
+
+        out_path = tmp_path / "lens_test.csv"
+        saved_p = export_lens_metadata_file(IKEA_ASMR_BIBLE, out_path)
+        assert saved_p.is_file()
+
+        reader = list(csv.DictReader(saved_p.read_text(encoding="utf-8").splitlines()))
+        assert len(reader) == len(IKEA_ASMR_BIBLE.scenes)
+        assert float(reader[0]["horizontal_fov_deg"]) > 0.0
+        assert float(reader[0]["hyperfocal_distance_m"]) > 0.0
+
+    def test_virtual_production_stage_schemas_and_synthesis(self, tmp_path):
+        import json
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import VirtualProductionStageSpec
+        from omni_director.tools.virtual_production import (
+            export_dmx_patch_csv,
+            export_ue_ndisplay_manifest,
+            export_virtual_production_bundle,
+            synthesize_default_vp_stage,
+        )
+
+        stage = synthesize_default_vp_stage("StageCraft Prime")
+        assert isinstance(stage, VirtualProductionStageSpec)
+        assert stage.stage_name == "StageCraft Prime"
+        assert stage.led_wall.diameter_meters == 24.0
+        assert len(stage.dmx_lighting_rig) == 4
+
+        # nDisplay JSON manifest
+        ndisplay_json = export_ue_ndisplay_manifest(stage)
+        data = json.loads(ndisplay_json)
+        assert "nDisplay" in data
+        assert data["nDisplay"]["cluster"]["master_node"]["id"] == "Node_Primary_Controller"
+        assert data["nDisplay"]["projection"]["geometry"]["native_resolution"] == "15360x2880"
+
+        # DMX patch CSV
+        dmx_csv = export_dmx_patch_csv(stage)
+        assert "KEY_SKY_01" in dmx_csv
+        assert "Arri SkyPanel S360-C" in dmx_csv
+
+        # Bundle export
+        bundle_out = export_virtual_production_bundle(IKEA_ASMR_BIBLE, tmp_path)
+        assert "ndisplay" in bundle_out
+        assert "dmx" in bundle_out
+        assert "stage_spec" in bundle_out
+        assert Path(bundle_out["ndisplay"]).is_file()
+        assert Path(bundle_out["dmx"]).is_file()
+        assert Path(bundle_out["stage_spec"]).is_file()
+
+    def test_cli_export_lens_and_vp_formats(self, tmp_path):
+        from omni_director.cli import main
+
+        # Export lens format
+        target_lens = tmp_path / "lens_export"
+        ret_lens = main(["export", "--preset", "ikea-asmr", "--format", "lens", "-o", str(target_lens)])
+        assert ret_lens == 0
+        lens_file = target_lens / "lens_package.csv"
+        assert lens_file.is_file()
+        assert "horizontal_fov_deg" in lens_file.read_text(encoding="utf-8")
+
+        # Export vp format
+        target_vp = tmp_path / "vp_export"
+        ret_vp = main(["export", "--preset", "ikea-asmr", "--format", "vp", "-o", str(target_vp)])
+        assert ret_vp == 0
+        assert (target_vp / "ndisplay_stage_manifest.json").is_file()
+        assert (target_vp / "dmx_patch.csv").is_file()
+        assert (target_vp / "vp_stage_spec.json").is_file()
+
+        # Export all includes lens and vp
+        target_all = tmp_path / "all_export"
+        ret_all = main(["export", "--preset", "ikea-asmr", "--format", "all", "-o", str(target_all)])
+        assert ret_all == 0
+        assert (target_all / "lens_package.csv").is_file()
+        assert (target_all / "ndisplay_stage_manifest.json").is_file()
+        assert (target_all / "dmx_patch.csv").is_file()
+
+    def test_senior_pm_proposals_include_v24_features(self):
+        from omni_director.agents.council import ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(bible=IKEA_ASMR_BIBLE)
+        p_ids = [p.feature_id for p in proposals]
+        assert "PM-FEAT-007" in p_ids
+        assert "PM-FEAT-008" in p_ids
+
+        p7 = next(p for p in proposals if p.feature_id == "PM-FEAT-007")
+        assert p7.priority == "P0"
+        assert p7.status == "implemented"
+        assert "Optical Lens" in p7.title
+
+        p8 = next(p for p in proposals if p.feature_id == "PM-FEAT-008")
+        assert p8.priority == "P0"
+        assert p8.status == "implemented"
+        assert "Virtual Production" in p8.title
+
+    def test_domain_optical_lens_and_vp_presets(self):
+        from omni_director.presets import (
+            get_domain_optical_lens,
+            get_domain_virtual_production,
+            DOMAINS_6,
+        )
+        from omni_director.schemas import OpticalLensSpec, VirtualProductionStageSpec
+
+        for domain in DOMAINS_6:
+            lens = get_domain_optical_lens(domain)
+            assert isinstance(lens, OpticalLensSpec)
+            assert lens.focal_length_mm > 0
+            assert lens.aperture_t_stop > 0
+            assert lens.horizontal_fov_deg is not None
+            assert lens.horizontal_fov_deg > 0
+
+            vp = get_domain_virtual_production(domain)
+            assert isinstance(vp, VirtualProductionStageSpec)
+            assert vp.stage_name
+            assert len(vp.dmx_fixtures) > 0
+
+    def test_animatic_viewfinder_and_vp_stage_hud(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, tmp_path)
+        assert html_path.is_file()
+        content = html_path.read_text(encoding="utf-8")
+
+        # Viewfinder elements
+        assert 'id="btn-viewfinder-animatic"' in content
+        assert 'id="animatic-viewfinder-overlay"' in content
+        assert 'toggleViewfinder()' in content
+        assert 'class="badge-lens"' in content
+        assert 'class="viewfinder-overlay"' in content
+
+        # Virtual Production Stage elements
+        assert 'id="btn-vp-stage-animatic"' in content
+        assert 'id="animatic-vp-stage-modal"' in content
+        assert 'toggleVPStageModal()' in content
+        assert 'class="badge-vp"' in content
+        assert 'class="vp-schematic-svg"' in content
+
+    def test_prompt_auditor_optical_and_vp_compliance(self):
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        scene = IKEA_ASMR_BIBLE.scenes[0]
+        res = audit_omni_scene_prompt(scene)
+        assert res.score >= 90.0
+
+        # Test prompt healing injects optical and VP tokens when missing
+        test_scene = scene.model_copy(deep=True)
+        test_scene.omni_prose_prompt = "A simple camera shot of wooden table with soft light."
+        healed_scene, healed_res = heal_omni_scene_prompt(test_scene)
+        assert "T" in healed_scene.omni_prose_prompt or "mm" in healed_scene.omni_prose_prompt
+        assert healed_res.score >= 90.0
+
+    def test_product_council_v24_audit_pass(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(bundle, tmp_path)
+
+        council = ProductCouncilOrchestrator()
+        report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
+
+        assert report.version == "2.4.0"
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0
+
+
 
 
 

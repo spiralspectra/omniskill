@@ -180,6 +180,39 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-007",
+                title="Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)",
+                problem_statement=(
+                    f"Directors of Photography and camera operators reviewing storyboards{project_ctx} require precise optical modeling "
+                    "(sensor format crop factors, 1.33x/1.5x/2.0x anamorphic squeeze, horizontal field of view, hyperfocal distance) "
+                    "to avoid focal distortion in prompt generation, export lens metadata for ACs, and preview safe reticles directly in the animatic."
+                ),
+                proposed_solution=(
+                    "Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens "
+                    "(FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), "
+                    "prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/optical_lens.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-008",
+                title="Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite",
+                problem_statement=(
+                    f"High-end commercial productions{project_ctx} increasingly film on curved LED volume stages with Unreal Engine 5 in-camera visual effects (ICVFX); "
+                    "production crews require nDisplay frustum tracking manifests, DMX lighting patch tables, and visual stage geometry blueprints directly from the storyboard bible."
+                ),
+                proposed_solution=(
+                    "Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production "
+                    "(Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), "
+                    "and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/virtual_production.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -217,6 +250,24 @@ class ProductCouncilOrchestrator(BaseAgent):
     ) -> List[ProductFeatureProposal]:
         """Consults the Senior Product Manager persona to inspect the product and recommend features."""
         return self.product_manager.inspect_product(bible=bible, bundle=bundle, output_dir=output_dir)
+
+    def convene_council(
+        self,
+        bundle_or_bible: Optional[Union[ProductionBundle, MasterProductionBible, Dict[str, Any], str, Path]] = None,
+        output_dir: Optional[Union[str, Path]] = None,
+        auto_heal: bool = True,
+        *,
+        bundle: Optional[ProductionBundle] = None,
+        bible: Optional[MasterProductionBible] = None,
+    ) -> ProductCouncilReport:
+        """Convenes the autonomous 4-persona product council and senior product manager."""
+        return self.audit(
+            bundle_or_bible=bundle_or_bible,
+            output_dir=output_dir,
+            auto_heal=auto_heal,
+            bundle=bundle,
+            bible=bible,
+        )
 
     def audit(
         self,
@@ -302,7 +353,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
 
         report = ProductCouncilReport(
-            version="2.3.0",
+            version="2.4.0",
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -649,6 +700,44 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain optical lens package (PM-FEAT-007)
+        if hasattr(bible, "master_lens_package") and bible.master_lens_package:
+            lens_pkg = bible.master_lens_package
+            sensor_str = lens_pkg.sensor_format.value if hasattr(lens_pkg.sensor_format, "value") else str(lens_pkg.sensor_format)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="optical_lens_alignment",
+                message=f"Cinematic optical lens package verified: {lens_pkg.focal_length_mm}mm T{lens_pkg.aperture_t_stop} ({sensor_str}) for domain '{detected_domain}'.",
+                details={"domain": detected_domain, "focal_length_mm": lens_pkg.focal_length_mm},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="optical_lens_alignment",
+                message="Master optical lens package missing from production bible.",
+                suggested_fix="Assign master_lens_package via get_domain_optical_lens().",
+            ))
+            score -= 0.25
+
+        # Check domain virtual production stage spec (PM-FEAT-008)
+        if hasattr(bible, "virtual_production") and bible.virtual_production:
+            vp_stage = bible.virtual_production
+            fixtures = getattr(vp_stage, "dmx_fixtures", [])
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="virtual_production_alignment",
+                message=f"Virtual Production stage manifest verified: '{vp_stage.stage_name}' with {len(fixtures)} DMX fixtures for domain '{detected_domain}'.",
+                details={"domain": detected_domain, "stage_name": vp_stage.stage_name},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="virtual_production_alignment",
+                message="Virtual production stage spec missing from production bible.",
+                suggested_fix="Assign virtual_production via get_domain_virtual_production().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -747,6 +836,22 @@ class ProductCouncilOrchestrator(BaseAgent):
                         category="animatic_accessibility",
                         message="Compiled storyboard preview HTML lacks accessible tablist semantics or non-blocking cinema-toast container.",
                         suggested_fix="Ensure compile_storyboard_html generates role='tablist' and #cinema-toast elements."
+                    ))
+                    score -= 1.0
+                if 'id="btn-viewfinder-animatic"' not in html_content and 'id="animatic-viewfinder-overlay"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_viewfinder",
+                        message="Compiled storyboard preview HTML lacks optical viewfinder overlay or safe guide toggle (#btn-viewfinder-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-viewfinder-animatic and #animatic-viewfinder-overlay controls."
+                    ))
+                    score -= 1.0
+                if 'id="btn-vp-stage-animatic"' not in html_content and 'id="animatic-vp-stage-modal"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_virtual_production",
+                        message="Compiled storyboard preview HTML lacks virtual production stage modal (#animatic-vp-stage-modal).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-vp-stage-animatic and #animatic-vp-stage-modal controls."
                     ))
                     score -= 1.0
             except Exception:

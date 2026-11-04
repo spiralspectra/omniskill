@@ -1,0 +1,53 @@
+{
+  "nDisplay": {
+    "version": "5.4",
+    "stage_name": "Cleanroom Micron LED Chamber Epsilon",
+    "cluster": {
+      "master_node": {
+        "id": "Node_Primary_Controller",
+        "render_api": "DirectX12_D3D12RHI",
+        "sync_policy": "NVIDIA_Rivermax_PTP"
+      },
+      "render_nodes": [
+        {
+          "id": "Node_Inner_Frustum_01",
+          "gpu": "NVIDIA RTX 6000 Ada",
+          "display": "LED_Wall_Curved"
+        },
+        {
+          "id": "Node_Ceiling_Ambience_02",
+          "gpu": "NVIDIA RTX 6000 Ada",
+          "display": "LED_Ceiling_Panel"
+        }
+      ]
+    },
+    "projection": {
+      "geometry": {
+        "shape": "curved_horseshoe",
+        "diameter_m": 24.0,
+        "height_m": 6.5,
+        "pixel_pitch_mm": 2.3,
+        "native_resolution": "15360x2880",
+        "ceiling_active": true,
+        "floor_active": false
+      },
+      "color_management": {
+        "ocio_config": "ACEScg_OCIO_v1.3",
+        "working_gamut": "ACEScg",
+        "display_gamut": "DCI-P3"
+      }
+    },
+    "tracking": {
+      "protocol": "FreeD / OptiTrack Active Optical",
+      "camera_subject": "Hero_Cinema_Camera",
+      "latency_compensation_ms": 2.5,
+      "lens_encoder": "Cooke_i_Data_Lens_Profile"
+    },
+    "parallax_depth_planes": {
+      "foreground_prop_m": 1.5,
+      "actor_stage_m": 3.5,
+      "led_wall_m": 8.0,
+      "virtual_bg_infinity_m": 500.0
+    }
+  }
+}
