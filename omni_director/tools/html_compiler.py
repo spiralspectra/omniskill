@@ -546,6 +546,65 @@ def compile_storyboard_html(
   <text x="40" y="200" font-family="monospace" font-size="9" fill="#7E88A4">STAGE ORIGIN [0,0,0]</text>
 </svg>"""
 
+    # Master Motion Control (MoCo) Rig Spec (PM-FEAT-009)
+    master_moco = getattr(bible, "master_moco_rig", None)
+    moco_rig_type = master_moco.rig_type.value if master_moco and hasattr(master_moco.rig_type, "value") else (str(master_moco.rig_type) if master_moco else "bolt_cinebot")
+    moco_rig_name = moco_rig_type.replace("_", " ").title()
+    moco_max_vel = getattr(master_moco, "max_velocity_mps", 4.5) if master_moco else 4.5
+    moco_track_len = getattr(master_moco, "track_length_meters", 6.0) if master_moco else 6.0
+    moco_payload = getattr(master_moco, "payload_kg", 15.0) if master_moco else 15.0
+    moco_backlash = getattr(master_moco, "mechanical_backlash_mm", 0.05) if master_moco else 0.05
+
+    moco_waypoints = getattr(master_moco, "waypoints", []) if master_moco else []
+    wp1 = moco_waypoints[0] if len(moco_waypoints) > 0 else None
+    wp2 = moco_waypoints[1] if len(moco_waypoints) > 1 else None
+    wp3 = moco_waypoints[2] if len(moco_waypoints) > 2 else None
+
+    wp1_x = getattr(wp1, "x_meters", -1.10) if wp1 else -1.10
+    wp1_y = getattr(wp1, "y_meters", -1.40) if wp1 else -1.40
+    wp1_z = getattr(wp1, "z_meters", 0.80) if wp1 else 0.80
+    wp1_roll = getattr(wp1, "roll_deg", 0.0) if wp1 else 0.0
+    wp1_pitch = getattr(wp1, "pitch_deg", 5.0) if wp1 else 5.0
+    wp1_yaw = getattr(wp1, "yaw_deg", 15.0) if wp1 else 15.0
+    wp1_vel = getattr(wp1, "velocity_mps", 1.10) if wp1 else 1.10
+
+    wp2_x = getattr(wp2, "x_meters", 1.24) if wp2 else 1.24
+    wp2_y = getattr(wp2, "y_meters", -0.85) if wp2 else -0.85
+    wp2_z = getattr(wp2, "z_meters", 1.50) if wp2 else 1.50
+    wp2_roll = getattr(wp2, "roll_deg", 0.0) if wp2 else 0.0
+    wp2_pitch = getattr(wp2, "pitch_deg", -12.5) if wp2 else -12.5
+    wp2_yaw = getattr(wp2, "yaw_deg", 45.0) if wp2 else 45.0
+    wp2_vel = getattr(wp2, "velocity_mps", 1.85) if wp2 else 1.85
+
+    wp3_x = getattr(wp3, "x_meters", 2.65) if wp3 else 2.65
+    wp3_y = getattr(wp3, "y_meters", 1.20) if wp3 else 1.20
+    wp3_z = getattr(wp3, "z_meters", 1.95) if wp3 else 1.95
+    wp3_roll = getattr(wp3, "roll_deg", -2.0) if wp3 else -2.0
+    wp3_pitch = getattr(wp3, "pitch_deg", -8.0) if wp3 else -8.0
+    wp3_yaw = getattr(wp3, "yaw_deg", 82.0) if wp3 else 82.0
+    wp3_vel = getattr(wp3, "velocity_mps", 2.40) if wp3 else 2.40
+
+    # Master Studio Lighting Rig Spec (PM-FEAT-010)
+    master_lighting = getattr(bible, "master_lighting_rig", None)
+    key_lux = 5000.0
+    fill_lux = 1250.0
+    rim_lux = 2500.0
+    cct_kelvin = 5600
+    haze_density_pct = 24
+    k2f_ratio = getattr(master_lighting, "key_to_fill_ratio", 4.0) if master_lighting else 4.0
+    if master_lighting:
+        for fix in getattr(master_lighting, "fixtures", []):
+            role_str = fix.role.value if hasattr(fix.role, "value") else str(fix.role).lower()
+            if "key" in role_str:
+                key_lux = getattr(fix, "lux_intensity", 5000.0)
+                cct_kelvin = getattr(fix, "cct_kelvin", 5600)
+            elif "fill" in role_str:
+                fill_lux = getattr(fix, "lux_intensity", 1250.0)
+            elif "rim" in role_str or "back" in role_str:
+                rim_lux = getattr(fix, "lux_intensity", 2500.0)
+        if getattr(master_lighting, "atmospheric_haze", None):
+            haze_density_pct = int(master_lighting.atmospheric_haze.particulate_density * 100)
+
     # Serialize bible for client-side export
     bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
 
@@ -2064,6 +2123,289 @@ def compile_storyboard_html(
     .dmx-addr {{ color: var(--amber-gold); }}
     .dmx-temp {{ color: var(--green-pass); }}
 
+    /* Motion Control (MoCo) Trajectory HUD (PM-FEAT-009) */
+    .moco-modal-content, .gaffer-modal-content {{
+      max-width: 900px;
+    }}
+    .moco-dof-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }}
+    @media (max-width: 600px) {{
+      .moco-dof-grid {{ grid-template-columns: repeat(2, 1fr); }}
+    }}
+    .dof-card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }}
+    .dof-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+    }}
+    .dof-val {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan-telemetry);
+    }}
+    .moco-velocity-box {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .moco-velocity-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .velocity-label {{ color: var(--text-muted); }}
+    .velocity-val {{ color: var(--amber-gold); font-weight: 700; }}
+    .velocity-bar-track {{
+      background: var(--border-subtle);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+    }}
+    .velocity-bar-fill {{
+      background: linear-gradient(90deg, var(--green-pass) 0%, var(--amber-gold) 70%, var(--crimson-accent) 100%);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.15s ease;
+    }}
+    .moco-accel-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+    }}
+    .moco-accel-row strong {{ color: var(--text-main); }}
+    .moco-sync-badge {{
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--green-pass);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }}
+    .moco-specs-meta {{
+      margin-top: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }}
+    .moco-specs-meta strong {{ color: var(--text-muted); }}
+    .moco-waypoint-selector {{
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }}
+    .moco-wp-btn {{
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 6px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }}
+    .moco-wp-btn:hover, .moco-wp-btn:focus-visible {{
+      border-color: var(--cyan-telemetry);
+      color: var(--text-main);
+      outline: 2px solid var(--cyan-telemetry);
+    }}
+    .moco-wp-btn.active {{
+      background: rgba(0, 240, 255, 0.12);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }}
+
+    /* Studio Gaffer & Lighting HUD (PM-FEAT-010) */
+    .gaffer-slider-group {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .gaffer-slider-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }}
+    .gaffer-slider-label {{
+      color: var(--text-muted);
+      font-weight: 600;
+    }}
+    .gaffer-slider-val {{
+      color: var(--amber-gold);
+      font-weight: 700;
+    }}
+    .gaffer-slider {{
+      width: 100%;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: 3px;
+      cursor: pointer;
+      accent-color: var(--amber-gold);
+    }}
+    .gaffer-slider:focus-visible {{
+      outline: 2px solid var(--amber-gold);
+    }}
+    .gaffer-fixture-meta {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+    .contrast-ratio-box {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .ratio-heading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+    }}
+    .contrast-ratio-badge {{
+      display: inline-block;
+      background: rgba(255, 184, 0, 0.15);
+      border: 1px solid var(--amber-gold);
+      color: var(--amber-gold);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }}
+    .ratio-hint {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }}
+    .cct-swatch-container {{
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .cct-swatch {{
+      width: 100%;
+      height: 48px;
+      border-radius: 6px;
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.2s ease;
+    }}
+    .cct-swatch-text {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #07080B;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+    }}
+    .cct-presets-row {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }}
+    .cct-preset-btn {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+    .cct-preset-btn:hover, .cct-preset-btn:focus-visible {{
+      color: var(--text-main);
+      border-color: var(--amber-gold);
+      outline: 2px solid var(--amber-gold);
+    }}
+    .cct-preset-btn.active {{
+      background: rgba(255, 184, 0, 0.15);
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+      font-weight: 700;
+    }}
+    .haze-status-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+    }}
+    .haze-status-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }}
+    .haze-status-badge.haze-low {{
+      background: rgba(126, 136, 164, 0.15);
+      border-color: var(--text-dim);
+      color: var(--text-dim);
+    }}
+    .haze-status-badge.haze-opt {{
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }}
+    .haze-status-badge.haze-high {{
+      background: rgba(255, 184, 0, 0.15);
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+    }}
+    .haze-engine-info {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
@@ -2102,7 +2444,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [L] Look · [M] Mixer · [K] Loop · [C] Captions · [V] Viewfinder · [P] VP Stage · [G] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [L] Look · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -2120,8 +2462,14 @@ def compile_storyboard_html(
         <button type="button" class="btn-play" id="btn-play-animatic" onclick="togglePlay()" aria-label="Play or Pause Animatic [Space]">
           ▶ Play Animatic
         </button>
-        <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [K]" aria-pressed="false">
-          🔁 Loop [K]
+        <button type="button" class="btn-loop" id="btn-loop-animatic" onclick="toggleLoop()" aria-label="Toggle Animatic Loop Playback [O]" aria-pressed="false">
+          🔁 Loop [O]
+        </button>
+        <button type="button" class="btn-loop" id="btn-moco-animatic" onclick="toggleMoCoHUD()" aria-label="Toggle Motion Control Trajectory HUD [K]" aria-pressed="false" aria-expanded="false" aria-controls="animatic-moco-hud">
+          🤖 MoCo [K]
+        </button>
+        <button type="button" class="btn-loop" id="btn-gaffer-animatic" onclick="toggleGafferHUD()" aria-label="Toggle Studio Gaffer &amp; Lighting HUD [G]" aria-pressed="false" aria-expanded="false" aria-controls="animatic-gaffer-hud">
+          💡 Gaffer [G]
         </button>
         <button type="button" class="btn-loop active" id="btn-cc-animatic" onclick="toggleCC()" aria-label="Toggle Closed Captions [C]" aria-pressed="true">
           CC [C]
@@ -2365,6 +2713,189 @@ def compile_storyboard_html(
     </div>
   </div>
 
+  <!-- Motion Control Trajectory HUD (PM-FEAT-009) -->
+  <div id="animatic-moco-hud" class="moco-hud-modal" role="dialog" aria-modal="true" aria-label="Motion Control Trajectory HUD and 6-DOF Telemetry" style="display: none;">
+    <div class="moco-modal-content">
+      <div class="moco-modal-header">
+        <div class="moco-title-wrap">
+          <span class="moco-icon">🤖</span>
+          <div>
+            <h3 class="moco-heading">MOTION CONTROL TRAJECTORY HUD</h3>
+            <span class="moco-subheading">{moco_rig_name} · Track {moco_track_len}m · Payload {moco_payload}kg · Backlash ±{moco_backlash}mm</span>
+          </div>
+        </div>
+        <button type="button" class="btn-moco-close" onclick="toggleMoCoHUD()" aria-label="Close Motion Control HUD">✕</button>
+      </div>
+      <div class="moco-modal-body">
+        <div class="moco-telemetry-col">
+          <div class="col-heading">6-DOF KINEMATIC POSITION &amp; ROTATION</div>
+          <div class="moco-dof-grid">
+            <div class="dof-card">
+              <span class="dof-label">POS X (LATERAL)</span>
+              <span class="dof-val" id="moco-val-x">{wp1_x:+.2f}m</span>
+            </div>
+            <div class="dof-card">
+              <span class="dof-label">POS Y (LONGITUDINAL)</span>
+              <span class="dof-val" id="moco-val-y">{wp1_y:+.2f}m</span>
+            </div>
+            <div class="dof-card">
+              <span class="dof-label">POS Z (ELEVATION)</span>
+              <span class="dof-val" id="moco-val-z">{wp1_z:+.2f}m</span>
+            </div>
+            <div class="dof-card">
+              <span class="dof-label">ROT ROLL</span>
+              <span class="dof-val" id="moco-val-roll">{wp1_roll:+.1f}°</span>
+            </div>
+            <div class="dof-card">
+              <span class="dof-label">ROT PITCH</span>
+              <span class="dof-val" id="moco-val-pitch">{wp1_pitch:+.1f}°</span>
+            </div>
+            <div class="dof-card">
+              <span class="dof-label">ROT YAW</span>
+              <span class="dof-val" id="moco-val-yaw">{wp1_yaw:+.1f}°</span>
+            </div>
+          </div>
+
+          <div class="col-heading" style="margin-top: 14px;">VELOCITY &amp; DYNAMIC LIMITS</div>
+          <div class="moco-velocity-box">
+            <div class="velocity-header">
+              <span class="vel-label">RIG VELOCITY</span>
+              <span class="vel-val" id="moco-vel-val">{wp1_vel:.2f} m/s / {moco_max_vel:.1f} m/s max</span>
+            </div>
+            <div class="velocity-bar-track">
+              <div class="velocity-bar-fill" id="moco-vel-bar" style="width: {(wp1_vel / max(0.1, moco_max_vel)) * 100:.1f}%;"></div>
+            </div>
+          </div>
+
+          <div class="col-heading" style="margin-top: 14px;">WAYPOINT TRAJECTORY SELECTOR</div>
+          <div class="moco-waypoint-selector" role="group" aria-label="Waypoint Selection">
+            <button type="button" class="moco-wp-btn active" id="wp-btn-1" onclick="selectMoCoWaypoint(1, {wp1_x}, {wp1_y}, {wp1_z}, {wp1_roll}, {wp1_pitch}, {wp1_yaw}, {wp1_vel})">WP-1 (Start)</button>
+            <button type="button" class="moco-wp-btn" id="wp-btn-2" onclick="selectMoCoWaypoint(2, {wp2_x}, {wp2_y}, {wp2_z}, {wp2_roll}, {wp2_pitch}, {wp2_yaw}, {wp2_vel})">WP-2 (Apex)</button>
+            <button type="button" class="moco-wp-btn" id="wp-btn-3" onclick="selectMoCoWaypoint(3, {wp3_x}, {wp3_y}, {wp3_z}, {wp3_roll}, {wp3_pitch}, {wp3_yaw}, {wp3_vel})">WP-3 (Terminal)</button>
+          </div>
+        </div>
+
+        <div class="moco-preview-col">
+          <div class="col-heading">ISOMETRIC 3D TRAJECTORY PREVIEW</div>
+          <div class="moco-svg-preview-wrap">
+            <svg id="moco-trajectory-svg" viewBox="0 0 380 260" class="moco-path-svg" role="img" aria-label="Motion Control Path Visualizer">
+              <defs>
+                <linearGradient id="moco-path-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00FFAA" />
+                  <stop offset="50%" stop-color="#00E5FF" />
+                  <stop offset="100%" stop-color="#FF007F" />
+                </linearGradient>
+              </defs>
+              <!-- Grid Plane -->
+              <line x1="40" y1="210" x2="340" y2="210" stroke="#222" stroke-width="1" />
+              <line x1="40" y1="160" x2="340" y2="160" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="4" />
+              <line x1="40" y1="110" x2="340" y2="110" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="4" />
+              <!-- Track Line -->
+              <line x1="50" y1="220" x2="330" y2="220" stroke="#444" stroke-width="3" stroke-linecap="round" />
+              <text x="50" y="235" fill="#666" font-size="9" font-family="'JetBrains Mono'">0.0m</text>
+              <text x="310" y="235" fill="#666" font-size="9" font-family="'JetBrains Mono'">{moco_track_len:.1f}m</text>
+              <!-- Spline Curve -->
+              <path d="M 60 190 C 140 80, 220 70, 320 140" fill="none" stroke="url(#moco-path-grad)" stroke-width="3" stroke-linecap="round" />
+              <!-- Waypoint Nodes -->
+              <circle id="wp-node-1" cx="60" cy="190" r="7" fill="#00FFAA" stroke="#000" stroke-width="2" class="wp-node active" onclick="selectMoCoWaypoint(1, {wp1_x}, {wp1_y}, {wp1_z}, {wp1_roll}, {wp1_pitch}, {wp1_yaw}, {wp1_vel})" />
+              <text x="50" y="175" fill="#00FFAA" font-size="10" font-weight="700" font-family="'JetBrains Mono'">WP-1</text>
+              <circle id="wp-node-2" cx="180" cy="95" r="6" fill="#00E5FF" stroke="#000" stroke-width="2" class="wp-node" onclick="selectMoCoWaypoint(2, {wp2_x}, {wp2_y}, {wp2_z}, {wp2_roll}, {wp2_pitch}, {wp2_yaw}, {wp2_vel})" />
+              <text x="170" y="80" fill="#00E5FF" font-size="10" font-weight="700" font-family="'JetBrains Mono'">WP-2</text>
+              <circle id="wp-node-3" cx="320" cy="140" r="6" fill="#FF007F" stroke="#000" stroke-width="2" class="wp-node" onclick="selectMoCoWaypoint(3, {wp3_x}, {wp3_y}, {wp3_z}, {wp3_roll}, {wp3_pitch}, {wp3_yaw}, {wp3_vel})" />
+              <text x="310" y="125" fill="#FF007F" font-size="10" font-weight="700" font-family="'JetBrains Mono'">WP-3</text>
+              <!-- Realtime Rig Indicator -->
+              <circle id="moco-rig-indicator" cx="60" cy="190" r="10" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="3 3" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Studio Gaffer & Lighting HUD (PM-FEAT-010) -->
+  <div id="animatic-gaffer-hud" class="gaffer-hud-modal" role="dialog" aria-modal="true" aria-label="Studio Gaffer and Photometric Lighting HUD" style="display: none;">
+    <div class="gaffer-modal-content">
+      <div class="gaffer-modal-header">
+        <div class="gaffer-title-wrap">
+          <span class="gaffer-icon">💡</span>
+          <div>
+            <h3 class="gaffer-heading">STUDIO GAFFER &amp; LIGHTING HUD</h3>
+            <span class="gaffer-subheading">Photometric Control · Color Temperature (CCT) · Volumetric Atmosphere</span>
+          </div>
+        </div>
+        <button type="button" class="btn-gaffer-close" onclick="toggleGafferHUD()" aria-label="Close Gaffer HUD">✕</button>
+      </div>
+      <div class="gaffer-modal-body">
+        <div class="gaffer-photometrics-col">
+          <div class="col-heading">3-POINT PHOTOMETRIC INTENSITY (LUX)</div>
+          
+          <div class="gaffer-slider-group">
+            <div class="gaffer-slider-header">
+              <label for="slider-key-light" class="gaffer-slider-label">KEY LIGHT (PRIMARY FOCUS)</label>
+              <span class="gaffer-slider-val" id="val-key-light">{key_lux:.0f} lx</span>
+            </div>
+            <input type="range" class="gaffer-slider key-slider" id="slider-key-light" min="500" max="15000" step="100" value="{key_lux:.0f}" oninput="updateGafferLighting()" aria-label="Key Light Intensity in Lux">
+          </div>
+
+          <div class="gaffer-slider-group">
+            <div class="gaffer-slider-header">
+              <label for="slider-fill-light" class="gaffer-slider-label">FILL LIGHT (SHADOW RATIO)</label>
+              <span class="gaffer-slider-val" id="val-fill-light">{fill_lux:.0f} lx</span>
+            </div>
+            <input type="range" class="gaffer-slider fill-slider" id="slider-fill-light" min="100" max="8000" step="50" value="{fill_lux:.0f}" oninput="updateGafferLighting()" aria-label="Fill Light Intensity in Lux">
+          </div>
+
+          <div class="gaffer-slider-group">
+            <div class="gaffer-slider-header">
+              <label for="slider-rim-light" class="gaffer-slider-label">RIM / BACK LIGHT (EDGE SEPARATION)</label>
+              <span class="gaffer-slider-val" id="val-rim-light">{rim_lux:.0f} lx</span>
+            </div>
+            <input type="range" class="gaffer-slider rim-slider" id="slider-rim-light" min="200" max="10000" step="50" value="{rim_lux:.0f}" oninput="updateGafferLighting()" aria-label="Rim Light Intensity in Lux">
+          </div>
+
+          <div class="contrast-ratio-box">
+            <span class="contrast-ratio-label">KEY : FILL CONTRAST RATIO:</span>
+            <span class="contrast-ratio-badge" id="contrast-ratio-badge">{k2f_ratio:.1f} : 1</span>
+          </div>
+        </div>
+
+        <div class="gaffer-cct-col">
+          <div class="col-heading">CORRELATED COLOR TEMPERATURE (CCT)</div>
+          <div class="cct-control-box">
+            <div class="cct-header">
+              <label for="slider-kelvin-cct" class="cct-slider-label">KELVIN TEMPERATURE</label>
+              <span class="cct-kelvin-val" id="val-kelvin-cct">{cct_kelvin}K</span>
+            </div>
+            <input type="range" class="gaffer-slider cct-slider" id="slider-kelvin-cct" min="2000" max="10000" step="100" value="{cct_kelvin}" oninput="updateKelvinCCT(this.value)" aria-label="Kelvin Color Temperature">
+            <div class="cct-swatch-box">
+              <div class="cct-swatch" id="cct-color-swatch" role="img" aria-label="Kelvin Color Swatch"></div>
+              <span class="cct-swatch-text" id="cct-swatch-text">5600K · Daylight Balance</span>
+            </div>
+            <div class="cct-presets-row" role="group" aria-label="Kelvin Presets">
+              <button type="button" class="cct-preset-btn" onclick="setKelvinPreset(3200, 'Tungsten Studio')">3200K Tungsten</button>
+              <button type="button" class="cct-preset-btn" onclick="setKelvinPreset(4300, 'Fluorescent / Mix')">4300K Neutral</button>
+              <button type="button" class="cct-preset-btn active" onclick="setKelvinPreset(5600, 'Daylight D56')">5600K Daylight</button>
+              <button type="button" class="cct-preset-btn" onclick="setKelvinPreset(6500, 'Overcast D65')">6500K Overcast</button>
+            </div>
+          </div>
+
+          <div class="col-heading" style="margin-top: 14px;">ATMOSPHERIC VOLUMETRIC HAZE</div>
+          <div class="haze-control-box">
+            <div class="haze-header">
+              <label for="slider-haze-density" class="haze-slider-label">PARTICULATE DENSITY</label>
+              <span class="haze-density-val" id="val-haze-density">{haze_density_pct}%</span>
+            </div>
+            <input type="range" class="gaffer-slider haze-slider" id="slider-haze-density" min="0" max="100" step="1" value="{haze_density_pct}" oninput="updateHazeDensity(this.value)" aria-label="Volumetric Haze Density Percentage">
+            <div class="haze-status-row">
+              <span class="haze-status-label">ATMOSPHERE:</span>
+              <span class="haze-status-badge" id="badge-haze-status">Subtle Cinema Haze</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -2519,6 +3050,189 @@ def compile_storyboard_html(
       if (btn) {{
         btn.classList.toggle('active', isVPStageModalOpen);
         btn.setAttribute('aria-pressed', isVPStageModalOpen ? 'true' : 'false');
+      }}
+    }}
+
+    // Motion Control Trajectory HUD Controller (PM-FEAT-009)
+    let isMoCoHUDOpen = false;
+    function toggleMoCoHUD() {{
+      isMoCoHUDOpen = !isMoCoHUDOpen;
+      const modal = document.getElementById('animatic-moco-hud');
+      const btn = document.getElementById('btn-moco-animatic');
+      if (modal) {{
+        modal.style.display = isMoCoHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isMoCoHUDOpen);
+        btn.setAttribute('aria-pressed', isMoCoHUDOpen ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', isMoCoHUDOpen ? 'true' : 'false');
+      }}
+      if (isMoCoHUDOpen) {{
+        showToast("Motion Control Trajectory HUD: ACTIVE [K]");
+      }}
+    }}
+
+    function selectMoCoWaypoint(idx, x, y, z, roll, pitch, yaw, vel) {{
+      const elX = document.getElementById('moco-val-x');
+      const elY = document.getElementById('moco-val-y');
+      const elZ = document.getElementById('moco-val-z');
+      const elRoll = document.getElementById('moco-val-roll');
+      const elPitch = document.getElementById('moco-val-pitch');
+      const elYaw = document.getElementById('moco-val-yaw');
+      const elVel = document.getElementById('moco-vel-val');
+      const elBar = document.getElementById('moco-vel-bar');
+
+      if (elX) elX.innerText = (x >= 0 ? '+' : '') + x.toFixed(2) + 'm';
+      if (elY) elY.innerText = (y >= 0 ? '+' : '') + y.toFixed(2) + 'm';
+      if (elZ) elZ.innerText = (z >= 0 ? '+' : '') + z.toFixed(2) + 'm';
+      if (elRoll) elRoll.innerText = (roll >= 0 ? '+' : '') + roll.toFixed(1) + '°';
+      if (elPitch) elPitch.innerText = (pitch >= 0 ? '+' : '') + pitch.toFixed(1) + '°';
+      if (elYaw) elYaw.innerText = (yaw >= 0 ? '+' : '') + yaw.toFixed(1) + '°';
+
+      const maxVel = {moco_max_vel};
+      if (elVel) elVel.innerText = vel.toFixed(2) + ' m/s / ' + maxVel.toFixed(1) + ' m/s max';
+      if (elBar) elBar.style.width = Math.min(100, Math.max(0, (vel / Math.max(0.1, maxVel)) * 100)) + '%';
+
+      document.querySelectorAll('.moco-wp-btn').forEach((b, i) => {{
+        b.classList.toggle('active', i + 1 === idx);
+      }});
+      document.querySelectorAll('.wp-node').forEach((n, i) => {{
+        n.classList.toggle('active', i + 1 === idx);
+      }});
+
+      const indicator = document.getElementById('moco-rig-indicator');
+      const targetNode = document.getElementById('wp-node-' + idx);
+      if (indicator && targetNode) {{
+        indicator.setAttribute('cx', targetNode.getAttribute('cx'));
+        indicator.setAttribute('cy', targetNode.getAttribute('cy'));
+      }}
+      showToast("MoCo Rig Telemetry: Selected Waypoint WP-" + idx);
+    }}
+
+    function updateMoCoFromTimeline(progress) {{
+      const p = Math.max(0, Math.min(1, progress));
+      const indicator = document.getElementById('moco-rig-indicator');
+      if (indicator) {{
+        const cx = 60 + p * (320 - 60);
+        const cy = 190 + Math.sin(p * Math.PI) * (95 - 190) + (140 - 190) * p * 0.4;
+        indicator.setAttribute('cx', cx.toFixed(1));
+        indicator.setAttribute('cy', cy.toFixed(1));
+      }}
+    }}
+
+    // Studio Gaffer & Lighting HUD Controller (PM-FEAT-010)
+    let isGafferHUDOpen = false;
+    function toggleGafferHUD() {{
+      isGafferHUDOpen = !isGafferHUDOpen;
+      const modal = document.getElementById('animatic-gaffer-hud');
+      const btn = document.getElementById('btn-gaffer-animatic');
+      if (modal) {{
+        modal.style.display = isGafferHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isGafferHUDOpen);
+        btn.setAttribute('aria-pressed', isGafferHUDOpen ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', isGafferHUDOpen ? 'true' : 'false');
+      }}
+      if (isGafferHUDOpen) {{
+        showToast("Studio Gaffer & Lighting HUD: ACTIVE [G]");
+      }}
+    }}
+
+    function updateGafferLighting() {{
+      const keyEl = document.getElementById('slider-key-light');
+      const fillEl = document.getElementById('slider-fill-light');
+      const rimEl = document.getElementById('slider-rim-light');
+      const keyVal = keyEl ? parseFloat(keyEl.value) : 5000;
+      const fillVal = fillEl ? parseFloat(fillEl.value) : 1250;
+      const rimVal = rimEl ? parseFloat(rimEl.value) : 2500;
+
+      const txtKey = document.getElementById('val-key-light');
+      const txtFill = document.getElementById('val-fill-light');
+      const txtRim = document.getElementById('val-rim-light');
+      if (txtKey) txtKey.innerText = keyVal.toFixed(0) + ' lx';
+      if (txtFill) txtFill.innerText = fillVal.toFixed(0) + ' lx';
+      if (txtRim) txtRim.innerText = rimVal.toFixed(0) + ' lx';
+
+      const ratio = fillVal > 0 ? (keyVal / fillVal) : 10.0;
+      const badge = document.getElementById('contrast-ratio-badge');
+      if (badge) {{
+        badge.innerText = ratio.toFixed(1) + ' : 1';
+        if (ratio > 8.0) {{
+          badge.style.borderColor = '#FF3366';
+          badge.style.color = '#FF3366';
+        }} else if (ratio > 3.0) {{
+          badge.style.borderColor = '#FFB800';
+          badge.style.color = '#FFB800';
+        }} else {{
+          badge.style.borderColor = '#00FFAA';
+          badge.style.color = '#00FFAA';
+        }}
+      }}
+    }}
+
+    function kelvinToRGB(kelvin) {{
+      const temp = kelvin / 100;
+      let r, g, b;
+      if (temp <= 66) {{
+        r = 255;
+        g = 99.4708025861 * Math.log(temp) - 161.1195681661;
+        b = temp <= 19 ? 0 : 138.5177312231 * Math.log(temp - 10) - 305.0447927307;
+      }} else {{
+        r = 329.698727446 * Math.pow(temp - 60, -0.1332047592);
+        g = 288.1221695283 * Math.pow(temp - 60, -0.0755148492);
+        b = 255;
+      }}
+      return [
+        Math.round(Math.max(0, Math.min(255, r))),
+        Math.round(Math.max(0, Math.min(255, g))),
+        Math.round(Math.max(0, Math.min(255, b)))
+      ];
+    }}
+
+    function updateKelvinCCT(kelvin) {{
+      const k = parseInt(kelvin, 10);
+      const valEl = document.getElementById('val-kelvin-cct');
+      const swatch = document.getElementById('cct-color-swatch');
+      const textEl = document.getElementById('cct-swatch-text');
+      const slider = document.getElementById('slider-kelvin-cct');
+      if (slider && slider.value !== String(k)) slider.value = k;
+      if (valEl) valEl.innerText = k + 'K';
+
+      const [r, g, b] = kelvinToRGB(k);
+      const rgbStr = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+      if (swatch) swatch.style.backgroundColor = rgbStr;
+
+      let desc = 'Daylight Neutral';
+      if (k <= 2700) desc = 'Warm Candlelight / Sodium';
+      else if (k <= 3500) desc = 'Tungsten 3200K Studio Warmth';
+      else if (k <= 4500) desc = 'Fluorescent / Golden Hour';
+      else if (k <= 5800) desc = 'Daylight D56 Reference';
+      else if (k <= 7000) desc = 'Overcast Sky D65 Cool';
+      else desc = 'Deep Blue Sky / Cyan';
+
+      if (textEl) textEl.innerText = k + 'K · ' + desc;
+    }}
+
+    function setKelvinPreset(kelvin, label) {{
+      updateKelvinCCT(kelvin);
+      document.querySelectorAll('.cct-preset-btn').forEach(b => {{
+        b.classList.toggle('active', b.innerText.includes(String(kelvin)));
+      }});
+      showToast("Gaffer CCT Preset: " + label + " (" + kelvin + "K)");
+    }}
+
+    function updateHazeDensity(val) {{
+      const pct = parseInt(val, 10);
+      const valEl = document.getElementById('val-haze-density');
+      const badge = document.getElementById('badge-haze-status');
+      if (valEl) valEl.innerText = pct + '%';
+      if (badge) {{
+        if (pct === 0) badge.innerText = "Clean Studio Air (No Haze)";
+        else if (pct <= 15) badge.innerText = "Whisper Light Atmosphere";
+        else if (pct <= 35) badge.innerText = "Subtle Cinema Volumetric Haze";
+        else if (pct <= 60) badge.innerText = "Dense Shafted Light & Beams";
+        else badge.innerText = "Heavy Fog / Atmospheric Murk";
       }}
     }}
 
@@ -2688,6 +3402,7 @@ def compile_storyboard_html(
       if (infoEl) infoEl.innerText = tSec.toFixed(1) + 's / ' + TOTAL_RUNTIME.toFixed(1) + 's (24fps)';
 
       updateActiveElements(tSec);
+      updateMoCoFromTimeline(currentFrame / (TOTAL_FRAMES || 1));
     }}
 
     function onScrub(val) {{
@@ -3162,7 +3877,7 @@ def compile_storyboard_html(
       loop();
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, G, E, L, M, K, C)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E, L, M, O, K, G, U, C, V, P, Escape)
     window.addEventListener('keydown', (e) => {{
       const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
       if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
@@ -3213,16 +3928,24 @@ def compile_storyboard_html(
         cycleLook();
       }} else if (e.key === 'm' || e.key === 'M') {{
         toggleMixer();
-      }} else if (e.key === 'k' || e.key === 'K') {{
+      }} else if (e.key === 'o' || e.key === 'O') {{
         toggleLoop();
+      }} else if (e.key === 'k' || e.key === 'K') {{
+        toggleMoCoHUD();
+      }} else if (e.key === 'g' || e.key === 'G') {{
+        toggleGafferHUD();
+      }} else if (e.key === 'u' || e.key === 'U') {{
+        toggleSafeGuides();
       }} else if (e.key === 'c' || e.key === 'C') {{
         toggleCC();
-      }} else if (e.key === 'g' || e.key === 'G') {{
-        toggleSafeGuides();
       }} else if (e.key === 'v' || e.key === 'V') {{
         toggleViewfinder();
       }} else if (e.key === 'p' || e.key === 'P') {{
         toggleVPStageModal();
+      }} else if (e.key === 'Escape') {{
+        if (isMoCoHUDOpen) toggleMoCoHUD();
+        if (isGafferHUDOpen) toggleGafferHUD();
+        if (isVPStageModalOpen) toggleVPStageModal();
       }}
     }});
 
@@ -3230,6 +3953,9 @@ def compile_storyboard_html(
     document.addEventListener('DOMContentLoaded', () => {{
       renderFrame(0);
       setLook('rec709_neutral');
+      updateGafferLighting();
+      updateKelvinCCT({cct_kelvin});
+      updateHazeDensity({haze_density_pct});
       drawVUMeter(document.getElementById('vu-meter-left'), -48);
       drawVUMeter(document.getElementById('vu-meter-right'), -48);
     }});

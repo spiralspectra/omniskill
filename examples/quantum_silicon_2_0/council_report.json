@@ -1,7 +1,7 @@
 {
-  "version": "2.4.0",
+  "version": "2.5.0",
   "project_title": "Advanced Quantum Computing Silicon Proce",
-  "timestamp": "2026-11-04T09:32:25.824847+00:00",
+  "timestamp": "2026-11-05T09:30:21.844037+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -21,7 +21,16 @@
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
-      "findings": [],
+      "findings": [
+        {
+          "severity": "info",
+          "category": "rig_schema_validation",
+          "message": "MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        }
+      ],
       "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
     },
     {
@@ -89,6 +98,30 @@
           "details": {
             "domain": "tech_hardware",
             "stage_name": "Cleanroom Micron LED Chamber Epsilon"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "moco_rig_alignment",
+          "message": "Kinetic MoCo rig verified: 'bolt_cinebot' (5 6-DOF waypoints, max 3.0 m/s) aligned with domain 'tech_hardware'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "tech_hardware",
+            "rig_type": "bolt_cinebot",
+            "waypoints": 5
+          }
+        },
+        {
+          "severity": "info",
+          "category": "lighting_rig_alignment",
+          "message": "Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'tech_hardware'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "tech_hardware",
+            "fixtures_count": 5,
+            "key_to_fill": 4.0
           }
         }
       ],
@@ -205,6 +238,34 @@
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/virtual_production.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-009",
+      "title": "Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine",
+      "problem_statement": "Complex kinetic camera maneuvers for 'Advanced Quantum Computing Silicon Proce' require precision mechanical motion control (Bolt Cinebot, Technocrane, Cablecam, Steadicam, FPV Drone) and 6-DOF trajectory waypoint tracking (X/Y/Z position, Roll/Pitch/Yaw orientation, velocity, acceleration) to guarantee repeatable camera paths and exportable camera tracking data for VFX pipelines (Nuke, Maya, Blender, Unreal Engine).",
+      "proposed_solution": "Ship MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec schemas, omni_director.tools.moco_kinematics (path distance and velocity calculation, JSON, CSV, FBX ASCII camera transform exports), CRAFT camera MoCo prompt tokens, prompt auditor MoCo token verification, and an interactive MoCo Trajectory HUD (#btn-moco-animatic / #animatic-moco-hud [K] hotkey) in the animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/moco_kinematics.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-010",
+      "title": "Volumetric Atmospheric & Studio Lighting Rig Simulator",
+      "problem_statement": "High-end cinematic visuals for 'Advanced Quantum Computing Silicon Proce' require calibrated multi-point studio lighting (Key, Fill, Rim, Kicker, Practicals, Ambient) with color temperature (Kelvin), photometric illuminance (Lux), diffusion grades, particulate atmospheric haze/fog modeling, and lighting contrast ratios (Key:Fill, Key:Rim) to eliminate flat lighting and export gaffer setup call sheets.",
+      "proposed_solution": "Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/lighting_rig.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py"
       ],

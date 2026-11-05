@@ -1,6 +1,6 @@
 # Product Council Audit Report: SEPHORA: London Pulse (Continuous 40s Oner)
 
-**Version**: 2.4.0 | **Timestamp**: `2026-11-04T09:32:25.643239+00:00`
+**Version**: 2.5.0 | **Timestamp**: `2026-11-05T09:30:21.654761+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -9,11 +9,14 @@
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
 | `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 0 | FDE review completed with score 25.0/25.0. 0 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 0 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 5 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 1 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 7 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
 | `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 0 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
+
+### COUNCIL-AGENT-ENGINEER
+- [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -21,6 +24,8 @@
 - [INFO] **speed_ramp_alignment**: Kinetic speed ramp curves verified across all 4 scenes for domain 'luxury_fashion'.
 - [INFO] **optical_lens_alignment**: Cinematic optical lens package verified: 50mm T1.8 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'luxury_fashion'.
 - [INFO] **virtual_production_alignment**: Virtual Production stage manifest verified: 'High-CRI Runway Prism Volume Gamma' with 4 DMX fixtures for domain 'luxury_fashion'.
+- [INFO] **moco_rig_alignment**: Kinetic MoCo rig verified: 'technocrane' (5 6-DOF waypoints, max 3.5 m/s) aligned with domain 'luxury_fashion'.
+- [INFO] **lighting_rig_alignment**: Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'luxury_fashion'.
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -36,3 +41,5 @@
 | `PM-FEAT-006` | **P0** | `implemented` | **Interactive Diegetic Stem Audio Mixer & Metering Console**: Implement AudioStemMixerSpec, omni_director.tools.audio_mixer (DAW track manifests and loudness estimation), and a slide-out 4-channel audio mixing desk with Web Audio acoustic synthesis and canvas LED VU meters in the animatic. | `omni_director/schemas.py`, `omni_director/tools/audio_mixer.py`, `omni_director/tools/html_compiler.py` |
 | `PM-FEAT-007` | **P0** | `implemented` | **Cinematic Optical Lens & Sensor Framing Suite (Anamorphic Squeeze, Focal Length, Hyperfocal Depth & Viewfinder Guides)**: Ship SensorFormat, AnamorphicSqueeze, OpticalLensSpec schemas, omni_director.tools.optical_lens (FOV and hyperfocal distance formulas, CSV metadata export, CRAFT optical prompt tokens), prompt auditor lens token verification, and Viewfinder Safe Guides HUD (#btn-viewfinder-animatic / #animatic-viewfinder-overlay [V] hotkey) in the HTML5 animatic. | `omni_director/schemas.py`, `omni_director/tools/optical_lens.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py` |
 | `PM-FEAT-008` | **P0** | `implemented` | **Virtual Production LED Volume & Unreal Engine Stage Manifest / ICVFX Suite**: Ship LedWallGeometry, DmxLightingFixture, VirtualProductionStageSpec schemas, omni_director.tools.virtual_production (Unreal Engine nDisplay manifest JSON export, DMX lighting console patch CSV, frustum prompt tokens), and an interactive Virtual Production Stage Modal (#btn-vp-stage-animatic / #animatic-vp-stage-modal [P] hotkey) in the HTML5 animatic. | `omni_director/schemas.py`, `omni_director/tools/virtual_production.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py` |
+| `PM-FEAT-009` | **P0** | `implemented` | **Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine**: Ship MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec schemas, omni_director.tools.moco_kinematics (path distance and velocity calculation, JSON, CSV, FBX ASCII camera transform exports), CRAFT camera MoCo prompt tokens, prompt auditor MoCo token verification, and an interactive MoCo Trajectory HUD (#btn-moco-animatic / #animatic-moco-hud [K] hotkey) in the animatic. | `omni_director/schemas.py`, `omni_director/tools/moco_kinematics.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py` |
+| `PM-FEAT-010` | **P0** | `implemented` | **Volumetric Atmospheric & Studio Lighting Rig Simulator**: Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic. | `omni_director/schemas.py`, `omni_director/tools/lighting_rig.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py` |

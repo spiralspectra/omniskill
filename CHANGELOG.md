@@ -2,6 +2,31 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.5.0] - 2026-11-05
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-009: Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine**:
+  - Module: `omni_director/tools/moco_kinematics.py`.
+  - Added `MotionControlRigType` enum (`bolt_cinebot`, `technocrane`, `cablecam`, `steadicam`, `drone_fpv`, `russian_arm`, `motorized_dolly`), `TrajectoryWaypoint6DOF`, and `MocoRigSpec` schemas.
+  - Implemented 6-DOF spatial waypoint calculations: Euclidean trajectory distance (`calculate_trajectory_distance`), peak velocity (`calculate_peak_velocity`), mean acceleration (`calculate_mean_acceleration`), and sub-frame waypoint interpolation (`interpolate_waypoints_6dof`).
+  - CRAFT camera grammar prompt token formatting (`format_moco_prompt_token`) embedding rig type, track distance, peak velocity, repeatability, and stabilization mode.
+  - Multi-format MoCo track exports: JSON (`export_moco_track_json`), CSV (`export_moco_track_csv`), and FBX 7.4.0 ASCII camera transform curves (`export_moco_fbx_ascii`).
+  - CLI support: `omni export --format moco` and `--format all`.
+  - Dark-Room Cinema Animatic Interactive MoCo Trajectory HUD (`#animatic-moco-hud`, hotkey `K`) displaying 6-DOF coordinate telemetry ($X, Y, Z, \text{Roll}, \text{Pitch}, \text{Yaw}$), peak velocity gauge, interactive waypoint selectors, and animated SVG isometric trajectory visualization.
+- **PM-FEAT-010: Volumetric Atmospheric & Studio Lighting Rig Simulator**:
+  - Module: `omni_director/tools/lighting_rig.py`.
+  - Added `LightingFixtureRole`, `DiffusionGrade`, `ParticulateHazeType`, `StudioLightFixtureSpec`, `AtmosphericHazeSpec`, and `LightingRigSpec` schemas.
+  - Implemented studio photometric calculations: Key-to-Fill illuminance contrast ratio (`calculate_key_to_fill_ratio`), Key-to-Rim separation ratio (`calculate_key_to_rim_ratio`), aggregate scene Lux (`calculate_total_lux`), and per-fixture CCT Kelvin delta mapping (`calculate_cct_deltas`).
+  - CRAFT lighting prompt token formatting (`format_lighting_prompt_token`) embedding Key:Fill ratios, aggregate incident Lux, Kelvin CCT balance, and volumetric haze scattering coefficients.
+  - Lighting plot artifact exports: Studio lighting plot JSON (`export_lighting_plot_json`) and Gaffer crew call sheet CSV (`export_gaffer_callsheet_csv`).
+  - CLI support: `omni export --format lighting` and `--format all`.
+  - Dark-Room Cinema Animatic Interactive Studio Gaffer HUD (`#animatic-gaffer-hud`, hotkey `G`) displaying Key/Fill/Rim 3-point lighting sliders, dynamic Key:Fill contrast ratio badge, Kelvin CCT color temperature slider with tungsten/daylight presets, and atmospheric haze density slider with status badge.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-009` and `PM-FEAT-010` in `ProductManagerAgent.inspect_product()`.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated MoCo rigs and studio lighting rigs in `omni_director/presets.py` (`get_domain_moco_rig` and `get_domain_lighting_rig`).
+  - Updated prompt auditor self-healing to recognize MoCo and Lighting tokens with compliance reward scoring.
+  - Remapped animatic hotkeys cleanly: Loop playback to `O` / `o`, Safe Guides to `U` / `u`, MoCo HUD to `K` / `k`, and Gaffer HUD to `G` / `g`.
+
 ## [2.4.0] - 2026-11-04
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

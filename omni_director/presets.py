@@ -13,9 +13,12 @@ from omni_director.schemas import (
     DiegeticSonicSpec,
     DmxLightingFixture,
     LedWallGeometry,
+    LightingRigSpec,
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
+    MocoRigSpec,
+    MotionControlRigType,
     NanoBananaReference,
     OpticalLensSpec,
     RegimeType,
@@ -29,6 +32,8 @@ from omni_director.schemas import (
     VirtualProductionStageSpec,
 )
 from omni_director.tools.color_grade import get_preset_color_look
+from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
+from omni_director.tools.moco_kinematics import synthesize_default_moco_rig
 from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
 from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
 from omni_director.tools.virtual_production import synthesize_default_vp_stage
@@ -505,6 +510,35 @@ def get_domain_virtual_production(domain: str) -> VirtualProductionStageSpec:
     }
     stage_name = stage_name_map.get(domain, "StageCraft LED Volume Alpha")
     return synthesize_default_vp_stage(stage_name=stage_name)
+
+
+def get_domain_moco_rig(domain: str) -> MocoRigSpec:
+    """Retrieves the calibrated 6-DOF robotic motion control rig for a commercial domain archetype (PM-FEAT-009)."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    moco_data = archetype.get("moco_rig")
+    if isinstance(moco_data, MocoRigSpec):
+        return moco_data.model_copy(deep=True)
+
+    rig_map = {
+        "automotive_robotics": (MotionControlRigType.RUSSIAN_ARM, 12.0, 8.5),
+        "culinary_asmr": (MotionControlRigType.BOLT_CINEBOT, 3.0, 2.5),
+        "luxury_fashion": (MotionControlRigType.TECHNOCRANE, 8.0, 3.5),
+        "kinetic_action": (MotionControlRigType.CABLECAM, 15.0, 10.0),
+        "tech_hardware": (MotionControlRigType.BOLT_CINEBOT, 4.0, 3.0),
+        "architectural_sanctuary": (MotionControlRigType.MOTORIZED_DOLLY, 6.0, 1.5),
+    }
+    rig_type, track_len, max_vel = rig_map.get(domain, (MotionControlRigType.BOLT_CINEBOT, 6.0, 4.5))
+    return synthesize_default_moco_rig(rig_type=rig_type, track_length_meters=track_len, max_velocity_mps=max_vel)
+
+
+def get_domain_lighting_rig(domain: str) -> LightingRigSpec:
+    """Retrieves the calibrated studio lighting rig for a commercial domain archetype (PM-FEAT-010)."""
+    archetype = DOMAIN_ARCHETYPES.get(domain, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    lighting_data = archetype.get("lighting_rig")
+    if isinstance(lighting_data, LightingRigSpec):
+        return lighting_data.model_copy(deep=True)
+
+    return synthesize_default_lighting_rig(style=domain)
 
 
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
@@ -1061,6 +1095,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_lens_package = get_domain_optical_lens(_arch)
     if not _bible_inst.virtual_production:
         _bible_inst.virtual_production = get_domain_virtual_production(_arch)
+    if not getattr(_bible_inst, "master_moco_rig", None):
+        _bible_inst.master_moco_rig = get_domain_moco_rig(_arch)
+    if not getattr(_bible_inst, "master_lighting_rig", None):
+        _bible_inst.master_lighting_rig = get_domain_lighting_rig(_arch)
     for _sc in _bible_inst.scenes:
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
@@ -1070,6 +1108,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
             _sc.optical_lens = _bible_inst.master_lens_package
         if not _sc.virtual_production:
             _sc.virtual_production = _bible_inst.virtual_production
+        if not getattr(_sc, "moco_rig", None):
+            _sc.moco_rig = _bible_inst.master_moco_rig
+        if not getattr(_sc, "lighting_rig", None):
+            _sc.lighting_rig = _bible_inst.master_lighting_rig
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -1123,6 +1165,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_lens_package = get_domain_optical_lens(bible.domain_archetype)
     if not bible.virtual_production:
         bible.virtual_production = get_domain_virtual_production(bible.domain_archetype)
+    if not getattr(bible, "master_moco_rig", None):
+        bible.master_moco_rig = get_domain_moco_rig(bible.domain_archetype)
+    if not getattr(bible, "master_lighting_rig", None):
+        bible.master_lighting_rig = get_domain_lighting_rig(bible.domain_archetype)
     for scene in bible.scenes:
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
@@ -1132,6 +1178,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.optical_lens = bible.master_lens_package
         if not scene.virtual_production:
             scene.virtual_production = bible.virtual_production
+        if not getattr(scene, "moco_rig", None):
+            scene.moco_rig = bible.master_moco_rig
+        if not getattr(scene, "lighting_rig", None):
+            scene.lighting_rig = bible.master_lighting_rig
     return bible
 
 

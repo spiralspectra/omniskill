@@ -59,6 +59,31 @@ from omni_director.tools.virtual_production import (
     export_virtual_production_bundle,
     synthesize_default_vp_stage,
 )
+from omni_director.tools.moco_kinematics import (
+    calculate_mean_acceleration,
+    calculate_peak_velocity,
+    calculate_trajectory_distance,
+    export_moco_bundle,
+    export_moco_fbx_ascii,
+    export_moco_track_csv,
+    export_moco_track_json,
+    format_moco_prompt_token,
+    interpolate_waypoints,
+    interpolate_waypoints_6dof,
+    synthesize_default_moco_rig,
+)
+from omni_director.tools.lighting_rig import (
+    calculate_cct_deltas,
+    calculate_key_to_fill_ratio,
+    calculate_key_to_rim_ratio,
+    calculate_lighting_photometrics,
+    calculate_total_lux,
+    export_gaffer_callsheet_csv,
+    export_lighting_bundle,
+    export_lighting_plot_json,
+    format_lighting_prompt_token,
+    synthesize_default_lighting_rig,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -105,4 +130,27 @@ __all__ = [
     "export_ue_ndisplay_manifest",
     "export_dmx_patch_csv",
     "export_virtual_production_bundle",
+    # MoCo kinematics suite (PM-FEAT-009)
+    "synthesize_default_moco_rig",
+    "calculate_trajectory_distance",
+    "calculate_peak_velocity",
+    "calculate_mean_acceleration",
+    "interpolate_waypoints_6dof",
+    "interpolate_waypoints",
+    "format_moco_prompt_token",
+    "export_moco_track_json",
+    "export_moco_track_csv",
+    "export_moco_fbx_ascii",
+    "export_moco_bundle",
+    # Lighting rig suite (PM-FEAT-010)
+    "synthesize_default_lighting_rig",
+    "calculate_key_to_fill_ratio",
+    "calculate_key_to_rim_ratio",
+    "calculate_total_lux",
+    "calculate_cct_deltas",
+    "calculate_lighting_photometrics",
+    "format_lighting_prompt_token",
+    "export_lighting_plot_json",
+    "export_gaffer_callsheet_csv",
+    "export_lighting_bundle",
 ]

@@ -213,6 +213,43 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-009",
+                title="Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine",
+                problem_statement=(
+                    f"Complex kinetic camera maneuvers{project_ctx} require precision mechanical motion control "
+                    "(Bolt Cinebot, Technocrane, Cablecam, Steadicam, FPV Drone) and 6-DOF trajectory waypoint tracking "
+                    "(X/Y/Z position, Roll/Pitch/Yaw orientation, velocity, acceleration) to guarantee repeatable camera paths "
+                    "and exportable camera tracking data for VFX pipelines (Nuke, Maya, Blender, Unreal Engine)."
+                ),
+                proposed_solution=(
+                    "Ship MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec schemas, omni_director.tools.moco_kinematics "
+                    "(path distance and velocity calculation, JSON, CSV, FBX ASCII camera transform exports), CRAFT camera MoCo prompt tokens, "
+                    "prompt auditor MoCo token verification, and an interactive MoCo Trajectory HUD (#btn-moco-animatic / #animatic-moco-hud [K] hotkey) in the animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/moco_kinematics.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-010",
+                title="Volumetric Atmospheric & Studio Lighting Rig Simulator",
+                problem_statement=(
+                    f"High-end cinematic visuals{project_ctx} require calibrated multi-point studio lighting "
+                    "(Key, Fill, Rim, Kicker, Practicals, Ambient) with color temperature (Kelvin), photometric illuminance (Lux), "
+                    "diffusion grades, particulate atmospheric haze/fog modeling, and lighting contrast ratios (Key:Fill, Key:Rim) "
+                    "to eliminate flat lighting and export gaffer setup call sheets."
+                ),
+                proposed_solution=(
+                    "Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, "
+                    "LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, "
+                    "lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive "
+                    "Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/lighting_rig.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -353,7 +390,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
 
         report = ProductCouncilReport(
-            version="2.4.0",
+            version="2.5.0",
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -552,6 +589,66 @@ class ProductCouncilOrchestrator(BaseAgent):
                         suggested_fix=f"Refine scene {scene.scene_index} prompt to comply with 7-Point standard."
                     ))
 
+        # Validate MocoRigSpec and LightingRigSpec schemas & prompt tokens (PM-FEAT-009 & PM-FEAT-010)
+        has_moco = hasattr(bible, "master_moco_rig") and bible.master_moco_rig is not None
+        has_lighting = hasattr(bible, "master_lighting_rig") and bible.master_lighting_rig is not None
+
+        for scene in bible.scenes:
+            scene_moco = getattr(scene, "moco_rig", None)
+            if not scene_moco and hasattr(scene, "craft_camera") and scene.craft_camera:
+                scene_moco = getattr(scene.craft_camera, "moco_rig", None)
+            if scene_moco:
+                has_moco = True
+                waypoints = getattr(scene_moco, "waypoints", [])
+                if not waypoints:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="moco_schema_defect",
+                        message=f"Scene {scene.scene_index} MocoRigSpec has empty waypoints list.",
+                        suggested_fix="Define at least one TrajectoryWaypoint6DOF with 6-DOF coordinates."
+                    ))
+
+            scene_lighting = getattr(scene, "lighting_rig", None)
+            if scene_lighting:
+                has_lighting = True
+                fixtures = getattr(scene_lighting, "fixtures", [])
+                if not fixtures:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="lighting_schema_defect",
+                        message=f"Scene {scene.scene_index} LightingRigSpec has empty fixtures list.",
+                        suggested_fix="Define at least one StudioLightFixtureSpec with photometric parameters."
+                    ))
+
+        if hasattr(bible, "master_moco_rig") and bible.master_moco_rig is not None:
+            moco = bible.master_moco_rig
+            waypoints = getattr(moco, "waypoints", [])
+            if not waypoints:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="moco_schema_defect",
+                    message="Master MocoRigSpec has empty waypoints list.",
+                    suggested_fix="Define at least one TrajectoryWaypoint6DOF with 6-DOF coordinates."
+                ))
+
+        if hasattr(bible, "master_lighting_rig") and bible.master_lighting_rig is not None:
+            rig = bible.master_lighting_rig
+            fixtures = getattr(rig, "fixtures", [])
+            if not fixtures:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="lighting_schema_defect",
+                    message="Master LightingRigSpec has empty fixtures list.",
+                    suggested_fix="Define at least one StudioLightFixtureSpec."
+                ))
+
+        if has_moco and has_lighting:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="rig_schema_validation",
+                message="MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.",
+            ))
+
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
         score = 25.0 * (avg_audit_score / 100.0)
         critical_count = len([f for f in findings if f.severity == CouncilFindingSeverity.CRITICAL])
@@ -738,6 +835,49 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain motion control rig spec (PM-FEAT-009)
+        if hasattr(bible, "master_moco_rig") and bible.master_moco_rig:
+            moco = bible.master_moco_rig
+            rig_type_str = moco.rig_type.value if hasattr(moco.rig_type, "value") else str(moco.rig_type)
+            waypoints_count = len(getattr(moco, "waypoints", []))
+            max_vel = getattr(moco, "max_velocity_mps", 0.0)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="moco_rig_alignment",
+                message=f"Kinetic MoCo rig verified: '{rig_type_str}' ({waypoints_count} 6-DOF waypoints, max {max_vel} m/s) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "rig_type": rig_type_str, "waypoints": waypoints_count},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="moco_rig_alignment",
+                message="Master motion control rig (master_moco_rig) missing from production bible.",
+                suggested_fix="Assign master_moco_rig via get_domain_moco_rig().",
+            ))
+            score -= 0.25
+
+        # Check domain volumetric studio lighting rig spec (PM-FEAT-010)
+        if hasattr(bible, "master_lighting_rig") and bible.master_lighting_rig:
+            rig = bible.master_lighting_rig
+            fixtures = getattr(rig, "fixtures", [])
+            haze = getattr(rig, "atmospheric_haze", None)
+            haze_str = (haze.haze_type.value if hasattr(haze.haze_type, "value") else str(haze.haze_type)) if haze else "clean_air"
+            k2f = getattr(rig, "key_to_fill_ratio", 2.0)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="lighting_rig_alignment",
+                message=f"Volumetric studio lighting rig verified: {len(fixtures)} fixtures, Key:Fill {k2f}:1, haze '{haze_str}' aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "fixtures_count": len(fixtures), "key_to_fill": k2f},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="lighting_rig_alignment",
+                message="Master studio lighting rig (master_lighting_rig) missing from production bible.",
+                suggested_fix="Assign master_lighting_rig via get_domain_lighting_rig().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -852,6 +992,22 @@ class ProductCouncilOrchestrator(BaseAgent):
                         category="animatic_virtual_production",
                         message="Compiled storyboard preview HTML lacks virtual production stage modal (#animatic-vp-stage-modal).",
                         suggested_fix="Ensure compile_storyboard_html generates #btn-vp-stage-animatic and #animatic-vp-stage-modal controls."
+                    ))
+                    score -= 1.0
+                if 'id="btn-moco-animatic"' not in html_content and 'id="animatic-moco-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_moco_hud",
+                        message="Compiled storyboard preview HTML lacks interactive MoCo kinematics HUD (#animatic-moco-hud / #btn-moco-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-moco-animatic and #animatic-moco-hud controls."
+                    ))
+                    score -= 1.0
+                if 'id="btn-gaffer-animatic"' not in html_content and 'id="animatic-gaffer-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_gaffer_hud",
+                        message="Compiled storyboard preview HTML lacks interactive studio gaffer HUD (#animatic-gaffer-hud / #btn-gaffer-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-gaffer-animatic and #animatic-gaffer-hud controls."
                     ))
                     score -= 1.0
             except Exception:

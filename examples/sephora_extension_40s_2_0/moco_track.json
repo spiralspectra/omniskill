@@ -1,0 +1,397 @@
+{
+  "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
+  "master_moco_rig": {
+    "rig_type": "technocrane",
+    "payload_kg": 15.0,
+    "track_length_meters": 8.0,
+    "max_velocity_mps": 3.5,
+    "locked_roll_stabilization": true,
+    "mechanical_backlash_mm": 0.05,
+    "waypoints_count": 5,
+    "waypoints": [
+      {
+        "timecode_sec": 0.0,
+        "x_meters": 0.0,
+        "y_meters": -2.0,
+        "z_meters": 1.2,
+        "roll_deg": 0.0,
+        "pitch_deg": -5.0,
+        "yaw_deg": 0.0,
+        "velocity_mps": 0.0
+      },
+      {
+        "timecode_sec": 2.0,
+        "x_meters": 1.5,
+        "y_meters": -0.8,
+        "z_meters": 1.4,
+        "roll_deg": 0.0,
+        "pitch_deg": -2.0,
+        "yaw_deg": 15.0,
+        "velocity_mps": 2.2
+      },
+      {
+        "timecode_sec": 5.0,
+        "x_meters": 3.5,
+        "y_meters": 0.5,
+        "z_meters": 1.6,
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 30.0,
+        "velocity_mps": 4.2
+      },
+      {
+        "timecode_sec": 8.0,
+        "x_meters": 5.0,
+        "y_meters": 1.8,
+        "z_meters": 1.5,
+        "roll_deg": 0.0,
+        "pitch_deg": 5.0,
+        "yaw_deg": 45.0,
+        "velocity_mps": 3.0
+      },
+      {
+        "timecode_sec": 10.0,
+        "x_meters": 6.0,
+        "y_meters": 2.2,
+        "z_meters": 1.4,
+        "roll_deg": 0.0,
+        "pitch_deg": 2.0,
+        "yaw_deg": 50.0,
+        "velocity_mps": 0.5
+      }
+    ],
+    "summary_kinematics": {
+      "total_distance_meters": 7.394,
+      "peak_velocity_mps": 4.2,
+      "mean_acceleration_mps2": 0.854
+    }
+  },
+  "motion_control_rig": {
+    "rig_type": "technocrane",
+    "payload_kg": 15.0,
+    "track_length_meters": 8.0,
+    "max_velocity_mps": 3.5,
+    "locked_roll_stabilization": true,
+    "mechanical_backlash_mm": 0.05,
+    "waypoints_count": 5,
+    "waypoints": [
+      {
+        "timecode_sec": 0.0,
+        "x_meters": 0.0,
+        "y_meters": -2.0,
+        "z_meters": 1.2,
+        "roll_deg": 0.0,
+        "pitch_deg": -5.0,
+        "yaw_deg": 0.0,
+        "velocity_mps": 0.0
+      },
+      {
+        "timecode_sec": 2.0,
+        "x_meters": 1.5,
+        "y_meters": -0.8,
+        "z_meters": 1.4,
+        "roll_deg": 0.0,
+        "pitch_deg": -2.0,
+        "yaw_deg": 15.0,
+        "velocity_mps": 2.2
+      },
+      {
+        "timecode_sec": 5.0,
+        "x_meters": 3.5,
+        "y_meters": 0.5,
+        "z_meters": 1.6,
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 30.0,
+        "velocity_mps": 4.2
+      },
+      {
+        "timecode_sec": 8.0,
+        "x_meters": 5.0,
+        "y_meters": 1.8,
+        "z_meters": 1.5,
+        "roll_deg": 0.0,
+        "pitch_deg": 5.0,
+        "yaw_deg": 45.0,
+        "velocity_mps": 3.0
+      },
+      {
+        "timecode_sec": 10.0,
+        "x_meters": 6.0,
+        "y_meters": 2.2,
+        "z_meters": 1.4,
+        "roll_deg": 0.0,
+        "pitch_deg": 2.0,
+        "yaw_deg": 50.0,
+        "velocity_mps": 0.5
+      }
+    ],
+    "summary_kinematics": {
+      "total_distance_meters": 7.394,
+      "peak_velocity_mps": 4.2,
+      "mean_acceleration_mps2": 0.854
+    }
+  },
+  "scenes": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Soho Approach",
+      "timestamp_range": "00:00 - 00:10 (Base Clip)",
+      "rig_type": "technocrane",
+      "track_length_meters": 8.0,
+      "max_velocity_mps": 3.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "kinematics": {
+        "distance_meters": 7.394,
+        "peak_velocity_mps": 4.2,
+        "mean_acceleration_mps2": 0.854
+      }
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Store Transition",
+      "timestamp_range": "+10s extension (00:10 - 00:20)",
+      "rig_type": "technocrane",
+      "track_length_meters": 8.0,
+      "max_velocity_mps": 3.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "kinematics": {
+        "distance_meters": 7.394,
+        "peak_velocity_mps": 4.2,
+        "mean_acceleration_mps2": 0.854
+      }
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "The Product Flourish",
+      "timestamp_range": "+10s extension (00:20 - 00:30)",
+      "rig_type": "technocrane",
+      "track_length_meters": 8.0,
+      "max_velocity_mps": 3.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "kinematics": {
+        "distance_meters": 7.394,
+        "peak_velocity_mps": 4.2,
+        "mean_acceleration_mps2": 0.854
+      }
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Climactic Hero Lock",
+      "timestamp_range": "+10s extension (00:30 - 00:40)",
+      "rig_type": "technocrane",
+      "track_length_meters": 8.0,
+      "max_velocity_mps": 3.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "kinematics": {
+        "distance_meters": 7.394,
+        "peak_velocity_mps": 4.2,
+        "mean_acceleration_mps2": 0.854
+      }
+    }
+  ]
+}

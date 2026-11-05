@@ -326,4 +326,26 @@ def export_all_nle_artifacts(
     except Exception:
         pass
 
+    try:
+        from omni_director.tools.optical_lens import export_lens_metadata_file
+        from omni_director.tools.virtual_production import export_virtual_production_bundle
+        lens_path = out_path / "lens_package.csv"
+        export_lens_metadata_file(bible, lens_path)
+        res["lens"] = str(lens_path)
+        res.update(export_virtual_production_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.moco_kinematics import export_moco_bundle
+        res.update(export_moco_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.lighting_rig import export_lighting_bundle
+        res.update(export_lighting_bundle(bible, out_path))
+    except Exception:
+        pass
+
     return res

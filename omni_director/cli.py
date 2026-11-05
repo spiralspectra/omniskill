@@ -249,8 +249,10 @@ def handle_export(args_list: List[str]) -> int:
     from omni_director.tools.audio_mixer import export_audio_stems_file
     from omni_director.tools.optical_lens import export_lens_metadata_file
     from omni_director.tools.virtual_production import export_virtual_production_bundle
+    from omni_director.tools.moco_kinematics import export_moco_bundle
+    from omni_director.tools.lighting_rig import export_lighting_bundle
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, and virtual production stage manifests")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, and lighting plots")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -258,7 +260,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
@@ -305,6 +307,10 @@ def handle_export(args_list: List[str]) -> int:
         exported_files["lens"] = str(lens_path.resolve())
         vp_files = export_virtual_production_bundle(bible, out_dir)
         exported_files.update(vp_files)
+        moco_files = export_moco_bundle(bible, out_dir)
+        exported_files.update(moco_files)
+        lighting_files = export_lighting_bundle(bible, out_dir)
+        exported_files.update(lighting_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -344,6 +350,12 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "vp":
         vp_files = export_virtual_production_bundle(bible, out_dir)
         exported_files.update(vp_files)
+    elif fmt == "moco":
+        moco_files = export_moco_bundle(bible, out_dir)
+        exported_files.update(moco_files)
+    elif fmt == "lighting":
+        lighting_files = export_lighting_bundle(bible, out_dir)
+        exported_files.update(lighting_files)
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))

@@ -56,7 +56,8 @@
       "tone_rig": "High-fashion commercial editorial.",
       "shutter_angle_deg": 180.0,
       "shutter_timing_token": null,
-      "optical_lens": null
+      "optical_lens": null,
+      "moco_rig": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -274,6 +275,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "technocrane",
+          "payload_kg": 15.0,
+          "track_length_meters": 8.0,
+          "max_velocity_mps": 3.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       },
       {
@@ -432,6 +561,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "technocrane",
+          "payload_kg": 15.0,
+          "track_length_meters": 8.0,
+          "max_velocity_mps": 3.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       },
       {
@@ -590,6 +847,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "technocrane",
+          "payload_kg": 15.0,
+          "track_length_meters": 8.0,
+          "max_velocity_mps": 3.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       },
       {
@@ -748,6 +1133,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "technocrane",
+          "payload_kg": 15.0,
+          "track_length_meters": 8.0,
+          "max_velocity_mps": 3.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       }
     ],
@@ -903,6 +1416,134 @@
         }
       ],
       "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+    },
+    "master_moco_rig": {
+      "rig_type": "technocrane",
+      "payload_kg": 15.0,
+      "track_length_meters": 8.0,
+      "max_velocity_mps": 3.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "locked_roll_stabilization": true,
+      "mechanical_backlash_mm": 0.05
+    },
+    "master_lighting_rig": {
+      "fixtures": [
+        {
+          "fixture_id": "KEY_01",
+          "role": "key_light",
+          "fixture_type": "ARRI SkyPanel S360-C",
+          "cct_kelvin": 5600,
+          "lux_intensity": 3500.0,
+          "beam_angle_deg": 45.0,
+          "diffusion_grade": "half_grid",
+          "distance_meters": 3.5,
+          "dmx_channel": 1
+        },
+        {
+          "fixture_id": "FILL_01",
+          "role": "fill_light",
+          "fixture_type": "ARRI SkyPanel S120-C",
+          "cct_kelvin": 5200,
+          "lux_intensity": 875.0,
+          "beam_angle_deg": 60.0,
+          "diffusion_grade": "bleached_muslin",
+          "distance_meters": 4.0,
+          "dmx_channel": 16
+        },
+        {
+          "fixture_id": "RIM_01",
+          "role": "rim_backlight",
+          "fixture_type": "Astera Titan Tube FP1",
+          "cct_kelvin": 6000,
+          "lux_intensity": 1750.0,
+          "beam_angle_deg": 30.0,
+          "diffusion_grade": "quarter_grid",
+          "distance_meters": 2.5,
+          "dmx_channel": 32
+        },
+        {
+          "fixture_id": "KICKER_01",
+          "role": "kicker",
+          "fixture_type": "Dedolight DLED9-BI",
+          "cct_kelvin": 5600,
+          "lux_intensity": 1200.0,
+          "beam_angle_deg": 20.0,
+          "diffusion_grade": "hard_specular",
+          "distance_meters": 3.0,
+          "dmx_channel": 48
+        },
+        {
+          "fixture_id": "AMBIENT_01",
+          "role": "overhead_ambient",
+          "fixture_type": "LiteMat Plus 4",
+          "cct_kelvin": 5600,
+          "lux_intensity": 500.0,
+          "beam_angle_deg": 90.0,
+          "diffusion_grade": "chimera_softbox",
+          "distance_meters": 4.5,
+          "dmx_channel": 64
+        }
+      ],
+      "key_to_fill_ratio": 4.0,
+      "key_to_rim_ratio": 2.0,
+      "total_lux": 7825.0,
+      "atmospheric_haze": {
+        "haze_type": "mineral_haze",
+        "particulate_density": 0.15,
+        "scattering_coefficient": 0.45,
+        "shaft_visibility": 0.6
+      }
     }
   },
   "storyboard_html_path": "examples/sephora_extension_40s_2_0/storyboard_preview.html",
@@ -957,6 +1598,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "technocrane (8.0m track, max 3.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
@@ -977,6 +1624,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "technocrane (8.0m track, max 3.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>"
@@ -997,6 +1650,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "technocrane (8.0m track, max 3.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1017,6 +1676,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "High-CRI Runway Prism Volume Gamma (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "technocrane (8.0m track, max 3.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1026,9 +1691,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "b4ce247d-a179-4098-947e-0f7491e1d345",
+    "session_id": "6f165df0-0411-489e-bb11-9572c34abb10",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-04T09:32:25.623560+00:00",
+    "timestamp": "2026-11-05T09:30:21.638608+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1038,67 +1703,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-04T09:32:25.623575+00:00",
-        "end_time": "2026-11-04T09:32:25.623581+00:00",
+        "start_time": "2026-11-05T09:30:21.638620+00:00",
+        "end_time": "2026-11-05T09:30:21.638625+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-04T09:32:25.623595+00:00",
-        "end_time": "2026-11-04T09:32:25.623812+00:00",
-        "duration_ms": 0.22,
+        "start_time": "2026-11-05T09:30:21.638635+00:00",
+        "end_time": "2026-11-05T09:30:21.638905+00:00",
+        "duration_ms": 0.27,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-04T09:32:25.623821+00:00",
-        "end_time": "2026-11-04T09:32:25.626318+00:00",
-        "duration_ms": 2.5,
+        "start_time": "2026-11-05T09:30:21.638914+00:00",
+        "end_time": "2026-11-05T09:30:21.640750+00:00",
+        "duration_ms": 1.84,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-04T09:32:25.626345+00:00",
-        "end_time": "2026-11-04T09:32:25.626526+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-05T09:30:21.640761+00:00",
+        "end_time": "2026-11-05T09:30:21.640908+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-04T09:32:25.626536+00:00",
-        "end_time": "2026-11-04T09:32:25.627516+00:00",
-        "duration_ms": 0.98,
+        "start_time": "2026-11-05T09:30:21.640916+00:00",
+        "end_time": "2026-11-05T09:30:21.642595+00:00",
+        "duration_ms": 1.68,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-04T09:32:25.627524+00:00",
-        "end_time": "2026-11-04T09:32:25.627528+00:00",
+        "start_time": "2026-11-05T09:30:21.642603+00:00",
+        "end_time": "2026-11-05T09:30:21.642606+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-04T09:32:25.627533+00:00",
-        "end_time": "2026-11-04T09:32:25.630600+00:00",
-        "duration_ms": 3.07,
+        "start_time": "2026-11-05T09:30:21.642611+00:00",
+        "end_time": "2026-11-05T09:30:21.645469+00:00",
+        "duration_ms": 2.86,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-04T09:32:25.635970+00:00",
-        "end_time": "2026-11-04T09:32:25.644678+00:00",
-        "duration_ms": 8.71,
+        "start_time": "2026-11-05T09:30:21.647980+00:00",
+        "end_time": "2026-11-05T09:30:21.655898+00:00",
+        "duration_ms": 7.92,
         "details": {}
       }
     ],
-    "total_duration_ms": 15.67,
+    "total_duration_ms": 14.73,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "9da40d02ba58f9e0ff1c4121dd41b31d4cc6d900b725d154636486e35f173297",
-      "storyboard_preview.html": "8c19f3d33088dc924e36f3d523d2c863ebed11a6e2882ce0712c77bc7a8c0c3f",
+      "production_bundle.json": "f1c673457229ab89227e904c50baa2372e640f661f5953e0e3ace1d06fde6487",
+      "storyboard_preview.html": "3f473d2cd61da8c77e2060c4e631eda3de978e1e6af1df74b1585598dff582f0",
       "timeline.edl": "08dcb103e51c3d2b0a4aac008dc826a9826041dcb6063b166d2742157706845b",
       "sequence.fcpxml": "6d0e4276cbaab001c802aa3ea3464f8346d23d79adcf646ef0a061db511ce999",
       "shot_list.csv": "fcc6562f930acf26ad9321b2e5f9103e8f0d9ce31dd78e966aadfc69a229da74",
@@ -1114,9 +1779,9 @@
     }
   },
   "council_report": {
-    "version": "2.4.0",
+    "version": "2.5.0",
     "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-    "timestamp": "2026-11-04T09:32:25.643239+00:00",
+    "timestamp": "2026-11-05T09:30:21.654761+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1136,7 +1801,16 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "rig_schema_validation",
+            "message": "MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
       },
       {
@@ -1204,6 +1878,30 @@
             "details": {
               "domain": "luxury_fashion",
               "stage_name": "High-CRI Runway Prism Volume Gamma"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "moco_rig_alignment",
+            "message": "Kinetic MoCo rig verified: 'technocrane' (5 6-DOF waypoints, max 3.5 m/s) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "rig_type": "technocrane",
+              "waypoints": 5
+            }
+          },
+          {
+            "severity": "info",
+            "category": "lighting_rig_alignment",
+            "message": "Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "fixtures_count": 5,
+              "key_to_fill": 4.0
             }
           }
         ],
@@ -1320,6 +2018,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-009",
+        "title": "Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine",
+        "problem_statement": "Complex kinetic camera maneuvers for 'SEPHORA: London Pulse (Continuous 40s Oner)' require precision mechanical motion control (Bolt Cinebot, Technocrane, Cablecam, Steadicam, FPV Drone) and 6-DOF trajectory waypoint tracking (X/Y/Z position, Roll/Pitch/Yaw orientation, velocity, acceleration) to guarantee repeatable camera paths and exportable camera tracking data for VFX pipelines (Nuke, Maya, Blender, Unreal Engine).",
+        "proposed_solution": "Ship MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec schemas, omni_director.tools.moco_kinematics (path distance and velocity calculation, JSON, CSV, FBX ASCII camera transform exports), CRAFT camera MoCo prompt tokens, prompt auditor MoCo token verification, and an interactive MoCo Trajectory HUD (#btn-moco-animatic / #animatic-moco-hud [K] hotkey) in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/moco_kinematics.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-010",
+        "title": "Volumetric Atmospheric & Studio Lighting Rig Simulator",
+        "problem_statement": "High-end cinematic visuals for 'SEPHORA: London Pulse (Continuous 40s Oner)' require calibrated multi-point studio lighting (Key, Fill, Rim, Kicker, Practicals, Ambient) with color temperature (Kelvin), photometric illuminance (Lux), diffusion grades, particulate atmospheric haze/fog modeling, and lighting contrast ratios (Key:Fill, Key:Rim) to eliminate flat lighting and export gaffer setup call sheets.",
+        "proposed_solution": "Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],

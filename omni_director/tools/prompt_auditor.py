@@ -112,6 +112,33 @@ def audit_omni_scene_prompt(
             proto_str = vp_stage_spec.frustum_tracking_protocol.value if hasattr(vp_stage_spec.frustum_tracking_protocol, "value") else str(vp_stage_spec.frustum_tracking_protocol)
             details["virtual_production_descriptor"] = f"{vp_stage_spec.stage_name} ({proto_str})"
 
+    # Motion Control (MoCo) rig recognition & reward (PM-FEAT-009)
+    moco_rig_spec = getattr(scene, "moco_rig", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("moco_rig")
+    if moco_rig_spec is None and craft_camera is not None:
+        moco_rig_spec = getattr(craft_camera, "moco_rig", None)
+    moco_patterns = r"(?:motion\s*control|moco|bolt\s*cinebot|technocrane|cablecam|motorized\s*dolly|russian\s*arm|drone\s*fpv|6-?DOF|trajectory\s*waypoint|robotic\s*(?:camera|rig)|cinebot)"
+    moco_match = re.search(moco_patterns, prompt, re.IGNORECASE)
+    if moco_rig_spec is not None or moco_match:
+        details["moco_rig_compliant"] = True
+        details["moco_rig_reward"] = 2.0
+        if moco_rig_spec is not None:
+            rig_str = moco_rig_spec.rig_type.value if hasattr(moco_rig_spec.rig_type, "value") else str(moco_rig_spec.rig_type)
+            details["moco_rig_descriptor"] = f"{rig_str} ({moco_rig_spec.track_length_meters}m track, max {moco_rig_spec.max_velocity_mps}m/s)"
+        elif moco_match:
+            details["moco_rig_descriptor"] = moco_match.group(0)
+
+    # Studio Lighting rig recognition & reward (PM-FEAT-010)
+    lighting_rig_spec = getattr(scene, "lighting_rig", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("lighting_rig")
+    lighting_patterns = r"(?:key\s*light|fill\s*light|rim\s*(?:light|backlight)|kicker|practicals|lighting\s*ratio|chiaroscuro|lux|cct|kelvin|\b\d{4}K\b|diffusion|skypanel|fresnel|softbox|atmospheric\s*haze|particulate\s*haze|volumetric\s*(?:light|shaft|haze)|mineral\s*haze|cryogenic\s*smoke|oil\s*fog)"
+    lighting_match = re.search(lighting_patterns, prompt, re.IGNORECASE)
+    if lighting_rig_spec is not None or lighting_match:
+        details["lighting_rig_compliant"] = True
+        details["lighting_rig_reward"] = 2.0
+        if lighting_rig_spec is not None:
+            details["lighting_rig_descriptor"] = f"{len(lighting_rig_spec.fixtures)} fixtures (Key:Fill {lighting_rig_spec.key_to_fill_ratio}:1, {lighting_rig_spec.total_lux} lux)"
+        elif lighting_match:
+            details["lighting_rig_descriptor"] = lighting_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -235,6 +262,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("virtual_production_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("moco_rig_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("lighting_rig_compliant"):
+            score = min(100.0, score + 1.0)
 
     return AuditResult(
         scene_index=effective_scene_index,
@@ -282,6 +313,12 @@ class HealedPromptResult(tuple):
     def warnings(self) -> List[str]:
         return self[1].warnings
 
+    def __contains__(self, item: Any) -> bool:
+        if isinstance(item, str):
+            if item in self.healed_prompt:
+                return True
+        return super().__contains__(item)
+
     def __getattr__(self, name: str) -> Any:
         if hasattr(self[0], name):
             return getattr(self[0], name)
@@ -292,7 +329,7 @@ class HealedPromptResult(tuple):
 
 def heal_omni_scene_prompt(
     scene: Union[ScenePromptSpec, str],
-    audit_result: Optional[AuditResult] = None,
+    audit_result: Optional[Union[AuditResult, ScenePromptSpec]] = None,
     regime: Optional[Union[RegimeType, int]] = None,
     storytelling_mode: Optional[StorytellingMode] = None,
     scene_index: int = 1,
@@ -313,13 +350,20 @@ def heal_omni_scene_prompt(
     Returns (healed_target, final_audit_result) where healed_target has the same type
     as the input `scene` (ScenePromptSpec or str).
     """
+    spec_context: Optional[ScenePromptSpec] = None
+    real_audit_result: Optional[AuditResult] = None
+    if isinstance(audit_result, ScenePromptSpec):
+        spec_context = audit_result
+    elif isinstance(audit_result, AuditResult):
+        real_audit_result = audit_result
+
     is_spec = isinstance(scene, ScenePromptSpec)
     current_prompt = scene.omni_prose_prompt if is_spec else str(scene)
-    eff_scene_index = scene.scene_index if is_spec else (regime if isinstance(regime, int) else scene_index)
-    eff_regime = regime if isinstance(regime, RegimeType) else (scene.regime if is_spec else RegimeType.REGIME_2_KINETIC)
+    eff_scene_index = scene.scene_index if is_spec else (spec_context.scene_index if spec_context else (regime if isinstance(regime, int) else scene_index))
+    eff_regime = regime if isinstance(regime, RegimeType) else (scene.regime if is_spec else (spec_context.regime if spec_context else RegimeType.REGIME_2_KINETIC))
 
-    current_audit = audit_result or audit_omni_scene_prompt(
-        scene=scene,
+    current_audit = real_audit_result or audit_omni_scene_prompt(
+        scene=scene if is_spec else (spec_context or scene),
         regime=eff_regime,
         scene_index=eff_scene_index,
         duration_seconds=duration_seconds,
@@ -420,6 +464,29 @@ def heal_omni_scene_prompt(
             working_prompt = working_prompt.rstrip() + " Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes."
             if "injected_vp_stage_frustum" not in applied_patches:
                 applied_patches.append("injected_vp_stage_frustum")
+
+        # 3d. Inject MoCo rig tokens if configured (PM-FEAT-009)
+        prev = working_prompt
+        moco_obj = (getattr(scene, "moco_rig", None) if is_spec else None) or (getattr(spec_context, "moco_rig", None) if spec_context else None) or kwargs.get("moco_rig")
+        if moco_obj is None:
+            if is_spec and getattr(scene, "craft_camera", None):
+                moco_obj = getattr(scene.craft_camera, "moco_rig", None)
+            elif spec_context and getattr(spec_context, "craft_camera", None):
+                moco_obj = getattr(spec_context.craft_camera, "moco_rig", None)
+        if moco_obj is not None and not re.search(r"motion\s*control|moco|bolt\s*cinebot|technocrane|cablecam|motorized\s*dolly|russian\s*arm|drone\s*fpv|6-?DOF|robotic\s*(?:camera|rig)", working_prompt, re.IGNORECASE):
+            rig_name = moco_obj.rig_type.value if hasattr(moco_obj.rig_type, "value") else str(moco_obj.rig_type)
+            working_prompt = working_prompt.rstrip() + f" Executed on precision robotic motion control (MoCo) {rig_name} rig following calibrated 6-DOF trajectory waypoints."
+            if "injected_moco_rig_spec" not in applied_patches:
+                applied_patches.append("injected_moco_rig_spec")
+
+        # 3e. Inject Lighting rig tokens if configured (PM-FEAT-010)
+        prev = working_prompt
+        light_obj = (getattr(scene, "lighting_rig", None) if is_spec else None) or (getattr(spec_context, "lighting_rig", None) if spec_context else None) or kwargs.get("lighting_rig")
+        if light_obj is not None and not re.search(r"key\s*light|fill\s*light|rim\s*(?:light|backlight)|kicker|lighting\s*ratio|skypanel|atmospheric\s*haze|particulate", working_prompt, re.IGNORECASE):
+            haze_str = (light_obj.atmospheric_haze.haze_type.value if hasattr(light_obj.atmospheric_haze.haze_type, "value") else str(light_obj.atmospheric_haze.haze_type)) if light_obj.atmospheric_haze else "clean air"
+            working_prompt = working_prompt.rstrip() + f" Calibrated studio lighting rig with Key:Fill {light_obj.key_to_fill_ratio:.1f}:1 contrast ratio and {haze_str.replace('_', ' ')} atmospheric scattering."
+            if "injected_lighting_rig_spec" not in applied_patches:
+                applied_patches.append("injected_lighting_rig_spec")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt

@@ -248,6 +248,176 @@ class VirtualProductionStageSpec(BaseModel):
         return self.dmx_lighting_rig
 
 
+class MotionControlRigType(str, Enum):
+    """Robotic Motion Control (MoCo) camera rig types (PM-FEAT-009)."""
+    BOLT_CINEBOT = "bolt_cinebot"
+    TECHNOCRANE = "technocrane"
+    CABLECAM = "cablecam"
+    STEADICAM = "steadicam"
+    DRONE_FPV = "drone_fpv"
+    RUSSIAN_ARM = "russian_arm"
+    MOTORIZED_DOLLY = "motorized_dolly"
+
+    # Lowercase aliases
+    bolt_cinebot = "bolt_cinebot"
+    technocrane = "technocrane"
+    cablecam = "cablecam"
+    steadicam = "steadicam"
+    drone_fpv = "drone_fpv"
+    russian_arm = "russian_arm"
+    motorized_dolly = "motorized_dolly"
+
+
+class TrajectoryWaypoint6DOF(BaseModel):
+    """6-DOF spatial waypoint for high-speed motion control camera trajectories."""
+    timecode_sec: float = Field(default=0.0, ge=0.0, description="Timecode timestamp in seconds from shot start")
+    x_meters: float = Field(default=0.0, description="X translation coordinate in meters (stage coordinate space)")
+    y_meters: float = Field(default=0.0, description="Y translation coordinate in meters (stage coordinate space)")
+    z_meters: float = Field(default=1.5, description="Z elevation coordinate in meters above stage floor")
+    roll_deg: float = Field(default=0.0, description="Camera roll angle in degrees")
+    pitch_deg: float = Field(default=0.0, description="Camera pitch angle in degrees")
+    yaw_deg: float = Field(default=0.0, description="Camera yaw angle in degrees")
+    velocity_mps: float = Field(default=0.0, ge=0.0, description="Camera instantaneous velocity in meters per second")
+
+
+class MocoRigSpec(BaseModel):
+    """Motion Control (MoCo) robotic camera rig specification (PM-FEAT-009)."""
+    rig_type: MotionControlRigType = Field(default=MotionControlRigType.BOLT_CINEBOT)
+    payload_kg: float = Field(default=15.0, ge=0.5, le=100.0, description="Maximum camera package payload in kilograms")
+    track_length_meters: float = Field(default=6.0, ge=0.0, le=100.0, description="Linear track length in meters (0 if stationary arm)")
+    max_velocity_mps: float = Field(default=4.5, ge=0.1, le=25.0, description="Peak track / arm velocity in meters per second")
+    waypoints: List[TrajectoryWaypoint6DOF] = Field(default_factory=list, description="6-DOF trajectory waypoints")
+    locked_roll_stabilization: bool = Field(default=True, description="True if 3-axis horizon / roll lock is mechanically active")
+    mechanical_backlash_mm: float = Field(default=0.05, ge=0.0, le=5.0, description="Repeatability tolerance / gear backlash in millimeters")
+
+    @field_validator("rig_type", mode="before")
+    @classmethod
+    def normalize_rig_type(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in MotionControlRigType:
+                if v_clean == member.value:
+                    return member
+            for member in MotionControlRigType:
+                if member.value in v_clean:
+                    return member
+        return v
+
+
+class LightingFixtureRole(str, Enum):
+    """Calibrated studio lighting fixture functional roles (PM-FEAT-010)."""
+    KEY_LIGHT = "key_light"
+    FILL_LIGHT = "fill_light"
+    RIM_BACKLIGHT = "rim_backlight"
+    KICKER = "kicker"
+    PRACTICALS = "practicals"
+    OVERHEAD_AMBIENT = "overhead_ambient"
+
+    # Lowercase aliases
+    key_light = "key_light"
+    fill_light = "fill_light"
+    rim_backlight = "rim_backlight"
+    kicker = "kicker"
+    practicals = "practicals"
+    overhead_ambient = "overhead_ambient"
+
+
+class DiffusionGrade(str, Enum):
+    """Studio lighting diffusion materials and grades (PM-FEAT-010)."""
+    HARD_SPECULAR = "hard_specular"
+    QUARTER_GRID = "quarter_grid"
+    HALF_GRID = "half_grid"
+    FULL_GRID = "full_grid"
+    HAMPSHIRE_FROST = "hampshire_frost"
+    BLEACHED_MUSLIN = "bleached_muslin"
+    CHIMERA_SOFTBOX = "chimera_softbox"
+
+    # Lowercase aliases
+    hard_specular = "hard_specular"
+    quarter_grid = "quarter_grid"
+    half_grid = "half_grid"
+    full_grid = "full_grid"
+    hampshire_frost = "hampshire_frost"
+    bleached_muslin = "bleached_muslin"
+    chimera_softbox = "chimera_softbox"
+
+
+class ParticulateHazeType(str, Enum):
+    """Volumetric atmospheric haze and particulate suspension types (PM-FEAT-010)."""
+    CLEAN_AIR = "clean_air"
+    MINERAL_HAZE = "mineral_haze"
+    OIL_FOG = "oil_fog"
+    CRYOGENIC_SMOKE = "cryogenic_smoke"
+    ATMOSPHERIC_DUST = "atmospheric_dust"
+
+    # Lowercase aliases
+    clean_air = "clean_air"
+    mineral_haze = "mineral_haze"
+    oil_fog = "oil_fog"
+    cryogenic_smoke = "cryogenic_smoke"
+    atmospheric_dust = "atmospheric_dust"
+
+
+class StudioLightFixtureSpec(BaseModel):
+    """Individual calibrated studio lighting fixture specification (PM-FEAT-010)."""
+    fixture_id: str = Field(..., description="Unique fixture identifier (e.g. 'KEY_01', 'RIM_02')")
+    role: LightingFixtureRole = Field(default=LightingFixtureRole.KEY_LIGHT)
+    fixture_type: str = Field(default="ARRI SkyPanel S360-C", description="Fixture model or lamphead type")
+    cct_kelvin: int = Field(default=5600, ge=1800, le=12000, description="Correlated Color Temperature in Kelvin")
+    lux_intensity: float = Field(default=2500.0, ge=0.0, description="Incident illumination intensity in lux at target")
+    beam_angle_deg: float = Field(default=45.0, ge=5.0, le=180.0, description="Beam spread angle in degrees")
+    diffusion_grade: DiffusionGrade = Field(default=DiffusionGrade.HALF_GRID)
+    distance_meters: float = Field(default=3.5, ge=0.1, le=50.0, description="Physical distance from subject in meters")
+    dmx_channel: int = Field(default=1, ge=1, le=512, description="DMX512 start channel address")
+
+    @field_validator("role", mode="before")
+    @classmethod
+    def normalize_role(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in LightingFixtureRole:
+                if v_clean == member.value:
+                    return member
+        return v
+
+    @field_validator("diffusion_grade", mode="before")
+    @classmethod
+    def normalize_diffusion(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in DiffusionGrade:
+                if v_clean == member.value:
+                    return member
+        return v
+
+
+class AtmosphericHazeSpec(BaseModel):
+    """Volumetric atmospheric haze and optical scattering specification (PM-FEAT-010)."""
+    haze_type: ParticulateHazeType = Field(default=ParticulateHazeType.MINERAL_HAZE)
+    particulate_density: float = Field(default=0.15, ge=0.0, le=1.0, description="Normalized particulate suspension density (0.0=none, 1.0=dense)")
+    scattering_coefficient: float = Field(default=0.45, ge=0.0, le=1.0, description="Rayleigh/Mie forward scattering coefficient")
+    shaft_visibility: float = Field(default=0.6, ge=0.0, le=1.0, description="Volumetric light shaft visibility ratio")
+
+    @field_validator("haze_type", mode="before")
+    @classmethod
+    def normalize_haze(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in ParticulateHazeType:
+                if v_clean == member.value:
+                    return member
+        return v
+
+
+class LightingRigSpec(BaseModel):
+    """Complete calibrated multi-fixture lighting rig and atmospheric environment (PM-FEAT-010)."""
+    fixtures: List[StudioLightFixtureSpec] = Field(default_factory=list, description="Calibrated lighting fixtures")
+    key_to_fill_ratio: float = Field(default=4.0, ge=1.0, le=64.0, description="Key-to-fill contrast lighting ratio (e.g. 4.0 for 4:1)")
+    key_to_rim_ratio: float = Field(default=2.0, ge=0.1, le=32.0, description="Key-to-rim accent separation ratio")
+    total_lux: float = Field(default=5000.0, ge=0.0, description="Estimated total aggregate incident lux at key subject plane")
+    atmospheric_haze: Optional[AtmosphericHazeSpec] = Field(default=None, description="Volumetric particulate atmospheric haze profile")
+
+
 class CraftCameraSpec(BaseModel):
     """Kinetic Camera Grammar (CRAFT Framework)."""
     rig_type: str = Field(..., description="Locked-off tripod, Dolly track, Steadicam, Technocrane, etc.")
@@ -260,6 +430,7 @@ class CraftCameraSpec(BaseModel):
     shutter_angle_deg: float = Field(default=180.0, ge=11.25, le=360.0, description="Shutter angle in degrees (e.g. 180.0 standard, 90.0 staccato)")
     shutter_timing_token: Optional[str] = Field(default=None, description="Cinematic shutter timing prompt token (e.g. '180° shutter at 1/48s')")
     optical_lens: Optional[OpticalLensSpec] = Field(default=None, description="Detailed optical lens and sensor framing specification")
+    moco_rig: Optional[MocoRigSpec] = Field(default=None, description="Robotic motion control rig specification (PM-FEAT-009)")
 
     def to_summary(self) -> str:
         return f"{self.rig_type} ({self.focal_length_mm}mm) | {self.composition} | Route: {self.route}"
@@ -482,6 +653,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="In-camera VFX / Virtual Production LED volume stage manifest (PM-FEAT-008)"
     )
+    moco_rig: Optional[MocoRigSpec] = Field(
+        default=None,
+        description="Scene-specific motion control rig specification (PM-FEAT-009)"
+    )
+    lighting_rig: Optional[LightingRigSpec] = Field(
+        default=None,
+        description="Scene-specific studio lighting rig specification (PM-FEAT-010)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -507,6 +686,14 @@ class ScenePromptSpec(BaseModel):
                 data["virtual_production"] = data["virtual_production_spec"]
             if "vp_stage" in data and "virtual_production" not in data:
                 data["virtual_production"] = data["vp_stage"]
+            if "moco_rig_spec" in data and "moco_rig" not in data:
+                data["moco_rig"] = data["moco_rig_spec"]
+            if "moco" in data and "moco_rig" not in data:
+                data["moco_rig"] = data["moco"]
+            if "lighting_rig_spec" in data and "lighting_rig" not in data:
+                data["lighting_rig"] = data["lighting_rig_spec"]
+            if "lighting" in data and "lighting_rig" not in data and isinstance(data["lighting"], (dict, LightingRigSpec)):
+                data["lighting_rig"] = data["lighting"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -623,6 +810,14 @@ class MasterProductionBible(BaseModel):
     virtual_production: Optional[VirtualProductionStageSpec] = Field(
         default=None,
         description="Virtual Production LED Volume & Unreal Engine Stage Manifest (PM-FEAT-008)"
+    )
+    master_moco_rig: Optional[MocoRigSpec] = Field(
+        default=None,
+        description="Master motion control camera rig specification (PM-FEAT-009)"
+    )
+    master_lighting_rig: Optional[LightingRigSpec] = Field(
+        default=None,
+        description="Master studio lighting rig specification (PM-FEAT-010)"
     )
 
     @field_validator("nano_banana_assets")
@@ -793,7 +988,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.4.0"
+    version: str = "2.5.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

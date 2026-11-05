@@ -19,6 +19,8 @@ from omni_director.presets import (
     classify_brief_domain,
     get_domain_audio_mixer,
     get_domain_color_look,
+    get_domain_lighting_rig,
+    get_domain_moco_rig,
     get_domain_optical_lens,
     get_domain_speed_ramp,
     get_domain_virtual_production,
@@ -123,6 +125,8 @@ def synthesize_custom_bible(
     domain_speed_ramp = get_domain_speed_ramp(domain)
     domain_lens = get_domain_optical_lens(domain)
     domain_vp = get_domain_virtual_production(domain)
+    domain_moco = get_domain_moco_rig(domain)
+    domain_lighting = get_domain_lighting_rig(domain)
 
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
@@ -197,6 +201,8 @@ def synthesize_custom_bible(
         scene_color_look=domain_color_look,
         optical_lens=domain_lens,
         virtual_production=domain_vp,
+        moco_rig=domain_moco,
+        lighting_rig=domain_lighting,
         kinetic_contact_chain="1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance." if is_kinetic else None,
         action_beats=[
             "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)",
@@ -220,6 +226,8 @@ def synthesize_custom_bible(
         scene_color_look=domain_color_look,
         optical_lens=domain_lens,
         virtual_production=domain_vp,
+        moco_rig=domain_moco,
+        lighting_rig=domain_lighting,
         kinetic_contact_chain="1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose." if is_kinetic else None,
         action_beats=[
             "Beat 1: Peak acceleration and directional transition (00:05 - 00:08)",
@@ -315,6 +323,8 @@ def synthesize_custom_bible(
         master_audio_mixer=domain_audio_mixer,
         master_lens_package=domain_lens,
         virtual_production=domain_vp,
+        master_moco_rig=domain_moco,
+        master_lighting_rig=domain_lighting,
     )
 
 
@@ -470,11 +480,19 @@ class CreativeDirectorAgent(BaseAgent):
                 bible.master_color_look = get_domain_color_look(arch)
             if not getattr(bible, "master_audio_mixer", None):
                 bible.master_audio_mixer = get_domain_audio_mixer(arch)
+            if not getattr(bible, "master_moco_rig", None):
+                bible.master_moco_rig = get_domain_moco_rig(arch)
+            if not getattr(bible, "master_lighting_rig", None):
+                bible.master_lighting_rig = get_domain_lighting_rig(arch)
             for scene in bible.scenes:
                 if not getattr(scene, "speed_ramp", None):
                     scene.speed_ramp = get_domain_speed_ramp(arch)
                 if not getattr(scene, "scene_color_look", None):
                     scene.scene_color_look = bible.master_color_look
+                if not getattr(scene, "moco_rig", None):
+                    scene.moco_rig = bible.master_moco_rig
+                if not getattr(scene, "lighting_rig", None):
+                    scene.lighting_rig = bible.master_lighting_rig
 
         context["bible"] = bible
         logger.info(f"[{self.name}] Sealed Bible: '{bible.project_title}' with {len(bible.scenes)} scenes.")

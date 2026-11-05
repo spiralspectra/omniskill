@@ -58,7 +58,8 @@
         "horizontal_fov_deg": 99.42,
         "vertical_fov_deg": 49.03,
         "hyperfocal_distance_m": 13.07
-      }
+      },
+      "moco_rig": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -148,7 +149,8 @@
             "horizontal_fov_deg": 99.42,
             "vertical_fov_deg": 49.03,
             "hyperfocal_distance_m": 13.07
-          }
+          },
+          "moco_rig": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -305,6 +307,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "russian_arm",
+          "payload_kg": 15.0,
+          "track_length_meters": 12.0,
+          "max_velocity_mps": 8.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       },
       {
@@ -339,7 +469,8 @@
             "horizontal_fov_deg": 99.42,
             "vertical_fov_deg": 49.03,
             "hyperfocal_distance_m": 13.07
-          }
+          },
+          "moco_rig": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -496,6 +627,134 @@
             }
           ],
           "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+        },
+        "moco_rig": {
+          "rig_type": "russian_arm",
+          "payload_kg": 15.0,
+          "track_length_meters": 12.0,
+          "max_velocity_mps": 8.5,
+          "waypoints": [
+            {
+              "timecode_sec": 0.0,
+              "x_meters": 0.0,
+              "y_meters": -2.0,
+              "z_meters": 1.2,
+              "roll_deg": 0.0,
+              "pitch_deg": -5.0,
+              "yaw_deg": 0.0,
+              "velocity_mps": 0.0
+            },
+            {
+              "timecode_sec": 2.0,
+              "x_meters": 1.5,
+              "y_meters": -0.8,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": -2.0,
+              "yaw_deg": 15.0,
+              "velocity_mps": 2.2
+            },
+            {
+              "timecode_sec": 5.0,
+              "x_meters": 3.5,
+              "y_meters": 0.5,
+              "z_meters": 1.6,
+              "roll_deg": 0.0,
+              "pitch_deg": 0.0,
+              "yaw_deg": 30.0,
+              "velocity_mps": 4.2
+            },
+            {
+              "timecode_sec": 8.0,
+              "x_meters": 5.0,
+              "y_meters": 1.8,
+              "z_meters": 1.5,
+              "roll_deg": 0.0,
+              "pitch_deg": 5.0,
+              "yaw_deg": 45.0,
+              "velocity_mps": 3.0
+            },
+            {
+              "timecode_sec": 10.0,
+              "x_meters": 6.0,
+              "y_meters": 2.2,
+              "z_meters": 1.4,
+              "roll_deg": 0.0,
+              "pitch_deg": 2.0,
+              "yaw_deg": 50.0,
+              "velocity_mps": 0.5
+            }
+          ],
+          "locked_roll_stabilization": true,
+          "mechanical_backlash_mm": 0.05
+        },
+        "lighting_rig": {
+          "fixtures": [
+            {
+              "fixture_id": "KEY_01",
+              "role": "key_light",
+              "fixture_type": "ARRI SkyPanel S360-C",
+              "cct_kelvin": 5600,
+              "lux_intensity": 3500.0,
+              "beam_angle_deg": 45.0,
+              "diffusion_grade": "half_grid",
+              "distance_meters": 3.5,
+              "dmx_channel": 1
+            },
+            {
+              "fixture_id": "FILL_01",
+              "role": "fill_light",
+              "fixture_type": "ARRI SkyPanel S120-C",
+              "cct_kelvin": 5200,
+              "lux_intensity": 875.0,
+              "beam_angle_deg": 60.0,
+              "diffusion_grade": "bleached_muslin",
+              "distance_meters": 4.0,
+              "dmx_channel": 16
+            },
+            {
+              "fixture_id": "RIM_01",
+              "role": "rim_backlight",
+              "fixture_type": "Astera Titan Tube FP1",
+              "cct_kelvin": 6000,
+              "lux_intensity": 1750.0,
+              "beam_angle_deg": 30.0,
+              "diffusion_grade": "quarter_grid",
+              "distance_meters": 2.5,
+              "dmx_channel": 32
+            },
+            {
+              "fixture_id": "KICKER_01",
+              "role": "kicker",
+              "fixture_type": "Dedolight DLED9-BI",
+              "cct_kelvin": 5600,
+              "lux_intensity": 1200.0,
+              "beam_angle_deg": 20.0,
+              "diffusion_grade": "hard_specular",
+              "distance_meters": 3.0,
+              "dmx_channel": 48
+            },
+            {
+              "fixture_id": "AMBIENT_01",
+              "role": "overhead_ambient",
+              "fixture_type": "LiteMat Plus 4",
+              "cct_kelvin": 5600,
+              "lux_intensity": 500.0,
+              "beam_angle_deg": 90.0,
+              "diffusion_grade": "chimera_softbox",
+              "distance_meters": 4.5,
+              "dmx_channel": 64
+            }
+          ],
+          "key_to_fill_ratio": 4.0,
+          "key_to_rim_ratio": 2.0,
+          "total_lux": 7825.0,
+          "atmospheric_haze": {
+            "haze_type": "mineral_haze",
+            "particulate_density": 0.15,
+            "scattering_coefficient": 0.45,
+            "shaft_visibility": 0.6
+          }
         }
       }
     ],
@@ -651,6 +910,134 @@
         }
       ],
       "lut_calibration_profile": "ACEScg_OCIO_v1.3"
+    },
+    "master_moco_rig": {
+      "rig_type": "russian_arm",
+      "payload_kg": 15.0,
+      "track_length_meters": 12.0,
+      "max_velocity_mps": 8.5,
+      "waypoints": [
+        {
+          "timecode_sec": 0.0,
+          "x_meters": 0.0,
+          "y_meters": -2.0,
+          "z_meters": 1.2,
+          "roll_deg": 0.0,
+          "pitch_deg": -5.0,
+          "yaw_deg": 0.0,
+          "velocity_mps": 0.0
+        },
+        {
+          "timecode_sec": 2.0,
+          "x_meters": 1.5,
+          "y_meters": -0.8,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": -2.0,
+          "yaw_deg": 15.0,
+          "velocity_mps": 2.2
+        },
+        {
+          "timecode_sec": 5.0,
+          "x_meters": 3.5,
+          "y_meters": 0.5,
+          "z_meters": 1.6,
+          "roll_deg": 0.0,
+          "pitch_deg": 0.0,
+          "yaw_deg": 30.0,
+          "velocity_mps": 4.2
+        },
+        {
+          "timecode_sec": 8.0,
+          "x_meters": 5.0,
+          "y_meters": 1.8,
+          "z_meters": 1.5,
+          "roll_deg": 0.0,
+          "pitch_deg": 5.0,
+          "yaw_deg": 45.0,
+          "velocity_mps": 3.0
+        },
+        {
+          "timecode_sec": 10.0,
+          "x_meters": 6.0,
+          "y_meters": 2.2,
+          "z_meters": 1.4,
+          "roll_deg": 0.0,
+          "pitch_deg": 2.0,
+          "yaw_deg": 50.0,
+          "velocity_mps": 0.5
+        }
+      ],
+      "locked_roll_stabilization": true,
+      "mechanical_backlash_mm": 0.05
+    },
+    "master_lighting_rig": {
+      "fixtures": [
+        {
+          "fixture_id": "KEY_01",
+          "role": "key_light",
+          "fixture_type": "ARRI SkyPanel S360-C",
+          "cct_kelvin": 5600,
+          "lux_intensity": 3500.0,
+          "beam_angle_deg": 45.0,
+          "diffusion_grade": "half_grid",
+          "distance_meters": 3.5,
+          "dmx_channel": 1
+        },
+        {
+          "fixture_id": "FILL_01",
+          "role": "fill_light",
+          "fixture_type": "ARRI SkyPanel S120-C",
+          "cct_kelvin": 5200,
+          "lux_intensity": 875.0,
+          "beam_angle_deg": 60.0,
+          "diffusion_grade": "bleached_muslin",
+          "distance_meters": 4.0,
+          "dmx_channel": 16
+        },
+        {
+          "fixture_id": "RIM_01",
+          "role": "rim_backlight",
+          "fixture_type": "Astera Titan Tube FP1",
+          "cct_kelvin": 6000,
+          "lux_intensity": 1750.0,
+          "beam_angle_deg": 30.0,
+          "diffusion_grade": "quarter_grid",
+          "distance_meters": 2.5,
+          "dmx_channel": 32
+        },
+        {
+          "fixture_id": "KICKER_01",
+          "role": "kicker",
+          "fixture_type": "Dedolight DLED9-BI",
+          "cct_kelvin": 5600,
+          "lux_intensity": 1200.0,
+          "beam_angle_deg": 20.0,
+          "diffusion_grade": "hard_specular",
+          "distance_meters": 3.0,
+          "dmx_channel": 48
+        },
+        {
+          "fixture_id": "AMBIENT_01",
+          "role": "overhead_ambient",
+          "fixture_type": "LiteMat Plus 4",
+          "cct_kelvin": 5600,
+          "lux_intensity": 500.0,
+          "beam_angle_deg": 90.0,
+          "diffusion_grade": "chimera_softbox",
+          "distance_meters": 4.5,
+          "dmx_channel": 64
+        }
+      ],
+      "key_to_fill_ratio": 4.0,
+      "key_to_rim_ratio": 2.0,
+      "total_lux": 7825.0,
+      "atmospheric_haze": {
+        "haze_type": "mineral_haze",
+        "particulate_density": 0.15,
+        "scattering_coefficient": 0.45,
+        "shaft_visibility": 0.6
+      }
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -691,6 +1078,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "StageCraft Volume Apex (Automotive Dynamic) (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "russian_arm (12.0m track, max 8.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -715,6 +1108,12 @@
         "virtual_production_compliant": true,
         "virtual_production_reward": 2.0,
         "virtual_production_descriptor": "StageCraft Volume Apex (Automotive Dynamic) (FreeD / OptiTrack Active Optical)",
+        "moco_rig_compliant": true,
+        "moco_rig_reward": 2.0,
+        "moco_rig_descriptor": "russian_arm (12.0m track, max 8.5m/s)",
+        "lighting_rig_compliant": true,
+        "lighting_rig_reward": 2.0,
+        "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -727,9 +1126,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "2a096d5f-c240-4584-94a5-ac133515a761",
+    "session_id": "880591a3-111a-40ef-987e-225238e49cdc",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-04T09:32:25.721094+00:00",
+    "timestamp": "2026-11-05T09:30:21.729845+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -739,67 +1138,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-04T09:32:25.721109+00:00",
-        "end_time": "2026-11-04T09:32:25.721534+00:00",
+        "start_time": "2026-11-05T09:30:21.729862+00:00",
+        "end_time": "2026-11-05T09:30:21.730278+00:00",
         "duration_ms": 0.42,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-04T09:32:25.721547+00:00",
-        "end_time": "2026-11-04T09:32:25.722063+00:00",
-        "duration_ms": 0.52,
+        "start_time": "2026-11-05T09:30:21.730292+00:00",
+        "end_time": "2026-11-05T09:30:21.730879+00:00",
+        "duration_ms": 0.59,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-04T09:32:25.722072+00:00",
-        "end_time": "2026-11-04T09:32:25.723573+00:00",
-        "duration_ms": 1.5,
+        "start_time": "2026-11-05T09:30:21.730889+00:00",
+        "end_time": "2026-11-05T09:30:21.731969+00:00",
+        "duration_ms": 1.08,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-04T09:32:25.723601+00:00",
-        "end_time": "2026-11-04T09:32:25.723777+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-05T09:30:21.731980+00:00",
+        "end_time": "2026-11-05T09:30:21.732113+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-04T09:32:25.723789+00:00",
-        "end_time": "2026-11-04T09:32:25.724206+00:00",
-        "duration_ms": 0.42,
+        "start_time": "2026-11-05T09:30:21.732120+00:00",
+        "end_time": "2026-11-05T09:30:21.732674+00:00",
+        "duration_ms": 0.55,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-04T09:32:25.724221+00:00",
-        "end_time": "2026-11-04T09:32:25.724225+00:00",
+        "start_time": "2026-11-05T09:30:21.732682+00:00",
+        "end_time": "2026-11-05T09:30:21.732685+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-04T09:32:25.724232+00:00",
-        "end_time": "2026-11-04T09:32:25.726279+00:00",
-        "duration_ms": 2.05,
+        "start_time": "2026-11-05T09:30:21.732691+00:00",
+        "end_time": "2026-11-05T09:30:21.735141+00:00",
+        "duration_ms": 2.45,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-04T09:32:25.729877+00:00",
-        "end_time": "2026-11-04T09:32:25.735770+00:00",
-        "duration_ms": 5.89,
+        "start_time": "2026-11-05T09:30:21.737739+00:00",
+        "end_time": "2026-11-05T09:30:21.743904+00:00",
+        "duration_ms": 6.17,
         "details": {}
       }
     ],
-    "total_duration_ms": 10.98,
+    "total_duration_ms": 11.39,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "9a6e122e52d1aa841aecf1df3c54535a82610e61a42422ea3114b6a558ee4618",
-      "storyboard_preview.html": "11b7b7a878ecbd5d2a26bd52c5655f96fb9580da4f23405f00fec763229af343",
+      "production_bundle.json": "ffa4c988d733f2a62af1bbbbfa1bdc5d6258e799900706853e6ee008776b9e35",
+      "storyboard_preview.html": "08a0a8360e1d445207f40b803153f2b1999c77e5677509691d0df5c7d2228816",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -813,9 +1212,9 @@
     }
   },
   "council_report": {
-    "version": "2.4.0",
+    "version": "2.5.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-04T09:32:25.734527+00:00",
+    "timestamp": "2026-11-05T09:30:21.742678+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -835,7 +1234,16 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "rig_schema_validation",
+            "message": "MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
       },
       {
@@ -903,6 +1311,30 @@
             "details": {
               "domain": "automotive_robotics",
               "stage_name": "StageCraft Volume Apex (Automotive Dynamic)"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "moco_rig_alignment",
+            "message": "Kinetic MoCo rig verified: 'russian_arm' (5 6-DOF waypoints, max 8.5 m/s) aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "rig_type": "russian_arm",
+              "waypoints": 5
+            }
+          },
+          {
+            "severity": "info",
+            "category": "lighting_rig_alignment",
+            "message": "Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "fixtures_count": 5,
+              "key_to_fill": 4.0
             }
           }
         ],
@@ -1019,6 +1451,34 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/virtual_production.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-009",
+        "title": "Kinetic Motion Control (MoCo) Rig & 6-DOF Camera Kinematics Engine",
+        "problem_statement": "Complex kinetic camera maneuvers for 'Cyberpunk Neon-Lit High-Speed Electric M' require precision mechanical motion control (Bolt Cinebot, Technocrane, Cablecam, Steadicam, FPV Drone) and 6-DOF trajectory waypoint tracking (X/Y/Z position, Roll/Pitch/Yaw orientation, velocity, acceleration) to guarantee repeatable camera paths and exportable camera tracking data for VFX pipelines (Nuke, Maya, Blender, Unreal Engine).",
+        "proposed_solution": "Ship MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec schemas, omni_director.tools.moco_kinematics (path distance and velocity calculation, JSON, CSV, FBX ASCII camera transform exports), CRAFT camera MoCo prompt tokens, prompt auditor MoCo token verification, and an interactive MoCo Trajectory HUD (#btn-moco-animatic / #animatic-moco-hud [K] hotkey) in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/moco_kinematics.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-010",
+        "title": "Volumetric Atmospheric & Studio Lighting Rig Simulator",
+        "problem_statement": "High-end cinematic visuals for 'Cyberpunk Neon-Lit High-Speed Electric M' require calibrated multi-point studio lighting (Key, Fill, Rim, Kicker, Practicals, Ambient) with color temperature (Kelvin), photometric illuminance (Lux), diffusion grades, particulate atmospheric haze/fog modeling, and lighting contrast ratios (Key:Fill, Key:Rim) to eliminate flat lighting and export gaffer setup call sheets.",
+        "proposed_solution": "Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
         ],

@@ -1,0 +1,261 @@
+{
+  "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
+  "master_lighting_rig": {
+    "photometrics": {
+      "key_to_fill_ratio": 4.0,
+      "key_to_rim_ratio": 2.0,
+      "total_lux": 7825.0,
+      "cct_deltas": {
+        "min_kelvin": 5200,
+        "max_kelvin": 6000,
+        "delta_kelvin": 800,
+        "key_fill_delta_kelvin": 400,
+        "KEY_01": 0,
+        "FILL_01": -400,
+        "RIM_01": 400,
+        "KICKER_01": 0,
+        "AMBIENT_01": 0
+      },
+      "fixture_count": 5
+    },
+    "fixtures": [
+      {
+        "fixture_id": "KEY_01",
+        "role": "key_light",
+        "fixture_type": "ARRI SkyPanel S360-C",
+        "cct_kelvin": 5600,
+        "lux_intensity": 3500.0,
+        "beam_angle_deg": 45.0,
+        "diffusion_grade": "half_grid",
+        "distance_meters": 3.5,
+        "dmx_channel": 1
+      },
+      {
+        "fixture_id": "FILL_01",
+        "role": "fill_light",
+        "fixture_type": "ARRI SkyPanel S120-C",
+        "cct_kelvin": 5200,
+        "lux_intensity": 875.0,
+        "beam_angle_deg": 60.0,
+        "diffusion_grade": "bleached_muslin",
+        "distance_meters": 4.0,
+        "dmx_channel": 16
+      },
+      {
+        "fixture_id": "RIM_01",
+        "role": "rim_backlight",
+        "fixture_type": "Astera Titan Tube FP1",
+        "cct_kelvin": 6000,
+        "lux_intensity": 1750.0,
+        "beam_angle_deg": 30.0,
+        "diffusion_grade": "quarter_grid",
+        "distance_meters": 2.5,
+        "dmx_channel": 32
+      },
+      {
+        "fixture_id": "KICKER_01",
+        "role": "kicker",
+        "fixture_type": "Dedolight DLED9-BI",
+        "cct_kelvin": 5600,
+        "lux_intensity": 1200.0,
+        "beam_angle_deg": 20.0,
+        "diffusion_grade": "hard_specular",
+        "distance_meters": 3.0,
+        "dmx_channel": 48
+      },
+      {
+        "fixture_id": "AMBIENT_01",
+        "role": "overhead_ambient",
+        "fixture_type": "LiteMat Plus 4",
+        "cct_kelvin": 5600,
+        "lux_intensity": 500.0,
+        "beam_angle_deg": 90.0,
+        "diffusion_grade": "chimera_softbox",
+        "distance_meters": 4.5,
+        "dmx_channel": 64
+      }
+    ],
+    "atmospheric_haze": {
+      "haze_type": "mineral_haze",
+      "particulate_density": 0.15,
+      "scattering_coefficient": 0.45,
+      "shaft_visibility": 0.6
+    }
+  },
+  "lighting_rig": {
+    "photometrics": {
+      "key_to_fill_ratio": 4.0,
+      "key_to_rim_ratio": 2.0,
+      "total_lux": 7825.0,
+      "cct_deltas": {
+        "min_kelvin": 5200,
+        "max_kelvin": 6000,
+        "delta_kelvin": 800,
+        "key_fill_delta_kelvin": 400,
+        "KEY_01": 0,
+        "FILL_01": -400,
+        "RIM_01": 400,
+        "KICKER_01": 0,
+        "AMBIENT_01": 0
+      },
+      "fixture_count": 5
+    },
+    "fixtures": [
+      {
+        "fixture_id": "KEY_01",
+        "role": "key_light",
+        "fixture_type": "ARRI SkyPanel S360-C",
+        "cct_kelvin": 5600,
+        "lux_intensity": 3500.0,
+        "beam_angle_deg": 45.0,
+        "diffusion_grade": "half_grid",
+        "distance_meters": 3.5,
+        "dmx_channel": 1
+      },
+      {
+        "fixture_id": "FILL_01",
+        "role": "fill_light",
+        "fixture_type": "ARRI SkyPanel S120-C",
+        "cct_kelvin": 5200,
+        "lux_intensity": 875.0,
+        "beam_angle_deg": 60.0,
+        "diffusion_grade": "bleached_muslin",
+        "distance_meters": 4.0,
+        "dmx_channel": 16
+      },
+      {
+        "fixture_id": "RIM_01",
+        "role": "rim_backlight",
+        "fixture_type": "Astera Titan Tube FP1",
+        "cct_kelvin": 6000,
+        "lux_intensity": 1750.0,
+        "beam_angle_deg": 30.0,
+        "diffusion_grade": "quarter_grid",
+        "distance_meters": 2.5,
+        "dmx_channel": 32
+      },
+      {
+        "fixture_id": "KICKER_01",
+        "role": "kicker",
+        "fixture_type": "Dedolight DLED9-BI",
+        "cct_kelvin": 5600,
+        "lux_intensity": 1200.0,
+        "beam_angle_deg": 20.0,
+        "diffusion_grade": "hard_specular",
+        "distance_meters": 3.0,
+        "dmx_channel": 48
+      },
+      {
+        "fixture_id": "AMBIENT_01",
+        "role": "overhead_ambient",
+        "fixture_type": "LiteMat Plus 4",
+        "cct_kelvin": 5600,
+        "lux_intensity": 500.0,
+        "beam_angle_deg": 90.0,
+        "diffusion_grade": "chimera_softbox",
+        "distance_meters": 4.5,
+        "dmx_channel": 64
+      }
+    ],
+    "atmospheric_haze": {
+      "haze_type": "mineral_haze",
+      "particulate_density": 0.15,
+      "scattering_coefficient": 0.45,
+      "shaft_visibility": 0.6
+    }
+  },
+  "scenes": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Soho Approach",
+      "timestamp_range": "00:00 - 00:10 (Base Clip)",
+      "photometrics": {
+        "key_to_fill_ratio": 4.0,
+        "key_to_rim_ratio": 2.0,
+        "total_lux": 7825.0,
+        "cct_deltas": {
+          "min_kelvin": 5200,
+          "max_kelvin": 6000,
+          "delta_kelvin": 800,
+          "key_fill_delta_kelvin": 400,
+          "KEY_01": 0,
+          "FILL_01": -400,
+          "RIM_01": 400,
+          "KICKER_01": 0,
+          "AMBIENT_01": 0
+        },
+        "fixture_count": 5
+      },
+      "fixtures_count": 5
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Store Transition",
+      "timestamp_range": "+10s extension (00:10 - 00:20)",
+      "photometrics": {
+        "key_to_fill_ratio": 4.0,
+        "key_to_rim_ratio": 2.0,
+        "total_lux": 7825.0,
+        "cct_deltas": {
+          "min_kelvin": 5200,
+          "max_kelvin": 6000,
+          "delta_kelvin": 800,
+          "key_fill_delta_kelvin": 400,
+          "KEY_01": 0,
+          "FILL_01": -400,
+          "RIM_01": 400,
+          "KICKER_01": 0,
+          "AMBIENT_01": 0
+        },
+        "fixture_count": 5
+      },
+      "fixtures_count": 5
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "The Product Flourish",
+      "timestamp_range": "+10s extension (00:20 - 00:30)",
+      "photometrics": {
+        "key_to_fill_ratio": 4.0,
+        "key_to_rim_ratio": 2.0,
+        "total_lux": 7825.0,
+        "cct_deltas": {
+          "min_kelvin": 5200,
+          "max_kelvin": 6000,
+          "delta_kelvin": 800,
+          "key_fill_delta_kelvin": 400,
+          "KEY_01": 0,
+          "FILL_01": -400,
+          "RIM_01": 400,
+          "KICKER_01": 0,
+          "AMBIENT_01": 0
+        },
+        "fixture_count": 5
+      },
+      "fixtures_count": 5
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Climactic Hero Lock",
+      "timestamp_range": "+10s extension (00:30 - 00:40)",
+      "photometrics": {
+        "key_to_fill_ratio": 4.0,
+        "key_to_rim_ratio": 2.0,
+        "total_lux": 7825.0,
+        "cct_deltas": {
+          "min_kelvin": 5200,
+          "max_kelvin": 6000,
+          "delta_kelvin": 800,
+          "key_fill_delta_kelvin": 400,
+          "KEY_01": 0,
+          "FILL_01": -400,
+          "RIM_01": 400,
+          "KICKER_01": 0,
+          "AMBIENT_01": 0
+        },
+        "fixture_count": 5
+      },
+      "fixtures_count": 5
+    }
+  ]
+}

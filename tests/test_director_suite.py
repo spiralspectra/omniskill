@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,10 +2855,613 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.4.0"
+        assert report.version in ("2.4.0", "2.5.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
+
+
+class TestV25MotionControlAndStudioLightingAnimatic:
+    """Verifies PM-FEAT-009 (MoCo Trajectory HUD) and PM-FEAT-010 (Studio Gaffer & Lighting HUD) in animatic HTML."""
+
+    def test_animatic_moco_and_gaffer_hud_elements(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, tmp_path)
+        assert html_path.is_file()
+        content = html_path.read_text(encoding="utf-8")
+
+        # 1. Transport Bar Buttons & Hotkey Remappings
+        assert 'id="btn-moco-animatic"' in content
+        assert '🤖 MoCo [K]' in content
+        assert 'id="btn-gaffer-animatic"' in content
+        assert '💡 Gaffer [G]' in content
+        assert 'id="btn-loop-animatic"' in content
+        assert '🔁 Loop [O]' in content
+
+        # 2. Header Cheat Sheet includes remapped hotkeys
+        assert '[O] Loop' in content
+        assert '[K] MoCo' in content
+        assert '[G] Gaffer' in content
+        assert '[U] Guides' in content
+
+        # 3. Motion Control Trajectory HUD (PM-FEAT-009)
+        assert 'id="animatic-moco-hud"' in content
+        assert 'role="dialog"' in content
+        assert 'aria-modal="true"' in content
+        assert 'MOTION CONTROL TRAJECTORY HUD' in content
+        assert 'id="moco-val-x"' in content
+        assert 'id="moco-val-y"' in content
+        assert 'id="moco-val-z"' in content
+        assert 'id="moco-val-roll"' in content
+        assert 'id="moco-val-pitch"' in content
+        assert 'id="moco-val-yaw"' in content
+        assert 'id="moco-vel-val"' in content
+        assert 'id="moco-vel-bar"' in content
+        assert 'id="wp-btn-1"' in content
+        assert 'id="wp-btn-2"' in content
+        assert 'id="wp-btn-3"' in content
+        assert 'id="moco-trajectory-svg"' in content
+        assert 'id="moco-rig-indicator"' in content
+
+        # 4. Studio Gaffer & Lighting HUD (PM-FEAT-010)
+        assert 'id="animatic-gaffer-hud"' in content
+        assert 'STUDIO GAFFER &amp; LIGHTING HUD' in content
+        assert 'id="slider-key-light"' in content
+        assert 'id="slider-fill-light"' in content
+        assert 'id="slider-rim-light"' in content
+        assert 'id="contrast-ratio-badge"' in content
+        assert 'id="slider-kelvin-cct"' in content
+        assert 'id="cct-color-swatch"' in content
+        assert 'id="slider-haze-density"' in content
+        assert 'id="badge-haze-status"' in content
+        assert '3200K Tungsten' in content
+        assert '5600K Daylight' in content
+
+        # 5. JavaScript Controllers & Hooks
+        assert 'function toggleMoCoHUD()' in content
+        assert 'function selectMoCoWaypoint(' in content
+        assert 'function updateMoCoFromTimeline(' in content
+        assert 'function toggleGafferHUD()' in content
+        assert 'function updateGafferLighting()' in content
+        assert 'function updateKelvinCCT(' in content
+        assert 'function setKelvinPreset(' in content
+        assert 'function updateHazeDensity(' in content
+
+        # 6. Keyboard events mapped
+        assert "e.key === 'o' || e.key === 'O'" in content
+        assert "e.key === 'k' || e.key === 'K'" in content
+        assert "e.key === 'g' || e.key === 'G'" in content
+        assert "e.key === 'u' || e.key === 'U'" in content
+
+    def test_moco_rig_schemas_and_kinematics_math(self):
+        from omni_director.schemas import MotionControlRigType, TrajectoryWaypoint6DOF, MocoRigSpec
+        from omni_director.tools.moco_kinematics import (
+            calculate_trajectory_distance,
+            calculate_peak_velocity,
+            calculate_mean_acceleration,
+            interpolate_waypoints_6dof,
+            format_moco_prompt_token,
+            synthesize_default_moco_rig,
+        )
+
+        # 1. Enum & Schemas
+        assert MotionControlRigType.BOLT_CINEBOT.value == "bolt_cinebot"
+        assert MotionControlRigType.TECHNOCRANE.value == "technocrane"
+        assert MotionControlRigType.CABLECAM.value == "cablecam"
+        assert MotionControlRigType.STEADICAM.value == "steadicam"
+        assert MotionControlRigType.DRONE_FPV.value == "drone_fpv"
+        assert MotionControlRigType.RUSSIAN_ARM.value == "russian_arm"
+        assert MotionControlRigType.MOTORIZED_DOLLY.value == "motorized_dolly"
+
+        wp1 = TrajectoryWaypoint6DOF(timecode_sec=0.0, x_meters=0.0, y_meters=0.0, z_meters=1.0, roll_deg=0.0, pitch_deg=0.0, yaw_deg=0.0, velocity_mps=0.0)
+        wp2 = TrajectoryWaypoint6DOF(timecode_sec=2.0, x_meters=3.0, y_meters=4.0, z_meters=1.0, roll_deg=5.0, pitch_deg=-10.0, yaw_deg=30.0, velocity_mps=2.5)
+        wp3 = TrajectoryWaypoint6DOF(timecode_sec=4.0, x_meters=6.0, y_meters=8.0, z_meters=1.0, roll_deg=0.0, pitch_deg=0.0, yaw_deg=0.0, velocity_mps=0.0)
+
+        rig = MocoRigSpec(
+            rig_type=MotionControlRigType.BOLT_CINEBOT,
+            payload_kg=18.5,
+            track_length_meters=10.0,
+            max_velocity_mps=5.0,
+            waypoints=[wp1, wp2, wp3],
+        )
+        assert rig.payload_kg == 18.5
+        assert len(rig.waypoints) == 3
+
+        # 2. Kinematics Math
+        dist = calculate_trajectory_distance(rig.waypoints)
+        assert round(dist, 2) == 10.0
+
+        peak_v = calculate_peak_velocity(rig.waypoints)
+        assert peak_v == 2.5
+
+        mean_acc = calculate_mean_acceleration(rig.waypoints)
+        assert mean_acc > 0.0
+
+        # 3. 6-DOF Waypoint Interpolation at 24Hz
+        interpolated = interpolate_waypoints_6dof(rig.waypoints, sample_rate_hz=24.0)
+        assert len(interpolated) >= 90
+        assert interpolated[0].timecode_sec == 0.0
+        assert round(interpolated[-1].timecode_sec, 2) == 4.0
+
+        # 4. Prompt Token
+        token = format_moco_prompt_token(rig)
+        assert "bolt_cinebot" in token
+        assert "10.0m" in token
+        assert "5.0m/s" in token
+
+        # 5. Default Rig Synthesis
+        default_rig = synthesize_default_moco_rig()
+        assert default_rig.rig_type == MotionControlRigType.BOLT_CINEBOT
+        assert len(default_rig.waypoints) >= 3
+
+    def test_lighting_rig_schemas_and_photometric_calculations(self):
+        from omni_director.schemas import (
+            LightingFixtureRole,
+            DiffusionGrade,
+            ParticulateHazeType,
+            StudioLightFixtureSpec,
+            AtmosphericHazeSpec,
+            LightingRigSpec,
+        )
+        from omni_director.tools.lighting_rig import (
+            calculate_key_to_fill_ratio,
+            calculate_key_to_rim_ratio,
+            calculate_total_lux,
+            calculate_cct_deltas,
+            calculate_lighting_photometrics,
+            format_lighting_prompt_token,
+            synthesize_default_lighting_rig,
+        )
+
+        # 1. Enums
+        assert LightingFixtureRole.KEY_LIGHT.value == "key_light"
+        assert DiffusionGrade.HALF_GRID.value == "half_grid"
+        assert ParticulateHazeType.MINERAL_HAZE.value == "mineral_haze"
+
+        # 2. Spec synthesis and photometrics
+        rig = synthesize_default_lighting_rig()
+        assert isinstance(rig, LightingRigSpec)
+        assert len(rig.fixtures) >= 3
+
+        k2f = calculate_key_to_fill_ratio(rig)
+        assert k2f == 4.0
+
+        k2r = calculate_key_to_rim_ratio(rig)
+        assert k2r == 2.0
+
+        total_lux = calculate_total_lux(rig)
+        assert total_lux > 5000.0
+
+        cct_deltas = calculate_cct_deltas(rig)
+        assert "KEY_01" in cct_deltas
+        assert cct_deltas["KEY_01"] == 0
+
+        metrics = calculate_lighting_photometrics(rig)
+        assert metrics["key_to_fill_ratio"] == 4.0
+        assert metrics["fixture_count"] == len(rig.fixtures)
+
+        token = format_lighting_prompt_token(rig)
+        assert "4.0:1" in token
+        assert "lux" in token.lower()
+
+    def test_moco_track_exports_json_csv_fbx(self, tmp_path):
+        import json
+        from pathlib import Path
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.moco_kinematics import (
+            export_moco_track_json,
+            export_moco_track_csv,
+            export_moco_fbx_ascii,
+            export_moco_bundle,
+        )
+
+        # JSON
+        json_out = export_moco_track_json(IKEA_ASMR_BIBLE, tmp_path / "moco.json")
+        assert (tmp_path / "moco.json").is_file()
+        data = json.loads(json_out)
+        assert "motion_control_rig" in data
+        assert "waypoints" in data["motion_control_rig"]
+
+        # CSV
+        csv_out = export_moco_track_csv(IKEA_ASMR_BIBLE, tmp_path / "moco.csv")
+        assert (tmp_path / "moco.csv").is_file()
+        assert "x_meters" in csv_out
+        assert "roll_deg" in csv_out
+
+        # FBX ASCII
+        fbx_out = export_moco_fbx_ascii(IKEA_ASMR_BIBLE, tmp_path / "moco.fbx")
+        assert (tmp_path / "moco.fbx").is_file()
+        assert "Model: \"Camera::MocoCamera\"" in fbx_out
+
+        # Bundle
+        bundle_out = export_moco_bundle(IKEA_ASMR_BIBLE, tmp_path / "moco_bundle")
+        assert "json" in bundle_out
+        assert "csv" in bundle_out
+        assert "fbx" in bundle_out
+        assert Path(bundle_out["json"]).is_file()
+        assert Path(bundle_out["csv"]).is_file()
+        assert Path(bundle_out["fbx"]).is_file()
+
+    def test_lighting_plot_exports_json_csv(self, tmp_path):
+        import json
+        from pathlib import Path
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.lighting_rig import (
+            export_lighting_plot_json,
+            export_gaffer_callsheet_csv,
+            export_lighting_bundle,
+        )
+
+        # JSON
+        json_out = export_lighting_plot_json(IKEA_ASMR_BIBLE, tmp_path / "lighting.json")
+        assert (tmp_path / "lighting.json").is_file()
+        data = json.loads(json_out)
+        assert "lighting_rig" in data
+        assert "fixtures" in data["lighting_rig"]
+
+        # CSV
+        csv_out = export_gaffer_callsheet_csv(IKEA_ASMR_BIBLE, tmp_path / "gaffer.csv")
+        assert (tmp_path / "gaffer.csv").is_file()
+        assert "fixture_id" in csv_out
+        assert "cct_kelvin" in csv_out
+
+        # Bundle
+        bundle_out = export_lighting_bundle(IKEA_ASMR_BIBLE, tmp_path / "lighting_bundle")
+        assert "json" in bundle_out
+        assert "callsheet_csv" in bundle_out
+        assert Path(bundle_out["json"]).is_file()
+        assert Path(bundle_out["callsheet_csv"]).is_file()
+
+    def test_cli_export_moco_and_lighting(self, tmp_path):
+        from omni_director.cli import main
+
+        # Export moco format
+        target_moco = tmp_path / "moco_export"
+        ret_moco = main(["export", "--preset", "ikea-asmr", "--format", "moco", "-o", str(target_moco)])
+        assert ret_moco == 0
+        assert (target_moco / "moco_camera_track.json").is_file()
+        assert (target_moco / "moco_waypoints.csv").is_file()
+        assert (target_moco / "moco_trajectory.fbx").is_file()
+
+        # Export lighting format
+        target_light = tmp_path / "lighting_export"
+        ret_light = main(["export", "--preset", "ikea-asmr", "--format", "lighting", "-o", str(target_light)])
+        assert ret_light == 0
+        assert (target_light / "studio_lighting_plot.json").is_file()
+        assert (target_light / "gaffer_call_sheet.csv").is_file()
+
+        # Export all format includes moco and lighting
+        target_all = tmp_path / "all_export_v25"
+        ret_all = main(["export", "--preset", "ikea-asmr", "--format", "all", "-o", str(target_all)])
+        assert ret_all == 0
+        assert (target_all / "moco_camera_track.json").is_file()
+        assert (target_all / "studio_lighting_plot.json").is_file()
+
+    def test_senior_pm_proposals_include_v25_features(self):
+        from omni_director.agents.council import ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(bible=IKEA_ASMR_BIBLE)
+        p_ids = [p.feature_id for p in proposals]
+        assert "PM-FEAT-009" in p_ids
+        assert "PM-FEAT-010" in p_ids
+
+        p9 = next(p for p in proposals if p.feature_id == "PM-FEAT-009")
+        assert p9.priority == "P0"
+        assert p9.status == "implemented"
+        assert "Motion Control" in p9.title
+
+        p10 = next(p for p in proposals if p.feature_id == "PM-FEAT-010")
+        assert p10.priority == "P0"
+        assert p10.status == "implemented"
+        assert "Lighting Rig" in p10.title
+
+    def test_domain_moco_and_lighting_presets(self):
+        from omni_director.presets import (
+            get_domain_moco_rig,
+            get_domain_lighting_rig,
+            DOMAINS_6,
+        )
+        from omni_director.schemas import MocoRigSpec, LightingRigSpec
+
+        for domain in DOMAINS_6:
+            moco = get_domain_moco_rig(domain)
+            assert isinstance(moco, MocoRigSpec)
+            assert len(moco.waypoints) > 0
+            assert moco.track_length_meters > 0
+
+            light = get_domain_lighting_rig(domain)
+            assert isinstance(light, LightingRigSpec)
+            assert len(light.fixtures) > 0
+            assert light.key_to_fill_ratio > 0
+
+    def test_prompt_auditor_moco_and_lighting_compliance(self):
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        scene = IKEA_ASMR_BIBLE.scenes[0]
+        res = audit_omni_scene_prompt(scene)
+        assert res.score >= 90.0
+
+        # Test prompt healing injects MoCo and lighting tokens when missing
+        test_scene = scene.model_copy(deep=True)
+        test_scene.omni_prose_prompt = "A simple camera shot of flat pack box on wood floor."
+        healed_scene, healed_res = heal_omni_scene_prompt(test_scene)
+        assert "motion control" in healed_scene.omni_prose_prompt.lower() or "moco" in healed_scene.omni_prose_prompt.lower()
+        assert "lighting" in healed_scene.omni_prose_prompt.lower() or "contrast" in healed_scene.omni_prose_prompt.lower()
+        assert healed_res.score >= 90.0
+
+    def test_product_council_v25_audit_pass(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(bundle, tmp_path)
+
+        council = ProductCouncilOrchestrator()
+        report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
+
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0
+        assert report.persona_reviews["council-agent-engineer"].score >= 24.0
+        assert report.persona_reviews["council-strategist"].score == 25.0
+        assert report.persona_reviews["council-ux-designer"].score == 25.0
+
+
+class TestV25MotionControlAndStudioLightingSchemasAndPresets:
+    """Verifies PM-FEAT-009 (MoCo Rig & Kinematics) and PM-FEAT-010 (Studio Lighting Rig) schemas, presets, tools, and council audits."""
+
+    def test_moco_schema_contracts_and_validation(self):
+        from omni_director.schemas import (
+            MotionControlRigType,
+            TrajectoryWaypoint6DOF,
+            MocoRigSpec,
+        )
+
+        # Test Rig Types enum
+        assert MotionControlRigType.BOLT_CINEBOT.value == "bolt_cinebot"
+        assert MotionControlRigType.RUSSIAN_ARM.value == "russian_arm"
+        assert MotionControlRigType.CABLECAM.value == "cablecam"
+        assert MotionControlRigType.STEADICAM.value == "steadicam"
+        assert MotionControlRigType.TECHNOCRANE.value == "technocrane"
+        assert MotionControlRigType.DRONE_FPV.value == "drone_fpv"
+        assert MotionControlRigType.MOTORIZED_DOLLY.value == "motorized_dolly"
+
+        # Test TrajectoryWaypoint6DOF
+        wp = TrajectoryWaypoint6DOF(
+            timecode_sec=1.5,
+            x_meters=1.2,
+            y_meters=-0.8,
+            z_meters=1.5,
+            roll_deg=-2.0,
+            pitch_deg=5.0,
+            yaw_deg=45.0,
+            velocity_mps=3.2,
+        )
+        assert wp.timecode_sec == 1.5
+        assert wp.x_meters == 1.2
+        assert wp.yaw_deg == 45.0
+
+        # Test MocoRigSpec
+        rig = MocoRigSpec(
+            rig_type=MotionControlRigType.BOLT_CINEBOT,
+            payload_kg=15.0,
+            track_length_meters=6.0,
+            max_velocity_mps=4.5,
+            waypoints=[wp],
+            locked_roll_stabilization=True,
+            mechanical_backlash_mm=0.05,
+        )
+        assert rig.rig_type == MotionControlRigType.BOLT_CINEBOT
+        assert len(rig.waypoints) == 1
+        assert rig.mechanical_backlash_mm == 0.05
+
+        # String rig_type alias parsing
+        rig2 = MocoRigSpec(
+            rig_type="russian_arm",
+            waypoints=[wp],
+        )
+        assert rig2.rig_type == MotionControlRigType.RUSSIAN_ARM
+
+    def test_lighting_schema_contracts_and_validation(self):
+        from omni_director.schemas import (
+            LightingFixtureRole,
+            DiffusionGrade,
+            ParticulateHazeType,
+            StudioLightFixtureSpec,
+            AtmosphericHazeSpec,
+            LightingRigSpec,
+        )
+
+        # Test Enums
+        assert LightingFixtureRole.KEY_LIGHT.value == "key_light"
+        assert LightingFixtureRole.FILL_LIGHT.value == "fill_light"
+        assert LightingFixtureRole.RIM_BACKLIGHT.value == "rim_backlight"
+        assert DiffusionGrade.HALF_GRID.value == "half_grid"
+        assert ParticulateHazeType.MINERAL_HAZE.value == "mineral_haze"
+
+        # Test Fixture Spec
+        fix = StudioLightFixtureSpec(
+            fixture_id="KEY_01",
+            role=LightingFixtureRole.KEY_LIGHT,
+            fixture_type="ARRI SkyPanel S360-C",
+            cct_kelvin=5600,
+            lux_intensity=3500.0,
+            beam_angle_deg=45.0,
+            diffusion_grade=DiffusionGrade.HALF_GRID,
+            distance_meters=3.5,
+            dmx_channel=1,
+        )
+        assert fix.fixture_id == "KEY_01"
+        assert fix.cct_kelvin == 5600
+        assert fix.lux_intensity == 3500.0
+
+        # Test Atmospheric Haze Spec
+        haze = AtmosphericHazeSpec(
+            haze_type=ParticulateHazeType.MINERAL_HAZE,
+            particulate_density=0.15,
+            scattering_coefficient=0.45,
+            shaft_visibility=0.6,
+        )
+        assert haze.particulate_density == 0.15
+
+        # Test Lighting Rig Spec
+        rig = LightingRigSpec(
+            fixtures=[fix],
+            key_to_fill_ratio=4.0,
+            key_to_rim_ratio=2.0,
+            total_lux=3500.0,
+            atmospheric_haze=haze,
+        )
+        assert len(rig.fixtures) == 1
+        assert rig.key_to_fill_ratio == 4.0
+
+    def test_domain_archetypes_moco_and_lighting_rig_calibration(self):
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            get_domain_moco_rig,
+            get_domain_lighting_rig,
+        )
+
+        for domain in DOMAIN_ARCHETYPES.keys():
+            moco = get_domain_moco_rig(domain)
+            assert moco is not None
+            assert len(moco.waypoints) >= 2
+            assert moco.track_length_meters > 0.0
+            assert moco.max_velocity_mps > 0.0
+
+            lighting = get_domain_lighting_rig(domain)
+            assert lighting is not None
+            assert len(lighting.fixtures) >= 1
+            assert lighting.total_lux > 0.0
+            assert lighting.key_to_fill_ratio > 0.0
+
+    def test_prompt_auditor_moco_and_lighting_compliance_and_healing(self):
+        from omni_director.presets import get_domain_moco_rig, get_domain_lighting_rig
+        from omni_director.schemas import RegimeType, ScenePromptSpec
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        raw_prompt = (
+            "A high-speed vehicle powers through wet asphalt with kinetic momentum. "
+            "Robotic MoCo camera move on russian_arm with 6-DOF precision waypoints. "
+            "Calibrated studio lighting with Key:Fill 4.0:1 contrast ratio, 5600K CCT daylight balance, and subtle mineral haze. "
+            "Diegetic audio captures roaring twin-turbo engine exhaust and tires splashing through wet gravel."
+        )
+        audit = audit_omni_scene_prompt(raw_prompt)
+        assert audit.details.get("moco_rig_compliant") is True
+        assert audit.details.get("lighting_rig_compliant") is True
+        assert audit.score >= 90.0
+
+        # Test self-healing injection
+        base_prompt = "A sleek robotic arm assembles a titanium core in a dark room."
+        scene = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Assembly",
+            timestamp_range="00:00 - 00:05",
+            regime=RegimeType.REGIME_2_KINETIC,
+            action_beats=["Precision robot arm moves rapidly"],
+            omni_prose_prompt=base_prompt,
+            moco_rig=get_domain_moco_rig("automotive_robotics"),
+            lighting_rig=get_domain_lighting_rig("automotive_robotics"),
+        )
+        healed_prompt = heal_omni_scene_prompt(base_prompt, scene)
+        assert "russian_arm" in healed_prompt or "MoCo" in healed_prompt
+        assert "Key:Fill" in healed_prompt or "lighting" in healed_prompt
+
+    def test_moco_kinematics_math_and_exports(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_moco_rig
+        from omni_director.tools.moco_kinematics import (
+            calculate_trajectory_distance,
+            calculate_peak_velocity,
+            calculate_mean_acceleration,
+            interpolate_waypoints_6dof,
+            format_moco_prompt_token,
+            export_moco_bundle,
+        )
+
+        moco = get_domain_moco_rig("kinetic_action")
+        dist = calculate_trajectory_distance(moco)
+        assert dist > 0.0
+
+        peak_v = calculate_peak_velocity(moco)
+        assert peak_v > 0.0
+
+        mean_a = calculate_mean_acceleration(moco)
+        assert mean_a >= 0.0
+
+        interp = interpolate_waypoints_6dof(moco, sample_rate_hz=24.0)
+        assert len(interp) >= len(moco.waypoints)
+
+        token = format_moco_prompt_token(moco)
+        assert "cablecam" in token.lower() or "moco" in token.lower()
+
+        bundle_files = export_moco_bundle(IKEA_ASMR_BIBLE, tmp_path)
+        assert "moco_json" in bundle_files
+        assert "moco_csv" in bundle_files
+        assert "moco_fbx" in bundle_files
+        assert (tmp_path / "moco_track.json").is_file()
+        assert (tmp_path / "moco_track.csv").is_file()
+        assert (tmp_path / "moco_camera.fbx").is_file()
+
+    def test_lighting_rig_photometrics_and_exports(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_lighting_rig
+        from omni_director.tools.lighting_rig import (
+            calculate_key_to_fill_ratio,
+            calculate_key_to_rim_ratio,
+            calculate_total_lux,
+            calculate_lighting_photometrics,
+            format_lighting_prompt_token,
+            export_lighting_bundle,
+        )
+
+        rig = get_domain_lighting_rig("culinary_asmr")
+        k2f = calculate_key_to_fill_ratio(rig)
+        assert k2f > 0.0
+
+        k2r = calculate_key_to_rim_ratio(rig)
+        assert k2r > 0.0
+
+        tot_lux = calculate_total_lux(rig)
+        assert tot_lux > 0.0
+
+        metrics = calculate_lighting_photometrics(rig)
+        assert "key_to_fill_ratio" in metrics
+        assert "total_lux" in metrics
+
+        token = format_lighting_prompt_token(rig)
+        assert "key:fill" in token.lower() or "lighting" in token.lower()
+
+        bundle_files = export_lighting_bundle(IKEA_ASMR_BIBLE, tmp_path)
+        assert "lighting_json" in bundle_files
+        assert "gaffer_csv" in bundle_files
+        assert (tmp_path / "lighting_plot.json").is_file()
+        assert (tmp_path / "gaffer_callsheet.csv").is_file()
+
+
+
 
 
 
