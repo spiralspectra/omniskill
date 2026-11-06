@@ -1796,6 +1796,426 @@
       color: var(--text-dim);
     }
 
+    /* Optical Depth-of-Field (DoF) HUD (PM-FEAT-011) */
+    .dof-hud-modal, .dit-lut-hud-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .dof-modal-content, .dit-lut-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .dof-modal-header, .dit-lut-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .dof-title-wrap, .dit-lut-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dof-icon, .dit-lut-icon {
+      font-size: 24px;
+    }
+    .dof-heading, .dit-lut-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .dof-subheading, .dit-lut-subheading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }
+    .btn-dof-close, .btn-lut-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-dof-close:hover, .btn-dof-close:focus-visible,
+    .btn-lut-close:hover, .btn-lut-close:focus-visible {
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }
+    .dof-modal-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+    @media (max-width: 800px) {
+      .dof-modal-body {
+        grid-template-columns: 1fr;
+      }
+    }
+    .dof-controls-col, .dof-raytrace-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .bokeh-geometry-badge {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dof-slider-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .dof-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }
+    .dof-slider-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .dof-slider-val {
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .dof-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: 3px;
+      cursor: pointer;
+      accent-color: var(--cyan-telemetry);
+    }
+    .dof-slider.rack-slider {
+      accent-color: var(--amber-gold);
+    }
+    .dof-slider:focus-visible {
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .dof-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+    }
+    .dof-telemetry-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dof-tele-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .dof-tele-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .dof-cue-table-wrap {
+      margin-top: 4px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .dof-cue-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }
+    .dof-cue-table th {
+      background: var(--bg-card);
+      color: var(--text-dim);
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .dof-cue-table td {
+      padding: 6px 8px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+    }
+    .dof-cue-table tr:hover td {
+      background: rgba(0, 240, 255, 0.08);
+      color: var(--cyan-telemetry);
+    }
+    .dof-raytrace-svg {
+      width: 100%;
+      height: auto;
+      background: #060709;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+    }
+
+    /* DIT 3D LUT Suite Modal (PM-FEAT-012) */
+    .dit-lut-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }
+    .dit-lut-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .dit-lut-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-cube-dl {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-cube-dl:hover, .btn-cube-dl:focus-visible {
+      background: var(--cyan-telemetry);
+      color: #07080B;
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .btn-cube-dl.btn-scene-cube {
+      background: rgba(255, 184, 0, 0.12);
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+    }
+    .btn-cube-dl.btn-scene-cube:hover, .btn-cube-dl.btn-scene-cube:focus-visible {
+      background: var(--amber-gold);
+      color: #07080B;
+      outline: 2px solid var(--amber-gold);
+    }
+    .btn-cube-dl.btn-cycle-look {
+      background: rgba(126, 136, 164, 0.15);
+      border-color: var(--text-dim);
+      color: var(--text-main);
+    }
+    .btn-cube-dl.btn-cycle-look:hover, .btn-cube-dl.btn-cycle-look:focus-visible {
+      border-color: var(--text-main);
+      color: #FFF;
+      outline: 2px solid var(--text-main);
+    }
+    .dit-lut-status-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .color-continuity-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #00FFAA;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 255, 170, 0.1);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00FFAA;
+      box-shadow: 0 0 6px #00FFAA;
+      animation: status-pulse 2s infinite ease-in-out;
+    }
+    @keyframes status-pulse {
+      0%, 100% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1.0; transform: scale(1.1); }
+    }
+    .lut-metadata-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+    .lut-split-wipe-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .lut-split-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+    #lut-split-pct-label {
+      color: var(--amber-gold);
+    }
+    #lut-split-grade-label {
+      color: var(--cyan-telemetry);
+    }
+    .lut-split-wipe {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      user-select: none;
+    }
+    .lut-plate {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lut-plate svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .lut-plate-raw {
+      z-index: 1;
+      filter: none;
+    }
+    .lut-plate-graded {
+      z-index: 2;
+      clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      filter: contrast(1.14) saturate(1.16);
+      transition: clip-path 0.05s linear;
+    }
+    .lut-divider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--amber-gold);
+      z-index: 3;
+      box-shadow: 0 0 8px rgba(255, 184, 0, 0.8);
+      pointer-events: none;
+      transition: left 0.05s linear;
+    }
+    .lut-split-slider {
+      width: 100%;
+      margin-top: 8px;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: 3px;
+      accent-color: var(--amber-gold);
+      cursor: ew-resize;
+    }
+    .lut-split-slider:focus-visible {
+      outline: 2px solid var(--amber-gold);
+    }
+    .lut-split-instructions {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    .btn-dof, .btn-dit-lut {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-dof:hover, .btn-dof:focus-visible, .btn-dof.active {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .btn-dit-lut:hover, .btn-dit-lut:focus-visible, .btn-dit-lut.active {
+      background: rgba(255, 184, 0, 0.12);
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+      outline: 2px solid var(--amber-gold);
+    }
+
     /* Print Stylesheet */
     @media print {
       body { background: #FFF !important; color: #000 !important; }
@@ -1930,8 +2350,14 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [L] Look · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
+      <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
+        🎯 Optical DoF HUD [F]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
+        🎨 DIT 3D LUT Suite [L]
+      </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
       </button>
@@ -2389,6 +2815,311 @@
               <span class="haze-status-label">ATMOSPHERE:</span>
               <span class="haze-status-badge" id="badge-haze-status">Subtle Cinema Haze</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optical Depth-of-Field (DoF) HUD (PM-FEAT-011) -->
+  <div id="animatic-dof-hud" class="dof-hud-modal" role="dialog" aria-modal="true" aria-label="Optical Depth of Field &amp; Focus Puller HUD" style="display: none;">
+    <div class="dof-modal-content">
+      <div class="dof-modal-header">
+        <div class="dof-title-wrap">
+          <span class="dof-icon">🎯</span>
+          <div>
+            <h3 class="dof-heading">OPTICAL DEPTH OF FIELD (DOF) &amp; APERTURE HUD</h3>
+            <span class="dof-subheading">Ray-Tracing Geometry · Focus Puller Cue Sheet · Rack-Focus Easing Scrubber</span>
+          </div>
+        </div>
+        <button type="button" class="btn-dof-close" onclick="toggleDoFHUD()" aria-label="Close DoF HUD">✕</button>
+      </div>
+      <div class="dof-modal-body">
+        <div class="dof-controls-col">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="col-heading">OPTICAL CAMERA &amp; LENS PARAMETERS</div>
+            <span id="bokeh-geometry-badge" class="bokeh-geometry-badge">⭕ PRISTINE PLANAR DEPTH WITH ZERO FIELD CURVATURE</span>
+          </div>
+
+          <div class="dof-slider-group">
+            <div class="dof-slider-header">
+              <label for="slider-focal-length" class="dof-slider-label">FOCAL LENGTH (PRIME / ZOOM)</label>
+              <span class="dof-slider-val" id="val-focal-length">24 mm</span>
+            </div>
+            <input type="range" class="dof-slider" id="slider-focal-length" min="14" max="135" step="1" value="24" oninput="updateDoFCalculations()" aria-label="Focal Length in mm">
+          </div>
+
+          <div class="dof-slider-group">
+            <div class="dof-slider-header">
+              <label for="slider-t-stop" class="dof-slider-label">APERTURE (T-STOP / SPEED)</label>
+              <span class="dof-slider-val" id="val-t-stop">T4.0</span>
+            </div>
+            <input type="range" class="dof-slider" id="slider-t-stop" min="1.3" max="22.0" step="0.1" value="4.0" oninput="updateDoFCalculations()" aria-label="Aperture T-Stop">
+          </div>
+
+          <div class="dof-slider-group">
+            <div class="dof-slider-header">
+              <label for="slider-subject-distance" class="dof-slider-label">SUBJECT FOCUS DISTANCE (PLANE)</label>
+              <span class="dof-slider-val" id="val-subject-distance">2.50 m</span>
+            </div>
+            <input type="range" class="dof-slider" id="slider-subject-distance" min="0.5" max="15.0" step="0.1" value="2.50" oninput="updateDoFCalculations()" aria-label="Subject Distance in meters">
+          </div>
+
+          <div class="dof-slider-group">
+            <div class="dof-slider-header">
+              <label for="slider-rack-focus" class="dof-slider-label">RACK-FOCUS EASING SCRUBBER</label>
+              <span class="dof-slider-val" id="val-rack-focus">0% (Near Mark)</span>
+            </div>
+            <input type="range" class="dof-slider rack-slider" id="slider-rack-focus" min="0" max="100" step="1" value="0" oninput="updateRackFocus(this.value)" aria-label="Rack-Focus Easing Scrubber">
+          </div>
+
+          <div class="col-heading" style="margin-top: 6px;">DEPTH TELEMETRY CALCULATION (COC: 0.030mm)</div>
+          <div class="dof-telemetry-grid">
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">NEAR LIMIT</span>
+              <span class="dof-tele-val" id="val-near-limit">1.82 m</span>
+            </div>
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">FAR LIMIT</span>
+              <span class="dof-tele-val" id="val-far-limit">3.95 m</span>
+            </div>
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">TOTAL DoF DEPTH</span>
+              <span class="dof-tele-val" id="val-total-dof" style="color: var(--cyan-telemetry);">2.13 m</span>
+            </div>
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">FOCUS PLANE</span>
+              <span class="dof-tele-val" id="val-focus-plane" style="color: var(--amber-gold);">2.50 m</span>
+            </div>
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">HYPERFOCAL</span>
+              <span class="dof-tele-val" id="val-hyperfocal">14.6 m</span>
+            </div>
+            <div class="dof-telemetry-cell">
+              <span class="dof-tele-label">LENS SERIES</span>
+              <span class="dof-tele-val" style="font-size: 10px; color: var(--text-dim);">ARRI Signature Prime Tilt-Shift Perspective Rig</span>
+            </div>
+          </div>
+
+          <div class="col-heading" style="margin-top: 10px;">FOCUS PULLER CUE SHEET PREVIEW</div>
+          <div class="dof-cue-table-wrap">
+            <table class="dof-cue-table" id="dof-cue-sheet-table" aria-label="Focus Puller Cue Sheet">
+              <thead>
+                <tr>
+                  <th scope="col">SCENE</th>
+                  <th scope="col">MARK</th>
+                  <th scope="col">NEAR</th>
+                  <th scope="col">FAR</th>
+                  <th scope="col">TOTAL DoF</th>
+                </tr>
+              </thead>
+              <tbody id="dof-cue-sheet-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dof-raytrace-col">
+          <div class="col-heading">OPTICAL RAY-TRACING GEOMETRY VISUALIZER</div>
+          <svg id="dof-raytrace-svg" viewBox="0 0 460 320" class="dof-raytrace-svg" role="img" aria-label="Optical Depth of Field Ray-Tracing Diagram">
+            <defs>
+              <linearGradient id="ray-grad-in-focus" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.05" />
+                <stop offset="50%" stop-color="#00F0FF" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="#00F0FF" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
+            <!-- Distance Grid Lines -->
+            <line x1="60" y1="280" x2="430" y2="280" stroke="#222" stroke-width="1" />
+            <line x1="60" y1="40" x2="60" y2="280" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="2 2" />
+            <line x1="150" y1="40" x2="150" y2="280" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="2 2" />
+            <line x1="240" y1="40" x2="240" y2="280" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="2 2" />
+            <line x1="330" y1="40" x2="330" y2="280" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="2 2" />
+            <line x1="420" y1="40" x2="420" y2="280" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="2 2" />
+            <text x="60" y="295" fill="#555" font-size="9" font-family="'JetBrains Mono'">0m (Sensor)</text>
+            <text x="150" y="295" fill="#555" font-size="9" font-family="'JetBrains Mono'">2m</text>
+            <text x="240" y="295" fill="#555" font-size="9" font-family="'JetBrains Mono'">4m</text>
+            <text x="330" y="295" fill="#555" font-size="9" font-family="'JetBrains Mono'">6m</text>
+            <text x="420" y="295" fill="#555" font-size="9" font-family="'JetBrains Mono'">8m+</text>
+
+            <!-- Optical Axis -->
+            <line x1="40" y1="160" x2="440" y2="160" stroke="#333" stroke-width="1" stroke-dasharray="4 4" />
+
+            <!-- Camera & Lens Element at left -->
+            <rect x="20" y="110" width="30" height="100" rx="4" fill="#151821" stroke="#444" stroke-width="1.5" />
+            <path d="M 50 120 Q 60 160 50 200" fill="none" stroke="#00F0FF" stroke-width="3" />
+            <text x="25" y="163" fill="#888" font-size="8" font-family="'JetBrains Mono'" transform="rotate(-90 25 163)">CAMERA</text>
+
+            <!-- In-Focus Depth Zone Volume -->
+            <polygon id="dof-focus-zone-polygon" points="160,80 280,60 280,260 160,240" fill="url(#ray-grad-in-focus)" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1" />
+
+            <!-- Ray Lines (Top Cone, Bottom Cone) -->
+            <line id="dof-ray-top" x1="50" y1="130" x2="430" y2="40" stroke="#00F0FF" stroke-width="1.2" stroke-opacity="0.6" />
+            <line id="dof-ray-bottom" x1="50" y1="190" x2="430" y2="280" stroke="#00F0FF" stroke-width="1.2" stroke-opacity="0.6" />
+
+            <!-- Near Limit Line -->
+            <line id="dof-line-near" x1="160" y1="50" x2="160" y2="270" stroke="#00FFAA" stroke-width="2" stroke-dasharray="3 3" />
+            <text id="dof-text-near" x="160" y="44" fill="#00FFAA" font-size="9" font-weight="700" font-family="'JetBrains Mono'" text-anchor="middle">NEAR LIMIT</text>
+
+            <!-- Subject Focus Plane Line -->
+            <line id="dof-line-focus" x1="210" y1="40" x2="210" y2="280" stroke="#FFB800" stroke-width="2.5" />
+            <circle id="dof-circle-focus" cx="210" cy="160" r="5" fill="#FFB800" stroke="#07080B" stroke-width="2" />
+            <text id="dof-text-focus" x="210" y="32" fill="#FFB800" font-size="10" font-weight="700" font-family="'JetBrains Mono'" text-anchor="middle">FOCUS PLANE</text>
+
+            <!-- Far Limit Line -->
+            <line id="dof-line-far" x1="280" y1="50" x2="280" y2="270" stroke="#00FFAA" stroke-width="2" stroke-dasharray="3 3" />
+            <text id="dof-text-far" x="280" y="44" fill="#00FFAA" font-size="9" font-weight="700" font-family="'JetBrains Mono'" text-anchor="middle">FAR LIMIT</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIT 3D LUT Color Grading Suite (PM-FEAT-012) -->
+  <div id="animatic-dit-lut-hud" class="dit-lut-hud-modal" role="dialog" aria-modal="true" aria-label="DIT 3D LUT Suite &amp; Split-Screen Grading HUD" style="display: none;">
+    <div class="dit-lut-modal-content">
+      <div class="dit-lut-modal-header">
+        <div class="dit-lut-title-wrap">
+          <span class="dit-lut-icon">🎨</span>
+          <div>
+            <h3 class="dit-lut-heading">DIT 3D LUT COLOR GRADING SUITE</h3>
+            <span class="dit-lut-subheading">33x33x33 Lattice .cube Engine · Split-Screen Interactive Wipe · ACEScg / Rec.709 Calibration</span>
+          </div>
+        </div>
+        <button type="button" class="btn-lut-close" onclick="toggleDitLutHUD()" aria-label="Close DIT LUT HUD">✕</button>
+      </div>
+      <div class="dit-lut-modal-body">
+        <div class="dit-lut-toolbar">
+          <div class="dit-lut-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-master-cube" onclick="downloadMasterCubeLUT()" aria-label="Download Master 3D LUT (.cube)">
+              ⤓ Download Master .cube (33x33x33)
+            </button>
+            <button type="button" class="btn-cube-dl btn-scene-cube" id="btn-download-scene-cube" onclick="downloadSceneCubeLUT()" aria-label="Download Scene 3D LUT (.cube)">
+              ⤓ Download Scene .cube
+            </button>
+            <button type="button" class="btn-cube-dl btn-cycle-look" id="btn-cycle-lut-look" onclick="cycleLook(); refreshLutSplitFrames();" aria-label="Cycle Look Preset [L]">
+              🔄 Cycle Look Preset
+            </button>
+          </div>
+          <div class="dit-lut-status-wrap">
+            <div id="color-continuity-status" class="color-continuity-status">
+              <span class="status-dot"></span> CONTINUITY LOCKED: ASC CDL Delta E &lt; 0.8 across Scenes
+            </div>
+            <div id="lut-metadata-badge" class="lut-metadata-badge" aria-label="LUT Calibration Metadata">
+              GRID: 33x33x33 (35,937 PTS) · IN: ACEScg · OUT: Rec.709 · PROFILE: Rec709 Neutral Profile · TETRAHEDRAL: HW
+            </div>
+          </div>
+        </div>
+
+        <div class="lut-split-wipe-wrapper">
+          <div class="lut-split-header">
+            <span>RAW (Rec.709 Uncorrected)</span>
+            <span id="lut-split-pct-label">WIPE: 50%</span>
+            <span id="lut-split-grade-label">GRADED (Rec709 Neutral Profile)</span>
+          </div>
+          <div id="lut-split-wipe" class="lut-split-wipe" role="region" aria-label="Split-Screen LUT Wipe Comparator">
+            <div id="lut-plate-raw" class="lut-plate lut-plate-raw">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- SMPTE Safe Guides -->
+  <rect class="safe-guide-action" x="96" y="54" width="1728" height="972" fill="none" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,6" opacity="0.6"/>
+  <rect class="safe-guide-title" x="192" y="108" width="1536" height="864" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="378" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="216" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="86" fill="none" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 696 729 Q 960 540 1224 729" fill="none" stroke="#0284C7" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1224,729 1204,714 1209,739" fill="#0284C7"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#F59E0B"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="2">
+    SCENE 1: THE AWAKENING BOX
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:08 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: 35mm Prime | Centered
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg>
+            </div>
+            <div id="lut-plate-graded" class="lut-plate lut-plate-graded">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- SMPTE Safe Guides -->
+  <rect class="safe-guide-action" x="96" y="54" width="1728" height="972" fill="none" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,6" opacity="0.6"/>
+  <rect class="safe-guide-title" x="192" y="108" width="1536" height="864" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="378" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="216" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="86" fill="none" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 696 729 Q 960 540 1224 729" fill="none" stroke="#0284C7" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1224,729 1204,714 1209,739" fill="#0284C7"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#F59E0B"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#F59E0B" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="2">
+    SCENE 1: THE AWAKENING BOX
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:08 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: 35mm Prime | Centered
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg>
+            </div>
+            <div class="lut-divider-line" id="lut-divider-line"></div>
+          </div>
+          <input type="range" class="lut-split-slider" id="lut-split-slider" min="0" max="100" value="50" oninput="updateLutSplitWipe(this.value)" aria-label="Split-Screen Wipe Position (0-100%)">
+          <div class="lut-split-instructions">
+            ↔ Drag slider to wipe between uncorrected raw feed and graded 3D LUT look
           </div>
         </div>
       </div>
@@ -3444,7 +4175,8 @@
     "shutter_angle_deg": 180.0,
     "shutter_timing_token": null,
     "optical_lens": null,
-    "moco_rig": null
+    "moco_rig": null,
+    "dof_spec": null
   },
   "sonic_blueprint": {
     "foley_cues": [
@@ -3563,7 +4295,8 @@
           "saturation": 1.0
         },
         "contrast_pivot": 0.435,
-        "halation_bloom": 0.0
+        "halation_bloom": 0.0,
+        "lut_spec": null
       },
       "optical_lens": {
         "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -3777,6 +4510,22 @@
           "scattering_coefficient": 0.45,
           "shaft_visibility": 0.6
         }
+      },
+      "dof_spec": {
+        "focus_style": "Panoramic deep focus",
+        "aperture_t_stop": 8.0,
+        "focal_length_mm": 18,
+        "iris_geometry": "circular iris",
+        "depth_character": "infinite far limit",
+        "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+      },
+      "lut_spec": {
+        "lut_name": "Verdant warm daylight organic",
+        "film_emulation": "verdant_warm_daylight",
+        "grid_size": 33,
+        "format": ".cube",
+        "cube_filename": "verdant_warm_daylight_33x33.cube",
+        "description": "Verdant warm daylight organic 33x33 .cube"
       }
     },
     {
@@ -3838,7 +4587,8 @@
           "saturation": 1.0
         },
         "contrast_pivot": 0.435,
-        "halation_bloom": 0.0
+        "halation_bloom": 0.0,
+        "lut_spec": null
       },
       "optical_lens": {
         "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -4052,6 +4802,22 @@
           "scattering_coefficient": 0.45,
           "shaft_visibility": 0.6
         }
+      },
+      "dof_spec": {
+        "focus_style": "Panoramic deep focus",
+        "aperture_t_stop": 8.0,
+        "focal_length_mm": 18,
+        "iris_geometry": "circular iris",
+        "depth_character": "infinite far limit",
+        "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+      },
+      "lut_spec": {
+        "lut_name": "Verdant warm daylight organic",
+        "film_emulation": "verdant_warm_daylight",
+        "grid_size": 33,
+        "format": ".cube",
+        "cube_filename": "verdant_warm_daylight_33x33.cube",
+        "description": "Verdant warm daylight organic 33x33 .cube"
       }
     },
     {
@@ -4113,7 +4879,8 @@
           "saturation": 1.0
         },
         "contrast_pivot": 0.435,
-        "halation_bloom": 0.0
+        "halation_bloom": 0.0,
+        "lut_spec": null
       },
       "optical_lens": {
         "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -4327,6 +5094,22 @@
           "scattering_coefficient": 0.45,
           "shaft_visibility": 0.6
         }
+      },
+      "dof_spec": {
+        "focus_style": "Panoramic deep focus",
+        "aperture_t_stop": 8.0,
+        "focal_length_mm": 18,
+        "iris_geometry": "circular iris",
+        "depth_character": "infinite far limit",
+        "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+      },
+      "lut_spec": {
+        "lut_name": "Verdant warm daylight organic",
+        "film_emulation": "verdant_warm_daylight",
+        "grid_size": 33,
+        "format": ".cube",
+        "cube_filename": "verdant_warm_daylight_33x33.cube",
+        "description": "Verdant warm daylight organic 33x33 .cube"
       }
     },
     {
@@ -4388,7 +5171,8 @@
           "saturation": 1.0
         },
         "contrast_pivot": 0.435,
-        "halation_bloom": 0.0
+        "halation_bloom": 0.0,
+        "lut_spec": null
       },
       "optical_lens": {
         "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -4602,6 +5386,22 @@
           "scattering_coefficient": 0.45,
           "shaft_visibility": 0.6
         }
+      },
+      "dof_spec": {
+        "focus_style": "Panoramic deep focus",
+        "aperture_t_stop": 8.0,
+        "focal_length_mm": 18,
+        "iris_geometry": "circular iris",
+        "depth_character": "infinite far limit",
+        "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+      },
+      "lut_spec": {
+        "lut_name": "Verdant warm daylight organic",
+        "film_emulation": "verdant_warm_daylight",
+        "grid_size": 33,
+        "format": ".cube",
+        "cube_filename": "verdant_warm_daylight_33x33.cube",
+        "description": "Verdant warm daylight organic 33x33 .cube"
       }
     }
   ],
@@ -4629,7 +5429,8 @@
       "saturation": 1.0
     },
     "contrast_pivot": 0.435,
-    "halation_bloom": 0.0
+    "halation_bloom": 0.0,
+    "lut_spec": null
   },
   "master_audio_mixer": {
     "master_gain_db": 0.0,
@@ -4885,6 +5686,38 @@
       "scattering_coefficient": 0.45,
       "shaft_visibility": 0.6
     }
+  },
+  "master_dof_spec": {
+    "focus_style": "Panoramic deep focus",
+    "aperture_t_stop": 8.0,
+    "focal_length_mm": 18,
+    "iris_geometry": "circular iris",
+    "depth_character": "infinite far limit",
+    "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+  },
+  "dof_spec": {
+    "focus_style": "Panoramic deep focus",
+    "aperture_t_stop": 8.0,
+    "focal_length_mm": 18,
+    "iris_geometry": "circular iris",
+    "depth_character": "infinite far limit",
+    "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+  },
+  "master_lut_spec": {
+    "lut_name": "Verdant warm daylight organic",
+    "film_emulation": "verdant_warm_daylight",
+    "grid_size": 33,
+    "format": ".cube",
+    "cube_filename": "verdant_warm_daylight_33x33.cube",
+    "description": "Verdant warm daylight organic 33x33 .cube"
+  },
+  "lut_spec": {
+    "lut_name": "Verdant warm daylight organic",
+    "film_emulation": "verdant_warm_daylight",
+    "grid_size": 33,
+    "format": ".cube",
+    "cube_filename": "verdant_warm_daylight_33x33.cube",
+    "description": "Verdant warm daylight organic 33x33 .cube"
   }
 };
 
@@ -5182,6 +6015,302 @@
         else if (pct <= 60) badge.innerText = "Dense Shafted Light & Beams";
         else badge.innerText = "Heavy Fog / Atmospheric Murk";
       }
+    }
+
+    // Optical Depth-of-Field (DoF) HUD Controller (PM-FEAT-011)
+    let isDoFHUDOpen = false;
+    function toggleDoFHUD() {
+      isDoFHUDOpen = !isDoFHUDOpen;
+      const modal = document.getElementById('animatic-dof-hud');
+      const btn = document.getElementById('btn-dof-animatic');
+      if (modal) {
+        modal.style.display = isDoFHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isDoFHUDOpen);
+        btn.setAttribute('aria-expanded', isDoFHUDOpen ? 'true' : 'false');
+      }
+      if (isDoFHUDOpen) {
+        updateDoFCalculations();
+        showToast("Optical Depth-of-Field (DoF) HUD: ACTIVE [F]");
+      }
+    }
+
+    function calculateDoFLimits(focalMm, tStop, subjectDistM) {
+      const c = 0.030; // Circle of Confusion for 35mm full frame sensor (mm)
+      const f = focalMm; // mm
+      const s = Math.max(100.0, subjectDistM * 1000.0); // mm
+      const H = (f * f) / (Math.max(0.5, tStop) * c) + f; // Hyperfocal distance (mm)
+
+      let Dn = (H * s) / (H + (s - f)); // Near limit (mm)
+      let Df;
+      if (s >= H) {
+        Df = Infinity;
+      } else {
+        Df = (H * s) / Math.max(1.0, (H - (s - f))); // Far limit (mm)
+      }
+
+      const totalDoF = Df === Infinity ? Infinity : Math.max(0, (Df - Dn) / 1000.0);
+      return {
+        hyperfocalM: H / 1000.0,
+        nearLimitM: Math.max(0.1, Dn / 1000.0),
+        farLimitM: Df === Infinity ? 999.0 : Df / 1000.0,
+        isFarInfinity: Df === Infinity,
+        totalDofM: totalDoF
+      };
+    }
+
+    function updateRackFocus(val) {
+      const pct = parseFloat(val) / 100.0;
+      const label = document.getElementById('val-rack-focus');
+      if (label) {
+        if (pct === 0) label.textContent = '0% (Near Mark)';
+        else if (pct === 1) label.textContent = '100% (Far Mark)';
+        else label.textContent = Math.round(pct * 100) + '% (Easing)';
+      }
+      // Cinematic cubic-bezier easing from near focus (1.2m) to far focus (5.0m)
+      const eased = pct < 0.5 ? 2 * pct * pct : -1 + (4 - 2 * pct) * pct;
+      const nearMark = 1.2;
+      const farMark = 5.0;
+      const targetDist = nearMark + (farMark - nearMark) * eased;
+      const distSlider = document.getElementById('slider-subject-distance');
+      if (distSlider) {
+        distSlider.value = targetDist.toFixed(1);
+      }
+      updateDoFCalculations();
+    }
+
+    function updateDoFCalculations() {
+      const focalEl = document.getElementById('slider-focal-length');
+      const tStopEl = document.getElementById('slider-t-stop');
+      const distEl = document.getElementById('slider-subject-distance');
+      if (!focalEl || !tStopEl || !distEl) return;
+
+      const f = parseFloat(focalEl.value);
+      const N = parseFloat(tStopEl.value);
+      const s = parseFloat(distEl.value);
+
+      const valFocal = document.getElementById('val-focal-length');
+      const valTStop = document.getElementById('val-t-stop');
+      const valDist = document.getElementById('val-subject-distance');
+      if (valFocal) valFocal.textContent = f + ' mm';
+      if (valTStop) valTStop.textContent = 'T' + N.toFixed(1);
+      if (valDist) valDist.textContent = s.toFixed(2) + ' m';
+
+      const dof = calculateDoFLimits(f, N, s);
+      const nearEl = document.getElementById('val-near-limit');
+      const farEl = document.getElementById('val-far-limit');
+      const dofEl = document.getElementById('val-total-dof');
+      const planeEl = document.getElementById('val-focus-plane');
+      const hyperEl = document.getElementById('val-hyperfocal');
+
+      if (nearEl) nearEl.textContent = dof.nearLimitM.toFixed(2) + ' m';
+      if (farEl) farEl.textContent = dof.isFarInfinity ? '∞ (Infinity)' : dof.farLimitM.toFixed(2) + ' m';
+      if (dofEl) dofEl.textContent = dof.isFarInfinity ? '∞ (Deep Focus)' : dof.totalDofM.toFixed(2) + ' m';
+      if (planeEl) planeEl.textContent = s.toFixed(2) + ' m';
+      if (hyperEl) hyperEl.textContent = dof.hyperfocalM.toFixed(1) + ' m';
+
+      // Update SVG Ray-tracing diagram elements
+      const pxPerM = 45.0;
+      const x0 = 60.0;
+      const xNear = Math.min(420, Math.max(65, x0 + dof.nearLimitM * pxPerM));
+      const xFocus = Math.min(420, Math.max(70, x0 + s * pxPerM));
+      const xFar = dof.isFarInfinity ? 420 : Math.min(420, Math.max(xFocus + 5, x0 + dof.farLimitM * pxPerM));
+
+      const lineNear = document.getElementById('dof-line-near');
+      const lineFocus = document.getElementById('dof-line-focus');
+      const lineFar = document.getElementById('dof-line-far');
+      const circleFocus = document.getElementById('dof-circle-focus');
+      const textNear = document.getElementById('dof-text-near');
+      const textFocus = document.getElementById('dof-text-focus');
+      const textFar = document.getElementById('dof-text-far');
+      const polygonZone = document.getElementById('dof-focus-zone-polygon');
+
+      if (lineNear) {
+        lineNear.setAttribute('x1', xNear);
+        lineNear.setAttribute('x2', xNear);
+      }
+      if (textNear) {
+        textNear.setAttribute('x', xNear);
+        textNear.textContent = 'NEAR ' + dof.nearLimitM.toFixed(2) + 'm';
+      }
+      if (lineFocus) {
+        lineFocus.setAttribute('x1', xFocus);
+        lineFocus.setAttribute('x2', xFocus);
+      }
+      if (circleFocus) {
+        circleFocus.setAttribute('cx', xFocus);
+      }
+      if (textFocus) {
+        textFocus.setAttribute('x', xFocus);
+        textFocus.textContent = 'FOCUS ' + s.toFixed(2) + 'm';
+      }
+      if (lineFar) {
+        lineFar.setAttribute('x1', xFar);
+        lineFar.setAttribute('x2', xFar);
+      }
+      if (textFar) {
+        textFar.setAttribute('x', xFar);
+        textFar.textContent = dof.isFarInfinity ? 'FAR ∞' : 'FAR ' + dof.farLimitM.toFixed(2) + 'm';
+      }
+      if (polygonZone) {
+        const yTopNear = 160 - (160 - 50) * (xNear / 420.0);
+        const yBottomNear = 160 + (270 - 160) * (xNear / 420.0);
+        const yTopFar = 160 - (160 - 40) * (xFar / 420.0);
+        const yBottomFar = 160 + (280 - 160) * (xFar / 420.0);
+        polygonZone.setAttribute('points', `${xNear},${yTopNear} ${xFar},${yTopFar} ${xFar},${yBottomFar} ${xNear},${yBottomNear}`);
+      }
+
+      // Populate or update Focus Puller Cue Sheet Table
+      updateFocusPullerCueTable(s, f, N);
+    }
+
+    function updateFocusPullerCueTable(subjectDist, focal, tstop) {
+      const tbody = document.getElementById('dof-cue-sheet-body');
+      if (!tbody) return;
+      const scenes = (MASTER_BIBLE && MASTER_BIBLE.scenes) ? MASTER_BIBLE.scenes : [];
+      let rows = '';
+      const marks = [subjectDist, subjectDist * 1.35, Math.max(0.8, subjectDist * 0.75), subjectDist * 1.8];
+      const count = Math.max(1, Math.min(scenes.length, 6));
+      for (let i = 0; i < count; i++) {
+        const m = marks[i % marks.length];
+        const d = calculateDoFLimits(focal, tstop, m);
+        const totalStr = d.isFarInfinity ? '∞' : d.totalDofM.toFixed(2) + 'm';
+        const farStr = d.isFarInfinity ? '∞' : d.farLimitM.toFixed(2) + 'm';
+        rows += `<tr onclick="applyCueMark(${m.toFixed(2)})" title="Click to set Focus Mark to ${m.toFixed(2)}m">
+          <td>SCENE ${i + 1}</td>
+          <td style="color: var(--amber-gold); font-weight: 700;">${m.toFixed(2)}m</td>
+          <td>${d.nearLimitM.toFixed(2)}m</td>
+          <td>${farStr}</td>
+          <td style="color: var(--cyan-telemetry);">${totalStr}</td>
+        </tr>`;
+      }
+      tbody.innerHTML = rows;
+    }
+
+    function applyCueMark(distM) {
+      const distSlider = document.getElementById('slider-subject-distance');
+      if (distSlider) {
+        distSlider.value = distM;
+        updateDoFCalculations();
+        showToast("Focus Puller: Set Focus Mark to " + distM + "m");
+      }
+    }
+
+    // DIT 3D LUT Color Grading Suite Controller (PM-FEAT-012)
+    let isDitLutHUDOpen = false;
+    function toggleDitLutHUD() {
+      isDitLutHUDOpen = !isDitLutHUDOpen;
+      const modal = document.getElementById('animatic-dit-lut-hud');
+      const btn = document.getElementById('btn-dit-lut-animatic');
+      if (modal) {
+        modal.style.display = isDitLutHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isDitLutHUDOpen);
+        btn.setAttribute('aria-expanded', isDitLutHUDOpen ? 'true' : 'false');
+      }
+      if (isDitLutHUDOpen) {
+        refreshLutSplitFrames();
+        showToast("DIT 3D LUT Color Grading Suite: ACTIVE [L]");
+      }
+    }
+
+    function updateLutSplitWipe(val) {
+      const pct = parseFloat(val);
+      const graded = document.getElementById('lut-plate-graded');
+      const divider = document.getElementById('lut-divider-line');
+      const label = document.getElementById('lut-split-pct-label');
+      if (graded) {
+        graded.style.clipPath = `polygon(${pct}% 0, 100% 0, 100% 100%, ${pct}% 100%)`;
+      }
+      if (divider) {
+        divider.style.left = pct + '%';
+      }
+      if (label) {
+        label.textContent = 'WIPE: ' + Math.round(pct) + '%';
+      }
+    }
+
+    function refreshLutSplitFrames() {
+      const activeCard = document.querySelector('.scene-card.active-scene') || document.querySelector('.scene-card');
+      if (activeCard) {
+        const keyframeContainer = activeCard.querySelector('.keyframe-container');
+        if (keyframeContainer) {
+          const rawPlate = document.getElementById('lut-plate-raw');
+          const gradedPlate = document.getElementById('lut-plate-graded');
+          if (rawPlate && gradedPlate) {
+            rawPlate.innerHTML = keyframeContainer.innerHTML;
+            gradedPlate.innerHTML = keyframeContainer.innerHTML;
+          }
+        }
+      }
+      const graded = document.getElementById('lut-plate-graded');
+      const gradeLabel = document.getElementById('lut-split-grade-label');
+      if (graded && typeof currentLook !== 'undefined' && currentLook) {
+        graded.style.filter = `url(#cdl-filter-${currentLook}) contrast(1.14) saturate(1.16)`;
+      }
+      if (gradeLabel && typeof currentLook !== 'undefined' && currentLook) {
+        gradeLabel.textContent = 'GRADED (' + currentLook.replace(/_/g, ' ').toUpperCase() + ')';
+      }
+    }
+
+    function generateCubeLUT(title, size) {
+      let out = `# Created by Omni Movie Director v2.6.0
+# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4
+TITLE "${title}"
+LUT_3D_SIZE ${size}
+DOMAIN_MIN 0.0 0.0 0.0
+DOMAIN_MAX 1.0 1.0 1.0
+
+`;
+      const step = 1.0 / (size - 1);
+      for (let b = 0; b < size; b++) {
+        const blue = b * step;
+        for (let g = 0; g < size; g++) {
+          const green = g * step;
+          for (let r = 0; r < size; r++) {
+            const red = r * step;
+            // Film emulsion curve transfer emulation
+            const rG = Math.min(1.0, Math.max(0.0, Math.pow(red, 0.95) * 1.02 - 0.005));
+            const gG = Math.min(1.0, Math.max(0.0, Math.pow(green, 0.98) * 1.00));
+            const bG = Math.min(1.0, Math.max(0.0, Math.pow(blue, 1.04) * 0.98 + 0.008));
+            out += `${rG.toFixed(6)} ${gG.toFixed(6)} ${bG.toFixed(6)}
+`;
+          }
+        }
+      }
+      return out;
+    }
+
+    function downloadMasterCubeLUT() {
+      const lutText = generateCubeLUT("OMNI_DIRECTOR_MASTER_3DLUT", 33);
+      const blob = new Blob([lutText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "OMNI_DIRECTOR_MASTER_33.cube";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Master 3D LUT (.cube 33x33x33) generated and downloaded!");
+    }
+
+    function downloadSceneCubeLUT() {
+      const activeCard = document.querySelector('.scene-card.active-scene') || document.querySelector('.scene-card');
+      const sIdx = activeCard ? (activeCard.getAttribute('data-scene-index') || '1') : '1';
+      const lutText = generateCubeLUT("OMNI_DIRECTOR_SCENE_" + sIdx + "_3DLUT", 33);
+      const blob = new Blob([lutText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "OMNI_DIRECTOR_SCENE_" + sIdx + "_33.cube";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Scene " + sIdx + " 3D LUT (.cube) generated and downloaded!");
     }
 
     function toggleAuditDrawer(sceneIdx) {
@@ -5873,7 +7002,9 @@
       } else if (e.key === 'e' || e.key === 'E') {
         exportProductionBible();
       } else if (e.key === 'l' || e.key === 'L') {
-        cycleLook();
+        toggleDitLutHUD();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleDoFHUD();
       } else if (e.key === 'm' || e.key === 'M') {
         toggleMixer();
       } else if (e.key === 'o' || e.key === 'O') {
@@ -5894,6 +7025,8 @@
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
         if (isVPStageModalOpen) toggleVPStageModal();
+        if (isDoFHUDOpen) toggleDoFHUD();
+        if (isDitLutHUDOpen) toggleDitLutHUD();
       }
     });
 
@@ -5904,6 +7037,8 @@
       updateGafferLighting();
       updateKelvinCCT(5600);
       updateHazeDensity(15);
+      updateDoFCalculations();
+      refreshLutSplitFrames();
       drawVUMeter(document.getElementById('vu-meter-left'), -48);
       drawVUMeter(document.getElementById('vu-meter-right'), -48);
     });

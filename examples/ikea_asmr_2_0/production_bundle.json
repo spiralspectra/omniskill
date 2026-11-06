@@ -38,7 +38,8 @@
       "shutter_angle_deg": 180.0,
       "shutter_timing_token": null,
       "optical_lens": null,
-      "moco_rig": null
+      "moco_rig": null,
+      "dof_spec": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -157,7 +158,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -371,6 +373,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Panoramic deep focus",
+          "aperture_t_stop": 8.0,
+          "focal_length_mm": 18,
+          "iris_geometry": "circular iris",
+          "depth_character": "infinite far limit",
+          "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+        },
+        "lut_spec": {
+          "lut_name": "Verdant warm daylight organic",
+          "film_emulation": "verdant_warm_daylight",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "verdant_warm_daylight_33x33.cube",
+          "description": "Verdant warm daylight organic 33x33 .cube"
         }
       },
       {
@@ -432,7 +450,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -646,6 +665,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Panoramic deep focus",
+          "aperture_t_stop": 8.0,
+          "focal_length_mm": 18,
+          "iris_geometry": "circular iris",
+          "depth_character": "infinite far limit",
+          "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+        },
+        "lut_spec": {
+          "lut_name": "Verdant warm daylight organic",
+          "film_emulation": "verdant_warm_daylight",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "verdant_warm_daylight_33x33.cube",
+          "description": "Verdant warm daylight organic 33x33 .cube"
         }
       },
       {
@@ -707,7 +742,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -921,6 +957,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Panoramic deep focus",
+          "aperture_t_stop": 8.0,
+          "focal_length_mm": 18,
+          "iris_geometry": "circular iris",
+          "depth_character": "infinite far limit",
+          "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+        },
+        "lut_spec": {
+          "lut_name": "Verdant warm daylight organic",
+          "film_emulation": "verdant_warm_daylight",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "verdant_warm_daylight_33x33.cube",
+          "description": "Verdant warm daylight organic 33x33 .cube"
         }
       },
       {
@@ -982,7 +1034,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -1196,6 +1249,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Panoramic deep focus",
+          "aperture_t_stop": 8.0,
+          "focal_length_mm": 18,
+          "iris_geometry": "circular iris",
+          "depth_character": "infinite far limit",
+          "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+        },
+        "lut_spec": {
+          "lut_name": "Verdant warm daylight organic",
+          "film_emulation": "verdant_warm_daylight",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "verdant_warm_daylight_33x33.cube",
+          "description": "Verdant warm daylight organic 33x33 .cube"
         }
       }
     ],
@@ -1223,7 +1292,8 @@
         "saturation": 1.0
       },
       "contrast_pivot": 0.435,
-      "halation_bloom": 0.0
+      "halation_bloom": 0.0,
+      "lut_spec": null
     },
     "master_audio_mixer": {
       "master_gain_db": 0.0,
@@ -1479,6 +1549,38 @@
         "scattering_coefficient": 0.45,
         "shaft_visibility": 0.6
       }
+    },
+    "master_dof_spec": {
+      "focus_style": "Panoramic deep focus",
+      "aperture_t_stop": 8.0,
+      "focal_length_mm": 18,
+      "iris_geometry": "circular iris",
+      "depth_character": "infinite far limit",
+      "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+    },
+    "dof_spec": {
+      "focus_style": "Panoramic deep focus",
+      "aperture_t_stop": 8.0,
+      "focal_length_mm": 18,
+      "iris_geometry": "circular iris",
+      "depth_character": "infinite far limit",
+      "description": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)"
+    },
+    "master_lut_spec": {
+      "lut_name": "Verdant warm daylight organic",
+      "film_emulation": "verdant_warm_daylight",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "verdant_warm_daylight_33x33.cube",
+      "description": "Verdant warm daylight organic 33x33 .cube"
+    },
+    "lut_spec": {
+      "lut_name": "Verdant warm daylight organic",
+      "film_emulation": "verdant_warm_daylight",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "verdant_warm_daylight_33x33.cube",
+      "description": "Verdant warm daylight organic 33x33 .cube"
     }
   },
   "storyboard_html_path": "examples/ikea_asmr_2_0/storyboard_preview.html",
@@ -1539,10 +1641,16 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1566,6 +1674,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1592,6 +1706,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1618,6 +1738,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1627,9 +1753,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "962728c0-e4b0-4af5-ba71-a1dacd469ab7",
+    "session_id": "8a85f9da-5409-46aa-b3f8-5b3a469a548f",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-05T09:30:21.569504+00:00",
+    "timestamp": "2026-11-06T09:34:07.982842+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1639,73 +1765,90 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-05T09:30:21.569514+00:00",
-        "end_time": "2026-11-05T09:30:21.569529+00:00",
+        "start_time": "2026-11-06T09:34:07.982864+00:00",
+        "end_time": "2026-11-06T09:34:07.982879+00:00",
         "duration_ms": 0.02,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-05T09:30:21.569548+00:00",
-        "end_time": "2026-11-05T09:30:21.570066+00:00",
-        "duration_ms": 0.52,
+        "start_time": "2026-11-06T09:34:07.982909+00:00",
+        "end_time": "2026-11-06T09:34:07.983940+00:00",
+        "duration_ms": 1.03,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-05T09:30:21.570102+00:00",
-        "end_time": "2026-11-05T09:30:21.572097+00:00",
-        "duration_ms": 1.99,
+        "start_time": "2026-11-06T09:34:07.983977+00:00",
+        "end_time": "2026-11-06T09:34:07.989989+00:00",
+        "duration_ms": 6.01,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-05T09:30:21.572114+00:00",
-        "end_time": "2026-11-05T09:30:21.572373+00:00",
-        "duration_ms": 0.26,
+        "start_time": "2026-11-06T09:34:07.990119+00:00",
+        "end_time": "2026-11-06T09:34:07.990416+00:00",
+        "duration_ms": 0.3,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-05T09:30:21.572384+00:00",
-        "end_time": "2026-11-05T09:30:21.575783+00:00",
-        "duration_ms": 3.4,
+        "start_time": "2026-11-06T09:34:07.990430+00:00",
+        "end_time": "2026-11-06T09:34:07.995930+00:00",
+        "duration_ms": 5.5,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-05T09:30:21.575798+00:00",
-        "end_time": "2026-11-05T09:30:21.575803+00:00",
+        "start_time": "2026-11-06T09:34:07.995953+00:00",
+        "end_time": "2026-11-06T09:34:07.995961+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-05T09:30:21.575811+00:00",
-        "end_time": "2026-11-05T09:30:21.579303+00:00",
-        "duration_ms": 3.49,
+        "start_time": "2026-11-06T09:34:07.995968+00:00",
+        "end_time": "2026-11-06T09:34:08.002090+00:00",
+        "duration_ms": 6.12,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-05T09:30:21.583225+00:00",
-        "end_time": "2026-11-05T09:30:21.595282+00:00",
-        "duration_ms": 12.06,
+        "start_time": "2026-11-06T09:34:08.018031+00:00",
+        "end_time": "2026-11-06T09:34:08.036047+00:00",
+        "duration_ms": 18.02,
         "details": {}
       }
     ],
-    "total_duration_ms": 21.75,
+    "total_duration_ms": 37.01,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "564699bbe0f3aa8a0a4700311fb6aefafc58e4d38379eb4bc08e56088c23f6ba",
-      "storyboard_preview.html": "ce58f78d324caee79f8290067ba3e8cf59ff60c1808f41ad40a3143533412d99",
+      "production_bundle.json": "85103a53cf7c929d93738183c74eff15097349e84390c894445da1366f7b1a6a",
+      "storyboard_preview.html": "094d1ca45e772ba99a27481f97a37af28e9172aa69a65da379bc97886a7bc2a8",
       "timeline.edl": "fafac5be2f7ac13a555f51917168cb188ff8c1f133604ab0050dbc303d0fe71e",
       "sequence.fcpxml": "43ee91e687e84caf7d11a478ea9a8d2dd3873d8c398fe690343b2f7eed07a4de",
       "shot_list.csv": "1d9ab83249ccb9ffe2076cfee01ef090920d0e171c731b6c2584096345bc5981",
       "call_sheet.md": "c95e40cb1522ea6ff61660893c301e81613211444d7b00a0d2d481df461549c7",
       "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
       "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
+      "production_grade.cdl": "87849d89e72fb3b9151cae590f8c407e40f5a35402f0b84e362c056ef50065ad",
+      "audio_stems_manifest.json": "6500ce3e8b6f37cb598d89874c57b1ba1a1f1d5d53605b264f8d1e944b968088",
+      "lens_package.csv": "ca0a85c3fba3a5a6bb59a90615bafe7cd4e2e062ee94ceb8031a8bd3aa6b308a",
+      "moco_track.json": "3117cb2466ad9df6f7252115118c5a4bd03641f5ac289710b5d6b02859ebd011",
+      "moco_track.csv": "f19d7d9f07dd80e78b74283b9cb10f97bd24fa28b66605fcf5dd0b7e3cc09957",
+      "moco_camera.fbx": "dc75f46860c6fc49c785132babcf0ed06bdae09c78b0f267a98b70fbf5f198cb",
+      "moco_camera_track.json": "3117cb2466ad9df6f7252115118c5a4bd03641f5ac289710b5d6b02859ebd011",
+      "moco_waypoints.csv": "f19d7d9f07dd80e78b74283b9cb10f97bd24fa28b66605fcf5dd0b7e3cc09957",
+      "moco_trajectory.fbx": "dc75f46860c6fc49c785132babcf0ed06bdae09c78b0f267a98b70fbf5f198cb",
+      "lighting_plot.json": "c41ea2ffa3cb0f8759efc1a2358baeff2380b0d87ee990d4ed66ab58a5cedd59",
+      "studio_lighting_plot.json": "c41ea2ffa3cb0f8759efc1a2358baeff2380b0d87ee990d4ed66ab58a5cedd59",
+      "gaffer_callsheet.csv": "05b1928c48bd7f9e35f3d8612c287aba89bf1a9c4f3ec7b8344da6897eeb3844",
+      "gaffer_call_sheet.csv": "05b1928c48bd7f9e35f3d8612c287aba89bf1a9c4f3ec7b8344da6897eeb3844",
+      "dof_chart.json": "86792ce86ff51d16b22cbae86159b50f4501b61578842f138000169e438699b5",
+      "focus_puller_cue_sheet.csv": "40caab3389a1241648283629e2f6a7c52b7738dc5522e66d319c039e7c0d55cb",
+      "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
+      "dit_cart_manifest.json": "e586a0b91359d97d922892074e7d922862579673b03ce2f759157cfca9e6d8e0",
       "storyboards/anchor1_character_turnaround.svg": "5f6252244617ed1fe3fcd4ce1f2c1e1fed58ca68f5ea07557f49c1366284e0a1",
       "storyboards/anchor2_environment_master.svg": "07d8aa410a42776c1c3aa6988b99273ce9f041429bf3a4d278f533006138ad64",
       "storyboards/anchor3_scene_1_keyframe.svg": "658d1a10d70d4cf55ef249059d58d905831c5575ce2862fab4a39fb3c43c1886",
@@ -1715,9 +1858,9 @@
     }
   },
   "council_report": {
-    "version": "2.5.0",
+    "version": "2.6.0",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-05T09:30:21.592917+00:00",
+    "timestamp": "2026-11-06T09:34:08.032385+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1728,8 +1871,35 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
-        "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+        "findings": [
+          {
+            "severity": "info",
+            "category": "optical_dof_delivery",
+            "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "dof_artifacts": [
+                "dof_chart.json",
+                "focus_puller_cue_sheet.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "color_lut_delivery",
+            "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "lut_artifacts": [
+                "production_look.cube",
+                "dit_cart_manifest.json"
+              ]
+            }
+          }
+        ],
+        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1839,6 +2009,33 @@
               "fixtures_count": 5,
               "key_to_fill": 4.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_dof_calibration",
+            "message": "Domain DoF calibration verified: 'Panoramic deep focus' (T8.0, 18mm, circular iris, infinite far limit) aligned with domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "focus_style": "Panoramic deep focus",
+              "aperture": 8.0,
+              "iris": "circular iris",
+              "depth_character": "infinite far limit"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_lut_calibration",
+            "message": "Domain 3D LUT color science verified: 'Verdant warm daylight organic' (verdant_warm_daylight, 33x33x33 verdant_warm_daylight_33x33.cube) aligned with domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "lut_name": "Verdant warm daylight organic",
+              "emulation": "verdant_warm_daylight",
+              "cube": "verdant_warm_daylight_33x33.cube"
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
@@ -1849,7 +2046,24 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "animatic_dof_hud",
+            "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_dit_lut_hud",
+            "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
@@ -1984,6 +2198,32 @@
           "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-011",
+        "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+        "problem_statement": "Commercial film genres for 'IKEA: The Living Room Unfolds' require domain-specific optical focus depth behavior—from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—to prevent optical inconsistency across scenes.",
+        "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-012",
+        "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+        "problem_statement": "Cinematic production pipelines for 'IKEA: The Living Room Unfolds' require authentic color science and film stock emulation 3D LUTs (.cube)—such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading.",
+        "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
         ],
         "priority": "P0",
         "status": "implemented"

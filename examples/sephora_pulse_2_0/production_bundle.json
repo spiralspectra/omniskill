@@ -57,7 +57,8 @@
       "shutter_angle_deg": 180.0,
       "shutter_timing_token": null,
       "optical_lens": null,
-      "moco_rig": null
+      "moco_rig": null,
+      "dof_spec": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -190,7 +191,8 @@
             "saturation": 0.92
           },
           "contrast_pivot": 0.42,
-          "halation_bloom": 0.08
+          "halation_bloom": 0.08,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -404,6 +406,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Anamorphic shallow portraiture",
+          "aperture_t_stop": 1.8,
+          "focal_length_mm": 85,
+          "iris_geometry": "2x oval bokeh",
+          "depth_character": "rack-focus",
+          "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+        },
+        "lut_spec": {
+          "lut_name": "Bleach Bypass Silver high-contrast",
+          "film_emulation": "bleach_bypass_silver",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "bleach_bypass_silver_33x33.cube",
+          "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
         }
       },
       {
@@ -477,7 +495,8 @@
             "saturation": 0.92
           },
           "contrast_pivot": 0.42,
-          "halation_bloom": 0.08
+          "halation_bloom": 0.08,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -691,6 +710,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Anamorphic shallow portraiture",
+          "aperture_t_stop": 1.8,
+          "focal_length_mm": 85,
+          "iris_geometry": "2x oval bokeh",
+          "depth_character": "rack-focus",
+          "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+        },
+        "lut_spec": {
+          "lut_name": "Bleach Bypass Silver high-contrast",
+          "film_emulation": "bleach_bypass_silver",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "bleach_bypass_silver_33x33.cube",
+          "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
         }
       },
       {
@@ -764,7 +799,8 @@
             "saturation": 0.92
           },
           "contrast_pivot": 0.42,
-          "halation_bloom": 0.08
+          "halation_bloom": 0.08,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -978,6 +1014,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Anamorphic shallow portraiture",
+          "aperture_t_stop": 1.8,
+          "focal_length_mm": 85,
+          "iris_geometry": "2x oval bokeh",
+          "depth_character": "rack-focus",
+          "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+        },
+        "lut_spec": {
+          "lut_name": "Bleach Bypass Silver high-contrast",
+          "film_emulation": "bleach_bypass_silver",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "bleach_bypass_silver_33x33.cube",
+          "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
         }
       },
       {
@@ -1051,7 +1103,8 @@
             "saturation": 0.92
           },
           "contrast_pivot": 0.42,
-          "halation_bloom": 0.08
+          "halation_bloom": 0.08,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -1265,6 +1318,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Anamorphic shallow portraiture",
+          "aperture_t_stop": 1.8,
+          "focal_length_mm": 85,
+          "iris_geometry": "2x oval bokeh",
+          "depth_character": "rack-focus",
+          "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+        },
+        "lut_spec": {
+          "lut_name": "Bleach Bypass Silver high-contrast",
+          "film_emulation": "bleach_bypass_silver",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "bleach_bypass_silver_33x33.cube",
+          "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
         }
       }
     ],
@@ -1292,7 +1361,8 @@
         "saturation": 0.92
       },
       "contrast_pivot": 0.42,
-      "halation_bloom": 0.08
+      "halation_bloom": 0.08,
+      "lut_spec": null
     },
     "master_audio_mixer": {
       "master_gain_db": 0.0,
@@ -1548,6 +1618,38 @@
         "scattering_coefficient": 0.45,
         "shaft_visibility": 0.6
       }
+    },
+    "master_dof_spec": {
+      "focus_style": "Anamorphic shallow portraiture",
+      "aperture_t_stop": 1.8,
+      "focal_length_mm": 85,
+      "iris_geometry": "2x oval bokeh",
+      "depth_character": "rack-focus",
+      "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+    },
+    "dof_spec": {
+      "focus_style": "Anamorphic shallow portraiture",
+      "aperture_t_stop": 1.8,
+      "focal_length_mm": 85,
+      "iris_geometry": "2x oval bokeh",
+      "depth_character": "rack-focus",
+      "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
+    },
+    "master_lut_spec": {
+      "lut_name": "Bleach Bypass Silver high-contrast",
+      "film_emulation": "bleach_bypass_silver",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "bleach_bypass_silver_33x33.cube",
+      "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+    },
+    "lut_spec": {
+      "lut_name": "Bleach Bypass Silver high-contrast",
+      "film_emulation": "bleach_bypass_silver",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "bleach_bypass_silver_33x33.cube",
+      "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
     }
   },
   "storyboard_html_path": "examples/sephora_pulse_2_0/storyboard_preview.html",
@@ -1608,6 +1710,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
@@ -1634,6 +1742,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>"
@@ -1660,11 +1774,17 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
+          "<image_2>",
           "<image_1>",
-          "<image_3>",
-          "<image_2>"
+          "<image_3>"
         ]
       }
     },
@@ -1688,6 +1808,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1697,9 +1823,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "390aefea-fc78-41ff-9bd6-c89aa69ae9a2",
+    "session_id": "699c47d6-1e2f-4e90-98e1-ebb8af937a50",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-05T09:30:21.607187+00:00",
+    "timestamp": "2026-11-06T09:34:08.125217+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1709,73 +1835,90 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-05T09:30:21.607202+00:00",
-        "end_time": "2026-11-05T09:30:21.607209+00:00",
+        "start_time": "2026-11-06T09:34:08.125238+00:00",
+        "end_time": "2026-11-06T09:34:08.125248+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-05T09:30:21.607219+00:00",
-        "end_time": "2026-11-05T09:30:21.607506+00:00",
-        "duration_ms": 0.29,
+        "start_time": "2026-11-06T09:34:08.125264+00:00",
+        "end_time": "2026-11-06T09:34:08.125575+00:00",
+        "duration_ms": 0.31,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-05T09:30:21.607517+00:00",
-        "end_time": "2026-11-05T09:30:21.608921+00:00",
-        "duration_ms": 1.4,
+        "start_time": "2026-11-06T09:34:08.125584+00:00",
+        "end_time": "2026-11-06T09:34:08.128190+00:00",
+        "duration_ms": 2.6,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-05T09:30:21.608932+00:00",
-        "end_time": "2026-11-05T09:30:21.609102+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-06T09:34:08.128219+00:00",
+        "end_time": "2026-11-06T09:34:08.128415+00:00",
+        "duration_ms": 0.2,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-05T09:30:21.609110+00:00",
-        "end_time": "2026-11-05T09:30:21.611471+00:00",
-        "duration_ms": 2.36,
+        "start_time": "2026-11-06T09:34:08.128452+00:00",
+        "end_time": "2026-11-06T09:34:08.131569+00:00",
+        "duration_ms": 3.12,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-05T09:30:21.611484+00:00",
-        "end_time": "2026-11-05T09:30:21.611488+00:00",
-        "duration_ms": 0.0,
+        "start_time": "2026-11-06T09:34:08.131585+00:00",
+        "end_time": "2026-11-06T09:34:08.131591+00:00",
+        "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-05T09:30:21.611494+00:00",
-        "end_time": "2026-11-05T09:30:21.614644+00:00",
-        "duration_ms": 3.15,
+        "start_time": "2026-11-06T09:34:08.131598+00:00",
+        "end_time": "2026-11-06T09:34:08.136379+00:00",
+        "duration_ms": 4.78,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-05T09:30:21.617318+00:00",
-        "end_time": "2026-11-05T09:30:21.625962+00:00",
-        "duration_ms": 8.64,
+        "start_time": "2026-11-06T09:34:08.151958+00:00",
+        "end_time": "2026-11-06T09:34:08.166245+00:00",
+        "duration_ms": 14.29,
         "details": {}
       }
     ],
-    "total_duration_ms": 16.02,
+    "total_duration_ms": 25.32,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "221a68d5a4276a2b47fdb1b68d2f1dec21bef1ef4378efdb5d51c9a1d1d01676",
-      "storyboard_preview.html": "73d345499fe2e5a53e1dc225cee64420b16fef71ade3b2f7c6f548961d64121f",
+      "production_bundle.json": "d8d6f2bd89514ef4d5b4b03bb4f35bbf00ccd9070031b3eee7e7560a464691da",
+      "storyboard_preview.html": "84d01e3d3258546218cdc92fb8326661d6361afb24028f36a65683f4b357cdb4",
       "timeline.edl": "5613ed790f2cfd16162dad289743f0659d46173ce0dfadff07925ae48d5494b3",
       "sequence.fcpxml": "26d07e61efc9b0ad13e31bc0ecbff46a6378cab97c79667e1d90a6a9a7961466",
       "shot_list.csv": "4819dd786ad60ebbf5925a17751fddf6111c5ff990829d8e708b322b670966db",
       "call_sheet.md": "4aae19d5f7745f2b2f92019c9635f86c27b1eae23f91bfdccf8d11008841171d",
       "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
       "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
+      "production_grade.cdl": "a8f9467be29e2d98c0811c043893ce35f3175191664fd3428bad6aae82b16027",
+      "audio_stems_manifest.json": "a6636ee854711cea9fd8f00e3262a39663b35eaedb619c366c70aaf37944c64e",
+      "lens_package.csv": "1904509a80d2bccc0b0b4538b86992c3d36b22de04fc7c49ace91c249b71ae12",
+      "moco_track.json": "648ed4c33cd0ea2c643ca3ee5c4be86c6dee4bcc102809385e7c4158c1e88e62",
+      "moco_track.csv": "578296b662bb160ecd0966f60cb69528e5047b36ff7bd8e8cce7ca4012efdcf9",
+      "moco_camera.fbx": "dc640af8e8624e237f7249433d43dcfaf907cd1bed0ba890e85010be197f0cc5",
+      "moco_camera_track.json": "648ed4c33cd0ea2c643ca3ee5c4be86c6dee4bcc102809385e7c4158c1e88e62",
+      "moco_waypoints.csv": "578296b662bb160ecd0966f60cb69528e5047b36ff7bd8e8cce7ca4012efdcf9",
+      "moco_trajectory.fbx": "dc640af8e8624e237f7249433d43dcfaf907cd1bed0ba890e85010be197f0cc5",
+      "lighting_plot.json": "462c0e019072be1e5da942568a34752954f4c89fb65016e17d2048e749a3321b",
+      "studio_lighting_plot.json": "462c0e019072be1e5da942568a34752954f4c89fb65016e17d2048e749a3321b",
+      "gaffer_callsheet.csv": "0fb6ec5585e10900ca6f2c7c32b02131cd239483e39e519f0757e8718d1f88fe",
+      "gaffer_call_sheet.csv": "0fb6ec5585e10900ca6f2c7c32b02131cd239483e39e519f0757e8718d1f88fe",
+      "dof_chart.json": "12cbf4a87d7a8623a1019cb318301cfff994f7213ed475f9809cfaceffa768ad",
+      "focus_puller_cue_sheet.csv": "b5401cfd09d74d76f12feb6d2041942d7c1e18ab99f1cafc9b3eb96f7bd79c03",
+      "production_look.cube": "18e090330512874b494579bd68e23de31984eafdd1cb3ff20ebd99d02aaf8bb7",
+      "dit_cart_manifest.json": "052d522be083924c1c027ad5526d6082fe3ade8fef9d454be97f9ef4e3f23b13",
       "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
       "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
       "storyboards/anchor3_scene_1_keyframe.svg": "af4a12bd825cad55352a2a6de04f1eb5d135311dfb66ffc5e857204f4143add8",
@@ -1785,9 +1928,9 @@
     }
   },
   "council_report": {
-    "version": "2.5.0",
+    "version": "2.6.0",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-05T09:30:21.624875+00:00",
+    "timestamp": "2026-11-06T09:34:08.164254+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1798,8 +1941,35 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
-        "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+        "findings": [
+          {
+            "severity": "info",
+            "category": "optical_dof_delivery",
+            "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "dof_artifacts": [
+                "dof_chart.json",
+                "focus_puller_cue_sheet.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "color_lut_delivery",
+            "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "lut_artifacts": [
+                "production_look.cube",
+                "dit_cart_manifest.json"
+              ]
+            }
+          }
+        ],
+        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1909,6 +2079,33 @@
               "fixtures_count": 5,
               "key_to_fill": 4.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_dof_calibration",
+            "message": "Domain DoF calibration verified: 'Anamorphic shallow portraiture' (T1.8, 85mm, 2x oval bokeh, rack-focus) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "focus_style": "Anamorphic shallow portraiture",
+              "aperture": 1.8,
+              "iris": "2x oval bokeh",
+              "depth_character": "rack-focus"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_lut_calibration",
+            "message": "Domain 3D LUT color science verified: 'Bleach Bypass Silver high-contrast' (bleach_bypass_silver, 33x33x33 bleach_bypass_silver_33x33.cube) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "lut_name": "Bleach Bypass Silver high-contrast",
+              "emulation": "bleach_bypass_silver",
+              "cube": "bleach_bypass_silver_33x33.cube"
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
@@ -1919,7 +2116,24 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "animatic_dof_hud",
+            "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_dit_lut_hud",
+            "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
@@ -2054,6 +2268,32 @@
           "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-011",
+        "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+        "problem_statement": "Commercial film genres for 'SEPHORA: London Pulse (Midnight Velvet)' require domain-specific optical focus depth behavior—from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—to prevent optical inconsistency across scenes.",
+        "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-012",
+        "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+        "problem_statement": "Cinematic production pipelines for 'SEPHORA: London Pulse (Midnight Velvet)' require authentic color science and film stock emulation 3D LUTs (.cube)—such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading.",
+        "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
         ],
         "priority": "P0",
         "status": "implemented"

@@ -1,6 +1,6 @@
 {
-  "version": "2.5.0",
-  "timestamp": "2026-11-05T09:30:21.567892+00:00",
+  "version": "2.6.0",
+  "timestamp": "2026-11-06T09:34:07.975209+00:00",
   "persona": "council-product-manager",
   "persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "recommendations": [
@@ -132,6 +132,32 @@
         "omni_director/tools/lighting_rig.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-011",
+      "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+      "problem_statement": "Commercial film genres require domain-specific optical focus depth behavior\u2014from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)\u2014to prevent optical inconsistency across scenes.",
+      "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/presets.py",
+        "omni_director/agents/council.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-012",
+      "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+      "problem_statement": "Cinematic production pipelines require authentic color science and film stock emulation 3D LUTs (.cube)\u2014such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech\u2014to guide professional colorists and post-production grading.",
+      "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/presets.py",
+        "omni_director/agents/council.py"
       ],
       "priority": "P0",
       "status": "implemented"

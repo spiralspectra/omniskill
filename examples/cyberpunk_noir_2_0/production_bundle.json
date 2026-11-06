@@ -59,7 +59,8 @@
         "vertical_fov_deg": 49.03,
         "hyperfocal_distance_m": 13.07
       },
-      "moco_rig": null
+      "moco_rig": null,
+      "dof_spec": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -150,7 +151,8 @@
             "vertical_fov_deg": 49.03,
             "hyperfocal_distance_m": 13.07
           },
-          "moco_rig": null
+          "moco_rig": null,
+          "dof_spec": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -221,7 +223,8 @@
             "saturation": 0.35
           },
           "contrast_pivot": 0.5,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -435,6 +438,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Dynamic deep focus",
+          "aperture_t_stop": 5.6,
+          "focal_length_mm": 24,
+          "iris_geometry": "circular iris",
+          "depth_character": "hyperfocal tracking",
+          "description": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)"
+        },
+        "lut_spec": {
+          "lut_name": "Teal & Orange high-velocity metallic",
+          "film_emulation": "teal_and_orange_metallic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "teal_orange_metallic_33x33.cube",
+          "description": "Teal & Orange high-velocity metallic 33x33 .cube"
         }
       },
       {
@@ -470,7 +489,8 @@
             "vertical_fov_deg": 49.03,
             "hyperfocal_distance_m": 13.07
           },
-          "moco_rig": null
+          "moco_rig": null,
+          "dof_spec": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -541,7 +561,8 @@
             "saturation": 0.35
           },
           "contrast_pivot": 0.5,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Large Format / ARRI LF (36.70 x 25.54mm)",
@@ -755,6 +776,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Dynamic deep focus",
+          "aperture_t_stop": 5.6,
+          "focal_length_mm": 24,
+          "iris_geometry": "circular iris",
+          "depth_character": "hyperfocal tracking",
+          "description": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)"
+        },
+        "lut_spec": {
+          "lut_name": "Teal & Orange high-velocity metallic",
+          "film_emulation": "teal_and_orange_metallic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "teal_orange_metallic_33x33.cube",
+          "description": "Teal & Orange high-velocity metallic 33x33 .cube"
         }
       }
     ],
@@ -782,7 +819,8 @@
         "saturation": 0.35
       },
       "contrast_pivot": 0.5,
-      "halation_bloom": 0.0
+      "halation_bloom": 0.0,
+      "lut_spec": null
     },
     "master_audio_mixer": {
       "master_gain_db": 0.0,
@@ -1038,6 +1076,38 @@
         "scattering_coefficient": 0.45,
         "shaft_visibility": 0.6
       }
+    },
+    "master_dof_spec": {
+      "focus_style": "Dynamic deep focus",
+      "aperture_t_stop": 5.6,
+      "focal_length_mm": 24,
+      "iris_geometry": "circular iris",
+      "depth_character": "hyperfocal tracking",
+      "description": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)"
+    },
+    "dof_spec": {
+      "focus_style": "Dynamic deep focus",
+      "aperture_t_stop": 5.6,
+      "focal_length_mm": 24,
+      "iris_geometry": "circular iris",
+      "depth_character": "hyperfocal tracking",
+      "description": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)"
+    },
+    "master_lut_spec": {
+      "lut_name": "Teal & Orange high-velocity metallic",
+      "film_emulation": "teal_and_orange_metallic",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "teal_orange_metallic_33x33.cube",
+      "description": "Teal & Orange high-velocity metallic 33x33 .cube"
+    },
+    "lut_spec": {
+      "lut_name": "Teal & Orange high-velocity metallic",
+      "film_emulation": "teal_and_orange_metallic",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "teal_orange_metallic_33x33.cube",
+      "description": "Teal & Orange high-velocity metallic 33x33 .cube"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -1084,13 +1154,19 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1114,6 +1190,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1126,9 +1208,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "880591a3-111a-40ef-987e-225238e49cdc",
+    "session_id": "9a003019-fb0b-4e3f-9fb0-cbf384f33cfc",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-05T09:30:21.729845+00:00",
+    "timestamp": "2026-11-06T09:34:08.656017+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1138,73 +1220,90 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-05T09:30:21.729862+00:00",
-        "end_time": "2026-11-05T09:30:21.730278+00:00",
-        "duration_ms": 0.42,
+        "start_time": "2026-11-06T09:34:08.656042+00:00",
+        "end_time": "2026-11-06T09:34:08.656529+00:00",
+        "duration_ms": 0.49,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-05T09:30:21.730292+00:00",
-        "end_time": "2026-11-05T09:30:21.730879+00:00",
-        "duration_ms": 0.59,
+        "start_time": "2026-11-06T09:34:08.656559+00:00",
+        "end_time": "2026-11-06T09:34:08.657264+00:00",
+        "duration_ms": 0.7,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-05T09:30:21.730889+00:00",
-        "end_time": "2026-11-05T09:30:21.731969+00:00",
-        "duration_ms": 1.08,
+        "start_time": "2026-11-06T09:34:08.657276+00:00",
+        "end_time": "2026-11-06T09:34:08.660215+00:00",
+        "duration_ms": 2.94,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-05T09:30:21.731980+00:00",
-        "end_time": "2026-11-05T09:30:21.732113+00:00",
-        "duration_ms": 0.13,
+        "start_time": "2026-11-06T09:34:08.660247+00:00",
+        "end_time": "2026-11-06T09:34:08.660397+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-05T09:30:21.732120+00:00",
-        "end_time": "2026-11-05T09:30:21.732674+00:00",
-        "duration_ms": 0.55,
+        "start_time": "2026-11-06T09:34:08.660407+00:00",
+        "end_time": "2026-11-06T09:34:08.661238+00:00",
+        "duration_ms": 0.83,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-05T09:30:21.732682+00:00",
-        "end_time": "2026-11-05T09:30:21.732685+00:00",
+        "start_time": "2026-11-06T09:34:08.661253+00:00",
+        "end_time": "2026-11-06T09:34:08.661257+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-05T09:30:21.732691+00:00",
-        "end_time": "2026-11-05T09:30:21.735141+00:00",
-        "duration_ms": 2.45,
+        "start_time": "2026-11-06T09:34:08.661264+00:00",
+        "end_time": "2026-11-06T09:34:08.665487+00:00",
+        "duration_ms": 4.22,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-05T09:30:21.737739+00:00",
-        "end_time": "2026-11-05T09:30:21.743904+00:00",
-        "duration_ms": 6.17,
+        "start_time": "2026-11-06T09:34:08.678524+00:00",
+        "end_time": "2026-11-06T09:34:08.688578+00:00",
+        "duration_ms": 10.05,
         "details": {}
       }
     ],
-    "total_duration_ms": 11.39,
+    "total_duration_ms": 19.38,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "ffa4c988d733f2a62af1bbbbfa1bdc5d6258e799900706853e6ee008776b9e35",
-      "storyboard_preview.html": "08a0a8360e1d445207f40b803153f2b1999c77e5677509691d0df5c7d2228816",
+      "production_bundle.json": "b59521f05dd27774c98e1ef62c3ad89fec9d0665261904752980f88e95d5021c",
+      "storyboard_preview.html": "57a18221b831c84a6c1334dc56238e6f78074273794f0408388196b4e335433e",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
       "call_sheet.md": "911b6787939d6493fac19000075a35f8bd52d667383a1619fba02e4ffb2f44ba",
       "subtitles.srt": "23492ef4af8b6eb71b1ef3b843275960572deb61bdfe6b1a778c2713f19bdec9",
       "subtitles.vtt": "c6237e4b792362b535df222a3422a116c27dd5d366935a6e8955e62e22ce398a",
+      "production_grade.cdl": "fc975ca5acfe4e33077cc7d4b6debb8d637ba21173ec9bfbf4c2edd6b2555b1e",
+      "audio_stems_manifest.json": "dc313ed21d005d06c09245f5a9db8ed6c4eb76cfd9de54b3add3c7f849b3540e",
+      "lens_package.csv": "b2c03c4913710cd7d298d67d90ad50486743e9f1b410ca740b1bf71fffc18902",
+      "moco_track.json": "2e6bc11a5916b141ebf53ade40fd48b002ba2ed2ab2db1ea4ffd60b8886b3783",
+      "moco_track.csv": "1fe31ff57b247dd97c2f7dcf476faa7ee77a5cad3ce3c661a2d683a40105f78f",
+      "moco_camera.fbx": "2afdb10b529177bcc2feb3e9f22c16f8d8d6aa502e59f68f1611f2bf18d23a76",
+      "moco_camera_track.json": "2e6bc11a5916b141ebf53ade40fd48b002ba2ed2ab2db1ea4ffd60b8886b3783",
+      "moco_waypoints.csv": "1fe31ff57b247dd97c2f7dcf476faa7ee77a5cad3ce3c661a2d683a40105f78f",
+      "moco_trajectory.fbx": "2afdb10b529177bcc2feb3e9f22c16f8d8d6aa502e59f68f1611f2bf18d23a76",
+      "lighting_plot.json": "724c8343fa4e9c3a5b502f6f4cf6de6529772dd4e0e35d4ee95aece671ab0f8d",
+      "studio_lighting_plot.json": "724c8343fa4e9c3a5b502f6f4cf6de6529772dd4e0e35d4ee95aece671ab0f8d",
+      "gaffer_callsheet.csv": "f12fa20f10c86470503698105be23e9e4e6b49141808159c282aa359e784ab51",
+      "gaffer_call_sheet.csv": "f12fa20f10c86470503698105be23e9e4e6b49141808159c282aa359e784ab51",
+      "dof_chart.json": "dce4e471162dc1c6c58b123f24a94a73ffd50f332a23a2899698b195875a1e9b",
+      "focus_puller_cue_sheet.csv": "764c8c1507590ebf971b16ac3f9a85ed7ad9f270331334f43331ba65c50604fd",
+      "production_look.cube": "4a848a61c882ea3755968f154f4faaf892d1ee057e537629fed03087d154a73f",
+      "dit_cart_manifest.json": "abcc67328a058bac630f6d31f77484b996b235718111ea7bfdbb1d772926bb38",
       "storyboards/anchor1_character_turnaround.svg": "6fe05754a2307303f0026fafee912853eb5678a6122250fbdaa7e4d27a3de121",
       "storyboards/anchor2_environment_master.svg": "280a27068876a5cd81b6be8ada54eb57417fadb13b22ec65b1f9565f7dff8972",
       "storyboards/anchor3_scene_1_keyframe.svg": "0d4958438163583ed492d93a00a88392becc547a0144d874b35853cd85620678",
@@ -1212,9 +1311,9 @@
     }
   },
   "council_report": {
-    "version": "2.5.0",
+    "version": "2.6.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-05T09:30:21.742678+00:00",
+    "timestamp": "2026-11-06T09:34:08.686962+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1225,8 +1324,35 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
-        "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+        "findings": [
+          {
+            "severity": "info",
+            "category": "optical_dof_delivery",
+            "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "dof_artifacts": [
+                "dof_chart.json",
+                "focus_puller_cue_sheet.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "color_lut_delivery",
+            "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "lut_artifacts": [
+                "production_look.cube",
+                "dit_cart_manifest.json"
+              ]
+            }
+          }
+        ],
+        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1336,6 +1462,33 @@
               "fixtures_count": 5,
               "key_to_fill": 4.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_dof_calibration",
+            "message": "Domain DoF calibration verified: 'Dynamic deep focus' (T5.6, 24mm, circular iris, hyperfocal tracking) aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "focus_style": "Dynamic deep focus",
+              "aperture": 5.6,
+              "iris": "circular iris",
+              "depth_character": "hyperfocal tracking"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_lut_calibration",
+            "message": "Domain 3D LUT color science verified: 'Teal & Orange high-velocity metallic' (teal_and_orange_metallic, 33x33x33 teal_orange_metallic_33x33.cube) aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "lut_name": "Teal & Orange high-velocity metallic",
+              "emulation": "teal_and_orange_metallic",
+              "cube": "teal_orange_metallic_33x33.cube"
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics)."
@@ -1346,7 +1499,24 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "animatic_dof_hud",
+            "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_dit_lut_hud",
+            "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
@@ -1481,6 +1651,32 @@
           "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-011",
+        "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+        "problem_statement": "Commercial film genres for 'Cyberpunk Neon-Lit High-Speed Electric M' require domain-specific optical focus depth behavior—from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—to prevent optical inconsistency across scenes.",
+        "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-012",
+        "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+        "problem_statement": "Cinematic production pipelines for 'Cyberpunk Neon-Lit High-Speed Electric M' require authentic color science and film stock emulation 3D LUTs (.cube)—such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading.",
+        "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
         ],
         "priority": "P0",
         "status": "implemented"

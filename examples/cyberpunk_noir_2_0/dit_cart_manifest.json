@@ -1,0 +1,65 @@
+{
+  "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+  "lut_title": "OMNI_DIRECTOR_MASTER_3DLUT",
+  "cube_size": 33,
+  "gamut_transform": "ACEScg to Rec.709 Gamma 2.4",
+  "master_lut_file": "production_look.cube",
+  "continuity_audit": {
+    "is_continuous": true,
+    "max_slope_delta": 0.0,
+    "max_offset_delta": 0.0,
+    "max_power_delta": 0.0,
+    "saturation_delta": 0.0,
+    "perceptual_delta_e_estimate": 0.0,
+    "warning_messages": [],
+    "scenes_evaluated": 2
+  },
+  "scenes": [
+    {
+      "scene_index": 1,
+      "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+      "look_preset": "bleach_bypass_silver",
+      "cdl": {
+        "slope": [
+          1.25,
+          1.25,
+          1.25
+        ],
+        "offset": [
+          -0.08,
+          -0.08,
+          -0.08
+        ],
+        "power": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "saturation": 0.35
+      }
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+      "look_preset": "bleach_bypass_silver",
+      "cdl": {
+        "slope": [
+          1.25,
+          1.25,
+          1.25
+        ],
+        "offset": [
+          -0.08,
+          -0.08,
+          -0.08
+        ],
+        "power": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "saturation": 0.35
+      }
+    }
+  ]
+}

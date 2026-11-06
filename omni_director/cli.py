@@ -251,8 +251,18 @@ def handle_export(args_list: List[str]) -> int:
     from omni_director.tools.virtual_production import export_virtual_production_bundle
     from omni_director.tools.moco_kinematics import export_moco_bundle
     from omni_director.tools.lighting_rig import export_lighting_bundle
+    from omni_director.tools.dof_simulator import (
+        export_dof_bundle,
+        export_focus_puller_cue_sheet,
+        export_optical_chart_json,
+    )
+    from omni_director.tools.dit_lut import (
+        export_dit_cart_manifest_json,
+        export_lut_bundle,
+        export_master_cube_lut,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, and lighting plots")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, and DIT 3D LUT suites")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -260,9 +270,13 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut"],
         help="Artifact format to export (default: all)",
     )
+    parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
+    parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
+    parser.add_argument("--cube-lut", action="store_true", help="Export master 3D LUT .cube file (production_look.cube)")
+    parser.add_argument("--dit-manifest", action="store_true", help="Export DIT cart offload manifest JSON (dit_cart_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -311,6 +325,10 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update(moco_files)
         lighting_files = export_lighting_bundle(bible, out_dir)
         exported_files.update(lighting_files)
+        dof_files = export_dof_bundle(bible, out_dir)
+        exported_files.update(dof_files)
+        lut_files = export_lut_bundle(bible, out_dir)
+        exported_files.update(lut_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -356,6 +374,30 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "lighting":
         lighting_files = export_lighting_bundle(bible, out_dir)
         exported_files.update(lighting_files)
+    elif fmt == "dof":
+        dof_files = export_dof_bundle(bible, out_dir)
+        exported_files.update(dof_files)
+    elif fmt == "lut":
+        lut_files = export_lut_bundle(bible, out_dir)
+        exported_files.update(lut_files)
+
+    # Process explicit granular artifact flags if requested
+    if args.dof_chart:
+        p = out_dir / "dof_chart.json"
+        export_optical_chart_json(bible, p)
+        exported_files["dof_chart"] = str(p.resolve())
+    if args.cue_sheet:
+        p = out_dir / "focus_puller_cue_sheet.csv"
+        export_focus_puller_cue_sheet(bible, p)
+        exported_files["cue_sheet"] = str(p.resolve())
+    if args.cube_lut:
+        p = out_dir / "production_look.cube"
+        export_master_cube_lut(bible, p)
+        exported_files["cube_lut"] = str(p.resolve())
+    if args.dit_manifest:
+        p = out_dir / "dit_cart_manifest.json"
+        export_dit_cart_manifest_json(bible, p)
+        exported_files["dit_manifest"] = str(p.resolve())
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))
@@ -638,6 +680,10 @@ def main(argv: Optional[list[str]] = None) -> int:
             from omni_director.tools.audio_mixer import export_audio_stems_file
             from omni_director.tools.optical_lens import export_lens_metadata_file
             from omni_director.tools.virtual_production import export_virtual_production_bundle
+            from omni_director.tools.moco_kinematics import export_moco_bundle
+            from omni_director.tools.lighting_rig import export_lighting_bundle
+            from omni_director.tools.dof_simulator import export_dof_bundle
+            from omni_director.tools.dit_lut import export_lut_bundle
             out_p = Path(args.output_dir)
             export_all_nle_artifacts(bundle.bible, out_p, fps=24)
             (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
@@ -646,6 +692,10 @@ def main(argv: Optional[list[str]] = None) -> int:
             export_audio_stems_file(bundle.bible, out_p / "audio_stems_manifest.json")
             export_lens_metadata_file(bundle.bible, out_p / "lens_package.csv")
             export_virtual_production_bundle(bundle.bible, out_p)
+            export_moco_bundle(bundle.bible, out_p)
+            export_lighting_bundle(bundle.bible, out_p)
+            export_dof_bundle(bundle.bible, out_p)
+            export_lut_bundle(bundle.bible, out_p)
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

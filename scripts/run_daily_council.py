@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.5.0).
+"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.6.0).
 
 Executes the automated daily product management, feature verification, quality assurance, and release routine:
 1. Preflight environment & 2026 Model Matrix health diagnostics (run_doctor).
@@ -136,7 +136,7 @@ CANONICAL_SHOWCASES = [
 
 def bump_project_version(bump_type: str) -> str:
     """Bumps semantic version across pyproject.toml, omni_director/__init__.py, doctor.py, schemas.py, and CHANGELOG.md."""
-    current = getattr(omni_director, "__version__", "2.5.0")
+    current = getattr(omni_director, "__version__", "2.6.0")
     parts = [int(x) for x in current.split(".")[:3]]
     while len(parts) < 3:
         parts.append(0)
@@ -193,7 +193,7 @@ def run_daily_council(
         active_version = bump_project_version(bump_version)
         print(f"🔖 Bumped project version to v{active_version}")
     else:
-        active_version = getattr(omni_director, "__version__", "2.5.0")
+        active_version = getattr(omni_director, "__version__", "2.6.0")
 
     start_time = datetime.datetime.now(datetime.timezone.utc)
     print("=" * 70)
@@ -246,8 +246,12 @@ def run_daily_council(
             vtt_file.write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
             from omni_director.tools.optical_lens import export_lens_metadata_file
             from omni_director.tools.virtual_production import export_virtual_production_bundle
+            from omni_director.tools.dof_simulator import export_dof_bundle
+            from omni_director.tools.dit_lut import export_dit_bundle
             export_lens_metadata_file(bundle.bible, out_path / "optical_lens_framing.csv")
             export_virtual_production_bundle(bundle.bible, out_path)
+            export_dof_bundle(bundle.bible, out_path)
+            export_dit_bundle(bundle.bible, out_path)
             # Refresh telemetry manifest so all exported NLE & subtitle artifacts are SHA-256 verified
             pipeline.telemetry.write_manifest(out_path)
 
@@ -274,7 +278,7 @@ def run_daily_council(
                 "scene_scores": scene_scores,
                 "scene_count": len(bundle.bible.scenes),
                 "total_runtime_seconds": bundle.bible.total_runtime_seconds,
-                "nle_artifacts_exported": list(nle_files.keys()) + ["srt", "vtt"],
+                "nle_artifacts_exported": list(nle_files.keys()) + ["srt", "vtt", "dof", "lut"],
             })
             print(f"     ✓ Council Score: {overall_score:.1f}/100.0 (Scenes: {scene_scores})")
         except Exception as ex:

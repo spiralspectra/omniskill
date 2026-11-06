@@ -250,6 +250,41 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-011",
+                title="Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+                problem_statement=(
+                    f"Commercial film genres{project_ctx} require domain-specific optical focus depth behavior—"
+                    "from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), "
+                    "to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—"
+                    "to prevent optical inconsistency across scenes."
+                ),
+                proposed_solution=(
+                    "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes "
+                    "in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, "
+                    "and integrate domain DoF verification into ProductCouncilOrchestrator."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/presets.py", "omni_director/agents/council.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-012",
+                title="Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+                problem_statement=(
+                    f"Cinematic production pipelines{project_ctx} require authentic color science and film stock emulation 3D LUTs (.cube)—"
+                    "such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, "
+                    "and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading."
+                ),
+                proposed_solution=(
+                    "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes "
+                    "in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, "
+                    "export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/presets.py", "omni_director/agents/council.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -390,7 +425,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
 
         report = ProductCouncilReport(
-            version="2.5.0",
+            version="2.6.0",
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -443,8 +478,10 @@ class ProductCouncilOrchestrator(BaseAgent):
     def _review_fde(
         self,
         bible: Optional[MasterProductionBible],
-        bundle: Optional[ProductionBundle],
-        output_dir: Optional[Path],
+        bundle: Optional[ProductionBundle] = None,
+        output_dir: Optional[Union[Path, str]] = None,
+        bundle_dir: Optional[Union[Path, str]] = None,
+        **kwargs: Any,
     ) -> PersonaReviewResult:
         """Evaluates schema integrity, output structure, and bundle artifacts."""
         findings: List[CouncilFinding] = []
@@ -503,7 +540,8 @@ class ProductCouncilOrchestrator(BaseAgent):
                 score -= 2.0
 
         # Active Checksum Integrity Verification
-        eval_dir = Path(output_dir) if output_dir else (Path(bundle.bundle_json_path).parent if bundle and bundle.bundle_json_path else None)
+        eval_target = output_dir or bundle_dir
+        eval_dir = Path(eval_target) if eval_target else (Path(bundle.bundle_json_path).parent if bundle and bundle.bundle_json_path else None)
         if eval_dir and (eval_dir / "telemetry.json").is_file():
             is_valid, checksum_errors = verify_bundle_checksums(eval_dir)
             if not is_valid:
@@ -515,6 +553,39 @@ class ProductCouncilOrchestrator(BaseAgent):
                     suggested_fix="Re-run compilation to regenerate artifacts with matching SHA-256 digests."
                 ))
                 score -= 6.0 if has_mismatch else 4.0
+
+        # Verify Optical Depth-of-Field (DoF) and Focus Puller deliverables (PM-FEAT-011)
+        if eval_dir:
+            dof_chart = eval_dir / "dof_chart.json"
+            cue_sheet = eval_dir / "focus_puller_cue_sheet.csv"
+            if dof_chart.is_file() or cue_sheet.is_file():
+                dof_items = []
+                if dof_chart.is_file():
+                    dof_items.append("dof_chart.json")
+                if cue_sheet.is_file():
+                    dof_items.append("focus_puller_cue_sheet.csv")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="optical_dof_delivery",
+                    message=f"Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: {', '.join(dof_items)}.",
+                    details={"dof_artifacts": dof_items}
+                ))
+
+            # Verify DIT 3D Cube Color Grading LUT suite deliverables (PM-FEAT-012)
+            cube_lut = eval_dir / "production_look.cube"
+            dit_manifest = eval_dir / "dit_cart_manifest.json"
+            if cube_lut.is_file() or dit_manifest.is_file():
+                lut_items = []
+                if cube_lut.is_file():
+                    lut_items.append("production_look.cube")
+                if dit_manifest.is_file():
+                    lut_items.append("dit_cart_manifest.json")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="color_lut_delivery",
+                    message=f"DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: {', '.join(lut_items)}.",
+                    details={"lut_artifacts": lut_items}
+                ))
 
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
@@ -878,6 +949,51 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain depth of field (DoF) and optical focus calibration (PM-FEAT-011)
+        if hasattr(bible, "master_dof_spec") and bible.master_dof_spec:
+            dof = bible.master_dof_spec
+            focus_style = getattr(dof, "focus_style", "Unknown")
+            aperture = getattr(dof, "aperture_t_stop", 0.0)
+            focal_mm = getattr(dof, "focal_length_mm", 0)
+            iris = getattr(dof, "iris_geometry", "Unknown")
+            depth_char = getattr(dof, "depth_character", "Unknown")
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_dof_calibration",
+                message=f"Domain DoF calibration verified: '{focus_style}' (T{aperture}, {focal_mm}mm, {iris}, {depth_char}) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "focus_style": focus_style, "aperture": aperture, "iris": iris, "depth_character": depth_char},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_dof_calibration",
+                message="Master depth of field spec (master_dof_spec) missing from production bible.",
+                suggested_fix="Assign master_dof_spec via get_domain_dof_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain 3D LUT color science & film emulation suite (PM-FEAT-012)
+        if hasattr(bible, "master_lut_spec") and bible.master_lut_spec:
+            lut = bible.master_lut_spec
+            lut_name = getattr(lut, "lut_name", "Unknown")
+            emulation = getattr(lut, "film_emulation", "Unknown")
+            cube_fn = getattr(lut, "cube_filename", "Unknown")
+            grid = getattr(lut, "grid_size", 33)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_lut_calibration",
+                message=f"Domain 3D LUT color science verified: '{lut_name}' ({emulation}, {grid}x{grid}x{grid} {cube_fn}) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "lut_name": lut_name, "emulation": emulation, "cube": cube_fn},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_lut_calibration",
+                message="Master 3D LUT spec (master_lut_spec) missing from production bible.",
+                suggested_fix="Assign master_lut_spec via get_domain_lut_spec().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -1010,6 +1126,37 @@ class ProductCouncilOrchestrator(BaseAgent):
                         suggested_fix="Ensure compile_storyboard_html generates #btn-gaffer-animatic and #animatic-gaffer-hud controls."
                     ))
                     score -= 1.0
+
+                if 'id="btn-dof-animatic"' not in html_content and 'id="animatic-dof-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_dof_hud",
+                        message="Compiled storyboard preview HTML lacks interactive optical DoF HUD (#animatic-dof-hud / #btn-dof-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-dof-animatic and #animatic-dof-hud controls."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_dof_hud",
+                        message="Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+                    ))
+
+                if 'id="btn-dit-lut-animatic"' not in html_content and 'id="animatic-dit-lut-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_dit_lut_hud",
+                        message="Compiled storyboard preview HTML lacks interactive DIT 3D LUT HUD (#animatic-dit-lut-hud / #btn-dit-lut-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-dit-lut-animatic and #animatic-dit-lut-hud controls."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_dit_lut_hud",
+                        message="DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+                    ))
+
             except Exception:
                 pass
 

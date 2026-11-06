@@ -32,6 +32,13 @@ def validate_model_identifier(model_name: str, field_name: str = "model") -> boo
         return False
 
 
+try:
+    from omni_director import __version__
+    DEFAULT_DOCTOR_VERSION = __version__
+except Exception:
+    DEFAULT_DOCTOR_VERSION = "2.6.0"
+
+
 class CheckStatus(str, Enum):
     PASS = "PASS"
     WARN = "WARN"
@@ -47,7 +54,7 @@ class DiagnosticCheck(BaseModel):
 
 
 class DoctorReport(BaseModel):
-    version: str = "2.5.0"
+    version: str = Field(default_factory=lambda: DEFAULT_DOCTOR_VERSION)
     checks: List[DiagnosticCheck] = Field(default_factory=list)
     passed: bool = True
     has_warnings: bool = False
@@ -270,7 +277,7 @@ def run_doctor(
     summary = f"Doctor check complete: {pass_count} passed, {warn_count} warnings, {fail_count} failures."
 
     return DoctorReport(
-        version="2.5.0",
+        version="2.6.0",
         checks=checks,
         passed=passed,
         has_warnings=has_warnings,

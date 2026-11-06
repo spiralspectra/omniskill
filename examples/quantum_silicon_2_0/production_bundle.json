@@ -59,7 +59,8 @@
         "vertical_fov_deg": 16.07,
         "hyperfocal_distance_m": 86.01
       },
-      "moco_rig": null
+      "moco_rig": null,
+      "dof_spec": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -150,7 +151,8 @@
             "vertical_fov_deg": 16.07,
             "hyperfocal_distance_m": 86.01
           },
-          "moco_rig": null
+          "moco_rig": null,
+          "dof_spec": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -205,7 +207,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Full Frame (36.00 x 24.00mm)",
@@ -419,6 +422,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Cleanroom macro isolation",
+          "aperture_t_stop": 2.0,
+          "focal_length_mm": 90,
+          "iris_geometry": "nonagonal iris",
+          "depth_character": "tight CoC",
+          "description": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)"
+        },
+        "lut_spec": {
+          "lut_name": "Neutral surgical Rec.709 cold precision",
+          "film_emulation": "rec709_cold_precision",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "rec709_cold_precision_33x33.cube",
+          "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
         }
       },
       {
@@ -454,7 +473,8 @@
             "vertical_fov_deg": 16.07,
             "hyperfocal_distance_m": 86.01
           },
-          "moco_rig": null
+          "moco_rig": null,
+          "dof_spec": null
         },
         "diegetic_sonic": {
           "foley_cues": [
@@ -509,7 +529,8 @@
             "saturation": 1.0
           },
           "contrast_pivot": 0.435,
-          "halation_bloom": 0.0
+          "halation_bloom": 0.0,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "Full Frame (36.00 x 24.00mm)",
@@ -723,6 +744,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Cleanroom macro isolation",
+          "aperture_t_stop": 2.0,
+          "focal_length_mm": 90,
+          "iris_geometry": "nonagonal iris",
+          "depth_character": "tight CoC",
+          "description": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)"
+        },
+        "lut_spec": {
+          "lut_name": "Neutral surgical Rec.709 cold precision",
+          "film_emulation": "rec709_cold_precision",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "rec709_cold_precision_33x33.cube",
+          "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
         }
       }
     ],
@@ -750,7 +787,8 @@
         "saturation": 1.0
       },
       "contrast_pivot": 0.435,
-      "halation_bloom": 0.0
+      "halation_bloom": 0.0,
+      "lut_spec": null
     },
     "master_audio_mixer": {
       "master_gain_db": 0.0,
@@ -1006,6 +1044,38 @@
         "scattering_coefficient": 0.45,
         "shaft_visibility": 0.6
       }
+    },
+    "master_dof_spec": {
+      "focus_style": "Cleanroom macro isolation",
+      "aperture_t_stop": 2.0,
+      "focal_length_mm": 90,
+      "iris_geometry": "nonagonal iris",
+      "depth_character": "tight CoC",
+      "description": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)"
+    },
+    "dof_spec": {
+      "focus_style": "Cleanroom macro isolation",
+      "aperture_t_stop": 2.0,
+      "focal_length_mm": 90,
+      "iris_geometry": "nonagonal iris",
+      "depth_character": "tight CoC",
+      "description": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)"
+    },
+    "master_lut_spec": {
+      "lut_name": "Neutral surgical Rec.709 cold precision",
+      "film_emulation": "rec709_cold_precision",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "rec709_cold_precision_33x33.cube",
+      "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
+    },
+    "lut_spec": {
+      "lut_name": "Neutral surgical Rec.709 cold precision",
+      "film_emulation": "rec709_cold_precision",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "rec709_cold_precision_33x33.cube",
+      "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -1052,13 +1122,19 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Neutral surgical Rec.709 cold precision (rec709_cold_precision emulation, 33x33x33 3D LUT)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1082,6 +1158,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with Neutral surgical Rec.709 cold precision (rec709_cold_precision emulation, 33x33x33 3D LUT)",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1094,9 +1176,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "f82a8591-3276-4a9f-b314-362d5c43c154",
+    "session_id": "9038edfa-d0b3-4b06-b35e-033eea72af5e",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-05T09:30:21.830160+00:00",
+    "timestamp": "2026-11-06T09:34:09.181036+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1106,73 +1188,90 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-05T09:30:21.830170+00:00",
-        "end_time": "2026-11-05T09:30:21.830764+00:00",
-        "duration_ms": 0.59,
+        "start_time": "2026-11-06T09:34:09.181057+00:00",
+        "end_time": "2026-11-06T09:34:09.181677+00:00",
+        "duration_ms": 0.62,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-05T09:30:21.830775+00:00",
-        "end_time": "2026-11-05T09:30:21.831514+00:00",
-        "duration_ms": 0.74,
+        "start_time": "2026-11-06T09:34:09.181694+00:00",
+        "end_time": "2026-11-06T09:34:09.182601+00:00",
+        "duration_ms": 0.91,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-05T09:30:21.831522+00:00",
-        "end_time": "2026-11-05T09:30:21.833071+00:00",
-        "duration_ms": 1.55,
+        "start_time": "2026-11-06T09:34:09.182616+00:00",
+        "end_time": "2026-11-06T09:34:09.186550+00:00",
+        "duration_ms": 3.93,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-05T09:30:21.833082+00:00",
-        "end_time": "2026-11-05T09:30:21.833232+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-06T09:34:09.186589+00:00",
+        "end_time": "2026-11-06T09:34:09.186760+00:00",
+        "duration_ms": 0.17,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-05T09:30:21.833241+00:00",
-        "end_time": "2026-11-05T09:30:21.833948+00:00",
-        "duration_ms": 0.71,
+        "start_time": "2026-11-06T09:34:09.186770+00:00",
+        "end_time": "2026-11-06T09:34:09.187749+00:00",
+        "duration_ms": 0.98,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-05T09:30:21.833955+00:00",
-        "end_time": "2026-11-05T09:30:21.833960+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-06T09:34:09.187760+00:00",
+        "end_time": "2026-11-06T09:34:09.187765+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-05T09:30:21.833965+00:00",
-        "end_time": "2026-11-05T09:30:21.836138+00:00",
-        "duration_ms": 2.17,
+        "start_time": "2026-11-06T09:34:09.187772+00:00",
+        "end_time": "2026-11-06T09:34:09.191478+00:00",
+        "duration_ms": 3.7,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-05T09:30:21.838413+00:00",
-        "end_time": "2026-11-05T09:30:21.845191+00:00",
-        "duration_ms": 6.78,
+        "start_time": "2026-11-06T09:34:09.202303+00:00",
+        "end_time": "2026-11-06T09:34:09.219279+00:00",
+        "duration_ms": 16.98,
         "details": {}
       }
     ],
-    "total_duration_ms": 12.7,
+    "total_duration_ms": 27.29,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "858452b98b4805dea41ec648d68cb461ba16ec91323ee9b19c03e7c162cd3bb6",
-      "storyboard_preview.html": "0db0b5c9a3facba226a5a03c29cbdadc06fd6c8e7bacbe014489ab794f6f23fc",
+      "production_bundle.json": "aede98679b216d30cbc08ec97d3284dffbd5a771ef0443f01886af3fac263bc3",
+      "storyboard_preview.html": "ab5f9afb86125fa453dd315259acff2fdc6e1ab816b895d6a6a44583fb2a8bbf",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
       "call_sheet.md": "d5a0d3707eb74fbbca48c6c36f839f64a2420798e39906e902b1c47897d8d0be",
       "subtitles.srt": "c5513f6e967d7c14c7496f61f0c13273d1404f7775ff2cd2ece8dfeace7ee3e5",
       "subtitles.vtt": "100d626a9a8b44b4b82d0e5ca2c42ef1ff85a73e181fe20d0c1603c47d607344",
+      "production_grade.cdl": "41dca2c923ebc74b74cd5b8c3ff033af781e56bd069779a5792451ea173b7591",
+      "audio_stems_manifest.json": "f9bb8d9347536ef5317965ff4d761391465d57739b176b066f73587fa3b0b7d4",
+      "lens_package.csv": "405adc1f3de876f7f7ecce0e9f7c982dab95a05b7d203ae29d4bc2ea560906d2",
+      "moco_track.json": "456d2e38e73e0e5e9193385b0392c19fb7b1ec219618d1bbe611fee7358e2410",
+      "moco_track.csv": "bf3177cf92a5ed222e0cfd4585f3691c7ac80012886480b37cb17002c7a3dd50",
+      "moco_camera.fbx": "4d24686b471f2c9fffe5f23f6fb4b7b9213e91e538060161bdc3dd80f0b80619",
+      "moco_camera_track.json": "456d2e38e73e0e5e9193385b0392c19fb7b1ec219618d1bbe611fee7358e2410",
+      "moco_waypoints.csv": "bf3177cf92a5ed222e0cfd4585f3691c7ac80012886480b37cb17002c7a3dd50",
+      "moco_trajectory.fbx": "4d24686b471f2c9fffe5f23f6fb4b7b9213e91e538060161bdc3dd80f0b80619",
+      "lighting_plot.json": "57fd699d65e125b35bc398ec7c91b2db1cfb5740179407097def601a1d7844c8",
+      "studio_lighting_plot.json": "57fd699d65e125b35bc398ec7c91b2db1cfb5740179407097def601a1d7844c8",
+      "gaffer_callsheet.csv": "b05b5a7f94a0c4472c1b90cbd9223b983da1d85ad8ea9371ea7a0d6b4ffb6c6f",
+      "gaffer_call_sheet.csv": "b05b5a7f94a0c4472c1b90cbd9223b983da1d85ad8ea9371ea7a0d6b4ffb6c6f",
+      "dof_chart.json": "86c85a6bbde0f7b62358c1a1047a1c8203bc5f0a60292f1895cfd0403dd70029",
+      "focus_puller_cue_sheet.csv": "0bcef91285d04b481c5789e42f814749dd7da32bbea97110c865377f305f11a2",
+      "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
+      "dit_cart_manifest.json": "c3ebdcf5e91d1bdf87fd93ebb1742a820682ee8c78d97c008e5836068be2cd73",
       "storyboards/anchor1_character_turnaround.svg": "d9f4e8312df0655feaaebf0729586f217c4d79a21556d351b66707f0a2425ed2",
       "storyboards/anchor2_environment_master.svg": "467bdfa2dc732b74012d25b2adafd6a1d5a122b5c83cf872cfbc49ad9e84daa6",
       "storyboards/anchor3_scene_1_keyframe.svg": "871ffb56a79bc932e70c1c8a350b10e9fc06be8659987b9e822cbeee9e03e4b2",
@@ -1180,9 +1279,9 @@
     }
   },
   "council_report": {
-    "version": "2.5.0",
+    "version": "2.6.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-05T09:30:21.844037+00:00",
+    "timestamp": "2026-11-06T09:34:09.217225+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1193,8 +1292,35 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
-        "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+        "findings": [
+          {
+            "severity": "info",
+            "category": "optical_dof_delivery",
+            "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "dof_artifacts": [
+                "dof_chart.json",
+                "focus_puller_cue_sheet.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "color_lut_delivery",
+            "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "lut_artifacts": [
+                "production_look.cube",
+                "dit_cart_manifest.json"
+              ]
+            }
+          }
+        ],
+        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1304,6 +1430,33 @@
               "fixtures_count": 5,
               "key_to_fill": 4.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_dof_calibration",
+            "message": "Domain DoF calibration verified: 'Cleanroom macro isolation' (T2.0, 90mm, nonagonal iris, tight CoC) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "focus_style": "Cleanroom macro isolation",
+              "aperture": 2.0,
+              "iris": "nonagonal iris",
+              "depth_character": "tight CoC"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_lut_calibration",
+            "message": "Domain 3D LUT color science verified: 'Neutral surgical Rec.709 cold precision' (rec709_cold_precision, 33x33x33 rec709_cold_precision_33x33.cube) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "lut_name": "Neutral surgical Rec.709 cold precision",
+              "emulation": "rec709_cold_precision",
+              "cube": "rec709_cold_precision_33x33.cube"
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: tech_hardware)."
@@ -1314,7 +1467,24 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "animatic_dof_hud",
+            "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_dit_lut_hud",
+            "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
@@ -1449,6 +1619,32 @@
           "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-011",
+        "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+        "problem_statement": "Commercial film genres for 'Advanced Quantum Computing Silicon Proce' require domain-specific optical focus depth behavior—from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—to prevent optical inconsistency across scenes.",
+        "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-012",
+        "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+        "problem_statement": "Cinematic production pipelines for 'Advanced Quantum Computing Silicon Proce' require authentic color science and film stock emulation 3D LUTs (.cube)—such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading.",
+        "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
         ],
         "priority": "P0",
         "status": "implemented"

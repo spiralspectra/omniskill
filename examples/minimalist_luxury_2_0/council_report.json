@@ -1,7 +1,7 @@
 {
-  "version": "2.5.0",
+  "version": "2.6.0",
   "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-  "timestamp": "2026-11-05T09:30:21.792384+00:00",
+  "timestamp": "2026-11-06T09:34:08.943092+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -12,8 +12,35 @@
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
-      "findings": [],
-      "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+      "findings": [
+        {
+          "severity": "info",
+          "category": "optical_dof_delivery",
+          "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "dof_artifacts": [
+              "dof_chart.json",
+              "focus_puller_cue_sheet.csv"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "color_lut_delivery",
+          "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "lut_artifacts": [
+              "production_look.cube",
+              "dit_cart_manifest.json"
+            ]
+          }
+        }
+      ],
+      "summary": "FDE review completed with score 25.0/25.0. 2 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -123,6 +150,33 @@
             "fixtures_count": 5,
             "key_to_fill": 4.0
           }
+        },
+        {
+          "severity": "info",
+          "category": "domain_dof_calibration",
+          "message": "Domain DoF calibration verified: 'Anamorphic shallow portraiture' (T1.8, 85mm, 2x oval bokeh, rack-focus) aligned with domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "focus_style": "Anamorphic shallow portraiture",
+            "aperture": 1.8,
+            "iris": "2x oval bokeh",
+            "depth_character": "rack-focus"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_lut_calibration",
+          "message": "Domain 3D LUT color science verified: 'Bleach Bypass Silver high-contrast' (bleach_bypass_silver, 33x33x33 bleach_bypass_silver_33x33.cube) aligned with domain 'luxury_fashion'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "lut_name": "Bleach Bypass Silver high-contrast",
+            "emulation": "bleach_bypass_silver",
+            "cube": "bleach_bypass_silver_33x33.cube"
+          }
         }
       ],
       "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
@@ -133,7 +187,24 @@
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
-      "findings": [],
+      "findings": [
+        {
+          "severity": "info",
+          "category": "animatic_dof_hud",
+          "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_dit_lut_hud",
+          "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        }
+      ],
       "summary": "UX Designer review completed with score 25.0/25.0."
     }
   ],
@@ -268,6 +339,32 @@
         "omni_director/tools/lighting_rig.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-011",
+      "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+      "problem_statement": "Commercial film genres for 'Minimalist Luxury Haute Couture Silk Vel' require domain-specific optical focus depth behavior\u2014from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)\u2014to prevent optical inconsistency across scenes.",
+      "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/presets.py",
+        "omni_director/agents/council.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-012",
+      "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+      "problem_statement": "Cinematic production pipelines for 'Minimalist Luxury Haute Couture Silk Vel' require authentic color science and film stock emulation 3D LUTs (.cube)\u2014such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech\u2014to guide professional colorists and post-production grading.",
+      "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/presets.py",
+        "omni_director/agents/council.py"
       ],
       "priority": "P0",
       "status": "implemented"

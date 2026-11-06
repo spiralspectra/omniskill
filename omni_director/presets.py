@@ -12,6 +12,8 @@ from omni_director.schemas import (
     CraftCameraSpec,
     DiegeticSonicSpec,
     DmxLightingFixture,
+    DomainDofSpec,
+    DomainLutSpec,
     LedWallGeometry,
     LightingRigSpec,
     MasterBgmSpec,
@@ -101,6 +103,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "controlled blue lateral chromatic fringing",
             "distortion_profile": "barrel 1.2% anamorphic edge compression",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Dynamic deep focus",
+            aperture_t_stop=5.6,
+            focal_length_mm=24,
+            iris_geometry="circular iris",
+            depth_character="hyperfocal tracking",
+            description="Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="Teal & Orange high-velocity metallic",
+            film_emulation="teal_and_orange_metallic",
+            grid_size=33,
+            format=".cube",
+            cube_filename="teal_orange_metallic_33x33.cube",
+            description="Teal & Orange high-velocity metallic 33x33 .cube",
+        ),
     },
     "culinary_asmr": {
         "keywords": [
@@ -156,6 +174,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "apochromatic zero-dispersion fluorite",
             "distortion_profile": "zero geometric distortion rectilinear",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Macro shallow focus",
+            aperture_t_stop=1.4,
+            focal_length_mm=100,
+            iris_geometry="nonagonal iris",
+            depth_character="razor-thin DoF",
+            description="Macro shallow focus (T1.4, 100mm, nonagonal iris, razor-thin DoF)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="Warm Kodak 5219 Vision3 emulation",
+            film_emulation="kodak_5219_vision3",
+            grid_size=33,
+            format=".cube",
+            cube_filename="kodak_5219_vision3_33x33.cube",
+            description="Warm Kodak 5219 Vision3 emulation 33x33 .cube",
+        ),
     },
     "luxury_fashion": {
         "keywords": [
@@ -210,6 +244,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "delicate warm axial flare roll-off",
             "distortion_profile": "subtle pincushion 0.4% flattering portrait geometry",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Anamorphic shallow portraiture",
+            aperture_t_stop=1.8,
+            focal_length_mm=85,
+            iris_geometry="2x oval bokeh",
+            depth_character="rack-focus",
+            description="Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="Bleach Bypass Silver high-contrast",
+            film_emulation="bleach_bypass_silver",
+            grid_size=33,
+            format=".cube",
+            cube_filename="bleach_bypass_silver_33x33.cube",
+            description="Bleach Bypass Silver high-contrast 33x33 .cube",
+        ),
     },
     "kinetic_action": {
         "keywords": [
@@ -264,6 +314,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "apochromatic high-contrast edge rendering",
             "distortion_profile": "low-dispersion edge compression 0.8%",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Wide action depth",
+            aperture_t_stop=4.0,
+            focal_length_mm=35,
+            iris_geometry="octagonal iris",
+            depth_character="fast focus pull",
+            description="Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="High-contrast Fuji Eterna dynamic",
+            film_emulation="fuji_eterna_dynamic",
+            grid_size=33,
+            format=".cube",
+            cube_filename="fuji_eterna_dynamic_33x33.cube",
+            description="High-contrast Fuji Eterna dynamic 33x33 .cube",
+        ),
     },
     "tech_hardware": {
         "keywords": [
@@ -319,6 +385,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "zero chromatic fringing under lithography lighting",
             "distortion_profile": "zero geometric distortion 0.05%",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Cleanroom macro isolation",
+            aperture_t_stop=2.0,
+            focal_length_mm=90,
+            iris_geometry="nonagonal iris",
+            depth_character="tight CoC",
+            description="Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="Neutral surgical Rec.709 cold precision",
+            film_emulation="rec709_cold_precision",
+            grid_size=33,
+            format=".cube",
+            cube_filename="rec709_cold_precision_33x33.cube",
+            description="Neutral surgical Rec.709 cold precision 33x33 .cube",
+        ),
     },
     "architectural_sanctuary": {
         "keywords": [
@@ -373,6 +455,22 @@ DOMAIN_ARCHETYPES: Dict[str, Dict[str, Any]] = {
             "chromatic_aberration": "zero-dispersion apochromatic glass",
             "distortion_profile": "perspective-corrected rectilinear 0.1%",
         },
+        "dof_spec": DomainDofSpec(
+            focus_style="Panoramic deep focus",
+            aperture_t_stop=8.0,
+            focal_length_mm=18,
+            iris_geometry="circular iris",
+            depth_character="infinite far limit",
+            description="Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+        ),
+        "lut_spec": DomainLutSpec(
+            lut_name="Verdant warm daylight organic",
+            film_emulation="verdant_warm_daylight",
+            grid_size=33,
+            format=".cube",
+            cube_filename="verdant_warm_daylight_33x33.cube",
+            description="Verdant warm daylight organic 33x33 .cube",
+        ),
     },
 }
 
@@ -539,6 +637,80 @@ def get_domain_lighting_rig(domain: str) -> LightingRigSpec:
         return lighting_data.model_copy(deep=True)
 
     return synthesize_default_lighting_rig(style=domain)
+
+
+def get_domain_dof_spec(archetype: Any) -> DomainDofSpec:
+    """Retrieves the calibrated depth of field, aperture T-stop, and optical focus spec for a commercial domain archetype (PM-FEAT-011)."""
+    domain_key = "architectural_sanctuary"
+    if isinstance(archetype, str):
+        domain_key = archetype
+    elif isinstance(archetype, dict):
+        if "dof_spec" in archetype:
+            spec = archetype["dof_spec"]
+            if isinstance(spec, DomainDofSpec):
+                return spec.model_copy(deep=True)
+            if isinstance(spec, dict):
+                return DomainDofSpec(**spec)
+        for k, v in DOMAIN_ARCHETYPES.items():
+            if v is archetype:
+                domain_key = k
+                break
+    elif hasattr(archetype, "master_dof_spec") and getattr(archetype, "master_dof_spec"):
+        return getattr(archetype, "master_dof_spec")
+    elif hasattr(archetype, "domain_archetype") and getattr(archetype, "domain_archetype"):
+        domain_key = getattr(archetype, "domain_archetype")
+
+    arch_data = DOMAIN_ARCHETYPES.get(domain_key, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    dof_data = arch_data.get("dof_spec")
+    if isinstance(dof_data, DomainDofSpec):
+        return dof_data.model_copy(deep=True)
+    if isinstance(dof_data, dict):
+        return DomainDofSpec(**dof_data)
+    return DomainDofSpec(
+        focus_style="Panoramic deep focus",
+        aperture_t_stop=8.0,
+        focal_length_mm=18,
+        iris_geometry="circular iris",
+        depth_character="infinite far limit",
+        description="Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)",
+    )
+
+
+def get_domain_lut_spec(archetype: Any) -> DomainLutSpec:
+    """Retrieves the calibrated 3D LUT color science and film stock emulation spec for a commercial domain archetype (PM-FEAT-012)."""
+    domain_key = "architectural_sanctuary"
+    if isinstance(archetype, str):
+        domain_key = archetype
+    elif isinstance(archetype, dict):
+        if "lut_spec" in archetype:
+            spec = archetype["lut_spec"]
+            if isinstance(spec, DomainLutSpec):
+                return spec.model_copy(deep=True)
+            if isinstance(spec, dict):
+                return DomainLutSpec(**spec)
+        for k, v in DOMAIN_ARCHETYPES.items():
+            if v is archetype:
+                domain_key = k
+                break
+    elif hasattr(archetype, "master_lut_spec") and getattr(archetype, "master_lut_spec"):
+        return getattr(archetype, "master_lut_spec")
+    elif hasattr(archetype, "domain_archetype") and getattr(archetype, "domain_archetype"):
+        domain_key = getattr(archetype, "domain_archetype")
+
+    arch_data = DOMAIN_ARCHETYPES.get(domain_key, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    lut_data = arch_data.get("lut_spec")
+    if isinstance(lut_data, DomainLutSpec):
+        return lut_data.model_copy(deep=True)
+    if isinstance(lut_data, dict):
+        return DomainLutSpec(**lut_data)
+    return DomainLutSpec(
+        lut_name="Verdant warm daylight organic",
+        film_emulation="verdant_warm_daylight",
+        grid_size=33,
+        format=".cube",
+        cube_filename="verdant_warm_daylight_33x33.cube",
+        description="Verdant warm daylight organic 33x33 .cube",
+    )
 
 
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
@@ -1099,6 +1271,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_moco_rig = get_domain_moco_rig(_arch)
     if not getattr(_bible_inst, "master_lighting_rig", None):
         _bible_inst.master_lighting_rig = get_domain_lighting_rig(_arch)
+    if not getattr(_bible_inst, "master_dof_spec", None):
+        _bible_inst.master_dof_spec = get_domain_dof_spec(_arch)
+    if not getattr(_bible_inst, "master_lut_spec", None):
+        _bible_inst.master_lut_spec = get_domain_lut_spec(_arch)
     for _sc in _bible_inst.scenes:
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
@@ -1112,6 +1288,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
             _sc.moco_rig = _bible_inst.master_moco_rig
         if not getattr(_sc, "lighting_rig", None):
             _sc.lighting_rig = _bible_inst.master_lighting_rig
+        if not getattr(_sc, "dof_spec", None):
+            _sc.dof_spec = _bible_inst.master_dof_spec
+        if not getattr(_sc, "lut_spec", None):
+            _sc.lut_spec = _bible_inst.master_lut_spec
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -1169,6 +1349,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_moco_rig = get_domain_moco_rig(bible.domain_archetype)
     if not getattr(bible, "master_lighting_rig", None):
         bible.master_lighting_rig = get_domain_lighting_rig(bible.domain_archetype)
+    if not getattr(bible, "master_dof_spec", None):
+        bible.master_dof_spec = get_domain_dof_spec(bible.domain_archetype)
+    if not getattr(bible, "master_lut_spec", None):
+        bible.master_lut_spec = get_domain_lut_spec(bible.domain_archetype)
     for scene in bible.scenes:
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
@@ -1182,6 +1366,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.moco_rig = bible.master_moco_rig
         if not getattr(scene, "lighting_rig", None):
             scene.lighting_rig = bible.master_lighting_rig
+        if not getattr(scene, "dof_spec", None):
+            scene.dof_spec = bible.master_dof_spec
+        if not getattr(scene, "lut_spec", None):
+            scene.lut_spec = bible.master_lut_spec
     return bible
 
 

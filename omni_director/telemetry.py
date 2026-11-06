@@ -12,7 +12,29 @@ from pathlib import Path
 from typing import Any, Dict, Generator, List, Optional, Union
 from pydantic import BaseModel, Field
 
-SAFE_KEYS = {"keyframe", "keyframes", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority"}
+SAFE_KEYS = {
+    "keyframe",
+    "keyframes",
+    "preset_key",
+    "key_signature",
+    "musical_key",
+    "author",
+    "authenticity",
+    "authority",
+    "prompt_token",
+    "dof_prompt_token",
+    "lut_prompt_token",
+    "lighting_prompt_token",
+    "moco_prompt_token",
+    "optical_prompt_token",
+    "tokens",
+    "token_count",
+    "token_rate",
+    "dof",
+    "lut",
+    "cue_sheet",
+    "dit_manifest",
+}
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
     r"AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+|ya29\.[0-9A-Za-z\-_]+|ghp_[0-9A-Za-z]+|github_pat_[0-9A-Za-z_]+"
@@ -22,7 +44,7 @@ SECRET_PATTERN = re.compile(
 def _is_sensitive_key(key: str) -> bool:
     """Checks if a dictionary key contains sensitive credential terms while preserving safe keys."""
     k_lower = str(key).lower()
-    if k_lower in SAFE_KEYS or any(safe in k_lower for safe in ("keyframe", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority")):
+    if k_lower in SAFE_KEYS or any(safe in k_lower for safe in ("keyframe", "preset_key", "key_signature", "musical_key", "author", "authenticity", "authority", "prompt_token")):
         return False
     # Check exact match or boundary match for 'key' or 'auth' to avoid redacting legitimate descriptive fields
     if k_lower in ("key", "auth"):
@@ -114,12 +136,12 @@ class RuntimeTelemetry(BaseModel):
             )
 
     def compute_artifact_checksums(self, output_dir: Union[str, Path]) -> Dict[str, str]:
-        """Computes SHA-256 hex digests for production_bundle.json, storyboard_preview.html, and all *.svg files."""
+        """Computes SHA-256 hex digests for bundle files, NLE exports, SVG keyframes, and 3D LUT profiles."""
         out_path = Path(output_dir)
         checksums: Dict[str, str] = {}
         target_files: List[Path] = []
 
-        for name in [
+        known_artifact_names = [
             "production_bundle.json",
             "production_bible.json",
             "storyboard_preview.html",
@@ -129,7 +151,33 @@ class RuntimeTelemetry(BaseModel):
             "call_sheet.md",
             "subtitles.srt",
             "subtitles.vtt",
-        ]:
+            "production_grade.cdl",
+            "audio_stems_manifest.json",
+            "lens_package.csv",
+            "virtual_production_manifest.json",
+            "unreal_dmx_patch.csv",
+            "moco_track.json",
+            "moco_track.csv",
+            "moco_camera.fbx",
+            "moco_camera_track.json",
+            "moco_waypoints.csv",
+            "moco_trajectory.fbx",
+            "lighting_plot.json",
+            "studio_lighting_plot.json",
+            "gaffer_callsheet.csv",
+            "gaffer_call_sheet.csv",
+            "dof_chart.json",
+            "depth_of_field_chart.json",
+            "optical_chart.json",
+            "focus_puller_cue_sheet.csv",
+            "cue_sheet.csv",
+            "production_look.cube",
+            "master_look.cube",
+            "dit_cart_manifest.json",
+            "dit_manifest.json",
+        ]
+
+        for name in known_artifact_names:
             p = out_path / name
             if p.is_file() and p not in target_files:
                 target_files.append(p)
@@ -137,6 +185,10 @@ class RuntimeTelemetry(BaseModel):
         for svg_file in sorted(out_path.rglob("*.svg")):
             if svg_file.is_file() and svg_file not in target_files:
                 target_files.append(svg_file)
+
+        for cube_file in sorted(out_path.rglob("*.cube")):
+            if cube_file.is_file() and cube_file not in target_files:
+                target_files.append(cube_file)
 
         for file in target_files:
             rel_path = file.relative_to(out_path).as_posix()

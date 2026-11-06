@@ -10,6 +10,8 @@ from omni_director.schemas import (
     StorytellingMode,
 )
 from omni_director.tools.optical_lens import format_optical_prompt_token
+from omni_director.tools.dof_simulator import format_dof_prompt_token
+from omni_director.tools.dit_lut import format_lut_prompt_token
 
 
 def audit_omni_scene_prompt(
@@ -139,6 +141,34 @@ def audit_omni_scene_prompt(
         elif lighting_match:
             details["lighting_rig_descriptor"] = lighting_match.group(0)
 
+    # Depth of Field (DoF) & Optical Focus recognition & reward (PM-FEAT-011)
+    dof_spec_obj = getattr(scene, "dof_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("dof_spec")
+    if dof_spec_obj is None and craft_camera is not None:
+        dof_spec_obj = getattr(craft_camera, "dof_spec", None)
+    dof_patterns = r"(?:depth\s*of\s*field|\bdof\b|rack\s*focus|shallow\s*(?:focus|dof)|deep\s*focus|f\/\d+(?:\.\d+)?|T\d+(?:\.\d+)?|focal\s*plane|bokeh|circle\s*of\s*confusion|hyperfocal|focus\s*pull)"
+    dof_match = re.search(dof_patterns, prompt, re.IGNORECASE)
+    if dof_spec_obj is not None or dof_match:
+        details["dof_spec_compliant"] = True
+        details["dof_spec_reward"] = 1.0
+        if dof_spec_obj is not None:
+            details["dof_spec_descriptor"] = format_dof_prompt_token(dof_spec_obj)
+        elif dof_match:
+            details["dof_spec_descriptor"] = dof_match.group(0)
+
+    # 3D LUT Cube Color Science recognition & reward (PM-FEAT-012)
+    lut_spec_obj = getattr(scene, "lut_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("lut_spec")
+    if lut_spec_obj is None and isinstance(scene, ScenePromptSpec) and getattr(scene, "scene_color_look", None):
+        lut_spec_obj = getattr(scene.scene_color_look, "lut_spec", None)
+    lut_patterns = r"(?:3d\s*lut|\blut\b|\.cube|color\s*grade|asc\s*cdl|\bcdl\b|acescg|rec\.?709|gamut\s*transform|tetrahedral|film\s*stock|kodak|fuji|eterna|bleach\s*bypass)"
+    lut_match = re.search(lut_patterns, prompt, re.IGNORECASE)
+    if lut_spec_obj is not None or lut_match:
+        details["lut_spec_compliant"] = True
+        details["lut_spec_reward"] = 1.0
+        if lut_spec_obj is not None:
+            details["lut_spec_descriptor"] = format_lut_prompt_token(lut_spec_obj)
+        elif lut_match:
+            details["lut_spec_descriptor"] = lut_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -265,6 +295,10 @@ def audit_omni_scene_prompt(
         if details.get("moco_rig_compliant"):
             score = min(100.0, score + 1.0)
         if details.get("lighting_rig_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("dof_spec_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("lut_spec_compliant"):
             score = min(100.0, score + 1.0)
 
     return AuditResult(
@@ -487,6 +521,34 @@ def heal_omni_scene_prompt(
             working_prompt = working_prompt.rstrip() + f" Calibrated studio lighting rig with Key:Fill {light_obj.key_to_fill_ratio:.1f}:1 contrast ratio and {haze_str.replace('_', ' ')} atmospheric scattering."
             if "injected_lighting_rig_spec" not in applied_patches:
                 applied_patches.append("injected_lighting_rig_spec")
+
+        # 3f. Inject Depth of Field (DoF) spec tokens if configured (PM-FEAT-011)
+        prev = working_prompt
+        dof_obj = (getattr(scene, "dof_spec", None) if is_spec else None) or (getattr(spec_context, "dof_spec", None) if spec_context else None) or kwargs.get("dof_spec")
+        if dof_obj is None:
+            if is_spec and getattr(scene, "craft_camera", None):
+                dof_obj = getattr(scene.craft_camera, "dof_spec", None)
+            elif spec_context and getattr(spec_context, "craft_camera", None):
+                dof_obj = getattr(spec_context.craft_camera, "dof_spec", None)
+        if dof_obj is not None and not re.search(r"depth\s*of\s*field|\bdof\b|rack\s*focus|shallow\s*(?:focus|dof)|deep\s*focus|focal\s*plane|bokeh|circle\s*of\s*confusion|hyperfocal|focus\s*pull", working_prompt, re.IGNORECASE):
+            token = format_dof_prompt_token(dof_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_dof_spec" not in applied_patches:
+                applied_patches.append("injected_dof_spec")
+
+        # 3g. Inject 3D LUT spec tokens if configured (PM-FEAT-012)
+        prev = working_prompt
+        lut_obj = (getattr(scene, "lut_spec", None) if is_spec else None) or (getattr(spec_context, "lut_spec", None) if spec_context else None) or kwargs.get("lut_spec")
+        if lut_obj is None:
+            if is_spec and getattr(scene, "scene_color_look", None):
+                lut_obj = getattr(scene.scene_color_look, "lut_spec", None)
+            elif spec_context and getattr(spec_context, "scene_color_look", None):
+                lut_obj = getattr(spec_context.scene_color_look, "lut_spec", None)
+        if lut_obj is not None and not re.search(r"3d\s*lut|\blut\b|\.cube|color\s*grade|asc\s*cdl|\bcdl\b|acescg|rec\.?709|gamut\s*transform|tetrahedral", working_prompt, re.IGNORECASE):
+            token = format_lut_prompt_token(lut_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_lut_spec" not in applied_patches:
+                applied_patches.append("injected_lut_spec")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt

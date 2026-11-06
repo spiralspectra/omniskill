@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -3459,6 +3459,591 @@ class TestV25MotionControlAndStudioLightingSchemasAndPresets:
         assert "gaffer_csv" in bundle_files
         assert (tmp_path / "lighting_plot.json").is_file()
         assert (tmp_path / "gaffer_callsheet.csv").is_file()
+
+
+class TestV26DofAndLutSuite:
+    """Rigorous tests for PM-FEAT-011 (DoF simulator) and PM-FEAT-012 (3D LUT color science)."""
+
+    def test_cli_export_dof_and_lut_formats(self, tmp_path):
+        from omni_director.cli import main
+
+        out_dof = tmp_path / "dof_export"
+        rc = main(["export", "--preset", "ikea-asmr", "--format", "dof", "-o", str(out_dof), "--json"])
+        assert rc == 0
+        assert (out_dof / "dof_chart.json").is_file()
+        assert (out_dof / "focus_puller_cue_sheet.csv").is_file()
+
+        out_lut = tmp_path / "lut_export"
+        rc = main(["export", "--preset", "ikea-asmr", "--format", "lut", "-o", str(out_lut), "--json"])
+        assert rc == 0
+        assert (out_lut / "production_look.cube").is_file()
+        assert (out_lut / "dit_cart_manifest.json").is_file()
+
+    def test_cli_export_granular_dof_and_lut_flags(self, tmp_path):
+        from omni_director.cli import main
+
+        out_granular = tmp_path / "granular_export"
+        rc = main([
+            "export",
+            "--preset", "ikea-asmr",
+            "--dof-chart",
+            "--cue-sheet",
+            "--cube-lut",
+            "--dit-manifest",
+            "-o", str(out_granular),
+            "--json",
+        ])
+        assert rc == 0
+        assert (out_granular / "dof_chart.json").is_file()
+        assert (out_granular / "focus_puller_cue_sheet.csv").is_file()
+        assert (out_granular / "production_look.cube").is_file()
+        assert (out_granular / "dit_cart_manifest.json").is_file()
+
+    def test_telemetry_checksums_tracks_dof_and_lut_artifacts(self, tmp_path):
+        from omni_director.cli import main
+        from omni_director.telemetry import RuntimeTelemetry
+
+        out_all = tmp_path / "all_export"
+        rc = main(["export", "--preset", "ikea-asmr", "--format", "all", "-o", str(out_all), "--json"])
+        assert rc == 0
+
+        telemetry = RuntimeTelemetry()
+        checksums = telemetry.compute_artifact_checksums(str(out_all))
+
+        expected_artifacts = [
+            "dof_chart.json",
+            "focus_puller_cue_sheet.csv",
+            "production_look.cube",
+            "dit_cart_manifest.json",
+        ]
+        for artifact in expected_artifacts:
+            assert artifact in checksums, f"Artifact {artifact} not found in checksum manifest: {list(checksums.keys())}"
+            assert len(checksums[artifact]) == 64, f"Invalid SHA-256 for {artifact}"
+
+    def test_fde_council_review_scores_25_on_v26_artifacts(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.cli import main
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        out_dir = tmp_path / "bundle"
+        rc = main(["export", "--preset", "ikea-asmr", "--format", "all", "-o", str(out_dir), "--json"])
+        assert rc == 0
+
+        council = ProductCouncilOrchestrator()
+        review = council._review_fde(bible=IKEA_ASMR_BIBLE, bundle=None, output_dir=out_dir)
+        criticals = [f for f in review.findings if f.severity == "critical"]
+
+        assert review.score == 25.0
+        assert len(criticals) == 0
+        assert any("DoF" in f.message for f in review.findings)
+        assert any("LUT" in f.message for f in review.findings)
+
+
+class TestV26DomainDofAndLutSpecs:
+    """Verifies PM-FEAT-011 (Domain Depth of Field) and PM-FEAT-012 (Domain 3D LUT Suite)."""
+
+    def test_domain_dof_specs_all_six_archetypes(self):
+        from omni_director.presets import get_domain_dof_spec
+        from omni_director.schemas import DomainDofSpec
+
+        # 1. culinary_asmr: Macro shallow focus (T1.4, 100mm, nonagonal iris, razor-thin DoF)
+        culinary_dof = get_domain_dof_spec("culinary_asmr")
+        assert isinstance(culinary_dof, DomainDofSpec)
+        assert culinary_dof.focus_style == "Macro shallow focus"
+        assert culinary_dof.aperture_t_stop == 1.4
+        assert culinary_dof.focal_length_mm == 100
+        assert "nonagonal" in culinary_dof.iris_geometry.lower()
+        assert "razor-thin" in culinary_dof.depth_character.lower() or "shallow" in culinary_dof.depth_character.lower()
+
+        # 2. luxury_fashion: Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)
+        fashion_dof = get_domain_dof_spec("luxury_fashion")
+        assert isinstance(fashion_dof, DomainDofSpec)
+        assert fashion_dof.focus_style == "Anamorphic shallow portraiture"
+        assert fashion_dof.aperture_t_stop == 1.8
+        assert fashion_dof.focal_length_mm == 85
+        assert "oval" in fashion_dof.iris_geometry.lower()
+
+        # 3. automotive_robotics: Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)
+        auto_dof = get_domain_dof_spec("automotive_robotics")
+        assert isinstance(auto_dof, DomainDofSpec)
+        assert auto_dof.focus_style == "Dynamic deep focus"
+        assert auto_dof.aperture_t_stop == 5.6
+        assert auto_dof.focal_length_mm == 24
+        assert "circular" in auto_dof.iris_geometry.lower()
+
+        # 4. kinetic_action: Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)
+        action_dof = get_domain_dof_spec("kinetic_action")
+        assert isinstance(action_dof, DomainDofSpec)
+        assert action_dof.focus_style == "Wide action depth"
+        assert action_dof.aperture_t_stop == 4.0
+        assert action_dof.focal_length_mm == 35
+        assert "octagonal" in action_dof.iris_geometry.lower()
+
+        # 5. tech_hardware: Cleanroom macro isolation (T2.0, 90mm, nonagonal iris, tight CoC)
+        tech_dof = get_domain_dof_spec("tech_hardware")
+        assert isinstance(tech_dof, DomainDofSpec)
+        assert tech_dof.focus_style == "Cleanroom macro isolation"
+        assert tech_dof.aperture_t_stop == 2.0
+        assert tech_dof.focal_length_mm == 90
+        assert "nonagonal" in tech_dof.iris_geometry.lower()
+
+        # 6. architectural_sanctuary: Panoramic deep focus (T8.0, 18mm, circular iris, infinite far limit)
+        arch_dof = get_domain_dof_spec("architectural_sanctuary")
+        assert isinstance(arch_dof, DomainDofSpec)
+        assert arch_dof.focus_style == "Panoramic deep focus"
+        assert arch_dof.aperture_t_stop == 8.0
+        assert arch_dof.focal_length_mm == 18
+        assert "circular" in arch_dof.iris_geometry.lower()
+
+    def test_domain_lut_specs_all_six_archetypes(self):
+        from omni_director.presets import get_domain_lut_spec
+        from omni_director.schemas import DomainLutSpec
+
+        # 1. culinary_asmr: Warm Kodak 5219 Vision3 emulation 33x33 .cube
+        culinary_lut = get_domain_lut_spec("culinary_asmr")
+        assert isinstance(culinary_lut, DomainLutSpec)
+        assert "kodak" in culinary_lut.film_emulation.lower() or "5219" in culinary_lut.film_emulation.lower()
+        assert culinary_lut.grid_size == 33
+        assert culinary_lut.cube_filename.endswith(".cube")
+
+        # 2. luxury_fashion: Bleach Bypass Silver high-contrast 33x33 .cube
+        fashion_lut = get_domain_lut_spec("luxury_fashion")
+        assert isinstance(fashion_lut, DomainLutSpec)
+        assert "bleach" in fashion_lut.film_emulation.lower()
+        assert fashion_lut.grid_size == 33
+        assert fashion_lut.cube_filename.endswith(".cube")
+
+        # 3. automotive_robotics: Teal & Orange high-velocity metallic 33x33 .cube
+        auto_lut = get_domain_lut_spec("automotive_robotics")
+        assert isinstance(auto_lut, DomainLutSpec)
+        assert "teal" in auto_lut.lut_name.lower() or "orange" in auto_lut.lut_name.lower()
+        assert auto_lut.grid_size == 33
+        assert auto_lut.cube_filename.endswith(".cube")
+
+        # 4. kinetic_action: High-contrast Fuji Eterna dynamic 33x33 .cube
+        action_lut = get_domain_lut_spec("kinetic_action")
+        assert isinstance(action_lut, DomainLutSpec)
+        assert "eterna" in action_lut.film_emulation.lower() or "fuji" in action_lut.film_emulation.lower()
+        assert action_lut.grid_size == 33
+        assert action_lut.cube_filename.endswith(".cube")
+
+        # 5. tech_hardware: Neutral surgical Rec.709 cold precision 33x33 .cube
+        tech_lut = get_domain_lut_spec("tech_hardware")
+        assert isinstance(tech_lut, DomainLutSpec)
+        assert "surgical" in tech_lut.film_emulation.lower() or "rec.709" in tech_lut.lut_name.lower() or "cold" in tech_lut.film_emulation.lower()
+        assert tech_lut.grid_size == 33
+        assert tech_lut.cube_filename.endswith(".cube")
+
+        # 6. architectural_sanctuary: Verdant warm daylight organic 33x33 .cube
+        arch_lut = get_domain_lut_spec("architectural_sanctuary")
+        assert isinstance(arch_lut, DomainLutSpec)
+        assert "daylight" in arch_lut.film_emulation.lower() or "organic" in arch_lut.film_emulation.lower() or "verdant" in arch_lut.film_emulation.lower()
+        assert arch_lut.grid_size == 33
+        assert arch_lut.cube_filename.endswith(".cube")
+
+    def test_pm_features_registered_in_council(self):
+        from omni_director.agents.council import ProductManagerAgent
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product()
+        feat_ids = {p.feature_id: p for p in proposals}
+
+        assert "PM-FEAT-011" in feat_ids
+        p11 = feat_ids["PM-FEAT-011"]
+        assert p11.status == "implemented"
+        assert p11.priority == "P0"
+        assert "depth of field" in p11.title.lower()
+
+        assert "PM-FEAT-012" in feat_ids
+        p12 = feat_ids["PM-FEAT-012"]
+        assert p12.status == "implemented"
+        assert p12.priority == "P0"
+        assert "3d lut" in p12.title.lower()
+
+    def test_strategist_review_evaluates_domain_dof_and_lut(self):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        orchestrator = ProductCouncilOrchestrator()
+        result = orchestrator._review_strategist(IKEA_ASMR_BIBLE)
+
+        assert result.score == 25.0
+        categories = {f.category for f in result.findings}
+        assert "domain_dof_calibration" in categories
+        assert "domain_lut_calibration" in categories
+
+    def test_roundtrip_serialization_with_domain_specs(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import MasterProductionBible
+
+        raw_dict = IKEA_ASMR_BIBLE.model_dump()
+        restored = MasterProductionBible.model_validate(raw_dict)
+        assert restored.project_title == IKEA_ASMR_BIBLE.project_title
+        assert restored.master_dof_spec is not None
+        assert restored.master_lut_spec is not None
+        assert restored.master_dof_spec.focus_style == "Panoramic deep focus"
+        assert restored.master_lut_spec.grid_size == 33
+
+
+class TestV26UXAnimaticDofAndLutHUDs:
+    """Verifies UX/UI Storyboard Designer deliverables for PM-FEAT-011 and PM-FEAT-012."""
+
+    def test_storyboard_animatic_dof_and_lut_hud_elements(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, tmp_path)
+        assert html_path.is_file()
+        content = html_path.read_text(encoding="utf-8")
+
+        # 1. Transport Bar Control Buttons & Shortcuts
+        assert 'id="btn-dof-animatic"' in content
+        assert 'Optical DoF HUD [F]' in content
+        assert 'id="btn-dit-lut-animatic"' in content
+        assert 'DIT 3D LUT Suite [L]' in content
+
+        # 2. Header Cheat Sheet includes hotkeys
+        assert '[F] DoF' in content
+        assert '[L] 3D LUT' in content
+
+        # 3. Optical Depth-of-Field HUD (PM-FEAT-011)
+        assert 'id="animatic-dof-hud"' in content
+        assert 'role="dialog"' in content
+        assert 'aria-modal="true"' in content
+        assert 'OPTICAL DEPTH OF FIELD (DOF) &amp; APERTURE HUD' in content
+        assert 'id="dof-raytrace-svg"' in content
+        assert 'id="slider-focal-length"' in content
+        assert 'id="slider-t-stop"' in content
+        assert 'id="slider-subject-distance"' in content
+        assert 'id="slider-rack-focus"' in content
+        assert 'id="bokeh-geometry-badge"' in content
+        assert 'id="dof-cue-sheet-table"' in content
+        assert 'id="dof-cue-sheet-body"' in content
+        assert 'id="val-near-limit"' in content
+        assert 'id="val-far-limit"' in content
+        assert 'id="val-total-dof"' in content
+        assert 'id="val-focus-plane"' in content
+        assert 'id="val-hyperfocal"' in content
+
+        # 4. DIT 3D LUT Color Science Suite HUD (PM-FEAT-012)
+        assert 'id="animatic-dit-lut-hud"' in content
+        assert 'DIT 3D LUT COLOR GRADING SUITE' in content
+        assert 'id="lut-split-wipe"' in content
+        assert 'id="lut-plate-raw"' in content
+        assert 'id="lut-plate-graded"' in content
+        assert 'id="lut-split-slider"' in content
+        assert 'id="lut-divider-line"' in content
+        assert 'id="btn-download-master-cube"' in content
+        assert 'id="btn-download-scene-cube"' in content
+        assert 'id="lut-metadata-badge"' in content
+        assert 'id="color-continuity-status"' in content
+
+        # 5. JavaScript Logic, Hotkeys & Toast System
+        assert "function toggleDoFHUD()" in content
+        assert "function toggleDitLutHUD()" in content
+        assert "function calculateDoFLimits(" in content
+        assert "function updateRackFocus(" in content
+        assert "function updateLutSplitWipe(" in content
+        assert "function generateCubeLUT(" in content
+        assert "function downloadMasterCubeLUT()" in content
+        assert "function downloadSceneCubeLUT()" in content
+        assert "e.key === 'f' || e.key === 'F'" in content
+        assert "e.key === 'l' || e.key === 'L'" in content
+        assert "showToast(" in content
+
+    def test_council_ux_designer_scores_25_with_dof_and_lut_huds(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, tmp_path)
+        bundle.storyboard_html_path = str(html_path)
+
+        council = ProductCouncilOrchestrator()
+        ux_review = council._review_ux_designer(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
+
+        criticals = [f for f in ux_review.findings if f.severity.value == "critical"]
+        assert len(criticals) == 0
+        assert ux_review.score == 25.0
+
+        findings_msgs = [f.message for f in ux_review.findings]
+        assert any("Optical Depth-of-Field (DoF) interactive HUD verified" in msg for msg in findings_msgs)
+        assert any("DIT 3D LUT Color Science & Film Emulation Suite HUD verified" in msg for msg in findings_msgs)
+
+    def test_council_ux_designer_flags_missing_dof_and_lut_huds(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle, CouncilFindingSeverity
+
+        # Create minimal HTML missing the new DoF and LUT HUD controls
+        fake_html = tmp_path / "storyboard_preview.html"
+        fake_html.write_text(
+            '<html><body>'
+            '<button id="btn-play-animatic"></button>'
+            '<div id="smpte-timecode"></div>'
+            '<button id="btn-loop-animatic"></button>'
+            '<button id="btn-viewfinder-animatic"></button>'
+            '<div id="animatic-viewfinder-overlay"></div>'
+            '<button id="btn-vp-stage-animatic"></button>'
+            '<div id="animatic-vp-stage-modal"></div>'
+            '<button id="btn-moco-animatic"></button>'
+            '<div id="animatic-moco-hud"></div>'
+            '<button id="btn-gaffer-animatic"></button>'
+            '<div id="animatic-gaffer-hud"></div>'
+            '<div role="tablist"></div>'
+            '<div class="cinema-toast" id="cinema-toast"></div>'
+            '<script>function jumpToBeat() {}</script>'
+            '</body></html>',
+            encoding="utf-8"
+        )
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path=str(fake_html),
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+
+        council = ProductCouncilOrchestrator()
+        ux_review = council._review_ux_designer(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
+
+        dof_findings = [f for f in ux_review.findings if f.category == "animatic_dof_hud" and "lacks interactive" in f.message]
+        lut_findings = [f for f in ux_review.findings if f.category == "animatic_dit_lut_hud" and "lacks interactive" in f.message]
+
+        assert len(dof_findings) == 1
+        assert dof_findings[0].severity in (CouncilFindingSeverity.LOW, CouncilFindingSeverity.INFO, CouncilFindingSeverity.WARNING)
+        assert len(lut_findings) == 1
+        assert lut_findings[0].severity in (CouncilFindingSeverity.LOW, CouncilFindingSeverity.INFO, CouncilFindingSeverity.WARNING)
+        assert ux_review.score == 23.0  # 25.0 - 1.0 (dof) - 1.0 (lut)
+
+    def test_depth_of_field_schema_and_physics_simulation(self, tmp_path):
+        import json
+        from omni_director.schemas import (
+            ApertureIrisGeometry,
+            DepthOfFieldSpec,
+            OpticalAberrationProfile,
+            RackFocusTransitionCurve,
+            SensorFormat,
+        )
+        from omni_director.tools.dof_simulator import (
+            calculate_dof_limits,
+            calculate_hyperfocal_distance,
+            export_dof_bundle,
+            export_focus_puller_cue_sheet,
+            export_optical_chart_json,
+            format_dof_prompt_token,
+            interpolate_rack_focus,
+            resolve_circle_of_confusion,
+            synthesize_default_dof_spec,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        # Circle of Confusion
+        assert resolve_circle_of_confusion(SensorFormat.FULL_FRAME) == 0.030
+        assert resolve_circle_of_confusion(SensorFormat.SUPER_35) == 0.020
+        assert resolve_circle_of_confusion(SensorFormat.IMAX_70MM) == 0.045
+
+        # Hyperfocal and DoF limits
+        H = calculate_hyperfocal_distance(50, 2.0, 0.030)
+        assert H > 20.0 and H < 60.0
+        near_l, far_l, total_d, hyper_m = calculate_dof_limits(50, 2.0, subject_distance_m=2.5)
+        assert near_l > 0.0
+        assert near_l < 2.5
+        assert far_l > 2.5
+        assert total_d > 0.0
+
+        # Rack focus interpolation
+        linear_val = interpolate_rack_focus(1.0, 5.0, 0.5, curve=RackFocusTransitionCurve.LINEAR)
+        assert linear_val == 3.0
+        cubic_val = interpolate_rack_focus(1.0, 5.0, 0.5, curve=RackFocusTransitionCurve.CUBIC_EASE_IN_OUT)
+        assert cubic_val == 3.0
+
+        # DepthOfFieldSpec synthesis
+        dof_spec = synthesize_default_dof_spec(
+            focal_length_mm=85,
+            aperture_f_stop=1.4,
+            focus_distance_m=2.0,
+            iris_geometry=ApertureIrisGeometry.CIRCULAR_11_BLADE,
+            rack_focus_enabled=True,
+            rack_focus_start_m=1.2,
+            rack_focus_target_m=3.8,
+            rack_focus_curve=RackFocusTransitionCurve.CUBIC_EASE_IN_OUT,
+        )
+        assert dof_spec.focal_length_mm == 85
+        assert dof_spec.aperture_f_stop == 1.4
+        assert dof_spec.rack_focus_enabled is True
+        token = format_dof_prompt_token(dof_spec)
+        assert "rack focus from 1.2m to 3.8m" in token
+        assert "T1.4" in token
+        assert "85mm" in token
+
+        # Static DoF token
+        static_dof = synthesize_default_dof_spec(focal_length_mm=35, aperture_f_stop=2.8, focus_distance_m=3.0)
+        static_token = format_dof_prompt_token(static_dof)
+        assert "shallow focus" in static_token
+        assert "3.0m" in static_token
+
+        # Cue sheet CSV and optical chart JSON
+        csv_str = export_focus_puller_cue_sheet(IKEA_ASMR_BIBLE)
+        assert "scene_index" in csv_str
+        assert "near_limit_m" in csv_str
+
+        json_str = export_optical_chart_json(IKEA_ASMR_BIBLE)
+        parsed = json.loads(json_str)
+        assert "master_dof" in parsed
+        assert "scenes" in parsed
+
+        # Bundle export
+        bundle_res = export_dof_bundle(IKEA_ASMR_BIBLE, tmp_path / "dof_out")
+        assert (tmp_path / "dof_out" / "dof_chart.json").exists()
+        assert (tmp_path / "dof_out" / "focus_puller_cue_sheet.csv").exists()
+
+    def test_3d_lut_schema_and_cube_compilation(self, tmp_path):
+        import json
+        from omni_director.schemas import (
+            AscCdlSpec,
+            ColorGamutTransform,
+            LutGridDimension,
+            ThreeDimensionalLutSpec,
+        )
+        from omni_director.tools.dit_lut import (
+            export_dit_bundle,
+            export_dit_cart_manifest_json,
+            export_master_cube_lut,
+            export_scene_cube_lut,
+            format_lut_prompt_token,
+            generate_3d_cube_lut,
+            generate_3d_lut_cube_data,
+            synthesize_default_3d_lut,
+            verify_color_continuity,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        # ThreeDimensionalLutSpec validation
+        lut_spec = synthesize_default_3d_lut(
+            title="CINEMATIC_GOLDEN_HOUR",
+            grid_dimension=LutGridDimension.GRID_17,
+            gamut_transform=ColorGamutTransform.ACESCG_TO_REC709,
+            cdl=AscCdlSpec(slope=(1.1, 1.0, 0.9), offset=(0.02, 0.0, -0.01), power=(0.95, 1.0, 1.05), saturation=1.15),
+        )
+        assert lut_spec.grid_dimension.cube_size == 17
+
+        # Adobe .cube compilation
+        cube_str = generate_3d_lut_cube_data(lut_spec=lut_spec)
+        assert 'TITLE "CINEMATIC_GOLDEN_HOUR"' in cube_str
+        assert "LUT_3D_SIZE 17" in cube_str
+        assert "DOMAIN_MIN 0.0 0.0 0.0" in cube_str
+        assert "DOMAIN_MAX 1.0 1.0 1.0" in cube_str
+
+        # Token formatting
+        lut_token = format_lut_prompt_token(lut_spec)
+        assert "3D LUT 'CINEMATIC_GOLDEN_HOUR'" in lut_token
+        assert "17x17x17" in lut_token
+        assert "tetrahedral" in lut_token
+
+        # Continuity audit
+        continuity = verify_color_continuity(IKEA_ASMR_BIBLE)
+        assert continuity.is_continuous is True
+        assert continuity.scenes_evaluated >= 1
+
+        # Manifest JSON
+        manifest_json = export_dit_cart_manifest_json(IKEA_ASMR_BIBLE)
+        manifest = json.loads(manifest_json)
+        assert manifest["lut_title"] == "OMNI_DIRECTOR_MASTER_3DLUT"
+        assert "continuity_audit" in manifest
+
+        # Bundle export
+        bundle_res = export_dit_bundle(IKEA_ASMR_BIBLE, tmp_path / "dit_out", cube_size=17)
+        assert (tmp_path / "dit_out" / "production_look.cube").exists()
+        assert (tmp_path / "dit_out" / "dit_cart_manifest.json").exists()
+
+        # Scene cube export
+        scene_cube_path = tmp_path / "scene_01.cube"
+        export_scene_cube_lut(IKEA_ASMR_BIBLE.scenes[0], scene_cube_path, cube_size=17)
+        assert scene_cube_path.exists()
+
+    def test_prompt_auditor_dof_and_lut_compliance_and_healing(self):
+        from omni_director.schemas import DepthOfFieldSpec, ThreeDimensionalLutSpec, RegimeType
+        from omni_director.tools.dof_simulator import synthesize_default_dof_spec
+        from omni_director.tools.dit_lut import synthesize_default_3d_lut
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        dof = synthesize_default_dof_spec(focal_length_mm=50, aperture_f_stop=1.8, focus_distance_m=2.2)
+        lut = synthesize_default_3d_lut(title="NEO_NOIR_3DLUT")
+
+        raw_prompt = "Protagonist enters rainy alley. Steadicam tracking forward at 1.0x real-time speed. Diegetic foley of footsteps in puddles and distant foghorn."
+
+        # Audit with specs attached as kwargs
+        audit = audit_omni_scene_prompt(raw_prompt, regime=RegimeType.REGIME_2_KINETIC, dof_spec=dof, lut_spec=lut)
+        assert audit.details.get("dof_spec_compliant") is True
+        assert audit.details.get("lut_spec_compliant") is True
+
+        # Healing injection
+        healed = heal_omni_scene_prompt(raw_prompt, regime=RegimeType.REGIME_2_KINETIC, dof_spec=dof, lut_spec=lut)
+        patches = healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+        assert "injected_dof_spec" in patches
+        assert "injected_lut_spec" in patches
+        assert "optical depth of field" in healed.healed_prompt.lower() or "focus" in healed.healed_prompt.lower()
+        assert "3d lut" in healed.healed_prompt.lower()
+        assert healed.score >= 90.0
+
+    def test_craft_camera_and_color_look_spec_integration(self):
+        from omni_director.schemas import (
+            ColorLookSpec,
+            CraftCameraSpec,
+            MasterProductionBible,
+            ScenePromptSpec,
+        )
+        from omni_director.tools.dof_simulator import synthesize_default_dof_spec
+        from omni_director.tools.dit_lut import synthesize_default_3d_lut
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        dof = synthesize_default_dof_spec(focal_length_mm=35, aperture_f_stop=2.0)
+        lut = synthesize_default_3d_lut(title="IKEA_WARMTH_LUT")
+
+        cam = CraftCameraSpec(
+            rig_type="Tripod locked",
+            focal_length_mm=35,
+            composition="Rule of thirds center",
+            route="Static framing",
+            action_anchor="Table top",
+            focus_axis="180-degree axis",
+            tone_rig="Spherical prime",
+            dof_spec=dof,
+        )
+        assert cam.dof_spec is not None
+        assert cam.dof_spec.focal_length_mm == 35
+
+        look = ColorLookSpec(lut_spec=lut)
+        assert look.lut_spec is not None
+        assert look.lut_spec.lut_title == "IKEA_WARMTH_LUT"
+
+        # Bible alias synchronization test
+        bible_dict = IKEA_ASMR_BIBLE.model_dump()
+        bible_dict["dof_spec"] = dof.model_dump()
+        bible_dict["lut_spec"] = lut.model_dump()
+        bible = MasterProductionBible.model_validate(bible_dict)
+        assert bible.master_dof_spec is not None
+        assert bible.dof_spec is not None
+        assert bible.master_lut_spec is not None
+        assert bible.lut_spec is not None
+
 
 
 

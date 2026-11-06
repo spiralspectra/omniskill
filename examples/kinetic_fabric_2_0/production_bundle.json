@@ -37,7 +37,8 @@
       "shutter_angle_deg": 180.0,
       "shutter_timing_token": null,
       "optical_lens": null,
-      "moco_rig": null
+      "moco_rig": null,
+      "dof_spec": null
     },
     "sonic_blueprint": {
       "foley_cues": [
@@ -166,7 +167,8 @@
             "saturation": 1.22
           },
           "contrast_pivot": 0.46,
-          "halation_bloom": 0.12
+          "halation_bloom": 0.12,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
@@ -380,6 +382,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Wide action depth",
+          "aperture_t_stop": 4.0,
+          "focal_length_mm": 35,
+          "iris_geometry": "octagonal iris",
+          "depth_character": "fast focus pull",
+          "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+        },
+        "lut_spec": {
+          "lut_name": "High-contrast Fuji Eterna dynamic",
+          "film_emulation": "fuji_eterna_dynamic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+          "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
         }
       },
       {
@@ -452,7 +470,8 @@
             "saturation": 1.22
           },
           "contrast_pivot": 0.46,
-          "halation_bloom": 0.12
+          "halation_bloom": 0.12,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
@@ -666,6 +685,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Wide action depth",
+          "aperture_t_stop": 4.0,
+          "focal_length_mm": 35,
+          "iris_geometry": "octagonal iris",
+          "depth_character": "fast focus pull",
+          "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+        },
+        "lut_spec": {
+          "lut_name": "High-contrast Fuji Eterna dynamic",
+          "film_emulation": "fuji_eterna_dynamic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+          "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
         }
       },
       {
@@ -738,7 +773,8 @@
             "saturation": 1.22
           },
           "contrast_pivot": 0.46,
-          "halation_bloom": 0.12
+          "halation_bloom": 0.12,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
@@ -952,6 +988,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Wide action depth",
+          "aperture_t_stop": 4.0,
+          "focal_length_mm": 35,
+          "iris_geometry": "octagonal iris",
+          "depth_character": "fast focus pull",
+          "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+        },
+        "lut_spec": {
+          "lut_name": "High-contrast Fuji Eterna dynamic",
+          "film_emulation": "fuji_eterna_dynamic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+          "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
         }
       },
       {
@@ -1024,7 +1076,8 @@
             "saturation": 1.22
           },
           "contrast_pivot": 0.46,
-          "halation_bloom": 0.12
+          "halation_bloom": 0.12,
+          "lut_spec": null
         },
         "optical_lens": {
           "sensor_format": "IMAX 15/70mm (70.41 x 52.63mm)",
@@ -1238,6 +1291,22 @@
             "scattering_coefficient": 0.45,
             "shaft_visibility": 0.6
           }
+        },
+        "dof_spec": {
+          "focus_style": "Wide action depth",
+          "aperture_t_stop": 4.0,
+          "focal_length_mm": 35,
+          "iris_geometry": "octagonal iris",
+          "depth_character": "fast focus pull",
+          "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+        },
+        "lut_spec": {
+          "lut_name": "High-contrast Fuji Eterna dynamic",
+          "film_emulation": "fuji_eterna_dynamic",
+          "grid_size": 33,
+          "format": ".cube",
+          "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+          "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
         }
       }
     ],
@@ -1265,7 +1334,8 @@
         "saturation": 1.22
       },
       "contrast_pivot": 0.46,
-      "halation_bloom": 0.12
+      "halation_bloom": 0.12,
+      "lut_spec": null
     },
     "master_audio_mixer": {
       "master_gain_db": 0.0,
@@ -1521,6 +1591,38 @@
         "scattering_coefficient": 0.45,
         "shaft_visibility": 0.6
       }
+    },
+    "master_dof_spec": {
+      "focus_style": "Wide action depth",
+      "aperture_t_stop": 4.0,
+      "focal_length_mm": 35,
+      "iris_geometry": "octagonal iris",
+      "depth_character": "fast focus pull",
+      "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+    },
+    "dof_spec": {
+      "focus_style": "Wide action depth",
+      "aperture_t_stop": 4.0,
+      "focal_length_mm": 35,
+      "iris_geometry": "octagonal iris",
+      "depth_character": "fast focus pull",
+      "description": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)"
+    },
+    "master_lut_spec": {
+      "lut_name": "High-contrast Fuji Eterna dynamic",
+      "film_emulation": "fuji_eterna_dynamic",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+      "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+    },
+    "lut_spec": {
+      "lut_name": "High-contrast Fuji Eterna dynamic",
+      "film_emulation": "fuji_eterna_dynamic",
+      "grid_size": 33,
+      "format": ".cube",
+      "cube_filename": "fuji_eterna_dynamic_33x33.cube",
+      "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
     }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
@@ -1581,10 +1683,16 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1608,10 +1716,16 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1635,6 +1749,12 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1661,15 +1781,21 @@
         "lighting_rig_compliant": true,
         "lighting_rig_reward": 2.0,
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
+        "dof_spec_compliant": true,
+        "dof_spec_reward": 1.0,
+        "dof_spec_descriptor": "Wide action depth (T4.0, 35mm, octagonal iris, fast focus pull)",
+        "lut_spec_compliant": true,
+        "lut_spec_reward": 1.0,
+        "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
         "craft_camera_inferred": true
       }
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "22e30b99-45cb-42ef-9119-56cf62f83f3c",
+    "session_id": "7aa205e6-0bb7-42a2-8252-085adc878e5a",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-05T09:30:21.667366+00:00",
+    "timestamp": "2026-11-06T09:34:08.393760+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1679,73 +1805,90 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-05T09:30:21.667377+00:00",
-        "end_time": "2026-11-05T09:30:21.667382+00:00",
+        "start_time": "2026-11-06T09:34:08.393781+00:00",
+        "end_time": "2026-11-06T09:34:08.393789+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-05T09:30:21.667392+00:00",
-        "end_time": "2026-11-05T09:30:21.667662+00:00",
-        "duration_ms": 0.27,
+        "start_time": "2026-11-06T09:34:08.393803+00:00",
+        "end_time": "2026-11-06T09:34:08.394117+00:00",
+        "duration_ms": 0.31,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-05T09:30:21.667671+00:00",
-        "end_time": "2026-11-05T09:30:21.669322+00:00",
-        "duration_ms": 1.65,
+        "start_time": "2026-11-06T09:34:08.394126+00:00",
+        "end_time": "2026-11-06T09:34:08.399807+00:00",
+        "duration_ms": 5.68,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-05T09:30:21.669332+00:00",
-        "end_time": "2026-11-05T09:30:21.669477+00:00",
-        "duration_ms": 0.14,
+        "start_time": "2026-11-06T09:34:08.399842+00:00",
+        "end_time": "2026-11-06T09:34:08.400016+00:00",
+        "duration_ms": 0.17,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-05T09:30:21.669485+00:00",
-        "end_time": "2026-11-05T09:30:21.671130+00:00",
-        "duration_ms": 1.65,
+        "start_time": "2026-11-06T09:34:08.400025+00:00",
+        "end_time": "2026-11-06T09:34:08.402813+00:00",
+        "duration_ms": 2.78,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-05T09:30:21.671137+00:00",
-        "end_time": "2026-11-05T09:30:21.671140+00:00",
-        "duration_ms": 0.0,
+        "start_time": "2026-11-06T09:34:08.402958+00:00",
+        "end_time": "2026-11-06T09:34:08.402968+00:00",
+        "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-05T09:30:21.671146+00:00",
-        "end_time": "2026-11-05T09:30:21.674021+00:00",
-        "duration_ms": 2.87,
+        "start_time": "2026-11-06T09:34:08.402978+00:00",
+        "end_time": "2026-11-06T09:34:08.408456+00:00",
+        "duration_ms": 5.48,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-05T09:30:21.676984+00:00",
-        "end_time": "2026-11-05T09:30:21.684653+00:00",
-        "duration_ms": 7.67,
+        "start_time": "2026-11-06T09:34:08.418117+00:00",
+        "end_time": "2026-11-06T09:34:08.431168+00:00",
+        "duration_ms": 13.05,
         "details": {}
       }
     ],
-    "total_duration_ms": 14.26,
+    "total_duration_ms": 27.49,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "a6fe5c8d2bac7d7bff86875224267e8123ca8c5ac57442ae8c4fb22626304333",
-      "storyboard_preview.html": "4a880c9d6d21b78a493fafc55ad7dc2fbba5c0a97560fa8ed068e784f922eb29",
+      "production_bundle.json": "afb9a7cb2c110211e3f067d28d0836d6334f7d597f74088d595dd6af53a48635",
+      "storyboard_preview.html": "0e6560a6521c621434087771d8ff4d8dfe98c8d43429db157497d9777096140f",
       "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
       "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
       "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
       "call_sheet.md": "af26e1c391e52336b6151f21baff9fad54129db61b3ae5afae3b434031fd51ad",
       "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
       "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
+      "production_grade.cdl": "d3152921967e873745bf85417a4220c5a2f640b589fddba52c92f3d6bee3caa1",
+      "audio_stems_manifest.json": "5375fe9253bd7a1546645fba5259df8b08085be6b6aa7eb5302c59aaafa26f49",
+      "lens_package.csv": "baae661a7573c22756260b0388916d74b0ea4146a7a2204d71c174f6919087e5",
+      "moco_track.json": "1c4701b5909c8f478abfad8936051545df4e16d10240053b95f7930907359cb5",
+      "moco_track.csv": "681eeadc9a6688d25b8d34303096ec4729da4d64e7f03e9368382f89893f9e42",
+      "moco_camera.fbx": "e9f91ccc343be71fb8560b70d3392c9d1feb5e00120146746525b130fd804d78",
+      "moco_camera_track.json": "1c4701b5909c8f478abfad8936051545df4e16d10240053b95f7930907359cb5",
+      "moco_waypoints.csv": "681eeadc9a6688d25b8d34303096ec4729da4d64e7f03e9368382f89893f9e42",
+      "moco_trajectory.fbx": "e9f91ccc343be71fb8560b70d3392c9d1feb5e00120146746525b130fd804d78",
+      "lighting_plot.json": "283c6604487c0ba05d16fe6462a825e3ca61b7ec8c7f90ae039d1764c4debafd",
+      "studio_lighting_plot.json": "283c6604487c0ba05d16fe6462a825e3ca61b7ec8c7f90ae039d1764c4debafd",
+      "gaffer_callsheet.csv": "ad90bba9f9b623612154f25a06bd191920eb3fafa6082df3c98b4fdd7133f5f4",
+      "gaffer_call_sheet.csv": "ad90bba9f9b623612154f25a06bd191920eb3fafa6082df3c98b4fdd7133f5f4",
+      "dof_chart.json": "e6af69e722861fe2497d640e34527d7d9941e3e69cf40b9d6eb521d69b4388ad",
+      "focus_puller_cue_sheet.csv": "56a8cbfd0e0e547523e9f47e0023f4405c87e51de712a40307de65c6c9a728fc",
+      "production_look.cube": "36e6df73ee448add5b28ad990810203c3e03a63e49c7c169d8c07e70b8acbd58",
+      "dit_cart_manifest.json": "cbf0ab72ff7a3f6a05c8ab7eeb159ce6cb0c50a0f2848e28f418780e5ea2c36a",
       "storyboards/anchor1_character_turnaround.svg": "05706815bdc1181349cc711fa3f72c3a59e95fdf94f0fa44c5eb67c31e395121",
       "storyboards/anchor2_environment_master.svg": "6e154ec59cc638c7e5be5464114645663d4ba06ba84be94046b4155299044420",
       "storyboards/anchor3_scene_1_keyframe.svg": "0a99c197f89e53c7fb37a7fbe7052a126d4fea4acda11ad5d44782021a8c202d",
@@ -1755,9 +1898,9 @@
     }
   },
   "council_report": {
-    "version": "2.5.0",
+    "version": "2.6.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-05T09:30:21.683490+00:00",
+    "timestamp": "2026-11-06T09:34:08.429101+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1768,8 +1911,35 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
-        "summary": "FDE review completed with score 25.0/25.0. 0 findings."
+        "findings": [
+          {
+            "severity": "info",
+            "category": "optical_dof_delivery",
+            "message": "Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "dof_artifacts": [
+                "dof_chart.json",
+                "focus_puller_cue_sheet.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "color_lut_delivery",
+            "message": "DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "lut_artifacts": [
+                "production_look.cube",
+                "dit_cart_manifest.json"
+              ]
+            }
+          }
+        ],
+        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1879,6 +2049,33 @@
               "fixtures_count": 5,
               "key_to_fill": 4.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_dof_calibration",
+            "message": "Domain DoF calibration verified: 'Wide action depth' (T4.0, 35mm, octagonal iris, fast focus pull) aligned with domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "focus_style": "Wide action depth",
+              "aperture": 4.0,
+              "iris": "octagonal iris",
+              "depth_character": "fast focus pull"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_lut_calibration",
+            "message": "Domain 3D LUT color science verified: 'High-contrast Fuji Eterna dynamic' (fuji_eterna_dynamic, 33x33x33 fuji_eterna_dynamic_33x33.cube) aligned with domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "lut_name": "High-contrast Fuji Eterna dynamic",
+              "emulation": "fuji_eterna_dynamic",
+              "cube": "fuji_eterna_dynamic_33x33.cube"
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: kinetic_action)."
@@ -1889,7 +2086,24 @@
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
-        "findings": [],
+        "findings": [
+          {
+            "severity": "info",
+            "category": "animatic_dof_hud",
+            "message": "Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_dit_lut_hud",
+            "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          }
+        ],
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
@@ -2024,6 +2238,32 @@
           "omni_director/tools/lighting_rig.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-011",
+        "title": "Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine",
+        "problem_statement": "Commercial film genres for 'The Kinetic Fabric: Grounded Innovation' require domain-specific optical focus depth behavior—from macro razor-thin depth of field in culinary ASMR (T1.4 on 100mm) and creamy 2x oval bokeh in luxury fashion portraiture (T1.8 on 85mm), to hyperfocal deep tracking in automotive action (T5.6 on 24mm) and panoramic infinite focus in architecture (T8.0 on 18mm)—to prevent optical inconsistency across scenes.",
+        "proposed_solution": "Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-012",
+        "title": "Domain 3D LUT Color Science & Film Emulation (.cube) Suite",
+        "problem_statement": "Cinematic production pipelines for 'The Kinetic Fabric: Grounded Innovation' require authentic color science and film stock emulation 3D LUTs (.cube)—such as warm Kodak 5219 Vision3 for culinary, bleach bypass silver for high-contrast fashion, metallic teal & orange for automotive, and cold surgical Rec.709 for cleanroom tech—to guide professional colorists and post-production grading.",
+        "proposed_solution": "Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/presets.py",
+          "omni_director/agents/council.py"
         ],
         "priority": "P0",
         "status": "implemented"

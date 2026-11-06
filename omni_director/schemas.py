@@ -2,7 +2,7 @@ import json
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class RegimeType(str, Enum):
@@ -100,6 +100,127 @@ class ColorLookPreset(str, Enum):
     monochrome_panatomic_x = "monochrome_panatomic_x"
 
 
+class LutGridDimension(str, Enum):
+    """3D LUT cube grid mesh resolution (PM-FEAT-012)."""
+    GRID_17 = "17x17x17"
+    GRID_33 = "33x33x33"
+    GRID_65 = "65x65x65"
+
+    # Shorthand aliases
+    grid_17 = "17x17x17"
+    grid_33 = "33x33x33"
+    grid_65 = "65x65x65"
+    dim_17 = "17x17x17"
+    dim_33 = "33x33x33"
+    dim_65 = "65x65x65"
+
+    @property
+    def cube_size(self) -> int:
+        if "17" in self.value:
+            return 17
+        if "65" in self.value:
+            return 65
+        return 33
+
+
+class ColorGamutTransform(str, Enum):
+    """Camera sensor color space to display transform (PM-FEAT-012)."""
+    ACESCG_TO_REC709 = "ACEScg to Rec.709 Gamma 2.4"
+    ARRI_LOGC4_TO_REC709 = "ARRI LogC4 to Rec.709"
+    RED_LOG3G10_TO_REC709 = "RED Log3G10 to Rec.709"
+    SONY_SLOG3_TO_REC709 = "Sony S-Log3 to Rec.709"
+    CANON_CLOG2_TO_REC709 = "Canon C-Log2 to Rec.709"
+    BMD_FILM_GEN5_TO_REC709 = "Blackmagic Film Gen5 to Rec.709"
+    REC709_NEUTRAL = "Rec.709 Neutral Passthrough"
+
+    # Lowercase aliases
+    acescg_to_rec709 = "ACEScg to Rec.709 Gamma 2.4"
+    arri_logc4_to_rec709 = "ARRI LogC4 to Rec.709"
+    red_log3g10_to_rec709 = "RED Log3G10 to Rec.709"
+    sony_slog3_to_rec709 = "Sony S-Log3 to Rec.709"
+    canon_clog2_to_rec709 = "Canon C-Log2 to Rec.709"
+    bmd_film_gen5_to_rec709 = "Blackmagic Film Gen5 to Rec.709"
+    rec709_neutral = "Rec.709 Neutral Passthrough"
+
+
+class ThreeDimensionalLutSpec(BaseModel):
+    """Professional 3D Cube Color Grading LUT Specification (PM-FEAT-012)."""
+    model_config = ConfigDict(extra="allow")
+
+    lut_title: str = Field(default="OMNI_DIRECTOR_MASTER_3DLUT", description="LUT title identifier in .cube file header")
+    grid_dimension: LutGridDimension = Field(default=LutGridDimension.GRID_33, description="3D LUT cube resolution")
+    gamut_transform: ColorGamutTransform = Field(default=ColorGamutTransform.ACESCG_TO_REC709, description="Input log color space to target display transform")
+    domain_min: Tuple[float, float, float] = Field(default=(0.0, 0.0, 0.0), description="Input domain minimum limits (R, G, B)")
+    domain_max: Tuple[float, float, float] = Field(default=(1.0, 1.0, 1.0), description="Input domain maximum limits (R, G, B)")
+    cube_file_path: Optional[str] = Field(default=None, description="Relative or absolute path to generated .cube file")
+    cdl_applied: Optional[AscCdlSpec] = Field(default=None, description="Baked ASC CDL grading transfer function")
+    tetrahedral_interpolation: bool = Field(default=True, description="Enable tetrahedral hardware interpolation flag")
+    shaper_lut_enabled: bool = Field(default=False, description="Enable 1D log shaper curve pre-allocation")
+    colorist_notes: str = Field(default="", description="DIT / Supervising Colorist technical notes")
+
+    @field_validator("grid_dimension", mode="before")
+    @classmethod
+    def normalize_grid_dimension(cls, v: Any) -> Any:
+        if isinstance(v, int):
+            if v <= 17:
+                return LutGridDimension.GRID_17
+            elif v >= 65:
+                return LutGridDimension.GRID_65
+            else:
+                return LutGridDimension.GRID_33
+        if isinstance(v, str):
+            v_clean = v.strip().lower()
+            if "17" in v_clean:
+                return LutGridDimension.GRID_17
+            if "65" in v_clean:
+                return LutGridDimension.GRID_65
+            if "33" in v_clean:
+                return LutGridDimension.GRID_33
+        return v
+
+    @field_validator("gamut_transform", mode="before")
+    @classmethod
+    def normalize_gamut_transform(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower()
+            for member in ColorGamutTransform:
+                if v_clean == member.value.lower() or v_clean == member.name.lower():
+                    return member
+            if "arri" in v_clean:
+                return ColorGamutTransform.ARRI_LOGC4_TO_REC709
+            if "red" in v_clean:
+                return ColorGamutTransform.RED_LOG3G10_TO_REC709
+            if "sony" in v_clean:
+                return ColorGamutTransform.SONY_SLOG3_TO_REC709
+            if "canon" in v_clean:
+                return ColorGamutTransform.CANON_CLOG2_TO_REC709
+            if "blackmagic" in v_clean or "bmd" in v_clean:
+                return ColorGamutTransform.BMD_FILM_GEN5_TO_REC709
+            if "aces" in v_clean:
+                return ColorGamutTransform.ACESCG_TO_REC709
+            if "rec709" in v_clean or "rec.709" in v_clean:
+                return ColorGamutTransform.REC709_NEUTRAL
+        return v
+
+
+class SceneColorContinuityReport(BaseModel):
+    """Scene-to-scene color grade continuity and perceptual delta audit report (PM-FEAT-012)."""
+    model_config = ConfigDict(extra="allow")
+
+    is_continuous: bool = Field(default=True, description="Flag indicating whether color variance is within commercial broadcast tolerances")
+    max_slope_delta: float = Field(default=0.0, description="Maximum RGB slope variance across consecutive scene cuts")
+    max_offset_delta: float = Field(default=0.0, description="Maximum RGB offset variance")
+    max_power_delta: float = Field(default=0.0, description="Maximum RGB power variance")
+    saturation_delta: float = Field(default=0.0, description="Maximum color saturation variance")
+    perceptual_delta_e_estimate: float = Field(default=0.0, description="Estimated CIEDE2000 color delta across consecutive scenes")
+    warning_messages: List[str] = Field(default_factory=list, description="List of color continuity warnings or recommendations")
+    scenes_evaluated: int = Field(default=0, description="Number of scenes analyzed in continuity audit")
+
+
+# Alias for backward compatibility and tool integration
+ColorContinuityAudit = SceneColorContinuityReport
+
+
 class ColorLookSpec(BaseModel):
     """Scene or Master Color Grading specification."""
     look_preset: ColorLookPreset = Field(default=ColorLookPreset.REC709_NEUTRAL)
@@ -108,6 +229,7 @@ class ColorLookSpec(BaseModel):
     cdl: AscCdlSpec = Field(default_factory=AscCdlSpec)
     contrast_pivot: float = Field(default=0.435, ge=0.0, le=1.0)
     halation_bloom: float = Field(default=0.0, ge=0.0, le=1.0, description="Analog film halation level")
+    lut_spec: Optional[ThreeDimensionalLutSpec] = Field(default=None, description="3D LUT .cube specification (PM-FEAT-012)")
 
 
 class SpeedRampMode(str, Enum):
@@ -197,6 +319,150 @@ class OpticalLensSpec(BaseModel):
             if "full" in v_clean or "frame" in v_clean:
                 return SensorFormat.FULL_FRAME
         return v
+
+
+class ApertureIrisGeometry(str, Enum):
+    """Aperture iris blade count and optical bokeh geometry (PM-FEAT-011)."""
+    CIRCULAR = "circular_9_blade"
+    CIRCULAR_9_BLADE = "circular_9_blade"
+    CIRCULAR_11_BLADE = "circular_11_blade"
+    POLYGONAL_7_BLADE = "polygonal_7_blade"
+    ANAMORPHIC_OVAL_2X = "anamorphic_oval_2x"
+    CAT_EYE_PERIPHERAL = "cat_eye_peripheral"
+    STAR_6_POINT = "star_6_point"
+
+    # Lowercase aliases
+    circular = "circular_9_blade"
+    circular_9_blade = "circular_9_blade"
+    circular_11_blade = "circular_11_blade"
+    polygonal_7_blade = "polygonal_7_blade"
+    anamorphic_oval_2x = "anamorphic_oval_2x"
+    cat_eye_peripheral = "cat_eye_peripheral"
+    star_6_point = "star_6_point"
+
+
+class OpticalAberrationProfile(BaseModel):
+    """Optical lens aberration and imperfection profile (PM-FEAT-011)."""
+    model_config = ConfigDict(extra="allow")
+
+    chromatic_aberration: float = Field(default=0.15, ge=0.0, le=1.0, description="Lateral and axial chromatic dispersion fringing")
+    spherical_aberration: float = Field(default=0.10, ge=0.0, le=1.0, description="Spherical aberration softness at wide aperture")
+    coma: float = Field(default=0.05, ge=0.0, le=1.0, description="Comatic flare on peripheral point highlights")
+    astigmatism: float = Field(default=0.05, ge=0.0, le=1.0, description="Sagittal vs tangential optical defocus variance")
+    optical_vignetting: float = Field(default=0.20, ge=0.0, le=1.0, description="Mechanical cat-eye optical vignetting at frame edges")
+    field_curvature: float = Field(default=0.08, ge=0.0, le=1.0, description="Petzval field curvature of focal plane")
+
+
+class RackFocusTransitionCurve(str, Enum):
+    """Rack focus timing and focus puller interpolation curves (PM-FEAT-011)."""
+    CUBIC_EASE_IN_OUT = "cubic_ease_in_out"
+    SMOOTHSTEP = "smoothstep"
+    LINEAR = "linear"
+    EXPONENTIAL_DECEL = "exponential_decel"
+    S_CURVE = "s_curve"
+
+    # Lowercase aliases
+    cubic_ease_in_out = "cubic_ease_in_out"
+    smoothstep = "smoothstep"
+    linear = "linear"
+    exponential_decel = "exponential_decel"
+    s_curve = "s_curve"
+
+
+class DepthOfFieldSpec(BaseModel):
+    """Cinematic Depth of Field, Optical Physics & Focus Pulling specification (PM-FEAT-011)."""
+    model_config = ConfigDict(extra="allow")
+
+    focus_distance_m: float = Field(default=2.5, ge=0.1, le=1000.0, description="Critical subject plane focus distance in meters")
+    aperture_f_stop: float = Field(default=2.0, ge=0.5, le=32.0, description="Working optical aperture (F-stop / T-stop)")
+    focal_length_mm: int = Field(default=50, ge=10, le=500, description="Lens focal length in millimeters")
+    sensor_format: SensorFormat = Field(default=SensorFormat.FULL_FRAME, description="Active camera sensor gate format")
+    circle_of_confusion_mm: float = Field(default=0.030, ge=0.001, le=0.1, description="Circle of Confusion limit in millimeters")
+    near_limit_m: Optional[float] = Field(default=None, description="Near depth of field limit in meters")
+    far_limit_m: Optional[float] = Field(default=None, description="Far depth of field limit in meters (float or inf)")
+    total_dof_m: Optional[float] = Field(default=None, description="Total depth of field range in meters")
+    hyperfocal_m: Optional[float] = Field(default=None, description="Calculated optical hyperfocal distance in meters")
+    iris_geometry: ApertureIrisGeometry = Field(default=ApertureIrisGeometry.CIRCULAR_9_BLADE, description="Aperture diaphragm blade geometry")
+    aberration_profile: Optional[OpticalAberrationProfile] = Field(default_factory=OpticalAberrationProfile, description="Lens optical aberration characteristics")
+    rack_focus_target_m: Optional[float] = Field(default=None, description="Secondary focus distance in meters for rack-focus transition")
+    rack_focus_start_time: float = Field(default=0.0, ge=0.0, description="Start timestamp of focus transition in seconds")
+    rack_focus_duration_s: float = Field(default=1.5, ge=0.1, le=10.0, description="Duration of rack-focus transition in seconds")
+    rack_focus_curve: RackFocusTransitionCurve = Field(default=RackFocusTransitionCurve.CUBIC_EASE_IN_OUT, description="Interpolation curve for rack focus")
+    bokeh_descriptor: str = Field(default="creamy circular specular highlights with soft gaussian roll-off", description="Bokeh texture descriptor")
+    is_deep_focus: bool = Field(default=False, description="Whether shot utilizes deep focus (stopping down to hyperfocal)")
+
+    @field_validator("iris_geometry", mode="before")
+    @classmethod
+    def normalize_iris(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in ApertureIrisGeometry:
+                if v_clean == member.value:
+                    return member
+        return v
+
+    @field_validator("rack_focus_curve", mode="before")
+    @classmethod
+    def normalize_curve(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in RackFocusTransitionCurve:
+                if v_clean == member.value:
+                    return member
+        return v
+
+    @field_validator("sensor_format", mode="before")
+    @classmethod
+    def normalize_sensor(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower()
+            if "super35" in v_clean or "super_35" in v_clean or "super 35" in v_clean:
+                return SensorFormat.SUPER_35
+            if "arri" in v_clean or "large format" in v_clean:
+                return SensorFormat.ARRI_LF
+            if "imax" in v_clean:
+                return SensorFormat.IMAX_70MM
+            if "vistavision" in v_clean or "vista" in v_clean:
+                return SensorFormat.VISTAVISION
+            if "full" in v_clean or "frame" in v_clean:
+                return SensorFormat.FULL_FRAME
+        return v
+
+
+class DomainDofSpec(BaseModel):
+    """Domain archetype depth of field and iris geometry specification (PM-FEAT-011)."""
+    model_config = ConfigDict(extra="allow")
+
+    focus_style: str = Field(..., description="Optical focus depth style descriptor")
+    aperture_t_stop: float = Field(..., ge=0.5, le=32.0, description="Lens aperture T-stop")
+    focal_length_mm: int = Field(..., ge=10, le=500, description="Lens focal length in mm")
+    iris_geometry: str = Field(..., description="Aperture blade and iris bokeh geometry (e.g. nonagonal iris)")
+    depth_character: str = Field(..., description="Depth of field behavior and focus transition character")
+    description: str = Field(..., description="Summary string for prompt synthesis and reporting")
+
+    def __getitem__(self, item: str) -> Any:
+        return getattr(self, item)
+
+    def get(self, item: str, default: Any = None) -> Any:
+        return getattr(self, item, default)
+
+
+class DomainLutSpec(BaseModel):
+    """Domain archetype 3D LUT color science and film stock emulation specification (PM-FEAT-012)."""
+    model_config = ConfigDict(extra="allow")
+
+    lut_name: str = Field(..., description="Descriptive 3D LUT profile name")
+    film_emulation: str = Field(..., description="Film stock or color science emulation profile")
+    grid_size: int = Field(default=33, ge=17, le=65, description="3D LUT cube dimension grid (e.g. 33x33x33)")
+    format: str = Field(default=".cube", description="LUT file format specification")
+    cube_filename: str = Field(..., description="Exportable .cube file name")
+    description: str = Field(..., description="Summary string for prompt synthesis and grading metadata")
+
+    def __getitem__(self, item: str) -> Any:
+        return getattr(self, item)
+
+    def get(self, item: str, default: Any = None) -> Any:
+        return getattr(self, item, default)
 
 
 class LedWallGeometry(BaseModel):
@@ -431,6 +697,7 @@ class CraftCameraSpec(BaseModel):
     shutter_timing_token: Optional[str] = Field(default=None, description="Cinematic shutter timing prompt token (e.g. '180° shutter at 1/48s')")
     optical_lens: Optional[OpticalLensSpec] = Field(default=None, description="Detailed optical lens and sensor framing specification")
     moco_rig: Optional[MocoRigSpec] = Field(default=None, description="Robotic motion control rig specification (PM-FEAT-009)")
+    dof_spec: Optional[DepthOfFieldSpec] = Field(default=None, description="Depth of field, optical physics, and rack focus specification (PM-FEAT-011)")
 
     def to_summary(self) -> str:
         return f"{self.rig_type} ({self.focal_length_mm}mm) | {self.composition} | Route: {self.route}"
@@ -661,6 +928,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific studio lighting rig specification (PM-FEAT-010)"
     )
+    dof_spec: Optional[Union[DepthOfFieldSpec, DomainDofSpec]] = Field(
+        default=None,
+        description="Scene-specific depth of field and rack focus specification (PM-FEAT-011)"
+    )
+    lut_spec: Optional[Union[ThreeDimensionalLutSpec, DomainLutSpec]] = Field(
+        default=None,
+        description="Scene-specific 3D LUT specification (PM-FEAT-012)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -819,6 +1094,22 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master studio lighting rig specification (PM-FEAT-010)"
     )
+    master_dof_spec: Optional[Union[DepthOfFieldSpec, DomainDofSpec]] = Field(
+        default=None,
+        description="Master depth of field and optical focus specification (PM-FEAT-011)"
+    )
+    dof_spec: Optional[Union[DepthOfFieldSpec, DomainDofSpec]] = Field(
+        default=None,
+        description="Master depth of field and optical focus specification alias (PM-FEAT-011)"
+    )
+    master_lut_spec: Optional[Union[ThreeDimensionalLutSpec, DomainLutSpec]] = Field(
+        default=None,
+        description="Master 3D LUT grading profile specification (PM-FEAT-012)"
+    )
+    lut_spec: Optional[Union[ThreeDimensionalLutSpec, DomainLutSpec]] = Field(
+        default=None,
+        description="Master 3D LUT grading profile specification alias (PM-FEAT-012)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -850,6 +1141,17 @@ class MasterProductionBible(BaseModel):
                 f"Mode B continuous chain runtime violation: total_runtime_seconds={self.total_runtime_seconds} "
                 "exceeds the 40-second ceiling (maximum 4 continuous 10s extensions)."
             )
+        # Synchronize DoF and LUT spec aliases
+        if self.master_dof_spec is not None and self.dof_spec is None:
+            object.__setattr__(self, "dof_spec", self.master_dof_spec)
+        elif self.dof_spec is not None and self.master_dof_spec is None:
+            object.__setattr__(self, "master_dof_spec", self.dof_spec)
+
+        if self.master_lut_spec is not None and self.lut_spec is None:
+            object.__setattr__(self, "lut_spec", self.master_lut_spec)
+        elif self.lut_spec is not None and self.master_lut_spec is None:
+            object.__setattr__(self, "master_lut_spec", self.lut_spec)
+
         return self
 
 
@@ -988,7 +1290,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.5.0"
+    version: str = "2.6.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

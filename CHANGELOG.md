@@ -2,6 +2,31 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.6.0] - 2026-11-06
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-011: Cinematic Depth-of-Field, Bokeh Geometry & Anamorphic Optical Aberration Simulator with Rack-Focus Transition Curves and Focus Puller Cue Sheets**:
+  - Module: `omni_director/tools/dof_simulator.py`.
+  - Added `ApertureIrisGeometry` enum (`circular`, `octagonal_8_blade`, `nonagonal_9_blade`, `undecagonal_11_blade`, `anamorphic_oval_2x`), `OpticalAberrationProfile`, `RackFocusTransitionCurve`, and `DepthOfFieldSpec` schemas.
+  - Implemented optical physics calculations: Circle of Confusion (`resolve_circle_of_confusion`) across sensor formats (Super35, Full Frame, ARRI LF, IMAX 70mm, VistaVision), hyperfocal distance (`calculate_hyperfocal_distance`), near/far focus limits and total depth of field (`calculate_dof_limits`), and kinematic rack-focus curve interpolation (`interpolate_rack_focus`).
+  - CRAFT camera grammar prompt token formatting (`format_dof_prompt_token`) embedding focal length, aperture T-stop, focus distance, near/far depth range, iris geometry, and rack-focus timing.
+  - Multi-format optical exports: 1st AC Focus Puller cue sheet CSV (`export_focus_puller_cue_sheet`), optical chart JSON (`export_optical_chart_json`), and optical bundle packaging (`export_dof_bundle`).
+  - CLI export support: `omni export --format dof`, `--format all`, `--dof-chart`, and `--cue-sheet`.
+  - Dark-Room Cinema Animatic Interactive Optical Depth of Field HUD (`#animatic-dof-hud`, hotkey `F`) displaying interactive ray-tracing SVG geometry, parametric focal length / T-stop / focus distance sliders, rack-focus easing scrubber, dynamic bokeh badge (`#bokeh-geometry-badge`), and live tabular 1st AC cue sheet.
+- **PM-FEAT-012: DIT 3D LUT (.cube) Generator & Production Continuity Engine with ASC CDL to 3D LUT .cube Matrix Compilation for DaVinci Resolve & SmallHD On-Set Monitors**:
+  - Module: `omni_director/tools/dit_lut.py`.
+  - Added `LutGridDimension` enum (`cube_17`, `cube_33`, `cube_65`), `ColorGamutTransform`, `ThreeDimensionalLutSpec`, and `SceneColorContinuityReport` schemas.
+  - Implemented pure-Python 3D LUT `.cube` matrix generator (`generate_3d_lut_cube_data` and `generate_3d_cube_lut`) compiling ASC CDL transfer functions (Slope, Offset, Power, Saturation) into industry-standard Adobe/Resolve `.cube` lattice files with luminance preservation.
+  - Multi-scene color continuity validation (`verify_color_continuity` and `calculate_color_continuity_audit`) detecting uncalibrated gamut transitions and delta-E drift.
+  - Production LUT exports: Master 3D LUT `.cube` (`export_master_cube_lut`), per-scene `.cube` LUTs (`export_scene_cube_lut`), DIT cart manifest JSON (`export_dit_cart_manifest_json`), and DIT bundle packaging (`export_dit_bundle` / `export_lut_bundle`).
+  - CLI export support: `omni export --format lut`, `--format all`, `--cube-lut`, and `--dit-manifest`.
+  - Dark-Room Cinema Animatic Interactive DIT 3D LUT Suite HUD (`#animatic-dit-lut-hud`, hotkey `L`) displaying draggable split-screen wipe (`#lut-split-wipe`), client-side `.cube` generation and instant downloads (`#btn-download-master-cube`, `#btn-download-scene-cube`), and live color continuity status telemetry.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-011` and `PM-FEAT-012` in `ProductManagerAgent.inspect_product()`.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated DoF optical specs (`get_domain_dof_spec`) and 3D LUT profiles (`get_domain_lut_spec`) in `omni_director/presets.py`.
+  - Updated prompt auditor Rule 4 and self-healing loop in `omni_director/tools/prompt_auditor.py` to evaluate and inject DoF and 3D LUT tokens with audit score >= 90.0.
+  - Integrated full 25.0/25.0 scoring in `ProductCouncilOrchestrator` across `council-fde`, `council-agent-engineer`, `council-strategist`, and `council-ux-designer`.
+
 ## [2.5.0] - 2026-11-05
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

@@ -84,6 +84,30 @@ from omni_director.tools.lighting_rig import (
     format_lighting_prompt_token,
     synthesize_default_lighting_rig,
 )
+from omni_director.tools.dof_simulator import (
+    calculate_dof_limits,
+    calculate_hyperfocal_distance as calculate_dof_hyperfocal_distance,
+    export_dof_bundle,
+    export_focus_puller_cue_sheet,
+    export_optical_chart_json,
+    format_dof_prompt_token,
+    interpolate_rack_focus,
+    resolve_circle_of_confusion,
+    synthesize_default_dof_spec,
+)
+from omni_director.tools.dit_lut import (
+    calculate_color_continuity_audit,
+    export_dit_bundle,
+    export_dit_cart_manifest_json,
+    export_lut_bundle,
+    export_master_cube_lut,
+    export_scene_cube_lut,
+    format_lut_prompt_token,
+    generate_3d_cube_lut,
+    generate_3d_lut_cube_data,
+    synthesize_default_3d_lut,
+    verify_color_continuity,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -153,4 +177,26 @@ __all__ = [
     "export_lighting_plot_json",
     "export_gaffer_callsheet_csv",
     "export_lighting_bundle",
+    # Depth of field simulator suite (PM-FEAT-011)
+    "calculate_dof_limits",
+    "calculate_dof_hyperfocal_distance",
+    "format_dof_prompt_token",
+    "interpolate_rack_focus",
+    "resolve_circle_of_confusion",
+    "synthesize_default_dof_spec",
+    "export_optical_chart_json",
+    "export_focus_puller_cue_sheet",
+    "export_dof_bundle",
+    # DIT 3D LUT suite (PM-FEAT-012)
+    "generate_3d_cube_lut",
+    "generate_3d_lut_cube_data",
+    "synthesize_default_3d_lut",
+    "format_lut_prompt_token",
+    "verify_color_continuity",
+    "calculate_color_continuity_audit",
+    "export_master_cube_lut",
+    "export_scene_cube_lut",
+    "export_dit_cart_manifest_json",
+    "export_dit_bundle",
+    "export_lut_bundle",
 ]
