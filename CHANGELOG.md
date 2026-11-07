@@ -2,6 +2,31 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.7.0] - 2026-11-07
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-013: Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & Higher-Order Ambisonics)**:
+  - Module: `omni_director/tools/spatial_audio.py`.
+  - Added schemas in `omni_director/schemas.py`: `SpatialCoordinate3D`, `AcousticMaterialType`, `AcousticRoomImpulseResponse`, `DolbyAtmosBedFormat`, `SpatialAudioObjectSpec`, and `SpatialAudioSoundfieldSpec`. Bound `spatial_audio` to `ScenePromptSpec` and `master_spatial_audio` to `MasterProductionBible`.
+  - Implemented acoustic physics algorithms: Sabine RT60 formula (`calculate_sabine_rt60`), Eyring reverberation decay (`calculate_eyring_rt60`), early reflection delay (`calculate_early_reflection_delay_ms`), 1st-order / HOA 3rd-order Ambisonics spherical harmonics B-format weights (`calculate_ambisonic_b_format`), and 3D Vector Base Amplitude Panning across 7.1.4 Dolby Atmos beds (`calculate_vbap_gains_7_1_4`).
+  - Implemented multi-format spatial exports: ITU-R BS.2076 Audio Definition Model (ADM) JSON metadata (`export_dolby_atmos_adm_manifest`), Ambisonics B-format panning table CSV (`export_ambisonic_panning_table`), Web Audio API HRTF spatial panner JSON config (`export_webaudio_spatial_config`), and spatial audio bundle packaging (`export_spatial_audio_bundle`).
+  - CRAFT diegetic sonic prompt token formatting (`format_spatial_audio_prompt_token`) embedding Atmos bed format, Sabine RT60 decay, wall material absorption, spatial audio object trajectory coordinates, and binaural HRTF flag.
+  - CLI export support: `omni export --format spatial`, `--format all`, `--spatial-adm`, `--ambisonic-csv`, and `--webaudio-config`.
+  - Dark-Room Cinema Animatic Interactive Spatial Audio & Soundfield Console HUD (`#animatic-spatial-hud`, hotkey `S`) displaying live 7.1.4 Atmos bed channel matrix, 2D radar listener position plot, room acoustics RT60 badges, and instant download buttons for ADM JSON, Ambisonics CSV, and Web Audio config.
+- **PM-FEAT-014: Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (16/32-bit OpenEXR & Cryptomatte)**:
+  - Module: `omni_director/tools/vfx_compositor.py`.
+  - Added schemas in `omni_director/schemas.py`: `VfxRenderPassType`, `VfxLayerChannelSpec`, `CryptomatteManifestSpec`, and `VfxCompositingManifestSpec`. Bound `vfx_compositing` to `ScenePromptSpec` and `master_vfx_manifest` to `MasterProductionBible`.
+  - Implemented VFX compositing tools: 16-bit half-float and 32-bit float OpenEXR multi-layer channel manifests (`synthesize_openexr_channel_manifest`), 32-bit Murmur3 hex hash generator for Cryptomatte object/material IDs (`hash_identifier_32bit` and `generate_cryptomatte_manifest`), and automated Foundry Nuke composite script (`.nk`) template generation (`generate_nuke_composite_script`) with OCIO ACEScg color management.
+  - Implemented multi-format VFX exports: OpenEXR channel manifest JSON, Cryptomatte ID sidecar JSON (`export_cryptomatte_sidecar_json`), Foundry Nuke script template (`export_nuke_comp_script`), and complete VFX compositing bundle packaging (`export_vfx_bundle`).
+  - CRAFT visual prompt token formatting (`format_vfx_compositing_prompt_token`) embedding OpenEXR channel decomposition, Cryptomatte layer tags, near/far Z-depth planes, and additive beauty reconstruction formulas.
+  - CLI export support: `omni export --format vfx`, `--format all`, `--vfx-manifest`, `--cryptomatte-sidecar`, and `--nuke-script`.
+  - Dark-Room Cinema Animatic Interactive Multi-Pass VFX Compositing HUD (`#animatic-vfx-hud`, hotkey `X`) displaying 10-layer OpenEXR channel matrix, Cryptomatte ID badges, and instant download buttons for OpenEXR channel manifest, Cryptomatte sidecar, and Foundry Nuke `.nk` script.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-013` and `PM-FEAT-014` in `ProductManagerAgent.inspect_product()`.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated spatial audio specs (`get_domain_spatial_audio_spec`) and VFX compositing manifests (`get_domain_vfx_manifest`) in `omni_director/presets.py`.
+  - Updated prompt auditor Rule 4 and self-healing loop in `omni_director/tools/prompt_auditor.py` to evaluate and inject spatial audio and VFX compositing tokens with compliance reward scoring.
+  - Integrated full 25.0/25.0 scoring in `ProductCouncilOrchestrator` across `council-fde`, `council-agent-engineer`, `council-strategist`, and `council-ux-designer`.
+
 ## [2.6.0] - 2026-11-06
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

@@ -1,0 +1,162 @@
+{
+  "admVersion": "ITU-R BS.2076-2",
+  "projectTitle": "Artisanal Japanese Culinary Ceremonial M",
+  "soundfieldBedFormat": "binaural_hrtf",
+  "binauralRendering": true,
+  "audioObjects": [
+    {
+      "audioObjectID": "obj_knife_slice_contact",
+      "audioObjectName": "Artisanal knife blade slice contact",
+      "stemType": "foley",
+      "position": {
+        "azimuth": -10.0,
+        "elevation": -5.0,
+        "distance": 0.35,
+        "spread": 15.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": -24.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.9811,
+        "Y": -0.173,
+        "Z": -0.0872
+      },
+      "vbapBedGains": {
+        "L": 0.6079,
+        "C": 0.6998,
+        "R": 0.3294,
+        "Ls": 0.0038,
+        "Rs": 0.0,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.1603,
+        "Rtf": 0.0809,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    },
+    {
+      "audioObjectID": "obj_cast_iron_sizzle",
+      "audioObjectName": "Cast iron surface butter sizzle",
+      "stemType": "foley",
+      "position": {
+        "azimuth": 20.0,
+        "elevation": -10.0,
+        "distance": 0.5,
+        "spread": 45.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": -12.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.9254,
+        "Y": 0.3368,
+        "Z": -0.1736
+      },
+      "vbapBedGains": {
+        "L": 0.2032,
+        "C": 0.6347,
+        "R": 0.7306,
+        "Ls": 0.0,
+        "Rs": 0.0306,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.0274,
+        "Rtf": 0.1429,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    }
+  ],
+  "acoustics": {
+    "roomVolumeM3": 45.0,
+    "surfaceAreaM2": 65.0,
+    "rt60DecaySec": 0.25,
+    "earlyReflectionsMs": 6.5,
+    "wallMaterial": "marble_glass",
+    "airAbsorptionHfDbPerM": 0.015
+  },
+  "audioProgramme": {
+    "programmeName": "Artisanal Japanese Culinary Ceremonial M Spatial Master",
+    "audioContents": [
+      {
+        "contentName": "Master Spatial Mix",
+        "audioObjects": [
+          {
+            "audioObjectID": "obj_knife_slice_contact",
+            "audioObjectName": "Artisanal knife blade slice contact",
+            "stemType": "foley",
+            "position": {
+              "azimuth": -10.0,
+              "elevation": -5.0,
+              "distance": 0.35,
+              "spread": 15.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": -24.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.9811,
+              "Y": -0.173,
+              "Z": -0.0872
+            },
+            "vbapBedGains": {
+              "L": 0.6079,
+              "C": 0.6998,
+              "R": 0.3294,
+              "Ls": 0.0038,
+              "Rs": 0.0,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.1603,
+              "Rtf": 0.0809,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          },
+          {
+            "audioObjectID": "obj_cast_iron_sizzle",
+            "audioObjectName": "Cast iron surface butter sizzle",
+            "stemType": "foley",
+            "position": {
+              "azimuth": 20.0,
+              "elevation": -10.0,
+              "distance": 0.5,
+              "spread": 45.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": -12.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.9254,
+              "Y": 0.3368,
+              "Z": -0.1736
+            },
+            "vbapBedGains": {
+              "L": 0.2032,
+              "C": 0.6347,
+              "R": 0.7306,
+              "Ls": 0.0,
+              "Rs": 0.0306,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.0274,
+              "Rtf": 0.1429,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

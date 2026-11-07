@@ -1,0 +1,80 @@
+{
+  "fileFormat": "OpenEXR v2.3 Multi-Layer",
+  "manifestVersion": "2.0",
+  "projectTitle": "IKEA: The Living Room Unfolds",
+  "openexrCompression": "ZIP_SCANLINE",
+  "colorSpace": "ACEScg",
+  "colorWorkingSpace": "ACES - ACEScg",
+  "channels": [
+    {
+      "passType": "beauty_rgb",
+      "channelName": "beauty.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Final beauty combined render"
+    },
+    {
+      "passType": "diffuse_albedo",
+      "channelName": "diffuse.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Diffuse albedo direct + indirect bounce"
+    },
+    {
+      "passType": "specular_roughness",
+      "channelName": "specular.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Specular gloss reflections and highlights"
+    },
+    {
+      "passType": "surface_normals",
+      "channelName": "normals.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "Raw",
+      "description": "World space surface normal vectors"
+    },
+    {
+      "passType": "depth_z_pass",
+      "channelName": "depth.Z",
+      "bitDepth": "32-bit full float",
+      "colorSpace": "Raw",
+      "description": "Linear depth distance (0.1m to 50.0m)"
+    },
+    {
+      "passType": "ambient_occlusion",
+      "channelName": "ao.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "Linear sRGB",
+      "description": "Contact shadow ambient occlusion"
+    },
+    {
+      "passType": "cryptomatte_object",
+      "channelName": "crypto_object.RGBA",
+      "bitDepth": "32-bit full float",
+      "colorSpace": "Raw",
+      "description": "Cryptomatte 32-bit object identifier hashes"
+    }
+  ],
+  "depthPlanes": {
+    "nearPlaneMeters": 0.2,
+    "farPlaneMeters": 80.0,
+    "encoding": "Linear Z distance in camera units"
+  },
+  "cryptomatte": {
+    "hashAlgorithm": "MurmurHash3_32",
+    "objectManifest": {
+      "cantilever_roof": "0x9104cd7f",
+      "reflecting_pool_basin": "0xe2a366d0",
+      "monolithic_concrete_wall": "0x076dd2b9",
+      "travertine_floor": "0x7c354cdb"
+    },
+    "materialManifest": {
+      "board_formed_concrete": "0xf2283bd7",
+      "still_water_fresnel": "0xf97ba57e",
+      "travertine_limestone": "0xfb2710a4",
+      "low_iron_glass": "0x7c472c10"
+    }
+  },
+  "reconstructionFormula": "(Diffuse * AO) + Specular"
+}

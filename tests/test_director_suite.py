@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -3806,6 +3806,10 @@ class TestV26UXAnimaticDofAndLutHUDs:
             '<div id="animatic-moco-hud"></div>'
             '<button id="btn-gaffer-animatic"></button>'
             '<div id="animatic-gaffer-hud"></div>'
+            '<button id="btn-spatial-animatic"></button>'
+            '<div id="animatic-spatial-hud"></div>'
+            '<button id="btn-vfx-animatic"></button>'
+            '<div id="animatic-vfx-hud"></div>'
             '<div role="tablist"></div>'
             '<div class="cinema-toast" id="cinema-toast"></div>'
             '<script>function jumpToBeat() {}</script>'
@@ -4043,6 +4047,260 @@ class TestV26UXAnimaticDofAndLutHUDs:
         assert bible.dof_spec is not None
         assert bible.master_lut_spec is not None
         assert bible.lut_spec is not None
+
+
+class TestV27SpatialAudioAndVfxCompositingSuite:
+    """Comprehensive test suite for v2.7.0 Spatial Audio and Multi-Pass VFX Compositing (PM-FEAT-013 & PM-FEAT-014)."""
+
+    def test_spatial_audio_acoustic_formulas(self) -> None:
+        """Validates Sabine RT60, Eyring RT60, early reflections, Ambisonics weights, and VBAP gains."""
+        from omni_director.tools.spatial_audio import (
+            calculate_sabine_rt60,
+            calculate_eyring_rt60,
+            calculate_early_reflection_delay_ms,
+            calculate_ambisonic_b_format,
+            calculate_vbap_gains_7_1_4,
+            SpatialCoordinate3D,
+            AcousticMaterialType,
+            get_material_absorption,
+        )
+
+        # Sabine RT60 formula test: 0.161 * V / (S * alpha)
+        # V = 1000 m3, S = 600 m2, alpha = 0.20 -> A = 120 -> RT60 = 0.161 * 1000 / 120 = 1.3417s
+        sabine = calculate_sabine_rt60(1000.0, 600.0, 0.20)
+        assert 1.30 <= sabine <= 1.40
+
+        # Eyring RT60 test
+        eyring = calculate_eyring_rt60(1000.0, 600.0, 0.20)
+        assert eyring > 0.0
+        assert eyring < sabine  # Eyring is always slightly shorter than Sabine for non-zero absorption
+
+        # Early reflection delay (ms) for 10m3 room:
+        delay_ms = calculate_early_reflection_delay_ms(10.0)
+        assert 7.0 <= delay_ms <= 8.0
+
+        # Ambisonic B-format weights
+        # At azimuth=0, elevation=0: W=0.7071, X=1.0, Y=0.0, Z=0.0
+        b_fmt = calculate_ambisonic_b_format(0.0, 0.0)
+        assert b_fmt["W"] == 0.7071
+        assert b_fmt["X"] == 1.0
+        assert b_fmt["Y"] == 0.0
+        assert b_fmt["Z"] == 0.0
+
+        # VBAP 7.1.4 gains: source right in front (azimuth 0, elevation 0)
+        coord = SpatialCoordinate3D(azimuth_deg=0.0, elevation_deg=0.0, distance_meters=2.0)
+        gains = calculate_vbap_gains_7_1_4(coord)
+        assert "C" in gains
+        assert gains["C"] > 0.5  # Center channel should dominate for front-center source
+
+        # Material absorption lookups
+        assert get_material_absorption(AcousticMaterialType.STUDIO_ACOUSTIC_FOAM) >= 0.70
+        assert get_material_absorption(AcousticMaterialType.MARBLE_GLASS) <= 0.05
+
+    def test_spatial_audio_adm_and_exports(self, tmp_path: Path) -> None:
+        """Validates Dolby Atmos ADM JSON, Ambisonics CSV, Web Audio JSON, and bundle exports."""
+        from omni_director.tools.spatial_audio import (
+            export_dolby_atmos_adm_manifest,
+            export_ambisonic_panning_table,
+            export_webaudio_spatial_config,
+            export_spatial_audio_bundle,
+            format_spatial_audio_prompt_token,
+        )
+        from omni_director.presets import get_domain_spatial_audio_spec
+
+        spec = get_domain_spatial_audio_spec("kinetic_action")
+        assert spec.bed_format.value == "ambisonic_hoa_3rd_order"
+        assert len(spec.audio_objects) >= 2
+
+        # ADM Manifest
+        adm = export_dolby_atmos_adm_manifest(spec, project_title="Test Action")
+        assert adm["admVersion"] == "ITU-R BS.2076-2"
+        assert adm["soundfieldBedFormat"] == "ambisonic_hoa_3rd_order"
+        assert len(adm["audioObjects"]) >= 2
+
+        # Ambisonics CSV
+        csv_text = export_ambisonic_panning_table(spec)
+        assert "object_id,stem_type" in csv_text
+        assert "W,X,Y,Z" in csv_text
+
+        # Web Audio Config
+        wa_cfg = export_webaudio_spatial_config(spec)
+        assert wa_cfg["panningModel"] == "HRTF"
+
+        # Prompt Token
+        token = format_spatial_audio_prompt_token(spec)
+        assert "[SPATIAL AUDIO:" in token
+        assert "Ambisonic" in token
+
+        # Bundle export
+        bundle_files = export_spatial_audio_bundle(spec, tmp_path / "spatial_out")
+        assert (tmp_path / "spatial_out" / "spatial_audio_adm.json").is_file()
+        assert (tmp_path / "spatial_out" / "ambisonic_b_format.csv").is_file()
+        assert (tmp_path / "spatial_out" / "webaudio_spatial_panner.json").is_file()
+
+    def test_vfx_compositing_engine(self, tmp_path: Path) -> None:
+        """Validates Murmur3 Cryptomatte hashing, OpenEXR channel manifests, and Nuke .nk script generation."""
+        from omni_director.tools.vfx_compositor import (
+            hash_identifier_32bit,
+            generate_cryptomatte_manifest,
+            synthesize_openexr_channel_manifest,
+            generate_nuke_composite_script,
+            format_vfx_compositing_prompt_token,
+            export_vfx_bundle,
+        )
+        from omni_director.presets import get_domain_vfx_manifest
+
+        # Hash algorithm consistency
+        h1 = hash_identifier_32bit("hero_vehicle")
+        h2 = hash_identifier_32bit("hero_vehicle")
+        assert h1 == h2
+        assert len(h1) == 10  # 32-bit hex string with 0x prefix
+        assert h1.startswith("0x")
+
+        manifest = get_domain_vfx_manifest("kinetic_action")
+        assert len(manifest.render_passes) >= 7
+        assert manifest.cryptomatte is not None
+
+        # Cryptomatte manifest
+        crypto = generate_cryptomatte_manifest(["character_hero", "prop_sword"], ["carbon_fiber", "gold_trim"])
+        assert crypto.hash_algorithm == "MurmurHash3_32"
+        assert "character_hero" in crypto.object_manifest
+
+        # OpenEXR channels
+        exr = synthesize_openexr_channel_manifest(manifest, project_title="VFX Master")
+        assert exr["fileFormat"] == "OpenEXR v2.3 Multi-Layer"
+        assert exr["colorSpace"] == "ACEScg"
+        assert len(exr["channels"]) >= 7
+
+        # Foundry Nuke script
+        nk = generate_nuke_composite_script(manifest, project_title="VFX Master")
+        assert "Nuke" in nk
+        assert "Read_MultiPass_EXR" in nk
+        assert "Write_Final_Comp" in nk
+        assert "ACEScg" in nk
+
+        # Prompt Token
+        token = format_vfx_compositing_prompt_token(manifest)
+        assert "[VFX COMPOSITING:" in token
+        assert "ACEScg" in token
+
+        # Bundle export
+        bundle_files = export_vfx_bundle(manifest, tmp_path / "vfx_out")
+        assert (tmp_path / "vfx_out" / "openexr_channels.json").is_file()
+        assert (tmp_path / "vfx_out" / "cryptomatte_manifest.json").is_file()
+        assert (tmp_path / "vfx_out" / "nuke_composite.nk").is_file()
+
+    def test_domain_presets_spatial_and_vfx(self) -> None:
+        """Ensures all 6 commercial domain archetypes are equipped with valid spatial audio and VFX manifests."""
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            get_domain_spatial_audio_spec,
+            get_domain_vfx_manifest,
+            get_preset_bible,
+        )
+
+        for archetype in DOMAIN_ARCHETYPES.keys():
+            spatial = get_domain_spatial_audio_spec(archetype)
+            assert spatial is not None
+            assert spatial.bed_format is not None
+            assert spatial.acoustic_room is not None
+            assert len(spatial.audio_objects) >= 2
+
+            vfx = get_domain_vfx_manifest(archetype)
+            assert vfx is not None
+            assert len(vfx.render_passes) >= 6
+            assert vfx.cryptomatte is not None
+
+            bible = get_preset_bible(archetype)
+            assert bible.master_spatial_audio is not None
+            assert bible.master_vfx_manifest is not None
+            assert bible.scenes[0].spatial_audio is not None
+            assert bible.scenes[0].vfx_compositing is not None
+
+    def test_prompt_auditor_spatial_and_vfx_tokens(self) -> None:
+        """Verifies PromptAuditor rewards spatial audio and VFX compositing tokens and self-healing convergence."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        bible = get_preset_bible("kinetic_action")
+        scene = bible.scenes[0]
+
+        res = audit_omni_scene_prompt(scene, regime=bible.creative_regime, storytelling_mode=bible.storytelling_mode)
+        assert res.score >= 90.0
+        assert res.details.get("spatial_audio_compliant") is True
+        assert res.details.get("vfx_compositing_compliant") is True
+
+    def test_html_compiler_spatial_and_vfx_huds(self, tmp_path: Path) -> None:
+        """Verifies compiled HTML5 animatic embeds spatial audio and VFX modal HUDs and keybindings."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle
+
+        bible = get_preset_bible("kinetic_action")
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_file = compile_storyboard_html(bundle, tmp_path / "cinema_ui")
+        assert html_file.is_file()
+        content = html_file.read_text(encoding="utf-8")
+
+        # Check DOM elements
+        assert 'id="btn-spatial-animatic"' in content
+        assert 'id="animatic-spatial-hud"' in content
+        assert 'id="btn-vfx-animatic"' in content
+        assert 'id="animatic-vfx-hud"' in content
+
+        # Check JavaScript controllers
+        assert "function toggleSpatialHUD()" in content
+        assert "function downloadSpatialAdmJSON()" in content
+        assert "function toggleVfxHUD()" in content
+        assert "function downloadExrManifestJSON()" in content
+        assert "function downloadNukeScript()" in content
+
+        # Check keybindings
+        assert "toggleSpatialHUD()" in content
+        assert "toggleVfxHUD()" in content
+
+    def test_product_council_v27_audit(self, tmp_path: Path) -> None:
+        """Verifies ProductCouncilOrchestrator audits and passes a v2.7.0 production bundle with >= 90.0 score."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.schemas import ProductionBundle
+
+        # PM inspection test
+        pm = ProductManagerAgent()
+        recs = pm.inspect_product()
+        rec_ids = [r.feature_id for r in recs]
+        assert "PM-FEAT-013" in rec_ids
+        assert "PM-FEAT-014" in rec_ids
+
+        # Build bundle
+        bible = get_preset_bible("kinetic_action")
+        bundle_dir = tmp_path / "bundle_v27"
+        bundle_dir.mkdir(parents=True, exist_ok=True)
+
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path=str(bundle_dir / "storyboard.html"),
+            bundle_json_path=str(bundle_dir / "bundle.json"),
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(bundle, bundle_dir)
+        export_all_nle_artifacts(bible, bundle_dir)
+
+        council = ProductCouncilOrchestrator()
+        report = council.convene_council(bible=bible, bundle=bundle, output_dir=bundle_dir)
+
+        assert report.passed is True
+        assert report.overall_score >= 90.0
+        assert report.critical_findings_count == 0
 
 
 

@@ -47,11 +47,15 @@ from omni_director.presets import (
     get_domain_lighting_rig,
     get_domain_lut_spec,
     get_domain_moco_rig,
+    get_domain_spatial_audio_spec,
     get_domain_speed_ramp,
+    get_domain_vfx_manifest,
     get_preset,
     get_preset_bible,
 )
 from omni_director.schemas import (
+    AcousticMaterialType,
+    AcousticRoomImpulseResponse,
     ActionBeatSpec,
     AnamorphicSqueeze,
     ApertureIrisGeometry,
@@ -69,10 +73,12 @@ from omni_director.schemas import (
     CouncilFindingSeverity,
     CouncilPersona,
     CraftCameraSpec,
+    CryptomatteManifestSpec,
     DepthOfFieldSpec,
     DiegeticSonicSpec,
     DiffusionGrade,
     DmxLightingFixture,
+    DolbyAtmosBedFormat,
     DomainDofSpec,
     DomainLutSpec,
     KineticContactChain,
@@ -102,6 +108,9 @@ from omni_director.schemas import (
     ScenePromptPayload,
     ScenePromptSpec,
     SensorFormat,
+    SpatialAudioObjectSpec,
+    SpatialAudioSoundfieldSpec,
+    SpatialCoordinate3D,
     SpeedRampCurveSpec,
     SpeedRampMode,
     StemChannelStrip,
@@ -110,6 +119,9 @@ from omni_director.schemas import (
     StudioLightFixtureSpec,
     ThreeDimensionalLutSpec,
     TrajectoryWaypoint6DOF,
+    VfxCompositingManifestSpec,
+    VfxLayerChannelSpec,
+    VfxRenderPassType,
     VirtualProductionStageSpec,
     load_bible_from_json,
 )
@@ -181,6 +193,7 @@ from omni_director.tools import (
     format_optical_prompt_token,
     generate_3d_cube_lut,
     generate_3d_lut_cube_data,
+    generate_cryptomatte_manifest,
     generate_scene_coverage,
     generate_svg_storyboard_frame,
     get_preset_color_look,
@@ -194,13 +207,31 @@ from omni_director.tools import (
     synthesize_default_dof_spec,
     synthesize_default_lighting_rig,
     synthesize_default_moco_rig,
+    synthesize_default_spatial_audio,
     synthesize_default_stem_mixer,
+    synthesize_default_vfx_manifest,
     synthesize_default_vp_stage,
     synthesize_speed_ramp_curve,
     verify_color_continuity,
+    # Spatial Audio (PM-FEAT-013)
+    calculate_sabine_rt60,
+    calculate_eyring_rt60,
+    calculate_vbap_714_gains,
+    calculate_ambisonic_b_format_weights,
+    format_spatial_audio_prompt_token,
+    export_adm_spatial_json,
+    export_ambisonic_track_csv,
+    export_web_audio_spatial_config,
+    export_spatial_audio_bundle,
+    # VFX Compositing (PM-FEAT-014)
+    format_vfx_compositing_prompt_token,
+    export_openexr_channel_manifest_json,
+    export_cryptomatte_sidecar_json,
+    export_nuke_comp_script,
+    export_vfx_compositing_bundle,
 )
 
-__version__ = "2.6.0"
+__version__ = "2.7.0"
 
 __all__ = [
     # Top-Level Runner & Config
@@ -222,6 +253,8 @@ __all__ = [
     "get_domain_lighting_rig",
     "get_domain_lut_spec",
     "get_domain_moco_rig",
+    "get_domain_spatial_audio_spec",
+    "get_domain_vfx_manifest",
     "DOMAIN_ARCHETYPES",
     "DOMAIN_PRIORITY",
     "IKEA_ASMR_BIBLE",
@@ -294,6 +327,18 @@ __all__ = [
     # Domain Optical Focus & 3D LUT Schemas (PM-FEAT-011 & PM-FEAT-012)
     "DomainDofSpec",
     "DomainLutSpec",
+    # Spatial Audio Schemas (PM-FEAT-013)
+    "SpatialCoordinate3D",
+    "AcousticMaterialType",
+    "AcousticRoomImpulseResponse",
+    "DolbyAtmosBedFormat",
+    "SpatialAudioObjectSpec",
+    "SpatialAudioSoundfieldSpec",
+    # Advanced Multi-Pass VFX Schemas (PM-FEAT-014)
+    "VfxRenderPassType",
+    "VfxLayerChannelSpec",
+    "CryptomatteManifestSpec",
+    "VfxCompositingManifestSpec",
     "load_bible_from_json",
     # Telemetry & Diagnostics
     "RuntimeTelemetry",
@@ -389,6 +434,25 @@ __all__ = [
     "export_dit_cart_manifest_json",
     "export_dit_bundle",
     "export_lut_bundle",
+    # Spatial Audio Simulator Suite (PM-FEAT-013)
+    "calculate_sabine_rt60",
+    "calculate_eyring_rt60",
+    "calculate_vbap_714_gains",
+    "calculate_ambisonic_b_format_weights",
+    "format_spatial_audio_prompt_token",
+    "export_adm_spatial_json",
+    "export_ambisonic_track_csv",
+    "export_web_audio_spatial_config",
+    "export_spatial_audio_bundle",
+    "synthesize_default_spatial_audio",
+    # Multi-Pass VFX Compositor Suite (PM-FEAT-014)
+    "generate_cryptomatte_manifest",
+    "format_vfx_compositing_prompt_token",
+    "export_openexr_channel_manifest_json",
+    "export_cryptomatte_sidecar_json",
+    "export_nuke_comp_script",
+    "export_vfx_compositing_bundle",
+    "synthesize_default_vfx_manifest",
     # Agents
     "IntakeAndResearchAgent",
     "CreativeDirectorAgent",

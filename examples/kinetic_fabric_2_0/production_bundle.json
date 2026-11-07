@@ -398,6 +398,123 @@
           "format": ".cube",
           "cube_filename": "fuji_eterna_dynamic_33x33.cube",
           "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "ambisonic_hoa_3rd_order",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 8000.0,
+            "surface_area_m2": 3200.0,
+            "rt60_decay_sec": 2.1,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 35.0,
+            "air_absorption_hf_db_per_m": 0.03,
+            "wall_material": "hardwood_concrete"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_kinetic_impact_shockwave",
+              "stem_type": "foley",
+              "label": "Kinetic impact compression shockwave",
+              "initial_position": {
+                "azimuth_deg": -35.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 3.0,
+                "spread_deg": 60.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_ricochet_debris_whizz",
+              "stem_type": "foley",
+              "label": "High-velocity ricochet debris whizz",
+              "initial_position": {
+                "azimuth_deg": 110.0,
+                "elevation_deg": 25.0,
+                "distance_meters": 1.2,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "DWAA",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "kinetic_athlete": "0x33092f06",
+              "reinforced_concrete_pillar": "0xc07d089e",
+              "shattered_debris": "0x771f7517",
+              "dust_cloud_volumetric": "0x413edc84"
+            },
+            "material_manifest": {
+              "matte_performance_fabric": "0xf79449cd",
+              "concrete_fractured": "0x8dfd295d",
+              "steel_rebar": "0x57c92e26",
+              "micro_dust_particulate": "0x91577940"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.1,
+          "depth_far_plane_m": 200.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -701,6 +818,123 @@
           "format": ".cube",
           "cube_filename": "fuji_eterna_dynamic_33x33.cube",
           "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "ambisonic_hoa_3rd_order",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 8000.0,
+            "surface_area_m2": 3200.0,
+            "rt60_decay_sec": 2.1,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 35.0,
+            "air_absorption_hf_db_per_m": 0.03,
+            "wall_material": "hardwood_concrete"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_kinetic_impact_shockwave",
+              "stem_type": "foley",
+              "label": "Kinetic impact compression shockwave",
+              "initial_position": {
+                "azimuth_deg": -35.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 3.0,
+                "spread_deg": 60.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_ricochet_debris_whizz",
+              "stem_type": "foley",
+              "label": "High-velocity ricochet debris whizz",
+              "initial_position": {
+                "azimuth_deg": 110.0,
+                "elevation_deg": 25.0,
+                "distance_meters": 1.2,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "DWAA",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "kinetic_athlete": "0x33092f06",
+              "reinforced_concrete_pillar": "0xc07d089e",
+              "shattered_debris": "0x771f7517",
+              "dust_cloud_volumetric": "0x413edc84"
+            },
+            "material_manifest": {
+              "matte_performance_fabric": "0xf79449cd",
+              "concrete_fractured": "0x8dfd295d",
+              "steel_rebar": "0x57c92e26",
+              "micro_dust_particulate": "0x91577940"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.1,
+          "depth_far_plane_m": 200.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -1004,6 +1238,123 @@
           "format": ".cube",
           "cube_filename": "fuji_eterna_dynamic_33x33.cube",
           "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "ambisonic_hoa_3rd_order",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 8000.0,
+            "surface_area_m2": 3200.0,
+            "rt60_decay_sec": 2.1,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 35.0,
+            "air_absorption_hf_db_per_m": 0.03,
+            "wall_material": "hardwood_concrete"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_kinetic_impact_shockwave",
+              "stem_type": "foley",
+              "label": "Kinetic impact compression shockwave",
+              "initial_position": {
+                "azimuth_deg": -35.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 3.0,
+                "spread_deg": 60.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_ricochet_debris_whizz",
+              "stem_type": "foley",
+              "label": "High-velocity ricochet debris whizz",
+              "initial_position": {
+                "azimuth_deg": 110.0,
+                "elevation_deg": 25.0,
+                "distance_meters": 1.2,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "DWAA",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "kinetic_athlete": "0x33092f06",
+              "reinforced_concrete_pillar": "0xc07d089e",
+              "shattered_debris": "0x771f7517",
+              "dust_cloud_volumetric": "0x413edc84"
+            },
+            "material_manifest": {
+              "matte_performance_fabric": "0xf79449cd",
+              "concrete_fractured": "0x8dfd295d",
+              "steel_rebar": "0x57c92e26",
+              "micro_dust_particulate": "0x91577940"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.1,
+          "depth_far_plane_m": 200.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -1307,6 +1658,123 @@
           "format": ".cube",
           "cube_filename": "fuji_eterna_dynamic_33x33.cube",
           "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "ambisonic_hoa_3rd_order",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 8000.0,
+            "surface_area_m2": 3200.0,
+            "rt60_decay_sec": 2.1,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 35.0,
+            "air_absorption_hf_db_per_m": 0.03,
+            "wall_material": "hardwood_concrete"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_kinetic_impact_shockwave",
+              "stem_type": "foley",
+              "label": "Kinetic impact compression shockwave",
+              "initial_position": {
+                "azimuth_deg": -35.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 3.0,
+                "spread_deg": 60.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_ricochet_debris_whizz",
+              "stem_type": "foley",
+              "label": "High-velocity ricochet debris whizz",
+              "initial_position": {
+                "azimuth_deg": 110.0,
+                "elevation_deg": 25.0,
+                "distance_meters": 1.2,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "DWAA",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "kinetic_athlete": "0x33092f06",
+              "reinforced_concrete_pillar": "0xc07d089e",
+              "shattered_debris": "0x771f7517",
+              "dust_cloud_volumetric": "0x413edc84"
+            },
+            "material_manifest": {
+              "matte_performance_fabric": "0xf79449cd",
+              "concrete_fractured": "0x8dfd295d",
+              "steel_rebar": "0x57c92e26",
+              "micro_dust_particulate": "0x91577940"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.1,
+          "depth_far_plane_m": 200.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       }
     ],
@@ -1623,6 +2091,240 @@
       "format": ".cube",
       "cube_filename": "fuji_eterna_dynamic_33x33.cube",
       "description": "High-contrast Fuji Eterna dynamic 33x33 .cube"
+    },
+    "master_spatial_audio": {
+      "bed_format": "ambisonic_hoa_3rd_order",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 8000.0,
+        "surface_area_m2": 3200.0,
+        "rt60_decay_sec": 2.1,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 35.0,
+        "air_absorption_hf_db_per_m": 0.03,
+        "wall_material": "hardwood_concrete"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_kinetic_impact_shockwave",
+          "stem_type": "foley",
+          "label": "Kinetic impact compression shockwave",
+          "initial_position": {
+            "azimuth_deg": -35.0,
+            "elevation_deg": -10.0,
+            "distance_meters": 3.0,
+            "spread_deg": 60.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": 0.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_ricochet_debris_whizz",
+          "stem_type": "foley",
+          "label": "High-velocity ricochet debris whizz",
+          "initial_position": {
+            "azimuth_deg": 110.0,
+            "elevation_deg": 25.0,
+            "distance_meters": 1.2,
+            "spread_deg": 15.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -18.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "spatial_audio": {
+      "bed_format": "ambisonic_hoa_3rd_order",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 8000.0,
+        "surface_area_m2": 3200.0,
+        "rt60_decay_sec": 2.1,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 35.0,
+        "air_absorption_hf_db_per_m": 0.03,
+        "wall_material": "hardwood_concrete"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_kinetic_impact_shockwave",
+          "stem_type": "foley",
+          "label": "Kinetic impact compression shockwave",
+          "initial_position": {
+            "azimuth_deg": -35.0,
+            "elevation_deg": -10.0,
+            "distance_meters": 3.0,
+            "spread_deg": 60.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": 0.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_ricochet_debris_whizz",
+          "stem_type": "foley",
+          "label": "High-velocity ricochet debris whizz",
+          "initial_position": {
+            "azimuth_deg": 110.0,
+            "elevation_deg": 25.0,
+            "distance_meters": 1.2,
+            "spread_deg": 15.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -18.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "master_vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "DWAA",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 200.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "kinetic_athlete": "0x33092f06",
+          "reinforced_concrete_pillar": "0xc07d089e",
+          "shattered_debris": "0x771f7517",
+          "dust_cloud_volumetric": "0x413edc84"
+        },
+        "material_manifest": {
+          "matte_performance_fabric": "0xf79449cd",
+          "concrete_fractured": "0x8dfd295d",
+          "steel_rebar": "0x57c92e26",
+          "micro_dust_particulate": "0x91577940"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.1,
+      "depth_far_plane_m": 200.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+    },
+    "vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "DWAA",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 200.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "kinetic_athlete": "0x33092f06",
+          "reinforced_concrete_pillar": "0xc07d089e",
+          "shattered_debris": "0x771f7517",
+          "dust_cloud_volumetric": "0x413edc84"
+        },
+        "material_manifest": {
+          "matte_performance_fabric": "0xf79449cd",
+          "concrete_fractured": "0x8dfd295d",
+          "steel_rebar": "0x57c92e26",
+          "micro_dust_particulate": "0x91577940"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.1,
+      "depth_far_plane_m": 200.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
     }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
@@ -1689,6 +2391,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Ambisonic Hoa 3Rd Order, RT60=2.10s (Hardwood Concrete), Objects: obj_kinetic_impact_shockwave (az:-35°, el:-10°, 3.0m); obj_ricochet_debris_whizz (az:+110°, el:+25°, 1.2m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (DWAA, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-200.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
@@ -1722,6 +2430,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Ambisonic Hoa 3Rd Order, RT60=2.10s (Hardwood Concrete), Objects: obj_kinetic_impact_shockwave (az:-35°, el:-10°, 3.0m); obj_ricochet_debris_whizz (az:+110°, el:+25°, 1.2m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (DWAA, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-200.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
@@ -1755,6 +2469,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Ambisonic Hoa 3Rd Order, RT60=2.10s (Hardwood Concrete), Objects: obj_kinetic_impact_shockwave (az:-35°, el:-10°, 3.0m); obj_ricochet_debris_whizz (az:+110°, el:+25°, 1.2m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (DWAA, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-200.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1787,15 +2507,21 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with High-contrast Fuji Eterna dynamic (fuji_eterna_dynamic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Ambisonic Hoa 3Rd Order, RT60=2.10s (Hardwood Concrete), Objects: obj_kinetic_impact_shockwave (az:-35°, el:-10°, 3.0m); obj_ricochet_debris_whizz (az:+110°, el:+25°, 1.2m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (DWAA, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-200.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true
       }
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "7aa205e6-0bb7-42a2-8252-085adc878e5a",
+    "session_id": "4b4a2b9d-c42a-421a-a0e7-2817c3d7faa7",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-06T09:34:08.393760+00:00",
+    "timestamp": "2026-11-07T09:45:34.293271+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1805,67 +2531,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-06T09:34:08.393781+00:00",
-        "end_time": "2026-11-06T09:34:08.393789+00:00",
+        "start_time": "2026-11-07T09:45:34.293287+00:00",
+        "end_time": "2026-11-07T09:45:34.293294+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-06T09:34:08.393803+00:00",
-        "end_time": "2026-11-06T09:34:08.394117+00:00",
-        "duration_ms": 0.31,
+        "start_time": "2026-11-07T09:45:34.293306+00:00",
+        "end_time": "2026-11-07T09:45:34.293682+00:00",
+        "duration_ms": 0.38,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-06T09:34:08.394126+00:00",
-        "end_time": "2026-11-06T09:34:08.399807+00:00",
-        "duration_ms": 5.68,
+        "start_time": "2026-11-07T09:45:34.293691+00:00",
+        "end_time": "2026-11-07T09:45:34.295400+00:00",
+        "duration_ms": 1.71,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-06T09:34:08.399842+00:00",
-        "end_time": "2026-11-06T09:34:08.400016+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-07T09:45:34.295412+00:00",
+        "end_time": "2026-11-07T09:45:34.295566+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-06T09:34:08.400025+00:00",
-        "end_time": "2026-11-06T09:34:08.402813+00:00",
+        "start_time": "2026-11-07T09:45:34.295574+00:00",
+        "end_time": "2026-11-07T09:45:34.298350+00:00",
         "duration_ms": 2.78,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-06T09:34:08.402958+00:00",
-        "end_time": "2026-11-06T09:34:08.402968+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-07T09:45:34.298357+00:00",
+        "end_time": "2026-11-07T09:45:34.298361+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-06T09:34:08.402978+00:00",
-        "end_time": "2026-11-06T09:34:08.408456+00:00",
-        "duration_ms": 5.48,
+        "start_time": "2026-11-07T09:45:34.298367+00:00",
+        "end_time": "2026-11-07T09:45:34.305098+00:00",
+        "duration_ms": 6.73,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-06T09:34:08.418117+00:00",
-        "end_time": "2026-11-06T09:34:08.431168+00:00",
-        "duration_ms": 13.05,
+        "start_time": "2026-11-07T09:45:34.327328+00:00",
+        "end_time": "2026-11-07T09:45:34.340803+00:00",
+        "duration_ms": 13.48,
         "details": {}
       }
     ],
-    "total_duration_ms": 27.49,
+    "total_duration_ms": 25.24,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "afb9a7cb2c110211e3f067d28d0836d6334f7d597f74088d595dd6af53a48635",
-      "storyboard_preview.html": "0e6560a6521c621434087771d8ff4d8dfe98c8d43429db157497d9777096140f",
+      "production_bundle.json": "8ccd5f519050946c2080bb51891e9f479480372956de365e4e490c824965e103",
+      "storyboard_preview.html": "a211d0b8f3d5869c07ce45522d1b9dbff0106e15ded3c40d801f8e672e72631d",
       "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
       "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
       "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
@@ -1900,7 +2626,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-06T09:34:08.429101+00:00",
+    "timestamp": "2026-11-07T09:45:34.339527+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1937,9 +2663,36 @@
                 "dit_cart_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "spatial_audio_delivery",
+            "message": "Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "spatial_artifacts": [
+                "spatial_audio_adm.json",
+                "ambisonic_b_format.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "vfx_compositing_delivery",
+            "message": "Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "vfx_artifacts": [
+                "openexr_channels.json",
+                "cryptomatte_manifest.json",
+                "nuke_composite.nk"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -2076,6 +2829,32 @@
               "emulation": "fuji_eterna_dynamic",
               "cube": "fuji_eterna_dynamic_33x33.cube"
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spatial_audio_calibration",
+            "message": "Domain spatial audio verified: ambisonic_hoa_3rd_order Atmos bed, 'Studio Soundstage' (RT60=2.10s, 2 3D objects) aligned with domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "bed_format": "ambisonic_hoa_3rd_order",
+              "room": "Studio Soundstage",
+              "objects": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_vfx_compositing_calibration",
+            "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'kinetic_action'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "format": "half_float_16",
+              "passes": 7,
+              "crypto_entries": 8
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: kinetic_action)."
@@ -2099,6 +2878,22 @@
             "severity": "info",
             "category": "animatic_dit_lut_hud",
             "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spatial_audio_hud",
+            "message": "Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_vfx_hud",
+            "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -2264,6 +3059,36 @@
           "omni_director/schemas.py",
           "omni_director/presets.py",
           "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-013",
+        "title": "Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+        "problem_statement": "Enterprise cinematic productions and game engines for 'The Kinetic Fabric: Grounded Innovation' require physics-based spatial audio modeling—including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—to eliminate flat stereo audio and deliver immersive binaural soundfields.",
+        "proposed_solution": "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/spatial_audio.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-014",
+        "title": "Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+        "problem_statement": "Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine) for 'The Kinetic Fabric: Grounded Innovation' require multi-pass render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—to allow seamless live-action visual effects integration rather than un-decomposed flat video renders.",
+        "proposed_solution": "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",
         "status": "implemented"

@@ -1,6 +1,6 @@
 # Product Council Audit Report: Solarpunk Architectural Sanctuary Featur
 
-**Version**: 2.6.0 | **Timestamp**: `2026-11-06T09:34:08.819905+00:00`
+**Version**: 2.6.0 | **Timestamp**: `2026-11-07T09:45:34.828426+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,16 +8,18 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 2 | FDE review completed with score 25.0/25.0. 2 findings. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 4 | FDE review completed with score 25.0/25.0. 4 findings. |
 | `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 1 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 9 | Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 2 | UX Designer review completed with score 25.0/25.0. |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 11 | Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 4 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
 ### COUNCIL-FDE
 - [INFO] **optical_dof_delivery**: Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.
 - [INFO] **color_lut_delivery**: DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.
+- [INFO] **spatial_audio_delivery**: Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.
+- [INFO] **vfx_compositing_delivery**: Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -32,10 +34,14 @@
 - [INFO] **lighting_rig_alignment**: Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'architectural_sanctuary'.
 - [INFO] **domain_dof_calibration**: Domain DoF calibration verified: 'Panoramic deep focus' (T8.0, 18mm, circular iris, infinite far limit) aligned with domain 'architectural_sanctuary'.
 - [INFO] **domain_lut_calibration**: Domain 3D LUT color science verified: 'Verdant warm daylight organic' (verdant_warm_daylight, 33x33x33 verdant_warm_daylight_33x33.cube) aligned with domain 'architectural_sanctuary'.
+- [INFO] **domain_spatial_audio_calibration**: Domain spatial audio verified: ambisonic_b_format Atmos bed, 'Studio Soundstage' (RT60=1.85s, 2 3D objects) aligned with domain 'architectural_sanctuary'.
+- [INFO] **domain_vfx_compositing_calibration**: Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'architectural_sanctuary'.
 
 ### COUNCIL-UX-DESIGNER
 - [INFO] **animatic_dof_hud**: Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).
 - [INFO] **animatic_dit_lut_hud**: DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).
+- [INFO] **animatic_spatial_audio_hud**: Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).
+- [INFO] **animatic_vfx_hud**: Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -55,3 +61,5 @@
 | `PM-FEAT-010` | **P0** | `implemented` | **Volumetric Atmospheric & Studio Lighting Rig Simulator**: Ship LightingFixtureRole, DiffusionGrade, ParticulateHazeType, StudioLightFixtureSpec, AtmosphericHazeSpec, LightingRigSpec schemas, omni_director.tools.lighting_rig (Key:Fill & Key:Rim photometric contrast formulas, lighting plot JSON and gaffer equipment CSV exports), prompt auditor lighting tokens, and an interactive Studio Gaffer HUD (#btn-gaffer-animatic / #animatic-gaffer-hud [G] hotkey) in the animatic. | `omni_director/schemas.py`, `omni_director/tools/lighting_rig.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py` |
 | `PM-FEAT-011` | **P0** | `implemented` | **Domain-Calibrated Depth of Field (DoF), Iris Aperture & Optical Focus Engine**: Ship DomainDofSpec schema in omni_director.schemas, calibrate get_domain_dof_spec() across all 6 commercial domain archetypes in omni_director.presets, bind dof_spec to ScenePromptSpec and master_dof_spec to MasterProductionBible, and integrate domain DoF verification into ProductCouncilOrchestrator. | `omni_director/schemas.py`, `omni_director/presets.py`, `omni_director/agents/council.py` |
 | `PM-FEAT-012` | **P0** | `implemented` | **Domain 3D LUT Color Science & Film Emulation (.cube) Suite**: Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator. | `omni_director/schemas.py`, `omni_director/presets.py`, `omni_director/agents/council.py` |
+| `PM-FEAT-013` | **P0** | `implemented` | **Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)**: Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/spatial_audio.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-014` | **P0** | `implemented` | **Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)**: Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/vfx_compositor.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |

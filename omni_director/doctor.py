@@ -36,7 +36,7 @@ try:
     from omni_director import __version__
     DEFAULT_DOCTOR_VERSION = __version__
 except Exception:
-    DEFAULT_DOCTOR_VERSION = "2.6.0"
+    DEFAULT_DOCTOR_VERSION = "2.7.0"
 
 
 class CheckStatus(str, Enum):

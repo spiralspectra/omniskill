@@ -847,6 +847,206 @@ class AudioStemMixerSpec(BaseModel):
         )
 
 
+class AcousticMaterialType(str, Enum):
+    """Calibrated acoustic surface absorption materials (PM-FEAT-013)."""
+    MARBLE_GLASS = "marble_glass"
+    HARDWOOD_CONCRETE = "hardwood_concrete"
+    STUDIO_ACOUSTIC_FOAM = "studio_acoustic_foam"
+    FURNISHED_RESIDENTIAL = "furnished_residential"
+    AUTOMOTIVE_CABIN = "automotive_cabin"
+    OPEN_OUTDOOR_DIFFUSE = "open_outdoor_diffuse"
+
+    # Lowercase aliases
+    marble_glass = "marble_glass"
+    hardwood_concrete = "hardwood_concrete"
+    studio_acoustic_foam = "studio_acoustic_foam"
+    furnished_residential = "furnished_residential"
+    automotive_cabin = "automotive_cabin"
+    open_outdoor_diffuse = "open_outdoor_diffuse"
+
+
+class AcousticRoomImpulseResponse(BaseModel):
+    """Room Impulse Response (RIR) acoustic profile and RT60 decay (PM-FEAT-013)."""
+    room_name: str = Field(default="Studio Soundstage", description="Descriptive acoustic room environment name")
+    room_volume_m3: float = Field(default=150.0, ge=1.0, description="Enclosure interior volume in cubic meters")
+    surface_area_m2: float = Field(default=180.0, ge=1.0, description="Total boundary surface area in square meters")
+    rt60_decay_sec: float = Field(default=0.45, ge=0.01, le=10.0, description="Sabine/Eyring reverberation decay time to -60dB")
+    eyring_rt60_seconds: float = Field(default=0.41, ge=0.01, le=10.0, description="Eyring reverberation decay time to -60dB")
+    early_reflections_ms: float = Field(default=18.0, ge=0.0, description="Delay of first prominent reflection in milliseconds")
+    air_absorption_hf_db_per_m: float = Field(default=0.02, ge=0.0, description="High-frequency atmospheric attenuation per meter")
+    wall_material: AcousticMaterialType = Field(default=AcousticMaterialType.STUDIO_ACOUSTIC_FOAM, description="Boundary material absorption class")
+
+    @property
+    def rt60_seconds(self) -> float:
+        return self.rt60_decay_sec
+
+    @field_validator("wall_material", mode="before")
+    @classmethod
+    def normalize_material(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in AcousticMaterialType:
+                if v_clean == member.value:
+                    return member
+            for member in AcousticMaterialType:
+                if member.value in v_clean:
+                    return member
+        return v
+
+
+class DolbyAtmosBedFormat(str, Enum):
+    """Spatial audio soundfield delivery formats (PM-FEAT-013)."""
+    BED_7_1_4 = "bed_7_1_4"
+    BED_5_1_2 = "bed_5_1_2"
+    AMBISONIC_B_FORMAT = "ambisonic_b_format"
+    AMBISONIC_HOA_3RD_ORDER = "ambisonic_hoa_3rd_order"
+    BINAURAL_HRTF = "binaural_hrtf"
+
+    # Lowercase aliases
+    bed_7_1_4 = "bed_7_1_4"
+    bed_5_1_2 = "bed_5_1_2"
+    ambisonic_b_format = "ambisonic_b_format"
+    ambisonic_hoa_3rd_order = "ambisonic_hoa_3rd_order"
+    binaural_hrtf = "binaural_hrtf"
+
+
+class SpatialCoordinate3D(BaseModel):
+    """Spherical / Cartesian 3D spatial coordinate for audio objects (PM-FEAT-013)."""
+    azimuth_deg: float = Field(default=0.0, ge=-180.0, le=180.0, description="Horizontal angle in degrees (-180° to +180°, 0° = direct front)")
+    elevation_deg: float = Field(default=0.0, ge=-90.0, le=90.0, description="Vertical angle in degrees (-90° Nadir to +90° Zenith, 0° = ear height)")
+    distance_meters: float = Field(default=1.0, ge=0.1, le=100.0, description="Radial distance from listener in meters")
+    spread_deg: float = Field(default=0.0, ge=0.0, le=360.0, description="Apparent sound source angular width in degrees")
+
+
+class SpatialAudioObjectSpec(BaseModel):
+    """Dynamic spatial audio object with 3D coordinate and trajectory (PM-FEAT-013)."""
+    object_id: str = Field(..., description="Unique audio object identifier (e.g. 'obj_foley_footsteps')")
+    stem_type: Union[StemType, str] = Field(default=StemType.FOLEY, description="Associated audio stem channel")
+    label: str = Field(default="", description="Descriptive sound source label")
+    initial_position: SpatialCoordinate3D = Field(default_factory=SpatialCoordinate3D)
+    trajectory_waypoints: List[SpatialCoordinate3D] = Field(default_factory=list, description="3D waypoints for panning motion")
+    lfe_send_db: float = Field(default=-12.0, le=0.0, description="Subwoofer LFE channel send level in decibels")
+    directivity_cone_deg: float = Field(default=360.0, ge=10.0, le=360.0, description="Source emission directivity cone in degrees")
+
+    @field_validator("stem_type", mode="before")
+    @classmethod
+    def normalize_stem(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower()
+            for member in StemType:
+                if v_clean == member.value:
+                    return member
+        return v
+
+
+class SpatialAudioSoundfieldSpec(BaseModel):
+    """Complete 3D spatial soundfield and acoustic environment specification (PM-FEAT-013)."""
+    bed_format: DolbyAtmosBedFormat = Field(default=DolbyAtmosBedFormat.BED_7_1_4, description="Multichannel speaker layout or ambisonic order")
+    room_acoustics: AcousticRoomImpulseResponse = Field(default_factory=AcousticRoomImpulseResponse, description="Physical enclosure acoustic response")
+    audio_objects: List[SpatialAudioObjectSpec] = Field(default_factory=list, description="Positioned spatial audio objects")
+    binaural_rendering_enabled: bool = Field(default=True, description="Enables HRTF binaural headphone synthesis preview")
+
+    @field_validator("bed_format", mode="before")
+    @classmethod
+    def normalize_bed_format(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_").replace(".", "_")
+            for member in DolbyAtmosBedFormat:
+                if v_clean == member.value:
+                    return member
+            for member in DolbyAtmosBedFormat:
+                if member.value in v_clean:
+                    return member
+        return v
+
+    @property
+    def acoustic_room(self) -> AcousticRoomImpulseResponse:
+        return self.room_acoustics
+
+
+class VfxRenderPassType(str, Enum):
+    """Standardized multi-pass VFX render pass decomposition channels (PM-FEAT-014)."""
+    BEAUTY_RGB = "beauty_rgb"
+    DIFFUSE_ALBEDO = "diffuse_albedo"
+    SPECULAR_ROUGHNESS = "specular_roughness"
+    SURFACE_NORMALS = "surface_normals"
+    DEPTH_Z_PASS = "depth_z_pass"
+    AMBIENT_OCCLUSION = "ambient_occlusion"
+    CRYPTOMATTE_OBJECT = "cryptomatte_object"
+    CRYPTOMATTE_MATERIAL = "cryptomatte_material"
+    EMISSIVE_LIGHTING = "emissive_lighting"
+    MOTION_VECTORS = "motion_vectors"
+
+    # Lowercase aliases
+    beauty_rgb = "beauty_rgb"
+    diffuse_albedo = "diffuse_albedo"
+    specular_roughness = "specular_roughness"
+    surface_normals = "surface_normals"
+    depth_z_pass = "depth_z_pass"
+    ambient_occlusion = "ambient_occlusion"
+    cryptomatte_object = "cryptomatte_object"
+    cryptomatte_material = "cryptomatte_material"
+    emissive_lighting = "emissive_lighting"
+    motion_vectors = "motion_vectors"
+
+
+class VfxLayerChannelSpec(BaseModel):
+    """Single multi-pass render layer channel specification (PM-FEAT-014)."""
+    pass_type: VfxRenderPassType = Field(default=VfxRenderPassType.BEAUTY_RGB, description="Decomposition pass archetype")
+    channel_name: str = Field(default="beauty.RGB", description="OpenEXR channel name e.g. 'diffuse.RGB', 'depth.Z'")
+    bit_depth: str = Field(default="16-bit half float", description="Color channel bit depth representation")
+    color_space: str = Field(default="ACEScg", description="Color space encoding (e.g. ACEScg, Linear sRGB, Raw)")
+    description: str = Field(default="", description="Functional purpose of this pass in reconstruction")
+
+    @field_validator("pass_type", mode="before")
+    @classmethod
+    def normalize_pass_type(cls, v: Any) -> Any:
+        if isinstance(v, str):
+            v_clean = v.strip().lower().replace("-", "_").replace(" ", "_")
+            for member in VfxRenderPassType:
+                if v_clean == member.value:
+                    return member
+            for member in VfxRenderPassType:
+                if member.value in v_clean:
+                    return member
+        return v
+
+
+class CryptomatteManifestSpec(BaseModel):
+    """Cryptomatte object and material ID hash manifest (PM-FEAT-014)."""
+    object_manifest: Dict[str, str] = Field(default_factory=dict, description="Asset/actor name -> 32-bit hex hash mapping")
+    material_manifest: Dict[str, str] = Field(default_factory=dict, description="Shader/material name -> 32-bit hex hash mapping")
+    hash_algorithm: str = Field(default="MurmurHash3_32", description="Standard Cryptomatte ID hash algorithm")
+
+    @property
+    def matte_entries(self) -> Dict[str, str]:
+        combined = dict(self.object_manifest)
+        combined.update(self.material_manifest)
+        return combined
+
+
+class VfxCompositingManifestSpec(BaseModel):
+    """Complete multi-pass OpenEXR compositing manifest and Nuke script recipe (PM-FEAT-014)."""
+    manifest_version: str = Field(default="2.0", description="Manifest schema version")
+    openexr_compression: str = Field(default="ZIP_SCANLINE", description="OpenEXR compression codec (e.g. ZIP_SCANLINE, PIZ, DWAA)")
+    passes: List[VfxLayerChannelSpec] = Field(default_factory=list, description="Render passes decomposed in OpenEXR bundle")
+    cryptomatte: Optional[CryptomatteManifestSpec] = Field(default=None, description="Cryptomatte ID indexing table")
+    depth_near_plane_m: float = Field(default=0.1, ge=0.0, description="Z-depth near clipping plane distance in meters")
+    depth_far_plane_m: float = Field(default=100.0, ge=0.1, description="Z-depth far clipping plane distance in meters")
+    reconstruction_formula: str = Field(
+        default="(Diffuse * AO) + Specular + Emissive",
+        description="Linear compositing math formula to rebuild Beauty pass"
+    )
+
+    @property
+    def render_passes(self) -> List[VfxLayerChannelSpec]:
+        return self.passes
+
+    @property
+    def channel_format(self) -> str:
+        return "half_float_16"
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -936,6 +1136,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific 3D LUT specification (PM-FEAT-012)"
     )
+    spatial_audio: Optional[SpatialAudioSoundfieldSpec] = Field(
+        default=None,
+        description="Scene-specific 3D spatial audio and acoustic soundfield specification (PM-FEAT-013)"
+    )
+    vfx_compositing: Optional[VfxCompositingManifestSpec] = Field(
+        default=None,
+        description="Scene-specific multi-pass VFX compositing manifest (PM-FEAT-014)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -969,6 +1177,16 @@ class ScenePromptSpec(BaseModel):
                 data["lighting_rig"] = data["lighting_rig_spec"]
             if "lighting" in data and "lighting_rig" not in data and isinstance(data["lighting"], (dict, LightingRigSpec)):
                 data["lighting_rig"] = data["lighting"]
+            if "spatial_audio_spec" in data and "spatial_audio" not in data:
+                data["spatial_audio"] = data["spatial_audio_spec"]
+            if "soundfield" in data and "spatial_audio" not in data:
+                data["spatial_audio"] = data["soundfield"]
+            if "vfx_manifest" in data and "vfx_compositing" not in data:
+                data["vfx_compositing"] = data["vfx_manifest"]
+            if "vfx_compositing_spec" in data and "vfx_compositing" not in data:
+                data["vfx_compositing"] = data["vfx_compositing_spec"]
+            if "vfx" in data and "vfx_compositing" not in data and isinstance(data["vfx"], (dict, VfxCompositingManifestSpec)):
+                data["vfx_compositing"] = data["vfx"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -1034,6 +1252,22 @@ class ScenePromptSpec(BaseModel):
     @vp_stage.setter
     def vp_stage(self, value: Optional[VirtualProductionStageSpec]) -> None:
         self.virtual_production = value
+
+    @property
+    def spatial_soundfield(self) -> Optional[SpatialAudioSoundfieldSpec]:
+        return self.spatial_audio
+
+    @spatial_soundfield.setter
+    def spatial_soundfield(self, value: Optional[SpatialAudioSoundfieldSpec]) -> None:
+        self.spatial_audio = value
+
+    @property
+    def vfx_manifest(self) -> Optional[VfxCompositingManifestSpec]:
+        return self.vfx_compositing
+
+    @vfx_manifest.setter
+    def vfx_manifest(self, value: Optional[VfxCompositingManifestSpec]) -> None:
+        self.vfx_compositing = value
 
     @field_validator("action_beats")
     @classmethod
@@ -1110,6 +1344,22 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master 3D LUT grading profile specification alias (PM-FEAT-012)"
     )
+    master_spatial_audio: Optional[SpatialAudioSoundfieldSpec] = Field(
+        default=None,
+        description="Master 3D spatial audio soundfield and acoustic RIR specification (PM-FEAT-013)"
+    )
+    spatial_audio: Optional[SpatialAudioSoundfieldSpec] = Field(
+        default=None,
+        description="Master 3D spatial audio soundfield specification alias (PM-FEAT-013)"
+    )
+    master_vfx_manifest: Optional[VfxCompositingManifestSpec] = Field(
+        default=None,
+        description="Master multi-pass VFX compositing and render pass manifest (PM-FEAT-014)"
+    )
+    vfx_manifest: Optional[VfxCompositingManifestSpec] = Field(
+        default=None,
+        description="Master multi-pass VFX compositing manifest alias (PM-FEAT-014)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -1151,6 +1401,17 @@ class MasterProductionBible(BaseModel):
             object.__setattr__(self, "lut_spec", self.master_lut_spec)
         elif self.lut_spec is not None and self.master_lut_spec is None:
             object.__setattr__(self, "master_lut_spec", self.lut_spec)
+
+        # Synchronize Spatial Audio and VFX manifest spec aliases
+        if self.master_spatial_audio is not None and self.spatial_audio is None:
+            object.__setattr__(self, "spatial_audio", self.master_spatial_audio)
+        elif self.spatial_audio is not None and self.master_spatial_audio is None:
+            object.__setattr__(self, "master_spatial_audio", self.spatial_audio)
+
+        if self.master_vfx_manifest is not None and self.vfx_manifest is None:
+            object.__setattr__(self, "vfx_manifest", self.master_vfx_manifest)
+        elif self.vfx_manifest is not None and self.master_vfx_manifest is None:
+            object.__setattr__(self, "master_vfx_manifest", self.vfx_manifest)
 
         return self
 

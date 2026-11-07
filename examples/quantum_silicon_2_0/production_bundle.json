@@ -438,6 +438,123 @@
           "format": ".cube",
           "cube_filename": "rec709_cold_precision_33x33.cube",
           "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_5_1_2",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 85.0,
+            "surface_area_m2": 110.0,
+            "rt60_decay_sec": 0.18,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 8.0,
+            "air_absorption_hf_db_per_m": 0.01,
+            "wall_material": "studio_acoustic_foam"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_precision_haptic_click",
+              "stem_type": "foley",
+              "label": "Sub-millimeter precision haptic click",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": -5.0,
+                "distance_meters": 0.45,
+                "spread_deg": 10.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -24.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_cleanroom_laminar_fan",
+              "stem_type": "ambience",
+              "label": "Sterile cleanroom laminar flow purr",
+              "initial_position": {
+                "azimuth_deg": 45.0,
+                "elevation_deg": 30.0,
+                "distance_meters": 2.5,
+                "spread_deg": 90.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -12.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.05m to 10.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "chassis_unibody": "0x959e788b",
+              "gorilla_glass_display": "0x5727d6b3",
+              "silicon_die": "0xb3ebbefa",
+              "copper_heatpipe": "0xfebc84b0"
+            },
+            "material_manifest": {
+              "anodized_aluminum_matte": "0xa602c852",
+              "anti_glare_glass": "0x10091793",
+              "silicon_lithography": "0x4e6f0241",
+              "pure_copper_specular": "0x30067104"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.02,
+          "depth_far_plane_m": 10.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -760,6 +877,123 @@
           "format": ".cube",
           "cube_filename": "rec709_cold_precision_33x33.cube",
           "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_5_1_2",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 85.0,
+            "surface_area_m2": 110.0,
+            "rt60_decay_sec": 0.18,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 8.0,
+            "air_absorption_hf_db_per_m": 0.01,
+            "wall_material": "studio_acoustic_foam"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_precision_haptic_click",
+              "stem_type": "foley",
+              "label": "Sub-millimeter precision haptic click",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": -5.0,
+                "distance_meters": 0.45,
+                "spread_deg": 10.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -24.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_cleanroom_laminar_fan",
+              "stem_type": "ambience",
+              "label": "Sterile cleanroom laminar flow purr",
+              "initial_position": {
+                "azimuth_deg": 45.0,
+                "elevation_deg": 30.0,
+                "distance_meters": 2.5,
+                "spread_deg": 90.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -12.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.05m to 10.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "chassis_unibody": "0x959e788b",
+              "gorilla_glass_display": "0x5727d6b3",
+              "silicon_die": "0xb3ebbefa",
+              "copper_heatpipe": "0xfebc84b0"
+            },
+            "material_manifest": {
+              "anodized_aluminum_matte": "0xa602c852",
+              "anti_glare_glass": "0x10091793",
+              "silicon_lithography": "0x4e6f0241",
+              "pure_copper_specular": "0x30067104"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.02,
+          "depth_far_plane_m": 10.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       }
     ],
@@ -1076,6 +1310,240 @@
       "format": ".cube",
       "cube_filename": "rec709_cold_precision_33x33.cube",
       "description": "Neutral surgical Rec.709 cold precision 33x33 .cube"
+    },
+    "master_spatial_audio": {
+      "bed_format": "bed_5_1_2",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 85.0,
+        "surface_area_m2": 110.0,
+        "rt60_decay_sec": 0.18,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 8.0,
+        "air_absorption_hf_db_per_m": 0.01,
+        "wall_material": "studio_acoustic_foam"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_precision_haptic_click",
+          "stem_type": "foley",
+          "label": "Sub-millimeter precision haptic click",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": -5.0,
+            "distance_meters": 0.45,
+            "spread_deg": 10.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -24.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_cleanroom_laminar_fan",
+          "stem_type": "ambience",
+          "label": "Sterile cleanroom laminar flow purr",
+          "initial_position": {
+            "azimuth_deg": 45.0,
+            "elevation_deg": 30.0,
+            "distance_meters": 2.5,
+            "spread_deg": 90.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -12.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "spatial_audio": {
+      "bed_format": "bed_5_1_2",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 85.0,
+        "surface_area_m2": 110.0,
+        "rt60_decay_sec": 0.18,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 8.0,
+        "air_absorption_hf_db_per_m": 0.01,
+        "wall_material": "studio_acoustic_foam"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_precision_haptic_click",
+          "stem_type": "foley",
+          "label": "Sub-millimeter precision haptic click",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": -5.0,
+            "distance_meters": 0.45,
+            "spread_deg": 10.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -24.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_cleanroom_laminar_fan",
+          "stem_type": "ambience",
+          "label": "Sterile cleanroom laminar flow purr",
+          "initial_position": {
+            "azimuth_deg": 45.0,
+            "elevation_deg": 30.0,
+            "distance_meters": 2.5,
+            "spread_deg": 90.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -12.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "master_vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.05m to 10.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "chassis_unibody": "0x959e788b",
+          "gorilla_glass_display": "0x5727d6b3",
+          "silicon_die": "0xb3ebbefa",
+          "copper_heatpipe": "0xfebc84b0"
+        },
+        "material_manifest": {
+          "anodized_aluminum_matte": "0xa602c852",
+          "anti_glare_glass": "0x10091793",
+          "silicon_lithography": "0x4e6f0241",
+          "pure_copper_specular": "0x30067104"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.02,
+      "depth_far_plane_m": 10.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+    },
+    "vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.05m to 10.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "chassis_unibody": "0x959e788b",
+          "gorilla_glass_display": "0x5727d6b3",
+          "silicon_die": "0xb3ebbefa",
+          "copper_heatpipe": "0xfebc84b0"
+        },
+        "material_manifest": {
+          "anodized_aluminum_matte": "0xa602c852",
+          "anti_glare_glass": "0x10091793",
+          "silicon_lithography": "0x4e6f0241",
+          "pure_copper_specular": "0x30067104"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.02,
+      "depth_far_plane_m": 10.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -1128,6 +1596,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Neutral surgical Rec.709 cold precision (rec709_cold_precision emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 5 1 2, RT60=0.18s (Studio Acoustic Foam), Objects: obj_precision_haptic_click (az:+0°, el:-5°, 0.5m); obj_cleanroom_laminar_fan (az:+45°, el:+30°, 2.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.0m-10.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1164,6 +1638,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Neutral surgical Rec.709 cold precision (rec709_cold_precision emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 5 1 2, RT60=0.18s (Studio Acoustic Foam), Objects: obj_precision_haptic_click (az:+0°, el:-5°, 0.5m); obj_cleanroom_laminar_fan (az:+45°, el:+30°, 2.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.0m-10.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1176,9 +1656,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "9038edfa-d0b3-4b06-b35e-033eea72af5e",
+    "session_id": "a2a7458f-7bd8-4fc2-920d-102429c90371",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-06T09:34:09.181036+00:00",
+    "timestamp": "2026-11-07T09:45:35.282674+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1188,67 +1668,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-06T09:34:09.181057+00:00",
-        "end_time": "2026-11-06T09:34:09.181677+00:00",
-        "duration_ms": 0.62,
+        "start_time": "2026-11-07T09:45:35.282690+00:00",
+        "end_time": "2026-11-07T09:45:35.283274+00:00",
+        "duration_ms": 0.58,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-06T09:34:09.181694+00:00",
-        "end_time": "2026-11-06T09:34:09.182601+00:00",
-        "duration_ms": 0.91,
+        "start_time": "2026-11-07T09:45:35.283286+00:00",
+        "end_time": "2026-11-07T09:45:35.284109+00:00",
+        "duration_ms": 0.82,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-06T09:34:09.182616+00:00",
-        "end_time": "2026-11-06T09:34:09.186550+00:00",
-        "duration_ms": 3.93,
+        "start_time": "2026-11-07T09:45:35.284120+00:00",
+        "end_time": "2026-11-07T09:45:35.285214+00:00",
+        "duration_ms": 1.09,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-06T09:34:09.186589+00:00",
-        "end_time": "2026-11-06T09:34:09.186760+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-07T09:45:35.285225+00:00",
+        "end_time": "2026-11-07T09:45:35.285356+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-06T09:34:09.186770+00:00",
-        "end_time": "2026-11-06T09:34:09.187749+00:00",
-        "duration_ms": 0.98,
+        "start_time": "2026-11-07T09:45:35.285364+00:00",
+        "end_time": "2026-11-07T09:45:35.286529+00:00",
+        "duration_ms": 1.17,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-06T09:34:09.187760+00:00",
-        "end_time": "2026-11-06T09:34:09.187765+00:00",
+        "start_time": "2026-11-07T09:45:35.286537+00:00",
+        "end_time": "2026-11-07T09:45:35.286540+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-06T09:34:09.187772+00:00",
-        "end_time": "2026-11-06T09:34:09.191478+00:00",
-        "duration_ms": 3.7,
+        "start_time": "2026-11-07T09:45:35.286546+00:00",
+        "end_time": "2026-11-07T09:45:35.289623+00:00",
+        "duration_ms": 3.08,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-06T09:34:09.202303+00:00",
-        "end_time": "2026-11-06T09:34:09.219279+00:00",
-        "duration_ms": 16.98,
+        "start_time": "2026-11-07T09:45:35.294798+00:00",
+        "end_time": "2026-11-07T09:45:35.304366+00:00",
+        "duration_ms": 9.57,
         "details": {}
       }
     ],
-    "total_duration_ms": 27.29,
+    "total_duration_ms": 16.44,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "aede98679b216d30cbc08ec97d3284dffbd5a771ef0443f01886af3fac263bc3",
-      "storyboard_preview.html": "ab5f9afb86125fa453dd315259acff2fdc6e1ab816b895d6a6a44583fb2a8bbf",
+      "production_bundle.json": "79a5605b61230ed215fbded6abbb6b9aff5788e3f8a474aab66ebb12d7075024",
+      "storyboard_preview.html": "6c5d3e8d972374fe528cbf87a82f437da1968d8af75371b9bb278de15ce6c18f",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -1281,7 +1761,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-06T09:34:09.217225+00:00",
+    "timestamp": "2026-11-07T09:45:35.303177+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1318,9 +1798,36 @@
                 "dit_cart_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "spatial_audio_delivery",
+            "message": "Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "spatial_artifacts": [
+                "spatial_audio_adm.json",
+                "ambisonic_b_format.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "vfx_compositing_delivery",
+            "message": "Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "vfx_artifacts": [
+                "openexr_channels.json",
+                "cryptomatte_manifest.json",
+                "nuke_composite.nk"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1457,6 +1964,32 @@
               "emulation": "rec709_cold_precision",
               "cube": "rec709_cold_precision_33x33.cube"
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spatial_audio_calibration",
+            "message": "Domain spatial audio verified: bed_5_1_2 Atmos bed, 'Studio Soundstage' (RT60=0.18s, 2 3D objects) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "bed_format": "bed_5_1_2",
+              "room": "Studio Soundstage",
+              "objects": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_vfx_compositing_calibration",
+            "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "format": "half_float_16",
+              "passes": 7,
+              "crypto_entries": 8
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: tech_hardware)."
@@ -1480,6 +2013,22 @@
             "severity": "info",
             "category": "animatic_dit_lut_hud",
             "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spatial_audio_hud",
+            "message": "Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_vfx_hud",
+            "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -1645,6 +2194,36 @@
           "omni_director/schemas.py",
           "omni_director/presets.py",
           "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-013",
+        "title": "Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+        "problem_statement": "Enterprise cinematic productions and game engines for 'Advanced Quantum Computing Silicon Proce' require physics-based spatial audio modeling—including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—to eliminate flat stereo audio and deliver immersive binaural soundfields.",
+        "proposed_solution": "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/spatial_audio.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-014",
+        "title": "Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+        "problem_statement": "Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine) for 'Advanced Quantum Computing Silicon Proce' require multi-pass render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—to allow seamless live-action visual effects integration rather than un-decomposed flat video renders.",
+        "proposed_solution": "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",
         "status": "implemented"

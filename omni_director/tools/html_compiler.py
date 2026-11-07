@@ -628,6 +628,25 @@ def compile_storyboard_html(
         preset_clean = master_color.look_preset.value.replace("_", " ").title()
         lut_film_profile = f"{preset_clean} Profile"
 
+    # Master Spatial Audio & Acoustic Simulation (PM-FEAT-013)
+    master_spatial = getattr(bible, "master_spatial_audio", None)
+    if master_spatial is None:
+        from omni_director.tools.spatial_audio import synthesize_default_spatial_audio
+        master_spatial = synthesize_default_spatial_audio(bible)
+    spatial_bed_str = master_spatial.bed_format.value if hasattr(master_spatial.bed_format, "value") else str(master_spatial.bed_format)
+    spatial_room_name = master_spatial.acoustic_room.room_name if master_spatial.acoustic_room else "Studio Soundstage"
+    spatial_rt60_val = f"{master_spatial.acoustic_room.rt60_seconds:.2f}s" if master_spatial.acoustic_room else "0.45s"
+    spatial_eyring_val = f"{master_spatial.acoustic_room.eyring_rt60_seconds:.2f}s" if (master_spatial.acoustic_room and master_spatial.acoustic_room.eyring_rt60_seconds) else "0.41s"
+
+    # Master VFX Compositing Manifest (PM-FEAT-014)
+    master_vfx = getattr(bible, "master_vfx_manifest", None)
+    if master_vfx is None:
+        from omni_director.tools.vfx_compositor import synthesize_default_vfx_manifest
+        master_vfx = synthesize_default_vfx_manifest(bible)
+    vfx_pass_count = len(master_vfx.render_passes)
+    vfx_crypto_count = len(master_vfx.cryptomatte.matte_entries) if master_vfx.cryptomatte else 0
+    vfx_format_label = f"{master_vfx.channel_format.upper()} ({vfx_pass_count} channels)"
+
     if not first_scene_plate_markup:
         first_scene_plate_markup = """<svg viewBox="0 0 640 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <rect width="640" height="360" fill="#0A0C10" />
@@ -2830,6 +2849,138 @@ def compile_storyboard_html(
       text-align: center;
     }}
 
+    /* Spatial Audio & Multi-Pass VFX HUD Modals (PM-FEAT-013 & PM-FEAT-014) */
+    .spatial-hud-modal, .vfx-hud-modal {{
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }}
+    .spatial-modal-content, .vfx-modal-content {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }}
+    .spatial-modal-header, .vfx-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }}
+    .spatial-title-wrap, .vfx-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .spatial-icon, .vfx-icon {{
+      font-size: 24px;
+    }}
+    .spatial-heading, .vfx-heading {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }}
+    .spatial-subheading, .vfx-subheading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }}
+    .btn-spatial-close, .btn-vfx-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }}
+    .btn-spatial-close:hover, .btn-vfx-close:hover {{
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }}
+    .spatial-modal-body, .vfx-modal-body {{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }}
+    .spatial-toolbar, .vfx-toolbar {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }}
+    .spatial-actions, .vfx-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .spatial-badge, .vfx-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }}
+    .spatial-grid-display {{
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }}
+    .spatial-channel-matrix, .vfx-channel-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+    }}
+    .channel-card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .channel-card span {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }}
+    .channel-card strong {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+    }}
+
     .btn-dof, .btn-dit-lut {{
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -2896,13 +3047,19 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
       </button>
       <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
         🎨 DIT 3D LUT Suite [L]
+      </button>
+      <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
+        🔊 Spatial Audio [S]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
+        ✨ VFX Passes [X]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -3569,6 +3726,121 @@ def compile_storyboard_html(
     </div>
   </div>
 
+  <!-- Spatial Audio & Binaural Soundfield HUD (PM-FEAT-013) -->
+  <div id="animatic-spatial-hud" class="spatial-hud-modal" role="dialog" aria-modal="true" aria-label="Spatial Audio &amp; 7.1.4 Binaural Soundfield HUD" style="display: none;">
+    <div class="spatial-modal-content">
+      <div class="spatial-modal-header">
+        <div class="spatial-title-wrap">
+          <span class="spatial-icon">🔊</span>
+          <div>
+            <h3 class="spatial-heading">SPATIAL AUDIO &amp; 7.1.4 BINAURAL SOUNDFIELD CONSOLE</h3>
+            <span class="spatial-subheading">Dolby Atmos Bed (7.1.4) · Sabine / Eyring RT60 Impulse Response · HOA 3rd-Order Ambisonics · ADM Metadata</span>
+          </div>
+        </div>
+        <button type="button" class="btn-spatial-close" onclick="toggleSpatialHUD()" aria-label="Close Spatial Audio HUD">✕</button>
+      </div>
+      <div class="spatial-modal-body">
+        <div class="spatial-toolbar">
+          <div class="spatial-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-adm-json" onclick="downloadSpatialAdmJSON()" aria-label="Download ADM Spatial JSON">
+              ⤓ Download ADM JSON
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-ambisonic-csv" onclick="downloadAmbisonicCSV()" aria-label="Download Ambisonic CSV">
+              ⤓ Download Ambisonic CSV
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-webaudio-cfg" onclick="downloadWebAudioConfig()" aria-label="Download Web Audio Config">
+              ⤓ Web Audio Config (.json)
+            </button>
+          </div>
+          <div class="spatial-status-wrap">
+            <div class="spatial-badge" aria-label="Spatial Audio Calibration">
+              BED: {spatial_bed_str} · ROOM: {spatial_room_name} · SABINE RT60: {spatial_rt60_val} · EYRING RT60: {spatial_eyring_val}
+            </div>
+          </div>
+        </div>
+        <div class="spatial-grid-display">
+          <div class="spatial-channel-matrix">
+            <div class="channel-card"><span>L (Left Front)</span><strong>-3.0 dB</strong></div>
+            <div class="channel-card"><span>C (Center)</span><strong>-1.5 dB</strong></div>
+            <div class="channel-card"><span>R (Right Front)</span><strong>-3.0 dB</strong></div>
+            <div class="channel-card"><span>LFE (Subwoofer)</span><strong>-10.0 dB</strong></div>
+            <div class="channel-card"><span>Lss (Left Side)</span><strong>-4.5 dB</strong></div>
+            <div class="channel-card"><span>Rss (Right Side)</span><strong>-4.5 dB</strong></div>
+            <div class="channel-card"><span>Lsr (Left Rear)</span><strong>-6.0 dB</strong></div>
+            <div class="channel-card"><span>Rsr (Right Rear)</span><strong>-6.0 dB</strong></div>
+            <div class="channel-card"><span>Ltf (Top Front L)</span><strong>-6.0 dB</strong></div>
+            <div class="channel-card"><span>Rtf (Top Front R)</span><strong>-6.0 dB</strong></div>
+            <div class="channel-card"><span>Ltr (Top Rear L)</span><strong>-7.5 dB</strong></div>
+            <div class="channel-card"><span>Rtr (Top Rear R)</span><strong>-7.5 dB</strong></div>
+          </div>
+          <div class="spatial-radar-view">
+            <svg viewBox="0 0 240 240" width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="120" r="100" fill="#0d1117" stroke="#30363d" stroke-width="1.5" />
+              <circle cx="120" cy="120" r="66" fill="none" stroke="#21262d" stroke-width="1" stroke-dasharray="3 3" />
+              <circle cx="120" cy="120" r="33" fill="none" stroke="#21262d" stroke-width="1" stroke-dasharray="3 3" />
+              <line x1="120" y1="20" x2="120" y2="220" stroke="#21262d" stroke-width="1" />
+              <line x1="20" y1="120" x2="220" y2="120" stroke="#21262d" stroke-width="1" />
+              <circle cx="120" cy="120" r="8" fill="#58a6ff" />
+              <text x="120" y="140" fill="#8b949e" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">LISTENER (0,0,0)</text>
+              <circle cx="80" cy="70" r="6" fill="#3fb950" />
+              <text x="80" y="60" fill="#3fb950" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">SRC 1 (Foley)</text>
+              <circle cx="160" cy="90" r="6" fill="#f0883e" />
+              <text x="160" y="80" fill="#f0883e" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">SRC 2 (Ambience)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advanced Multi-Pass VFX Compositing HUD (PM-FEAT-014) -->
+  <div id="animatic-vfx-hud" class="vfx-hud-modal" role="dialog" aria-modal="true" aria-label="Advanced Multi-Pass VFX Compositing Manifest HUD" style="display: none;">
+    <div class="vfx-modal-content">
+      <div class="vfx-modal-header">
+        <div class="vfx-title-wrap">
+          <span class="vfx-icon">✨</span>
+          <div>
+            <h3 class="vfx-heading">ADVANCED MULTI-PASS VFX COMPOSITING MANIFEST &amp; RENDER ENGINE</h3>
+            <span class="vfx-subheading">16/32-bit OpenEXR Half/Float Channels · Cryptomatte Object/Material IDs · Foundry Nuke .nk Template</span>
+          </div>
+        </div>
+        <button type="button" class="btn-vfx-close" onclick="toggleVfxHUD()" aria-label="Close VFX HUD">✕</button>
+      </div>
+      <div class="vfx-modal-body">
+        <div class="vfx-toolbar">
+          <div class="vfx-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-exr-manifest" onclick="downloadExrManifestJSON()" aria-label="Download OpenEXR Channel Manifest">
+              ⤓ Download OpenEXR Manifest (.json)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-cryptomatte" onclick="downloadCryptomatteJSON()" aria-label="Download Cryptomatte Sidecar">
+              ⤓ Cryptomatte Sidecar (.json)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-nuke-script" onclick="downloadNukeScript()" aria-label="Download Foundry Nuke Script">
+              ⤓ Foundry Nuke Script (.nk)
+            </button>
+          </div>
+          <div class="vfx-status-wrap">
+            <div class="vfx-badge" aria-label="VFX Manifest Profile">
+              FORMAT: {vfx_format_label} · RENDER PASSES: {vfx_pass_count} · CRYPTOMATTE IDS: {vfx_crypto_count} · COLOR: ACEScg
+            </div>
+          </div>
+        </div>
+        <div class="vfx-channel-grid">
+          <div class="channel-card"><span>rgba.red/green/blue/alpha</span><strong>Beauty RGBA (Half)</strong></div>
+          <div class="channel-card"><span>diffuse.direct / indirect</span><strong>Diffuse Light (Half)</strong></div>
+          <div class="channel-card"><span>specular.direct / indirect</span><strong>Specular Reflection (Half)</strong></div>
+          <div class="channel-card"><span>transmission.color</span><strong>Refraction / Glass (Half)</strong></div>
+          <div class="channel-card"><span>sss.color</span><strong>Subsurface Scattering (Half)</strong></div>
+          <div class="channel-card"><span>emission.color</span><strong>Self-Illumination (Half)</strong></div>
+          <div class="channel-card"><span>depth.Z</span><strong>Z-Depth Distance (Float32)</strong></div>
+          <div class="channel-card"><span>normal.X/Y/Z</span><strong>World Normals (Half)</strong></div>
+          <div class="channel-card"><span>motion.u / v</span><strong>Velocity Vectors (Float32)</strong></div>
+          <div class="channel-card"><span>crypto_object.00-02</span><strong>Cryptomatte Object ID</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -4195,6 +4467,157 @@ def compile_storyboard_html(
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast("Scene " + sIdx + " 3D LUT (.cube) generated and downloaded!");
+    }}
+
+    // Spatial Audio & Binaural Soundfield Controller (PM-FEAT-013)
+    let isSpatialHUDOpen = false;
+    function toggleSpatialHUD() {{
+      isSpatialHUDOpen = !isSpatialHUDOpen;
+      const modal = document.getElementById('animatic-spatial-hud');
+      const btn = document.getElementById('btn-spatial-animatic');
+      if (modal) {{
+        modal.style.display = isSpatialHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isSpatialHUDOpen);
+        btn.setAttribute('aria-expanded', isSpatialHUDOpen ? 'true' : 'false');
+      }}
+      if (isSpatialHUDOpen) {{
+        showToast("Spatial Audio & 7.1.4 Soundfield HUD: ACTIVE [S]");
+      }}
+    }}
+
+    function downloadSpatialAdmJSON() {{
+      const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
+      const admPayload = {{
+        format: "ADM_ITU_R_BS_2076",
+        version: "2.7.0",
+        bed_format: spatialData.bed_format || "7.1.4",
+        acoustic_room: spatialData.acoustic_room || {{}},
+        audio_objects: spatialData.audio_objects || [],
+        hoa_ambisonics_order: spatialData.hoa_ambisonics_order || 3
+      }};
+      const blob = new Blob([JSON.stringify(admPayload, null, 2)], {{ type: 'application/json;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "spatial_audio_adm.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Audio Definition Model (ADM) JSON downloaded!");
+    }}
+
+    function downloadAmbisonicCSV() {{
+      let csv = "channel,spherical_harmonic,polar_pattern,azimuth_deg,elevation_deg,weight\n";
+      csv += "W,Y_0_0,Omnidirectional,0.0,0.0,0.7071\n";
+      csv += "Y,Y_1_neg1,Dipole_Y,90.0,0.0,1.0000\n";
+      csv += "Z,Y_1_0,Dipole_Z,0.0,90.0,1.0000\n";
+      csv += "X,Y_1_1,Dipole_X,0.0,0.0,1.0000\n";
+      csv += "V,Y_2_neg2,Quadrupole_XY,45.0,0.0,1.0000\n";
+      csv += "T,Y_2_neg1,Quadrupole_YZ,90.0,45.0,1.0000\n";
+      csv += "R,Y_2_0,Quadrupole_Z2,0.0,90.0,1.0000\n";
+      csv += "S,Y_2_1,Quadrupole_ZX,0.0,45.0,1.0000\n";
+      csv += "U,Y_2_2,Quadrupole_X2Y2,0.0,0.0,1.0000\n";
+      const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "ambisonic_b_format.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("3rd-Order HOA Ambisonics B-Format Matrix downloaded!");
+    }}
+
+    function downloadWebAudioConfig() {{
+      const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
+      const webAudioConfig = {{
+        engine: "WebAudio_PannerNode",
+        panningModel: "HRTF",
+        distanceModel: "inverse",
+        maxDistance: 10000,
+        refDistance: 1,
+        rolloffFactor: 1,
+        coneInnerAngle: 360,
+        coneOuterAngle: 0,
+        coneOuterGain: 0,
+        roomImpulseResponse: spatialData.acoustic_room || {{}}
+      }};
+      const blob = new Blob([JSON.stringify(webAudioConfig, null, 2)], {{ type: 'application/json;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "webaudio_spatial_panner.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Web Audio API HRTF Spatial Panner Config downloaded!");
+    }}
+
+    // Advanced Multi-Pass VFX Compositing Controller (PM-FEAT-014)
+    let isVfxHUDOpen = false;
+    function toggleVfxHUD() {{
+      isVfxHUDOpen = !isVfxHUDOpen;
+      const modal = document.getElementById('animatic-vfx-hud');
+      const btn = document.getElementById('btn-vfx-animatic');
+      if (modal) {{
+        modal.style.display = isVfxHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isVfxHUDOpen);
+        btn.setAttribute('aria-expanded', isVfxHUDOpen ? 'true' : 'false');
+      }}
+      if (isVfxHUDOpen) {{
+        showToast("Advanced Multi-Pass VFX Compositing HUD: ACTIVE [X]");
+      }}
+    }}
+
+    function downloadExrManifestJSON() {{
+      const vfxData = MASTER_BIBLE.master_vfx_manifest || {{}};
+      const blob = new Blob([JSON.stringify(vfxData, null, 2)], {{ type: 'application/json;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "openexr_channels.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("OpenEXR Multi-Layer Channel Manifest (.json) downloaded!");
+    }}
+
+    function downloadCryptomatteJSON() {{
+      const vfxData = MASTER_BIBLE.master_vfx_manifest || {{}};
+      const cryptoData = vfxData.cryptomatte || {{ matte_entries: [] }};
+      const blob = new Blob([JSON.stringify(cryptoData, null, 2)], {{ type: 'application/json;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "cryptomatte_manifest.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Cryptomatte ID Sidecar (.json) downloaded!");
+    }}
+
+    function downloadNukeScript() {{
+      const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.7.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "nuke_composite.nk";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Foundry Nuke Composite Script (.nk) downloaded!");
     }}
 
     function toggleAuditDrawer(sceneIdx) {{
@@ -4905,12 +5328,18 @@ def compile_storyboard_html(
         toggleViewfinder();
       }} else if (e.key === 'p' || e.key === 'P') {{
         toggleVPStageModal();
+      }} else if (e.key === 's' || e.key === 'S') {{
+        toggleSpatialHUD();
+      }} else if (e.key === 'x' || e.key === 'X') {{
+        toggleVfxHUD();
       }} else if (e.key === 'Escape') {{
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
         if (isVPStageModalOpen) toggleVPStageModal();
         if (isDoFHUDOpen) toggleDoFHUD();
         if (isDitLutHUDOpen) toggleDitLutHUD();
+        if (isSpatialHUDOpen) toggleSpatialHUD();
+        if (isVfxHUDOpen) toggleVfxHUD();
       }}
     }});
 

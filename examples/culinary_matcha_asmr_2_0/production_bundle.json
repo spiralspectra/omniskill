@@ -450,6 +450,123 @@
           "format": ".cube",
           "cube_filename": "kodak_5219_vision3_33x33.cube",
           "description": "Warm Kodak 5219 Vision3 emulation 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "binaural_hrtf",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 45.0,
+            "surface_area_m2": 65.0,
+            "rt60_decay_sec": 0.25,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 6.5,
+            "air_absorption_hf_db_per_m": 0.015,
+            "wall_material": "marble_glass"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_knife_slice_contact",
+              "stem_type": "foley",
+              "label": "Artisanal knife blade slice contact",
+              "initial_position": {
+                "azimuth_deg": -10.0,
+                "elevation_deg": -5.0,
+                "distance_meters": 0.35,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -24.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_cast_iron_sizzle",
+              "stem_type": "foley",
+              "label": "Cast iron surface butter sizzle",
+              "initial_position": {
+                "azimuth_deg": 20.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 0.5,
+                "spread_deg": 45.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -12.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "PIZ",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.05m to 10.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "santoku_blade": "0x331c88cf",
+              "cutting_board_endgrain": "0x96854787",
+              "salmon_fillet": "0x44167fc4",
+              "cast_iron_pan": "0x87896c17"
+            },
+            "material_manifest": {
+              "stainless_steel_damascus": "0x6a6c21a5",
+              "wood_walnut_oiled": "0x81623753",
+              "flesh_translucent": "0xd545b9ea",
+              "seasoned_cast_iron": "0xeddb7422"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.05,
+          "depth_far_plane_m": 5.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular"
         }
       },
       {
@@ -784,6 +901,123 @@
           "format": ".cube",
           "cube_filename": "kodak_5219_vision3_33x33.cube",
           "description": "Warm Kodak 5219 Vision3 emulation 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "binaural_hrtf",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 45.0,
+            "surface_area_m2": 65.0,
+            "rt60_decay_sec": 0.25,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 6.5,
+            "air_absorption_hf_db_per_m": 0.015,
+            "wall_material": "marble_glass"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_knife_slice_contact",
+              "stem_type": "foley",
+              "label": "Artisanal knife blade slice contact",
+              "initial_position": {
+                "azimuth_deg": -10.0,
+                "elevation_deg": -5.0,
+                "distance_meters": 0.35,
+                "spread_deg": 15.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -24.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_cast_iron_sizzle",
+              "stem_type": "foley",
+              "label": "Cast iron surface butter sizzle",
+              "initial_position": {
+                "azimuth_deg": 20.0,
+                "elevation_deg": -10.0,
+                "distance_meters": 0.5,
+                "spread_deg": 45.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -12.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "PIZ",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.05m to 10.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "santoku_blade": "0x331c88cf",
+              "cutting_board_endgrain": "0x96854787",
+              "salmon_fillet": "0x44167fc4",
+              "cast_iron_pan": "0x87896c17"
+            },
+            "material_manifest": {
+              "stainless_steel_damascus": "0x6a6c21a5",
+              "wood_walnut_oiled": "0x81623753",
+              "flesh_translucent": "0xd545b9ea",
+              "seasoned_cast_iron": "0xeddb7422"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.05,
+          "depth_far_plane_m": 5.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular"
         }
       }
     ],
@@ -1100,6 +1334,240 @@
       "format": ".cube",
       "cube_filename": "kodak_5219_vision3_33x33.cube",
       "description": "Warm Kodak 5219 Vision3 emulation 33x33 .cube"
+    },
+    "master_spatial_audio": {
+      "bed_format": "binaural_hrtf",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 45.0,
+        "surface_area_m2": 65.0,
+        "rt60_decay_sec": 0.25,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 6.5,
+        "air_absorption_hf_db_per_m": 0.015,
+        "wall_material": "marble_glass"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_knife_slice_contact",
+          "stem_type": "foley",
+          "label": "Artisanal knife blade slice contact",
+          "initial_position": {
+            "azimuth_deg": -10.0,
+            "elevation_deg": -5.0,
+            "distance_meters": 0.35,
+            "spread_deg": 15.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -24.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_cast_iron_sizzle",
+          "stem_type": "foley",
+          "label": "Cast iron surface butter sizzle",
+          "initial_position": {
+            "azimuth_deg": 20.0,
+            "elevation_deg": -10.0,
+            "distance_meters": 0.5,
+            "spread_deg": 45.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -12.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "spatial_audio": {
+      "bed_format": "binaural_hrtf",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 45.0,
+        "surface_area_m2": 65.0,
+        "rt60_decay_sec": 0.25,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 6.5,
+        "air_absorption_hf_db_per_m": 0.015,
+        "wall_material": "marble_glass"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_knife_slice_contact",
+          "stem_type": "foley",
+          "label": "Artisanal knife blade slice contact",
+          "initial_position": {
+            "azimuth_deg": -10.0,
+            "elevation_deg": -5.0,
+            "distance_meters": 0.35,
+            "spread_deg": 15.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -24.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_cast_iron_sizzle",
+          "stem_type": "foley",
+          "label": "Cast iron surface butter sizzle",
+          "initial_position": {
+            "azimuth_deg": 20.0,
+            "elevation_deg": -10.0,
+            "distance_meters": 0.5,
+            "spread_deg": 45.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -12.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "master_vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "PIZ",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.05m to 10.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "santoku_blade": "0x331c88cf",
+          "cutting_board_endgrain": "0x96854787",
+          "salmon_fillet": "0x44167fc4",
+          "cast_iron_pan": "0x87896c17"
+        },
+        "material_manifest": {
+          "stainless_steel_damascus": "0x6a6c21a5",
+          "wood_walnut_oiled": "0x81623753",
+          "flesh_translucent": "0xd545b9ea",
+          "seasoned_cast_iron": "0xeddb7422"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.05,
+      "depth_far_plane_m": 5.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular"
+    },
+    "vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "PIZ",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.05m to 10.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "santoku_blade": "0x331c88cf",
+          "cutting_board_endgrain": "0x96854787",
+          "salmon_fillet": "0x44167fc4",
+          "cast_iron_pan": "0x87896c17"
+        },
+        "material_manifest": {
+          "stainless_steel_damascus": "0x6a6c21a5",
+          "wood_walnut_oiled": "0x81623753",
+          "flesh_translucent": "0xd545b9ea",
+          "seasoned_cast_iron": "0xeddb7422"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.05,
+      "depth_far_plane_m": 5.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -1152,6 +1620,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1188,6 +1662,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1200,9 +1680,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "b98e8dd9-40bf-4840-a693-1e67f0d3ff3f",
+    "session_id": "4689c939-e267-4083-8a3c-840806b866ff",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-06T09:34:09.058396+00:00",
+    "timestamp": "2026-11-07T09:45:35.124858+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1212,67 +1692,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-06T09:34:09.058464+00:00",
-        "end_time": "2026-11-06T09:34:09.059273+00:00",
-        "duration_ms": 0.81,
+        "start_time": "2026-11-07T09:45:35.124874+00:00",
+        "end_time": "2026-11-07T09:45:35.125462+00:00",
+        "duration_ms": 0.59,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-06T09:34:09.059304+00:00",
-        "end_time": "2026-11-06T09:34:09.060316+00:00",
-        "duration_ms": 1.01,
+        "start_time": "2026-11-07T09:45:35.125474+00:00",
+        "end_time": "2026-11-07T09:45:35.126304+00:00",
+        "duration_ms": 0.83,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-06T09:34:09.060335+00:00",
-        "end_time": "2026-11-06T09:34:09.062077+00:00",
-        "duration_ms": 1.74,
+        "start_time": "2026-11-07T09:45:35.126315+00:00",
+        "end_time": "2026-11-07T09:45:35.127499+00:00",
+        "duration_ms": 1.18,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-06T09:34:09.062113+00:00",
-        "end_time": "2026-11-06T09:34:09.062293+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-07T09:45:35.127510+00:00",
+        "end_time": "2026-11-07T09:45:35.127644+00:00",
+        "duration_ms": 0.13,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-06T09:34:09.062311+00:00",
-        "end_time": "2026-11-06T09:34:09.063774+00:00",
-        "duration_ms": 1.46,
+        "start_time": "2026-11-07T09:45:35.127651+00:00",
+        "end_time": "2026-11-07T09:45:35.128863+00:00",
+        "duration_ms": 1.21,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-06T09:34:09.063793+00:00",
-        "end_time": "2026-11-06T09:34:09.063797+00:00",
+        "start_time": "2026-11-07T09:45:35.128871+00:00",
+        "end_time": "2026-11-07T09:45:35.128874+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-06T09:34:09.063804+00:00",
-        "end_time": "2026-11-06T09:34:09.068242+00:00",
-        "duration_ms": 4.42,
+        "start_time": "2026-11-07T09:45:35.128880+00:00",
+        "end_time": "2026-11-07T09:45:35.131752+00:00",
+        "duration_ms": 2.87,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-06T09:34:09.077136+00:00",
-        "end_time": "2026-11-06T09:34:09.088925+00:00",
-        "duration_ms": 11.79,
+        "start_time": "2026-11-07T09:45:35.136990+00:00",
+        "end_time": "2026-11-07T09:45:35.146803+00:00",
+        "duration_ms": 9.81,
         "details": {}
       }
     ],
-    "total_duration_ms": 21.41,
+    "total_duration_ms": 16.62,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "31460d08e254daf22a882d3ee44228115bbfcd8fd1ab688f893b648550fb39a1",
-      "storyboard_preview.html": "2253b9e6e7642f4b34e6ff79b447d185bd38704e987ee6f4fe5aefaf9bcfe4ea",
+      "production_bundle.json": "e89071732674c47062787874c7e890e99ce5bdb2b69de24eca8bd031d918c6b0",
+      "storyboard_preview.html": "71fb2ad1c3d6467bd5abe0099a528ddb2c699a714b9a1cf12cabb06ba6c3ef25",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -1305,7 +1785,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-06T09:34:09.086632+00:00",
+    "timestamp": "2026-11-07T09:45:35.145679+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1342,9 +1822,36 @@
                 "dit_cart_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "spatial_audio_delivery",
+            "message": "Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "spatial_artifacts": [
+                "spatial_audio_adm.json",
+                "ambisonic_b_format.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "vfx_compositing_delivery",
+            "message": "Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "vfx_artifacts": [
+                "openexr_channels.json",
+                "cryptomatte_manifest.json",
+                "nuke_composite.nk"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1481,6 +1988,32 @@
               "emulation": "kodak_5219_vision3",
               "cube": "kodak_5219_vision3_33x33.cube"
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spatial_audio_calibration",
+            "message": "Domain spatial audio verified: binaural_hrtf Atmos bed, 'Studio Soundstage' (RT60=0.25s, 2 3D objects) aligned with domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "bed_format": "binaural_hrtf",
+              "room": "Studio Soundstage",
+              "objects": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_vfx_compositing_calibration",
+            "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "format": "half_float_16",
+              "passes": 7,
+              "crypto_entries": 8
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
@@ -1504,6 +2037,22 @@
             "severity": "info",
             "category": "animatic_dit_lut_hud",
             "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spatial_audio_hud",
+            "message": "Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_vfx_hud",
+            "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -1669,6 +2218,36 @@
           "omni_director/schemas.py",
           "omni_director/presets.py",
           "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-013",
+        "title": "Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+        "problem_statement": "Enterprise cinematic productions and game engines for 'Artisanal Japanese Culinary Ceremonial M' require physics-based spatial audio modeling—including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—to eliminate flat stereo audio and deliver immersive binaural soundfields.",
+        "proposed_solution": "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/spatial_audio.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-014",
+        "title": "Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+        "problem_statement": "Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine) for 'Artisanal Japanese Culinary Ceremonial M' require multi-pass render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—to allow seamless live-action visual effects integration rather than un-decomposed flat video renders.",
+        "proposed_solution": "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",
         "status": "implemented"

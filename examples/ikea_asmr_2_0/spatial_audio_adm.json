@@ -1,0 +1,162 @@
+{
+  "admVersion": "ITU-R BS.2076-2",
+  "projectTitle": "IKEA: The Living Room Unfolds",
+  "soundfieldBedFormat": "ambisonic_b_format",
+  "binauralRendering": true,
+  "audioObjects": [
+    {
+      "audioObjectID": "obj_reflecting_pool_trickle",
+      "audioObjectName": "Reflecting pool water droplet trickle",
+      "stemType": "ambience",
+      "position": {
+        "azimuth": -40.0,
+        "elevation": -15.0,
+        "distance": 6.0,
+        "spread": 45.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": -24.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.7399,
+        "Y": -0.6209,
+        "Z": -0.2588
+      },
+      "vbapBedGains": {
+        "L": 0.8707,
+        "C": 0.4098,
+        "R": 0.0365,
+        "Ls": 0.2421,
+        "Rs": 0.0,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.1187,
+        "Rtf": 0.0001,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    },
+    {
+      "audioObjectID": "obj_cathedral_stone_reverb",
+      "audioObjectName": "Acoustic heel contact stone reverberation",
+      "stemType": "foley",
+      "position": {
+        "azimuth": 60.0,
+        "elevation": 0.0,
+        "distance": 4.0,
+        "spread": 90.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": -18.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.5,
+        "Y": 0.866,
+        "Z": 0.0
+      },
+      "vbapBedGains": {
+        "L": 0.0,
+        "C": 0.1309,
+        "R": 0.6801,
+        "Ls": 0.0,
+        "Rs": 0.6801,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.0,
+        "Rtf": 0.2404,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    }
+  ],
+  "acoustics": {
+    "roomVolumeM3": 3500.0,
+    "surfaceAreaM2": 1900.0,
+    "rt60DecaySec": 1.85,
+    "earlyReflectionsMs": 32.0,
+    "wallMaterial": "hardwood_concrete",
+    "airAbsorptionHfDbPerM": 0.02
+  },
+  "audioProgramme": {
+    "programmeName": "IKEA: The Living Room Unfolds Spatial Master",
+    "audioContents": [
+      {
+        "contentName": "Master Spatial Mix",
+        "audioObjects": [
+          {
+            "audioObjectID": "obj_reflecting_pool_trickle",
+            "audioObjectName": "Reflecting pool water droplet trickle",
+            "stemType": "ambience",
+            "position": {
+              "azimuth": -40.0,
+              "elevation": -15.0,
+              "distance": 6.0,
+              "spread": 45.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": -24.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.7399,
+              "Y": -0.6209,
+              "Z": -0.2588
+            },
+            "vbapBedGains": {
+              "L": 0.8707,
+              "C": 0.4098,
+              "R": 0.0365,
+              "Ls": 0.2421,
+              "Rs": 0.0,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.1187,
+              "Rtf": 0.0001,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          },
+          {
+            "audioObjectID": "obj_cathedral_stone_reverb",
+            "audioObjectName": "Acoustic heel contact stone reverberation",
+            "stemType": "foley",
+            "position": {
+              "azimuth": 60.0,
+              "elevation": 0.0,
+              "distance": 4.0,
+              "spread": 90.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": -18.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.5,
+              "Y": 0.866,
+              "Z": 0.0
+            },
+            "vbapBedGains": {
+              "L": 0.0,
+              "C": 0.1309,
+              "R": 0.6801,
+              "Ls": 0.0,
+              "Rs": 0.6801,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.0,
+              "Rtf": 0.2404,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,178 @@
+#! /Applications/Nuke15.0v1/Nuke15.0v1 -nx
+# Omni Movie Director v2.7.0 - Automated Multi-Pass Composite Script
+# Project: Minimalist Luxury Haute Couture Silk Vel
+# Reconstruction: (Diffuse * AO) + Specular + Emissive
+
+Root {
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ proxy_type scale
+ proxy_format "1920 1080 0 0 1920 1080 1 2K_DCP"
+ first_frame 1
+ last_frame 240
+ fps 24
+ colorManagement "OCIO"
+ OCIO_config "aces_1.2"
+ defaultViewerLUT "ACES/Rec.709"
+ workingSpaceLUT "ACES - ACEScg"
+}
+
+# --- 1. Master Multi-Channel OpenEXR Read Node ---
+Read {
+ inputs 0
+ file "renders/master_comp.exr"
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ first 1
+ last 240
+ origfirst 1
+ origlast 240
+ origset true
+ colorspace "ACES - ACEScg"
+ name "Read_MultiPass_EXR"
+ xpos 0
+ ypos -400
+}
+set N_READ [stack 0]
+
+# --- 2. Channel Decomposition (Shuffle2 Nodes) ---
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "diffuse"
+ out1 "rgba"
+ name "Shuffle_Diffuse"
+ xpos -300
+ ypos -250
+}
+set N_DIFFUSE [stack 0]
+
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "ambient_occlusion"
+ out1 "rgba"
+ name "Shuffle_AO"
+ xpos -150
+ ypos -250
+}
+set N_AO [stack 0]
+
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "specular"
+ out1 "rgba"
+ name "Shuffle_Specular"
+ xpos 50
+ ypos -250
+}
+set N_SPECULAR [stack 0]
+
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "emissive"
+ out1 "rgba"
+ name "Shuffle_Emissive"
+ xpos 200
+ ypos -250
+}
+set N_EMISSIVE [stack 0]
+
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "depth"
+ out1 "depth"
+ name "Shuffle_DepthZ"
+ xpos 350
+ ypos -250
+}
+set N_DEPTH [stack 0]
+
+push $N_READ
+Shuffle2 {
+ fromInput1 {{0} "B"}
+ in1 "normals"
+ out1 "rgba"
+ name "Shuffle_Normals"
+ xpos 500
+ ypos -250
+}
+set N_NORMALS [stack 0]
+
+# --- 3. Cryptomatte Object / Material Extraction ---
+push $N_READ
+Cryptomatte {
+ name "Cryptomatte_Extractor"
+ matteOutput "Alpha"
+ manifest "MurmurHash3_32"
+ xpos -450
+ ypos -250
+}
+
+# --- 4. Mathematical Beauty Reconstruction ---
+# Step 4A: Diffuse * AO (Multiply)
+push $N_AO
+push $N_DIFFUSE
+Merge2 {
+ inputs 2
+ operation "multiply"
+ bbox "B"
+ name "Merge_Diffuse_x_AO"
+ xpos -220
+ ypos -100
+}
+
+# Step 4B: + Specular (Plus)
+push $N_SPECULAR
+Grade {
+ white 1.0
+ gamma 1.0
+ name "Grade_Specular_Accent"
+ xpos 50
+ ypos -150
+}
+Merge2 {
+ inputs 2
+ operation "plus"
+ bbox "B"
+ name "Merge_Plus_Specular"
+ xpos -100
+ ypos 0
+}
+
+# Step 4C: + Emissive (Plus)
+push $N_EMISSIVE
+Merge2 {
+ inputs 2
+ operation "plus"
+ bbox "B"
+ name "Merge_Plus_Emissive"
+ xpos 0
+ ypos 100
+}
+
+# --- 5. Atmospheric Depth Fog / Z-Defocus ---
+push $N_DEPTH
+ZDefocus2 {
+ inputs 2
+ math "direct"
+ focal_point 2.5
+ size 12
+ max_size 24
+ name "ZDefocus_Atmosphere"
+ xpos 0
+ ypos 200
+}
+
+# --- 6. Master Master Output Write Node ---
+Write {
+ file "exports/master_comp_beauty.exr"
+ file_type "exr"
+ datatype "16 bit half"
+ compression "ZIP_SCANLINE"
+ colorspace "ACES - ACEScg"
+ name "Write_Final_Comp"
+ xpos 0
+ ypos 320
+}

@@ -24,7 +24,9 @@ from omni_director.presets import (
     get_domain_lut_spec,
     get_domain_moco_rig,
     get_domain_optical_lens,
+    get_domain_spatial_audio_spec,
     get_domain_speed_ramp,
+    get_domain_vfx_manifest,
     get_domain_virtual_production,
     get_preset_bible,
 )
@@ -131,6 +133,8 @@ def synthesize_custom_bible(
     domain_lighting = get_domain_lighting_rig(domain)
     domain_dof = get_domain_dof_spec(domain)
     domain_lut = get_domain_lut_spec(domain)
+    domain_spatial = get_domain_spatial_audio_spec(domain)
+    domain_vfx = get_domain_vfx_manifest(domain)
 
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
@@ -209,6 +213,8 @@ def synthesize_custom_bible(
         lighting_rig=domain_lighting,
         dof_spec=domain_dof,
         lut_spec=domain_lut,
+        spatial_audio=domain_spatial,
+        vfx_compositing=domain_vfx,
         kinetic_contact_chain="1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance." if is_kinetic else None,
         action_beats=[
             "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)",
@@ -236,6 +242,8 @@ def synthesize_custom_bible(
         lighting_rig=domain_lighting,
         dof_spec=domain_dof,
         lut_spec=domain_lut,
+        spatial_audio=domain_spatial,
+        vfx_compositing=domain_vfx,
         kinetic_contact_chain="1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose." if is_kinetic else None,
         action_beats=[
             "Beat 1: Peak acceleration and directional transition (00:05 - 00:08)",
@@ -335,6 +343,8 @@ def synthesize_custom_bible(
         master_lighting_rig=domain_lighting,
         master_dof_spec=domain_dof,
         master_lut_spec=domain_lut,
+        master_spatial_audio=domain_spatial,
+        master_vfx_manifest=domain_vfx,
     )
 
 

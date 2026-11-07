@@ -1,0 +1,80 @@
+{
+  "fileFormat": "OpenEXR v2.3 Multi-Layer",
+  "manifestVersion": "2.0",
+  "projectTitle": "SEPHORA: London Pulse (Midnight Velvet)",
+  "openexrCompression": "ZIP_SCANLINE",
+  "colorSpace": "ACEScg",
+  "colorWorkingSpace": "ACES - ACEScg",
+  "channels": [
+    {
+      "passType": "beauty_rgb",
+      "channelName": "beauty.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Final beauty combined render"
+    },
+    {
+      "passType": "diffuse_albedo",
+      "channelName": "diffuse.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Diffuse albedo direct + indirect bounce"
+    },
+    {
+      "passType": "specular_roughness",
+      "channelName": "specular.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "ACEScg",
+      "description": "Specular gloss reflections and highlights"
+    },
+    {
+      "passType": "surface_normals",
+      "channelName": "normals.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "Raw",
+      "description": "World space surface normal vectors"
+    },
+    {
+      "passType": "depth_z_pass",
+      "channelName": "depth.Z",
+      "bitDepth": "32-bit full float",
+      "colorSpace": "Raw",
+      "description": "Linear depth distance (0.1m to 50.0m)"
+    },
+    {
+      "passType": "ambient_occlusion",
+      "channelName": "ao.RGB",
+      "bitDepth": "16-bit half float",
+      "colorSpace": "Linear sRGB",
+      "description": "Contact shadow ambient occlusion"
+    },
+    {
+      "passType": "cryptomatte_object",
+      "channelName": "crypto_object.RGBA",
+      "bitDepth": "32-bit full float",
+      "colorSpace": "Raw",
+      "description": "Cryptomatte 32-bit object identifier hashes"
+    }
+  ],
+  "depthPlanes": {
+    "nearPlaneMeters": 0.5,
+    "farPlaneMeters": 40.0,
+    "encoding": "Linear Z distance in camera units"
+  },
+  "cryptomatte": {
+    "hashAlgorithm": "MurmurHash3_32",
+    "objectManifest": {
+      "couture_gown": "0x390a4e3d",
+      "hero_model_silhouette": "0x729fc580",
+      "catwalk_mirror_floor": "0x4e3b2980",
+      "spotlight_housing": "0x39454152"
+    },
+    "materialManifest": {
+      "silk_charmeuse_specular": "0x881baedc",
+      "gold_lame_metallic": "0x077d0091",
+      "lacquered_floor_reflective": "0xdf690ffc",
+      "velvet_absorptive": "0x936827d6"
+    }
+  },
+  "reconstructionFormula": "(Diffuse * AO) + Specular + Emissive"
+}

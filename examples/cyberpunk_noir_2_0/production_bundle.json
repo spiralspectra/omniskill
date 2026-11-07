@@ -454,6 +454,142 @@
           "format": ".cube",
           "cube_filename": "teal_orange_metallic_33x33.cube",
           "description": "Teal & Orange high-velocity metallic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 250.0,
+            "surface_area_m2": 280.0,
+            "rt60_decay_sec": 0.38,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 12.0,
+            "air_absorption_hf_db_per_m": 0.025,
+            "wall_material": "automotive_cabin"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_chassis_torque_rumble",
+              "stem_type": "foley",
+              "label": "Chassis torque and tire friction rumble",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": -15.0,
+                "distance_meters": 2.0,
+                "spread_deg": 45.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_pursuit_drone_flyby",
+              "stem_type": "foley",
+              "label": "Pursuit chase drone lateral flyby",
+              "initial_position": {
+                "azimuth_deg": -60.0,
+                "elevation_deg": 15.0,
+                "distance_meters": 4.5,
+                "spread_deg": 20.0
+              },
+              "trajectory_waypoints": [
+                {
+                  "azimuth_deg": -60.0,
+                  "elevation_deg": 15.0,
+                  "distance_meters": 4.5,
+                  "spread_deg": 0.0
+                },
+                {
+                  "azimuth_deg": 0.0,
+                  "elevation_deg": 25.0,
+                  "distance_meters": 2.0,
+                  "spread_deg": 0.0
+                },
+                {
+                  "azimuth_deg": 75.0,
+                  "elevation_deg": 10.0,
+                  "distance_meters": 6.0,
+                  "spread_deg": 0.0
+                }
+              ],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "supercar_chassis": "0xef7f1467",
+              "carbon_fiber_diffuser": "0xbdb54c9c",
+              "pursuit_drone": "0xcbe5597b",
+              "tarmac_surface": "0x64fa83ba"
+            },
+            "material_manifest": {
+              "clearcoat_metallic_lacquer": "0x40a554c9",
+              "carbon_fiber_twill": "0x4e6dab29",
+              "rubber_tread": "0xd4d771a2",
+              "asphalt_slick": "0xb7c7f5de"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.2,
+          "depth_far_plane_m": 150.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -792,6 +928,142 @@
           "format": ".cube",
           "cube_filename": "teal_orange_metallic_33x33.cube",
           "description": "Teal & Orange high-velocity metallic 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 250.0,
+            "surface_area_m2": 280.0,
+            "rt60_decay_sec": 0.38,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 12.0,
+            "air_absorption_hf_db_per_m": 0.025,
+            "wall_material": "automotive_cabin"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_chassis_torque_rumble",
+              "stem_type": "foley",
+              "label": "Chassis torque and tire friction rumble",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": -15.0,
+                "distance_meters": 2.0,
+                "spread_deg": 45.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": 0.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_pursuit_drone_flyby",
+              "stem_type": "foley",
+              "label": "Pursuit chase drone lateral flyby",
+              "initial_position": {
+                "azimuth_deg": -60.0,
+                "elevation_deg": 15.0,
+                "distance_meters": 4.5,
+                "spread_deg": 20.0
+              },
+              "trajectory_waypoints": [
+                {
+                  "azimuth_deg": -60.0,
+                  "elevation_deg": 15.0,
+                  "distance_meters": 4.5,
+                  "spread_deg": 0.0
+                },
+                {
+                  "azimuth_deg": 0.0,
+                  "elevation_deg": 25.0,
+                  "distance_meters": 2.0,
+                  "spread_deg": 0.0
+                },
+                {
+                  "azimuth_deg": 75.0,
+                  "elevation_deg": 10.0,
+                  "distance_meters": 6.0,
+                  "spread_deg": 0.0
+                }
+              ],
+              "lfe_send_db": -18.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 200.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "supercar_chassis": "0xef7f1467",
+              "carbon_fiber_diffuser": "0xbdb54c9c",
+              "pursuit_drone": "0xcbe5597b",
+              "tarmac_surface": "0x64fa83ba"
+            },
+            "material_manifest": {
+              "clearcoat_metallic_lacquer": "0x40a554c9",
+              "carbon_fiber_twill": "0x4e6dab29",
+              "rubber_tread": "0xd4d771a2",
+              "asphalt_slick": "0xb7c7f5de"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.2,
+          "depth_far_plane_m": 150.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       }
     ],
@@ -1108,6 +1380,278 @@
       "format": ".cube",
       "cube_filename": "teal_orange_metallic_33x33.cube",
       "description": "Teal & Orange high-velocity metallic 33x33 .cube"
+    },
+    "master_spatial_audio": {
+      "bed_format": "bed_7_1_4",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 250.0,
+        "surface_area_m2": 280.0,
+        "rt60_decay_sec": 0.38,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 12.0,
+        "air_absorption_hf_db_per_m": 0.025,
+        "wall_material": "automotive_cabin"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_chassis_torque_rumble",
+          "stem_type": "foley",
+          "label": "Chassis torque and tire friction rumble",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": -15.0,
+            "distance_meters": 2.0,
+            "spread_deg": 45.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": 0.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_pursuit_drone_flyby",
+          "stem_type": "foley",
+          "label": "Pursuit chase drone lateral flyby",
+          "initial_position": {
+            "azimuth_deg": -60.0,
+            "elevation_deg": 15.0,
+            "distance_meters": 4.5,
+            "spread_deg": 20.0
+          },
+          "trajectory_waypoints": [
+            {
+              "azimuth_deg": -60.0,
+              "elevation_deg": 15.0,
+              "distance_meters": 4.5,
+              "spread_deg": 0.0
+            },
+            {
+              "azimuth_deg": 0.0,
+              "elevation_deg": 25.0,
+              "distance_meters": 2.0,
+              "spread_deg": 0.0
+            },
+            {
+              "azimuth_deg": 75.0,
+              "elevation_deg": 10.0,
+              "distance_meters": 6.0,
+              "spread_deg": 0.0
+            }
+          ],
+          "lfe_send_db": -18.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "spatial_audio": {
+      "bed_format": "bed_7_1_4",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 250.0,
+        "surface_area_m2": 280.0,
+        "rt60_decay_sec": 0.38,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 12.0,
+        "air_absorption_hf_db_per_m": 0.025,
+        "wall_material": "automotive_cabin"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_chassis_torque_rumble",
+          "stem_type": "foley",
+          "label": "Chassis torque and tire friction rumble",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": -15.0,
+            "distance_meters": 2.0,
+            "spread_deg": 45.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": 0.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_pursuit_drone_flyby",
+          "stem_type": "foley",
+          "label": "Pursuit chase drone lateral flyby",
+          "initial_position": {
+            "azimuth_deg": -60.0,
+            "elevation_deg": 15.0,
+            "distance_meters": 4.5,
+            "spread_deg": 20.0
+          },
+          "trajectory_waypoints": [
+            {
+              "azimuth_deg": -60.0,
+              "elevation_deg": 15.0,
+              "distance_meters": 4.5,
+              "spread_deg": 0.0
+            },
+            {
+              "azimuth_deg": 0.0,
+              "elevation_deg": 25.0,
+              "distance_meters": 2.0,
+              "spread_deg": 0.0
+            },
+            {
+              "azimuth_deg": 75.0,
+              "elevation_deg": 10.0,
+              "distance_meters": 6.0,
+              "spread_deg": 0.0
+            }
+          ],
+          "lfe_send_db": -18.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "master_vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 200.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "supercar_chassis": "0xef7f1467",
+          "carbon_fiber_diffuser": "0xbdb54c9c",
+          "pursuit_drone": "0xcbe5597b",
+          "tarmac_surface": "0x64fa83ba"
+        },
+        "material_manifest": {
+          "clearcoat_metallic_lacquer": "0x40a554c9",
+          "carbon_fiber_twill": "0x4e6dab29",
+          "rubber_tread": "0xd4d771a2",
+          "asphalt_slick": "0xb7c7f5de"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.2,
+      "depth_far_plane_m": 150.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+    },
+    "vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 200.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "supercar_chassis": "0xef7f1467",
+          "carbon_fiber_diffuser": "0xbdb54c9c",
+          "pursuit_drone": "0xcbe5597b",
+          "tarmac_surface": "0x64fa83ba"
+        },
+        "material_manifest": {
+          "clearcoat_metallic_lacquer": "0x40a554c9",
+          "carbon_fiber_twill": "0x4e6dab29",
+          "rubber_tread": "0xd4d771a2",
+          "asphalt_slick": "0xb7c7f5de"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.2,
+      "depth_far_plane_m": 150.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -1160,6 +1704,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=0.38s (Automotive Cabin), Objects: obj_chassis_torque_rumble (az:+0°, el:-15°, 2.0m); obj_pursuit_drone_flyby (az:-60°, el:+15°, 4.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-150.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1196,6 +1746,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=0.38s (Automotive Cabin), Objects: obj_chassis_torque_rumble (az:+0°, el:-15°, 2.0m); obj_pursuit_drone_flyby (az:-60°, el:+15°, 4.5m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-150.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1208,9 +1764,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "9a003019-fb0b-4e3f-9fb0-cbf384f33cfc",
+    "session_id": "6bf270e7-e574-47ab-a863-8b9d8233b356",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-06T09:34:08.656017+00:00",
+    "timestamp": "2026-11-07T09:45:34.645969+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1220,67 +1776,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-06T09:34:08.656042+00:00",
-        "end_time": "2026-11-06T09:34:08.656529+00:00",
-        "duration_ms": 0.49,
+        "start_time": "2026-11-07T09:45:34.645986+00:00",
+        "end_time": "2026-11-07T09:45:34.646405+00:00",
+        "duration_ms": 0.42,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-06T09:34:08.656559+00:00",
-        "end_time": "2026-11-06T09:34:08.657264+00:00",
-        "duration_ms": 0.7,
+        "start_time": "2026-11-07T09:45:34.646418+00:00",
+        "end_time": "2026-11-07T09:45:34.647174+00:00",
+        "duration_ms": 0.75,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-06T09:34:08.657276+00:00",
-        "end_time": "2026-11-06T09:34:08.660215+00:00",
-        "duration_ms": 2.94,
+        "start_time": "2026-11-07T09:45:34.647186+00:00",
+        "end_time": "2026-11-07T09:45:34.648571+00:00",
+        "duration_ms": 1.38,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-06T09:34:08.660247+00:00",
-        "end_time": "2026-11-06T09:34:08.660397+00:00",
-        "duration_ms": 0.15,
+        "start_time": "2026-11-07T09:45:34.648591+00:00",
+        "end_time": "2026-11-07T09:45:34.648733+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-06T09:34:08.660407+00:00",
-        "end_time": "2026-11-06T09:34:08.661238+00:00",
-        "duration_ms": 0.83,
+        "start_time": "2026-11-07T09:45:34.648742+00:00",
+        "end_time": "2026-11-07T09:45:34.649741+00:00",
+        "duration_ms": 1.0,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-06T09:34:08.661253+00:00",
-        "end_time": "2026-11-06T09:34:08.661257+00:00",
+        "start_time": "2026-11-07T09:45:34.649750+00:00",
+        "end_time": "2026-11-07T09:45:34.649753+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-06T09:34:08.661264+00:00",
-        "end_time": "2026-11-06T09:34:08.665487+00:00",
-        "duration_ms": 4.22,
+        "start_time": "2026-11-07T09:45:34.649759+00:00",
+        "end_time": "2026-11-07T09:45:34.653305+00:00",
+        "duration_ms": 3.55,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-06T09:34:08.678524+00:00",
-        "end_time": "2026-11-06T09:34:08.688578+00:00",
-        "duration_ms": 10.05,
+        "start_time": "2026-11-07T09:45:34.658659+00:00",
+        "end_time": "2026-11-07T09:45:34.670349+00:00",
+        "duration_ms": 11.69,
         "details": {}
       }
     ],
-    "total_duration_ms": 19.38,
+    "total_duration_ms": 18.93,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "b59521f05dd27774c98e1ef62c3ad89fec9d0665261904752980f88e95d5021c",
-      "storyboard_preview.html": "57a18221b831c84a6c1334dc56238e6f78074273794f0408388196b4e335433e",
+      "production_bundle.json": "d3a7575d039d6c278045eda655f2fd14f8d2161eec6ac61961d8746595bba517",
+      "storyboard_preview.html": "ac0ce23621047e160507db0af61a81625b43765bb8c03e2840cb5261479f088f",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -1313,7 +1869,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-06T09:34:08.686962+00:00",
+    "timestamp": "2026-11-07T09:45:34.667957+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1350,9 +1906,36 @@
                 "dit_cart_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "spatial_audio_delivery",
+            "message": "Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "spatial_artifacts": [
+                "spatial_audio_adm.json",
+                "ambisonic_b_format.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "vfx_compositing_delivery",
+            "message": "Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "vfx_artifacts": [
+                "openexr_channels.json",
+                "cryptomatte_manifest.json",
+                "nuke_composite.nk"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1489,6 +2072,32 @@
               "emulation": "teal_and_orange_metallic",
               "cube": "teal_orange_metallic_33x33.cube"
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spatial_audio_calibration",
+            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Studio Soundstage' (RT60=0.38s, 2 3D objects) aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "bed_format": "bed_7_1_4",
+              "room": "Studio Soundstage",
+              "objects": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_vfx_compositing_calibration",
+            "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "format": "half_float_16",
+              "passes": 7,
+              "crypto_entries": 8
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics)."
@@ -1512,6 +2121,22 @@
             "severity": "info",
             "category": "animatic_dit_lut_hud",
             "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spatial_audio_hud",
+            "message": "Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_vfx_hud",
+            "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -1677,6 +2302,36 @@
           "omni_director/schemas.py",
           "omni_director/presets.py",
           "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-013",
+        "title": "Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+        "problem_statement": "Enterprise cinematic productions and game engines for 'Cyberpunk Neon-Lit High-Speed Electric M' require physics-based spatial audio modeling—including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—to eliminate flat stereo audio and deliver immersive binaural soundfields.",
+        "proposed_solution": "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/spatial_audio.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-014",
+        "title": "Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+        "problem_statement": "Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine) for 'Cyberpunk Neon-Lit High-Speed Electric M' require multi-pass render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—to allow seamless live-action visual effects integration rather than un-decomposed flat video renders.",
+        "proposed_solution": "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",
         "status": "implemented"

@@ -1,0 +1,162 @@
+{
+  "admVersion": "ITU-R BS.2076-2",
+  "projectTitle": "Cyberpunk Neon-Lit High-Speed Electric M",
+  "soundfieldBedFormat": "bed_7_1_4",
+  "binauralRendering": true,
+  "audioObjects": [
+    {
+      "audioObjectID": "obj_chassis_torque_rumble",
+      "audioObjectName": "Chassis torque and tire friction rumble",
+      "stemType": "foley",
+      "position": {
+        "azimuth": 0.0,
+        "elevation": -15.0,
+        "distance": 2.0,
+        "spread": 45.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": 0.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.9659,
+        "Y": 0.0,
+        "Z": -0.2588
+      },
+      "vbapBedGains": {
+        "L": 0.4769,
+        "C": 0.7342,
+        "R": 0.4769,
+        "Ls": 0.0,
+        "Rs": 0.0,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.0555,
+        "Rtf": 0.0555,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    },
+    {
+      "audioObjectID": "obj_pursuit_drone_flyby",
+      "audioObjectName": "Pursuit chase drone lateral flyby",
+      "stemType": "foley",
+      "position": {
+        "azimuth": -60.0,
+        "elevation": 15.0,
+        "distance": 4.5,
+        "spread": 20.0
+      },
+      "trajectoryWaypointsCount": 3,
+      "lfeSendDb": -18.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.483,
+        "Y": -0.8365,
+        "Z": 0.2588
+      },
+      "vbapBedGains": {
+        "L": 0.6123,
+        "C": 0.1178,
+        "R": 0.0,
+        "Ls": 0.6123,
+        "Rs": 0.0,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.486,
+        "Rtf": 0.0064,
+        "Ltr": 0.0064,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    }
+  ],
+  "acoustics": {
+    "roomVolumeM3": 250.0,
+    "surfaceAreaM2": 280.0,
+    "rt60DecaySec": 0.38,
+    "earlyReflectionsMs": 12.0,
+    "wallMaterial": "automotive_cabin",
+    "airAbsorptionHfDbPerM": 0.025
+  },
+  "audioProgramme": {
+    "programmeName": "Cyberpunk Neon-Lit High-Speed Electric M Spatial Master",
+    "audioContents": [
+      {
+        "contentName": "Master Spatial Mix",
+        "audioObjects": [
+          {
+            "audioObjectID": "obj_chassis_torque_rumble",
+            "audioObjectName": "Chassis torque and tire friction rumble",
+            "stemType": "foley",
+            "position": {
+              "azimuth": 0.0,
+              "elevation": -15.0,
+              "distance": 2.0,
+              "spread": 45.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": 0.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.9659,
+              "Y": 0.0,
+              "Z": -0.2588
+            },
+            "vbapBedGains": {
+              "L": 0.4769,
+              "C": 0.7342,
+              "R": 0.4769,
+              "Ls": 0.0,
+              "Rs": 0.0,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.0555,
+              "Rtf": 0.0555,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          },
+          {
+            "audioObjectID": "obj_pursuit_drone_flyby",
+            "audioObjectName": "Pursuit chase drone lateral flyby",
+            "stemType": "foley",
+            "position": {
+              "azimuth": -60.0,
+              "elevation": 15.0,
+              "distance": 4.5,
+              "spread": 20.0
+            },
+            "trajectoryWaypointsCount": 3,
+            "lfeSendDb": -18.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.483,
+              "Y": -0.8365,
+              "Z": 0.2588
+            },
+            "vbapBedGains": {
+              "L": 0.6123,
+              "C": 0.1178,
+              "R": 0.0,
+              "Ls": 0.6123,
+              "Rs": 0.0,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.486,
+              "Rtf": 0.0064,
+              "Ltr": 0.0064,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

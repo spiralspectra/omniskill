@@ -1,0 +1,73 @@
+{
+  "panningModel": "HRTF",
+  "audioContextSampleRate": 48000,
+  "listener": {
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "forward": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.0
+    },
+    "up": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    }
+  },
+  "convolverReverb": {
+    "rt60Seconds": 2.1,
+    "earlyReflectionsMs": 35.0,
+    "wallMaterial": "hardwood_concrete",
+    "wetDryRatio": 0.25
+  },
+  "pannerNodes": [
+    {
+      "nodeId": "panner_obj_kinetic_impact_shockwave",
+      "objectId": "obj_kinetic_impact_shockwave",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": -1.6946,
+        "y": -0.5209,
+        "z": -2.4201
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    },
+    {
+      "nodeId": "panner_obj_ricochet_debris_whizz",
+      "objectId": "obj_ricochet_debris_whizz",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 1.022,
+        "y": 0.5071,
+        "z": 0.372
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    }
+  ]
+}

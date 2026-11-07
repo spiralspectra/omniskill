@@ -261,8 +261,20 @@ def handle_export(args_list: List[str]) -> int:
         export_lut_bundle,
         export_master_cube_lut,
     )
+    from omni_director.tools.spatial_audio import (
+        export_adm_spatial_json,
+        export_ambisonic_track_csv,
+        export_spatial_audio_bundle,
+        export_web_audio_spatial_config,
+    )
+    from omni_director.tools.vfx_compositor import (
+        export_cryptomatte_sidecar_json,
+        export_nuke_comp_script,
+        export_openexr_channel_manifest_json,
+        export_vfx_compositing_bundle,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, and DIT 3D LUT suites")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, and VFX compositing manifests")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -270,13 +282,18 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
     parser.add_argument("--cube-lut", action="store_true", help="Export master 3D LUT .cube file (production_look.cube)")
     parser.add_argument("--dit-manifest", action="store_true", help="Export DIT cart offload manifest JSON (dit_cart_manifest.json)")
+    parser.add_argument("--spatial-adm", action="store_true", help="Export ADM spatial audio metadata JSON (spatial_audio_adm.json)")
+    parser.add_argument("--ambisonic-csv", action="store_true", help="Export HOA 3rd-order ambisonic track CSV (ambisonic_b_format.csv)")
+    parser.add_argument("--vfx-manifest", action="store_true", help="Export OpenEXR channel manifest JSON (openexr_channels.json)")
+    parser.add_argument("--cryptomatte-sidecar", action="store_true", help="Export Cryptomatte sidecar JSON (cryptomatte_manifest.json)")
+    parser.add_argument("--nuke-script", action="store_true", help="Export Foundry Nuke compositing script (nuke_composite.nk)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -329,6 +346,10 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update(dof_files)
         lut_files = export_lut_bundle(bible, out_dir)
         exported_files.update(lut_files)
+        spatial_files = export_spatial_audio_bundle(bible, out_dir)
+        exported_files.update(spatial_files)
+        vfx_files = export_vfx_compositing_bundle(bible, out_dir)
+        exported_files.update(vfx_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -380,6 +401,12 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "lut":
         lut_files = export_lut_bundle(bible, out_dir)
         exported_files.update(lut_files)
+    elif fmt == "spatial":
+        spatial_files = export_spatial_audio_bundle(bible, out_dir)
+        exported_files.update(spatial_files)
+    elif fmt == "vfx":
+        vfx_files = export_vfx_compositing_bundle(bible, out_dir)
+        exported_files.update(vfx_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -396,6 +423,28 @@ def handle_export(args_list: List[str]) -> int:
         exported_files["cube_lut"] = str(p.resolve())
     if args.dit_manifest:
         p = out_dir / "dit_cart_manifest.json"
+        export_dit_cart_manifest_json(bible, p)
+        exported_files["dit_manifest"] = str(p.resolve())
+    if args.spatial_adm:
+        p = out_dir / "spatial_audio_adm.json"
+        export_adm_spatial_json(bible, p)
+        exported_files["spatial_adm"] = str(p.resolve())
+    if args.ambisonic_csv:
+        p = out_dir / "ambisonic_b_format.csv"
+        export_ambisonic_track_csv(bible, p)
+        exported_files["ambisonic_csv"] = str(p.resolve())
+    if args.vfx_manifest:
+        p = out_dir / "openexr_channels.json"
+        export_openexr_channel_manifest_json(bible, p)
+        exported_files["openexr_channels"] = str(p.resolve())
+    if args.cryptomatte_sidecar:
+        p = out_dir / "cryptomatte_manifest.json"
+        export_cryptomatte_sidecar_json(bible, p)
+        exported_files["cryptomatte_manifest"] = str(p.resolve())
+    if args.nuke_script:
+        p = out_dir / "nuke_composite.nk"
+        export_nuke_comp_script(bible, p)
+        exported_files["nuke_script"] = str(p.resolve())
         export_dit_cart_manifest_json(bible, p)
         exported_files["dit_manifest"] = str(p.resolve())
 

@@ -348,4 +348,28 @@ def export_all_nle_artifacts(
     except Exception:
         pass
 
+    try:
+        from omni_director.tools.dof_simulator import export_dof_bundle
+        res.update(export_dof_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.dit_lut import export_dit_bundle
+        res.update(export_dit_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.spatial_audio import export_spatial_audio_bundle
+        res.update(export_spatial_audio_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.vfx_compositor import export_vfx_compositing_bundle
+        res.update(export_vfx_compositing_bundle(bible, out_path))
+    except Exception:
+        pass
+
     return res

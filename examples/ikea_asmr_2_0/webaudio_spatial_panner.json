@@ -1,0 +1,73 @@
+{
+  "panningModel": "HRTF",
+  "audioContextSampleRate": 48000,
+  "listener": {
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "forward": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.0
+    },
+    "up": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    }
+  },
+  "convolverReverb": {
+    "rt60Seconds": 1.85,
+    "earlyReflectionsMs": 32.0,
+    "wallMaterial": "hardwood_concrete",
+    "wetDryRatio": 0.25
+  },
+  "pannerNodes": [
+    {
+      "nodeId": "panner_obj_reflecting_pool_trickle",
+      "objectId": "obj_reflecting_pool_trickle",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": -3.7253,
+        "y": -1.5529,
+        "z": -4.4397
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    },
+    {
+      "nodeId": "panner_obj_cathedral_stone_reverb",
+      "objectId": "obj_cathedral_stone_reverb",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 3.4641,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    }
+  ]
+}

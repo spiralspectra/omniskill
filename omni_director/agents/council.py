@@ -285,6 +285,44 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-013",
+                title="Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+                problem_statement=(
+                    f"Enterprise cinematic productions and game engines{project_ctx} require physics-based spatial audio modeling—"
+                    "including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), "
+                    "wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—"
+                    "to eliminate flat stereo audio and deliver immersive binaural soundfields."
+                ),
+                proposed_solution=(
+                    "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, "
+                    "omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), "
+                    "CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console "
+                    "(#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/spatial_audio.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-014",
+                title="Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+                problem_statement=(
+                    f"Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine){project_ctx} require multi-pass "
+                    "render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, "
+                    "Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—"
+                    "to allow seamless live-action visual effects integration rather than un-decomposed flat video renders."
+                ),
+                proposed_solution=(
+                    "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, "
+                    "omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), "
+                    "prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD "
+                    "(#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/vfx_compositor.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -585,6 +623,45 @@ class ProductCouncilOrchestrator(BaseAgent):
                     category="color_lut_delivery",
                     message=f"DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: {', '.join(lut_items)}.",
                     details={"lut_artifacts": lut_items}
+                ))
+
+            # Verify Spatial Audio & Binaural Soundfield deliverables (PM-FEAT-013)
+            spatial_adm = eval_dir / "spatial_audio_adm.json"
+            spatial_adm_alt = eval_dir / "spatial_audio_adm_manifest.json"
+            ambisonic_csv = eval_dir / "ambisonic_b_format.csv"
+            ambisonic_alt = eval_dir / "spatial_audio_ambisonic_channels.csv"
+            if spatial_adm.is_file() or spatial_adm_alt.is_file() or ambisonic_csv.is_file() or ambisonic_alt.is_file():
+                spatial_items = []
+                if spatial_adm.is_file() or spatial_adm_alt.is_file():
+                    spatial_items.append("spatial_audio_adm.json")
+                if ambisonic_csv.is_file() or ambisonic_alt.is_file():
+                    spatial_items.append("ambisonic_b_format.csv")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="spatial_audio_delivery",
+                    message=f"Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: {', '.join(spatial_items)}.",
+                    details={"spatial_artifacts": spatial_items}
+                ))
+
+            # Verify Advanced Multi-Pass VFX Compositing deliverables (PM-FEAT-014)
+            exr_manifest = eval_dir / "openexr_channels.json"
+            exr_alt = eval_dir / "vfx_compositing_manifest.json"
+            cryptomatte_json = eval_dir / "cryptomatte_manifest.json"
+            nuke_script = eval_dir / "nuke_composite.nk"
+            nuke_alt = eval_dir / "nuke_composite_template.nk"
+            if exr_manifest.is_file() or exr_alt.is_file() or cryptomatte_json.is_file() or nuke_script.is_file() or nuke_alt.is_file():
+                vfx_items = []
+                if exr_manifest.is_file() or exr_alt.is_file():
+                    vfx_items.append("openexr_channels.json")
+                if cryptomatte_json.is_file():
+                    vfx_items.append("cryptomatte_manifest.json")
+                if nuke_script.is_file() or nuke_alt.is_file():
+                    vfx_items.append("nuke_composite.nk")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="vfx_compositing_delivery",
+                    message=f"Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: {', '.join(vfx_items)}.",
+                    details={"vfx_artifacts": vfx_items}
                 ))
 
         score = max(0.0, min(25.0, round(score, 2)))
@@ -994,6 +1071,49 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain spatial audio & acoustic simulation (PM-FEAT-013)
+        if hasattr(bible, "master_spatial_audio") and bible.master_spatial_audio:
+            spatial = bible.master_spatial_audio
+            bed = getattr(spatial.bed_format, "value", str(spatial.bed_format))
+            room = spatial.acoustic_room.room_name if spatial.acoustic_room else "Standard Stage"
+            rt60 = spatial.acoustic_room.rt60_seconds if spatial.acoustic_room else 0.45
+            obj_count = len(spatial.audio_objects)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_spatial_audio_calibration",
+                message=f"Domain spatial audio verified: {bed} Atmos bed, '{room}' (RT60={rt60:.2f}s, {obj_count} 3D objects) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "bed_format": bed, "room": room, "objects": obj_count},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_spatial_audio_calibration",
+                message="Master spatial audio spec (master_spatial_audio) missing from production bible.",
+                suggested_fix="Assign master_spatial_audio via get_domain_spatial_audio_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain VFX multi-pass compositing manifest (PM-FEAT-014)
+        if hasattr(bible, "master_vfx_manifest") and bible.master_vfx_manifest:
+            vfx = bible.master_vfx_manifest
+            fmt = getattr(vfx, "channel_format", "half_float_16")
+            pass_count = len(vfx.render_passes)
+            crypto_entries = len(vfx.cryptomatte.matte_entries) if vfx.cryptomatte else 0
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_vfx_compositing_calibration",
+                message=f"Domain VFX compositing manifest verified: OpenEXR {fmt} ({pass_count} passes, {crypto_entries} Cryptomatte IDs, ACEScg) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "format": fmt, "passes": pass_count, "crypto_entries": crypto_entries},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_vfx_compositing_calibration",
+                message="Master VFX compositing manifest (master_vfx_manifest) missing from production bible.",
+                suggested_fix="Assign master_vfx_manifest via get_domain_vfx_manifest().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -1155,6 +1275,36 @@ class ProductCouncilOrchestrator(BaseAgent):
                         severity=CouncilFindingSeverity.INFO,
                         category="animatic_dit_lut_hud",
                         message="DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+                    ))
+
+                if 'id="btn-spatial-animatic"' not in html_content and 'id="animatic-spatial-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_spatial_audio_hud",
+                        message="Compiled storyboard preview HTML lacks interactive spatial audio HUD (#animatic-spatial-hud / #btn-spatial-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-spatial-animatic and #animatic-spatial-hud controls."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_spatial_audio_hud",
+                        message="Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+                    ))
+
+                if 'id="btn-vfx-animatic"' not in html_content and 'id="animatic-vfx-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_vfx_hud",
+                        message="Compiled storyboard preview HTML lacks interactive multi-pass VFX compositing HUD (#animatic-vfx-hud / #btn-vfx-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-vfx-animatic and #animatic-vfx-hud controls."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_vfx_hud",
+                        message="Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
                     ))
 
             except Exception:

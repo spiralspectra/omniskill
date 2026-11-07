@@ -108,6 +108,27 @@ from omni_director.tools.dit_lut import (
     synthesize_default_3d_lut,
     verify_color_continuity,
 )
+from omni_director.tools.spatial_audio import (
+    calculate_ambisonic_b_format_weights,
+    calculate_eyring_rt60,
+    calculate_sabine_rt60,
+    calculate_vbap_714_gains,
+    export_adm_spatial_json,
+    export_ambisonic_track_csv,
+    export_spatial_audio_bundle,
+    export_web_audio_spatial_config,
+    format_spatial_audio_prompt_token,
+    synthesize_default_spatial_audio,
+)
+from omni_director.tools.vfx_compositor import (
+    export_cryptomatte_sidecar_json,
+    export_nuke_comp_script,
+    export_openexr_channel_manifest_json,
+    export_vfx_compositing_bundle,
+    format_vfx_compositing_prompt_token,
+    generate_cryptomatte_manifest,
+    synthesize_default_vfx_manifest,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -199,4 +220,23 @@ __all__ = [
     "export_dit_cart_manifest_json",
     "export_dit_bundle",
     "export_lut_bundle",
+    # Spatial Audio Suite (PM-FEAT-013)
+    "calculate_sabine_rt60",
+    "calculate_eyring_rt60",
+    "calculate_vbap_714_gains",
+    "calculate_ambisonic_b_format_weights",
+    "format_spatial_audio_prompt_token",
+    "export_adm_spatial_json",
+    "export_ambisonic_track_csv",
+    "export_web_audio_spatial_config",
+    "export_spatial_audio_bundle",
+    "synthesize_default_spatial_audio",
+    # VFX Compositor Suite (PM-FEAT-014)
+    "generate_cryptomatte_manifest",
+    "format_vfx_compositing_prompt_token",
+    "export_openexr_channel_manifest_json",
+    "export_cryptomatte_sidecar_json",
+    "export_nuke_comp_script",
+    "export_vfx_compositing_bundle",
+    "synthesize_default_vfx_manifest",
 ]

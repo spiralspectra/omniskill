@@ -1,0 +1,73 @@
+{
+  "panningModel": "HRTF",
+  "audioContextSampleRate": 48000,
+  "listener": {
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "forward": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.0
+    },
+    "up": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    }
+  },
+  "convolverReverb": {
+    "rt60Seconds": 0.25,
+    "earlyReflectionsMs": 6.5,
+    "wallMaterial": "marble_glass",
+    "wetDryRatio": 0.25
+  },
+  "pannerNodes": [
+    {
+      "nodeId": "panner_obj_knife_slice_contact",
+      "objectId": "obj_knife_slice_contact",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": -0.0605,
+        "y": -0.0305,
+        "z": -0.3434
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    },
+    {
+      "nodeId": "panner_obj_cast_iron_sizzle",
+      "objectId": "obj_cast_iron_sizzle",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 0.1684,
+        "y": -0.0868,
+        "z": -0.4627
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    }
+  ]
+}

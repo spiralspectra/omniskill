@@ -1,0 +1,162 @@
+{
+  "admVersion": "ITU-R BS.2076-2",
+  "projectTitle": "The Kinetic Fabric: Grounded Innovation",
+  "soundfieldBedFormat": "ambisonic_hoa_3rd_order",
+  "binauralRendering": true,
+  "audioObjects": [
+    {
+      "audioObjectID": "obj_kinetic_impact_shockwave",
+      "audioObjectName": "Kinetic impact compression shockwave",
+      "stemType": "foley",
+      "position": {
+        "azimuth": -35.0,
+        "elevation": -10.0,
+        "distance": 3.0,
+        "spread": 60.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": 0.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": 0.8067,
+        "Y": -0.5649,
+        "Z": -0.1736
+      },
+      "vbapBedGains": {
+        "L": 0.8481,
+        "C": 0.4715,
+        "R": 0.0648,
+        "Ls": 0.1619,
+        "Rs": 0.0,
+        "Rls": 0.0,
+        "Rrs": 0.0,
+        "Ltf": 0.1672,
+        "Rtf": 0.0045,
+        "Ltr": 0.0,
+        "Rtr": 0.0,
+        "LFE": 0.05
+      }
+    },
+    {
+      "audioObjectID": "obj_ricochet_debris_whizz",
+      "audioObjectName": "High-velocity ricochet debris whizz",
+      "stemType": "foley",
+      "position": {
+        "azimuth": 110.0,
+        "elevation": 25.0,
+        "distance": 1.2,
+        "spread": 15.0
+      },
+      "trajectoryWaypointsCount": 0,
+      "lfeSendDb": -18.0,
+      "directivityConeDeg": 360.0,
+      "ambisonicBFormat": {
+        "W": 0.7071,
+        "X": -0.31,
+        "Y": 0.8517,
+        "Z": 0.4226
+      },
+      "vbapBedGains": {
+        "L": 0.0,
+        "C": 0.0,
+        "R": 0.0045,
+        "Ls": 0.0,
+        "Rs": 0.7176,
+        "Rls": 0.0,
+        "Rrs": 0.3888,
+        "Ltf": 0.0,
+        "Rtf": 0.0801,
+        "Ltr": 0.0077,
+        "Rtr": 0.5722,
+        "LFE": 0.05
+      }
+    }
+  ],
+  "acoustics": {
+    "roomVolumeM3": 8000.0,
+    "surfaceAreaM2": 3200.0,
+    "rt60DecaySec": 2.1,
+    "earlyReflectionsMs": 35.0,
+    "wallMaterial": "hardwood_concrete",
+    "airAbsorptionHfDbPerM": 0.03
+  },
+  "audioProgramme": {
+    "programmeName": "The Kinetic Fabric: Grounded Innovation Spatial Master",
+    "audioContents": [
+      {
+        "contentName": "Master Spatial Mix",
+        "audioObjects": [
+          {
+            "audioObjectID": "obj_kinetic_impact_shockwave",
+            "audioObjectName": "Kinetic impact compression shockwave",
+            "stemType": "foley",
+            "position": {
+              "azimuth": -35.0,
+              "elevation": -10.0,
+              "distance": 3.0,
+              "spread": 60.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": 0.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": 0.8067,
+              "Y": -0.5649,
+              "Z": -0.1736
+            },
+            "vbapBedGains": {
+              "L": 0.8481,
+              "C": 0.4715,
+              "R": 0.0648,
+              "Ls": 0.1619,
+              "Rs": 0.0,
+              "Rls": 0.0,
+              "Rrs": 0.0,
+              "Ltf": 0.1672,
+              "Rtf": 0.0045,
+              "Ltr": 0.0,
+              "Rtr": 0.0,
+              "LFE": 0.05
+            }
+          },
+          {
+            "audioObjectID": "obj_ricochet_debris_whizz",
+            "audioObjectName": "High-velocity ricochet debris whizz",
+            "stemType": "foley",
+            "position": {
+              "azimuth": 110.0,
+              "elevation": 25.0,
+              "distance": 1.2,
+              "spread": 15.0
+            },
+            "trajectoryWaypointsCount": 0,
+            "lfeSendDb": -18.0,
+            "directivityConeDeg": 360.0,
+            "ambisonicBFormat": {
+              "W": 0.7071,
+              "X": -0.31,
+              "Y": 0.8517,
+              "Z": 0.4226
+            },
+            "vbapBedGains": {
+              "L": 0.0,
+              "C": 0.0,
+              "R": 0.0045,
+              "Ls": 0.0,
+              "Rs": 0.7176,
+              "Rls": 0.0,
+              "Rrs": 0.3888,
+              "Ltf": 0.0,
+              "Rtf": 0.0801,
+              "Ltr": 0.0077,
+              "Rtr": 0.5722,
+              "LFE": 0.05
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

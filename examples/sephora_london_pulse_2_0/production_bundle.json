@@ -422,6 +422,123 @@
           "format": ".cube",
           "cube_filename": "bleach_bypass_silver_33x33.cube",
           "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 1200.0,
+            "surface_area_m2": 850.0,
+            "rt60_decay_sec": 1.45,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 28.0,
+            "air_absorption_hf_db_per_m": 0.02,
+            "wall_material": "furnished_residential"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_couture_silk_rustle",
+              "stem_type": "foley",
+              "label": "Couture silk gown dynamic rustle",
+              "initial_position": {
+                "azimuth_deg": 15.0,
+                "elevation_deg": 0.0,
+                "distance_meters": 1.8,
+                "spread_deg": 30.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -20.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_runway_sub_bass",
+              "stem_type": "music",
+              "label": "Catwalk runway deep sub bass pulse",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": 10.0,
+                "distance_meters": 12.0,
+                "spread_deg": 180.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -3.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 50.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "couture_gown": "0x390a4e3d",
+              "hero_model_silhouette": "0x729fc580",
+              "catwalk_mirror_floor": "0x4e3b2980",
+              "spotlight_housing": "0x39454152"
+            },
+            "material_manifest": {
+              "silk_charmeuse_specular": "0x881baedc",
+              "gold_lame_metallic": "0x077d0091",
+              "lacquered_floor_reflective": "0xdf690ffc",
+              "velvet_absorptive": "0x936827d6"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.5,
+          "depth_far_plane_m": 40.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -726,6 +843,123 @@
           "format": ".cube",
           "cube_filename": "bleach_bypass_silver_33x33.cube",
           "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 1200.0,
+            "surface_area_m2": 850.0,
+            "rt60_decay_sec": 1.45,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 28.0,
+            "air_absorption_hf_db_per_m": 0.02,
+            "wall_material": "furnished_residential"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_couture_silk_rustle",
+              "stem_type": "foley",
+              "label": "Couture silk gown dynamic rustle",
+              "initial_position": {
+                "azimuth_deg": 15.0,
+                "elevation_deg": 0.0,
+                "distance_meters": 1.8,
+                "spread_deg": 30.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -20.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_runway_sub_bass",
+              "stem_type": "music",
+              "label": "Catwalk runway deep sub bass pulse",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": 10.0,
+                "distance_meters": 12.0,
+                "spread_deg": 180.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -3.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 50.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "couture_gown": "0x390a4e3d",
+              "hero_model_silhouette": "0x729fc580",
+              "catwalk_mirror_floor": "0x4e3b2980",
+              "spotlight_housing": "0x39454152"
+            },
+            "material_manifest": {
+              "silk_charmeuse_specular": "0x881baedc",
+              "gold_lame_metallic": "0x077d0091",
+              "lacquered_floor_reflective": "0xdf690ffc",
+              "velvet_absorptive": "0x936827d6"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.5,
+          "depth_far_plane_m": 40.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -1030,6 +1264,123 @@
           "format": ".cube",
           "cube_filename": "bleach_bypass_silver_33x33.cube",
           "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 1200.0,
+            "surface_area_m2": 850.0,
+            "rt60_decay_sec": 1.45,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 28.0,
+            "air_absorption_hf_db_per_m": 0.02,
+            "wall_material": "furnished_residential"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_couture_silk_rustle",
+              "stem_type": "foley",
+              "label": "Couture silk gown dynamic rustle",
+              "initial_position": {
+                "azimuth_deg": 15.0,
+                "elevation_deg": 0.0,
+                "distance_meters": 1.8,
+                "spread_deg": 30.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -20.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_runway_sub_bass",
+              "stem_type": "music",
+              "label": "Catwalk runway deep sub bass pulse",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": 10.0,
+                "distance_meters": 12.0,
+                "spread_deg": 180.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -3.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 50.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "couture_gown": "0x390a4e3d",
+              "hero_model_silhouette": "0x729fc580",
+              "catwalk_mirror_floor": "0x4e3b2980",
+              "spotlight_housing": "0x39454152"
+            },
+            "material_manifest": {
+              "silk_charmeuse_specular": "0x881baedc",
+              "gold_lame_metallic": "0x077d0091",
+              "lacquered_floor_reflective": "0xdf690ffc",
+              "velvet_absorptive": "0x936827d6"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.5,
+          "depth_far_plane_m": 40.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       },
       {
@@ -1334,6 +1685,123 @@
           "format": ".cube",
           "cube_filename": "bleach_bypass_silver_33x33.cube",
           "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+        },
+        "spatial_audio": {
+          "bed_format": "bed_7_1_4",
+          "room_acoustics": {
+            "room_name": "Studio Soundstage",
+            "room_volume_m3": 1200.0,
+            "surface_area_m2": 850.0,
+            "rt60_decay_sec": 1.45,
+            "eyring_rt60_seconds": 0.41,
+            "early_reflections_ms": 28.0,
+            "air_absorption_hf_db_per_m": 0.02,
+            "wall_material": "furnished_residential"
+          },
+          "audio_objects": [
+            {
+              "object_id": "obj_couture_silk_rustle",
+              "stem_type": "foley",
+              "label": "Couture silk gown dynamic rustle",
+              "initial_position": {
+                "azimuth_deg": 15.0,
+                "elevation_deg": 0.0,
+                "distance_meters": 1.8,
+                "spread_deg": 30.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -20.0,
+              "directivity_cone_deg": 360.0
+            },
+            {
+              "object_id": "obj_runway_sub_bass",
+              "stem_type": "music",
+              "label": "Catwalk runway deep sub bass pulse",
+              "initial_position": {
+                "azimuth_deg": 0.0,
+                "elevation_deg": 10.0,
+                "distance_meters": 12.0,
+                "spread_deg": 180.0
+              },
+              "trajectory_waypoints": [],
+              "lfe_send_db": -3.0,
+              "directivity_cone_deg": 360.0
+            }
+          ],
+          "binaural_rendering_enabled": true
+        },
+        "vfx_compositing": {
+          "manifest_version": "2.0",
+          "openexr_compression": "ZIP_SCANLINE",
+          "passes": [
+            {
+              "pass_type": "beauty_rgb",
+              "channel_name": "beauty.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Final beauty combined render"
+            },
+            {
+              "pass_type": "diffuse_albedo",
+              "channel_name": "diffuse.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Diffuse albedo direct + indirect bounce"
+            },
+            {
+              "pass_type": "specular_roughness",
+              "channel_name": "specular.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "ACEScg",
+              "description": "Specular gloss reflections and highlights"
+            },
+            {
+              "pass_type": "surface_normals",
+              "channel_name": "normals.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Raw",
+              "description": "World space surface normal vectors"
+            },
+            {
+              "pass_type": "depth_z_pass",
+              "channel_name": "depth.Z",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Linear depth distance (0.1m to 50.0m)"
+            },
+            {
+              "pass_type": "ambient_occlusion",
+              "channel_name": "ao.RGB",
+              "bit_depth": "16-bit half float",
+              "color_space": "Linear sRGB",
+              "description": "Contact shadow ambient occlusion"
+            },
+            {
+              "pass_type": "cryptomatte_object",
+              "channel_name": "crypto_object.RGBA",
+              "bit_depth": "32-bit full float",
+              "color_space": "Raw",
+              "description": "Cryptomatte 32-bit object identifier hashes"
+            }
+          ],
+          "cryptomatte": {
+            "object_manifest": {
+              "couture_gown": "0x390a4e3d",
+              "hero_model_silhouette": "0x729fc580",
+              "catwalk_mirror_floor": "0x4e3b2980",
+              "spotlight_housing": "0x39454152"
+            },
+            "material_manifest": {
+              "silk_charmeuse_specular": "0x881baedc",
+              "gold_lame_metallic": "0x077d0091",
+              "lacquered_floor_reflective": "0xdf690ffc",
+              "velvet_absorptive": "0x936827d6"
+            },
+            "hash_algorithm": "MurmurHash3_32"
+          },
+          "depth_near_plane_m": 0.5,
+          "depth_far_plane_m": 40.0,
+          "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
         }
       }
     ],
@@ -1650,6 +2118,240 @@
       "format": ".cube",
       "cube_filename": "bleach_bypass_silver_33x33.cube",
       "description": "Bleach Bypass Silver high-contrast 33x33 .cube"
+    },
+    "master_spatial_audio": {
+      "bed_format": "bed_7_1_4",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 1200.0,
+        "surface_area_m2": 850.0,
+        "rt60_decay_sec": 1.45,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 28.0,
+        "air_absorption_hf_db_per_m": 0.02,
+        "wall_material": "furnished_residential"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_couture_silk_rustle",
+          "stem_type": "foley",
+          "label": "Couture silk gown dynamic rustle",
+          "initial_position": {
+            "azimuth_deg": 15.0,
+            "elevation_deg": 0.0,
+            "distance_meters": 1.8,
+            "spread_deg": 30.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -20.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_runway_sub_bass",
+          "stem_type": "music",
+          "label": "Catwalk runway deep sub bass pulse",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": 10.0,
+            "distance_meters": 12.0,
+            "spread_deg": 180.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -3.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "spatial_audio": {
+      "bed_format": "bed_7_1_4",
+      "room_acoustics": {
+        "room_name": "Studio Soundstage",
+        "room_volume_m3": 1200.0,
+        "surface_area_m2": 850.0,
+        "rt60_decay_sec": 1.45,
+        "eyring_rt60_seconds": 0.41,
+        "early_reflections_ms": 28.0,
+        "air_absorption_hf_db_per_m": 0.02,
+        "wall_material": "furnished_residential"
+      },
+      "audio_objects": [
+        {
+          "object_id": "obj_couture_silk_rustle",
+          "stem_type": "foley",
+          "label": "Couture silk gown dynamic rustle",
+          "initial_position": {
+            "azimuth_deg": 15.0,
+            "elevation_deg": 0.0,
+            "distance_meters": 1.8,
+            "spread_deg": 30.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -20.0,
+          "directivity_cone_deg": 360.0
+        },
+        {
+          "object_id": "obj_runway_sub_bass",
+          "stem_type": "music",
+          "label": "Catwalk runway deep sub bass pulse",
+          "initial_position": {
+            "azimuth_deg": 0.0,
+            "elevation_deg": 10.0,
+            "distance_meters": 12.0,
+            "spread_deg": 180.0
+          },
+          "trajectory_waypoints": [],
+          "lfe_send_db": -3.0,
+          "directivity_cone_deg": 360.0
+        }
+      ],
+      "binaural_rendering_enabled": true
+    },
+    "master_vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 50.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "couture_gown": "0x390a4e3d",
+          "hero_model_silhouette": "0x729fc580",
+          "catwalk_mirror_floor": "0x4e3b2980",
+          "spotlight_housing": "0x39454152"
+        },
+        "material_manifest": {
+          "silk_charmeuse_specular": "0x881baedc",
+          "gold_lame_metallic": "0x077d0091",
+          "lacquered_floor_reflective": "0xdf690ffc",
+          "velvet_absorptive": "0x936827d6"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.5,
+      "depth_far_plane_m": 40.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+    },
+    "vfx_manifest": {
+      "manifest_version": "2.0",
+      "openexr_compression": "ZIP_SCANLINE",
+      "passes": [
+        {
+          "pass_type": "beauty_rgb",
+          "channel_name": "beauty.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Final beauty combined render"
+        },
+        {
+          "pass_type": "diffuse_albedo",
+          "channel_name": "diffuse.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Diffuse albedo direct + indirect bounce"
+        },
+        {
+          "pass_type": "specular_roughness",
+          "channel_name": "specular.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "ACEScg",
+          "description": "Specular gloss reflections and highlights"
+        },
+        {
+          "pass_type": "surface_normals",
+          "channel_name": "normals.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Raw",
+          "description": "World space surface normal vectors"
+        },
+        {
+          "pass_type": "depth_z_pass",
+          "channel_name": "depth.Z",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Linear depth distance (0.1m to 50.0m)"
+        },
+        {
+          "pass_type": "ambient_occlusion",
+          "channel_name": "ao.RGB",
+          "bit_depth": "16-bit half float",
+          "color_space": "Linear sRGB",
+          "description": "Contact shadow ambient occlusion"
+        },
+        {
+          "pass_type": "cryptomatte_object",
+          "channel_name": "crypto_object.RGBA",
+          "bit_depth": "32-bit full float",
+          "color_space": "Raw",
+          "description": "Cryptomatte 32-bit object identifier hashes"
+        }
+      ],
+      "cryptomatte": {
+        "object_manifest": {
+          "couture_gown": "0x390a4e3d",
+          "hero_model_silhouette": "0x729fc580",
+          "catwalk_mirror_floor": "0x4e3b2980",
+          "spotlight_housing": "0x39454152"
+        },
+        "material_manifest": {
+          "silk_charmeuse_specular": "0x881baedc",
+          "gold_lame_metallic": "0x077d0091",
+          "lacquered_floor_reflective": "0xdf690ffc",
+          "velvet_absorptive": "0x936827d6"
+        },
+        "hash_algorithm": "MurmurHash3_32"
+      },
+      "depth_near_plane_m": 0.5,
+      "depth_far_plane_m": 40.0,
+      "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
     }
   },
   "storyboard_html_path": "examples/sephora_london_pulse_2_0/storyboard_preview.html",
@@ -1716,6 +2418,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=1.45s (Furnished Residential), Objects: obj_couture_silk_rustle (az:+15°, el:+0°, 1.8m); obj_runway_sub_bass (az:+0°, el:+10°, 12.0m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.5m-40.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
@@ -1748,6 +2456,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=1.45s (Furnished Residential), Objects: obj_couture_silk_rustle (az:+15°, el:+0°, 1.8m); obj_runway_sub_bass (az:+0°, el:+10°, 12.0m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.5m-40.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>"
@@ -1780,11 +2494,17 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=1.45s (Furnished Residential), Objects: obj_couture_silk_rustle (az:+15°, el:+0°, 1.8m); obj_runway_sub_bass (az:+0°, el:+10°, 12.0m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.5m-40.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
-          "<image_1>",
-          "<image_3>"
+          "<image_3>",
+          "<image_1>"
         ]
       }
     },
@@ -1814,6 +2534,12 @@
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
+        "spatial_audio_compliant": true,
+        "spatial_audio_reward": 1.0,
+        "spatial_audio_descriptor": "[SPATIAL AUDIO: Bed 7 1 4, RT60=1.45s (Furnished Residential), Objects: obj_couture_silk_rustle (az:+15°, el:+0°, 1.8m); obj_runway_sub_bass (az:+0°, el:+10°, 12.0m), Binaural HRTF]",
+        "vfx_compositing_compliant": true,
+        "vfx_compositing_reward": 1.0,
+        "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.5m-40.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -1823,9 +2549,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "fbc8eb4e-1e9c-48a6-a7f3-aea642fe1384",
+    "session_id": "1dda2b8f-fb55-43bd-995a-82fac8c7b620",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-06T09:34:08.517134+00:00",
+    "timestamp": "2026-11-07T09:45:34.476905+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1835,67 +2561,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-06T09:34:08.517158+00:00",
-        "end_time": "2026-11-06T09:34:08.517165+00:00",
+        "start_time": "2026-11-07T09:45:34.476921+00:00",
+        "end_time": "2026-11-07T09:45:34.476926+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-06T09:34:08.517192+00:00",
-        "end_time": "2026-11-06T09:34:08.517663+00:00",
-        "duration_ms": 0.47,
+        "start_time": "2026-11-07T09:45:34.476938+00:00",
+        "end_time": "2026-11-07T09:45:34.477318+00:00",
+        "duration_ms": 0.38,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-06T09:34:08.517692+00:00",
-        "end_time": "2026-11-06T09:34:08.520437+00:00",
-        "duration_ms": 2.74,
+        "start_time": "2026-11-07T09:45:34.477327+00:00",
+        "end_time": "2026-11-07T09:45:34.478815+00:00",
+        "duration_ms": 1.49,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-06T09:34:08.520470+00:00",
-        "end_time": "2026-11-06T09:34:08.520654+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-07T09:45:34.478826+00:00",
+        "end_time": "2026-11-07T09:45:34.478982+00:00",
+        "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-06T09:34:08.520663+00:00",
-        "end_time": "2026-11-06T09:34:08.523963+00:00",
-        "duration_ms": 3.3,
+        "start_time": "2026-11-07T09:45:34.478990+00:00",
+        "end_time": "2026-11-07T09:45:34.482557+00:00",
+        "duration_ms": 3.57,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-06T09:34:08.523991+00:00",
-        "end_time": "2026-11-06T09:34:08.523998+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-07T09:45:34.482565+00:00",
+        "end_time": "2026-11-07T09:45:34.482569+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-06T09:34:08.524006+00:00",
-        "end_time": "2026-11-06T09:34:08.528670+00:00",
-        "duration_ms": 4.66,
+        "start_time": "2026-11-07T09:45:34.482574+00:00",
+        "end_time": "2026-11-07T09:45:34.486202+00:00",
+        "duration_ms": 3.63,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-06T09:34:08.540292+00:00",
-        "end_time": "2026-11-06T09:34:08.562258+00:00",
-        "duration_ms": 21.97,
+        "start_time": "2026-11-07T09:45:34.492915+00:00",
+        "end_time": "2026-11-07T09:45:34.507413+00:00",
+        "duration_ms": 14.5,
         "details": {}
       }
     ],
-    "total_duration_ms": 33.34,
+    "total_duration_ms": 23.74,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "fe041f186909f865a11cd2938900c398277dfd6772ec6a6a3f2a2e8910e29441",
-      "storyboard_preview.html": "31a5750fe287f05c02913ff8d734faad9e5a927a32227e0123c8f518cd0b2fec",
+      "production_bundle.json": "5c809087f9b1ce2da6c4ae5dfaf3d6473e5fc12d7aba0e70ad9ebce8812d149c",
+      "storyboard_preview.html": "1b98010c0bc7d40293da6364ce26cb15b969c7e7e3e5fe86e6fc5194dec0ccc0",
       "timeline.edl": "5613ed790f2cfd16162dad289743f0659d46173ce0dfadff07925ae48d5494b3",
       "sequence.fcpxml": "26d07e61efc9b0ad13e31bc0ecbff46a6378cab97c79667e1d90a6a9a7961466",
       "shot_list.csv": "4819dd786ad60ebbf5925a17751fddf6111c5ff990829d8e708b322b670966db",
@@ -1930,7 +2656,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-06T09:34:08.553995+00:00",
+    "timestamp": "2026-11-07T09:45:34.506170+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1967,9 +2693,36 @@
                 "dit_cart_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "spatial_audio_delivery",
+            "message": "Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "spatial_artifacts": [
+                "spatial_audio_adm.json",
+                "ambisonic_b_format.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "vfx_compositing_delivery",
+            "message": "Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "vfx_artifacts": [
+                "openexr_channels.json",
+                "cryptomatte_manifest.json",
+                "nuke_composite.nk"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 2 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -2106,6 +2859,32 @@
               "emulation": "bleach_bypass_silver",
               "cube": "bleach_bypass_silver_33x33.cube"
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spatial_audio_calibration",
+            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Studio Soundstage' (RT60=1.45s, 2 3D objects) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "bed_format": "bed_7_1_4",
+              "room": "Studio Soundstage",
+              "objects": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_vfx_compositing_calibration",
+            "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "format": "half_float_16",
+              "passes": 7,
+              "crypto_entries": 8
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
@@ -2129,6 +2908,22 @@
             "severity": "info",
             "category": "animatic_dit_lut_hud",
             "message": "DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spatial_audio_hud",
+            "message": "Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_vfx_hud",
+            "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -2294,6 +3089,36 @@
           "omni_director/schemas.py",
           "omni_director/presets.py",
           "omni_director/agents/council.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-013",
+        "title": "Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)",
+        "problem_statement": "Enterprise cinematic productions and game engines for 'SEPHORA: London Pulse (Midnight Velvet)' require physics-based spatial audio modeling—including 7.1.4 Dolby Atmos speaker beds, Higher-Order Ambisonics (HOA 3rd-order), Sabine and Eyring reverberation decay (RT60), wall material acoustic absorption coefficients, 3D Vector Base Amplitude Panning (VBAP), and Audio Definition Model (ADM) metadata—to eliminate flat stereo audio and deliver immersive binaural soundfields.",
+        "proposed_solution": "Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/spatial_audio.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-014",
+        "title": "Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)",
+        "problem_statement": "Professional studio VFX pipelines (Foundry Nuke, Maya, Blender, Unreal Engine) for 'SEPHORA: London Pulse (Midnight Velvet)' require multi-pass render layer decomposition—such as Beauty RGBA, Direct/Indirect Diffuse, Specular Reflection, Transmission/Refraction, Subsurface Scattering, Emission, Z-Depth, World Normals, Motion Vectors, and 32-bit Murmur3 hex-hashed Cryptomatte object/material IDs—to allow seamless live-action visual effects integration rather than un-decomposed flat video renders.",
+        "proposed_solution": "Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",
         "status": "implemented"

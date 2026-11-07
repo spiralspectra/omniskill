@@ -2,6 +2,8 @@ import re
 from typing import Any, Dict, List, Optional
 
 from omni_director.schemas import (
+    AcousticMaterialType,
+    AcousticRoomImpulseResponse,
     ActionBeatSpec,
     AnamorphicSqueeze,
     AspectRatio,
@@ -10,8 +12,10 @@ from omni_director.schemas import (
     ColorLookPreset,
     ColorLookSpec,
     CraftCameraSpec,
+    CryptomatteManifestSpec,
     DiegeticSonicSpec,
     DmxLightingFixture,
+    DolbyAtmosBedFormat,
     DomainDofSpec,
     DomainLutSpec,
     LedWallGeometry,
@@ -26,18 +30,26 @@ from omni_director.schemas import (
     RegimeType,
     ScenePromptSpec,
     SensorFormat,
+    SpatialAudioObjectSpec,
+    SpatialAudioSoundfieldSpec,
+    SpatialCoordinate3D,
     SpeedRampCurveSpec,
     SpeedRampMode,
     StemChannelStrip,
     StemType,
     StorytellingMode,
+    VfxCompositingManifestSpec,
+    VfxLayerChannelSpec,
+    VfxRenderPassType,
     VirtualProductionStageSpec,
 )
 from omni_director.tools.color_grade import get_preset_color_look
 from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
 from omni_director.tools.moco_kinematics import synthesize_default_moco_rig
 from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
+from omni_director.tools.spatial_audio import calculate_eyring_rt60, calculate_sabine_rt60
 from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+from omni_director.tools.vfx_compositor import generate_cryptomatte_manifest
 from omni_director.tools.virtual_production import synthesize_default_vp_stage
 
 DOMAIN_PRIORITY: List[str] = [
@@ -713,6 +725,344 @@ def get_domain_lut_spec(archetype: Any) -> DomainLutSpec:
     )
 
 
+def _default_domain_passes(domain_key: str) -> List[VfxLayerChannelSpec]:
+    near = 0.05 if ("culinary" in domain_key or "hardware" in domain_key) else 0.1
+    far = 10.0 if ("culinary" in domain_key or "hardware" in domain_key) else (200.0 if ("kinetic" in domain_key or "automotive" in domain_key) else 50.0)
+    return [
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.BEAUTY_RGB, channel_name="beauty.RGB", bit_depth="16-bit half float", color_space="ACEScg", description="Final beauty combined render"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.DIFFUSE_ALBEDO, channel_name="diffuse.RGB", bit_depth="16-bit half float", color_space="ACEScg", description="Diffuse albedo direct + indirect bounce"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.SPECULAR_ROUGHNESS, channel_name="specular.RGB", bit_depth="16-bit half float", color_space="ACEScg", description="Specular gloss reflections and highlights"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.SURFACE_NORMALS, channel_name="normals.RGB", bit_depth="16-bit half float", color_space="Raw", description="World space surface normal vectors"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.DEPTH_Z_PASS, channel_name="depth.Z", bit_depth="32-bit full float", color_space="Raw", description=f"Linear depth distance ({near}m to {far}m)"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.AMBIENT_OCCLUSION, channel_name="ao.RGB", bit_depth="16-bit half float", color_space="Linear sRGB", description="Contact shadow ambient occlusion"),
+        VfxLayerChannelSpec(pass_type=VfxRenderPassType.CRYPTOMATTE_OBJECT, channel_name="crypto_object.RGBA", bit_depth="32-bit full float", color_space="Raw", description="Cryptomatte 32-bit object identifier hashes"),
+    ]
+
+
+def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
+    """Retrieves the calibrated 3D spatial audio soundfield and acoustic RIR spec for a commercial domain archetype (PM-FEAT-013)."""
+    domain_key = "architectural_sanctuary"
+    if isinstance(archetype, str):
+        domain_key = archetype
+    elif isinstance(archetype, dict):
+        if "spatial_audio" in archetype:
+            spec = archetype["spatial_audio"]
+            if isinstance(spec, SpatialAudioSoundfieldSpec):
+                return spec.model_copy(deep=True)
+            if isinstance(spec, dict):
+                return SpatialAudioSoundfieldSpec(**spec)
+        for k, v in DOMAIN_ARCHETYPES.items():
+            if v is archetype:
+                domain_key = k
+                break
+    elif hasattr(archetype, "master_spatial_audio") and getattr(archetype, "master_spatial_audio"):
+        return getattr(archetype, "master_spatial_audio")
+    elif hasattr(archetype, "domain_archetype") and getattr(archetype, "domain_archetype"):
+        domain_key = getattr(archetype, "domain_archetype")
+
+    arch_data = DOMAIN_ARCHETYPES.get(domain_key, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    sa_data = arch_data.get("spatial_audio")
+    if isinstance(sa_data, SpatialAudioSoundfieldSpec):
+        return sa_data.model_copy(deep=True)
+    if isinstance(sa_data, dict):
+        return SpatialAudioSoundfieldSpec(**sa_data)
+
+    if domain_key == "automotive_robotics":
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.BED_7_1_4,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=250.0,
+                surface_area_m2=280.0,
+                rt60_decay_sec=0.38,
+                early_reflections_ms=12.0,
+                air_absorption_hf_db_per_m=0.025,
+                wall_material=AcousticMaterialType.AUTOMOTIVE_CABIN,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_chassis_torque_rumble",
+                    stem_type=StemType.FOLEY,
+                    label="Chassis torque and tire friction rumble",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=0.0, elevation_deg=-15.0, distance_meters=2.0, spread_deg=45.0),
+                    lfe_send_db=0.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_pursuit_drone_flyby",
+                    stem_type=StemType.FOLEY,
+                    label="Pursuit chase drone lateral flyby",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=-60.0, elevation_deg=15.0, distance_meters=4.5, spread_deg=20.0),
+                    trajectory_waypoints=[
+                        SpatialCoordinate3D(azimuth_deg=-60.0, elevation_deg=15.0, distance_meters=4.5),
+                        SpatialCoordinate3D(azimuth_deg=0.0, elevation_deg=25.0, distance_meters=2.0),
+                        SpatialCoordinate3D(azimuth_deg=75.0, elevation_deg=10.0, distance_meters=6.0),
+                    ],
+                    lfe_send_db=-18.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+    elif domain_key == "culinary_asmr":
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.BINAURAL_HRTF,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=45.0,
+                surface_area_m2=65.0,
+                rt60_decay_sec=0.25,
+                early_reflections_ms=6.5,
+                air_absorption_hf_db_per_m=0.015,
+                wall_material=AcousticMaterialType.MARBLE_GLASS,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_knife_slice_contact",
+                    stem_type=StemType.FOLEY,
+                    label="Artisanal knife blade slice contact",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=-10.0, elevation_deg=-5.0, distance_meters=0.35, spread_deg=15.0),
+                    lfe_send_db=-24.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_cast_iron_sizzle",
+                    stem_type=StemType.FOLEY,
+                    label="Cast iron surface butter sizzle",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=20.0, elevation_deg=-10.0, distance_meters=0.5, spread_deg=45.0),
+                    lfe_send_db=-12.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+    elif domain_key == "luxury_fashion":
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.BED_7_1_4,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=1200.0,
+                surface_area_m2=850.0,
+                rt60_decay_sec=1.45,
+                early_reflections_ms=28.0,
+                air_absorption_hf_db_per_m=0.02,
+                wall_material=AcousticMaterialType.FURNISHED_RESIDENTIAL,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_couture_silk_rustle",
+                    stem_type=StemType.FOLEY,
+                    label="Couture silk gown dynamic rustle",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=15.0, elevation_deg=0.0, distance_meters=1.8, spread_deg=30.0),
+                    lfe_send_db=-20.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_runway_sub_bass",
+                    stem_type=StemType.MUSIC,
+                    label="Catwalk runway deep sub bass pulse",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=0.0, elevation_deg=10.0, distance_meters=12.0, spread_deg=180.0),
+                    lfe_send_db=-3.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+    elif domain_key == "kinetic_action":
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.AMBISONIC_HOA_3RD_ORDER,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=8000.0,
+                surface_area_m2=3200.0,
+                rt60_decay_sec=2.10,
+                early_reflections_ms=35.0,
+                air_absorption_hf_db_per_m=0.03,
+                wall_material=AcousticMaterialType.HARDWOOD_CONCRETE,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_kinetic_impact_shockwave",
+                    stem_type=StemType.FOLEY,
+                    label="Kinetic impact compression shockwave",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=-35.0, elevation_deg=-10.0, distance_meters=3.0, spread_deg=60.0),
+                    lfe_send_db=0.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_ricochet_debris_whizz",
+                    stem_type=StemType.FOLEY,
+                    label="High-velocity ricochet debris whizz",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=110.0, elevation_deg=25.0, distance_meters=1.2, spread_deg=15.0),
+                    lfe_send_db=-18.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+    elif domain_key == "tech_hardware":
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.BED_5_1_2,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=85.0,
+                surface_area_m2=110.0,
+                rt60_decay_sec=0.18,
+                early_reflections_ms=8.0,
+                air_absorption_hf_db_per_m=0.01,
+                wall_material=AcousticMaterialType.STUDIO_ACOUSTIC_FOAM,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_precision_haptic_click",
+                    stem_type=StemType.FOLEY,
+                    label="Sub-millimeter precision haptic click",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=0.0, elevation_deg=-5.0, distance_meters=0.45, spread_deg=10.0),
+                    lfe_send_db=-24.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_cleanroom_laminar_fan",
+                    stem_type=StemType.AMBIENCE,
+                    label="Sterile cleanroom laminar flow purr",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=45.0, elevation_deg=30.0, distance_meters=2.5, spread_deg=90.0),
+                    lfe_send_db=-12.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+    else:  # architectural_sanctuary
+        return SpatialAudioSoundfieldSpec(
+            bed_format=DolbyAtmosBedFormat.AMBISONIC_B_FORMAT,
+            room_acoustics=AcousticRoomImpulseResponse(
+                room_volume_m3=3500.0,
+                surface_area_m2=1900.0,
+                rt60_decay_sec=1.85,
+                early_reflections_ms=32.0,
+                air_absorption_hf_db_per_m=0.02,
+                wall_material=AcousticMaterialType.HARDWOOD_CONCRETE,
+            ),
+            audio_objects=[
+                SpatialAudioObjectSpec(
+                    object_id="obj_reflecting_pool_trickle",
+                    stem_type=StemType.AMBIENCE,
+                    label="Reflecting pool water droplet trickle",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=-40.0, elevation_deg=-15.0, distance_meters=6.0, spread_deg=45.0),
+                    lfe_send_db=-24.0,
+                ),
+                SpatialAudioObjectSpec(
+                    object_id="obj_cathedral_stone_reverb",
+                    stem_type=StemType.FOLEY,
+                    label="Acoustic heel contact stone reverberation",
+                    initial_position=SpatialCoordinate3D(azimuth_deg=60.0, elevation_deg=0.0, distance_meters=4.0, spread_deg=90.0),
+                    lfe_send_db=-18.0,
+                ),
+            ],
+            binaural_rendering_enabled=True,
+        )
+
+
+def get_domain_vfx_manifest(archetype: Any) -> VfxCompositingManifestSpec:
+    """Retrieves the calibrated multi-pass VFX compositing and OpenEXR manifest for a commercial domain archetype (PM-FEAT-014)."""
+    domain_key = "architectural_sanctuary"
+    if isinstance(archetype, str):
+        domain_key = archetype
+    elif isinstance(archetype, dict):
+        if "vfx_manifest" in archetype:
+            spec = archetype["vfx_manifest"]
+            if isinstance(spec, VfxCompositingManifestSpec):
+                return spec.model_copy(deep=True)
+            if isinstance(spec, dict):
+                return VfxCompositingManifestSpec(**spec)
+        for k, v in DOMAIN_ARCHETYPES.items():
+            if v is archetype:
+                domain_key = k
+                break
+    elif hasattr(archetype, "master_vfx_manifest") and getattr(archetype, "master_vfx_manifest"):
+        return getattr(archetype, "master_vfx_manifest")
+    elif hasattr(archetype, "domain_archetype") and getattr(archetype, "domain_archetype"):
+        domain_key = getattr(archetype, "domain_archetype")
+
+    arch_data = DOMAIN_ARCHETYPES.get(domain_key, DOMAIN_ARCHETYPES["architectural_sanctuary"])
+    vfx_data = arch_data.get("vfx_manifest")
+    if isinstance(vfx_data, VfxCompositingManifestSpec):
+        return vfx_data.model_copy(deep=True)
+    if isinstance(vfx_data, dict):
+        return VfxCompositingManifestSpec(**vfx_data)
+
+    passes = _default_domain_passes(domain_key)
+    if domain_key == "automotive_robotics":
+        crypto = generate_cryptomatte_manifest(
+            objects=["supercar_chassis", "carbon_fiber_diffuser", "pursuit_drone", "tarmac_surface"],
+            materials=["clearcoat_metallic_lacquer", "carbon_fiber_twill", "rubber_tread", "asphalt_slick"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="ZIP_SCANLINE",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.2,
+            depth_far_plane_m=150.0,
+            reconstruction_formula="(Diffuse * AO) + Specular + Emissive",
+        )
+    elif domain_key == "culinary_asmr":
+        crypto = generate_cryptomatte_manifest(
+            objects=["santoku_blade", "cutting_board_endgrain", "salmon_fillet", "cast_iron_pan"],
+            materials=["stainless_steel_damascus", "wood_walnut_oiled", "flesh_translucent", "seasoned_cast_iron"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="PIZ",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.05,
+            depth_far_plane_m=5.0,
+            reconstruction_formula="(Diffuse * AO) + Specular",
+        )
+    elif domain_key == "luxury_fashion":
+        crypto = generate_cryptomatte_manifest(
+            objects=["couture_gown", "hero_model_silhouette", "catwalk_mirror_floor", "spotlight_housing"],
+            materials=["silk_charmeuse_specular", "gold_lame_metallic", "lacquered_floor_reflective", "velvet_absorptive"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="ZIP_SCANLINE",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.5,
+            depth_far_plane_m=40.0,
+            reconstruction_formula="(Diffuse * AO) + Specular + Emissive",
+        )
+    elif domain_key == "kinetic_action":
+        crypto = generate_cryptomatte_manifest(
+            objects=["kinetic_athlete", "reinforced_concrete_pillar", "shattered_debris", "dust_cloud_volumetric"],
+            materials=["matte_performance_fabric", "concrete_fractured", "steel_rebar", "micro_dust_particulate"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="DWAA",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.1,
+            depth_far_plane_m=200.0,
+            reconstruction_formula="(Diffuse * AO) + Specular + Emissive",
+        )
+    elif domain_key == "tech_hardware":
+        crypto = generate_cryptomatte_manifest(
+            objects=["chassis_unibody", "gorilla_glass_display", "silicon_die", "copper_heatpipe"],
+            materials=["anodized_aluminum_matte", "anti_glare_glass", "silicon_lithography", "pure_copper_specular"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="ZIP_SCANLINE",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.02,
+            depth_far_plane_m=10.0,
+            reconstruction_formula="(Diffuse * AO) + Specular + Emissive",
+        )
+    else:  # architectural_sanctuary
+        crypto = generate_cryptomatte_manifest(
+            objects=["cantilever_roof", "reflecting_pool_basin", "monolithic_concrete_wall", "travertine_floor"],
+            materials=["board_formed_concrete", "still_water_fresnel", "travertine_limestone", "low_iron_glass"],
+        )
+        return VfxCompositingManifestSpec(
+            manifest_version="2.0",
+            openexr_compression="ZIP_SCANLINE",
+            passes=passes,
+            cryptomatte=crypto,
+            depth_near_plane_m=0.2,
+            depth_far_plane_m=80.0,
+            reconstruction_formula="(Diffuse * AO) + Specular",
+        )
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -1328,9 +1678,21 @@ PRESETS: Dict[str, MasterProductionBible] = {
 CURATED_PRESETS = PRESETS
 
 
+ARCHETYPE_PRESET_FALLBACKS: Dict[str, str] = {
+    "kinetic-action": "kinetic-fabric",
+    "culinary-asmr": "ikea-asmr",
+    "luxury-fashion": "sephora-pulse",
+    "automotive-robotics": "kinetic-fabric",
+    "tech-hardware": "sephora-pulse",
+    "architectural-sanctuary": "ikea-asmr",
+}
+
+
 def get_preset_bible(name: str) -> MasterProductionBible:
     """Retrieves a pre-configured MasterProductionBible preset by name."""
     clean_name = name.lower().replace("_", "-")
+    if clean_name not in PRESETS and clean_name in ARCHETYPE_PRESET_FALLBACKS:
+        clean_name = ARCHETYPE_PRESET_FALLBACKS[clean_name]
     if clean_name not in PRESETS:
         available = ", ".join(PRESETS.keys())
         raise ValueError(f"Unknown preset: '{name}'. Available presets: {available}")
@@ -1353,6 +1715,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_dof_spec = get_domain_dof_spec(bible.domain_archetype)
     if not getattr(bible, "master_lut_spec", None):
         bible.master_lut_spec = get_domain_lut_spec(bible.domain_archetype)
+    if not getattr(bible, "master_spatial_audio", None):
+        bible.master_spatial_audio = get_domain_spatial_audio_spec(bible.domain_archetype)
+    if not getattr(bible, "master_vfx_manifest", None):
+        bible.master_vfx_manifest = get_domain_vfx_manifest(bible.domain_archetype)
     for scene in bible.scenes:
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
@@ -1370,8 +1736,26 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.dof_spec = bible.master_dof_spec
         if not getattr(scene, "lut_spec", None):
             scene.lut_spec = bible.master_lut_spec
+        if not getattr(scene, "spatial_audio", None):
+            scene.spatial_audio = bible.master_spatial_audio
+        if not getattr(scene, "vfx_compositing", None):
+            scene.vfx_compositing = bible.master_vfx_manifest
     return bible
 
 
 get_preset = get_preset_bible
+
+# Backfill golden preset constants with domain specs at module import time
+for _p in PRESETS.values():
+    _arch = _p.domain_archetype or "culinary_asmr"
+    if not getattr(_p, "master_spatial_audio", None):
+        _p.master_spatial_audio = get_domain_spatial_audio_spec(_arch)
+    if not getattr(_p, "master_vfx_manifest", None):
+        _p.master_vfx_manifest = get_domain_vfx_manifest(_arch)
+    for _s in _p.scenes:
+        if not getattr(_s, "spatial_audio", None):
+            _s.spatial_audio = _p.master_spatial_audio
+        if not getattr(_s, "vfx_compositing", None):
+            _s.vfx_compositing = _p.master_vfx_manifest
+
 

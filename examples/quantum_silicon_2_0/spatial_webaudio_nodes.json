@@ -1,0 +1,73 @@
+{
+  "panningModel": "HRTF",
+  "audioContextSampleRate": 48000,
+  "listener": {
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "forward": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.0
+    },
+    "up": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    }
+  },
+  "convolverReverb": {
+    "rt60Seconds": 0.18,
+    "earlyReflectionsMs": 8.0,
+    "wallMaterial": "studio_acoustic_foam",
+    "wetDryRatio": 0.25
+  },
+  "pannerNodes": [
+    {
+      "nodeId": "panner_obj_precision_haptic_click",
+      "objectId": "obj_precision_haptic_click",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 0.0,
+        "y": -0.0392,
+        "z": -0.4483
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    },
+    {
+      "nodeId": "panner_obj_cleanroom_laminar_fan",
+      "objectId": "obj_cleanroom_laminar_fan",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 1.5309,
+        "y": 1.25,
+        "z": -1.5309
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "panningModel": "HRTF",
+  "audioContextSampleRate": 48000,
+  "listener": {
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "forward": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.0
+    },
+    "up": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+    }
+  },
+  "convolverReverb": {
+    "rt60Seconds": 1.45,
+    "earlyReflectionsMs": 28.0,
+    "wallMaterial": "furnished_residential",
+    "wetDryRatio": 0.25
+  },
+  "pannerNodes": [
+    {
+      "nodeId": "panner_obj_couture_silk_rustle",
+      "objectId": "obj_couture_silk_rustle",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 0.4659,
+        "y": 0.0,
+        "z": -1.7387
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    },
+    {
+      "nodeId": "panner_obj_runway_sub_bass",
+      "objectId": "obj_runway_sub_bass",
+      "panningModel": "HRTF",
+      "distanceModel": "inverse",
+      "refDistance": 1.0,
+      "maxDistance": 50.0,
+      "rolloffFactor": 1.0,
+      "coneInnerAngle": 180.0,
+      "coneOuterAngle": 360.0,
+      "coneOuterGain": 0.2,
+      "position": {
+        "x": 0.0,
+        "y": 2.0838,
+        "z": -11.8177
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      }
+    }
+  ]
+}

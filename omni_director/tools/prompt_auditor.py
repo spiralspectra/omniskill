@@ -12,6 +12,8 @@ from omni_director.schemas import (
 from omni_director.tools.optical_lens import format_optical_prompt_token
 from omni_director.tools.dof_simulator import format_dof_prompt_token
 from omni_director.tools.dit_lut import format_lut_prompt_token
+from omni_director.tools.spatial_audio import format_spatial_audio_prompt_token
+from omni_director.tools.vfx_compositor import format_vfx_compositing_prompt_token
 
 
 def audit_omni_scene_prompt(
@@ -169,6 +171,32 @@ def audit_omni_scene_prompt(
         elif lut_match:
             details["lut_spec_descriptor"] = lut_match.group(0)
 
+    # Spatial Audio & Binaural Soundfield recognition & reward (PM-FEAT-013)
+    spatial_audio_spec = getattr(scene, "spatial_audio", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("spatial_audio")
+    if spatial_audio_spec is None and diegetic_sonic is not None:
+        spatial_audio_spec = getattr(diegetic_sonic, "spatial_audio", None)
+    spatial_patterns = r"(?:spatial\s*audio|dolby\s*atmos|7\.1\.4|binaural|ambisonic(?:s)?|soundfield|rt60|reverberation|impulse\s*response|acoustic\s*space|vbap)"
+    spatial_match = re.search(spatial_patterns, prompt, re.IGNORECASE)
+    if spatial_audio_spec is not None or spatial_match:
+        details["spatial_audio_compliant"] = True
+        details["spatial_audio_reward"] = 1.0
+        if spatial_audio_spec is not None:
+            details["spatial_audio_descriptor"] = format_spatial_audio_prompt_token(spatial_audio_spec)
+        elif spatial_match:
+            details["spatial_audio_descriptor"] = spatial_match.group(0)
+
+    # Advanced Multi-Pass VFX Compositing recognition & reward (PM-FEAT-014)
+    vfx_manifest_spec = getattr(scene, "vfx_compositing", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("vfx_compositing")
+    vfx_patterns = r"(?:cryptomatte|render\s*pass(?:es)?|openexr|\.exr|nuke\s*comp|deep\s*compositing|beauty\s*pass|diffuse\s*pass|specular\s*pass|zdepth|depth\s*pass|motion\s*vector\s*pass|compositing\s*manifest)"
+    vfx_match = re.search(vfx_patterns, prompt, re.IGNORECASE)
+    if vfx_manifest_spec is not None or vfx_match:
+        details["vfx_compositing_compliant"] = True
+        details["vfx_compositing_reward"] = 1.0
+        if vfx_manifest_spec is not None:
+            details["vfx_compositing_descriptor"] = format_vfx_compositing_prompt_token(vfx_manifest_spec)
+        elif vfx_match:
+            details["vfx_compositing_descriptor"] = vfx_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -299,6 +327,10 @@ def audit_omni_scene_prompt(
         if details.get("dof_spec_compliant"):
             score = min(100.0, score + 1.0)
         if details.get("lut_spec_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("spatial_audio_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("vfx_compositing_compliant"):
             score = min(100.0, score + 1.0)
 
     return AuditResult(
