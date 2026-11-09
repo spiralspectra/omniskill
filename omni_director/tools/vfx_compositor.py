@@ -100,7 +100,7 @@ def generate_nuke_composite_script(
 
     script_lines: List[str] = [
         f"#! /Applications/Nuke15.0v1/Nuke15.0v1 -nx",
-        f"# Omni Movie Director v2.7.0 - Automated Multi-Pass Composite Script",
+        f"# Omni Movie Director v2.8.0 - Automated Multi-Pass Composite Script",
         f"# Project: {clean_title}",
         f"# Reconstruction: {manifest.reconstruction_formula}",
         "",

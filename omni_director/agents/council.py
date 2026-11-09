@@ -323,6 +323,44 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-015",
+                title="HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)",
+                problem_statement=(
+                    f"High-end cinematic theatrical distribution and commercial streaming broadcasters (Apple TV+, Netflix, BBC, YouTube HDR){project_ctx} "
+                    "require rigorous SMPTE ST 2084 PQ (Perceptual Quantizer) and ARIB STD-B67 HLG color volume mastering metadata—including SMPTE ST 2086 "
+                    "mastering display color primaries, white point chromaticity, peak/minimum luminance nits, MaxCLL (Maximum Content Light Level), "
+                    "MaxFALL (Maximum Frame Average Light Level), and ACES/Reinhard/BT.2446 tone mapping—to prevent highlight clipping and gamut distortion."
+                ),
+                proposed_solution=(
+                    "Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal "
+                    "(pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, "
+                    "DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD "
+                    "(#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/hdr_signal.py", "omni_director/presets.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-016",
+                title="1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)",
+                problem_statement=(
+                    f"Professional cinematic and commercial production workflows{project_ctx} require standardized 1st Assistant Director (1st AD) "
+                    "production scheduling: automated 1/8th-page scene breakdown across 12 industry categories (Cast, Extras, Stunts, Vehicles, Props, "
+                    "SFX, VFX, Wardrobe, Makeup, Sound, Special Equipment, Animals), Hollywood color-coded stripboard strips (Yellow/Blue/White/Green), "
+                    "shooting day breaks, and Day-Out-of-Days (DOOD) talent matrices enforcing SAG-AFTRA 12-hour turnaround rest compliance."
+                ),
+                proposed_solution=(
+                    "Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, "
+                    "omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA "
+                    "12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive "
+                    "Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/stripboard_scheduler.py", "omni_director/presets.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -378,6 +416,15 @@ class ProductCouncilOrchestrator(BaseAgent):
             bundle=bundle,
             bible=bible,
         )
+
+    def review_production_bundle(
+        self,
+        bundle: ProductionBundle,
+        output_dir: Optional[Union[str, Path]] = None,
+        auto_heal: bool = True,
+    ) -> ProductCouncilReport:
+        """Audits and reviews a production bundle."""
+        return self.audit(bundle=bundle, output_dir=output_dir, auto_heal=auto_heal)
 
     def audit(
         self,
@@ -664,6 +711,47 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"vfx_artifacts": vfx_items}
                 ))
 
+            # Verify HDR10 / HLG Broadcast Color Volume Metadata deliverables (PM-FEAT-015)
+            hdr_json = eval_dir / "hdr10_metadata.json"
+            hlg_xml = eval_dir / "hlg_broadcast_metadata.xml"
+            resolve_hdr = eval_dir / "resolve_hdr_parameters.xml"
+            if hdr_json.is_file() or hlg_xml.is_file() or resolve_hdr.is_file():
+                hdr_items = []
+                if hdr_json.is_file():
+                    hdr_items.append("hdr10_metadata.json")
+                if hlg_xml.is_file():
+                    hdr_items.append("hlg_broadcast_metadata.xml")
+                if resolve_hdr.is_file():
+                    hdr_items.append("resolve_hdr_parameters.xml")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="hdr_metadata_delivery",
+                    message=f"HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: {', '.join(hdr_items)}.",
+                    details={"hdr_artifacts": hdr_items}
+                ))
+
+            # Verify 1st AD Stripboard Production Scheduler deliverables (PM-FEAT-016)
+            mm_xml = eval_dir / "movie_magic_schedule.xml"
+            strip_csv = eval_dir / "stripboard_schedule.csv"
+            dood_csv = eval_dir / "day_out_of_days_matrix.csv"
+            breakdown_json = eval_dir / "script_breakdown_sheets.json"
+            if mm_xml.is_file() or strip_csv.is_file() or dood_csv.is_file() or breakdown_json.is_file():
+                stripboard_items = []
+                if mm_xml.is_file():
+                    stripboard_items.append("movie_magic_schedule.xml")
+                if strip_csv.is_file():
+                    stripboard_items.append("stripboard_schedule.csv")
+                if dood_csv.is_file():
+                    stripboard_items.append("day_out_of_days_matrix.csv")
+                if breakdown_json.is_file():
+                    stripboard_items.append("script_breakdown_sheets.json")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="stripboard_schedule_delivery",
+                    message=f"1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: {', '.join(stripboard_items)}.",
+                    details={"stripboard_artifacts": stripboard_items}
+                ))
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
         return PersonaReviewResult(
@@ -795,6 +883,32 @@ class ProductCouncilOrchestrator(BaseAgent):
                 severity=CouncilFindingSeverity.INFO,
                 category="rig_schema_validation",
                 message="MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.",
+            ))
+
+        # Check HDR metadata and 1st AD script breakdown prompt token compliance (PM-FEAT-015 & PM-FEAT-016)
+        hdr_tokens_found = 0
+        breakdown_tokens_found = 0
+        for scene in bible.scenes:
+            p_text = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
+            if any(k in p_text for k in ("HDR10", "HLG", "ST 2084", "ST 2086", "Rec.2020", "MaxCLL", "MaxFALL")):
+                hdr_tokens_found += 1
+            if any(k in p_text for k in ("1st AD", "Breakdown Sheet", "Cast:", "Props:", "SFX:", "VFX:", "Wardrobe:")):
+                breakdown_tokens_found += 1
+
+        if hdr_tokens_found > 0:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="hdr_prompt_token_compliance",
+                message=f"HDR broadcast color volume prompt tokens verified across {hdr_tokens_found}/{len(bible.scenes)} scene prompts.",
+                details={"hdr_scenes_count": hdr_tokens_found}
+            ))
+
+        if breakdown_tokens_found > 0:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="stripboard_prompt_token_compliance",
+                message=f"1st AD script breakdown prompt tokens verified across {breakdown_tokens_found}/{len(bible.scenes)} scene prompts.",
+                details={"breakdown_scenes_count": breakdown_tokens_found}
             ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -1114,6 +1228,60 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain HDR mastering metadata calibration (PM-FEAT-015)
+        if hasattr(bible, "master_hdr_spec") and bible.master_hdr_spec:
+            hdr = bible.master_hdr_spec
+            peak = getattr(hdr, "target_peak_nits", 1000.0)
+            tf = getattr(hdr.transfer_function, "value", str(hdr.transfer_function))
+            gamut = getattr(hdr.color_gamut, "value", str(hdr.color_gamut))
+            tm = getattr(hdr.tone_mapping, "value", str(hdr.tone_mapping))
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_hdr_calibration",
+                message=f"Domain HDR metadata verified: {tf} ({gamut}, {peak:.0f} nits peak, MaxCLL {hdr.max_cll_nits:.0f}, MaxFALL {hdr.max_fall_nits:.0f}, tone mapper {tm}) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "transfer_function": tf, "color_gamut": gamut, "peak_nits": peak, "tone_mapping": tm},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_hdr_calibration",
+                message="Master HDR metadata spec (master_hdr_spec) missing from production bible.",
+                suggested_fix="Assign master_hdr_spec via get_domain_hdr_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain 1st AD Stripboard Schedule & DOOD SAG-AFTRA 12h turnaround (PM-FEAT-016)
+        if hasattr(bible, "master_stripboard_schedule") and bible.master_stripboard_schedule:
+            sched = bible.master_stripboard_schedule
+            total_days = getattr(sched, "total_shooting_days", getattr(sched, "total_shoot_days", 1))
+            total_strips = len(sched.strips)
+            dood_records = getattr(sched, "dood_records", getattr(sched, "day_out_of_days", []))
+            dood_count = len(dood_records)
+            turnaround_ok = all(getattr(r, "sag_turnaround_compliant", getattr(r, "sag_aftra_compliant", True)) for r in dood_records)
+            if not turnaround_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="stripboard_turnaround_violation",
+                    message="Stripboard schedule contains SAG-AFTRA 12-hour turnaround rest interval violations.",
+                    suggested_fix="Re-order strips or add day breaks to guarantee 12 hours minimum rest between shooting calls."
+                ))
+                score -= 1.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_stripboard_calibration",
+                    message=f"1st AD Stripboard schedule verified: {total_strips} strips across {total_days} shoot day(s), {dood_count} DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain '{detected_domain}'.",
+                    details={"domain": detected_domain, "shoot_days": total_days, "strips_count": total_strips, "dood_count": dood_count, "sag_turnaround": turnaround_ok},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_stripboard_calibration",
+                message="Master stripboard schedule (master_stripboard_schedule) missing from production bible.",
+                suggested_fix="Assign master_stripboard_schedule via get_domain_stripboard_spec().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -1305,6 +1473,36 @@ class ProductCouncilOrchestrator(BaseAgent):
                         severity=CouncilFindingSeverity.INFO,
                         category="animatic_vfx_hud",
                         message="Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
+                    ))
+
+                if 'id="btn-hdr-animatic"' not in html_content and 'id="animatic-hdr-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_hdr_hud",
+                        message="Compiled storyboard preview HTML lacks interactive HDR Broadcast Color Volume HUD (#animatic-hdr-hud / #btn-hdr-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-hdr-animatic, #animatic-hdr-hud, and #hdr-waveform-canvas."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_hdr_hud",
+                        message="HDR Broadcast Color Volume & Waveform Monitor HUD verified in dark-room animatic (#btn-hdr-animatic / #animatic-hdr-hud [H]).",
+                    ))
+
+                if 'id="btn-stripboard-animatic"' not in html_content and 'id="animatic-stripboard-hud"' not in html_content:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_stripboard_hud",
+                        message="Compiled storyboard preview HTML lacks interactive 1st AD Stripboard Production Scheduler HUD (#animatic-stripboard-hud / #btn-stripboard-animatic).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-stripboard-animatic, #animatic-stripboard-hud, and #dood-talent-table."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_stripboard_hud",
+                        message="1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
                     ))
 
             except Exception:

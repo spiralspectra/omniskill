@@ -1,6 +1,6 @@
 # Product Council Audit Report: The Kinetic Fabric: Grounded Innovation
 
-**Version**: 2.6.0 | **Timestamp**: `2026-11-07T09:45:34.339527+00:00`
+**Version**: 2.6.0 | **Timestamp**: `2026-11-09T17:20:04.592621+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 4 | FDE review completed with score 25.0/25.0. 4 findings. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 6 | FDE review completed with score 25.0/25.0. 6 findings. |
 | `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 1 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 11 | Strategist review completed with score 25.0/25.0 (Domain: kinetic_action). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 4 | UX Designer review completed with score 25.0/25.0. |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 13 | Strategist review completed with score 25.0/25.0 (Domain: kinetic_action). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 6 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -20,6 +20,8 @@
 - [INFO] **color_lut_delivery**: DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.
 - [INFO] **spatial_audio_delivery**: Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.
 - [INFO] **vfx_compositing_delivery**: Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.
+- [INFO] **hdr_metadata_delivery**: HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.
+- [INFO] **stripboard_schedule_delivery**: 1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -36,12 +38,16 @@
 - [INFO] **domain_lut_calibration**: Domain 3D LUT color science verified: 'High-contrast Fuji Eterna dynamic' (fuji_eterna_dynamic, 33x33x33 fuji_eterna_dynamic_33x33.cube) aligned with domain 'kinetic_action'.
 - [INFO] **domain_spatial_audio_calibration**: Domain spatial audio verified: ambisonic_hoa_3rd_order Atmos bed, 'Studio Soundstage' (RT60=2.10s, 2 3D objects) aligned with domain 'kinetic_action'.
 - [INFO] **domain_vfx_compositing_calibration**: Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'kinetic_action'.
+- [INFO] **domain_hdr_calibration**: Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 2000 nits peak, MaxCLL 1950, MaxFALL 680, tone mapper bt_2446_method_a) aligned with domain 'kinetic_action'.
+- [INFO] **domain_stripboard_calibration**: 1st AD Stripboard schedule verified: 4 strips across 2 shoot day(s), 1 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'kinetic_action'.
 
 ### COUNCIL-UX-DESIGNER
 - [INFO] **animatic_dof_hud**: Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).
 - [INFO] **animatic_dit_lut_hud**: DIT 3D LUT Color Science & Film Emulation Suite HUD verified in dark-room animatic (#btn-dit-lut-animatic / #animatic-dit-lut-hud [L]).
 - [INFO] **animatic_spatial_audio_hud**: Spatial Audio & 7.1.4 Binaural Soundfield HUD verified in dark-room animatic (#btn-spatial-animatic / #animatic-spatial-hud [S]).
 - [INFO] **animatic_vfx_hud**: Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).
+- [INFO] **animatic_hdr_hud**: HDR Broadcast Color Volume & Waveform Monitor HUD verified in dark-room animatic (#btn-hdr-animatic / #animatic-hdr-hud [H]).
+- [INFO] **animatic_stripboard_hud**: 1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -63,3 +69,5 @@
 | `PM-FEAT-012` | **P0** | `implemented` | **Domain 3D LUT Color Science & Film Emulation (.cube) Suite**: Ship DomainLutSpec schema in omni_director.schemas, calibrate get_domain_lut_spec() across all 6 commercial domain archetypes in omni_director.presets, bind lut_spec to ScenePromptSpec and master_lut_spec to MasterProductionBible, export 33x33x33 .cube metadata, and integrate 3D LUT verification into ProductCouncilOrchestrator. | `omni_director/schemas.py`, `omni_director/presets.py`, `omni_director/agents/council.py` |
 | `PM-FEAT-013` | **P0** | `implemented` | **Spatial Audio & Binaural Soundfield Acoustic Simulation (Dolby Atmos 7.1.4 & HOA Ambisonics)**: Ship SpatialCoordinate3D, AcousticRoomImpulseResponse, SpatialAudioObjectSpec, and SpatialAudioSoundfieldSpec schemas, omni_director.tools.spatial_audio (Sabine/Eyring RT60 formulas, 7.1.4 VBAP matrix, ITU-R BS.2076 ADM JSON and Ambisonics CSV exports), CRAFT diegetic spatial audio prompt tokens, prompt auditor spatial compliance rules, and an interactive Spatial Audio Console (#btn-spatial-animatic / #animatic-spatial-hud [S] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/spatial_audio.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-014` | **P0** | `implemented` | **Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)**: Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/vfx_compositor.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-015` | **P0** | `implemented` | **HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)**: Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal (pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD (#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/hdr_signal.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-016` | **P0** | `implemented` | **1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)**: Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/stripboard_scheduler.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |

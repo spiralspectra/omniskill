@@ -555,6 +555,69 @@
           "depth_near_plane_m": 0.02,
           "depth_far_plane_m": 10.0,
           "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+        },
+        "hdr_spec": {
+          "transfer_function": "smpte_st_2084_pq",
+          "mastering_display": {
+            "peak_luminance_nits": 1200.0,
+            "black_level_nits": 0.0001,
+            "color_volume": "bt_2020",
+            "primary_coordinates": {
+              "red": [
+                0.708,
+                0.292
+              ],
+              "green": [
+                0.17,
+                0.797
+              ],
+              "blue": [
+                0.131,
+                0.046
+              ]
+            },
+            "white_point_d65": [
+              0.3127,
+              0.329
+            ]
+          },
+          "max_cll_nits": 1150.0,
+          "max_fall_nits": 420.0,
+          "tone_mapping": "aces_spline",
+          "target_gamut": "bt_2020",
+          "knee_point_nits": 100.0,
+          "shoulder_point_nits": 800.0
+        },
+        "breakdown_sheet": {
+          "scene_number": 1,
+          "page_eighths": 4,
+          "day_night": "DAY",
+          "int_ext": "INT",
+          "location": "AN ULTRA-STERILE CLEANROOM",
+          "description": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "category_elements": {
+            "cast_members": [
+              "#1 Hero Character",
+              "#2 Secondary Character"
+            ],
+            "sound_effects": [
+              "Precision magnetic latch click",
+              "Anodized aluminum bevel contact",
+              "Subtle ultrasonic cleanroom hum",
+              "Haptic motor vibration pulse"
+            ],
+            "special_equipment": [
+              "MoCo Rig (MotionControlRigType.BOLT_CINEBOT)",
+              "In-Camera VFX LED Volume Stage"
+            ],
+            "production_notes": [
+              "Regime: Regime 2: High-Kinetic & Precision Commercial",
+              "Speed Ramp: SpeedRampMode.CONSTANT_REALTIME"
+            ],
+            "optical_vfx": [
+              "Multi-Pass VFX (7 OpenEXR passes)"
+            ]
+          }
         }
       },
       {
@@ -994,6 +1057,68 @@
           "depth_near_plane_m": 0.02,
           "depth_far_plane_m": 10.0,
           "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+        },
+        "hdr_spec": {
+          "transfer_function": "smpte_st_2084_pq",
+          "mastering_display": {
+            "peak_luminance_nits": 1200.0,
+            "black_level_nits": 0.0001,
+            "color_volume": "bt_2020",
+            "primary_coordinates": {
+              "red": [
+                0.708,
+                0.292
+              ],
+              "green": [
+                0.17,
+                0.797
+              ],
+              "blue": [
+                0.131,
+                0.046
+              ]
+            },
+            "white_point_d65": [
+              0.3127,
+              0.329
+            ]
+          },
+          "max_cll_nits": 1150.0,
+          "max_fall_nits": 420.0,
+          "tone_mapping": "aces_spline",
+          "target_gamut": "bt_2020",
+          "knee_point_nits": 100.0,
+          "shoulder_point_nits": 800.0
+        },
+        "breakdown_sheet": {
+          "scene_number": 2,
+          "page_eighths": 4,
+          "day_night": "DAY",
+          "int_ext": "INT",
+          "location": "AN ULTRA-STERILE CLEANROOM",
+          "description": "Advanced Quantum Computing Silicon Proce - Climax",
+          "category_elements": {
+            "cast_members": [
+              "#1 Hero Character"
+            ],
+            "sound_effects": [
+              "Precision magnetic latch click",
+              "Anodized aluminum bevel contact",
+              "Subtle ultrasonic cleanroom hum",
+              "Haptic motor vibration pulse"
+            ],
+            "special_equipment": [
+              "MoCo Rig (MotionControlRigType.BOLT_CINEBOT)",
+              "In-Camera VFX LED Volume Stage"
+            ],
+            "production_notes": [
+              "Regime: Regime 2: High-Kinetic & Precision Commercial",
+              "Speed Ramp: SpeedRampMode.CONSTANT_REALTIME"
+            ],
+            "optical_vfx": [
+              "Multi-Pass VFX (7 OpenEXR passes)"
+            ]
+          }
         }
       }
     ],
@@ -1544,6 +1669,184 @@
       "depth_near_plane_m": 0.02,
       "depth_far_plane_m": 10.0,
       "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+    },
+    "master_hdr_spec": {
+      "transfer_function": "smpte_st_2084_pq",
+      "mastering_display": {
+        "peak_luminance_nits": 1200.0,
+        "black_level_nits": 0.0001,
+        "color_volume": "bt_2020",
+        "primary_coordinates": {
+          "red": [
+            0.708,
+            0.292
+          ],
+          "green": [
+            0.17,
+            0.797
+          ],
+          "blue": [
+            0.131,
+            0.046
+          ]
+        },
+        "white_point_d65": [
+          0.3127,
+          0.329
+        ]
+      },
+      "max_cll_nits": 1150.0,
+      "max_fall_nits": 420.0,
+      "tone_mapping": "aces_spline",
+      "target_gamut": "bt_2020",
+      "knee_point_nits": 100.0,
+      "shoulder_point_nits": 800.0
+    },
+    "hdr_spec": {
+      "transfer_function": "smpte_st_2084_pq",
+      "mastering_display": {
+        "peak_luminance_nits": 1200.0,
+        "black_level_nits": 0.0001,
+        "color_volume": "bt_2020",
+        "primary_coordinates": {
+          "red": [
+            0.708,
+            0.292
+          ],
+          "green": [
+            0.17,
+            0.797
+          ],
+          "blue": [
+            0.131,
+            0.046
+          ]
+        },
+        "white_point_d65": [
+          0.3127,
+          0.329
+        ]
+      },
+      "max_cll_nits": 1150.0,
+      "max_fall_nits": 420.0,
+      "tone_mapping": "aces_spline",
+      "target_gamut": "bt_2020",
+      "knee_point_nits": 100.0,
+      "shoulder_point_nits": 800.0
+    },
+    "master_stripboard_schedule": {
+      "production_title": "Tech Hardware Production",
+      "total_page_eighths": 8,
+      "total_shooting_days": 1,
+      "day_breaks": [],
+      "strips": [
+        {
+          "scene_number": 1,
+          "day_type": "int_day",
+          "color_code": "white_day_int",
+          "page_eighths": 4,
+          "setting_summary": "INT. AN ULTRA-STERILE CLEANROOM - DAY",
+          "cast_ids": [
+            1,
+            2
+          ],
+          "estimated_shooting_hours": 3.5,
+          "shoot_day": 1
+        },
+        {
+          "scene_number": 2,
+          "day_type": "int_day",
+          "color_code": "white_day_int",
+          "page_eighths": 4,
+          "setting_summary": "INT. AN ULTRA-STERILE CLEANROOM - DAY",
+          "cast_ids": [
+            1
+          ],
+          "estimated_shooting_hours": 3.5,
+          "shoot_day": 1
+        }
+      ],
+      "dood_records": [
+        {
+          "cast_id": 1,
+          "cast_name": "Actor 1",
+          "character_name": "Hero Subject",
+          "shooting_days": {
+            "1": "SWF"
+          },
+          "total_work_days": 1,
+          "total_hold_days": 0,
+          "sag_turnaround_compliant": true
+        },
+        {
+          "cast_id": 2,
+          "cast_name": "Actor 2",
+          "character_name": "Supporting Role",
+          "shooting_days": {
+            "1": "SWF"
+          },
+          "total_work_days": 1,
+          "total_hold_days": 0,
+          "sag_turnaround_compliant": true
+        }
+      ]
+    },
+    "stripboard_schedule": {
+      "production_title": "Tech Hardware Production",
+      "total_page_eighths": 8,
+      "total_shooting_days": 1,
+      "day_breaks": [],
+      "strips": [
+        {
+          "scene_number": 1,
+          "day_type": "int_day",
+          "color_code": "white_day_int",
+          "page_eighths": 4,
+          "setting_summary": "INT. AN ULTRA-STERILE CLEANROOM - DAY",
+          "cast_ids": [
+            1,
+            2
+          ],
+          "estimated_shooting_hours": 3.5,
+          "shoot_day": 1
+        },
+        {
+          "scene_number": 2,
+          "day_type": "int_day",
+          "color_code": "white_day_int",
+          "page_eighths": 4,
+          "setting_summary": "INT. AN ULTRA-STERILE CLEANROOM - DAY",
+          "cast_ids": [
+            1
+          ],
+          "estimated_shooting_hours": 3.5,
+          "shoot_day": 1
+        }
+      ],
+      "dood_records": [
+        {
+          "cast_id": 1,
+          "cast_name": "Actor 1",
+          "character_name": "Hero Subject",
+          "shooting_days": {
+            "1": "SWF"
+          },
+          "total_work_days": 1,
+          "total_hold_days": 0,
+          "sag_turnaround_compliant": true
+        },
+        {
+          "cast_id": 2,
+          "cast_name": "Actor 2",
+          "character_name": "Supporting Role",
+          "shooting_days": {
+            "1": "SWF"
+          },
+          "total_work_days": 1,
+          "total_hold_days": 0,
+          "sag_turnaround_compliant": true
+        }
+      ]
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -1602,13 +1905,19 @@
         "vfx_compositing_compliant": true,
         "vfx_compositing_reward": 1.0,
         "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.0m-10.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
+        "hdr_signal_compliant": true,
+        "hdr_signal_reward": 1.0,
+        "hdr_signal_descriptor": "[HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1200 nits, MaxCLL: 1150 nits, MaxFALL: 420 nits]",
+        "script_breakdown_compliant": true,
+        "script_breakdown_reward": 1.0,
+        "script_breakdown_descriptor": "[1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: AN ULTRA-STERILE CLEANROOM, Cast: 1, 2]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       }
     },
@@ -1644,6 +1953,12 @@
         "vfx_compositing_compliant": true,
         "vfx_compositing_reward": 1.0,
         "vfx_compositing_descriptor": "[VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.0m-10.0m, Reconstruct: (Diffuse * AO) + Specular + Emissive]",
+        "hdr_signal_compliant": true,
+        "hdr_signal_reward": 1.0,
+        "hdr_signal_descriptor": "[HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1200 nits, MaxCLL: 1150 nits, MaxFALL: 420 nits]",
+        "script_breakdown_compliant": true,
+        "script_breakdown_reward": 1.0,
+        "script_breakdown_descriptor": "[1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: AN ULTRA-STERILE CLEANROOM, Cast: 1]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1656,9 +1971,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "a2a7458f-7bd8-4fc2-920d-102429c90371",
+    "session_id": "e2f7b1f6-a870-4aac-ac0c-86fdb5946aa1",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-07T09:45:35.282674+00:00",
+    "timestamp": "2026-11-09T17:20:05.598517+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -1668,67 +1983,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-07T09:45:35.282690+00:00",
-        "end_time": "2026-11-07T09:45:35.283274+00:00",
-        "duration_ms": 0.58,
+        "start_time": "2026-11-09T17:20:05.598534+00:00",
+        "end_time": "2026-11-09T17:20:05.599149+00:00",
+        "duration_ms": 0.61,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-07T09:45:35.283286+00:00",
-        "end_time": "2026-11-07T09:45:35.284109+00:00",
-        "duration_ms": 0.82,
+        "start_time": "2026-11-09T17:20:05.599162+00:00",
+        "end_time": "2026-11-09T17:20:05.601500+00:00",
+        "duration_ms": 2.34,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-07T09:45:35.284120+00:00",
-        "end_time": "2026-11-07T09:45:35.285214+00:00",
-        "duration_ms": 1.09,
+        "start_time": "2026-11-09T17:20:05.601514+00:00",
+        "end_time": "2026-11-09T17:20:05.605295+00:00",
+        "duration_ms": 3.78,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-07T09:45:35.285225+00:00",
-        "end_time": "2026-11-07T09:45:35.285356+00:00",
-        "duration_ms": 0.13,
+        "start_time": "2026-11-09T17:20:05.605317+00:00",
+        "end_time": "2026-11-09T17:20:05.605464+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-07T09:45:35.285364+00:00",
-        "end_time": "2026-11-07T09:45:35.286529+00:00",
-        "duration_ms": 1.17,
+        "start_time": "2026-11-09T17:20:05.605473+00:00",
+        "end_time": "2026-11-09T17:20:05.606932+00:00",
+        "duration_ms": 1.46,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-07T09:45:35.286537+00:00",
-        "end_time": "2026-11-07T09:45:35.286540+00:00",
+        "start_time": "2026-11-09T17:20:05.606941+00:00",
+        "end_time": "2026-11-09T17:20:05.606945+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-07T09:45:35.286546+00:00",
-        "end_time": "2026-11-07T09:45:35.289623+00:00",
-        "duration_ms": 3.08,
+        "start_time": "2026-11-09T17:20:05.606951+00:00",
+        "end_time": "2026-11-09T17:20:05.610655+00:00",
+        "duration_ms": 3.7,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-07T09:45:35.294798+00:00",
-        "end_time": "2026-11-07T09:45:35.304366+00:00",
-        "duration_ms": 9.57,
+        "start_time": "2026-11-09T17:20:05.619238+00:00",
+        "end_time": "2026-11-09T17:20:05.631245+00:00",
+        "duration_ms": 12.01,
         "details": {}
       }
     ],
-    "total_duration_ms": 16.44,
+    "total_duration_ms": 24.05,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "79a5605b61230ed215fbded6abbb6b9aff5788e3f8a474aab66ebb12d7075024",
-      "storyboard_preview.html": "6c5d3e8d972374fe528cbf87a82f437da1968d8af75371b9bb278de15ce6c18f",
+      "production_bundle.json": "08d4f2f9e9c798d99f37914bf31579e1c30e81e6b72c5884ab855a0f674381e5",
+      "storyboard_preview.html": "f99a5a8fa4bc67f465979732fb8cb5898909e69e78da6a5dab3efb227c4dc1b2",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -1761,7 +2076,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-07T09:45:35.303177+00:00",
+    "timestamp": "2026-11-09T17:20:05.629731+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -1825,9 +2140,34 @@
                 "nuke_composite.nk"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "hdr_metadata_delivery",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "hdr_artifacts": [
+                "hdr10_metadata.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "stripboard_schedule_delivery",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "stripboard_artifacts": [
+                "movie_magic_schedule.xml",
+                "stripboard_schedule.csv"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 4 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 6 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -1990,6 +2330,34 @@
               "passes": 7,
               "crypto_entries": 8
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_hdr_calibration",
+            "message": "Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 1200 nits peak, MaxCLL 1150, MaxFALL 420, tone mapper aces_spline) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "transfer_function": "smpte_st_2084_pq",
+              "color_gamut": "bt_2020",
+              "peak_nits": 1200.0,
+              "tone_mapping": "aces_spline"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_stripboard_calibration",
+            "message": "1st AD Stripboard schedule verified: 2 strips across 1 shoot day(s), 2 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "shoot_days": 1,
+              "strips_count": 2,
+              "dood_count": 2,
+              "sag_turnaround": true
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: tech_hardware)."
@@ -2029,6 +2397,22 @@
             "severity": "info",
             "category": "animatic_vfx_hud",
             "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hdr_hud",
+            "message": "HDR Broadcast Color Volume & Waveform Monitor HUD verified in dark-room animatic (#btn-hdr-animatic / #animatic-hdr-hud [H]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_stripboard_hud",
+            "message": "1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -2221,6 +2605,38 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/vfx_compositor.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-015",
+        "title": "HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)",
+        "problem_statement": "High-end cinematic theatrical distribution and commercial streaming broadcasters (Apple TV+, Netflix, BBC, YouTube HDR) for 'Advanced Quantum Computing Silicon Proce' require rigorous SMPTE ST 2084 PQ (Perceptual Quantizer) and ARIB STD-B67 HLG color volume mastering metadata—including SMPTE ST 2086 mastering display color primaries, white point chromaticity, peak/minimum luminance nits, MaxCLL (Maximum Content Light Level), MaxFALL (Maximum Frame Average Light Level), and ACES/Reinhard/BT.2446 tone mapping—to prevent highlight clipping and gamut distortion.",
+        "proposed_solution": "Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal (pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD (#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/hdr_signal.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-016",
+        "title": "1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)",
+        "problem_statement": "Professional cinematic and commercial production workflows for 'Advanced Quantum Computing Silicon Proce' require standardized 1st Assistant Director (1st AD) production scheduling: automated 1/8th-page scene breakdown across 12 industry categories (Cast, Extras, Stunts, Vehicles, Props, SFX, VFX, Wardrobe, Makeup, Sound, Special Equipment, Animals), Hollywood color-coded stripboard strips (Yellow/Blue/White/Green), shooting day breaks, and Day-Out-of-Days (DOOD) talent matrices enforcing SAG-AFTRA 12-hour turnaround rest compliance.",
+        "proposed_solution": "Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/stripboard_scheduler.py",
+          "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"

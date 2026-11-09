@@ -14,6 +14,8 @@ from omni_director.tools.dof_simulator import format_dof_prompt_token
 from omni_director.tools.dit_lut import format_lut_prompt_token
 from omni_director.tools.spatial_audio import format_spatial_audio_prompt_token
 from omni_director.tools.vfx_compositor import format_vfx_compositing_prompt_token
+from omni_director.tools.hdr_signal import format_hdr_prompt_token
+from omni_director.tools.stripboard_scheduler import format_script_breakdown_prompt_token
 
 
 def audit_omni_scene_prompt(
@@ -197,6 +199,30 @@ def audit_omni_scene_prompt(
         elif vfx_match:
             details["vfx_compositing_descriptor"] = vfx_match.group(0)
 
+    # HDR Signal & Color Volume recognition & reward (PM-FEAT-015)
+    hdr_spec_obj = getattr(scene, "hdr_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("hdr_spec")
+    hdr_patterns = r"(?:\[HDR\s*Signal:?|hdr10|smpte\s*st\s*2084|st\s*2084|arib\s*std-b67|\bhlg\b|bt\.?2100|maxcll|maxfall|peak\s*luminance|\bnits\b)"
+    hdr_match = re.search(hdr_patterns, prompt, re.IGNORECASE)
+    if hdr_spec_obj is not None or hdr_match:
+        details["hdr_signal_compliant"] = True
+        details["hdr_signal_reward"] = 1.0
+        if hdr_spec_obj is not None:
+            details["hdr_signal_descriptor"] = format_hdr_prompt_token(hdr_spec_obj)
+        elif hdr_match:
+            details["hdr_signal_descriptor"] = hdr_match.group(0)
+
+    # 1st AD Script Breakdown & Stripboard recognition & reward (PM-FEAT-016)
+    breakdown_obj = getattr(scene, "breakdown_sheet", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("breakdown_sheet")
+    breakdown_patterns = r"(?:\[1st\s*AD\s*Breakdown:?|stripboard|dood|day-out-of-days|script\s*breakdown|page\s*eighths|\b\d+\/8\s*pgs?\b|yellow\s*strip|blue\s*strip|white\s*strip|green\s*strip)"
+    breakdown_match = re.search(breakdown_patterns, prompt, re.IGNORECASE)
+    if breakdown_obj is not None or breakdown_match:
+        details["script_breakdown_compliant"] = True
+        details["script_breakdown_reward"] = 1.0
+        if breakdown_obj is not None:
+            details["script_breakdown_descriptor"] = format_script_breakdown_prompt_token(breakdown_obj)
+        elif breakdown_match:
+            details["script_breakdown_descriptor"] = breakdown_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -257,8 +283,12 @@ def audit_omni_scene_prompt(
             )
 
     # Rule 4: CRAFT camera completeness
-    camera_terms = ["camera", "shot", "lens", "framing", "dolly", "steadicam", "tripod", "pan", "tracking", "close-up", "wide", "prime", "tilt"]
-    has_camera = any(term in prompt.lower() for term in camera_terms)
+    camera_terms = [
+        "camera", "shot", "lens", "framing", "dolly", "steadicam", "tripod",
+        "pan", "tracking", "close-up", "wide", "prime", "tilt",
+        "[hdr signal:", "[1st ad breakdown:",
+    ]
+    has_camera = any(term in prompt.lower() for term in camera_terms) or "[hdr signal:" in prompt.lower() or "[1st ad breakdown:" in prompt.lower()
     if craft_camera is not None:
         details["craft_camera_configured"] = True
     elif has_camera:
@@ -331,6 +361,10 @@ def audit_omni_scene_prompt(
         if details.get("spatial_audio_compliant"):
             score = min(100.0, score + 1.0)
         if details.get("vfx_compositing_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("hdr_signal_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("script_breakdown_compliant"):
             score = min(100.0, score + 1.0)
 
     return AuditResult(
@@ -581,6 +615,44 @@ def heal_omni_scene_prompt(
             working_prompt = working_prompt.rstrip() + f" {token}."
             if "injected_lut_spec" not in applied_patches:
                 applied_patches.append("injected_lut_spec")
+
+        # 3h. Inject Spatial Audio spec tokens if configured (PM-FEAT-013)
+        prev = working_prompt
+        spatial_obj = (getattr(scene, "spatial_audio", None) if is_spec else None) or (getattr(spec_context, "spatial_audio", None) if spec_context else None) or kwargs.get("spatial_audio")
+        if spatial_obj is None and is_spec and getattr(scene, "diegetic_sonic", None):
+            spatial_obj = getattr(scene.diegetic_sonic, "spatial_audio", None)
+        if spatial_obj is not None and not re.search(r"spatial\s*audio|dolby\s*atmos|7\.1\.4|binaural|ambisonic", working_prompt, re.IGNORECASE):
+            token = format_spatial_audio_prompt_token(spatial_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_spatial_audio_spec" not in applied_patches:
+                applied_patches.append("injected_spatial_audio_spec")
+
+        # 3i. Inject Multi-Pass VFX Compositing tokens if configured (PM-FEAT-014)
+        prev = working_prompt
+        vfx_obj = (getattr(scene, "vfx_compositing", None) if is_spec else None) or (getattr(spec_context, "vfx_compositing", None) if spec_context else None) or kwargs.get("vfx_compositing")
+        if vfx_obj is not None and not re.search(r"cryptomatte|render\s*pass|openexr|\.exr|deep\s*compositing", working_prompt, re.IGNORECASE):
+            token = format_vfx_compositing_prompt_token(vfx_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_vfx_compositing_spec" not in applied_patches:
+                applied_patches.append("injected_vfx_compositing_spec")
+
+        # 3j. Inject HDR Signal tokens if configured (PM-FEAT-015)
+        prev = working_prompt
+        hdr_obj = (getattr(scene, "hdr_spec", None) if is_spec else None) or (getattr(spec_context, "hdr_spec", None) if spec_context else None) or kwargs.get("hdr_spec")
+        if hdr_obj is not None and not re.search(r"\[HDR\s*Signal:?|hdr10|smpte\s*st\s*2084|arib\s*std-b67|\bhlg\b|bt\.?2100|maxcll|maxfall", working_prompt, re.IGNORECASE):
+            token = format_hdr_prompt_token(hdr_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_hdr_spec" not in applied_patches:
+                applied_patches.append("injected_hdr_spec")
+
+        # 3k. Inject 1st AD Script Breakdown tokens if configured (PM-FEAT-016)
+        prev = working_prompt
+        breakdown_sheet_obj = (getattr(scene, "breakdown_sheet", None) if is_spec else None) or (getattr(spec_context, "breakdown_sheet", None) if spec_context else None) or kwargs.get("breakdown_sheet")
+        if breakdown_sheet_obj is not None and not re.search(r"\[1st\s*AD\s*Breakdown:?|stripboard|script\s*breakdown|page\s*eighths|\b\d+\/8\s*pgs?\b", working_prompt, re.IGNORECASE):
+            token = format_script_breakdown_prompt_token(breakdown_sheet_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_script_breakdown_spec" not in applied_patches:
+                applied_patches.append("injected_script_breakdown_spec")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt

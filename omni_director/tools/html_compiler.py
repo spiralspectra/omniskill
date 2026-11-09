@@ -647,6 +647,108 @@ def compile_storyboard_html(
     vfx_crypto_count = len(master_vfx.cryptomatte.matte_entries) if master_vfx.cryptomatte else 0
     vfx_format_label = f"{master_vfx.channel_format.upper()} ({vfx_pass_count} channels)"
 
+    # Master HDR Metadata Spec (PM-FEAT-015)
+    master_hdr = getattr(bible, "master_hdr_spec", None)
+    if master_hdr is None:
+        from omni_director.presets import get_domain_hdr_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_hdr = get_domain_hdr_spec(domain)
+    hdr_standard = master_hdr.standard.value if hasattr(master_hdr.standard, "value") else str(master_hdr.standard)
+    hdr_color_space = master_hdr.color_space.value if hasattr(master_hdr.color_space, "value") else str(master_hdr.color_space)
+    hdr_transfer_fn = master_hdr.transfer_function.value if hasattr(master_hdr.transfer_function, "value") else str(master_hdr.transfer_function)
+    hdr_peak_nits = master_hdr.peak_luminance_nits
+    hdr_max_cll = master_hdr.max_cll_nits
+    hdr_max_fall = master_hdr.max_fall_nits
+    hdr_tone_map = master_hdr.tone_mapping_operator
+    hdr_disp_name = master_hdr.mastering_display.display_name if master_hdr.mastering_display else "Reference Mastering Display"
+    hdr_disp_primaries = master_hdr.mastering_display.color_primaries if master_hdr.mastering_display else "BT.2020"
+
+    # Master Stripboard Production Schedule (PM-FEAT-016)
+    master_stripboard = getattr(bible, "master_stripboard_schedule", None)
+    if master_stripboard is None:
+        from omni_director.presets import get_domain_stripboard_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_stripboard = get_domain_stripboard_spec(domain, bible.scenes)
+    stripboard_total_days = master_stripboard.total_shoot_days
+    stripboard_total_eighths = master_stripboard.total_page_eighths
+    stripboard_pages_display = f"{stripboard_total_eighths // 8} {stripboard_total_eighths % 8}/8" if stripboard_total_eighths % 8 != 0 else f"{stripboard_total_eighths // 8}"
+    stripboard_sag_status = "✓ 100% SAG-AFTRA 12h Rest OK" if all(r.sag_aftra_compliant for r in master_stripboard.dood_matrix) else "⚠️ Rest Violations Detected"
+
+    # Build Hollywood color-coded strips
+    strips_html_parts = []
+    current_day = 1
+    day_eighths = 0
+    for s in master_stripboard.strips:
+        if s.shoot_day != current_day:
+            day_pages_str = f"{day_eighths // 8} {day_eighths % 8}/8" if day_eighths % 8 != 0 else f"{day_eighths // 8}"
+            strips_html_parts.append(
+                f'<div class="strip-day-break"><span>END OF SHOOT DAY {current_day}</span><span>PAGE COUNT: {day_pages_str} PGS</span></div>'
+            )
+            current_day = s.shoot_day
+            day_eighths = 0
+        day_eighths += s.page_eighths
+        c_code = s.color_code.value if hasattr(s.color_code, "value") else str(s.color_code)
+        if "DAY_EXT" in c_code:
+            color_cls = "strip-yellow"
+        elif "NIGHT_EXT" in c_code:
+            color_cls = "strip-green"
+        elif "DAY_INT" in c_code:
+            color_cls = "strip-white"
+        elif "NIGHT_INT" in c_code:
+            color_cls = "strip-blue"
+        else:
+            color_cls = "strip-yellow"
+        eighths_str = f"{s.page_eighths}/8" if s.page_eighths < 8 else f"{s.page_eighths // 8} {s.page_eighths % 8}/8"
+        cast_str = ",".join(str(c) for c in (s.cast_ids or [])) or "-"
+        strips_html_parts.append(
+            f'<div class="strip-item {color_cls}">'
+            f'<span>SCENE {s.scene_number}</span>'
+            f'<span>{s.int_ext} / {s.day_night}</span>'
+            f'<span>{eighths_str} pgs</span>'
+            f'<span>{s.location}</span>'
+            f'<span>DAY {s.shoot_day}</span>'
+            f'<span>CAST: {cast_str}</span>'
+            f'</div>'
+        )
+    if day_eighths > 0:
+        day_pages_str = f"{day_eighths // 8} {day_eighths % 8}/8" if day_eighths % 8 != 0 else f"{day_eighths // 8}"
+        strips_html_parts.append(
+            f'<div class="strip-day-break"><span>END OF SHOOT DAY {current_day} (WRAP)</span><span>PAGE COUNT: {day_pages_str} PGS</span></div>'
+        )
+    stripboard_strips_html = "\n".join(strips_html_parts)
+
+    # Build DOOD table HTML
+    day_headers = "".join([f'<th scope="col">DAY {d}</th>' for d in range(1, master_stripboard.total_shoot_days + 1)])
+    dood_rows_parts = []
+    for r in master_stripboard.dood_matrix:
+        day_cells = []
+        for d in range(1, master_stripboard.total_shoot_days + 1):
+            st = r.daily_status.get(d, "I")
+            st_cls = f"dood-{st.lower()}"
+            day_cells.append(f'<td><span class="dood-status-pill {st_cls}">{st}</span></td>')
+        day_cells_html = "".join(day_cells)
+        sag_badge = '<span class="sag-compliant-badge">✓ 12h Rest OK</span>' if r.sag_aftra_compliant else '<span class="sag-violation-badge">⚠️ SAG Turnaround Violation</span>'
+        dood_rows_parts.append(
+            f'<tr>'
+            f'<td><strong>{r.cast_id}</strong></td>'
+            f'<td>{r.character_name} <span style="color: var(--text-dim);">({r.actor_name})</span></td>'
+            f'{day_cells_html}'
+            f'<td>{r.total_work_days} d</td>'
+            f'<td>{sag_badge}</td>'
+            f'</tr>'
+        )
+    dood_rows_html = "\n".join(dood_rows_parts)
+
+    from omni_director.tools.hdr_signal import export_hdr10_metadata_json, export_hlg_broadcast_xml, export_resolve_hdr_xml_string
+    from omni_director.tools.stripboard_scheduler import export_movie_magic_xml_string, export_stripboard_csv_string, export_dood_csv_string
+
+    hdr10_json_escaped = export_hdr10_metadata_json(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    hlg_xml_escaped = export_hlg_broadcast_xml(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    resolve_hdr_xml_escaped = export_resolve_hdr_xml_string(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    movie_magic_xml_escaped = export_movie_magic_xml_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    stripboard_csv_escaped = export_stripboard_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    dood_csv_escaped = export_dood_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
     if not first_scene_plate_markup:
         first_scene_plate_markup = """<svg viewBox="0 0 640 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <rect width="640" height="360" fill="#0A0C10" />
@@ -3009,6 +3111,259 @@ def compile_storyboard_html(
       outline: 2px solid var(--amber-gold);
     }}
 
+    /* HDR10/HLG Color Volume HUD & Stripboard Production Scheduler (PM-FEAT-015 & PM-FEAT-016) */
+    .hdr-hud-modal, .stripboard-hud-modal {{
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }}
+    .hdr-modal-content, .stripboard-modal-content {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1020px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }}
+    .hdr-modal-header, .stripboard-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }}
+    .hdr-title-wrap, .stripboard-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .hdr-heading, .stripboard-heading {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }}
+    .hdr-subheading, .stripboard-subheading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }}
+    .btn-hdr-close, .btn-stripboard-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }}
+    .btn-hdr-close:hover, .btn-stripboard-close:hover {{
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }}
+    .hdr-modal-body, .stripboard-modal-body {{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }}
+    .hdr-toolbar, .stripboard-toolbar {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }}
+    .hdr-actions, .stripboard-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .hdr-badge, .stripboard-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }}
+    .hdr-waveform-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #050608;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+    }}
+    #hdr-waveform-canvas {{
+      width: 100%;
+      height: 220px;
+      background: #060709;
+      border-radius: 4px;
+      display: block;
+    }}
+    .hdr-telemetry-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }}
+    .hdr-telemetry-card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .hdr-telemetry-card span {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+    .hdr-telemetry-card strong {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber-gold);
+    }}
+
+    /* Hollywood Stripboard & Day-Out-of-Days Styles */
+    .stripboard-strips-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px;
+      background: #07090E;
+    }}
+    .strip-item {{
+      display: grid;
+      grid-template-columns: 75px 100px 90px 1fr 60px 80px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }}
+    .strip-yellow {{
+      background: #FFF275;
+      color: #111827;
+      border-left: 6px solid #EAB308;
+    }}
+    .strip-blue {{
+      background: #93C5FD;
+      color: #0F172A;
+      border-left: 6px solid #3B82F6;
+    }}
+    .strip-white {{
+      background: #F8FAFC;
+      color: #0F172A;
+      border-left: 6px solid #94A3B8;
+    }}
+    .strip-green {{
+      background: #86EFAC;
+      color: #064E3B;
+      border-left: 6px solid #22C55E;
+    }}
+    .strip-day-break {{
+      background: #1E293B;
+      color: #F8FAFC;
+      border: 1px dashed #475569;
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0;
+    }}
+    .dood-table-wrap {{
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      background: var(--bg-card);
+    }}
+    #dood-talent-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    #dood-talent-table th {{
+      background: #0B0E14;
+      color: var(--text-dim);
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }}
+    #dood-talent-table td {{
+      padding: 7px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }}
+    .dood-status-pill {{
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+    }}
+    .dood-sw {{ background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid #3B82F6; }}
+    .dood-w {{ background: rgba(34, 197, 94, 0.2); color: #4ADE80; border: 1px solid #22C55E; }}
+    .dood-wf {{ background: rgba(239, 68, 68, 0.2); color: #F87171; border: 1px solid #EF4444; }}
+    .dood-h {{ background: rgba(234, 179, 8, 0.2); color: #FACC15; border: 1px solid #EAB308; }}
+    .dood-i {{ background: rgba(148, 163, 184, 0.1); color: #94A3B8; }}
+    .sag-compliant-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #4ADE80;
+      font-weight: 600;
+    }}
+    .sag-violation-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #F87171;
+      font-weight: 700;
+    }}
+
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
@@ -3047,7 +3402,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
@@ -3060,6 +3415,12 @@ def compile_storyboard_html(
       </button>
       <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
         ✨ VFX Passes [X]
+      </button>
+      <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
+        🌈 HDR Color [H]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
+        📋 Stripboard [B]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -3841,6 +4202,124 @@ def compile_storyboard_html(
     </div>
   </div>
 
+  <!-- HDR10 / HLG Broadcast Mastering & Color Volume HUD (PM-FEAT-015) -->
+  <div id="animatic-hdr-hud" class="hdr-hud-modal" role="dialog" aria-modal="true" aria-label="HDR10 / HLG Broadcast Mastering &amp; Color Volume HUD" style="display: none;">
+    <div class="hdr-modal-content">
+      <div class="hdr-modal-header">
+        <div class="hdr-title-wrap">
+          <span class="hdr-icon">🌈</span>
+          <div>
+            <h3 class="hdr-heading">HDR10 / HLG BROADCAST MASTERING &amp; COLOR VOLUME SUITE</h3>
+            <span class="hdr-subheading">SMPTE ST 2084 PQ / ARIB STD-B67 HLG · ITU-R BT.2020 / DCI-P3 · Static SMPTE ST 2086 &amp; CTA-861-G</span>
+          </div>
+        </div>
+        <button type="button" class="btn-hdr-close" onclick="toggleHdrHUD()" aria-label="Close HDR HUD">✕</button>
+      </div>
+      <div class="hdr-modal-body">
+        <div class="hdr-toolbar">
+          <div class="hdr-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-hdr10" onclick="downloadHdr10JSON()" aria-label="Download HDR10 Static Metadata JSON">
+              ⤓ HDR10 Metadata (.json)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-hlg" onclick="downloadHlgXML()" aria-label="Download HLG Broadcast Sidecar XML">
+              ⤓ HLG Sidecar (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-resolve-hdr" onclick="downloadResolveHdrXML()" aria-label="Download DaVinci Resolve Color Space Transform XML">
+              ⤓ Resolve HDR CST (.xml)
+            </button>
+          </div>
+          <div class="hdr-status-wrap">
+            <div class="hdr-badge" aria-label="HDR Mastering Profile">
+              STANDARD: {hdr_standard} · COLOR: {hdr_color_space} · EOTF: {hdr_transfer_fn} · PEAK: {hdr_peak_nits} nits · MaxCLL: {hdr_max_cll} · MaxFALL: {hdr_max_fall}
+            </div>
+          </div>
+        </div>
+        <div class="hdr-waveform-wrap">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF;">
+              10-BIT LUMINANCE WAVEFORM MONITOR (0 - 10,000 NITS / SMPTE ST 2084 PQ)
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry);">
+              TONE MAPPER: {hdr_tone_map} | TARGET: {hdr_disp_name}
+            </div>
+          </div>
+          <canvas id="hdr-waveform-canvas" width="940" height="220" aria-label="Luminance Waveform Monitor Canvas"></canvas>
+        </div>
+        <div class="hdr-telemetry-grid">
+          <div class="hdr-telemetry-card"><span>Mastering Display</span><strong>{hdr_disp_name}</strong></div>
+          <div class="hdr-telemetry-card"><span>Color Primaries</span><strong>{hdr_disp_primaries}</strong></div>
+          <div class="hdr-telemetry-card"><span>Peak Luminance</span><strong>{hdr_peak_nits} Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>MaxCLL (Content Light)</span><strong>{hdr_max_cll} Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>MaxFALL (Avg Frame)</span><strong>{hdr_max_fall} Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>Tone Mapping</span><strong>{hdr_tone_map}</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1st AD Script Breakdown & Stripboard Production Scheduler HUD (PM-FEAT-016) -->
+  <div id="animatic-stripboard-hud" class="stripboard-hud-modal" role="dialog" aria-modal="true" aria-label="1st AD Script Breakdown &amp; Stripboard Production Scheduler" style="display: none;">
+    <div class="stripboard-modal-content">
+      <div class="stripboard-modal-header">
+        <div class="stripboard-title-wrap">
+          <span class="stripboard-icon">📋</span>
+          <div>
+            <h3 class="stripboard-heading">1ST ASSISTANT DIRECTOR SCRIPT BREAKDOWN &amp; STRIPBOARD SCHEDULER</h3>
+            <span class="stripboard-subheading">Hollywood Color-Coded Strips · 1/8th Page Increments · SAG-AFTRA 12-Hour Rest Turnaround · DOOD Matrix</span>
+          </div>
+        </div>
+        <button type="button" class="btn-stripboard-close" onclick="toggleStripboardHUD()" aria-label="Close Stripboard HUD">✕</button>
+      </div>
+      <div class="stripboard-modal-body">
+        <div class="stripboard-toolbar">
+          <div class="stripboard-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-movie-magic" onclick="downloadMovieMagicXML()" aria-label="Download Movie Magic Scheduling XML">
+              ⤓ Movie Magic XML (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-stripboard-csv" onclick="downloadStripboardCSV()" aria-label="Download Stripboard Schedule CSV">
+              ⤓ Stripboard CSV (.csv)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-dood-csv" onclick="downloadDoodCSV()" aria-label="Download Day-Out-of-Days CSV">
+              ⤓ DOOD Report (.csv)
+            </button>
+          </div>
+          <div class="stripboard-status-wrap">
+            <div class="stripboard-badge" aria-label="Production Schedule Metrics">
+              SHOOT DAYS: {stripboard_total_days} · TOTAL PAGES: {stripboard_pages_display} ({stripboard_total_eighths}/8) · {stripboard_sag_status}
+            </div>
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 8px;">
+          PRODUCTION SHOOTING STRIPBOARD ({master_stripboard.total_strips} SCENE STRIPS)
+        </div>
+        <div class="stripboard-strips-wrap">
+          {stripboard_strips_html}
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-top: 18px; margin-bottom: 8px;">
+          DAY-OUT-OF-DAYS (DOOD) TALENT WORK MATRIX &amp; SAG-AFTRA 12H TURNAROUND
+        </div>
+        <div class="dood-table-wrap">
+          <table id="dood-talent-table" class="dood-table" aria-label="Day Out of Days Talent Work Matrix">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">CHARACTER / ACTOR</th>
+                {day_headers}
+                <th scope="col">TOTAL</th>
+                <th scope="col">SAG-AFTRA REST</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dood_rows_html}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -4491,7 +4970,7 @@ def compile_storyboard_html(
       const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
       const admPayload = {{
         format: "ADM_ITU_R_BS_2076",
-        version: "2.7.0",
+        version: "2.8.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {{}},
         audio_objects: spatialData.audio_objects || [],
@@ -4607,7 +5086,7 @@ def compile_storyboard_html(
 
     function downloadNukeScript() {{
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.7.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.8.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
       const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -4618,6 +5097,182 @@ def compile_storyboard_html(
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast("Foundry Nuke Composite Script (.nk) downloaded!");
+    }}
+
+    // HDR10 / HLG Broadcast Color Volume Controller (PM-FEAT-015)
+    let isHdrHUDOpen = false;
+    function toggleHdrHUD() {{
+      isHdrHUDOpen = !isHdrHUDOpen;
+      const modal = document.getElementById('animatic-hdr-hud');
+      const btn = document.getElementById('btn-hdr-animatic');
+      if (modal) {{
+        modal.style.display = isHdrHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isHdrHUDOpen);
+        btn.setAttribute('aria-expanded', isHdrHUDOpen ? 'true' : 'false');
+      }}
+      if (isHdrHUDOpen) {{
+        drawHdrWaveform();
+        showToast("HDR10 / HLG Broadcast Mastering HUD: ACTIVE [H]");
+      }}
+    }}
+
+    function drawHdrWaveform() {{
+      const canvas = document.getElementById('hdr-waveform-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // Dark background
+      ctx.fillStyle = '#050608';
+      ctx.fillRect(0, 0, w, h);
+
+      // Draw graticule lines (0 nits, 100 nits SDR, 203 nits HDR Ref, 1000 nits, peak nits)
+      const graticules = [
+        {{ label: '0 Nits (Black)', yFrac: 0.94, color: '#334155' }},
+        {{ label: '100 Nits (SDR White)', yFrac: 0.78, color: '#475569' }},
+        {{ label: '203 Nits (HDR Ref White)', yFrac: 0.62, color: '#0EA5E9' }},
+        {{ label: '1000 Nits (Mastering Target)', yFrac: 0.32, color: '#F59E0B' }},
+        {{ label: '{hdr_peak_nits} Nits (Peak Limit)', yFrac: 0.12, color: '#EF4444' }}
+      ];
+
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      graticules.forEach(g => {{
+        const y = Math.round(h * g.yFrac);
+        ctx.strokeStyle = g.color;
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(30, y);
+        ctx.lineTo(w - 10, y);
+        ctx.stroke();
+
+        ctx.fillStyle = g.color;
+        ctx.fillText(g.label, 35, y - 4);
+      }});
+      ctx.setLineDash([]);
+
+      // Draw simulated luminance waveform trace
+      const grad = ctx.createLinearGradient(0, h, 0, 0);
+      grad.addColorStop(0.0, 'rgba(0, 240, 255, 0.4)');
+      grad.addColorStop(0.5, 'rgba(16, 185, 129, 0.6)');
+      grad.addColorStop(0.8, 'rgba(245, 158, 11, 0.7)');
+      grad.addColorStop(1.0, 'rgba(239, 68, 68, 0.85)');
+
+      ctx.fillStyle = grad;
+      const step = 2;
+      for (let x = 40; x < w - 20; x += step) {{
+        const normX = (x - 40) / (w - 60);
+        const base = Math.sin(normX * 8) * 0.25 + Math.cos(normX * 17) * 0.15 + 0.45;
+        const peakLuma = Math.min(0.92, Math.max(0.08, base + (Math.sin(normX * 31) * 0.12)));
+        const barH = peakLuma * (h * 0.82);
+        const yTop = h * 0.94 - barH;
+        ctx.fillRect(x, yTop, step - 0.5, barH);
+      }}
+
+      // Border frame
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(0, 0, w, h);
+    }}
+
+    function downloadHdr10JSON() {{
+      const blob = new Blob([`{hdr10_json_escaped}`], {{ type: 'application/json;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "hdr10_metadata.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("HDR10 Static Metadata (.json) downloaded!");
+    }}
+
+    function downloadHlgXML() {{
+      const blob = new Blob([`{hlg_xml_escaped}`], {{ type: 'application/xml;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "hlg_broadcast.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("ARIB STD-B67 HLG Broadcast Sidecar (.xml) downloaded!");
+    }}
+
+    function downloadResolveHdrXML() {{
+      const blob = new Blob([`{resolve_hdr_xml_escaped}`], {{ type: 'application/xml;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "resolve_hdr_cst.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("DaVinci Resolve HDR Color Space Transform (.xml) downloaded!");
+    }}
+
+    // 1st AD Script Breakdown & Stripboard Scheduler Controller (PM-FEAT-016)
+    let isStripboardHUDOpen = false;
+    function toggleStripboardHUD() {{
+      isStripboardHUDOpen = !isStripboardHUDOpen;
+      const modal = document.getElementById('animatic-stripboard-hud');
+      const btn = document.getElementById('btn-stripboard-animatic');
+      if (modal) {{
+        modal.style.display = isStripboardHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isStripboardHUDOpen);
+        btn.setAttribute('aria-expanded', isStripboardHUDOpen ? 'true' : 'false');
+      }}
+      if (isStripboardHUDOpen) {{
+        showToast("1st AD Stripboard Production Scheduler HUD: ACTIVE [B]");
+      }}
+    }}
+
+    function downloadMovieMagicXML() {{
+      const blob = new Blob([`{movie_magic_xml_escaped}`], {{ type: 'application/xml;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "movie_magic_schedule.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Movie Magic Scheduling XML (.xml) downloaded!");
+    }}
+
+    function downloadStripboardCSV() {{
+      const blob = new Blob([`{stripboard_csv_escaped}`], {{ type: 'text/csv;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "stripboard_schedule.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Production Stripboard Schedule (.csv) downloaded!");
+    }}
+
+    function downloadDoodCSV() {{
+      const blob = new Blob([`{dood_csv_escaped}`], {{ type: 'text/csv;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "dood_report.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Day-Out-of-Days (DOOD) Talent Report (.csv) downloaded!");
     }}
 
     function toggleAuditDrawer(sceneIdx) {{
@@ -5332,6 +5987,10 @@ def compile_storyboard_html(
         toggleSpatialHUD();
       }} else if (e.key === 'x' || e.key === 'X') {{
         toggleVfxHUD();
+      }} else if (e.key === 'h' || e.key === 'H') {{
+        toggleHdrHUD();
+      }} else if (e.key === 'b' || e.key === 'B') {{
+        toggleStripboardHUD();
       }} else if (e.key === 'Escape') {{
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
@@ -5340,6 +5999,8 @@ def compile_storyboard_html(
         if (isDitLutHUDOpen) toggleDitLutHUD();
         if (isSpatialHUDOpen) toggleSpatialHUD();
         if (isVfxHUDOpen) toggleVfxHUD();
+        if (isHdrHUDOpen) toggleHdrHUD();
+        if (isStripboardHUDOpen) toggleStripboardHUD();
       }}
     }});
 

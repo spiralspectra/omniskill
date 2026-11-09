@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -3810,6 +3810,10 @@ class TestV26UXAnimaticDofAndLutHUDs:
             '<div id="animatic-spatial-hud"></div>'
             '<button id="btn-vfx-animatic"></button>'
             '<div id="animatic-vfx-hud"></div>'
+            '<button id="btn-hdr-animatic"></button>'
+            '<div id="animatic-hdr-hud"></div>'
+            '<button id="btn-stripboard-animatic"></button>'
+            '<div id="animatic-stripboard-hud"></div>'
             '<div role="tablist"></div>'
             '<div class="cinema-toast" id="cinema-toast"></div>'
             '<script>function jumpToBeat() {}</script>'
@@ -4301,6 +4305,411 @@ class TestV27SpatialAudioAndVfxCompositingSuite:
         assert report.passed is True
         assert report.overall_score >= 90.0
         assert report.critical_findings_count == 0
+
+
+class TestV28HdrBroadcastColorScience:
+    """Verifies PM-FEAT-015 (HDR10/HLG Broadcast Color Science, SMPTE ST 2084 PQ, Tone Mapping, Exporters)."""
+
+    def test_smpte_st_2084_pq_eotf_and_inverse(self) -> None:
+        """Verifies pure-Python SMPTE ST 2084 PQ EOTF and inverse EOTF math and roundtrips."""
+        from omni_director.tools.hdr_signal import pq_eotf_to_nits, pq_inverse_eotf
+
+        # Boundaries
+        assert pq_eotf_to_nits(0.0) == 0.0
+        assert abs(pq_eotf_to_nits(1.0) - 10000.0) < 0.01
+        assert pq_inverse_eotf(0.0) == 0.0
+        assert abs(pq_inverse_eotf(10000.0) - 1.0) < 1e-4
+
+        # Roundtrips across standard HDR mastering ranges
+        for nits in [18.0, 100.0, 400.0, 1000.0, 4000.0, 10000.0]:
+            signal = pq_inverse_eotf(nits)
+            assert 0.0 <= signal <= 1.0
+            reconstructed = pq_eotf_to_nits(signal)
+            assert abs(reconstructed - nits) < 0.1
+
+    def test_arib_std_b67_hlg_oetf_and_eotf(self) -> None:
+        """Verifies ARIB STD-B67 Hybrid Log-Gamma OETF and EOTF transforms."""
+        from omni_director.tools.hdr_signal import hlg_oetf, hlg_eotf
+
+        # Dark region (linear_val <= 1/12)
+        sig_dark = hlg_oetf(0.05)
+        assert 0.0 < sig_dark < 0.5
+        nits_dark = hlg_eotf(sig_dark, peak_nits=1000.0)
+        assert nits_dark > 0.0
+
+        # Logarithmic shoulder region (linear_val > 1/12)
+        sig_bright = hlg_oetf(0.5)
+        assert 0.5 < sig_bright <= 1.0
+        nits_bright = hlg_eotf(sig_bright, peak_nits=1000.0)
+        assert nits_bright > nits_dark
+
+    def test_hdr_tone_mapping_operators(self) -> None:
+        """Verifies ACES spline, Reinhard extended, BT.2446 Method A, and Clip tone mapping."""
+        from omni_director.schemas import ToneMappingOperator
+        from omni_director.tools.hdr_signal import apply_tone_mapping
+
+        input_nits = 4000.0
+        max_display = 1000.0
+
+        for op in [
+            ToneMappingOperator.ACES_SPLINE,
+            ToneMappingOperator.REINHARD_EXTENDED,
+            ToneMappingOperator.BT_2446_METHOD_A,
+            ToneMappingOperator.CLIP,
+        ]:
+            mapped = apply_tone_mapping(input_nits, max_display_nits=max_display, operator=op)
+            assert 0.0 <= mapped <= max_display
+
+    def test_hdr_exporters_and_bundle(self, tmp_path: Path) -> None:
+        """Verifies HDR10 JSON, HLG XML, DaVinci Resolve RCM XML, and bundle exporters."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.hdr_signal import (
+            export_hdr10_json,
+            export_hlg_xml,
+            export_resolve_hdr_xml,
+            export_hdr_bundle,
+            calculate_scene_max_cll,
+            calculate_scene_max_fall,
+            generate_scene_hdr_report,
+        )
+
+        bible = get_preset_bible("kinetic_action")
+        cll = calculate_scene_max_cll(bible, 1)
+        fall = calculate_scene_max_fall(bible, 1)
+        assert cll > 0.0
+        assert fall > 0.0
+
+        report = generate_scene_hdr_report(bible, 1)
+        assert report.scene_number == 1
+        assert report.max_cll_nits == cll
+        assert report.max_fall_nits == fall
+
+        bundle = export_hdr_bundle(bible, tmp_path / "hdr_out")
+        assert bundle["hdr10_json"].is_file()
+        assert bundle["hlg_xml"].is_file()
+        assert bundle["resolve_xml"].is_file()
+        assert bundle["report_json"].is_file()
+
+        hdr10_text = bundle["hdr10_json"].read_text(encoding="utf-8")
+        assert "MasteringDisplayColorPrimaries" in hdr10_text
+        assert "MaxCLL" in hdr10_text
+
+
+class TestV28StripboardProductionScheduler:
+    """Verifies PM-FEAT-016 (1st AD Script Breakdown, Stripboard, DOOD Matrix, Movie Magic XML, CSVs)."""
+
+    def test_page_eighths_calculation(self) -> None:
+        """Verifies calculation of Hollywood 1/8th page fractions from dialogue and action beats."""
+        from omni_director.tools.stripboard_scheduler import calculate_page_eighths
+
+        eighths_short = calculate_page_eighths(["Short action beat"], [])
+        assert eighths_short >= 1
+
+        eighths_long = calculate_page_eighths(
+            [f"Action beat {i}" for i in range(10)],
+            [f"Dialogue line {i}" for i in range(10)],
+        )
+        assert eighths_long > eighths_short
+
+    def test_extract_script_breakdown_sheet(self) -> None:
+        """Verifies automated extraction of 12 breakdown categories from scene specifications."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import BreakdownCategory
+        from omni_director.tools.stripboard_scheduler import extract_script_breakdown_sheet
+
+        bible = get_preset_bible("kinetic_action")
+        scene = bible.scenes[0]
+        sheet = extract_script_breakdown_sheet(scene, 1)
+
+        assert sheet.scene_number == 1
+        assert sheet.page_eighths >= 1
+        assert BreakdownCategory.CAST_MEMBERS in sheet.category_elements
+        assert BreakdownCategory.PROPS in sheet.category_elements
+        assert BreakdownCategory.OPTICAL_VFX in sheet.category_elements
+
+    def test_stripboard_color_coding_and_day_types(self) -> None:
+        """Verifies industry stripboard color coding rules."""
+        from omni_director.schemas import ProductionDayType, StripboardColorCode
+        from omni_director.tools.stripboard_scheduler import (
+            determine_production_day_type,
+            determine_strip_color_code,
+        )
+
+        assert determine_production_day_type("DAY", "EXT") == ProductionDayType.EXT_DAY
+        assert determine_production_day_type("NIGHT", "EXT") == ProductionDayType.EXT_NIGHT
+        assert determine_production_day_type("DAY", "INT") == ProductionDayType.INT_DAY
+        assert determine_production_day_type("NIGHT", "INT") == ProductionDayType.INT_NIGHT
+
+        assert determine_strip_color_code(ProductionDayType.EXT_DAY) == StripboardColorCode.YELLOW_DAY_EXT
+        assert determine_strip_color_code(ProductionDayType.EXT_NIGHT) == StripboardColorCode.BLUE_NIGHT_EXT
+        assert determine_strip_color_code(ProductionDayType.INT_DAY) == StripboardColorCode.WHITE_DAY_INT
+        assert determine_strip_color_code(ProductionDayType.INT_NIGHT) == StripboardColorCode.GREEN_NIGHT_INT
+
+    def test_generate_dood_matrix_and_turnaround(self) -> None:
+        """Verifies Day-Out-of-Days matrix codes (SW, W, H, WF, SWF) and turnaround rest."""
+        from omni_director.schemas import StripboardStripSpec, ProductionDayType, StripboardColorCode
+        from omni_director.tools.stripboard_scheduler import generate_dood_matrix
+
+        strips = [
+            StripboardStripSpec(
+                scene_number=1,
+                day_type=ProductionDayType.EXT_DAY,
+                color_code=StripboardColorCode.YELLOW_DAY_EXT,
+                page_eighths=3,
+                setting_summary="Downtown rooftop",
+                cast_ids=[1, 2],
+                estimated_shooting_hours=2.0,
+            ),
+            StripboardStripSpec(
+                scene_number=2,
+                day_type=ProductionDayType.INT_NIGHT,
+                color_code=StripboardColorCode.GREEN_NIGHT_INT,
+                page_eighths=2,
+                setting_summary="Vault corridor",
+                cast_ids=[2],
+                estimated_shooting_hours=1.5,
+            ),
+        ]
+        cast_names = {1: "Hero", 2: "Infiltrator"}
+        character_names = {1: "Marcus Vance", 2: "Elena Rostova"}
+
+        dood = generate_dood_matrix(strips, day_breaks=[1, 2], cast_names=cast_names, character_names=character_names)
+        assert len(dood) == 2
+        rec_hero = next(r for r in dood if r.cast_id == 1)
+        assert rec_hero.shooting_days.get(1) in ("SW", "SWF")
+        assert rec_hero.sag_turnaround_compliant is True
+
+    def test_stripboard_exporters_and_bundle(self, tmp_path: Path) -> None:
+        """Verifies Movie Magic XML, Stripboard CSV, DOOD CSV, and bundle exporters."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.stripboard_scheduler import (
+            generate_stripboard_schedule,
+            export_stripboard_bundle,
+            export_movie_magic_xml,
+            export_stripboard_csv,
+            export_dood_csv,
+        )
+
+        bible = get_preset_bible("kinetic_action")
+        schedule = generate_stripboard_schedule(bible)
+        assert schedule.total_shooting_days >= 1
+        assert len(schedule.strips) == len(bible.scenes)
+
+        bundle = export_stripboard_bundle(bible, tmp_path / "stripboard_out")
+        assert bundle["movie_magic_xml"].is_file()
+        assert bundle["stripboard_csv"].is_file()
+        assert bundle["dood_csv"].is_file()
+        assert bundle["schedule_json"].is_file()
+
+        xml_content = bundle["movie_magic_xml"].read_text(encoding="utf-8")
+        assert "<StripBoardSchedule" in xml_content
+        assert "<Strip " in xml_content
+
+    def test_prompt_auditor_hdr_and_breakdown_tokens(self) -> None:
+        """Verifies PromptAuditor rewards HDR signal and 1st AD script breakdown tokens and self-healing."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.hdr_signal import synthesize_default_hdr_spec, format_hdr_prompt_token
+        from omni_director.tools.stripboard_scheduler import extract_script_breakdown_sheet, format_script_breakdown_prompt_token
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        bible = get_preset_bible("kinetic_action")
+        scene = bible.scenes[0]
+
+        # Attach HDR spec and breakdown sheet
+        hdr = synthesize_default_hdr_spec()
+        sheet = extract_script_breakdown_sheet(scene, 1)
+        scene.hdr_spec = hdr
+        scene.breakdown_sheet = sheet
+
+        hdr_token = format_hdr_prompt_token(hdr)
+        sheet_token = format_script_breakdown_prompt_token(sheet)
+
+        scene.omni_prose_prompt = f"{scene.omni_prose_prompt} {hdr_token} {sheet_token}"
+
+        res = audit_omni_scene_prompt(scene, regime=bible.creative_regime, storytelling_mode=bible.storytelling_mode)
+        assert res.score >= 90.0
+        assert res.details.get("hdr_signal_compliant") is True
+        assert res.details.get("script_breakdown_compliant") is True
+
+        # Test self-healing injection
+        raw_scene = bible.scenes[1]
+        raw_scene.hdr_spec = hdr
+        raw_scene.breakdown_sheet = sheet
+        healed_res = heal_omni_scene_prompt(raw_scene, regime=bible.creative_regime, storytelling_mode=bible.storytelling_mode)
+        assert healed_res.passed is True
+        assert healed_res.score >= 90.0
+
+    def test_domain_hdr_calibrations_all_6_archetypes(self) -> None:
+        """Verifies calibrated HDR specifications across all 6 commercial domain archetypes (PM-FEAT-015)."""
+        from omni_director.presets import get_domain_hdr_spec
+        from omni_director.schemas import (
+            DomainArchetype,
+            HdrStandard,
+            ColorSpaceStandard,
+            TransferFunctionType,
+            ToneMappingOperator,
+        )
+
+        # 1. automotive_robotics: 1500 nits, Rec.2020, MaxCLL 1450, MaxFALL 520, ACES Spline
+        auto_hdr = get_domain_hdr_spec(DomainArchetype.AUTOMOTIVE_ROBOTICS)
+        assert auto_hdr.standard == HdrStandard.HDR10_STATIC
+        assert auto_hdr.color_space == ColorSpaceStandard.BT_2020
+        assert auto_hdr.transfer_function == TransferFunctionType.SMPTE_ST_2084_PQ
+        assert auto_hdr.peak_luminance_nits == 1500.0
+        assert auto_hdr.max_cll_nits == 1450.0
+        assert auto_hdr.max_fall_nits == 520.0
+        assert auto_hdr.tone_mapping_operator == ToneMappingOperator.ACES_SPLINE
+
+        # 2. culinary_asmr: 1000 nits, Rec.2020, MaxCLL 920, MaxFALL 310, Reinhard Extended
+        culinary_hdr = get_domain_hdr_spec(DomainArchetype.CULINARY_ASMR)
+        assert culinary_hdr.standard == HdrStandard.HLG_BROADCAST
+        assert culinary_hdr.color_space == ColorSpaceStandard.BT_2020
+        assert culinary_hdr.transfer_function == TransferFunctionType.ARIB_STD_B67_HLG
+        assert culinary_hdr.peak_luminance_nits == 1000.0
+        assert culinary_hdr.max_cll_nits == 920.0
+        assert culinary_hdr.max_fall_nits == 310.0
+        assert culinary_hdr.tone_mapping_operator == ToneMappingOperator.REINHARD_EXTENDED
+
+        # 3. luxury_fashion: 1000 nits, DCI-P3 D65, MaxCLL 880, MaxFALL 280, Reinhard Extended
+        fashion_hdr = get_domain_hdr_spec(DomainArchetype.LUXURY_FASHION)
+        assert fashion_hdr.standard == HdrStandard.HDR10_STATIC
+        assert fashion_hdr.color_space in (ColorSpaceStandard.DCI_P3, ColorSpaceStandard.DCI_P3_D65)
+        assert fashion_hdr.transfer_function == TransferFunctionType.SMPTE_ST_2084_PQ
+        assert fashion_hdr.peak_luminance_nits == 1000.0
+        assert fashion_hdr.max_cll_nits == 880.0
+        assert fashion_hdr.max_fall_nits == 280.0
+        assert fashion_hdr.tone_mapping_operator == ToneMappingOperator.REINHARD_EXTENDED
+
+        # 4. kinetic_action: 2000 nits, Rec.2020, MaxCLL 1950, MaxFALL 680, BT.2446 Method A
+        action_hdr = get_domain_hdr_spec(DomainArchetype.KINETIC_ACTION)
+        assert action_hdr.standard == HdrStandard.HDR10_STATIC
+        assert action_hdr.color_space == ColorSpaceStandard.BT_2020
+        assert action_hdr.transfer_function == TransferFunctionType.SMPTE_ST_2084_PQ
+        assert action_hdr.peak_luminance_nits == 2000.0
+        assert action_hdr.max_cll_nits == 1950.0
+        assert action_hdr.max_fall_nits == 680.0
+        assert action_hdr.tone_mapping_operator == ToneMappingOperator.BT_2446_METHOD_A
+
+        # 5. tech_hardware: 1200 nits, Rec.2020, MaxCLL 1150, MaxFALL 420, ACES Spline
+        tech_hdr = get_domain_hdr_spec(DomainArchetype.TECH_HARDWARE)
+        assert tech_hdr.standard == HdrStandard.HDR10_STATIC
+        assert tech_hdr.color_space == ColorSpaceStandard.BT_2020
+        assert tech_hdr.transfer_function == TransferFunctionType.SMPTE_ST_2084_PQ
+        assert tech_hdr.peak_luminance_nits == 1200.0
+        assert tech_hdr.max_cll_nits == 1150.0
+        assert tech_hdr.max_fall_nits == 420.0
+        assert tech_hdr.tone_mapping_operator == ToneMappingOperator.ACES_SPLINE
+
+        # 6. architectural_sanctuary: 1000 nits, Rec.2020, MaxCLL 980, MaxFALL 360, ACES Spline
+        arch_hdr = get_domain_hdr_spec(DomainArchetype.ARCHITECTURAL_SANCTUARY)
+        assert arch_hdr.standard == HdrStandard.HDR10_STATIC
+        assert arch_hdr.color_space == ColorSpaceStandard.BT_2020
+        assert arch_hdr.transfer_function == TransferFunctionType.SMPTE_ST_2084_PQ
+        assert arch_hdr.peak_luminance_nits == 1000.0
+        assert arch_hdr.max_cll_nits == 980.0
+        assert arch_hdr.max_fall_nits == 360.0
+        assert arch_hdr.tone_mapping_operator == ToneMappingOperator.ACES_SPLINE
+
+    def test_domain_stripboard_spec_and_dood_generation(self) -> None:
+        """Verifies calibrated stripboards and DOOD rest compliance across domains (PM-FEAT-016)."""
+        from omni_director.presets import get_domain_stripboard_spec, get_preset_bible
+        from omni_director.schemas import DomainArchetype
+
+        for domain in DomainArchetype:
+            bible = get_preset_bible(domain)
+            sched = get_domain_stripboard_spec(domain, bible.scenes)
+            assert sched.total_shoot_days >= 1
+            assert sched.total_strips >= len(bible.scenes)
+            assert sched.total_page_eighths >= 1
+            assert len(sched.dood_matrix) > 0
+            # Ensure 100% SAG-AFTRA 12h turnaround compliance
+            for rec in sched.dood_matrix:
+                assert rec.sag_aftra_compliant is True
+                assert rec.total_work_days >= 1
+
+    def test_html_animatic_hdr_and_stripboard_huds(self, tmp_path: Path) -> None:
+        """Verifies dark-room animatic HTML includes HDR HUD [H], Waveform Monitor, and Stripboard HUD [B]."""
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle
+
+        bible = get_preset_bible("kinetic_action")
+        html_file = tmp_path / "html_test" / "storyboard_preview.html"
+        json_file = tmp_path / "html_test" / "production_bundle.json"
+        html_file.parent.mkdir(parents=True, exist_ok=True)
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path=str(html_file),
+            bundle_json_path=str(json_file),
+        )
+
+        html_path = compile_storyboard_html(bundle, tmp_path / "html_test")
+        assert html_path.is_file()
+        content = html_path.read_text(encoding="utf-8")
+
+        # HDR HUD elements
+        assert 'id="btn-hdr-animatic"' in content
+        assert 'id="animatic-hdr-hud"' in content
+        assert 'id="hdr-waveform-canvas"' in content
+        assert 'id="btn-download-hdr10"' in content
+        assert 'id="btn-download-hlg"' in content
+        assert 'id="btn-download-resolve-hdr"' in content
+
+        # Stripboard HUD elements
+        assert 'id="btn-stripboard-animatic"' in content
+        assert 'id="animatic-stripboard-hud"' in content
+        assert 'id="dood-talent-table"' in content
+        assert 'class="strip-item' in content
+        assert 'class="strip-day-break"' in content
+        assert 'id="btn-download-movie-magic"' in content
+        assert 'id="btn-download-stripboard-csv"' in content
+        assert 'id="btn-download-dood-csv"' in content
+
+        # Keyboard hotkeys
+        assert "toggleHdrHUD()" in content
+        assert "toggleStripboardHUD()" in content
+        assert "e.key === 'h' || e.key === 'H'" in content
+        assert "e.key === 'b' || e.key === 'B'" in content
+
+    def test_product_council_pm_feat_015_and_016_audit(self, tmp_path: Path) -> None:
+        """Verifies Product Manager recommendations and Council persona review for PM-FEAT-015 and PM-FEAT-016."""
+        from omni_director.agents.council import ProductManagerAgent, ProductCouncilOrchestrator
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.schemas import ProductionBundle
+
+        # 1. Product Manager inspection
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product()
+        feature_ids = [f.feature_id for f in proposals]
+        assert "PM-FEAT-015" in feature_ids
+        assert "PM-FEAT-016" in feature_ids
+        feat_15 = next(f for f in proposals if f.feature_id == "PM-FEAT-015")
+        feat_16 = next(f for f in proposals if f.feature_id == "PM-FEAT-016")
+        assert feat_15.status == "implemented"
+        assert feat_16.status == "implemented"
+
+        # 2. Product Council review of production bundle
+        bible = get_preset_bible("kinetic_action")
+        out_dir = tmp_path / "council_test"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        html_file = out_dir / "storyboard_preview.html"
+        json_file = out_dir / "production_bundle.json"
+        bundle = ProductionBundle(
+            bible=bible,
+            storyboard_html_path=str(html_file),
+            bundle_json_path=str(json_file),
+        )
+        compile_storyboard_html(bundle, out_dir)
+        json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+
+        orchestrator = ProductCouncilOrchestrator()
+        review = orchestrator.review_production_bundle(bundle)
+
+        assert review.passed is True
+        assert review.overall_score >= 90.0
+        assert review.critical_findings_count == 0
+
 
 
 

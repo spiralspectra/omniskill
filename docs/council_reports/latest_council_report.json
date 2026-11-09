@@ -1,6 +1,6 @@
 {
-  "version": "2.7.0",
-  "timestamp": "2026-11-07T09:45:33.798478+00:00",
+  "version": "2.8.0",
+  "timestamp": "2026-11-09T17:20:04.029351+00:00",
   "doctor_passed": true,
   "gates_passed": true,
   "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
@@ -192,13 +192,45 @@
       ],
       "priority": "P0",
       "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-015",
+      "title": "HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)",
+      "problem_statement": "High-end cinematic theatrical distribution and commercial streaming broadcasters (Apple TV+, Netflix, BBC, YouTube HDR) require rigorous SMPTE ST 2084 PQ (Perceptual Quantizer) and ARIB STD-B67 HLG color volume mastering metadata\u2014including SMPTE ST 2086 mastering display color primaries, white point chromaticity, peak/minimum luminance nits, MaxCLL (Maximum Content Light Level), MaxFALL (Maximum Frame Average Light Level), and ACES/Reinhard/BT.2446 tone mapping\u2014to prevent highlight clipping and gamut distortion.",
+      "proposed_solution": "Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal (pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD (#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/hdr_signal.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-016",
+      "title": "1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)",
+      "problem_statement": "Professional cinematic and commercial production workflows require standardized 1st Assistant Director (1st AD) production scheduling: automated 1/8th-page scene breakdown across 12 industry categories (Cast, Extras, Stunts, Vehicles, Props, SFX, VFX, Wardrobe, Makeup, Sound, Special Equipment, Animals), Hollywood color-coded stripboard strips (Yellow/Blue/White/Green), shooting day breaks, and Day-Out-of-Days (DOOD) talent matrices enforcing SAG-AFTRA 12-hour turnaround rest compliance.",
+      "proposed_solution": "Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/stripboard_scheduler.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
     }
   ],
   "metrics": {
     "average_council_score": 100.0,
     "minimum_scene_score": 100.0,
     "showcase_bundles_evaluated": 10,
-    "pm_features_implemented": 14
+    "pm_features_implemented": 16
   },
   "bundles": [
     {

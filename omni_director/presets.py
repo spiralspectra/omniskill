@@ -1,5 +1,5 @@
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from omni_director.schemas import (
     AcousticMaterialType,
@@ -11,24 +11,31 @@ from omni_director.schemas import (
     CharacterTurnaroundSpec,
     ColorLookPreset,
     ColorLookSpec,
+    ColorVolumeGamut,
     CraftCameraSpec,
     CryptomatteManifestSpec,
     DiegeticSonicSpec,
     DmxLightingFixture,
     DolbyAtmosBedFormat,
+    DomainArchetype,
     DomainDofSpec,
     DomainLutSpec,
+    HdrMasteringDisplaySpec,
+    HdrMetadataSpec,
+    HdrTransferFunction,
     LedWallGeometry,
     LightingRigSpec,
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
+    MasterStripboardScheduleSpec,
     MocoRigSpec,
     MotionControlRigType,
     NanoBananaReference,
     OpticalLensSpec,
     RegimeType,
     ScenePromptSpec,
+    ScriptBreakdownSheet,
     SensorFormat,
     SpatialAudioObjectSpec,
     SpatialAudioSoundfieldSpec,
@@ -38,6 +45,7 @@ from omni_director.schemas import (
     StemChannelStrip,
     StemType,
     StorytellingMode,
+    ToneMappingOperator,
     VfxCompositingManifestSpec,
     VfxLayerChannelSpec,
     VfxRenderPassType,
@@ -49,6 +57,10 @@ from omni_director.tools.moco_kinematics import synthesize_default_moco_rig
 from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
 from omni_director.tools.spatial_audio import calculate_eyring_rt60, calculate_sabine_rt60
 from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+from omni_director.tools.stripboard_scheduler import (
+    extract_script_breakdown_sheet,
+    generate_stripboard_schedule,
+)
 from omni_director.tools.vfx_compositor import generate_cryptomatte_manifest
 from omni_director.tools.virtual_production import synthesize_default_vp_stage
 
@@ -1063,6 +1075,148 @@ def get_domain_vfx_manifest(archetype: Any) -> VfxCompositingManifestSpec:
         )
 
 
+def get_domain_hdr_spec(domain: Union[DomainArchetype, str]) -> HdrMetadataSpec:
+    """Calibrate realistic mastering display, peak nits, MaxCLL, MaxFALL, and tone mapping across all 6 commercial domain archetypes."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    if "automotive" in domain_key:
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.SMPTE_ST_2084_PQ,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=1500.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.BT_2020,
+            ),
+            max_cll_nits=1450.0,
+            max_fall_nits=520.0,
+            tone_mapping=ToneMappingOperator.ACES_SPLINE,
+            target_gamut=ColorVolumeGamut.BT_2020,
+        )
+    elif "culinary" in domain_key:
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.ARIB_STD_B67_HLG,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=1000.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.BT_2020,
+            ),
+            max_cll_nits=920.0,
+            max_fall_nits=310.0,
+            tone_mapping=ToneMappingOperator.REINHARD_EXTENDED,
+            target_gamut=ColorVolumeGamut.BT_2020,
+        )
+    elif "luxury" in domain_key or "fashion" in domain_key:
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.SMPTE_ST_2084_PQ,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=1000.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.DCI_P3_D65,
+            ),
+            max_cll_nits=880.0,
+            max_fall_nits=280.0,
+            tone_mapping=ToneMappingOperator.REINHARD_EXTENDED,
+            target_gamut=ColorVolumeGamut.DCI_P3_D65,
+        )
+    elif "kinetic" in domain_key:
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.SMPTE_ST_2084_PQ,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=2000.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.BT_2020,
+            ),
+            max_cll_nits=1950.0,
+            max_fall_nits=680.0,
+            tone_mapping=ToneMappingOperator.BT_2446_METHOD_A,
+            target_gamut=ColorVolumeGamut.BT_2020,
+        )
+    elif "hardware" in domain_key or "tech" in domain_key:
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.SMPTE_ST_2084_PQ,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=1200.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.BT_2020,
+            ),
+            max_cll_nits=1150.0,
+            max_fall_nits=420.0,
+            tone_mapping=ToneMappingOperator.ACES_SPLINE,
+            target_gamut=ColorVolumeGamut.BT_2020,
+        )
+    else:  # architectural_sanctuary
+        return HdrMetadataSpec(
+            transfer_function=HdrTransferFunction.SMPTE_ST_2084_PQ,
+            mastering_display=HdrMasteringDisplaySpec(
+                peak_luminance_nits=1000.0,
+                black_level_nits=0.0001,
+                color_volume=ColorVolumeGamut.BT_2020,
+            ),
+            max_cll_nits=980.0,
+            max_fall_nits=360.0,
+            tone_mapping=ToneMappingOperator.ACES_SPLINE,
+            target_gamut=ColorVolumeGamut.BT_2020,
+        )
+
+
+def get_domain_stripboard_spec(
+    domain: Union[DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+) -> MasterStripboardScheduleSpec:
+    """Generate calibrated stripboard schedules with strips and DOOD records tailored for each domain."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    if scenes is not None and len(scenes) > 0:
+        from types import SimpleNamespace
+        temp_obj = SimpleNamespace(
+            project_title=f"{domain_key.replace('_', ' ').title()} Production",
+            scenes=scenes,
+            characters=[],
+        )
+        return generate_stripboard_schedule(temp_obj)
+
+    clean_domain = domain_key.replace("_", "-")
+    preset_key = ARCHETYPE_PRESET_FALLBACKS.get(clean_domain, "ikea-asmr")
+    if preset_key in PRESETS:
+        preset_bible = PRESETS[preset_key].model_copy(deep=True)
+        return generate_stripboard_schedule(preset_bible)
+
+    craft = CraftCameraSpec(
+        rig_type="Studio Tripod Prime",
+        focal_length_mm=35,
+        composition="Wide architectural framing",
+        route="Locked-off observational static frame",
+        action_anchor="Subject anchor",
+        focus_axis="Deep focus",
+        tone_rig="Cinematic standard",
+    )
+    fallback_scenes = [
+        ScenePromptSpec(
+            scene_index=1,
+            scene_title="Initial Establishing Frame",
+            timestamp_range="00:00 - 00:05",
+            craft_camera=craft,
+            omni_prose_prompt=f"EXT. {domain_key.upper()} LOCATION - DAY. The scene opens on an expansive establishing shot.",
+            action_beats=["Beat 1: Establishing wide shot", "Beat 2: Core action begins"],
+        ),
+        ScenePromptSpec(
+            scene_index=2,
+            scene_title="Kinetic Climax Sequence",
+            timestamp_range="00:05 - 00:10",
+            craft_camera=craft,
+            omni_prose_prompt=f"INT. {domain_key.upper()} STUDIO - NIGHT. Close-up detailed kinetic action unfolds under dynamic lighting.",
+            action_beats=["Beat 1: Movement accelerates", "Beat 2: Kinetic climax and hero resolve"],
+        ),
+    ]
+    fallback_bible = MasterProductionBible(
+        project_title=f"{domain_key.replace('_', ' ').title()} Master Schedule",
+        logline=f"Master production schedule for {domain_key}",
+        domain_archetype=domain_key,
+        scenes=fallback_scenes,
+    )
+    return generate_stripboard_schedule(fallback_bible)
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -1625,7 +1779,15 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_dof_spec = get_domain_dof_spec(_arch)
     if not getattr(_bible_inst, "master_lut_spec", None):
         _bible_inst.master_lut_spec = get_domain_lut_spec(_arch)
-    for _sc in _bible_inst.scenes:
+    if not getattr(_bible_inst, "master_spatial_audio", None):
+        _bible_inst.master_spatial_audio = get_domain_spatial_audio_spec(_arch)
+    if not getattr(_bible_inst, "master_vfx_manifest", None):
+        _bible_inst.master_vfx_manifest = get_domain_vfx_manifest(_arch)
+    if not getattr(_bible_inst, "master_hdr_spec", None):
+        _bible_inst.master_hdr_spec = get_domain_hdr_spec(_arch)
+    if not getattr(_bible_inst, "master_stripboard_schedule", None):
+        _bible_inst.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _bible_inst.scenes)
+    for _idx, _sc in enumerate(_bible_inst.scenes, 1):
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
         if not _sc.scene_color_look:
@@ -1642,6 +1804,14 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
             _sc.dof_spec = _bible_inst.master_dof_spec
         if not getattr(_sc, "lut_spec", None):
             _sc.lut_spec = _bible_inst.master_lut_spec
+        if not getattr(_sc, "spatial_audio", None):
+            _sc.spatial_audio = _bible_inst.master_spatial_audio
+        if not getattr(_sc, "vfx_compositing", None):
+            _sc.vfx_compositing = _bible_inst.master_vfx_manifest
+        if not getattr(_sc, "hdr_spec", None):
+            _sc.hdr_spec = _bible_inst.master_hdr_spec
+        if not getattr(_sc, "breakdown_sheet", None):
+            _sc.breakdown_sheet = extract_script_breakdown_sheet(_sc, _idx)
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -1688,6 +1858,91 @@ ARCHETYPE_PRESET_FALLBACKS: Dict[str, str] = {
 }
 
 
+def create_bible(
+    domain: Union[DomainArchetype, str] = "culinary_asmr",
+    title: Optional[str] = None,
+    project_title: Optional[str] = None,
+    creative_brief: Optional[str] = None,
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    **kwargs: Any,
+) -> MasterProductionBible:
+    """Creates a fully populated MasterProductionBible calibrated with domain specifications (PM-FEAT-015, PM-FEAT-016)."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+    resolved_title = title or project_title or f"Omni Director: {domain_key.replace('_', ' ').title()}"
+    brief = creative_brief or f"Cinematic production showcasing {domain_key.replace('_', ' ')}."
+
+    clean_domain = domain_key.replace("_", "-")
+    preset_key = ARCHETYPE_PRESET_FALLBACKS.get(clean_domain, "ikea-asmr")
+    base_bible = PRESETS.get(preset_key)
+
+    if scenes is None and base_bible:
+        bible = base_bible.model_copy(deep=True)
+        bible.project_title = resolved_title
+        bible.logline = brief
+        bible.domain_archetype = domain_key
+    else:
+        bible = MasterProductionBible(
+            project_title=resolved_title,
+            logline=brief,
+            domain_archetype=domain_key,
+            scenes=scenes or [],
+            **kwargs,
+        )
+
+    if not bible.master_color_look:
+        bible.master_color_look = get_domain_color_look(bible.domain_archetype)
+    if not bible.master_audio_mixer:
+        bible.master_audio_mixer = get_domain_audio_mixer(bible.domain_archetype)
+    if not bible.master_lens_package:
+        bible.master_lens_package = get_domain_optical_lens(bible.domain_archetype)
+    if not bible.virtual_production:
+        bible.virtual_production = get_domain_virtual_production(bible.domain_archetype)
+    if not getattr(bible, "master_moco_rig", None):
+        bible.master_moco_rig = get_domain_moco_rig(bible.domain_archetype)
+    if not getattr(bible, "master_lighting_rig", None):
+        bible.master_lighting_rig = get_domain_lighting_rig(bible.domain_archetype)
+    if not getattr(bible, "master_dof_spec", None):
+        bible.master_dof_spec = get_domain_dof_spec(bible.domain_archetype)
+    if not getattr(bible, "master_lut_spec", None):
+        bible.master_lut_spec = get_domain_lut_spec(bible.domain_archetype)
+    if not getattr(bible, "master_spatial_audio", None):
+        bible.master_spatial_audio = get_domain_spatial_audio_spec(bible.domain_archetype)
+    if not getattr(bible, "master_vfx_manifest", None):
+        bible.master_vfx_manifest = get_domain_vfx_manifest(bible.domain_archetype)
+    if not getattr(bible, "master_hdr_spec", None):
+        bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
+    if not getattr(bible, "master_stripboard_schedule", None):
+        bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
+
+    for idx, scene in enumerate(bible.scenes, 1):
+        if not scene.speed_ramp:
+            scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
+        if not scene.scene_color_look:
+            scene.scene_color_look = bible.master_color_look
+        if not scene.optical_lens:
+            scene.optical_lens = bible.master_lens_package
+        if not scene.virtual_production:
+            scene.virtual_production = bible.virtual_production
+        if not getattr(scene, "moco_rig", None):
+            scene.moco_rig = bible.master_moco_rig
+        if not getattr(scene, "lighting_rig", None):
+            scene.lighting_rig = bible.master_lighting_rig
+        if not getattr(scene, "dof_spec", None):
+            scene.dof_spec = bible.master_dof_spec
+        if not getattr(scene, "lut_spec", None):
+            scene.lut_spec = bible.master_lut_spec
+        if not getattr(scene, "spatial_audio", None):
+            scene.spatial_audio = bible.master_spatial_audio
+        if not getattr(scene, "vfx_compositing", None):
+            scene.vfx_compositing = bible.master_vfx_manifest
+        if not getattr(scene, "hdr_spec", None):
+            scene.hdr_spec = bible.master_hdr_spec
+        if not getattr(scene, "breakdown_sheet", None):
+            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
+
+    return bible
+
+
 def get_preset_bible(name: str) -> MasterProductionBible:
     """Retrieves a pre-configured MasterProductionBible preset by name."""
     clean_name = name.lower().replace("_", "-")
@@ -1719,7 +1974,11 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_spatial_audio = get_domain_spatial_audio_spec(bible.domain_archetype)
     if not getattr(bible, "master_vfx_manifest", None):
         bible.master_vfx_manifest = get_domain_vfx_manifest(bible.domain_archetype)
-    for scene in bible.scenes:
+    if not getattr(bible, "master_hdr_spec", None):
+        bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
+    if not getattr(bible, "master_stripboard_schedule", None):
+        bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
+    for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
         if not scene.scene_color_look:
@@ -1740,6 +1999,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.spatial_audio = bible.master_spatial_audio
         if not getattr(scene, "vfx_compositing", None):
             scene.vfx_compositing = bible.master_vfx_manifest
+        if not getattr(scene, "hdr_spec", None):
+            scene.hdr_spec = bible.master_hdr_spec
+        if not getattr(scene, "breakdown_sheet", None):
+            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
     return bible
 
 
@@ -1752,10 +2015,18 @@ for _p in PRESETS.values():
         _p.master_spatial_audio = get_domain_spatial_audio_spec(_arch)
     if not getattr(_p, "master_vfx_manifest", None):
         _p.master_vfx_manifest = get_domain_vfx_manifest(_arch)
-    for _s in _p.scenes:
+    if not getattr(_p, "master_hdr_spec", None):
+        _p.master_hdr_spec = get_domain_hdr_spec(_arch)
+    if not getattr(_p, "master_stripboard_schedule", None):
+        _p.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _p.scenes)
+    for _idx, _s in enumerate(_p.scenes, 1):
         if not getattr(_s, "spatial_audio", None):
             _s.spatial_audio = _p.master_spatial_audio
         if not getattr(_s, "vfx_compositing", None):
             _s.vfx_compositing = _p.master_vfx_manifest
+        if not getattr(_s, "hdr_spec", None):
+            _s.hdr_spec = _p.master_hdr_spec
+        if not getattr(_s, "breakdown_sheet", None):
+            _s.breakdown_sheet = extract_script_breakdown_sheet(_s, _idx)
 
 

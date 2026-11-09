@@ -273,8 +273,20 @@ def handle_export(args_list: List[str]) -> int:
         export_openexr_channel_manifest_json,
         export_vfx_compositing_bundle,
     )
+    from omni_director.tools.hdr_signal import (
+        export_hdr10_metadata_json,
+        export_hlg_broadcast_xml,
+        export_resolve_hdr_xml,
+        export_hdr_bundle,
+    )
+    from omni_director.tools.stripboard_scheduler import (
+        export_movie_magic_xml,
+        export_stripboard_csv,
+        export_dood_csv,
+        export_stripboard_bundle,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, and VFX compositing manifests")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, and 1st AD stripboard production schedules")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -282,7 +294,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -350,6 +362,12 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update(spatial_files)
         vfx_files = export_vfx_compositing_bundle(bible, out_dir)
         exported_files.update(vfx_files)
+        from omni_director.tools.hdr_signal import export_hdr_bundle
+        from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
+        hdr_files = export_hdr_bundle(bible, out_dir)
+        exported_files.update(hdr_files)
+        stripboard_files = export_stripboard_bundle(bible, out_dir)
+        exported_files.update(stripboard_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -407,6 +425,14 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "vfx":
         vfx_files = export_vfx_compositing_bundle(bible, out_dir)
         exported_files.update(vfx_files)
+    elif fmt == "hdr":
+        from omni_director.tools.hdr_signal import export_hdr_bundle
+        hdr_files = export_hdr_bundle(bible, out_dir)
+        exported_files.update(hdr_files)
+    elif fmt == "stripboard":
+        from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
+        stripboard_files = export_stripboard_bundle(bible, out_dir)
+        exported_files.update(stripboard_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -445,8 +471,8 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "nuke_composite.nk"
         export_nuke_comp_script(bible, p)
         exported_files["nuke_script"] = str(p.resolve())
-        export_dit_cart_manifest_json(bible, p)
-        exported_files["dit_manifest"] = str(p.resolve())
+
+    exported_files = {k: str(v) for k, v in exported_files.items()}
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))

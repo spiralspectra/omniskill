@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.7.0).
+"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.8.0).
 
 Executes the automated daily product management, feature verification, quality assurance, and release routine:
 1. Preflight environment & 2026 Model Matrix health diagnostics (run_doctor).
@@ -136,7 +136,7 @@ CANONICAL_SHOWCASES = [
 
 def bump_project_version(bump_type: str) -> str:
     """Bumps semantic version across pyproject.toml, omni_director/__init__.py, doctor.py, schemas.py, and CHANGELOG.md."""
-    current = getattr(omni_director, "__version__", "2.7.0")
+    current = getattr(omni_director, "__version__", "2.8.0")
     parts = [int(x) for x in current.split(".")[:3]]
     while len(parts) < 3:
         parts.append(0)
@@ -193,7 +193,7 @@ def run_daily_council(
         active_version = bump_project_version(bump_version)
         print(f"🔖 Bumped project version to v{active_version}")
     else:
-        active_version = getattr(omni_director, "__version__", "2.7.0")
+        active_version = getattr(omni_director, "__version__", "2.8.0")
 
     start_time = datetime.datetime.now(datetime.timezone.utc)
     print("=" * 70)
@@ -248,11 +248,19 @@ def run_daily_council(
             from omni_director.tools.virtual_production import export_virtual_production_bundle
             from omni_director.tools.dof_simulator import export_dof_bundle
             from omni_director.tools.dit_lut import export_dit_bundle
+            from omni_director.tools.hdr_signal import export_hdr_bundle
+            from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
+            from omni_director.presets import get_domain_hdr_spec, get_domain_stripboard_spec
             export_lens_metadata_file(bundle.bible, out_path / "optical_lens_framing.csv")
             export_virtual_production_bundle(bundle.bible, out_path)
             export_dof_bundle(bundle.bible, out_path)
             export_dit_bundle(bundle.bible, out_path)
-            # Refresh telemetry manifest so all exported NLE & subtitle artifacts are SHA-256 verified
+            domain = getattr(bundle.bible, "domain_archetype", "kinetic_action")
+            hdr_spec = getattr(bundle.bible, "master_hdr_spec", None) or get_domain_hdr_spec(domain)
+            export_hdr_bundle(hdr_spec, out_path)
+            stripboard_spec = getattr(bundle.bible, "master_stripboard_schedule", None) or get_domain_stripboard_spec(domain, bundle.bible.scenes)
+            export_stripboard_bundle(stripboard_spec, out_path)
+            # Refresh telemetry manifest so all exported NLE, HDR & Stripboard artifacts are SHA-256 verified
             pipeline.telemetry.write_manifest(out_path)
 
             council_rep = bundle.council_report

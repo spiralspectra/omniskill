@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "standard": "SMPTE ST 2086 / CTA-861.3 / ITU-R BT.2020",
+  "production_title": "Omni Production",
+  "transfer_function": "smpte_st_2084_pq",
+  "target_color_gamut": "bt_2020",
+  "mastering_display": {
+    "peak_luminance_nits": 1200.0,
+    "black_level_nits": 0.0001,
+    "color_volume": "bt_2020",
+    "white_point_d65": {
+      "x": 0.3127,
+      "y": 0.329
+    },
+    "primaries_cie1931": {
+      "red": {
+        "x": 0.708,
+        "y": 0.292
+      },
+      "green": {
+        "x": 0.17,
+        "y": 0.797
+      },
+      "blue": {
+        "x": 0.131,
+        "y": 0.046
+      }
+    },
+    "MasteringDisplayColorPrimaries": {
+      "red": {
+        "x": 0.708,
+        "y": 0.292
+      },
+      "green": {
+        "x": 0.17,
+        "y": 0.797
+      },
+      "blue": {
+        "x": 0.131,
+        "y": 0.046
+      }
+    }
+  },
+  "MaxCLL": 1150.0,
+  "MaxFALL": 420.0,
+  "content_light_levels": {
+    "master_max_cll_nits": 1150.0,
+    "master_max_fall_nits": 420.0,
+    "knee_point_nits": 100.0,
+    "shoulder_point_nits": 800.0,
+    "tone_mapping_operator": "aces_spline"
+  },
+  "scenes": []
+}

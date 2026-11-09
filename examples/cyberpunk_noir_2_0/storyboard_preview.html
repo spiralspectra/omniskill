@@ -2348,6 +2348,259 @@
       outline: 2px solid var(--amber-gold);
     }
 
+    /* HDR10/HLG Color Volume HUD & Stripboard Production Scheduler (PM-FEAT-015 & PM-FEAT-016) */
+    .hdr-hud-modal, .stripboard-hud-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .hdr-modal-content, .stripboard-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1020px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .hdr-modal-header, .stripboard-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .hdr-title-wrap, .stripboard-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hdr-heading, .stripboard-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .hdr-subheading, .stripboard-subheading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }
+    .btn-hdr-close, .btn-stripboard-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-hdr-close:hover, .btn-stripboard-close:hover {
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }
+    .hdr-modal-body, .stripboard-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }
+    .hdr-toolbar, .stripboard-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .hdr-actions, .stripboard-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .hdr-badge, .stripboard-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .hdr-waveform-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #050608;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    #hdr-waveform-canvas {
+      width: 100%;
+      height: 220px;
+      background: #060709;
+      border-radius: 4px;
+      display: block;
+    }
+    .hdr-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .hdr-telemetry-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hdr-telemetry-card span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .hdr-telemetry-card strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber-gold);
+    }
+
+    /* Hollywood Stripboard & Day-Out-of-Days Styles */
+    .stripboard-strips-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px;
+      background: #07090E;
+    }
+    .strip-item {
+      display: grid;
+      grid-template-columns: 75px 100px 90px 1fr 60px 80px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .strip-yellow {
+      background: #FFF275;
+      color: #111827;
+      border-left: 6px solid #EAB308;
+    }
+    .strip-blue {
+      background: #93C5FD;
+      color: #0F172A;
+      border-left: 6px solid #3B82F6;
+    }
+    .strip-white {
+      background: #F8FAFC;
+      color: #0F172A;
+      border-left: 6px solid #94A3B8;
+    }
+    .strip-green {
+      background: #86EFAC;
+      color: #064E3B;
+      border-left: 6px solid #22C55E;
+    }
+    .strip-day-break {
+      background: #1E293B;
+      color: #F8FAFC;
+      border: 1px dashed #475569;
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0;
+    }
+    .dood-table-wrap {
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      background: var(--bg-card);
+    }
+    #dood-talent-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    #dood-talent-table th {
+      background: #0B0E14;
+      color: var(--text-dim);
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+    #dood-talent-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+    .dood-status-pill {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .dood-sw { background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid #3B82F6; }
+    .dood-w { background: rgba(34, 197, 94, 0.2); color: #4ADE80; border: 1px solid #22C55E; }
+    .dood-wf { background: rgba(239, 68, 68, 0.2); color: #F87171; border: 1px solid #EF4444; }
+    .dood-h { background: rgba(234, 179, 8, 0.2); color: #FACC15; border: 1px solid #EAB308; }
+    .dood-i { background: rgba(148, 163, 184, 0.1); color: #94A3B8; }
+    .sag-compliant-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #4ADE80;
+      font-weight: 600;
+    }
+    .sag-violation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #F87171;
+      font-weight: 700;
+    }
+
     /* Print Stylesheet */
     @media print {
       body { background: #FFF !important; color: #000 !important; }
@@ -2482,7 +2735,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
@@ -2495,6 +2748,12 @@
       </button>
       <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
         ✨ VFX Passes [X]
+      </button>
+      <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
+        🌈 HDR Color [H]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
+        📋 Stripboard [B]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -3372,6 +3631,127 @@
           <div class="channel-card"><span>normal.X/Y/Z</span><strong>World Normals (Half)</strong></div>
           <div class="channel-card"><span>motion.u / v</span><strong>Velocity Vectors (Float32)</strong></div>
           <div class="channel-card"><span>crypto_object.00-02</span><strong>Cryptomatte Object ID</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HDR10 / HLG Broadcast Mastering & Color Volume HUD (PM-FEAT-015) -->
+  <div id="animatic-hdr-hud" class="hdr-hud-modal" role="dialog" aria-modal="true" aria-label="HDR10 / HLG Broadcast Mastering &amp; Color Volume HUD" style="display: none;">
+    <div class="hdr-modal-content">
+      <div class="hdr-modal-header">
+        <div class="hdr-title-wrap">
+          <span class="hdr-icon">🌈</span>
+          <div>
+            <h3 class="hdr-heading">HDR10 / HLG BROADCAST MASTERING &amp; COLOR VOLUME SUITE</h3>
+            <span class="hdr-subheading">SMPTE ST 2084 PQ / ARIB STD-B67 HLG · ITU-R BT.2020 / DCI-P3 · Static SMPTE ST 2086 &amp; CTA-861-G</span>
+          </div>
+        </div>
+        <button type="button" class="btn-hdr-close" onclick="toggleHdrHUD()" aria-label="Close HDR HUD">✕</button>
+      </div>
+      <div class="hdr-modal-body">
+        <div class="hdr-toolbar">
+          <div class="hdr-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-hdr10" onclick="downloadHdr10JSON()" aria-label="Download HDR10 Static Metadata JSON">
+              ⤓ HDR10 Metadata (.json)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-hlg" onclick="downloadHlgXML()" aria-label="Download HLG Broadcast Sidecar XML">
+              ⤓ HLG Sidecar (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-resolve-hdr" onclick="downloadResolveHdrXML()" aria-label="Download DaVinci Resolve Color Space Transform XML">
+              ⤓ Resolve HDR CST (.xml)
+            </button>
+          </div>
+          <div class="hdr-status-wrap">
+            <div class="hdr-badge" aria-label="HDR Mastering Profile">
+              STANDARD: hdr10_static · COLOR: bt_2020 · EOTF: smpte_st_2084_pq · PEAK: 1500.0 nits · MaxCLL: 1450.0 · MaxFALL: 520.0
+            </div>
+          </div>
+        </div>
+        <div class="hdr-waveform-wrap">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF;">
+              10-BIT LUMINANCE WAVEFORM MONITOR (0 - 10,000 NITS / SMPTE ST 2084 PQ)
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry);">
+              TONE MAPPER: ToneMappingOperator.ACES_SPLINE | TARGET: Mastering Monitor (BT_2020, 1500 nits)
+            </div>
+          </div>
+          <canvas id="hdr-waveform-canvas" width="940" height="220" aria-label="Luminance Waveform Monitor Canvas"></canvas>
+        </div>
+        <div class="hdr-telemetry-grid">
+          <div class="hdr-telemetry-card"><span>Mastering Display</span><strong>Mastering Monitor (BT_2020, 1500 nits)</strong></div>
+          <div class="hdr-telemetry-card"><span>Color Primaries</span><strong>BT_2020</strong></div>
+          <div class="hdr-telemetry-card"><span>Peak Luminance</span><strong>1500.0 Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>MaxCLL (Content Light)</span><strong>1450.0 Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>MaxFALL (Avg Frame)</span><strong>520.0 Nits</strong></div>
+          <div class="hdr-telemetry-card"><span>Tone Mapping</span><strong>ToneMappingOperator.ACES_SPLINE</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1st AD Script Breakdown & Stripboard Production Scheduler HUD (PM-FEAT-016) -->
+  <div id="animatic-stripboard-hud" class="stripboard-hud-modal" role="dialog" aria-modal="true" aria-label="1st AD Script Breakdown &amp; Stripboard Production Scheduler" style="display: none;">
+    <div class="stripboard-modal-content">
+      <div class="stripboard-modal-header">
+        <div class="stripboard-title-wrap">
+          <span class="stripboard-icon">📋</span>
+          <div>
+            <h3 class="stripboard-heading">1ST ASSISTANT DIRECTOR SCRIPT BREAKDOWN &amp; STRIPBOARD SCHEDULER</h3>
+            <span class="stripboard-subheading">Hollywood Color-Coded Strips · 1/8th Page Increments · SAG-AFTRA 12-Hour Rest Turnaround · DOOD Matrix</span>
+          </div>
+        </div>
+        <button type="button" class="btn-stripboard-close" onclick="toggleStripboardHUD()" aria-label="Close Stripboard HUD">✕</button>
+      </div>
+      <div class="stripboard-modal-body">
+        <div class="stripboard-toolbar">
+          <div class="stripboard-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-movie-magic" onclick="downloadMovieMagicXML()" aria-label="Download Movie Magic Scheduling XML">
+              ⤓ Movie Magic XML (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-stripboard-csv" onclick="downloadStripboardCSV()" aria-label="Download Stripboard Schedule CSV">
+              ⤓ Stripboard CSV (.csv)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-dood-csv" onclick="downloadDoodCSV()" aria-label="Download Day-Out-of-Days CSV">
+              ⤓ DOOD Report (.csv)
+            </button>
+          </div>
+          <div class="stripboard-status-wrap">
+            <div class="stripboard-badge" aria-label="Production Schedule Metrics">
+              SHOOT DAYS: 1 · TOTAL PAGES: 0 6/8 (6/8) · ✓ 100% SAG-AFTRA 12h Rest OK
+            </div>
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 8px;">
+          PRODUCTION SHOOTING STRIPBOARD (2 SCENE STRIPS)
+        </div>
+        <div class="stripboard-strips-wrap">
+          <div class="strip-item strip-yellow"><span>SCENE 1</span><span>EXT / DAY</span><span>3/8 pgs</span><span>EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION - DAY</span><span>DAY 1</span><span>CAST: 1,2</span></div>
+<div class="strip-item strip-yellow"><span>SCENE 2</span><span>EXT / DAY</span><span>3/8 pgs</span><span>EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX - DAY</span><span>DAY 1</span><span>CAST: 1</span></div>
+<div class="strip-day-break"><span>END OF SHOOT DAY 1 (WRAP)</span><span>PAGE COUNT: 0 6/8 PGS</span></div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-top: 18px; margin-bottom: 8px;">
+          DAY-OUT-OF-DAYS (DOOD) TALENT WORK MATRIX &amp; SAG-AFTRA 12H TURNAROUND
+        </div>
+        <div class="dood-table-wrap">
+          <table id="dood-talent-table" class="dood-table" aria-label="Day Out of Days Talent Work Matrix">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">CHARACTER / ACTOR</th>
+                <th scope="col">DAY 1</th>
+                <th scope="col">TOTAL</th>
+                <th scope="col">SAG-AFTRA REST</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td>Hero Subject <span style="color: var(--text-dim);">(Actor 1)</span></td><td><span class="dood-status-pill dood-swf">SWF</span></td><td>1 d</td><td><span class="sag-compliant-badge">✓ 12h Rest OK</span></td></tr>
+<tr><td><strong>2</strong></td><td>Supporting Role <span style="color: var(--text-dim);">(Actor 2)</span></td><td><span class="dood-status-pill dood-swf">SWF</span></td><td>1 d</td><td><span class="sag-compliant-badge">✓ 12h Rest OK</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -4588,6 +4968,75 @@
         "depth_near_plane_m": 0.2,
         "depth_far_plane_m": 150.0,
         "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+      },
+      "hdr_spec": {
+        "transfer_function": "smpte_st_2084_pq",
+        "mastering_display": {
+          "peak_luminance_nits": 1500.0,
+          "black_level_nits": 0.0001,
+          "color_volume": "bt_2020",
+          "primary_coordinates": {
+            "red": [
+              0.708,
+              0.292
+            ],
+            "green": [
+              0.17,
+              0.797
+            ],
+            "blue": [
+              0.131,
+              0.046
+            ]
+          },
+          "white_point_d65": [
+            0.3127,
+            0.329
+          ]
+        },
+        "max_cll_nits": 1450.0,
+        "max_fall_nits": 520.0,
+        "tone_mapping": "aces_spline",
+        "target_gamut": "bt_2020",
+        "knee_point_nits": 100.0,
+        "shoulder_point_nits": 800.0
+      },
+      "breakdown_sheet": {
+        "scene_number": 1,
+        "page_eighths": 3,
+        "day_night": "DAY",
+        "int_ext": "EXT",
+        "location": "CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION",
+        "description": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+        "category_elements": {
+          "cast_members": [
+            "#1 Hero Character",
+            "#2 Secondary Character"
+          ],
+          "vehicles": [
+            "Hero Vehicle (Motorcycle)"
+          ],
+          "special_effects": [
+            "Practical SFX (Rain)"
+          ],
+          "sound_effects": [
+            "High-torque electric motor whine",
+            "Tire friction on slick asphalt",
+            "Pneumatic valve hiss",
+            "Mechanical robotic servo snaps"
+          ],
+          "special_equipment": [
+            "MoCo Rig (MotionControlRigType.RUSSIAN_ARM)",
+            "In-Camera VFX LED Volume Stage"
+          ],
+          "production_notes": [
+            "Regime: Regime 2: High-Kinetic & Precision Commercial",
+            "Speed Ramp: SpeedRampMode.SNAP_FREEZE_RESUME"
+          ],
+          "optical_vfx": [
+            "Multi-Pass VFX (7 OpenEXR passes)"
+          ]
+        }
       }
     },
     {
@@ -5062,6 +5511,74 @@
         "depth_near_plane_m": 0.2,
         "depth_far_plane_m": 150.0,
         "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+      },
+      "hdr_spec": {
+        "transfer_function": "smpte_st_2084_pq",
+        "mastering_display": {
+          "peak_luminance_nits": 1500.0,
+          "black_level_nits": 0.0001,
+          "color_volume": "bt_2020",
+          "primary_coordinates": {
+            "red": [
+              0.708,
+              0.292
+            ],
+            "green": [
+              0.17,
+              0.797
+            ],
+            "blue": [
+              0.131,
+              0.046
+            ]
+          },
+          "white_point_d65": [
+            0.3127,
+            0.329
+          ]
+        },
+        "max_cll_nits": 1450.0,
+        "max_fall_nits": 520.0,
+        "tone_mapping": "aces_spline",
+        "target_gamut": "bt_2020",
+        "knee_point_nits": 100.0,
+        "shoulder_point_nits": 800.0
+      },
+      "breakdown_sheet": {
+        "scene_number": 2,
+        "page_eighths": 3,
+        "day_night": "DAY",
+        "int_ext": "EXT",
+        "location": "CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX",
+        "description": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+        "category_elements": {
+          "cast_members": [
+            "#1 Hero Character"
+          ],
+          "vehicles": [
+            "Hero Vehicle (Motorcycle)"
+          ],
+          "special_effects": [
+            "Practical SFX (Rain)"
+          ],
+          "sound_effects": [
+            "High-torque electric motor whine",
+            "Tire friction on slick asphalt",
+            "Pneumatic valve hiss",
+            "Mechanical robotic servo snaps"
+          ],
+          "special_equipment": [
+            "MoCo Rig (MotionControlRigType.RUSSIAN_ARM)",
+            "In-Camera VFX LED Volume Stage"
+          ],
+          "production_notes": [
+            "Regime: Regime 2: High-Kinetic & Precision Commercial",
+            "Speed Ramp: SpeedRampMode.SNAP_FREEZE_RESUME"
+          ],
+          "optical_vfx": [
+            "Multi-Pass VFX (7 OpenEXR passes)"
+          ]
+        }
       }
     }
   ],
@@ -5650,6 +6167,184 @@
     "depth_near_plane_m": 0.2,
     "depth_far_plane_m": 150.0,
     "reconstruction_formula": "(Diffuse * AO) + Specular + Emissive"
+  },
+  "master_hdr_spec": {
+    "transfer_function": "smpte_st_2084_pq",
+    "mastering_display": {
+      "peak_luminance_nits": 1500.0,
+      "black_level_nits": 0.0001,
+      "color_volume": "bt_2020",
+      "primary_coordinates": {
+        "red": [
+          0.708,
+          0.292
+        ],
+        "green": [
+          0.17,
+          0.797
+        ],
+        "blue": [
+          0.131,
+          0.046
+        ]
+      },
+      "white_point_d65": [
+        0.3127,
+        0.329
+      ]
+    },
+    "max_cll_nits": 1450.0,
+    "max_fall_nits": 520.0,
+    "tone_mapping": "aces_spline",
+    "target_gamut": "bt_2020",
+    "knee_point_nits": 100.0,
+    "shoulder_point_nits": 800.0
+  },
+  "hdr_spec": {
+    "transfer_function": "smpte_st_2084_pq",
+    "mastering_display": {
+      "peak_luminance_nits": 1500.0,
+      "black_level_nits": 0.0001,
+      "color_volume": "bt_2020",
+      "primary_coordinates": {
+        "red": [
+          0.708,
+          0.292
+        ],
+        "green": [
+          0.17,
+          0.797
+        ],
+        "blue": [
+          0.131,
+          0.046
+        ]
+      },
+      "white_point_d65": [
+        0.3127,
+        0.329
+      ]
+    },
+    "max_cll_nits": 1450.0,
+    "max_fall_nits": 520.0,
+    "tone_mapping": "aces_spline",
+    "target_gamut": "bt_2020",
+    "knee_point_nits": 100.0,
+    "shoulder_point_nits": 800.0
+  },
+  "master_stripboard_schedule": {
+    "production_title": "Automotive Robotics Production",
+    "total_page_eighths": 6,
+    "total_shooting_days": 1,
+    "day_breaks": [],
+    "strips": [
+      {
+        "scene_number": 1,
+        "day_type": "ext_day",
+        "color_code": "yellow_day_ext",
+        "page_eighths": 3,
+        "setting_summary": "EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION - DAY",
+        "cast_ids": [
+          1,
+          2
+        ],
+        "estimated_shooting_hours": 3.0,
+        "shoot_day": 1
+      },
+      {
+        "scene_number": 2,
+        "day_type": "ext_day",
+        "color_code": "yellow_day_ext",
+        "page_eighths": 3,
+        "setting_summary": "EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX - DAY",
+        "cast_ids": [
+          1
+        ],
+        "estimated_shooting_hours": 3.0,
+        "shoot_day": 1
+      }
+    ],
+    "dood_records": [
+      {
+        "cast_id": 1,
+        "cast_name": "Actor 1",
+        "character_name": "Hero Subject",
+        "shooting_days": {
+          "1": "SWF"
+        },
+        "total_work_days": 1,
+        "total_hold_days": 0,
+        "sag_turnaround_compliant": true
+      },
+      {
+        "cast_id": 2,
+        "cast_name": "Actor 2",
+        "character_name": "Supporting Role",
+        "shooting_days": {
+          "1": "SWF"
+        },
+        "total_work_days": 1,
+        "total_hold_days": 0,
+        "sag_turnaround_compliant": true
+      }
+    ]
+  },
+  "stripboard_schedule": {
+    "production_title": "Automotive Robotics Production",
+    "total_page_eighths": 6,
+    "total_shooting_days": 1,
+    "day_breaks": [],
+    "strips": [
+      {
+        "scene_number": 1,
+        "day_type": "ext_day",
+        "color_code": "yellow_day_ext",
+        "page_eighths": 3,
+        "setting_summary": "EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION - DAY",
+        "cast_ids": [
+          1,
+          2
+        ],
+        "estimated_shooting_hours": 3.0,
+        "shoot_day": 1
+      },
+      {
+        "scene_number": 2,
+        "day_type": "ext_day",
+        "color_code": "yellow_day_ext",
+        "page_eighths": 3,
+        "setting_summary": "EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX - DAY",
+        "cast_ids": [
+          1
+        ],
+        "estimated_shooting_hours": 3.0,
+        "shoot_day": 1
+      }
+    ],
+    "dood_records": [
+      {
+        "cast_id": 1,
+        "cast_name": "Actor 1",
+        "character_name": "Hero Subject",
+        "shooting_days": {
+          "1": "SWF"
+        },
+        "total_work_days": 1,
+        "total_hold_days": 0,
+        "sag_turnaround_compliant": true
+      },
+      {
+        "cast_id": 2,
+        "cast_name": "Actor 2",
+        "character_name": "Supporting Role",
+        "shooting_days": {
+          "1": "SWF"
+        },
+        "total_work_days": 1,
+        "total_hold_days": 0,
+        "sag_turnaround_compliant": true
+      }
+    ]
   }
 };
 
@@ -6267,7 +6962,7 @@ DOMAIN_MAX 1.0 1.0 1.0
       const spatialData = MASTER_BIBLE.master_spatial_audio || {};
       const admPayload = {
         format: "ADM_ITU_R_BS_2076",
-        version: "2.7.0",
+        version: "2.8.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {},
         audio_objects: spatialData.audio_objects || [],
@@ -6393,7 +7088,7 @@ DOMAIN_MAX 1.0 1.0 1.0
 
     function downloadNukeScript() {
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.7.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.8.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
       const blob = new Blob([nkScript], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -6404,6 +7099,226 @@ DOMAIN_MAX 1.0 1.0 1.0
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast("Foundry Nuke Composite Script (.nk) downloaded!");
+    }
+
+    // HDR10 / HLG Broadcast Color Volume Controller (PM-FEAT-015)
+    let isHdrHUDOpen = false;
+    function toggleHdrHUD() {
+      isHdrHUDOpen = !isHdrHUDOpen;
+      const modal = document.getElementById('animatic-hdr-hud');
+      const btn = document.getElementById('btn-hdr-animatic');
+      if (modal) {
+        modal.style.display = isHdrHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isHdrHUDOpen);
+        btn.setAttribute('aria-expanded', isHdrHUDOpen ? 'true' : 'false');
+      }
+      if (isHdrHUDOpen) {
+        drawHdrWaveform();
+        showToast("HDR10 / HLG Broadcast Mastering HUD: ACTIVE [H]");
+      }
+    }
+
+    function drawHdrWaveform() {
+      const canvas = document.getElementById('hdr-waveform-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // Dark background
+      ctx.fillStyle = '#050608';
+      ctx.fillRect(0, 0, w, h);
+
+      // Draw graticule lines (0 nits, 100 nits SDR, 203 nits HDR Ref, 1000 nits, peak nits)
+      const graticules = [
+        { label: '0 Nits (Black)', yFrac: 0.94, color: '#334155' },
+        { label: '100 Nits (SDR White)', yFrac: 0.78, color: '#475569' },
+        { label: '203 Nits (HDR Ref White)', yFrac: 0.62, color: '#0EA5E9' },
+        { label: '1000 Nits (Mastering Target)', yFrac: 0.32, color: '#F59E0B' },
+        { label: '1500.0 Nits (Peak Limit)', yFrac: 0.12, color: '#EF4444' }
+      ];
+
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      graticules.forEach(g => {
+        const y = Math.round(h * g.yFrac);
+        ctx.strokeStyle = g.color;
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(30, y);
+        ctx.lineTo(w - 10, y);
+        ctx.stroke();
+
+        ctx.fillStyle = g.color;
+        ctx.fillText(g.label, 35, y - 4);
+      });
+      ctx.setLineDash([]);
+
+      // Draw simulated luminance waveform trace
+      const grad = ctx.createLinearGradient(0, h, 0, 0);
+      grad.addColorStop(0.0, 'rgba(0, 240, 255, 0.4)');
+      grad.addColorStop(0.5, 'rgba(16, 185, 129, 0.6)');
+      grad.addColorStop(0.8, 'rgba(245, 158, 11, 0.7)');
+      grad.addColorStop(1.0, 'rgba(239, 68, 68, 0.85)');
+
+      ctx.fillStyle = grad;
+      const step = 2;
+      for (let x = 40; x < w - 20; x += step) {
+        const normX = (x - 40) / (w - 60);
+        const base = Math.sin(normX * 8) * 0.25 + Math.cos(normX * 17) * 0.15 + 0.45;
+        const peakLuma = Math.min(0.92, Math.max(0.08, base + (Math.sin(normX * 31) * 0.12)));
+        const barH = peakLuma * (h * 0.82);
+        const yTop = h * 0.94 - barH;
+        ctx.fillRect(x, yTop, step - 0.5, barH);
+      }
+
+      // Border frame
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(0, 0, w, h);
+    }
+
+    function downloadHdr10JSON() {
+      const blob = new Blob([`{
+  "schema_version": "1.0",
+  "standard": "SMPTE ST 2086 / CTA-861.3 / ITU-R BT.2020",
+  "production_title": "Omni Production",
+  "transfer_function": "smpte_st_2084_pq",
+  "target_color_gamut": "bt_2020",
+  "mastering_display": {
+    "peak_luminance_nits": 1500.0,
+    "black_level_nits": 0.0001,
+    "color_volume": "bt_2020",
+    "white_point_d65": {
+      "x": 0.3127,
+      "y": 0.329
+    },
+    "primaries_cie1931": {
+      "red": {
+        "x": 0.708,
+        "y": 0.292
+      },
+      "green": {
+        "x": 0.17,
+        "y": 0.797
+      },
+      "blue": {
+        "x": 0.131,
+        "y": 0.046
+      }
+    }
+  },
+  "MaxCLL": 1450.0,
+  "MaxFALL": 520.0,
+  "content_light_levels": {
+    "master_max_cll_nits": 1450.0,
+    "master_max_fall_nits": 520.0,
+    "knee_point_nits": 100.0,
+    "shoulder_point_nits": 800.0,
+    "tone_mapping_operator": "aces_spline"
+  }
+}`], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "hdr10_metadata.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("HDR10 Static Metadata (.json) downloaded!");
+    }
+
+    function downloadHlgXML() {
+      const blob = new Blob([`<HlgBroadcastManifest version="1.0"><ProductionTitle>Omni Production</ProductionTitle><Standard>ARIB STD-B67 / ITU-R BT.2100-2</Standard><ColorSpace>BT.2100-HLG</ColorSpace><NominalPeakLuminanceNits>1500.0</NominalPeakLuminanceNits><SystemGamma>1.274</SystemGamma><MaxCLL>1450.0</MaxCLL><MaxFALL>520.0</MaxFALL></HlgBroadcastManifest>`], { type: 'application/xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "hlg_broadcast.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("ARIB STD-B67 HLG Broadcast Sidecar (.xml) downloaded!");
+    }
+
+    function downloadResolveHdrXML() {
+      const blob = new Blob([`<ResolveColorManagement version="18.5"><ColorScience>DaVinci YRGB Color Managed</ColorScience><ColorProcessingMode>HDR DaVinci Wide Gamut Intermediate</ColorProcessingMode><OutputColorSpace>Rec.2020 ST2084</OutputColorSpace><TargetPeakLuminance>1500</TargetPeakLuminance><MaxCLL>1450</MaxCLL><MaxFALL>520</MaxFALL><ToneMapping>aces_spline</ToneMapping></ResolveColorManagement>`], { type: 'application/xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "resolve_hdr_cst.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("DaVinci Resolve HDR Color Space Transform (.xml) downloaded!");
+    }
+
+    // 1st AD Script Breakdown & Stripboard Scheduler Controller (PM-FEAT-016)
+    let isStripboardHUDOpen = false;
+    function toggleStripboardHUD() {
+      isStripboardHUDOpen = !isStripboardHUDOpen;
+      const modal = document.getElementById('animatic-stripboard-hud');
+      const btn = document.getElementById('btn-stripboard-animatic');
+      if (modal) {
+        modal.style.display = isStripboardHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isStripboardHUDOpen);
+        btn.setAttribute('aria-expanded', isStripboardHUDOpen ? 'true' : 'false');
+      }
+      if (isStripboardHUDOpen) {
+        showToast("1st AD Stripboard Production Scheduler HUD: ACTIVE [B]");
+      }
+    }
+
+    function downloadMovieMagicXML() {
+      const blob = new Blob([`<StripBoardSchedule version="10.0"><ProductionTitle>Automotive Robotics Production</ProductionTitle><TotalPagesEighths>6</TotalPagesEighths><TotalShootingDays>1</TotalShootingDays><Stripboard><Strip index="1"><SceneNumber>1</SceneNumber><ColorCode>yellow_day_ext</ColorCode><DayType>ext_day</DayType><PageEighths>3</PageEighths><Setting>EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION - DAY</Setting><CastIDs>1,2</CastIDs><EstHours>3.0</EstHours></Strip><Strip index="2"><SceneNumber>2</SceneNumber><ColorCode>yellow_day_ext</ColorCode><DayType>ext_day</DayType><PageEighths>3</PageEighths><Setting>EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX - DAY</Setting><CastIDs>1</CastIDs><EstHours>3.0</EstHours></Strip></Stripboard></StripBoardSchedule>`], { type: 'application/xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "movie_magic_schedule.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Movie Magic Scheduling XML (.xml) downloaded!");
+    }
+
+    function downloadStripboardCSV() {
+      const blob = new Blob([`Strip #,Shoot Day,Scene #,Color Code,Day Type,Page 8ths,Setting / Location,Cast IDs,Est Hours
+1,Day 1,1,yellow_day_ext,ext_day,3/8,EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - INITIATION - DAY,#1 #2,3.0
+2,Day 1,2,yellow_day_ext,ext_day,3/8,EXT. CYBERPUNK NEON-LIT HIGH-SPEED ELECTRIC M - CLIMAX - DAY,#1,3.0
+`], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "stripboard_schedule.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Production Stripboard Schedule (.csv) downloaded!");
+    }
+
+    function downloadDoodCSV() {
+      const blob = new Blob([`Cast #,Actor Name,Character,Day 1,Work Days,Hold Days,SAG Turnaround
+1,Actor 1,Hero Subject,SWF,1,0,COMPLIANT (12h)
+2,Actor 2,Supporting Role,SWF,1,0,COMPLIANT (12h)
+`], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "dood_report.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Day-Out-of-Days (DOOD) Talent Report (.csv) downloaded!");
     }
 
     function toggleAuditDrawer(sceneIdx) {
@@ -7118,6 +8033,10 @@ DOMAIN_MAX 1.0 1.0 1.0
         toggleSpatialHUD();
       } else if (e.key === 'x' || e.key === 'X') {
         toggleVfxHUD();
+      } else if (e.key === 'h' || e.key === 'H') {
+        toggleHdrHUD();
+      } else if (e.key === 'b' || e.key === 'B') {
+        toggleStripboardHUD();
       } else if (e.key === 'Escape') {
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
@@ -7126,6 +8045,8 @@ DOMAIN_MAX 1.0 1.0 1.0
         if (isDitLutHUDOpen) toggleDitLutHUD();
         if (isSpatialHUDOpen) toggleSpatialHUD();
         if (isVfxHUDOpen) toggleVfxHUD();
+        if (isHdrHUDOpen) toggleHdrHUD();
+        if (isStripboardHUDOpen) toggleStripboardHUD();
       }
     });
 

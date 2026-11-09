@@ -20,16 +20,19 @@ from omni_director.presets import (
     get_domain_audio_mixer,
     get_domain_color_look,
     get_domain_dof_spec,
+    get_domain_hdr_spec,
     get_domain_lighting_rig,
     get_domain_lut_spec,
     get_domain_moco_rig,
     get_domain_optical_lens,
     get_domain_spatial_audio_spec,
     get_domain_speed_ramp,
+    get_domain_stripboard_spec,
     get_domain_vfx_manifest,
     get_domain_virtual_production,
     get_preset_bible,
 )
+from omni_director.tools.stripboard_scheduler import extract_script_breakdown_sheet
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -135,6 +138,7 @@ def synthesize_custom_bible(
     domain_lut = get_domain_lut_spec(domain)
     domain_spatial = get_domain_spatial_audio_spec(domain)
     domain_vfx = get_domain_vfx_manifest(domain)
+    domain_hdr = get_domain_hdr_spec(domain)
 
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
@@ -215,6 +219,7 @@ def synthesize_custom_bible(
         lut_spec=domain_lut,
         spatial_audio=domain_spatial,
         vfx_compositing=domain_vfx,
+        hdr_spec=domain_hdr,
         kinetic_contact_chain="1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance." if is_kinetic else None,
         action_beats=[
             "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)",
@@ -227,6 +232,7 @@ def synthesize_custom_bible(
         ),
         omni_prose_prompt=prose_1,
     )
+    scene_1.breakdown_sheet = extract_script_breakdown_sheet(scene_1, 1)
 
     scene_2 = ScenePromptSpec(
         scene_index=2,
@@ -244,6 +250,7 @@ def synthesize_custom_bible(
         lut_spec=domain_lut,
         spatial_audio=domain_spatial,
         vfx_compositing=domain_vfx,
+        hdr_spec=domain_hdr,
         kinetic_contact_chain="1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose." if is_kinetic else None,
         action_beats=[
             "Beat 1: Peak acceleration and directional transition (00:05 - 00:08)",
@@ -256,6 +263,7 @@ def synthesize_custom_bible(
         ),
         omni_prose_prompt=prose_2,
     )
+    scene_2.breakdown_sheet = extract_script_breakdown_sheet(scene_2, 2)
 
     # Sonic Profile and BPM from Archetype
     bgm_bpm = archetype.get("default_bpm", 120 if is_kinetic else 72)
@@ -345,6 +353,8 @@ def synthesize_custom_bible(
         master_lut_spec=domain_lut,
         master_spatial_audio=domain_spatial,
         master_vfx_manifest=domain_vfx,
+        master_hdr_spec=domain_hdr,
+        master_stripboard_schedule=get_domain_stripboard_spec(domain, [scene_1, scene_2]),
     )
 
 

@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+__version__ = "2.8.0"
+
 
 class RegimeType(str, Enum):
     """The Prescription Spectrum: Low Prescription (Regime 1) vs High Prescription (Regime 2)."""
@@ -23,6 +25,25 @@ class AspectRatio(str, Enum):
     RATIO_9_16 = "9:16"
     RATIO_1_1 = "1:1"
     RATIO_2_39_1 = "2.39:1"
+
+
+class DomainArchetype(str, Enum):
+    """The 6 Commercial Domain Archetypes."""
+    AUTOMOTIVE_ROBOTICS = "automotive_robotics"
+    CULINARY_ASMR = "culinary_asmr"
+    LUXURY_FASHION = "luxury_fashion"
+    KINETIC_ACTION = "kinetic_action"
+    TECH_HARDWARE = "tech_hardware"
+    ARCHITECTURAL_SANCTUARY = "architectural_sanctuary"
+
+    # Lowercase aliases
+    automotive_robotics = "automotive_robotics"
+    culinary_asmr = "culinary_asmr"
+    luxury_fashion = "luxury_fashion"
+    kinetic_action = "kinetic_action"
+    tech_hardware = "tech_hardware"
+    architectural_sanctuary = "architectural_sanctuary"
+
 
 
 class DirectorIntakeQuestion(BaseModel):
@@ -1047,6 +1068,349 @@ class VfxCompositingManifestSpec(BaseModel):
         return "half_float_16"
 
 
+# ==============================================================================
+# PM-FEAT-015: HDR10 / PQ & HLG Broadcast Color Volume Metadata Schemas
+# ==============================================================================
+
+
+class HdrStandard(str, Enum):
+    """Supported broadcast and mastering HDR standards (PM-FEAT-015)."""
+    HDR10_STATIC = "hdr10_static"
+    HLG_BROADCAST = "hlg_broadcast"
+    DOLBY_VISION = "dolby_vision"
+
+    hdr10_static = "hdr10_static"
+    hlg_broadcast = "hlg_broadcast"
+    dolby_vision = "dolby_vision"
+
+
+class HdrTransferFunction(str, Enum):
+    """Supported HDR electro-optical transfer functions (PM-FEAT-015)."""
+    SMPTE_ST_2084_PQ = "smpte_st_2084_pq"
+    ARIB_STD_B67_HLG = "arib_std_b67_hlg"
+    BT_2100_PQ = "bt_2100_pq"
+    BT_2100_HLG = "bt_2100_hlg"
+    LINEAR_SCENE = "linear_scene"
+
+    # Lowercase aliases
+    smpte_st_2084_pq = "smpte_st_2084_pq"
+    arib_std_b67_hlg = "arib_std_b67_hlg"
+    bt_2100_pq = "bt_2100_pq"
+    bt_2100_hlg = "bt_2100_hlg"
+    linear_scene = "linear_scene"
+
+
+TransferFunctionType = HdrTransferFunction
+
+
+class ColorVolumeGamut(str, Enum):
+    """Target HDR wide color gamut / color volume representations (PM-FEAT-015)."""
+    BT_2020 = "bt_2020"
+    DCI_P3 = "dci_p3"
+    DCI_P3_D65 = "dci_p3_d65"
+    REC_709 = "rec_709"
+
+    # Lowercase aliases
+    bt_2020 = "bt_2020"
+    dci_p3 = "dci_p3"
+    dci_p3_d65 = "dci_p3_d65"
+    rec_709 = "rec_709"
+
+
+ColorSpaceStandard = ColorVolumeGamut
+
+
+class ToneMappingOperator(str, Enum):
+    """HDR to SDR / lower-peak tone mapping operators (PM-FEAT-015)."""
+    REINHARD_EXTENDED = "reinhard_extended"
+    ACES_SPLINE = "aces_spline"
+    BT_2446_METHOD_A = "bt_2446_method_a"
+    CLIP = "clip"
+
+    # Lowercase aliases
+    reinhard_extended = "reinhard_extended"
+    aces_spline = "aces_spline"
+    bt_2446_method_a = "bt_2446_method_a"
+    clip = "clip"
+
+
+class HdrMasteringDisplaySpec(BaseModel):
+    """SMPTE ST 2086 HDR Mastering Display Color Volume specification (PM-FEAT-015)."""
+    peak_luminance_nits: float = Field(default=1000.0, ge=100.0, le=10000.0, description="Target mastering peak brightness in nits (cd/m^2)")
+    black_level_nits: float = Field(default=0.0001, ge=0.0, le=1.0, description="Target mastering black level in nits")
+    color_volume: ColorVolumeGamut = Field(default=ColorVolumeGamut.BT_2020, description="Mastering monitor primary color volume")
+    primary_coordinates: Dict[str, Tuple[float, float]] = Field(
+        default_factory=lambda: {
+            "red": (0.708, 0.292),
+            "green": (0.170, 0.797),
+            "blue": (0.131, 0.046),
+        },
+        description="CIE 1931 xy chromaticity coordinates of RGB primaries"
+    )
+    white_point_d65: Tuple[float, float] = Field(default=(0.3127, 0.3290), description="CIE 1931 xy coordinates of D65 white point")
+
+    @property
+    def display_name(self) -> str:
+        vol = self.color_volume.value if hasattr(self.color_volume, "value") else str(self.color_volume)
+        return f"Mastering Monitor ({vol.upper()}, {self.peak_luminance_nits:.0f} nits)"
+
+    @property
+    def color_primaries(self) -> str:
+        vol = self.color_volume.value if hasattr(self.color_volume, "value") else str(self.color_volume)
+        return vol.upper()
+
+
+class HdrMetadataSpec(BaseModel):
+    """Complete scene and production HDR10 / HLG metadata specification (PM-FEAT-015)."""
+    transfer_function: HdrTransferFunction = Field(default=HdrTransferFunction.SMPTE_ST_2084_PQ, description="EOTF / OETF transfer curve")
+    mastering_display: HdrMasteringDisplaySpec = Field(default_factory=HdrMasteringDisplaySpec, description="Mastering display color volume")
+    max_cll_nits: float = Field(default=1000.0, ge=100.0, le=10000.0, description="Maximum Content Light Level (MaxCLL) in nits")
+    max_fall_nits: float = Field(default=400.0, ge=10.0, le=4000.0, description="Maximum Frame Average Light Level (MaxFALL) in nits")
+    tone_mapping: ToneMappingOperator = Field(default=ToneMappingOperator.ACES_SPLINE, description="Tone mapping operator for lower-peak displays")
+    target_gamut: ColorVolumeGamut = Field(default=ColorVolumeGamut.BT_2020, description="Target broadcast/mastering color volume")
+    knee_point_nits: float = Field(default=100.0, ge=10.0, description="Tone mapping compression knee point in nits")
+    shoulder_point_nits: float = Field(default=800.0, ge=100.0, description="Tone mapping compression shoulder point in nits")
+
+    @property
+    def peak_nits(self) -> float:
+        return self.max_cll_nits
+
+    @property
+    def peak_luminance_nits(self) -> float:
+        if self.mastering_display and self.mastering_display.peak_luminance_nits:
+            return self.mastering_display.peak_luminance_nits
+        return self.max_cll_nits
+
+    @property
+    def standard(self) -> HdrStandard:
+        if self.transfer_function in (HdrTransferFunction.ARIB_STD_B67_HLG, HdrTransferFunction.BT_2100_HLG):
+            return HdrStandard.HLG_BROADCAST
+        return HdrStandard.HDR10_STATIC
+
+    @property
+    def target_peak_nits(self) -> float:
+        return self.peak_luminance_nits
+
+    @property
+    def color_gamut(self) -> ColorVolumeGamut:
+        return self.target_gamut
+
+    @property
+    def color_space(self) -> ColorVolumeGamut:
+        return self.target_gamut
+
+    @property
+    def tone_mapping_operator(self) -> ToneMappingOperator:
+        return self.tone_mapping
+
+
+class SceneHdrReport(BaseModel):
+    """Luminance and color volume audit report for an individual scene (PM-FEAT-015)."""
+    scene_index: int = Field(default=1, description="Scene index")
+    transfer_function: HdrTransferFunction = Field(default=HdrTransferFunction.SMPTE_ST_2084_PQ)
+    calculated_max_cll_nits: float = Field(default=1000.0)
+    calculated_max_fall_nits: float = Field(default=400.0)
+    gamut_coverage_percent: float = Field(default=98.5)
+    clipping_risk: str = Field(default="none")
+    tone_mapping_applied: ToneMappingOperator = Field(default=ToneMappingOperator.ACES_SPLINE)
+    prompt_token: str = Field(default="")
+
+    @property
+    def scene_number(self) -> int:
+        return self.scene_index
+
+    @property
+    def max_cll_nits(self) -> float:
+        return self.calculated_max_cll_nits
+
+    @property
+    def max_fall_nits(self) -> float:
+        return self.calculated_max_fall_nits
+
+
+# ==============================================================================
+# PM-FEAT-016: 1st AD Script Breakdown Sheet & Stripboard Production Schedule Schemas
+# ==============================================================================
+
+
+class BreakdownCategory(str, Enum):
+    """Standard 12-category 1st AD script breakdown taxonomy (PM-FEAT-016)."""
+    CAST_MEMBERS = "cast_members"
+    STUNTS = "stunts"
+    EXTRAS_SILENT_BITS = "extras_silent_bits"
+    VEHICLES = "vehicles"
+    PROPS = "props"
+    SPECIAL_EFFECTS = "special_effects"
+    WARDROBE = "wardrobe"
+    MAKEUP_HAIR = "makeup_hair"
+    SOUND_EFFECTS = "sound_effects"
+    SPECIAL_EQUIPMENT = "special_equipment"
+    PRODUCTION_NOTES = "production_notes"
+    OPTICAL_VFX = "optical_vfx"
+
+    # Lowercase aliases
+    cast_members = "cast_members"
+    stunts = "stunts"
+    extras_silent_bits = "extras_silent_bits"
+    vehicles = "vehicles"
+    props = "props"
+    special_effects = "special_effects"
+    wardrobe = "wardrobe"
+    makeup_hair = "makeup_hair"
+    sound_effects = "sound_effects"
+    special_equipment = "special_equipment"
+    production_notes = "production_notes"
+    optical_vfx = "optical_vfx"
+
+
+class ProductionDayType(str, Enum):
+    """Production shooting day taxonomy: INT/EXT and DAY/NIGHT (PM-FEAT-016)."""
+    INT_DAY = "int_day"
+    INT_NIGHT = "int_night"
+    EXT_DAY = "ext_day"
+    EXT_NIGHT = "ext_night"
+
+    # Lowercase aliases
+    int_day = "int_day"
+    int_night = "int_night"
+    ext_day = "ext_day"
+    ext_night = "ext_night"
+
+
+class StripboardColorCode(str, Enum):
+    """Industry standard Movie Magic stripboard color codes (PM-FEAT-016)."""
+    YELLOW_DAY_EXT = "yellow_day_ext"
+    BLUE_NIGHT_EXT = "blue_night_ext"
+    WHITE_DAY_INT = "white_day_int"
+    GREEN_NIGHT_INT = "green_night_int"
+
+    # Lowercase aliases
+    yellow_day_ext = "yellow_day_ext"
+    blue_night_ext = "blue_night_ext"
+    white_day_int = "white_day_int"
+    green_night_int = "green_night_int"
+
+
+class ScriptBreakdownSheet(BaseModel):
+    """Complete 1st AD script breakdown sheet for a single scene (PM-FEAT-016)."""
+    scene_number: int = Field(default=1, description="Scene number")
+    page_eighths: int = Field(default=1, ge=1, le=64, description="Scene length measured in 1/8th pages (e.g. 3 = 3/8 page)")
+    day_night: str = Field(default="DAY", description="DAY or NIGHT")
+    int_ext: str = Field(default="INT", description="INT or EXT")
+    location: str = Field(default="", description="Script setting or physical location")
+    description: str = Field(default="", description="One-line scene action summary")
+    category_elements: Dict[BreakdownCategory, List[str]] = Field(
+        default_factory=dict,
+        description="Elements tagged into the 12 standard script breakdown categories"
+    )
+
+    @property
+    def pages_fraction(self) -> str:
+        if self.page_eighths < 8:
+            return f"{self.page_eighths}/8"
+        full = self.page_eighths // 8
+        rem = self.page_eighths % 8
+        return f"{full} {rem}/8" if rem > 0 else f"{full}"
+
+
+class StripboardStripSpec(BaseModel):
+    """Single production stripboard strip representing one scheduled scene (PM-FEAT-016)."""
+    scene_number: int = Field(default=1, description="Scene number")
+    day_type: ProductionDayType = Field(default=ProductionDayType.EXT_DAY, description="INT/EXT and DAY/NIGHT")
+    color_code: StripboardColorCode = Field(default=StripboardColorCode.YELLOW_DAY_EXT, description="Stripboard card color")
+    page_eighths: int = Field(default=1, ge=1, description="Length in 1/8th pages")
+    setting_summary: str = Field(default="", description="Location and brief summary")
+    cast_ids: List[int] = Field(default_factory=list, description="List of cast member IDs working this strip")
+    estimated_shooting_hours: float = Field(default=2.0, ge=0.25, description="Estimated shooting hours for this strip")
+    shoot_day: int = Field(default=1, ge=1, description="Assigned shooting day")
+
+    @property
+    def int_ext(self) -> str:
+        if "INT" in str(self.day_type).upper():
+            return "INT"
+        return "EXT"
+
+    @property
+    def day_night(self) -> str:
+        if "NIGHT" in str(self.day_type).upper():
+            return "NIGHT"
+        return "DAY"
+
+    @property
+    def location(self) -> str:
+        return self.setting_summary
+
+
+class DayOutOfDaysRecord(BaseModel):
+    """SAG-AFTRA Day-Out-of-Days (DOOD) cast member schedule record (PM-FEAT-016)."""
+    cast_id: int = Field(default=1, description="Cast ID number")
+    cast_name: str = Field(default="", description="Actor name")
+    character_name: str = Field(default="", description="Character name")
+    shooting_days: Dict[int, str] = Field(
+        default_factory=dict,
+        description="Day index (1-based) -> DOOD code (SW, W, H, WF, SWF, etc.)"
+    )
+    total_work_days: int = Field(default=0, ge=0, description="Total days working (W, SW, WF, SWF)")
+    total_hold_days: int = Field(default=0, ge=0, description="Total non-working hold days (H)")
+    sag_turnaround_compliant: bool = Field(default=True, description="Complies with SAG-AFTRA 12-hour turnaround rest between shoot days")
+
+    @property
+    def sag_aftra_compliant(self) -> bool:
+        return self.sag_turnaround_compliant
+
+    @property
+    def daily_status(self) -> Dict[int, str]:
+        return self.shooting_days
+
+    @property
+    def actor_name(self) -> str:
+        return self.cast_name
+
+
+class MasterStripboardScheduleSpec(BaseModel):
+    """Complete multi-day master stripboard production schedule and DOOD roster (PM-FEAT-016)."""
+    production_title: str = Field(default="", description="Production title")
+    total_page_eighths: int = Field(default=0, ge=0, description="Total screenplay length in 1/8th pages")
+    total_shooting_days: int = Field(default=1, ge=1, description="Total scheduled shooting days")
+    day_breaks: List[int] = Field(
+        default_factory=list,
+        description="List of strip indices after which an end-of-day break is inserted"
+    )
+    strips: List[StripboardStripSpec] = Field(default_factory=list, description="Ordered stripboard strips")
+    dood_records: List[DayOutOfDaysRecord] = Field(default_factory=list, description="Day-Out-of-Days cast roster")
+
+    @property
+    def total_shoot_days(self) -> int:
+        return self.total_shooting_days
+
+    @property
+    def total_strips(self) -> int:
+        return len(self.strips)
+
+    @property
+    def dood_matrix(self) -> List[DayOutOfDaysRecord]:
+        return self.dood_records
+
+    @property
+    def total_pages_str(self) -> str:
+        full = self.total_page_eighths // 8
+        rem = self.total_page_eighths % 8
+        if full == 0:
+            return f"{rem}/8 pgs"
+        return f"{full} {rem}/8 pgs" if rem > 0 else f"{full} pgs"
+
+
+# Aliases for PM-FEAT-015 and PM-FEAT-016
+HdrColorSpace = ColorVolumeGamut
+HdrToneMapping = ToneMappingOperator
+SceneHdrProfileSpec = SceneHdrReport
+StripColorCode = StripboardColorCode
+ScriptBreakdownItemSpec = ScriptBreakdownSheet
+SceneBreakdownSheetSpec = ScriptBreakdownSheet
+ScriptBreakdownSheetSpec = ScriptBreakdownSheet
+DayOutOfDaysRecordSpec = DayOutOfDaysRecord
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -1144,6 +1508,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific multi-pass VFX compositing manifest (PM-FEAT-014)"
     )
+    hdr_spec: Optional[HdrMetadataSpec] = Field(
+        default=None,
+        description="Scene-specific HDR10 / PQ / HLG broadcast signal specification (PM-FEAT-015)"
+    )
+    breakdown_sheet: Optional[ScriptBreakdownSheet] = Field(
+        default=None,
+        description="1st AD scene script breakdown sheet and element manifest (PM-FEAT-016)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -1187,6 +1559,14 @@ class ScenePromptSpec(BaseModel):
                 data["vfx_compositing"] = data["vfx_compositing_spec"]
             if "vfx" in data and "vfx_compositing" not in data and isinstance(data["vfx"], (dict, VfxCompositingManifestSpec)):
                 data["vfx_compositing"] = data["vfx"]
+            if "hdr_metadata" in data and "hdr_spec" not in data:
+                data["hdr_spec"] = data["hdr_metadata"]
+            if "hdr" in data and "hdr_spec" not in data and isinstance(data["hdr"], (dict, HdrMetadataSpec)):
+                data["hdr_spec"] = data["hdr"]
+            if "script_breakdown" in data and "breakdown_sheet" not in data:
+                data["breakdown_sheet"] = data["script_breakdown"]
+            if "breakdown" in data and "breakdown_sheet" not in data and isinstance(data["breakdown"], (dict, ScriptBreakdownSheet)):
+                data["breakdown_sheet"] = data["breakdown"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -1360,6 +1740,22 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master multi-pass VFX compositing manifest alias (PM-FEAT-014)"
     )
+    master_hdr_spec: Optional[HdrMetadataSpec] = Field(
+        default=None,
+        description="Master HDR10 / PQ / HLG signal and color volume specification (PM-FEAT-015)"
+    )
+    hdr_spec: Optional[HdrMetadataSpec] = Field(
+        default=None,
+        description="Master HDR specification alias (PM-FEAT-015)"
+    )
+    master_stripboard_schedule: Optional[MasterStripboardScheduleSpec] = Field(
+        default=None,
+        description="Master 1st AD stripboard production schedule and script breakdown (PM-FEAT-016)"
+    )
+    stripboard_schedule: Optional[MasterStripboardScheduleSpec] = Field(
+        default=None,
+        description="Master stripboard schedule alias (PM-FEAT-016)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -1413,6 +1809,17 @@ class MasterProductionBible(BaseModel):
         elif self.vfx_manifest is not None and self.master_vfx_manifest is None:
             object.__setattr__(self, "master_vfx_manifest", self.vfx_manifest)
 
+        # Synchronize HDR and Stripboard schedule spec aliases (PM-FEAT-015 & PM-FEAT-016)
+        if self.master_hdr_spec is not None and self.hdr_spec is None:
+            object.__setattr__(self, "hdr_spec", self.master_hdr_spec)
+        elif self.hdr_spec is not None and self.master_hdr_spec is None:
+            object.__setattr__(self, "master_hdr_spec", self.hdr_spec)
+
+        if self.master_stripboard_schedule is not None and self.stripboard_schedule is None:
+            object.__setattr__(self, "stripboard_schedule", self.master_stripboard_schedule)
+        elif self.stripboard_schedule is not None and self.master_stripboard_schedule is None:
+            object.__setattr__(self, "master_stripboard_schedule", self.stripboard_schedule)
+
         return self
 
 
@@ -1427,6 +1834,10 @@ class MasterProductionBible(BaseModel):
         if self.total_runtime_seconds > 40:
             return False
         return True
+
+    @property
+    def title(self) -> str:
+        return self.project_title
 
 
 class AuditResult(BaseModel):
@@ -1551,7 +1962,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.6.0"
+    version: str = "2.8.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

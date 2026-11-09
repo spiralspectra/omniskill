@@ -1,7 +1,7 @@
 {
   "version": "2.6.0",
   "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-  "timestamp": "2026-11-07T09:45:34.667957+00:00",
+  "timestamp": "2026-11-09T17:20:04.937603+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -65,9 +65,34 @@
               "nuke_composite.nk"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "hdr_metadata_delivery",
+          "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "hdr_artifacts": [
+              "hdr10_metadata.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "stripboard_schedule_delivery",
+          "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "stripboard_artifacts": [
+              "movie_magic_schedule.xml",
+              "stripboard_schedule.csv"
+            ]
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 4 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 6 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -230,6 +255,34 @@
             "passes": 7,
             "crypto_entries": 8
           }
+        },
+        {
+          "severity": "info",
+          "category": "domain_hdr_calibration",
+          "message": "Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 1500 nits peak, MaxCLL 1450, MaxFALL 520, tone mapper aces_spline) aligned with domain 'automotive_robotics'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "automotive_robotics",
+            "transfer_function": "smpte_st_2084_pq",
+            "color_gamut": "bt_2020",
+            "peak_nits": 1500.0,
+            "tone_mapping": "aces_spline"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_stripboard_calibration",
+          "message": "1st AD Stripboard schedule verified: 2 strips across 1 shoot day(s), 2 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'automotive_robotics'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "automotive_robotics",
+            "shoot_days": 1,
+            "strips_count": 2,
+            "dood_count": 2,
+            "sag_turnaround": true
+          }
         }
       ],
       "summary": "Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics)."
@@ -269,6 +322,22 @@
           "severity": "info",
           "category": "animatic_vfx_hud",
           "message": "Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hdr_hud",
+          "message": "HDR Broadcast Color Volume & Waveform Monitor HUD verified in dark-room animatic (#btn-hdr-animatic / #animatic-hdr-hud [H]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_stripboard_hud",
+          "message": "1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -461,6 +530,38 @@
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/vfx_compositor.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-015",
+      "title": "HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)",
+      "problem_statement": "High-end cinematic theatrical distribution and commercial streaming broadcasters (Apple TV+, Netflix, BBC, YouTube HDR) for 'Cyberpunk Neon-Lit High-Speed Electric M' require rigorous SMPTE ST 2084 PQ (Perceptual Quantizer) and ARIB STD-B67 HLG color volume mastering metadata\u2014including SMPTE ST 2086 mastering display color primaries, white point chromaticity, peak/minimum luminance nits, MaxCLL (Maximum Content Light Level), MaxFALL (Maximum Frame Average Light Level), and ACES/Reinhard/BT.2446 tone mapping\u2014to prevent highlight clipping and gamut distortion.",
+      "proposed_solution": "Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal (pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD (#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/hdr_signal.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-016",
+      "title": "1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)",
+      "problem_statement": "Professional cinematic and commercial production workflows for 'Cyberpunk Neon-Lit High-Speed Electric M' require standardized 1st Assistant Director (1st AD) production scheduling: automated 1/8th-page scene breakdown across 12 industry categories (Cast, Extras, Stunts, Vehicles, Props, SFX, VFX, Wardrobe, Makeup, Sound, Special Equipment, Animals), Hollywood color-coded stripboard strips (Yellow/Blue/White/Green), shooting day breaks, and Day-Out-of-Days (DOOD) talent matrices enforcing SAG-AFTRA 12-hour turnaround rest compliance.",
+      "proposed_solution": "Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/stripboard_scheduler.py",
+        "omni_director/presets.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/nle_export.py"

@@ -2,6 +2,31 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.8.0] - 2026-11-09
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-015: SMPTE ST 2084 PQ & HLG High Dynamic Range (HDR) Video Signal, Tone Mapping & MaxFALL/MaxCLL Metadata Suite**:
+  - Module: `omni_director/tools/hdr_signal.py`.
+  - Added schemas in `omni_director/schemas.py`: `HdrTransferFunction`, `ColorVolumeGamut`, `ToneMappingOperator`, `HdrMasteringDisplaySpec`, `HdrMetadataSpec`, and `SceneHdrReport`. Bound `hdr_spec` to `ScenePromptSpec` and `master_hdr_spec` to `MasterProductionBible`.
+  - Implemented pure-Python optical HDR physics algorithms: SMPTE ST 2084 PQ forward and inverse EOTF conversion (`pq_eotf_to_nits`, `pq_inverse_eotf`), ARIB STD-B67 HLG OETF and EOTF (`hlg_oetf`, `hlg_eotf`), parametric tone mapping operators (`reinhard_extended`, `aces_spline`, `bt_2446_method_a`, `clip`), and dynamic scene photometrics calculating peak luminance, MaxCLL, and MaxFALL from key/fill/rim lighting and material reflectance.
+  - Implemented multi-format HDR broadcast exports: SMPTE ST 2086 / CTA-861.3 static metadata JSON (`export_hdr10_json`), ITU-R BT.2100 broadcast transmission manifest XML (`export_hlg_xml`), DaVinci Resolve Color Management timeline XML (`export_resolve_hdr_xml`), and complete HDR bundle packaging (`export_hdr_bundle`).
+  - CRAFT camera prompt token formatting (`format_hdr_prompt_token`) embedding transfer function, target gamut, peak mastering luminance, MaxCLL, and MaxFALL.
+  - CLI export support: `omni export --format hdr`, `--format all`, `--hdr-json`, `--hlg-xml`, and `--resolve-hdr`.
+  - Dark-Room Cinema Animatic Interactive HDR Suite HUD (`#animatic-hdr-hud`, hotkey `H`) featuring live peak nits, MaxCLL/MaxFALL badges, transfer function badges, an interactive HTML5 Canvas waveform monitor (`#hdr-waveform-canvas`), and instant download buttons for HDR10 JSON, HLG XML, and Resolve HDR XML.
+- **PM-FEAT-016: Industrial Production Script Breakdown, Stripboard & Call Scheduling Engine (Movie Magic / 1st AD Stripboards)**:
+  - Module: `omni_director/tools/stripboard_scheduler.py`.
+  - Added schemas in `omni_director/schemas.py`: `BreakdownCategory` (12 industry categories: cast, stunts, silent bits, vehicles, props, SFX, wardrobe, makeup, sound FX, special equipment, production notes, optical VFX), `ProductionDayType` (`int_day`, `int_night`, `ext_day`, `ext_night`), `StripboardColorCode` (`yellow_day_ext`, `blue_night_ext`, `white_day_int`, `green_night_int`), `ScriptBreakdownSheet`, `StripboardStripSpec`, `DayOutOfDaysRecord`, and `MasterStripboardScheduleSpec`. Bound `breakdown_sheet` to `ScenePromptSpec` and `master_stripboard_schedule` to `MasterProductionBible`.
+  - Implemented production logistics algorithms: Hollywood 1/8th page fractions calculator (`calculate_page_eighths`), automated 12-category script breakdown extraction from scene beats, dialogue, lighting, camera, and VFX (`extract_script_breakdown_sheet`), Hollywood strip color coding (`determine_strip_color_code`), stripboard schedule sequencing with day breaks (`generate_stripboard_schedule`), and SAG-AFTRA Day-Out-of-Days matrix generator (`generate_dood_matrix`) tracking `SW`, `W`, `H`, `WF`, `SWF` codes and verifying 12-hour turnaround rest compliance.
+  - Implemented multi-format production scheduling exports: Movie Magic Scheduling 10.0 XML (`export_movie_magic_xml`), Hollywood production stripboard CSV (`export_stripboard_csv`), Day-Out-of-Days talent tracking CSV (`export_dood_csv`), and scheduling bundle packaging (`export_stripboard_bundle`).
+  - CRAFT prompt token formatting (`format_script_breakdown_prompt_token`) embedding scene header, strip color code, 1/8th page count, location, cast IDs, and key breakdown elements.
+  - CLI export support: `omni export --format stripboard`, `--format all`, `--movie-magic-xml`, `--stripboard-csv`, and `--dood-csv`.
+  - Dark-Room Cinema Animatic Interactive Stripboard HUD (`#animatic-stripboard-hud`, hotkey `B`) displaying color-coded strips (`.strip-yellow`, `.strip-blue`, `.strip-white`, `.strip-green`), day break dividers (`.strip-day-break`), interactive talent DOOD grid (`#dood-talent-table`), and instant download buttons for Movie Magic XML, Stripboard CSV, and DOOD CSV.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-015` and `PM-FEAT-016` in `ProductManagerAgent.inspect_product()` as P0 implemented features.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated HDR specs (`get_domain_hdr_spec`) and Stripboard production schedules (`get_domain_stripboard_spec`) in `omni_director/presets.py`.
+  - Updated prompt auditor Rule 4 and self-healing loop in `omni_director/tools/prompt_auditor.py` to evaluate and inject HDR Signal and 1st AD Breakdown tokens with compliance reward scoring.
+  - Integrated full 25.0/25.0 scoring in `ProductCouncilOrchestrator` across `council-fde`, `council-agent-engineer`, `council-strategist`, and `council-ux-designer`.
+
 ## [2.7.0] - 2026-11-07
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
