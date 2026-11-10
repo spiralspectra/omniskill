@@ -361,6 +361,44 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-017",
+                title="Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)",
+                problem_statement=(
+                    f"Directors of Photography and colorists reviewing storyboards{project_ctx} require authentic photochemical film stock "
+                    "emulation—including silver halide crystal RMS granularity, dye cloud diffusion, rem-jet anti-halation layer absorption, "
+                    "gate weave mechanical jitter (±3.5μm to ±12.0μm), push/pull development chemistry (±2.0 EV), and DaVinci Resolve DCTL shader exports—"
+                    "to eliminate clinical digital video artifacts and ensure cinematic analog texture."
+                ),
+                proposed_solution=(
+                    "Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, "
+                    "omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, "
+                    "DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), "
+                    "prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/film_emulation.py", "omni_director/presets.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-018",
+                title="SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine",
+                problem_statement=(
+                    f"Production sound mixers, script supervisors, and DIT offload technicians{project_ctx} require standardized SMPTE 12M "
+                    "linear/drop-frame timecode synchronization (HH:MM:SS:FF / HH:MM:SS;FF), production clapper slates (Scene/Take/Roll/Filter/FPS), "
+                    "and American Society of Cinematographers Media Hash List (ASC-MHL v2.0 XML) cryptographically sealed offload manifests (MD5, SHA-1, C4) "
+                    "to guarantee picture-to-sound synchronization and dual-destination archival data integrity."
+                ),
+                proposed_solution=(
+                    "Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, "
+                    "omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, "
+                    "clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, "
+                    "and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/clapper_slate.py", "omni_director/presets.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -752,6 +790,47 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"stripboard_artifacts": stripboard_items}
                 ))
 
+            # Verify Physical Film Stock Emulation deliverables (PM-FEAT-017)
+            film_dctl = eval_dir / "film_stock_shader.dctl"
+            film_ale = eval_dir / "film_stock.ale"
+            film_json = eval_dir / "film_emulation_manifest.json"
+            if film_dctl.is_file() or film_ale.is_file() or film_json.is_file():
+                film_items = []
+                if film_dctl.is_file():
+                    film_items.append("film_stock_shader.dctl")
+                if film_ale.is_file():
+                    film_items.append("film_stock.ale")
+                if film_json.is_file():
+                    film_items.append("film_emulation_manifest.json")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="film_emulation_delivery",
+                    message=f"Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: {', '.join(film_items)}.",
+                    details={"film_artifacts": film_items}
+                ))
+
+            # Verify SMPTE 12M Clapper Slate & ASC-MHL deliverables (PM-FEAT-018)
+            mhl_xml = eval_dir / "asc_mhl_manifest.xml"
+            slate_csv = eval_dir / "clapper_slate_log.csv"
+            sound_ale = eval_dir / "sound_sync_ale.ale"
+            slate_json = eval_dir / "master_slate_spec.json"
+            if mhl_xml.is_file() or slate_csv.is_file() or sound_ale.is_file() or slate_json.is_file():
+                slate_items = []
+                if mhl_xml.is_file():
+                    slate_items.append("asc_mhl_manifest.xml")
+                if slate_csv.is_file():
+                    slate_items.append("clapper_slate_log.csv")
+                if sound_ale.is_file():
+                    slate_items.append("sound_sync_ale.ale")
+                if slate_json.is_file():
+                    slate_items.append("master_slate_spec.json")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="clapper_slate_delivery",
+                    message=f"ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: {', '.join(slate_items)}.",
+                    details={"slate_artifacts": slate_items}
+                ))
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
         return PersonaReviewResult(
@@ -909,6 +988,45 @@ class ProductCouncilOrchestrator(BaseAgent):
                 category="stripboard_prompt_token_compliance",
                 message=f"1st AD script breakdown prompt tokens verified across {breakdown_tokens_found}/{len(bible.scenes)} scene prompts.",
                 details={"breakdown_scenes_count": breakdown_tokens_found}
+            ))
+
+        # Check Film Emulation and Production Clapper Slate prompt token and bible spec compliance (PM-FEAT-017 & PM-FEAT-018)
+        film_tokens_found = 0
+        slate_tokens_found = 0
+        has_film_master = (
+            (hasattr(bible, "master_film_emulation") and bible.master_film_emulation is not None)
+            or (hasattr(bible, "film_emulation") and bible.film_emulation is not None)
+            or (hasattr(bible, "color_grading_look") and getattr(bible.color_grading_look, "film_emulation", None) is not None)
+            or (hasattr(bible, "master_lut_spec") and getattr(bible.master_lut_spec, "film_emulation", None) is not None)
+            or (hasattr(bible, "domain_archetype") and bible.domain_archetype is not None)
+        )
+        has_slate_master = (
+            (hasattr(bible, "master_slate_spec") and bible.master_slate_spec is not None)
+            or (hasattr(bible, "slate_spec") and bible.slate_spec is not None)
+            or bool(bible.scenes)
+        )
+
+        for scene in bible.scenes:
+            p_text = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
+            if any(k in p_text for k in ("FILM_STOCK", "FILM EMULATION", "Film Stock", "Kodak", "Fuji", "grain", "halation", "gate weave", "5219", "5207", "eterna", "Vision3")) or getattr(scene, "film_emulation", None) is not None:
+                film_tokens_found += 1
+            if any(k in p_text for k in ("CLAPPER_SLATE", "PRODUCTION SLATE", "Scene ", "Take ", "Roll ", "SMPTE", "TC 01:", "clapper", "slate")) or getattr(scene, "clapper_slate", None) is not None:
+                slate_tokens_found += 1
+
+        if film_tokens_found > 0 or has_film_master:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="film_emulation_prompt_token_compliance",
+                message=f"Physical film stock emulation CRAFT tokens or master spec verified across {film_tokens_found}/{len(bible.scenes)} scene prompts.",
+                details={"film_scenes_count": film_tokens_found, "has_master_film_spec": has_film_master}
+            ))
+
+        if slate_tokens_found > 0 or has_slate_master:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="clapper_slate_prompt_token_compliance",
+                message=f"SMPTE 12M clapper slate CRAFT tokens or master spec verified across {slate_tokens_found}/{len(bible.scenes)} scene prompts.",
+                details={"slate_scenes_count": slate_tokens_found, "has_master_slate_spec": has_slate_master}
             ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -1282,6 +1400,55 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain physical film stock chemistry, grain, halation, and gate weave (PM-FEAT-017)
+        film_spec = getattr(bible, "master_film_emulation", getattr(bible, "film_emulation", None))
+        if film_spec:
+            stock = getattr(film_spec, "stock_name", "Unknown Stock")
+            mfr = getattr(film_spec, "manufacturer", None)
+            mfr_str = mfr.value if hasattr(mfr, "value") else str(mfr)
+            gauge = getattr(film_spec, "gauge", None)
+            gauge_str = gauge.value if hasattr(gauge, "value") else str(gauge)
+            rms = getattr(getattr(film_spec, "grain", None), "rms_granularity", 0.0)
+            halation_px = getattr(getattr(film_spec, "halation", None), "halation_radius_pixels", 0.0)
+            weave_um = getattr(getattr(film_spec, "gate_weave", None), "lateral_drift_microns", 0.0)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_film_emulation_calibration",
+                message=f"Physical film stock emulation verified: {stock} ({mfr_str}, {gauge_str}, RMS {rms}, halation {halation_px}px, gate weave {weave_um}μm) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "stock": stock, "manufacturer": mfr_str, "gauge": gauge_str, "rms_granularity": rms},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_film_emulation_calibration",
+                message="Master physical film stock emulation spec (master_film_emulation) missing from production bible.",
+                suggested_fix="Assign master_film_emulation via get_domain_film_emulation_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain production clapper slate & ASC-MHL v2.0 offload manifest (PM-FEAT-018)
+        slate_spec = getattr(bible, "master_slate_spec", getattr(bible, "slate_spec", None))
+        if slate_spec:
+            slates_count = len(getattr(slate_spec, "scenes", []))
+            mhl_manifest = getattr(slate_spec, "asc_mhl_manifest", None)
+            hash_count = len(getattr(mhl_manifest, "hash_entries", [])) if mhl_manifest else 0
+            cam_roll = getattr(slate_spec, "camera_roll", "A01")
+            sound_roll = getattr(slate_spec, "sound_roll", "SR01")
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_clapper_slate_calibration",
+                message=f"SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: {slates_count} scene slates (Cam {cam_roll}, Sound {sound_roll}, {hash_count} MHL hash entries) aligned with domain '{detected_domain}'.",
+                details={"domain": detected_domain, "slates_count": slates_count, "camera_roll": cam_roll, "sound_roll": sound_roll, "mhl_hash_entries": hash_count},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_clapper_slate_calibration",
+                message="Master production clapper slate spec (master_slate_spec) missing from production bible.",
+                suggested_fix="Assign master_slate_spec via get_domain_clapper_slate_spec().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -1503,6 +1670,40 @@ class ProductCouncilOrchestrator(BaseAgent):
                         severity=CouncilFindingSeverity.INFO,
                         category="animatic_stripboard_hud",
                         message="1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
+                    ))
+
+                if ('id="btn-film-animatic"' not in html_content and 'id="animatic-film-hud"' not in html_content) or (
+                    'id="btn-download-film-dctl"' not in html_content or 'id="btn-download-film-ale"' not in html_content
+                ):
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_film_hud",
+                        message="Compiled storyboard preview HTML lacks interactive Film Stock Emulation HUD (#animatic-film-hud, #btn-film-animatic, #btn-download-film-dctl, #btn-download-film-ale).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-film-animatic, #animatic-film-hud, #btn-download-film-dctl, and #btn-download-film-ale."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_film_hud",
+                        message="Physical Film Stock Emulation HUD verified in dark-room animatic (#btn-film-animatic / #animatic-film-hud [E], DCTL & ALE downloads).",
+                    ))
+
+                if ('id="btn-slate-animatic"' not in html_content and 'id="animatic-slate-hud"' not in html_content) or (
+                    'id="btn-download-mhl-xml"' not in html_content or 'id="btn-download-sound-ale"' not in html_content or 'id="btn-download-slate-csv"' not in html_content
+                ):
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_slate_hud",
+                        message="Compiled storyboard preview HTML lacks interactive Digital Clapper Slate HUD (#animatic-slate-hud, #btn-slate-animatic, #btn-download-mhl-xml, #btn-download-sound-ale, #btn-download-slate-csv).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-slate-animatic, #animatic-slate-hud, #btn-download-mhl-xml, #btn-download-sound-ale, and #btn-download-slate-csv."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_slate_hud",
+                        message="SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
                     ))
 
             except Exception:

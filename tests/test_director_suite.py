@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -3814,6 +3814,15 @@ class TestV26UXAnimaticDofAndLutHUDs:
             '<div id="animatic-hdr-hud"></div>'
             '<button id="btn-stripboard-animatic"></button>'
             '<div id="animatic-stripboard-hud"></div>'
+            '<button id="btn-film-animatic"></button>'
+            '<div id="animatic-film-hud"></div>'
+            '<button id="btn-download-film-dctl"></button>'
+            '<button id="btn-download-film-ale"></button>'
+            '<button id="btn-slate-animatic"></button>'
+            '<div id="animatic-slate-hud"></div>'
+            '<button id="btn-download-mhl-xml"></button>'
+            '<button id="btn-download-sound-ale"></button>'
+            '<button id="btn-download-slate-csv"></button>'
             '<div role="tablist"></div>'
             '<div class="cinema-toast" id="cinema-toast"></div>'
             '<script>function jumpToBeat() {}</script>'
@@ -4709,6 +4718,332 @@ class TestV28StripboardProductionScheduler:
         assert review.passed is True
         assert review.overall_score >= 90.0
         assert review.critical_findings_count == 0
+
+
+class TestPMFeat017And018FilmStockAndClapperSlate:
+    """Verifies PM-FEAT-017 (Physical Film Emulation) and PM-FEAT-018 (Clapper Slate & ASC-MHL)."""
+
+    def test_film_emulation_schemas_and_presets(self):
+        from omni_director.schemas import (
+            FilmStockManufacturer,
+            FilmGaugeFormat,
+            GrainPhysicsSpec,
+            HalationPhysicsSpec,
+            GateWeavePhysicsSpec,
+            FilmStockSpec,
+        )
+        from omni_director.tools.film_emulation import FILM_STOCK_PRESETS, synthesize_default_film_stock
+
+        stock = FILM_STOCK_PRESETS["kodak_vision3_500t"]
+        assert stock.manufacturer == FilmStockManufacturer.KODAK
+        assert stock.gauge == FilmGaugeFormat.GAUGE_35MM_4PERF
+        assert stock.iso_rating == 500
+        assert stock.grain.rms_granularity > 0
+        assert stock.halation.rem_jet_opacity == 0.85
+
+        synth_stock = synthesize_default_film_stock("fuji")
+        assert synth_stock.manufacturer == FilmStockManufacturer.FUJI
+
+    def test_film_physics_math(self):
+        from omni_director.schemas import FilmGaugeFormat
+        from omni_director.tools.film_emulation import (
+            calculate_rms_grain_density,
+            simulate_halation_psf,
+            calculate_gate_weave_offsets,
+        )
+
+        density = calculate_rms_grain_density(0.5, FilmGaugeFormat.GAUGE_35MM_4PERF, 4.2)
+        assert density > 0.0
+
+        r, g, b = simulate_halation_psf(500.0, 0.85, 6.5)
+        assert r > 0.0 and g >= 0.0 and b >= 0.0
+
+        dx, dy = calculate_gate_weave_offsets(10, 1.2, 24)
+        assert isinstance(dx, float) and isinstance(dy, float)
+
+    def test_film_shader_and_bundle_export(self, tmp_path):
+        from omni_director.tools.film_emulation import (
+            FILM_STOCK_PRESETS,
+            generate_davinci_dctl_shader,
+            export_film_emulation_bundle,
+            format_film_emulation_prompt_token,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        stock = FILM_STOCK_PRESETS["kodak_vision3_500t"]
+        shader = generate_davinci_dctl_shader(stock)
+        assert "DaVinci Resolve DCTL: Kodak Vision3 500T" in shader
+        assert "transform(" in shader
+
+        prompt_token = format_film_emulation_prompt_token(stock)
+        assert "FILM_STOCK:" in prompt_token
+        assert "Kodak Vision3 500T" in prompt_token
+
+        bundle = export_film_emulation_bundle(stock, tmp_path / "film_out", IKEA_ASMR_BIBLE)
+        assert "film_dctl" in bundle
+        assert "film_ale" in bundle
+        assert "film_json" in bundle
+        assert "film_bundle" in bundle
+        assert bundle["film_dctl"].exists()
+        assert bundle["film_ale"].exists()
+        assert bundle["film_json"].exists()
+
+    def test_smpte_timecode_and_sound_sync(self):
+        from omni_director.tools.clapper_slate import (
+            calculate_smpte12m_frames,
+            format_smpte12m_timecode,
+            calculate_sound_sync_offset,
+        )
+
+        tc = "01:00:10:12"
+        frames = calculate_smpte12m_frames(tc, 24.0, drop_frame=False)
+        assert frames == 1 * 3600 * 24 + 10 * 24 + 12
+
+        formatted = format_smpte12m_timecode(frames, 24.0, drop_frame=False)
+        assert formatted == tc
+
+        # Drop frame calculation
+        frames_df = calculate_smpte12m_frames("01:00:00;00", 29.97, drop_frame=True)
+        assert frames_df > 0
+        formatted_df = format_smpte12m_timecode(frames_df, 29.97, drop_frame=True)
+        assert ";" in formatted_df
+
+        offset = calculate_sound_sync_offset("01:00:00:05", "01:00:00:00", 24.0)
+        assert offset == 5
+
+    def test_clapper_slate_and_asc_mhl_export(self, tmp_path):
+        from omni_director.schemas import ClapperSlateSpec, Smpte12MTimecodeSpec
+        from omni_director.tools.clapper_slate import (
+            generate_asc_mhl_xml,
+            generate_clapper_slate_log_csv,
+            generate_sound_sync_ale,
+            export_slate_bundle,
+            format_clapper_slate_prompt_token,
+            synthesize_default_slate_spec,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        slate = ClapperSlateSpec(
+            scene_number=2,
+            take_number=1,
+            camera_roll="A02",
+            sound_roll="SR02",
+            director="Director Test",
+            dp="DP Test",
+            timecode=Smpte12MTimecodeSpec(timecode_in="01:00:05:00", timecode_out="01:00:15:00"),
+        )
+        token = format_clapper_slate_prompt_token(slate)
+        assert "CLAPPER_SLATE:" in token
+        assert "Scene 2, Take 1" in token
+
+        master_slate = synthesize_default_slate_spec(IKEA_ASMR_BIBLE)
+        mhl_xml = generate_asc_mhl_xml(master_slate.asc_mhl)
+        assert "<hashlist version=\"2.0\"" in mhl_xml
+        assert "</hashlist>" in mhl_xml
+
+        csv_log = generate_clapper_slate_log_csv(IKEA_ASMR_BIBLE)
+        assert "Scene #,Take #,Camera Roll" in csv_log
+
+        ale_sync = generate_sound_sync_ale(IKEA_ASMR_BIBLE)
+        assert "Heading" in ale_sync
+        assert "FIELD_DELIM\tTABS" in ale_sync
+
+        bundle = export_slate_bundle(master_slate, tmp_path / "slate_out", IKEA_ASMR_BIBLE)
+        assert "mhl_xml" in bundle
+        assert "sound_ale" in bundle
+        assert "slate_csv" in bundle
+        assert "slate_json" in bundle
+        assert "slate_bundle" in bundle
+        assert bundle["mhl_xml"].exists()
+        assert bundle["sound_ale"].exists()
+        assert bundle["slate_csv"].exists()
+
+    def test_cli_export_film_and_slate(self, tmp_path):
+        from omni_director.cli import handle_export
+
+        out_all = tmp_path / "all_out"
+        code = handle_export(["--preset", "ikea-asmr", "--format", "all", "-o", str(out_all)])
+        assert code == 0
+        assert (out_all / "film_stock_shader.dctl").exists()
+        assert (out_all / "film_stock.ale").exists()
+        assert (out_all / "asc_mhl_manifest.xml").exists()
+        assert (out_all / "sound_sync.ale").exists()
+        assert (out_all / "clapper_slate_log.csv").exists()
+
+        out_film = tmp_path / "film_out"
+        code_film = handle_export(["--preset", "ikea-asmr", "--format", "film", "-o", str(out_film)])
+        assert code_film == 0
+        assert (out_film / "film_stock_shader.dctl").exists()
+
+        out_slate = tmp_path / "slate_out"
+        code_slate = handle_export(["--preset", "ikea-asmr", "--format", "slate", "-o", str(out_slate)])
+        assert code_slate == 0
+        assert (out_slate / "asc_mhl_manifest.xml").exists()
+
+        out_flags = tmp_path / "flags_out"
+        code_flags = handle_export([
+            "--preset", "ikea-asmr",
+            "--film-dctl",
+            "--film-ale",
+            "--mhl-xml",
+            "--sound-ale",
+            "--slate-csv",
+            "-o", str(out_flags)
+        ])
+        assert code_flags == 0
+        assert (out_flags / "film_emulation.dctl").exists()
+        assert (out_flags / "film_stock.ale").exists()
+        assert (out_flags / "asc_mhl_manifest.xml").exists()
+        assert (out_flags / "sound_sync.ale").exists()
+        assert (out_flags / "clapper_slate_log.csv").exists()
+
+    def test_animatic_film_hud_and_slate_hud_compilation(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        html_dir = tmp_path / "animatic_test"
+        html_dir.mkdir(parents=True, exist_ok=True)
+        html_file = html_dir / "storyboard_preview.html"
+        json_file = html_dir / "production_bundle.json"
+        bundle = ProductionBundle(
+            project_title=IKEA_ASMR_BIBLE.project_title,
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path=str(html_file),
+            bundle_json_path=str(json_file),
+            scene_prompts=[],
+            bgm=IKEA_ASMR_BIBLE.sonic_blueprint,
+            total_estimated_runtime_sec=30.0,
+        )
+        html_path = compile_storyboard_html(bundle, html_dir)
+        content = html_path.read_text(encoding="utf-8")
+
+        # Verify Film Stock Emulation HUD elements
+        assert 'id="animatic-film-hud"' in content
+        assert 'id="btn-film-animatic"' in content
+        assert 'id="btn-download-film-dctl"' in content
+        assert 'id="btn-download-film-ale"' in content
+        assert "toggleFilmHUD()" in content
+        assert "downloadFilmDctl()" in content
+        assert "downloadFilmAle()" in content
+        assert 'id="slider-film-grain"' in content
+        assert 'id="slider-film-halation"' in content
+        assert 'id="slider-film-weave"' in content
+        assert 'id="slider-film-pushpull"' in content
+
+        # Verify SMPTE Clapper Slate HUD elements
+        assert 'id="animatic-slate-hud"' in content
+        assert 'id="btn-slate-animatic"' in content
+        assert 'id="btn-download-mhl-xml"' in content
+        assert 'id="btn-download-sound-ale"' in content
+        assert 'id="btn-download-slate-csv"' in content
+        assert 'id="interactive-clapper-slate"' in content
+        assert 'id="clapper-slate-arm"' in content
+        assert 'id="slate-led-timecode"' in content
+        assert "toggleSlateHUD()" in content
+        assert "snapClapperSlate()" in content
+        assert "playClackSound()" in content
+        assert "downloadMhlXML()" in content
+        assert "downloadSoundAle()" in content
+        assert "downloadSlateCSV()" in content
+
+        # Verify keyboard shortcuts E and T
+        assert "e.key === 'e' || e.key === 'E'" in content
+        assert "e.key === 't' || e.key === 'T'" in content
+
+    def test_product_council_ux_designer_feat_017_and_018_review(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.agents.council import ProductCouncilOrchestrator
+
+        html_dir = tmp_path / "council_test"
+        html_dir.mkdir(parents=True, exist_ok=True)
+        html_file = html_dir / "storyboard_preview.html"
+        json_file = html_dir / "production_bundle.json"
+        bundle = ProductionBundle(
+            project_title=IKEA_ASMR_BIBLE.project_title,
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path=str(html_file),
+            bundle_json_path=str(json_file),
+            scene_prompts=[],
+            bgm=IKEA_ASMR_BIBLE.sonic_blueprint,
+            total_estimated_runtime_sec=30.0,
+        )
+        compile_storyboard_html(bundle, html_dir)
+        council = ProductCouncilOrchestrator()
+        review = council.review_production_bundle(bundle)
+
+        assert review.persona_reviews["council-ux-designer"].score == 25.0
+        assert review.overall_score >= 90.0
+        assert review.critical_findings_count == 0
+
+    def test_prompt_auditor_film_and_slate_compliance_and_healing(self):
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+        from omni_director.tools.film_emulation import FILM_STOCK_PRESETS, format_film_emulation_prompt_token
+        from omni_director.tools.clapper_slate import synthesize_default_clapper_slate, format_clapper_slate_prompt_token
+        from omni_director.schemas import RegimeType, StorytellingMode
+
+        stock = FILM_STOCK_PRESETS["kodak_vision3_500t"]
+        slate = synthesize_default_clapper_slate(1)
+
+        film_tok = format_film_emulation_prompt_token(stock)
+        slate_tok = format_clapper_slate_prompt_token(slate)
+
+        prompt_with_tokens = (
+            f"35mm prime shot of artisan pouring tea. Real-time 1.0x speed. Synchronized foley captures liquid pouring. "
+            f"{film_tok} {slate_tok}"
+        )
+
+        audit_res = audit_omni_scene_prompt(prompt_with_tokens, regime=RegimeType.REGIME_1_ATMOSPHERIC, scene_index=1)
+        assert audit_res.passed
+        assert audit_res.details.get("film_emulation_compliant") is True
+        assert audit_res.details.get("clapper_slate_compliant") is True
+
+        # Test self-healing injects film stock and clapper slate tokens
+        bare_prompt = "Camera pans across workshop. Real-time 1.0x speed. Diegetic sound of footsteps on floor."
+        healed, healed_audit = heal_omni_scene_prompt(
+            bare_prompt,
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            scene_index=1,
+            storytelling_mode=StorytellingMode.MODE_A_PARALLEL_CUT,
+            film_emulation=stock,
+            clapper_slate=slate,
+        )
+        assert healed_audit.passed
+        assert "FILM_STOCK:" in str(healed)
+        assert "CLAPPER_SLATE:" in str(healed)
+        assert healed_audit.details.get("film_emulation_compliant") is True
+        assert healed_audit.details.get("clapper_slate_compliant") is True
+
+    def test_product_council_pm_feat_017_and_018_governance(self):
+        from omni_director.agents.council import ProductManagerAgent, ProductCouncilOrchestrator
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(bible=IKEA_ASMR_BIBLE)
+        p_ids = [p.feature_id for p in proposals]
+        assert "PM-FEAT-017" in p_ids
+        assert "PM-FEAT-018" in p_ids
+
+        p17 = next(p for p in proposals if p.feature_id == "PM-FEAT-017")
+        assert p17.priority == "P0"
+        assert p17.status == "implemented"
+        assert "omni_director/tools/film_emulation.py" in p17.target_modules
+
+        p18 = next(p for p in proposals if p.feature_id == "PM-FEAT-018")
+        assert p18.priority == "P0"
+        assert p18.status == "implemented"
+        assert "omni_director/tools/clapper_slate.py" in p18.target_modules
+
+        council = ProductCouncilOrchestrator()
+        eng_review = council._review_agent_engineer(IKEA_ASMR_BIBLE, auto_heal=True)
+        assert eng_review.score >= 24.0
+        categories = [f.category for f in eng_review.findings]
+        assert "film_emulation_prompt_token_compliance" in categories
+        assert "clapper_slate_prompt_token_compliance" in categories
+
+
 
 
 

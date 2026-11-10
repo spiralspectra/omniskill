@@ -285,8 +285,21 @@ def handle_export(args_list: List[str]) -> int:
         export_dood_csv,
         export_stripboard_bundle,
     )
+    from omni_director.tools.film_emulation import (
+        export_film_emulation_bundle,
+        generate_davinci_dctl_shader,
+        export_film_stock_ale,
+        synthesize_default_film_stock,
+    )
+    from omni_director.tools.clapper_slate import (
+        export_slate_bundle,
+        generate_asc_mhl_xml,
+        generate_clapper_slate_log_csv,
+        generate_sound_sync_ale,
+        synthesize_default_slate_spec,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, and 1st AD stripboard production schedules")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, and clapper slate packages")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -294,7 +307,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -306,6 +319,11 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--vfx-manifest", action="store_true", help="Export OpenEXR channel manifest JSON (openexr_channels.json)")
     parser.add_argument("--cryptomatte-sidecar", action="store_true", help="Export Cryptomatte sidecar JSON (cryptomatte_manifest.json)")
     parser.add_argument("--nuke-script", action="store_true", help="Export Foundry Nuke compositing script (nuke_composite.nk)")
+    parser.add_argument("--film-dctl", action="store_true", help="Export DaVinci Resolve DCTL film emulation shader (film_emulation.dctl)")
+    parser.add_argument("--film-ale", action="store_true", help="Export film stock Avid Log Exchange (film_stock.ale)")
+    parser.add_argument("--mhl-xml", action="store_true", help="Export ASC-MHL media hash list XML (asc_mhl_manifest.xml)")
+    parser.add_argument("--sound-ale", action="store_true", help="Export sound sync Avid Log Exchange (sound_sync.ale)")
+    parser.add_argument("--slate-csv", action="store_true", help="Export clapper slate log CSV (clapper_slate_log.csv)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -368,6 +386,12 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update(hdr_files)
         stripboard_files = export_stripboard_bundle(bible, out_dir)
         exported_files.update(stripboard_files)
+        film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
+        film_files = export_film_emulation_bundle(film_spec, out_dir, bible)
+        exported_files.update(film_files)
+        slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None) or synthesize_default_slate_spec(bible)
+        slate_files = export_slate_bundle(slate_spec, out_dir, bible)
+        exported_files.update(slate_files)
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -433,6 +457,14 @@ def handle_export(args_list: List[str]) -> int:
         from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
         stripboard_files = export_stripboard_bundle(bible, out_dir)
         exported_files.update(stripboard_files)
+    elif fmt == "film":
+        film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
+        film_files = export_film_emulation_bundle(film_spec, out_dir, bible)
+        exported_files.update(film_files)
+    elif fmt == "slate":
+        slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None) or synthesize_default_slate_spec(bible)
+        slate_files = export_slate_bundle(slate_spec, out_dir, bible)
+        exported_files.update(slate_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -471,6 +503,38 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "nuke_composite.nk"
         export_nuke_comp_script(bible, p)
         exported_files["nuke_script"] = str(p.resolve())
+    if args.film_dctl:
+        film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
+        p = out_dir / "film_emulation.dctl"
+        p.write_text(generate_davinci_dctl_shader(film_spec), encoding="utf-8")
+        exported_files["film_dctl"] = str(p.resolve())
+    if args.film_ale:
+        p = out_dir / "film_stock.ale"
+        export_film_stock_ale(bible, p)
+        exported_files["film_ale"] = str(p.resolve())
+    if args.mhl_xml:
+        slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None) or synthesize_default_slate_spec(bible)
+        p = out_dir / "asc_mhl_manifest.xml"
+        manifest = getattr(slate_spec, "asc_mhl", None)
+        if manifest:
+            p.write_text(generate_asc_mhl_xml(manifest), encoding="utf-8")
+        else:
+            from omni_director.schemas import AscMhlManifestSpec
+            from datetime import datetime, timezone
+            default_m = AscMhlManifestSpec(
+                project_title=bible.project_title,
+                creation_date=datetime.now(timezone.utc).isoformat()
+            )
+            p.write_text(generate_asc_mhl_xml(default_m), encoding="utf-8")
+        exported_files["mhl_xml"] = str(p.resolve())
+    if args.sound_ale:
+        p = out_dir / "sound_sync.ale"
+        p.write_text(generate_sound_sync_ale(bible), encoding="utf-8")
+        exported_files["sound_ale"] = str(p.resolve())
+    if args.slate_csv:
+        p = out_dir / "clapper_slate_log.csv"
+        p.write_text(generate_clapper_slate_log_csv(bible), encoding="utf-8")
+        exported_files["slate_csv"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

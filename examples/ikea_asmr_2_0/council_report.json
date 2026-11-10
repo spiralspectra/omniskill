@@ -1,7 +1,7 @@
 {
   "version": "2.6.0",
   "project_title": "IKEA: The Living Room Unfolds",
-  "timestamp": "2026-11-09T17:20:04.071299+00:00",
+  "timestamp": "2026-11-10T13:49:46.590636+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -90,9 +90,35 @@
               "stripboard_schedule.csv"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "film_emulation_delivery",
+          "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "film_artifacts": [
+              "film_stock_shader.dctl",
+              "film_stock.ale"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "clapper_slate_delivery",
+          "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "slate_artifacts": [
+              "asc_mhl_manifest.xml",
+              "clapper_slate_log.csv"
+            ]
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 6 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 8 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -108,6 +134,28 @@
           "remediation": null,
           "suggested_fix": null,
           "details": null
+        },
+        {
+          "severity": "info",
+          "category": "film_emulation_prompt_token_compliance",
+          "message": "Physical film stock emulation CRAFT tokens or master spec verified across 4/4 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "film_scenes_count": 4,
+            "has_master_film_spec": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "clapper_slate_prompt_token_compliance",
+          "message": "SMPTE 12M clapper slate CRAFT tokens or master spec verified across 4/4 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "slate_scenes_count": 4,
+            "has_master_slate_spec": true
+          }
         }
       ],
       "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -283,6 +331,34 @@
             "dood_count": 1,
             "sag_turnaround": true
           }
+        },
+        {
+          "severity": "info",
+          "category": "domain_film_emulation_calibration",
+          "message": "Physical film stock emulation verified: Kodak Vision3 250D (kodak, gauge_65mm_imax, RMS 2.6, halation 5.0px, gate weave 0.3\u03bcm) aligned with domain 'culinary_asmr'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "culinary_asmr",
+            "stock": "Kodak Vision3 250D",
+            "manufacturer": "kodak",
+            "gauge": "gauge_65mm_imax",
+            "rms_granularity": 2.6
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_clapper_slate_calibration",
+          "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'culinary_asmr'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "culinary_asmr",
+            "slates_count": 4,
+            "camera_roll": "A01",
+            "sound_roll": "SR01",
+            "mhl_hash_entries": 0
+          }
         }
       ],
       "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
@@ -338,6 +414,22 @@
           "severity": "info",
           "category": "animatic_stripboard_hud",
           "message": "1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_film_hud",
+          "message": "Physical Film Stock Emulation HUD verified in dark-room animatic (#btn-film-animatic / #animatic-film-hud [E], DCTL & ALE downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_slate_hud",
+          "message": "SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -561,6 +653,38 @@
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/stripboard_scheduler.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-017",
+      "title": "Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)",
+      "problem_statement": "Directors of Photography and colorists reviewing storyboards for 'IKEA: The Living Room Unfolds' require authentic photochemical film stock emulation\u2014including silver halide crystal RMS granularity, dye cloud diffusion, rem-jet anti-halation layer absorption, gate weave mechanical jitter (\u00b13.5\u03bcm to \u00b112.0\u03bcm), push/pull development chemistry (\u00b12.0 EV), and DaVinci Resolve DCTL shader exports\u2014to eliminate clinical digital video artifacts and ensure cinematic analog texture.",
+      "proposed_solution": "Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/film_emulation.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-018",
+      "title": "SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine",
+      "problem_statement": "Production sound mixers, script supervisors, and DIT offload technicians for 'IKEA: The Living Room Unfolds' require standardized SMPTE 12M linear/drop-frame timecode synchronization (HH:MM:SS:FF / HH:MM:SS;FF), production clapper slates (Scene/Take/Roll/Filter/FPS), and American Society of Cinematographers Media Hash List (ASC-MHL v2.0 XML) cryptographically sealed offload manifests (MD5, SHA-1, C4) to guarantee picture-to-sound synchronization and dual-destination archival data integrity.",
+      "proposed_solution": "Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/clapper_slate.py",
         "omni_director/presets.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py",

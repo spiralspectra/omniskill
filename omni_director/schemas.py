@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.8.0"
+__version__ = "2.9.0"
 
 
 class RegimeType(str, Enum):
@@ -1400,7 +1400,148 @@ class MasterStripboardScheduleSpec(BaseModel):
         return f"{full} {rem}/8 pgs" if rem > 0 else f"{full} pgs"
 
 
-# Aliases for PM-FEAT-015 and PM-FEAT-016
+# ==============================================================================
+# PM-FEAT-017: Physical Film Stock Emulation & Chemical Chemistry Schemas
+# ==============================================================================
+
+
+class FilmStockManufacturer(str, Enum):
+    """Film stock manufacturer taxonomy (PM-FEAT-017)."""
+    KODAK = "kodak"
+    FUJI = "fuji"
+    ILFORD = "ilford"
+    AGFA = "agfa"
+
+    kodak = "kodak"
+    fuji = "fuji"
+    ilford = "ilford"
+    agfa = "agfa"
+
+
+class FilmGaugeFormat(str, Enum):
+    """Physical film negative gauge and perforation format (PM-FEAT-017)."""
+    GAUGE_16MM = "gauge_16mm"
+    GAUGE_35MM_2PERF = "gauge_35mm_2perf"
+    GAUGE_35MM_3PERF = "gauge_35mm_3perf"
+    GAUGE_35MM_4PERF = "gauge_35mm_4perf"
+    GAUGE_65MM_IMAX = "gauge_65mm_imax"
+
+    gauge_16mm = "gauge_16mm"
+    gauge_35mm_2perf = "gauge_35mm_2perf"
+    gauge_35mm_3perf = "gauge_35mm_3perf"
+    gauge_35mm_4perf = "gauge_35mm_4perf"
+    gauge_65mm_imax = "gauge_65mm_imax"
+
+
+class GrainPhysicsSpec(BaseModel):
+    """Microscopic silver halide / dye cloud grain structure physics (PM-FEAT-017)."""
+    rms_granularity: float = Field(default=4.2, ge=0.5, le=25.0, description="Standard diffuse RMS granularity rating x1000")
+    grain_size_microns: float = Field(default=8.5, ge=1.0, le=40.0, description="Mean crystal grain size in micrometers (μm)")
+    shadow_grain_weight: float = Field(default=1.1, ge=0.0, le=3.0, description="Grain density multiplier in toe/shadow regions")
+    midtone_grain_weight: float = Field(default=1.4, ge=0.0, le=3.0, description="Grain density multiplier in midtone zone V")
+    highlight_grain_weight: float = Field(default=0.6, ge=0.0, le=3.0, description="Grain density multiplier in shoulder/highlight zone")
+
+
+class HalationPhysicsSpec(BaseModel):
+    """Point-spread optical reflection and rem-jet backing halation physics (PM-FEAT-017)."""
+    halation_radius_pixels: float = Field(default=6.5, ge=0.5, le=50.0, description="Diffused red halo PSF blur radius in pixels")
+    halation_intensity: float = Field(default=0.45, ge=0.0, le=1.0, description="Peak halation glow intensity gain")
+    rem_jet_opacity: float = Field(default=0.85, ge=0.0, le=1.0, description="Carbon anti-halation rem-jet layer opacity (0.0=bare, 1.0=opaque)")
+    specular_threshold_nits: float = Field(default=350.0, ge=50.0, le=4000.0, description="Luminance threshold (cd/m²) triggering halation bleed")
+    chromatic_tint_rgb: List[float] = Field(default_factory=lambda: [1.0, 0.28, 0.08], description="Normalized [R, G, B] halation reflection tint")
+
+
+class GateWeavePhysicsSpec(BaseModel):
+    """Mechanical camera transport gate registration judder and drift (PM-FEAT-017)."""
+    lateral_drift_microns: float = Field(default=1.2, ge=0.0, le=15.0, description="Horizontal gate weave amplitude (μm)")
+    vertical_judder_microns: float = Field(default=0.8, ge=0.0, le=15.0, description="Vertical pulldown claw registration judder (μm)")
+    registration_pin_type: str = Field(default="bell_howell_2709", description="Camera registration mechanism (e.g. bell_howell_2709, mitchell_dual_pin)")
+    frequency_hz: float = Field(default=24.0, ge=1.0, le=120.0, description="Primary transport mechanical oscillation frequency")
+
+
+class FilmStockSpec(BaseModel):
+    """Complete physical film stock chemistry, grain, halation, and gate weave profile (PM-FEAT-017)."""
+    stock_name: str = Field(default="Kodak Vision3 500T", description="Commercial film stock emulsion name")
+    stock_code: str = Field(default="5219", description="Manufacturer emulsion catalog number")
+    manufacturer: FilmStockManufacturer = Field(default=FilmStockManufacturer.KODAK, description="Film manufacturer")
+    gauge: FilmGaugeFormat = Field(default=FilmGaugeFormat.GAUGE_35MM_4PERF, description="Negative gauge and pulldown format")
+    iso_rating: int = Field(default=500, ge=12, le=3200, description="Base ISO / ASA sensitivity rating")
+    color_temp_k: int = Field(default=3200, ge=2000, le=10000, description="Native balance color temperature (K)")
+    push_pull_stops: float = Field(default=0.0, ge=-3.0, le=3.0, description="Chemical development compensation in stops")
+    grain: GrainPhysicsSpec = Field(default_factory=GrainPhysicsSpec, description="Silver halide grain structure")
+    halation: HalationPhysicsSpec = Field(default_factory=HalationPhysicsSpec, description="Anti-halation rem-jet and boundary glow")
+    gate_weave: GateWeavePhysicsSpec = Field(default_factory=GateWeavePhysicsSpec, description="Camera gate mechanical weave and judder")
+    description: str = Field(default="Kodak Vision3 500T color negative film stock", description="Aesthetic character notes")
+
+
+# ==============================================================================
+# PM-FEAT-018: SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Schemas
+# ==============================================================================
+
+
+class TimecodeDropFrameMode(str, Enum):
+    """SMPTE 12M drop-frame vs non-drop-frame counting mode (PM-FEAT-018)."""
+    NON_DROP_FRAME_NDF = "non_drop_frame_ndf"
+    DROP_FRAME_DF = "drop_frame_df"
+
+    non_drop_frame_ndf = "non_drop_frame_ndf"
+    drop_frame_df = "drop_frame_df"
+
+
+class Smpte12MTimecodeSpec(BaseModel):
+    """SMPTE 12M broadcast and cinema timecode coordinate specification (PM-FEAT-018)."""
+    timecode_in: str = Field(default="01:00:00:00", description="In-point timecode string (HH:MM:SS:FF or HH:MM:SS;FF)")
+    timecode_out: str = Field(default="01:00:10:00", description="Out-point timecode string (HH:MM:SS:FF or HH:MM:SS;FF)")
+    duration_frames: int = Field(default=240, ge=1, description="Scene duration measured in total frames")
+    frame_rate: float = Field(default=24.0, ge=1.0, le=120.0, description="SMPTE 12M nominal timecode frame rate")
+    drop_frame: bool = Field(default=False, description="True for drop-frame timecode (e.g. 29.97 DF)")
+
+
+class ClapperSlateSpec(BaseModel):
+    """Production clapper slate identification and dual-system sound sync specification (PM-FEAT-018)."""
+    scene_number: int = Field(default=1, ge=1, description="Script scene number")
+    take_number: int = Field(default=1, ge=1, description="Scene take number")
+    camera_roll: str = Field(default="A01", description="Camera mag / card roll ID (e.g. A01)")
+    sound_roll: str = Field(default="SR01", description="Sound recordist roll ID (e.g. SR01)")
+    camera_id: str = Field(default="A", description="Camera letter identifier (A, B, C, etc.)")
+    fps: float = Field(default=24.0, ge=1.0, le=120.0, description="Camera acquisition frame rate")
+    day_night: str = Field(default="DAY", description="Script lighting designation (DAY or NIGHT)")
+    int_ext: str = Field(default="INT", description="Script environment designation (INT or EXT)")
+    filter_pack: str = Field(default="Clear", description="Camera lens filtration / optical pass (e.g. Clear, ND 0.9, Black Pro-Mist 1/4)")
+    shutter_angle: float = Field(default=180.0, ge=1.0, le=360.0, description="Camera shutter angle in degrees")
+    director: str = Field(default="Director", description="Director name")
+    dp: str = Field(default="Cinematographer", description="Director of Photography name")
+    timecode: Smpte12MTimecodeSpec = Field(default_factory=Smpte12MTimecodeSpec, description="SMPTE 12M timecode range")
+
+
+class AscMhlHashEntry(BaseModel):
+    """Single file cryptographic checksum entry in an ASC-MHL v2.0 manifest (PM-FEAT-018)."""
+    file_path: str = Field(default="", description="Relative file path from manifest root")
+    file_size_bytes: int = Field(default=0, ge=0, description="Exact file size in bytes")
+    xxhash64: str = Field(default="", description="XXHash64 hexadecimal digest")
+    sha1: str = Field(default="", description="SHA-1 hexadecimal digest")
+    md5: str = Field(default="", description="MD5 hexadecimal digest")
+    hash_timestamp: str = Field(default="", description="ISO-8601 UTC timestamp of hash computation")
+
+
+class AscMhlManifestSpec(BaseModel):
+    """ASC-MHL (Media Hash List) v2.0 offload verification manifest (PM-FEAT-018)."""
+    mhl_version: str = Field(default="2.0", description="ASC-MHL specification version")
+    project_title: str = Field(default="", description="Production project title")
+    creation_date: str = Field(default="", description="ISO-8601 creation date")
+    hash_entries: List[AscMhlHashEntry] = Field(default_factory=list, description="List of verified media file hashes")
+
+
+class MasterProductionSlateSpec(BaseModel):
+    """Complete production clapper slate ledger and DIT media hash offload manifest (PM-FEAT-018)."""
+    project_title: str = Field(default="", description="Production title")
+    director: str = Field(default="Director", description="Director of record")
+    dp: str = Field(default="Cinematographer", description="Director of photography of record")
+    scenes: List[ClapperSlateSpec] = Field(default_factory=list, description="Per-scene clapper slate records")
+    asc_mhl: Optional[AscMhlManifestSpec] = Field(default=None, description="DIT ASC-MHL media offload verification manifest")
+
+
+# Aliases for PM-FEAT-015, PM-FEAT-016, PM-FEAT-017, and PM-FEAT-018
 HdrColorSpace = ColorVolumeGamut
 HdrToneMapping = ToneMappingOperator
 SceneHdrProfileSpec = SceneHdrReport
@@ -1409,6 +1550,9 @@ ScriptBreakdownItemSpec = ScriptBreakdownSheet
 SceneBreakdownSheetSpec = ScriptBreakdownSheet
 ScriptBreakdownSheetSpec = ScriptBreakdownSheet
 DayOutOfDaysRecordSpec = DayOutOfDaysRecord
+FilmStock = FilmStockSpec
+ClapperSlate = ClapperSlateSpec
+AscMhlManifest = AscMhlManifestSpec
 
 
 class NanoBananaReference(BaseModel):
@@ -1516,6 +1660,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="1st AD scene script breakdown sheet and element manifest (PM-FEAT-016)"
     )
+    film_emulation: Optional[FilmStockSpec] = Field(
+        default=None,
+        description="Physical film stock grain, halation, and gate weave emulation (PM-FEAT-017)"
+    )
+    clapper_slate: Optional[ClapperSlateSpec] = Field(
+        default=None,
+        description="SMPTE 12M sync clapper slate and camera/sound take record (PM-FEAT-018)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -1567,6 +1719,18 @@ class ScenePromptSpec(BaseModel):
                 data["breakdown_sheet"] = data["script_breakdown"]
             if "breakdown" in data and "breakdown_sheet" not in data and isinstance(data["breakdown"], (dict, ScriptBreakdownSheet)):
                 data["breakdown_sheet"] = data["breakdown"]
+            if "film_spec" in data and "film_emulation" not in data:
+                data["film_emulation"] = data["film_spec"]
+            if "film_stock" in data and "film_emulation" not in data:
+                data["film_emulation"] = data["film_stock"]
+            if "film" in data and "film_emulation" not in data and isinstance(data["film"], (dict, FilmStockSpec)):
+                data["film_emulation"] = data["film"]
+            if "slate_spec" in data and "clapper_slate" not in data:
+                data["clapper_slate"] = data["slate_spec"]
+            if "slate" in data and "clapper_slate" not in data and isinstance(data["slate"], (dict, ClapperSlateSpec)):
+                data["clapper_slate"] = data["slate"]
+            if "clapper" in data and "clapper_slate" not in data:
+                data["clapper_slate"] = data["clapper"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -1756,6 +1920,22 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master stripboard schedule alias (PM-FEAT-016)"
     )
+    master_film_emulation: Optional[FilmStockSpec] = Field(
+        default=None,
+        description="Master physical film stock grain, halation, and gate weave emulation (PM-FEAT-017)"
+    )
+    film_emulation: Optional[FilmStockSpec] = Field(
+        default=None,
+        description="Master film stock emulation alias (PM-FEAT-017)"
+    )
+    master_slate_spec: Optional[MasterProductionSlateSpec] = Field(
+        default=None,
+        description="Master SMPTE 12M production slate specification and ASC-MHL manifest (PM-FEAT-018)"
+    )
+    slate_spec: Optional[MasterProductionSlateSpec] = Field(
+        default=None,
+        description="Master slate specification alias (PM-FEAT-018)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -1819,6 +1999,17 @@ class MasterProductionBible(BaseModel):
             object.__setattr__(self, "stripboard_schedule", self.master_stripboard_schedule)
         elif self.stripboard_schedule is not None and self.master_stripboard_schedule is None:
             object.__setattr__(self, "master_stripboard_schedule", self.stripboard_schedule)
+
+        # Synchronize Film Emulation and Slate spec aliases (PM-FEAT-017 & PM-FEAT-018)
+        if self.master_film_emulation is not None and self.film_emulation is None:
+            object.__setattr__(self, "film_emulation", self.master_film_emulation)
+        elif self.film_emulation is not None and self.master_film_emulation is None:
+            object.__setattr__(self, "master_film_emulation", self.film_emulation)
+
+        if self.master_slate_spec is not None and self.slate_spec is None:
+            object.__setattr__(self, "slate_spec", self.master_slate_spec)
+        elif self.slate_spec is not None and self.master_slate_spec is None:
+            object.__setattr__(self, "master_slate_spec", self.slate_spec)
 
         return self
 
@@ -2056,5 +2247,110 @@ def load_bible_from_json(path_or_payload: Union[MasterProductionBible, Productio
 
 # ADK 2.0 Architectural Schema Aliases
 ScenePromptPayload = ScenePromptSpec
+
+
+__all__ = [
+    "CommercialDomain",
+    "StorytellingMode",
+    "RegimeType",
+    "SensorFormat",
+    "OpticalAberrationProfile",
+    "DiffusionGrade",
+    "ParticulateHazeType",
+    "OpticalLensSpec",
+    "AudioStemsSpec",
+    "StemType",
+    "StemChannelStrip",
+    "DiegeticSonicSpec",
+    "ColorLookSpec",
+    "SpeedRampMode",
+    "SpeedRampCurveSpec",
+    "ActionBeatSpec",
+    "CraftCameraSpec",
+    "SceneKeyframeSpec",
+    "NanoBananaReference",
+    "ScenePromptSpec",
+    "ScenePromptPayload",
+    "MasterCharacterSpec",
+    "MasterEnvironmentSpec",
+    "MasterBgmSpec",
+    "MasterProductionBible",
+    "PromptAuditResult",
+    "ProductionBundle",
+    "AuditFinding",
+    "AuditResult",
+    "LedWallGeometry",
+    "VirtualProductionStageSpec",
+    "DmxLightingFixture",
+    "MotionControlRigType",
+    "TrajectoryWaypoint6DOF",
+    "MocoRigSpec",
+    "LightingFixtureRole",
+    "StudioLightFixtureSpec",
+    "LightingRigSpec",
+    "RackFocusTransitionCurve",
+    "DepthOfFieldSpec",
+    "DomainDofSpec",
+    "LutGridDimension",
+    "ThreeDimensionalLutSpec",
+    "DomainLutSpec",
+    "SceneColorContinuityReport",
+    "DolbyAtmosBedFormat",
+    "SpatialCoordinate3D",
+    "SpatialAudioObjectSpec",
+    "SpatialAudioSoundfieldSpec",
+    "VfxRenderPassType",
+    "VfxLayerChannelSpec",
+    "VfxCompositingManifestSpec",
+    "HdrStandard",
+    "HdrTransferFunction",
+    "ColorVolumeGamut",
+    "HdrColorSpace",
+    "ToneMappingOperator",
+    "HdrToneMapping",
+    "HdrMasteringDisplaySpec",
+    "HdrMetadataSpec",
+    "SceneHdrReport",
+    "SceneHdrProfileSpec",
+    "BreakdownCategory",
+    "ProductionDayType",
+    "StripboardColorCode",
+    "StripColorCode",
+    "ScriptBreakdownSheet",
+    "ScriptBreakdownItemSpec",
+    "SceneBreakdownSheetSpec",
+    "ScriptBreakdownSheetSpec",
+    "StripboardStripSpec",
+    "DayOutOfDaysRecord",
+    "DayOutOfDaysRecordSpec",
+    "MasterStripboardScheduleSpec",
+    # PM-FEAT-017: Physical Film Emulation Schemas
+    "FilmStockManufacturer",
+    "FilmGaugeFormat",
+    "GrainPhysicsSpec",
+    "HalationPhysicsSpec",
+    "GateWeavePhysicsSpec",
+    "FilmStockSpec",
+    "FilmStock",
+    # PM-FEAT-018: SMPTE 12M Timecode Sync & Clapper Slate Schemas
+    "TimecodeDropFrameMode",
+    "Smpte12MTimecodeSpec",
+    "ClapperSlateSpec",
+    "ClapperSlate",
+    "AscMhlHashEntry",
+    "AscMhlManifestSpec",
+    "AscMhlManifest",
+    "MasterProductionSlateSpec",
+    # Council Schemas
+    "CouncilPersona",
+    "CouncilFindingSeverity",
+    "CouncilFinding",
+    "PersonaReviewResult",
+    "ProductCouncilReport",
+    "ProductFeatureProposal",
+    "SENIOR_PM_PERSONA_PROMPT",
+    "load_bible_from_json",
+]
+
 
 

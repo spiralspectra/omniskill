@@ -18,8 +18,10 @@ from omni_director.presets import (
     DOMAIN_ARCHETYPES,
     classify_brief_domain,
     get_domain_audio_mixer,
+    get_domain_clapper_slate_spec,
     get_domain_color_look,
     get_domain_dof_spec,
+    get_domain_film_emulation_spec,
     get_domain_hdr_spec,
     get_domain_lighting_rig,
     get_domain_lut_spec,
@@ -139,6 +141,7 @@ def synthesize_custom_bible(
     domain_spatial = get_domain_spatial_audio_spec(domain)
     domain_vfx = get_domain_vfx_manifest(domain)
     domain_hdr = get_domain_hdr_spec(domain)
+    domain_film = get_domain_film_emulation_spec(domain)
 
     title = project_title or (effective_prompt[:40].strip().title() if effective_prompt else "Omni Vision Sequence")
     if not title:
@@ -264,6 +267,13 @@ def synthesize_custom_bible(
         omni_prose_prompt=prose_2,
     )
     scene_2.breakdown_sheet = extract_script_breakdown_sheet(scene_2, 2)
+    domain_slate = get_domain_clapper_slate_spec(domain, [scene_1, scene_2], project_title=title)
+    scene_1.film_emulation = domain_film
+    scene_2.film_emulation = domain_film
+    if domain_slate and len(domain_slate.scenes) >= 1:
+        scene_1.clapper_slate = domain_slate.scenes[0]
+    if domain_slate and len(domain_slate.scenes) >= 2:
+        scene_2.clapper_slate = domain_slate.scenes[1]
 
     # Sonic Profile and BPM from Archetype
     bgm_bpm = archetype.get("default_bpm", 120 if is_kinetic else 72)
@@ -355,6 +365,8 @@ def synthesize_custom_bible(
         master_vfx_manifest=domain_vfx,
         master_hdr_spec=domain_hdr,
         master_stripboard_schedule=get_domain_stripboard_spec(domain, [scene_1, scene_2]),
+        master_film_emulation=domain_film,
+        master_slate_spec=domain_slate,
     )
 
 

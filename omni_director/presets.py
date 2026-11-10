@@ -1,4 +1,6 @@
+import hashlib
 import re
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Union
 
 from omni_director.schemas import (
@@ -6,9 +8,12 @@ from omni_director.schemas import (
     AcousticRoomImpulseResponse,
     ActionBeatSpec,
     AnamorphicSqueeze,
+    AscMhlHashEntry,
+    AscMhlManifestSpec,
     AspectRatio,
     AudioStemMixerSpec,
     CharacterTurnaroundSpec,
+    ClapperSlateSpec,
     ColorLookPreset,
     ColorLookSpec,
     ColorVolumeGamut,
@@ -20,6 +25,12 @@ from omni_director.schemas import (
     DomainArchetype,
     DomainDofSpec,
     DomainLutSpec,
+    FilmGaugeFormat,
+    FilmStockManufacturer,
+    FilmStockSpec,
+    GateWeavePhysicsSpec,
+    GrainPhysicsSpec,
+    HalationPhysicsSpec,
     HdrMasteringDisplaySpec,
     HdrMetadataSpec,
     HdrTransferFunction,
@@ -28,6 +39,7 @@ from omni_director.schemas import (
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
+    MasterProductionSlateSpec,
     MasterStripboardScheduleSpec,
     MocoRigSpec,
     MotionControlRigType,
@@ -37,6 +49,7 @@ from omni_director.schemas import (
     ScenePromptSpec,
     ScriptBreakdownSheet,
     SensorFormat,
+    Smpte12MTimecodeSpec,
     SpatialAudioObjectSpec,
     SpatialAudioSoundfieldSpec,
     SpatialCoordinate3D,
@@ -50,6 +63,10 @@ from omni_director.schemas import (
     VfxLayerChannelSpec,
     VfxRenderPassType,
     VirtualProductionStageSpec,
+)
+from omni_director.tools.clapper_slate import (
+    calculate_smpte12m_frames,
+    format_smpte12m_timecode,
 )
 from omni_director.tools.color_grade import get_preset_color_look
 from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
@@ -1217,6 +1234,416 @@ def get_domain_stripboard_spec(
     return generate_stripboard_schedule(fallback_bible)
 
 
+def get_domain_film_emulation_spec(domain: Union[DomainArchetype, str]) -> FilmStockSpec:
+    """Calibrate physical film stock chemistry, grain, halation, and gate weave across commercial domain archetypes (PM-FEAT-017)."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    if "culinary" in domain_key:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 500T",
+            stock_code="5219",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_35MM_4PERF,
+            iso_rating=500,
+            color_temp_k=3200,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=4.2,
+                grain_size_microns=8.5,
+                shadow_grain_weight=1.1,
+                midtone_grain_weight=1.4,
+                highlight_grain_weight=0.6,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=6.0,
+                halation_intensity=0.40,
+                rem_jet_opacity=0.88,
+                specular_threshold_nits=350.0,
+                chromatic_tint_rgb=[1.0, 0.35, 0.08],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=0.8,
+                vertical_judder_microns=0.5,
+                registration_pin_type="bell_howell_2709",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 500T 5219 (35mm 4-perf, warm rich tones, RMS 4.2, subtle amber halation, minimal gate weave 0.8μm)",
+        )
+    elif "luxury" in domain_key:
+        return FilmStockSpec(
+            stock_name="Fuji Eterna 500T",
+            stock_code="8543",
+            manufacturer=FilmStockManufacturer.FUJI,
+            gauge=FilmGaugeFormat.GAUGE_35MM_4PERF,
+            iso_rating=500,
+            color_temp_k=3200,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=4.0,
+                grain_size_microns=8.0,
+                shadow_grain_weight=1.1,
+                midtone_grain_weight=1.3,
+                highlight_grain_weight=0.7,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=7.5,
+                halation_intensity=0.42,
+                rem_jet_opacity=0.82,
+                specular_threshold_nits=320.0,
+                chromatic_tint_rgb=[0.95, 0.35, 0.15],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=0.6,
+                vertical_judder_microns=0.4,
+                registration_pin_type="mitchell_dual_pin",
+                frequency_hz=24.0,
+            ),
+            description="Fuji Eterna 500T 8543 (35mm 4-perf, soft pastel desaturation, creamy halation radius 7.5px, smooth gate weave 0.6μm)",
+        )
+    elif "automotive" in domain_key:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 250D",
+            stock_code="5207",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_65MM_IMAX,
+            iso_rating=250,
+            color_temp_k=5500,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=2.8,
+                grain_size_microns=5.5,
+                shadow_grain_weight=0.8,
+                midtone_grain_weight=1.1,
+                highlight_grain_weight=0.5,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=4.5,
+                halation_intensity=0.30,
+                rem_jet_opacity=0.92,
+                specular_threshold_nits=420.0,
+                chromatic_tint_rgb=[1.0, 0.22, 0.05],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=0.4,
+                vertical_judder_microns=0.3,
+                registration_pin_type="mitchell_dual_pin",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 250D 5207 (65mm IMAX, micro-fine grain RMS 2.8, sharp edge registration, gate weave 0.4μm)",
+        )
+    elif "kinetic" in domain_key:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 500T",
+            stock_code="5219",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_35MM_2PERF,
+            iso_rating=500,
+            color_temp_k=3200,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=4.8,
+                grain_size_microns=9.5,
+                shadow_grain_weight=1.3,
+                midtone_grain_weight=1.5,
+                highlight_grain_weight=0.8,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=8.0,
+                halation_intensity=0.55,
+                rem_jet_opacity=0.78,
+                specular_threshold_nits=290.0,
+                chromatic_tint_rgb=[1.0, 0.25, 0.05],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=1.4,
+                vertical_judder_microns=1.0,
+                registration_pin_type="bell_howell_2709",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 500T 5219 (35mm 2-perf Techniscope, gritty punchy grain RMS 4.8, dynamic red halation 8.0px, rapid gate weave 1.4μm)",
+        )
+    elif "hardware" in domain_key:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 50D",
+            stock_code="5203",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_35MM_4PERF,
+            iso_rating=50,
+            color_temp_k=5500,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=2.1,
+                grain_size_microns=4.2,
+                shadow_grain_weight=0.7,
+                midtone_grain_weight=1.0,
+                highlight_grain_weight=0.4,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=3.5,
+                halation_intensity=0.25,
+                rem_jet_opacity=0.95,
+                specular_threshold_nits=480.0,
+                chromatic_tint_rgb=[1.0, 0.20, 0.05],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=0.3,
+                vertical_judder_microns=0.2,
+                registration_pin_type="mitchell_dual_pin",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 50D 5203 (35mm 4-perf, ultra-fine grain RMS 2.1, cleanroom precision, crisp specular preservation, gate weave 0.3μm)",
+        )
+    elif "architectural" in domain_key:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 250D",
+            stock_code="5207",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_65MM_IMAX,
+            iso_rating=250,
+            color_temp_k=5500,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=2.6,
+                grain_size_microns=5.0,
+                shadow_grain_weight=0.8,
+                midtone_grain_weight=1.1,
+                highlight_grain_weight=0.4,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=5.0,
+                halation_intensity=0.32,
+                rem_jet_opacity=0.90,
+                specular_threshold_nits=400.0,
+                chromatic_tint_rgb=[1.0, 0.25, 0.06],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=0.3,
+                vertical_judder_microns=0.2,
+                registration_pin_type="mitchell_dual_pin",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 250D 5207 (65mm IMAX, wide dynamic range, balanced natural halation, rock-solid registration 0.3μm)",
+        )
+    else:
+        return FilmStockSpec(
+            stock_name="Kodak Vision3 500T",
+            stock_code="5219",
+            manufacturer=FilmStockManufacturer.KODAK,
+            gauge=FilmGaugeFormat.GAUGE_35MM_4PERF,
+            iso_rating=500,
+            color_temp_k=3200,
+            push_pull_stops=0.0,
+            grain=GrainPhysicsSpec(
+                rms_granularity=4.2,
+                grain_size_microns=8.5,
+                shadow_grain_weight=1.1,
+                midtone_grain_weight=1.4,
+                highlight_grain_weight=0.6,
+            ),
+            halation=HalationPhysicsSpec(
+                halation_radius_pixels=6.5,
+                halation_intensity=0.45,
+                rem_jet_opacity=0.85,
+                specular_threshold_nits=350.0,
+                chromatic_tint_rgb=[1.0, 0.28, 0.08],
+            ),
+            gate_weave=GateWeavePhysicsSpec(
+                lateral_drift_microns=1.2,
+                vertical_judder_microns=0.8,
+                registration_pin_type="bell_howell_2709",
+                frequency_hz=24.0,
+            ),
+            description="Kodak Vision3 500T 5219 35mm fallback stock",
+        )
+
+
+def get_domain_clapper_slate_spec(
+    domain: Union[DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    project_title: str = "Omni Production",
+    director: str = "Omni Director",
+    dp: str = "Omni DP",
+) -> MasterProductionSlateSpec:
+    """Calibrate SMPTE 12M production clapper slates and ASC-MHL v2.0 offload manifest across domain archetypes (PM-FEAT-018)."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    if "culinary" in domain_key:
+        def_day_night = "DAY"
+        def_int_ext = "INT"
+        def_shutter = 180.0
+        def_filter = "Clear / Linear Polarizer"
+        def_cam_roll_prefix = "A"
+    elif "luxury" in domain_key:
+        def_day_night = "NIGHT"
+        def_int_ext = "INT"
+        def_shutter = 180.0
+        def_filter = "Black Pro-Mist 1/4"
+        def_cam_roll_prefix = "A"
+    elif "automotive" in domain_key:
+        def_day_night = "DAY"
+        def_int_ext = "EXT"
+        def_shutter = 90.0
+        def_filter = "ND 0.9 / Ultra Polarizer"
+        def_cam_roll_prefix = "A"
+    elif "kinetic" in domain_key:
+        def_day_night = "DAY"
+        def_int_ext = "EXT"
+        def_shutter = 90.0
+        def_filter = "Clear / ND 0.6"
+        def_cam_roll_prefix = "A"
+    elif "hardware" in domain_key:
+        def_day_night = "DAY"
+        def_int_ext = "INT"
+        def_shutter = 180.0
+        def_filter = "Clear Macro Optical"
+        def_cam_roll_prefix = "A"
+    elif "architectural" in domain_key:
+        def_day_night = "DAY"
+        def_int_ext = "INT"
+        def_shutter = 180.0
+        def_filter = "Ultra Pol / ND 0.3"
+        def_cam_roll_prefix = "A"
+    else:
+        def_day_night = "DAY"
+        def_int_ext = "INT"
+        def_shutter = 180.0
+        def_filter = "Clear"
+        def_cam_roll_prefix = "A"
+
+    slates: List[ClapperSlateSpec] = []
+    current_frame = 24 * 3600  # 01:00:00:00
+
+    if scenes is not None and len(scenes) > 0:
+        for idx, sc in enumerate(scenes):
+            dur = getattr(sc, "duration_frames", 240)
+            existing_slate = getattr(sc, "clapper_slate", None)
+            if existing_slate is not None:
+                slates.append(existing_slate.model_copy(deep=True))
+                tc = getattr(existing_slate, "timecode", None)
+                if tc and hasattr(tc, "timecode_out"):
+                    try:
+                        current_frame = calculate_smpte12m_frames(tc.timecode_out, fps=tc.frame_rate)
+                    except Exception:
+                        current_frame += dur
+                else:
+                    current_frame += dur
+            else:
+                prompt_text = (getattr(sc, "omni_prose_prompt", "") or getattr(sc, "scene_prompt", "")).upper()
+                day_night = def_day_night
+                if "NIGHT" in prompt_text:
+                    day_night = "NIGHT"
+                elif "DAY" in prompt_text:
+                    day_night = "DAY"
+
+                int_ext = def_int_ext
+                if "EXT." in prompt_text or "EXTERIOR" in prompt_text:
+                    int_ext = "EXT"
+                elif "INT." in prompt_text or "INTERIOR" in prompt_text:
+                    int_ext = "INT"
+
+                shutter = def_shutter
+                craft = getattr(sc, "craft_camera", None)
+                if craft and getattr(craft, "shutter_angle", None) is not None:
+                    try:
+                        shutter = float(craft.shutter_angle)
+                    except (ValueError, TypeError):
+                        pass
+
+                tc_in = format_smpte12m_timecode(current_frame, fps=24.0)
+                tc_out = format_smpte12m_timecode(current_frame + dur, fps=24.0)
+
+                roll_num = idx + 1
+                cam_roll = f"{def_cam_roll_prefix}{roll_num:02d}"
+                snd_roll = f"SR{roll_num:02d}"
+
+                slates.append(
+                    ClapperSlateSpec(
+                        scene_number=idx + 1,
+                        take_number=1,
+                        camera_roll=cam_roll,
+                        sound_roll=snd_roll,
+                        camera_id=def_cam_roll_prefix,
+                        fps=24.0,
+                        day_night=day_night,
+                        int_ext=int_ext,
+                        filter_pack=def_filter,
+                        shutter_angle=shutter,
+                        director=director,
+                        dp=dp,
+                        timecode=Smpte12MTimecodeSpec(
+                            timecode_in=tc_in,
+                            timecode_out=tc_out,
+                            duration_frames=dur,
+                            frame_rate=24.0,
+                            drop_frame=False,
+                        ),
+                    )
+                )
+                current_frame += dur
+    else:
+        for i in range(1, 4):
+            dur = 240
+            tc_in = format_smpte12m_timecode(current_frame, fps=24.0)
+            tc_out = format_smpte12m_timecode(current_frame + dur, fps=24.0)
+            cam_roll = f"{def_cam_roll_prefix}{i:02d}"
+            snd_roll = f"SR{i:02d}"
+
+            slates.append(
+                ClapperSlateSpec(
+                    scene_number=i,
+                    take_number=1,
+                    camera_roll=cam_roll,
+                    sound_roll=snd_roll,
+                    camera_id=def_cam_roll_prefix,
+                    fps=24.0,
+                    day_night=def_day_night,
+                    int_ext=def_int_ext,
+                    filter_pack=def_filter,
+                    shutter_angle=def_shutter,
+                    director=director,
+                    dp=dp,
+                    timecode=Smpte12MTimecodeSpec(
+                        timecode_in=tc_in,
+                        timecode_out=tc_out,
+                        duration_frames=dur,
+                        frame_rate=24.0,
+                        drop_frame=False,
+                    ),
+                )
+            )
+            current_frame += dur
+
+    hash_entries: List[AscMhlHashEntry] = []
+    for idx, sl in enumerate(slates):
+        f_name = f"{sl.camera_roll}_{sl.scene_number:02d}_take{sl.take_number:02d}.mov"
+        mock_seed = f"{project_title}_{f_name}".encode("utf-8")
+        hash_entries.append(
+            AscMhlHashEntry(
+                file_path=f_name,
+                file_size_bytes=104857600 * (idx + 1),
+                xxhash64=hashlib.sha256(mock_seed).hexdigest()[:16],
+                sha1=hashlib.sha1(mock_seed).hexdigest(),
+                md5=hashlib.md5(mock_seed).hexdigest(),
+                hash_timestamp=datetime.now(timezone.utc).isoformat(),
+            )
+        )
+
+    asc_mhl = AscMhlManifestSpec(
+        mhl_version="2.0",
+        project_title=project_title,
+        creation_date=datetime.now(timezone.utc).isoformat(),
+        hash_entries=hash_entries,
+    )
+
+    return MasterProductionSlateSpec(
+        project_title=project_title,
+        director=director,
+        dp=dp,
+        scenes=slates,
+        asc_mhl=asc_mhl,
+    )
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -1787,6 +2214,12 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_hdr_spec = get_domain_hdr_spec(_arch)
     if not getattr(_bible_inst, "master_stripboard_schedule", None):
         _bible_inst.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _bible_inst.scenes)
+    if not getattr(_bible_inst, "master_film_emulation", None):
+        _bible_inst.master_film_emulation = get_domain_film_emulation_spec(_arch)
+    if not getattr(_bible_inst, "master_slate_spec", None):
+        _bible_inst.master_slate_spec = get_domain_clapper_slate_spec(
+            _arch, _bible_inst.scenes, project_title=_bible_inst.project_title
+        )
     for _idx, _sc in enumerate(_bible_inst.scenes, 1):
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
@@ -1812,6 +2245,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
             _sc.hdr_spec = _bible_inst.master_hdr_spec
         if not getattr(_sc, "breakdown_sheet", None):
             _sc.breakdown_sheet = extract_script_breakdown_sheet(_sc, _idx)
+        if not getattr(_sc, "film_emulation", None):
+            _sc.film_emulation = _bible_inst.master_film_emulation
+        if not getattr(_sc, "clapper_slate", None) and _bible_inst.master_slate_spec and len(_bible_inst.master_slate_spec.scenes) >= _idx:
+            _sc.clapper_slate = _bible_inst.master_slate_spec.scenes[_idx - 1]
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -1846,6 +2283,7 @@ PRESETS: Dict[str, MasterProductionBible] = {
     "kinetic-fabric": KINETIC_FABRIC_BIBLE,
 }
 CURATED_PRESETS = PRESETS
+GOLDEN_PRESET_BIBLES = PRESETS
 
 
 ARCHETYPE_PRESET_FALLBACKS: Dict[str, str] = {
@@ -1866,7 +2304,7 @@ def create_bible(
     scenes: Optional[List[ScenePromptSpec]] = None,
     **kwargs: Any,
 ) -> MasterProductionBible:
-    """Creates a fully populated MasterProductionBible calibrated with domain specifications (PM-FEAT-015, PM-FEAT-016)."""
+    """Creates a fully populated MasterProductionBible calibrated with domain specifications (PM-FEAT-015, PM-FEAT-016, PM-FEAT-017, PM-FEAT-018)."""
     domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
     resolved_title = title or project_title or f"Omni Director: {domain_key.replace('_', ' ').title()}"
     brief = creative_brief or f"Cinematic production showcasing {domain_key.replace('_', ' ')}."
@@ -1913,6 +2351,12 @@ def create_bible(
         bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
     if not getattr(bible, "master_stripboard_schedule", None):
         bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
+    if not getattr(bible, "master_film_emulation", None):
+        bible.master_film_emulation = get_domain_film_emulation_spec(bible.domain_archetype)
+    if not getattr(bible, "master_slate_spec", None):
+        bible.master_slate_spec = get_domain_clapper_slate_spec(
+            bible.domain_archetype, bible.scenes, project_title=bible.project_title
+        )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -1939,6 +2383,10 @@ def create_bible(
             scene.hdr_spec = bible.master_hdr_spec
         if not getattr(scene, "breakdown_sheet", None):
             scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
+        if not getattr(scene, "film_emulation", None):
+            scene.film_emulation = bible.master_film_emulation
+        if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
+            scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
 
     return bible
 
@@ -1978,6 +2426,12 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
     if not getattr(bible, "master_stripboard_schedule", None):
         bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
+    if not getattr(bible, "master_film_emulation", None):
+        bible.master_film_emulation = get_domain_film_emulation_spec(bible.domain_archetype)
+    if not getattr(bible, "master_slate_spec", None):
+        bible.master_slate_spec = get_domain_clapper_slate_spec(
+            bible.domain_archetype, bible.scenes, project_title=bible.project_title
+        )
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
@@ -2003,7 +2457,26 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.hdr_spec = bible.master_hdr_spec
         if not getattr(scene, "breakdown_sheet", None):
             scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
+        if not getattr(scene, "film_emulation", None):
+            scene.film_emulation = bible.master_film_emulation
+        if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
+            scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
     return bible
+
+
+def create_preset_bible(
+    preset_or_domain: Union[DomainArchetype, str] = "culinary_asmr",
+    **kwargs: Any,
+) -> MasterProductionBible:
+    """Creates or retrieves a preset MasterProductionBible with full domain calibrations."""
+    key = str(preset_or_domain.value if hasattr(preset_or_domain, "value") else preset_or_domain).lower().replace("_", "-")
+    if key in PRESETS:
+        bible = get_preset_bible(key)
+        for k, v in kwargs.items():
+            if hasattr(bible, k):
+                setattr(bible, k, v)
+        return bible
+    return create_bible(domain=preset_or_domain, **kwargs)
 
 
 get_preset = get_preset_bible
@@ -2019,6 +2492,10 @@ for _p in PRESETS.values():
         _p.master_hdr_spec = get_domain_hdr_spec(_arch)
     if not getattr(_p, "master_stripboard_schedule", None):
         _p.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _p.scenes)
+    if not getattr(_p, "master_film_emulation", None):
+        _p.master_film_emulation = get_domain_film_emulation_spec(_arch)
+    if not getattr(_p, "master_slate_spec", None):
+        _p.master_slate_spec = get_domain_clapper_slate_spec(_arch, _p.scenes, project_title=_p.project_title)
     for _idx, _s in enumerate(_p.scenes, 1):
         if not getattr(_s, "spatial_audio", None):
             _s.spatial_audio = _p.master_spatial_audio
@@ -2028,5 +2505,9 @@ for _p in PRESETS.values():
             _s.hdr_spec = _p.master_hdr_spec
         if not getattr(_s, "breakdown_sheet", None):
             _s.breakdown_sheet = extract_script_breakdown_sheet(_s, _idx)
+        if not getattr(_s, "film_emulation", None):
+            _s.film_emulation = _p.master_film_emulation
+        if not getattr(_s, "clapper_slate", None) and _p.master_slate_spec and len(_p.master_slate_spec.scenes) >= _idx:
+            _s.clapper_slate = _p.master_slate_spec.scenes[_idx - 1]
 
 

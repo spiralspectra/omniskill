@@ -2348,8 +2348,8 @@
       outline: 2px solid var(--amber-gold);
     }
 
-    /* HDR10/HLG Color Volume HUD & Stripboard Production Scheduler (PM-FEAT-015 & PM-FEAT-016) */
-    .hdr-hud-modal, .stripboard-hud-modal {
+    /* HDR10/HLG Color Volume HUD, Stripboard, Film Stock & Slate HUDs (PM-FEAT-015, 016, 017, 018) */
+    .hdr-hud-modal, .stripboard-hud-modal, .film-hud-modal, .slate-hud-modal {
       position: fixed;
       inset: 0;
       background: rgba(7, 8, 11, 0.88);
@@ -2361,7 +2361,7 @@
       justify-content: center;
       padding: 24px;
     }
-    .hdr-modal-content, .stripboard-modal-content {
+    .hdr-modal-content, .stripboard-modal-content, .film-modal-content, .slate-modal-content {
       background: var(--bg-surface);
       border: 1px solid var(--border-focus);
       border-radius: 8px;
@@ -2373,7 +2373,7 @@
       display: flex;
       flex-direction: column;
     }
-    .hdr-modal-header, .stripboard-modal-header {
+    .hdr-modal-header, .stripboard-modal-header, .film-modal-header, .slate-modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2381,12 +2381,12 @@
       border-bottom: 1px solid var(--border-subtle);
       background: var(--bg-card);
     }
-    .hdr-title-wrap, .stripboard-title-wrap {
+    .hdr-title-wrap, .stripboard-title-wrap, .film-title-wrap, .slate-title-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .hdr-heading, .stripboard-heading {
+    .hdr-heading, .stripboard-heading, .film-heading, .slate-heading {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 16px;
       font-weight: 700;
@@ -2394,14 +2394,14 @@
       color: var(--text-main);
       margin: 0;
     }
-    .hdr-subheading, .stripboard-subheading {
+    .hdr-subheading, .stripboard-subheading, .film-subheading, .slate-subheading {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--cyan-telemetry);
       display: block;
       margin-top: 2px;
     }
-    .btn-hdr-close, .btn-stripboard-close {
+    .btn-hdr-close, .btn-stripboard-close, .btn-film-close, .btn-slate-close {
       background: transparent;
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
@@ -2415,30 +2415,30 @@
       justify-content: center;
       transition: all 0.15s ease;
     }
-    .btn-hdr-close:hover, .btn-stripboard-close:hover {
+    .btn-hdr-close:hover, .btn-stripboard-close:hover, .btn-film-close:hover, .btn-slate-close:hover {
       border-color: var(--red-rec);
       color: var(--red-rec);
       outline: 2px solid var(--red-rec);
     }
-    .hdr-modal-body, .stripboard-modal-body {
+    .hdr-modal-body, .stripboard-modal-body, .film-modal-body, .slate-modal-body {
       display: flex;
       flex-direction: column;
       gap: 16px;
       padding: 20px;
     }
-    .hdr-toolbar, .stripboard-toolbar {
+    .hdr-toolbar, .stripboard-toolbar, .film-toolbar, .slate-toolbar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
     }
-    .hdr-actions, .stripboard-actions {
+    .hdr-actions, .stripboard-actions, .film-actions, .slate-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .hdr-badge, .stripboard-badge {
+    .hdr-badge, .stripboard-badge, .film-badge, .slate-badge {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       color: var(--cyan-telemetry);
@@ -2601,6 +2601,139 @@
       font-weight: 700;
     }
 
+    /* Film Stock Emulation HUD Styles (PM-FEAT-017) */
+    .film-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .film-spec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .film-spec-card span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .film-spec-card strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber-gold);
+    }
+    .film-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      background: #06080C;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 14px;
+    }
+    .film-control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .film-control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .film-control-label {
+      color: var(--text-muted);
+    }
+    .film-control-val {
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .film-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #1A1F2C;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .film-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--amber-gold);
+      cursor: pointer;
+      box-shadow: 0 0 6px var(--amber-gold);
+    }
+
+    /* SMPTE Clapper Slate & ASC-MHL Offload HUD Styles (PM-FEAT-018) */
+    .slate-display-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: #050608;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+    }
+    .slate-svg-wrap {
+      max-width: 540px;
+      width: 100%;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+    .slate-svg-wrap:hover {
+      transform: scale(1.01);
+    }
+    .slate-metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      width: 100%;
+      max-width: 760px;
+    }
+    .slate-meta-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .slate-meta-item span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .slate-meta-item strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--cyan-telemetry);
+    }
+    .slate-led-display {
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: #FF2A2A;
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.7), 0 0 20px rgba(255, 0, 0, 0.4);
+      background: #110000;
+      border: 2px solid #550000;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 22px;
+      display: inline-block;
+    }
+
     /* Print Stylesheet */
     @media print {
       body { background: #FFF !important; color: #000 !important; }
@@ -2735,7 +2868,7 @@
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
@@ -2754,6 +2887,12 @@
       </button>
       <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
         📋 Stripboard [B]
+      </button>
+      <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
+        🎞️ Film Stock [E]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
+        🎬 Slate [T]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -3752,6 +3891,257 @@
 <tr><td><strong>2</strong></td><td>Supporting Role <span style="color: var(--text-dim);">(Actor 2)</span></td><td><span class="dood-status-pill dood-swf">SWF</span></td><td>1 d</td><td><span class="sag-compliant-badge">✓ 12h Rest OK</span></td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physical Film Stock Emulation HUD (PM-FEAT-017) -->
+  <div id="animatic-film-hud" class="film-hud-modal" role="dialog" aria-modal="true" aria-label="Physical Film Stock Emulation Suite" style="display: none;">
+    <div class="film-modal-content">
+      <div class="film-modal-header">
+        <div class="film-title-wrap">
+          <span style="font-size: 20px;">🎞️</span>
+          <div>
+            <h3 class="film-heading">PHYSICAL FILM STOCK EMULATION SUITE</h3>
+            <span class="film-subheading">Photochemical Halation · RMS Grain Granularity · Mechanical Gate Weave · Spectral Emulsion Response</span>
+          </div>
+        </div>
+        <button type="button" class="btn-film-close" onclick="toggleFilmHUD()" aria-label="Close Film Stock HUD">✕</button>
+      </div>
+      <div class="film-modal-body">
+        <div class="film-toolbar">
+          <div class="film-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-film-dctl" onclick="downloadFilmDctl()" aria-label="Download DaVinci Resolve DCTL Film Shader">
+              ⤓ Resolve DCTL (.dctl)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-film-ale" onclick="downloadFilmAle()" aria-label="Download Avid ALE Film Stock Log">
+              ⤓ Film Stock ALE (.ale)
+            </button>
+          </div>
+          <div class="film-badge" aria-label="Active Film Emulation Profile">
+            kodak · Kodak Vision3 500T (5219) · gauge_35mm_4perf · ISO 500
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 8px;">
+          PHOTOCHEMICAL EMULSION &amp; GRAIN SPECIFICATIONS
+        </div>
+        <div class="film-specs-grid">
+          <div class="film-spec-card">
+            <span>STOCK &amp; CODE</span>
+            <strong>Kodak Vision3 500T (5219)</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>MANUFACTURER &amp; GAUGE</span>
+            <strong>kodak · gauge_35mm_4perf</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>SPEED &amp; BALANCE</span>
+            <strong>ISO 500 · 3200K</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>RMS GRAIN NOISE</span>
+            <strong id="film-val-grain-spec">4.2 RMS (8.5µm)</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>HALATION SPREAD</span>
+            <strong id="film-val-halation-spec">6.0px (40%)</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>REM-JET ANTI-HALATION</span>
+            <strong>88% OPACITY</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>GATE WEAVE DRIFT</span>
+            <strong id="film-val-weave-spec">±0.8µm H / ±0.5µm V</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>REGISTRATION PIN</span>
+            <strong>bell_howell_2709</strong>
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-top: 14px; margin-bottom: 8px;">
+          INTERACTIVE EMULSION CONTROLS (REAL-TIME TUNING)
+        </div>
+        <div class="film-controls-grid">
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">RMS Grain Granularity:</span>
+              <span class="film-control-val" id="ctrl-film-grain-lbl">4.2</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-grain" min="1.0" max="25.0" step="0.5" value="4.2" oninput="updateFilmControls()" aria-label="RMS Grain Granularity Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Halation Radius (Pixels):</span>
+              <span class="film-control-val" id="ctrl-film-halation-lbl">6.0px</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-halation" min="0.0" max="25.0" step="0.5" value="6.0" oninput="updateFilmControls()" aria-label="Halation Radius Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Gate Weave Drift (µm):</span>
+              <span class="film-control-val" id="ctrl-film-weave-lbl">±0.8µm</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-weave" min="0.0" max="30.0" step="1.0" value="0.8" oninput="updateFilmControls()" aria-label="Gate Weave Drift Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Emulsion Push/Pull (EV):</span>
+              <span class="film-control-val" id="ctrl-film-pushpull-lbl">+0.0 EV</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-pushpull" min="-2.0" max="3.0" step="0.5" value="0.0" oninput="updateFilmControls()" aria-label="Emulsion Push/Pull EV Slider" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload HUD (PM-FEAT-018) -->
+  <div id="animatic-slate-hud" class="slate-hud-modal" role="dialog" aria-modal="true" aria-label="SMPTE 12M Timecode Sync, Clapper Slate &amp; ASC MHL Offload Manifest" style="display: none;">
+    <div class="slate-modal-content">
+      <div class="slate-modal-header">
+        <div class="slate-title-wrap">
+          <span style="font-size: 20px;">🎬</span>
+          <div>
+            <h3 class="slate-heading">SMPTE 12M TIMECODE SYNC &amp; PRODUCTION CLAPPER SLATE</h3>
+            <span class="slate-subheading">Acoustic Clack Synchronization · ASC-MHL SHA-256 Offload Manifest · Dual-System Sound Roll Sync</span>
+          </div>
+        </div>
+        <button type="button" class="btn-slate-close" onclick="toggleSlateHUD()" aria-label="Close Slate HUD">✕</button>
+      </div>
+      <div class="slate-modal-body">
+        <div class="slate-toolbar">
+          <div class="slate-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-mhl-xml" onclick="downloadMhlXML()" aria-label="Download ASC MHL Offload Checksum Manifest">
+              ⤓ ASC MHL Manifest (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-sound-ale" onclick="downloadSoundAle()" aria-label="Download Sound Sync ALE">
+              ⤓ Sound Sync ALE (.ale)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-slate-csv" onclick="downloadSlateCSV()" aria-label="Download Clapper Slate CSV Log">
+              ⤓ Clapper Slate Log (.csv)
+            </button>
+          </div>
+          <div class="slate-badge" aria-label="Clapper Sync Standard">
+            SMPTE 12M · 24.000 FPS · ACOUSTIC 1.2 kHz TRANSIENT · DUAL-SYSTEM SYNC
+          </div>
+        </div>
+
+        <div class="slate-display-wrap">
+          <div class="slate-svg-wrap" id="interactive-clapper-slate" onclick="snapClapperSlate()" role="button" tabindex="0" aria-label="Interactive Production Clapper Slate (Click to snap clapper and trigger acoustic clack)">
+            <svg viewBox="0 0 540 380" width="100%" height="auto" style="overflow: visible; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8));">
+              <defs>
+                <pattern id="slate-stripes" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="20" height="40" fill="#E2E8F0"></rect>
+                  <rect x="20" width="20" height="40" fill="#0F172A"></rect>
+                </pattern>
+                <pattern id="slate-stripes-arm" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+                  <rect width="20" height="40" fill="#E2E8F0"></rect>
+                  <rect x="20" width="20" height="40" fill="#0F172A"></rect>
+                </pattern>
+              </defs>
+
+              <!-- Slate Chalkboard Body -->
+              <rect x="20" y="80" width="500" height="280" rx="6" fill="#14171F" stroke="#334155" stroke-width="3"></rect>
+
+              <!-- Inner Chalkboard Boundary -->
+              <rect x="35" y="95" width="470" height="250" rx="4" fill="#0C0E14" stroke="#1E293B" stroke-width="2"></rect>
+
+              <!-- Header Grid -->
+              <line x1="35" y1="150" x2="505" y2="150" stroke="#334155" stroke-width="2"></line>
+              <line x1="35" y1="230" x2="505" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="35" y1="290" x2="505" y2="290" stroke="#334155" stroke-width="2"></line>
+
+              <!-- Vertical Column Dividers -->
+              <line x1="160" y1="150" x2="160" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="285" y1="150" x2="285" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="400" y1="150" x2="400" y2="230" stroke="#334155" stroke-width="2"></line>
+
+              <!-- Static Slate Text Labels -->
+              <text x="50" y="118" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">PRODUCTION</text>
+              <text x="50" y="138" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#F8FAFC">Artisanal Japanese Culinary Ceremonial M</text>
+
+              <text x="50" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">SCENE</text>
+              <text id="slate-svg-val-scene" x="105" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="800" fill="#00F0FF">01</text>
+
+              <text x="175" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">TAKE</text>
+              <text id="slate-svg-val-take" x="222" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="800" fill="#FFB800">01</text>
+
+              <text x="300" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">CAM ROLL</text>
+              <text id="slate-svg-val-camroll" x="342" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E2E8F0">A01</text>
+
+              <text x="415" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">SND ROLL</text>
+              <text id="slate-svg-val-sndroll" x="452" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E2E8F0">SR01</text>
+
+              <text x="50" y="250" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">DIRECTOR</text>
+              <text x="50" y="272" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#F8FAFC">Omni Director</text>
+
+              <text x="285" y="250" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">CAMERA / DP</text>
+              <text x="285" y="272" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#F8FAFC">Omni DP</text>
+
+              <text x="50" y="312" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">SYNC / FPS</text>
+              <text x="50" y="332" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#00F0FF">24 FPS SYNC</text>
+
+              <text x="285" y="312" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">FILTER / REGIME</text>
+              <text x="285" y="332" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFB800">DAY · INT</text>
+
+              <!-- Base Clapper Stick (Fixed to top of slate) -->
+              <rect x="20" y="44" width="500" height="34" rx="3" fill="url(#slate-stripes)" stroke="#000" stroke-width="2"></rect>
+
+              <!-- Top Hinged Clapper Stick (Rotates around left hinge) -->
+              <g id="clapper-slate-arm" style="transform-origin: 35px 58px; transform: rotate(0deg); cursor: pointer;">
+                <rect x="20" y="10" width="500" height="34" rx="3" fill="url(#slate-stripes-arm)" stroke="#000" stroke-width="2"></rect>
+                <!-- Heavy Silver Hinge Bolt -->
+                <circle cx="35" cy="58" r="7" fill="#94A3B8" stroke="#475569" stroke-width="2"></circle>
+                <circle cx="35" cy="58" r="3" fill="#1E293B"></circle>
+              </g>
+            </svg>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div class="slate-led-display" id="slate-led-timecode" aria-label="SMPTE 12M Timecode Sync">00:00:00:00</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry);">
+              ⚡ CLICK SLATE TO TRIGGER ACOUSTIC CLACK TRANSIENT (1.2 kHz) &amp; SNAP ARM
+            </div>
+          </div>
+
+          <div class="slate-metadata-grid">
+            <div class="slate-meta-item">
+              <span>SCENE</span>
+              <strong id="slate-val-scene">01</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>TAKE</span>
+              <strong id="slate-val-take">01</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>CAMERA ROLL</span>
+              <strong id="slate-val-camroll">A01</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>SOUND ROLL</span>
+              <strong id="slate-val-soundroll">SR01</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>FRAME RATE</span>
+              <strong id="slate-val-fps">24.0</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>ENVIRONMENT</span>
+              <strong>DAY · INT</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>DIRECTOR</span>
+              <strong id="slate-val-director">Omni Director</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>DIRECTOR OF PHOTOGRAPHY</span>
+              <strong id="slate-val-dp">Omni DP</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -5014,6 +5404,61 @@
             "Multi-Pass VFX (7 OpenEXR passes)"
           ]
         }
+      },
+      "film_emulation": {
+        "stock_name": "Kodak Vision3 500T",
+        "stock_code": "5219",
+        "manufacturer": "kodak",
+        "gauge": "gauge_35mm_4perf",
+        "iso_rating": 500,
+        "color_temp_k": 3200,
+        "push_pull_stops": 0.0,
+        "grain": {
+          "rms_granularity": 4.2,
+          "grain_size_microns": 8.5,
+          "shadow_grain_weight": 1.1,
+          "midtone_grain_weight": 1.4,
+          "highlight_grain_weight": 0.6
+        },
+        "halation": {
+          "halation_radius_pixels": 6.0,
+          "halation_intensity": 0.4,
+          "rem_jet_opacity": 0.88,
+          "specular_threshold_nits": 350.0,
+          "chromatic_tint_rgb": [
+            1.0,
+            0.35,
+            0.08
+          ]
+        },
+        "gate_weave": {
+          "lateral_drift_microns": 0.8,
+          "vertical_judder_microns": 0.5,
+          "registration_pin_type": "bell_howell_2709",
+          "frequency_hz": 24.0
+        },
+        "description": "Kodak Vision3 500T 5219 (35mm 4-perf, warm rich tones, RMS 4.2, subtle amber halation, minimal gate weave 0.8\u03bcm)"
+      },
+      "clapper_slate": {
+        "scene_number": 1,
+        "take_number": 1,
+        "camera_roll": "A01",
+        "sound_roll": "SR01",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:00:00",
+          "timecode_out": "01:00:10:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
+        }
       }
     },
     {
@@ -5532,6 +5977,61 @@
           "optical_vfx": [
             "Multi-Pass VFX (7 OpenEXR passes)"
           ]
+        }
+      },
+      "film_emulation": {
+        "stock_name": "Kodak Vision3 500T",
+        "stock_code": "5219",
+        "manufacturer": "kodak",
+        "gauge": "gauge_35mm_4perf",
+        "iso_rating": 500,
+        "color_temp_k": 3200,
+        "push_pull_stops": 0.0,
+        "grain": {
+          "rms_granularity": 4.2,
+          "grain_size_microns": 8.5,
+          "shadow_grain_weight": 1.1,
+          "midtone_grain_weight": 1.4,
+          "highlight_grain_weight": 0.6
+        },
+        "halation": {
+          "halation_radius_pixels": 6.0,
+          "halation_intensity": 0.4,
+          "rem_jet_opacity": 0.88,
+          "specular_threshold_nits": 350.0,
+          "chromatic_tint_rgb": [
+            1.0,
+            0.35,
+            0.08
+          ]
+        },
+        "gate_weave": {
+          "lateral_drift_microns": 0.8,
+          "vertical_judder_microns": 0.5,
+          "registration_pin_type": "bell_howell_2709",
+          "frequency_hz": 24.0
+        },
+        "description": "Kodak Vision3 500T 5219 (35mm 4-perf, warm rich tones, RMS 4.2, subtle amber halation, minimal gate weave 0.8\u03bcm)"
+      },
+      "clapper_slate": {
+        "scene_number": 2,
+        "take_number": 1,
+        "camera_roll": "A02",
+        "sound_roll": "SR02",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:10:00",
+          "timecode_out": "01:00:20:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
         }
       }
     }
@@ -6261,6 +6761,218 @@
         "sag_turnaround_compliant": true
       }
     ]
+  },
+  "master_film_emulation": {
+    "stock_name": "Kodak Vision3 500T",
+    "stock_code": "5219",
+    "manufacturer": "kodak",
+    "gauge": "gauge_35mm_4perf",
+    "iso_rating": 500,
+    "color_temp_k": 3200,
+    "push_pull_stops": 0.0,
+    "grain": {
+      "rms_granularity": 4.2,
+      "grain_size_microns": 8.5,
+      "shadow_grain_weight": 1.1,
+      "midtone_grain_weight": 1.4,
+      "highlight_grain_weight": 0.6
+    },
+    "halation": {
+      "halation_radius_pixels": 6.0,
+      "halation_intensity": 0.4,
+      "rem_jet_opacity": 0.88,
+      "specular_threshold_nits": 350.0,
+      "chromatic_tint_rgb": [
+        1.0,
+        0.35,
+        0.08
+      ]
+    },
+    "gate_weave": {
+      "lateral_drift_microns": 0.8,
+      "vertical_judder_microns": 0.5,
+      "registration_pin_type": "bell_howell_2709",
+      "frequency_hz": 24.0
+    },
+    "description": "Kodak Vision3 500T 5219 (35mm 4-perf, warm rich tones, RMS 4.2, subtle amber halation, minimal gate weave 0.8\u03bcm)"
+  },
+  "film_emulation": {
+    "stock_name": "Kodak Vision3 500T",
+    "stock_code": "5219",
+    "manufacturer": "kodak",
+    "gauge": "gauge_35mm_4perf",
+    "iso_rating": 500,
+    "color_temp_k": 3200,
+    "push_pull_stops": 0.0,
+    "grain": {
+      "rms_granularity": 4.2,
+      "grain_size_microns": 8.5,
+      "shadow_grain_weight": 1.1,
+      "midtone_grain_weight": 1.4,
+      "highlight_grain_weight": 0.6
+    },
+    "halation": {
+      "halation_radius_pixels": 6.0,
+      "halation_intensity": 0.4,
+      "rem_jet_opacity": 0.88,
+      "specular_threshold_nits": 350.0,
+      "chromatic_tint_rgb": [
+        1.0,
+        0.35,
+        0.08
+      ]
+    },
+    "gate_weave": {
+      "lateral_drift_microns": 0.8,
+      "vertical_judder_microns": 0.5,
+      "registration_pin_type": "bell_howell_2709",
+      "frequency_hz": 24.0
+    },
+    "description": "Kodak Vision3 500T 5219 (35mm 4-perf, warm rich tones, RMS 4.2, subtle amber halation, minimal gate weave 0.8\u03bcm)"
+  },
+  "master_slate_spec": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "director": "Omni Director",
+    "dp": "Omni DP",
+    "scenes": [
+      {
+        "scene_number": 1,
+        "take_number": 1,
+        "camera_roll": "A01",
+        "sound_roll": "SR01",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:00:00",
+          "timecode_out": "01:00:10:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
+        }
+      },
+      {
+        "scene_number": 2,
+        "take_number": 1,
+        "camera_roll": "A02",
+        "sound_roll": "SR02",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:10:00",
+          "timecode_out": "01:00:20:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
+        }
+      }
+    ],
+    "asc_mhl": {
+      "mhl_version": "2.0",
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "creation_date": "2026-11-10T13:49:47.987525+00:00",
+      "hash_entries": [
+        {
+          "file_path": "A01_01_take01.mov",
+          "file_size_bytes": 104857600,
+          "xxhash64": "9e4da76b3779cac8",
+          "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
+          "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
+          "hash_timestamp": "2026-11-10T13:49:47.987516+00:00"
+        },
+        {
+          "file_path": "A02_02_take01.mov",
+          "file_size_bytes": 209715200,
+          "xxhash64": "878e85010224a769",
+          "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
+          "md5": "de765bb3eacdf579e0c7116ec82362fe",
+          "hash_timestamp": "2026-11-10T13:49:47.987522+00:00"
+        }
+      ]
+    }
+  },
+  "slate_spec": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "director": "Omni Director",
+    "dp": "Omni DP",
+    "scenes": [
+      {
+        "scene_number": 1,
+        "take_number": 1,
+        "camera_roll": "A01",
+        "sound_roll": "SR01",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:00:00",
+          "timecode_out": "01:00:10:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
+        }
+      },
+      {
+        "scene_number": 2,
+        "take_number": 1,
+        "camera_roll": "A02",
+        "sound_roll": "SR02",
+        "camera_id": "A",
+        "fps": 24.0,
+        "day_night": "DAY",
+        "int_ext": "INT",
+        "filter_pack": "Clear / Linear Polarizer",
+        "shutter_angle": 180.0,
+        "director": "Omni Director",
+        "dp": "Omni DP",
+        "timecode": {
+          "timecode_in": "01:00:10:00",
+          "timecode_out": "01:00:20:00",
+          "duration_frames": 240,
+          "frame_rate": 24.0,
+          "drop_frame": false
+        }
+      }
+    ],
+    "asc_mhl": {
+      "mhl_version": "2.0",
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "creation_date": "2026-11-10T13:49:47.987525+00:00",
+      "hash_entries": [
+        {
+          "file_path": "A01_01_take01.mov",
+          "file_size_bytes": 104857600,
+          "xxhash64": "9e4da76b3779cac8",
+          "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
+          "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
+          "hash_timestamp": "2026-11-10T13:49:47.987516+00:00"
+        },
+        {
+          "file_path": "A02_02_take01.mov",
+          "file_size_bytes": 209715200,
+          "xxhash64": "878e85010224a769",
+          "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
+          "md5": "de765bb3eacdf579e0c7116ec82362fe",
+          "hash_timestamp": "2026-11-10T13:49:47.987522+00:00"
+        }
+      ]
+    }
   }
 };
 
@@ -7237,6 +7949,294 @@ DOMAIN_MAX 1.0 1.0 1.0
       showToast("Day-Out-of-Days (DOOD) Talent Report (.csv) downloaded!");
     }
 
+    // Physical Film Stock Emulation Controller (PM-FEAT-017)
+    let isFilmHUDOpen = false;
+    function toggleFilmHUD() {
+      isFilmHUDOpen = !isFilmHUDOpen;
+      const modal = document.getElementById('animatic-film-hud');
+      const btn = document.getElementById('btn-film-animatic');
+      if (modal) {
+        modal.style.display = isFilmHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isFilmHUDOpen);
+        btn.setAttribute('aria-expanded', isFilmHUDOpen ? 'true' : 'false');
+      }
+      if (isFilmHUDOpen) {
+        showToast("Physical Film Stock Emulation HUD: ACTIVE [E]");
+      }
+    }
+
+    function updateFilmControls() {
+      const gVal = parseFloat(document.getElementById('slider-film-grain')?.value || '4.2');
+      const hVal = parseFloat(document.getElementById('slider-film-halation')?.value || '6.0');
+      const wVal = parseFloat(document.getElementById('slider-film-weave')?.value || '0.8');
+      const pVal = parseFloat(document.getElementById('slider-film-pushpull')?.value || '0.0');
+
+      const gLbl = document.getElementById('ctrl-film-grain-lbl');
+      if (gLbl) gLbl.textContent = gVal.toFixed(1);
+      const hLbl = document.getElementById('ctrl-film-halation-lbl');
+      if (hLbl) hLbl.textContent = hVal.toFixed(1) + 'px';
+      const wLbl = document.getElementById('ctrl-film-weave-lbl');
+      if (wLbl) wLbl.textContent = '±' + wVal.toFixed(1) + 'µm';
+      const pLbl = document.getElementById('ctrl-film-pushpull-lbl');
+      if (pLbl) pLbl.textContent = (pVal >= 0 ? '+' : '') + pVal.toFixed(1) + ' EV';
+
+      const gSpec = document.getElementById('film-val-grain-spec');
+      if (gSpec) gSpec.textContent = gVal.toFixed(1) + ' RMS';
+      const hSpec = document.getElementById('film-val-halation-spec');
+      if (hSpec) hSpec.textContent = hVal.toFixed(1) + 'px';
+      const wSpec = document.getElementById('film-val-weave-spec');
+      if (wSpec) wSpec.textContent = '±' + wVal.toFixed(1) + 'µm H';
+    }
+
+    function downloadFilmDctl() {
+      const blob = new Blob([`// ==============================================================================
+// DaVinci Resolve DCTL: Kodak Vision3 500T (5219) Film Emulation
+// Manufacturer: KODAK | Gauge: gauge_35mm_4perf
+// Native Balance: 3200K | Base ISO: 500 | Push/Pull: +0.0 stops
+// Generated by Omni Movie Director v2.8.0 (PM-FEAT-017)
+// ==============================================================================
+
+DEFINE_UI_PARAMS(p_GrainGain, Film Grain Gain, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 3.0, 0.05)
+DEFINE_UI_PARAMS(p_HalationGain, Halation Intensity, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 3.0, 0.05)
+DEFINE_UI_PARAMS(p_GateWeaveGain, Gate Weave Amount, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 3.0, 0.05)
+
+__DEVICE__ float pseudo_hash(int x, int y, int seed)
+{
+    int n = x + y * 57 + seed * 131;
+    n = (n << 13) ^ n;
+    return (float)(1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
+}
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    // 1. Photographic Non-Linear Logarithmic Density Compression (D-Log-H characteristic)
+    float r = p_R;
+    float g = p_G;
+    float b = p_B;
+
+    // Push/Pull Chemical Compensation (+0.0 EV)
+    float ev_comp = 1.0000f;
+    r *= ev_comp;
+    g *= ev_comp;
+    b *= ev_comp;
+
+    // Luminance calculation
+    float lum = 0.2126f * r + 0.7152f * g + 0.0722f * b;
+
+    // 2. Optical Halation & Rem-Jet Reflection Simulation
+    // Specular Threshold: 350.0 nits
+    float spec_thresh = 0.3500f;
+    if (lum > spec_thresh) {
+        float bleed = (lum - spec_thresh) * 0.4000f * (1.0f - 0.8800f) * p_HalationGain;
+        r += bleed * 1.0000f;
+        g += bleed * 0.3500f;
+        b += bleed * 0.0800f;
+    }
+
+    // 3. Microscopic Silver Halide / Dye Cloud Grain Synthesis
+    // RMS Granularity: 4.20 | Size: 8.5 um
+    float grain_weight = 1.10f * (1.0f - lum) + 1.40f * (4.0f * lum * (1.0f - lum)) + 0.60f * lum;
+    float noise = pseudo_hash(p_X, p_Y, 19283) * (4.2000f / 100.0f) * grain_weight * p_GrainGain;
+    r += noise;
+    g += noise;
+    b += noise;
+
+    // 4. Color Negative Emulation Toe / Shoulder Density Saturation
+    // Clamp to non-negative film boundary
+    r = _fmaxf(0.0f, r);
+    g = _fmaxf(0.0f, g);
+    b = _fmaxf(0.0f, b);
+
+    return make_float3(r, g, b);
+}
+`], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "5219_emulation.dctl";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("DaVinci Resolve DCTL Film Shader (.dctl) downloaded!");
+    }
+
+    function downloadFilmAle() {
+      const blob = new Blob([`Heading
+FIELD_DELIM	TABS
+VIDEO_FORMAT	1080
+FILM_FORMAT	35mm
+FPS	24
+PROJECT	Artisanal Japanese Culinary Ceremonial M
+
+Column
+Name	Tracks	Start	End	Duration	Film TC	Stock Name	Stock Code	Gauge	ISO	Color Temp	Push Pull	Grain RMS
+
+Data
+Artisanal Japanese Culinary Ceremonial M - Initiation	V	01:00:00:00	01:00:10:00	240	01:00:00:00	Kodak Vision3 500T	5219	gauge_35mm_4perf	500	3200K	+0.0	4.2
+Artisanal Japanese Culinary Ceremonial M - Climax	V	01:00:10:00	01:00:20:00	240	01:00:10:00	Kodak Vision3 500T	5219	gauge_35mm_4perf	500	3200K	+0.0	4.2
+`], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "film_stock_log.ale";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Avid ALE Film Stock Log (.ale) downloaded!");
+    }
+
+    // SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Controller (PM-FEAT-018)
+    let isSlateHUDOpen = false;
+    function toggleSlateHUD() {
+      isSlateHUDOpen = !isSlateHUDOpen;
+      const modal = document.getElementById('animatic-slate-hud');
+      const btn = document.getElementById('btn-slate-animatic');
+      if (modal) {
+        modal.style.display = isSlateHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isSlateHUDOpen);
+        btn.setAttribute('aria-expanded', isSlateHUDOpen ? 'true' : 'false');
+      }
+      if (isSlateHUDOpen) {
+        showToast("SMPTE 12M Clapper Slate & ASC-MHL Manifest HUD: ACTIVE [T]");
+      }
+    }
+
+    function playClackSound() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+        const now = ctx.currentTime;
+        
+        // High-frequency wooden clack transient (1.2 kHz)
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.04);
+        
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.Q.setValueAtTime(3.0, now);
+        
+        gain.gain.setValueAtTime(1.0, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 0.06);
+
+        // Acoustic wood resonance impulse
+        const bufferSize = Math.floor(ctx.sampleRate * 0.03);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = ctx.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.setValueAtTime(1000, now);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.7, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(now);
+        noise.stop(now + 0.04);
+      } catch (err) {
+        console.warn("AudioContext clack unavailable:", err);
+      }
+    }
+
+    function snapClapperSlate() {
+      const arm = document.getElementById('clapper-slate-arm');
+      if (arm) {
+        arm.style.transition = 'transform 0.08s ease-out';
+        arm.style.transform = 'rotate(-30deg)';
+        setTimeout(() => {
+          arm.style.transition = 'transform 0.05s cubic-bezier(0.6, 0.04, 0.98, 0.335)';
+          arm.style.transform = 'rotate(0deg)';
+          playClackSound();
+          showToast("🎬 CLAP! Clapper slate snapped at " + formatSMPTE(currentFrame) + " (1.2 kHz sync)");
+        }, 110);
+      } else {
+        playClackSound();
+        showToast("🎬 CLAP! Clapper slate snapped at " + formatSMPTE(currentFrame) + " (1.2 kHz sync)");
+      }
+    }
+
+    function downloadMhlXML() {
+      const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
+<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-10T13:49:47.987525+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-10T13:49:47.987516+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-10T13:49:47.987522+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "ascmhl_manifest.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("ASC MHL Offload Checksum Manifest (.xml) downloaded!");
+    }
+
+    function downloadSoundAle() {
+      const blob = new Blob([`Heading
+FIELD_DELIM	TABS
+VIDEO_FORMAT	1080
+FPS	24
+PROJECT	Artisanal Japanese Culinary Ceremonial M
+
+Column
+Name	Tracks	Start	End	Duration	Cam Roll	Sound Roll	Audio Start	Audio End	Audio Tracks	Sync Offset
+
+Data
+Scene_01_Take_01	VA1A2	01:00:00:00	01:00:10:00	240	A01	SR01	01:00:00:00	01:00:10:00	A1A2	0
+Scene_02_Take_01	VA1A2	01:00:10:00	01:00:20:00	240	A02	SR02	01:00:10:00	01:00:20:00	A1A2	0
+`], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "sound_sync_log.ale";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Broadcast Sound Sync ALE (.ale) downloaded!");
+    }
+
+    function downloadSlateCSV() {
+      const blob = new Blob([`Scene #,Take #,Camera Roll,Sound Roll,Camera ID,FPS,Day/Night,Int/Ext,Filter Pack,Shutter Angle,Director,DP,Timecode In,Timecode Out,Duration Frames
+1,1,A01,SR01,A,24.0,DAY,INT,Clear / Linear Polarizer,180.0,Omni Director,Omni DP,01:00:00:00,01:00:10:00,240
+2,1,A02,SR02,A,24.0,DAY,INT,Clear / Linear Polarizer,180.0,Omni Director,Omni DP,01:00:10:00,01:00:20:00,240
+`], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "clapper_slate_log.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Production Clapper Slate Log (.csv) downloaded!");
+    }
+
     function toggleAuditDrawer(sceneIdx) {
       const drawer = document.getElementById('audit-drawer-' + sceneIdx);
       if (!drawer) return;
@@ -7357,6 +8357,14 @@ DOMAIN_MAX 1.0 1.0 1.0
         const cap = currentActiveCard.getAttribute('data-caption') || '';
         ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }
+      if (currentActiveCard) {
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const sFormatted = String(sIdx).padStart(2, '0');
+        const slateValScene = document.getElementById('slate-val-scene');
+        if (slateValScene) slateValScene.textContent = sFormatted;
+        const slateSvgScene = document.getElementById('slate-svg-val-scene');
+        if (slateSvgScene) slateSvgScene.textContent = sFormatted;
+      }
 
       // Update jump pills
       const jumpPills = document.querySelectorAll('.btn-jump-pill');
@@ -7398,6 +8406,8 @@ DOMAIN_MAX 1.0 1.0 1.0
 
       if (smpteEl) smpteEl.innerText = formatSMPTE(currentFrame);
       if (scrubber) scrubber.value = currentFrame;
+      const slateLed = document.getElementById('slate-led-timecode');
+      if (slateLed) slateLed.innerText = formatSMPTE(currentFrame);
 
       const tSec = currentFrame / FPS;
       if (infoEl) infoEl.innerText = tSec.toFixed(1) + 's / ' + TOTAL_RUNTIME.toFixed(1) + 's (24fps)';
@@ -7911,20 +8921,9 @@ DOMAIN_MAX 1.0 1.0 1.0
           jumpToScene(parseInt(e.key, 10), start);
         }
       } else if (e.key === 't' || e.key === 'T') {
-        const activeCard = document.querySelector('.scene-card.active-scene') || document.querySelector('.scene-card');
-        if (activeCard) {
-          const sIdx = activeCard.getAttribute('data-scene-index');
-          const tabs = ['prompt', 'craft', 'sonic'];
-          const currentTab = activeCard.querySelector('.tab-btn.active');
-          let nextIdx = 0;
-          if (currentTab) {
-            const currentName = currentTab.id.split('-')[1];
-            nextIdx = (tabs.indexOf(currentName) + 1) % tabs.length;
-          }
-          selectTab(sIdx, tabs[nextIdx]);
-        }
+        toggleSlateHUD();
       } else if (e.key === 'e' || e.key === 'E') {
-        exportProductionBible();
+        toggleFilmHUD();
       } else if (e.key === 'l' || e.key === 'L') {
         toggleDitLutHUD();
       } else if (e.key === 'f' || e.key === 'F') {
@@ -7963,6 +8962,8 @@ DOMAIN_MAX 1.0 1.0 1.0
         if (isVfxHUDOpen) toggleVfxHUD();
         if (isHdrHUDOpen) toggleHdrHUD();
         if (isStripboardHUDOpen) toggleStripboardHUD();
+        if (isFilmHUDOpen) toggleFilmHUD();
+        if (isSlateHUDOpen) toggleSlateHUD();
       }
     });
 

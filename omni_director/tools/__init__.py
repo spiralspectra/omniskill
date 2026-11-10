@@ -158,6 +158,29 @@ from omni_director.tools.stripboard_scheduler import (
     generate_dood_matrix,
     generate_stripboard_schedule,
 )
+from omni_director.tools.film_emulation import (
+    calculate_gate_weave_offsets,
+    calculate_rms_grain_density,
+    export_film_emulation_bundle,
+    export_film_stock_ale,
+    format_film_emulation_prompt_token,
+    generate_davinci_dctl_shader,
+    simulate_halation_psf,
+    synthesize_default_film_stock,
+    FILM_STOCK_PRESETS,
+)
+from omni_director.tools.clapper_slate import (
+    calculate_smpte12m_frames,
+    calculate_sound_sync_offset,
+    export_slate_bundle,
+    format_clapper_slate_prompt_token,
+    format_smpte12m_timecode,
+    generate_asc_mhl_xml,
+    generate_clapper_slate_log_csv,
+    generate_sound_sync_ale,
+    synthesize_default_clapper_slate,
+    synthesize_default_slate_spec,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -295,4 +318,26 @@ __all__ = [
     "export_stripboard_csv",
     "export_dood_csv",
     "export_stripboard_bundle",
+    # Physical Film Stock Emulation Suite (PM-FEAT-017)
+    "calculate_rms_grain_density",
+    "simulate_halation_psf",
+    "calculate_gate_weave_offsets",
+    "generate_davinci_dctl_shader",
+    "export_film_stock_ale",
+    "export_film_emulation_bundle",
+    "format_film_emulation_prompt_token",
+    "synthesize_default_film_stock",
+    "FILM_STOCK_PRESETS",
+    # SMPTE 12M Timecode Sync & Clapper Slate Suite (PM-FEAT-018)
+    "calculate_smpte12m_frames",
+    "format_smpte12m_timecode",
+    "calculate_sound_sync_offset",
+    "generate_asc_mhl_xml",
+    "generate_clapper_slate_log_csv",
+    "generate_sound_sync_ale",
+    "export_slate_bundle",
+    "format_clapper_slate_prompt_token",
+    "synthesize_default_clapper_slate",
+    "synthesize_default_slate_spec",
 ]
+

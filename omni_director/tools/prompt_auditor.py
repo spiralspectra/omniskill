@@ -16,6 +16,14 @@ from omni_director.tools.spatial_audio import format_spatial_audio_prompt_token
 from omni_director.tools.vfx_compositor import format_vfx_compositing_prompt_token
 from omni_director.tools.hdr_signal import format_hdr_prompt_token
 from omni_director.tools.stripboard_scheduler import format_script_breakdown_prompt_token
+from omni_director.tools.film_emulation import (
+    format_film_emulation_prompt_token,
+    synthesize_default_film_stock,
+)
+from omni_director.tools.clapper_slate import (
+    format_clapper_slate_prompt_token,
+    synthesize_default_clapper_slate,
+)
 
 
 def audit_omni_scene_prompt(
@@ -223,6 +231,34 @@ def audit_omni_scene_prompt(
         elif breakdown_match:
             details["script_breakdown_descriptor"] = breakdown_match.group(0)
 
+    # Physical Film Stock Emulation recognition & reward (PM-FEAT-017)
+    film_emulation_spec = getattr(scene, "film_emulation", None) if isinstance(scene, ScenePromptSpec) else (kwargs.get("film_emulation") or kwargs.get("film_stock"))
+    film_patterns = r"(?:\[FILM[ _]EMULATION:?|\[FILM_STOCK:?|film\s*emulation|film\s*stock|silver\s*halide|dye\s*cloud|rem-jet|gate\s*weave|grain\s*density|5219|5207|5203|7219|eterna|fuji\s*eterna|kodak\s*vision3)"
+    film_match = re.search(film_patterns, prompt, re.IGNORECASE)
+    if film_match:
+        details["film_emulation_compliant"] = True
+        details["film_emulation_reward"] = 1.0
+        if film_emulation_spec is not None:
+            details["film_emulation_descriptor"] = format_film_emulation_prompt_token(film_emulation_spec)
+        else:
+            details["film_emulation_descriptor"] = film_match.group(0)
+    elif film_emulation_spec is not None:
+        details["film_emulation_configured"] = True
+
+    # Clapper Slate & SMPTE 12M Timecode Sync recognition & reward (PM-FEAT-018)
+    clapper_slate_spec = getattr(scene, "clapper_slate", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("clapper_slate")
+    slate_patterns = r"(?:\[PRODUCTION[ _]SLATE:?|\[CLAPPER_SLATE:?|clapper\s*slate|production\s*slate|take\s*\d+|camera\s*roll|sound\s*roll|smpte\s*12m)"
+    slate_match = re.search(slate_patterns, prompt, re.IGNORECASE)
+    if slate_match:
+        details["clapper_slate_compliant"] = True
+        details["clapper_slate_reward"] = 1.0
+        if clapper_slate_spec is not None:
+            details["clapper_slate_descriptor"] = format_clapper_slate_prompt_token(clapper_slate_spec)
+        else:
+            details["clapper_slate_descriptor"] = slate_match.group(0)
+    elif clapper_slate_spec is not None:
+        details["clapper_slate_configured"] = True
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -286,9 +322,18 @@ def audit_omni_scene_prompt(
     camera_terms = [
         "camera", "shot", "lens", "framing", "dolly", "steadicam", "tripod",
         "pan", "tracking", "close-up", "wide", "prime", "tilt",
-        "[hdr signal:", "[1st ad breakdown:",
+        "[hdr signal:", "[1st ad breakdown:", "[film emulation:", "[film_stock:",
+        "[production slate:", "[clapper_slate:",
     ]
-    has_camera = any(term in prompt.lower() for term in camera_terms) or "[hdr signal:" in prompt.lower() or "[1st ad breakdown:" in prompt.lower()
+    has_camera = (
+        any(term in prompt.lower() for term in camera_terms)
+        or "[hdr signal:" in prompt.lower()
+        or "[1st ad breakdown:" in prompt.lower()
+        or "[film emulation:" in prompt.lower()
+        or "[film_stock:" in prompt.lower()
+        or "[production slate:" in prompt.lower()
+        or "[clapper_slate:" in prompt.lower()
+    )
     if craft_camera is not None:
         details["craft_camera_configured"] = True
     elif has_camera:
@@ -365,6 +410,10 @@ def audit_omni_scene_prompt(
         if details.get("hdr_signal_compliant"):
             score = min(100.0, score + 1.0)
         if details.get("script_breakdown_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("film_emulation_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("clapper_slate_compliant"):
             score = min(100.0, score + 1.0)
 
     return AuditResult(
@@ -475,7 +524,16 @@ def heal_omni_scene_prompt(
     applied_patches: List[str] = []
     attempts_executed = 0
 
-    if current_audit.passed and current_audit.score >= 100.0 and not current_audit.warnings:
+    needs_film_injection = bool(
+        ((getattr(scene, "film_emulation", None) if is_spec else None) or (getattr(spec_context, "film_emulation", None) if spec_context else None) or kwargs.get("film_emulation") or kwargs.get("film_stock"))
+        and not (current_audit.details and current_audit.details.get("film_emulation_compliant"))
+    )
+    needs_slate_injection = bool(
+        ((getattr(scene, "clapper_slate", None) if is_spec else None) or (getattr(spec_context, "clapper_slate", None) if spec_context else None) or kwargs.get("clapper_slate"))
+        and not (current_audit.details and current_audit.details.get("clapper_slate_compliant"))
+    )
+
+    if current_audit.passed and current_audit.score >= 100.0 and not current_audit.warnings and not needs_film_injection and not needs_slate_injection:
         if current_audit.details is None:
             current_audit.details = {}
         current_audit.details["healing_history"] = {
@@ -496,9 +554,9 @@ def heal_omni_scene_prompt(
         prev = working_prompt
         working_prompt = re.sub(r"(^|\n)\s*#{1,6}\s*", r"\1", working_prompt)
         working_prompt = re.sub(r"</?h[1-6][^>]*>", " ", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bgemini[-_ ]?3\.1\b", "gemini-4-argon", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bveo[-_ ]?3\.1\b", "gemini-omni-1.1-flash-preview", working_prompt, flags=re.IGNORECASE)
-        working_prompt = re.sub(r"\bmodel[-_ ]?3\.1\b", "model 4.0", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bgemini[-_ ]?(?:1\.5|2\.0|2\.5|3\.0|3\.1)[-_a-z0-9]*\b", "gemini-4-argon", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bveo[-_ ]?(?:2\.0|3\.0|3\.1)[-_a-z0-9]*\b", "gemini-omni-1.1-flash-preview", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bmodel[-_ ]?(?:1\.5|2\.0|2\.5|3\.0|3\.1)\b", "model 4.0", working_prompt, flags=re.IGNORECASE)
         if working_prompt != prev and "sanitized_headings" not in applied_patches:
             applied_patches.append("sanitized_headings")
 
@@ -654,6 +712,36 @@ def heal_omni_scene_prompt(
             if "injected_script_breakdown_spec" not in applied_patches:
                 applied_patches.append("injected_script_breakdown_spec")
 
+        # 3l. Inject Film Emulation tokens if configured (PM-FEAT-017)
+        prev = working_prompt
+        film_obj = (getattr(scene, "film_emulation", None) if is_spec else None) or (getattr(spec_context, "film_emulation", None) if spec_context else None) or kwargs.get("film_emulation") or kwargs.get("film_stock")
+        if film_obj is None and is_spec and getattr(scene, "film_stock", None):
+            film_obj = getattr(scene, "film_stock", None)
+        if film_obj is None:
+            domain_arch = getattr(spec_context, "domain_archetype", None) or kwargs.get("domain_archetype")
+            if domain_arch:
+                arch_str = str(domain_arch).lower()
+                if "culinary" in arch_str or "fashion" in arch_str or "sanctuary" in arch_str or "fuji" in arch_str:
+                    film_obj = synthesize_default_film_stock("fuji")
+                else:
+                    film_obj = synthesize_default_film_stock("kodak")
+        if film_obj is not None and not re.search(r"\[FILM[ _]EMULATION:?|\[FILM_STOCK:?|film\s*emulation|film\s*stock|silver\s*halide|5219|5207|eterna", working_prompt, re.IGNORECASE):
+            token = format_film_emulation_prompt_token(film_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_film_emulation_spec" not in applied_patches:
+                applied_patches.append("injected_film_emulation_spec")
+
+        # 3m. Inject Production Clapper Slate tokens if configured (PM-FEAT-018)
+        prev = working_prompt
+        slate_obj = (getattr(scene, "clapper_slate", None) if is_spec else None) or (getattr(spec_context, "clapper_slate", None) if spec_context else None) or kwargs.get("clapper_slate")
+        if slate_obj is None:
+            slate_obj = synthesize_default_clapper_slate(eff_scene_index)
+        if slate_obj is not None and not re.search(r"\[PRODUCTION[ _]SLATE:?|\[CLAPPER_SLATE:?|clapper\s*slate|production\s*slate", working_prompt, re.IGNORECASE):
+            token = format_clapper_slate_prompt_token(slate_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_clapper_slate_spec" not in applied_patches:
+                applied_patches.append("injected_clapper_slate_spec")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -728,6 +816,10 @@ def heal_omni_scene_prompt(
                 scene.diegetic_sonic.foley_cues = ["Tactile surface contact rustle", "Resonant low-frequency impact"]
                 if "populated_diegetic_sonic" not in applied_patches:
                     applied_patches.append("populated_diegetic_sonic")
+            if film_obj is not None and getattr(scene, "film_emulation", None) is None:
+                scene.film_emulation = film_obj
+            if slate_obj is not None and getattr(scene, "clapper_slate", None) is None:
+                scene.clapper_slate = slate_obj
             target_to_audit = scene
         else:
             if "action_beats" in kwargs and isinstance(kwargs["action_beats"], list) and len(kwargs["action_beats"]) > 3:
@@ -745,7 +837,9 @@ def heal_omni_scene_prompt(
             **kwargs,
         )
 
-        if current_audit.passed and current_audit.score >= 90.0:
+        needs_film_still = bool(film_obj is not None and not (current_audit.details and current_audit.details.get("film_emulation_compliant")))
+        needs_slate_still = bool(slate_obj is not None and not (current_audit.details and current_audit.details.get("clapper_slate_compliant")))
+        if current_audit.passed and current_audit.score >= 90.0 and not needs_film_still and not needs_slate_still:
             break
 
     if current_audit.details is None:

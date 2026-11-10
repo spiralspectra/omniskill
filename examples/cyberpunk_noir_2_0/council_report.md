@@ -1,6 +1,6 @@
 # Product Council Audit Report: Cyberpunk Neon-Lit High-Speed Electric M
 
-**Version**: 2.6.0 | **Timestamp**: `2026-11-09T17:20:04.937603+00:00`
+**Version**: 2.6.0 | **Timestamp**: `2026-11-10T13:49:47.488503+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 6 | FDE review completed with score 25.0/25.0. 6 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 1 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 13 | Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 6 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 8 | FDE review completed with score 25.0/25.0. 8 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 3 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 15 | Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 8 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -22,9 +22,13 @@
 - [INFO] **vfx_compositing_delivery**: Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.
 - [INFO] **hdr_metadata_delivery**: HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.
 - [INFO] **stripboard_schedule_delivery**: 1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.
+- [INFO] **film_emulation_delivery**: Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.
+- [INFO] **clapper_slate_delivery**: ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
+- [INFO] **film_emulation_prompt_token_compliance**: Physical film stock emulation CRAFT tokens or master spec verified across 2/2 scene prompts.
+- [INFO] **clapper_slate_prompt_token_compliance**: SMPTE 12M clapper slate CRAFT tokens or master spec verified across 2/2 scene prompts.
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.BLEACH_BYPASS_SILVER' for domain 'automotive_robotics'.
@@ -40,6 +44,8 @@
 - [INFO] **domain_vfx_compositing_calibration**: Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'automotive_robotics'.
 - [INFO] **domain_hdr_calibration**: Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 1500 nits peak, MaxCLL 1450, MaxFALL 520, tone mapper aces_spline) aligned with domain 'automotive_robotics'.
 - [INFO] **domain_stripboard_calibration**: 1st AD Stripboard schedule verified: 2 strips across 1 shoot day(s), 2 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'automotive_robotics'.
+- [INFO] **domain_film_emulation_calibration**: Physical film stock emulation verified: Kodak Vision3 250D (kodak, gauge_65mm_imax, RMS 2.8, halation 4.5px, gate weave 0.4μm) aligned with domain 'automotive_robotics'.
+- [INFO] **domain_clapper_slate_calibration**: SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'automotive_robotics'.
 
 ### COUNCIL-UX-DESIGNER
 - [INFO] **animatic_dof_hud**: Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).
@@ -48,6 +54,8 @@
 - [INFO] **animatic_vfx_hud**: Advanced Multi-Pass VFX Compositing Manifest HUD verified in dark-room animatic (#btn-vfx-animatic / #animatic-vfx-hud [X]).
 - [INFO] **animatic_hdr_hud**: HDR Broadcast Color Volume & Waveform Monitor HUD verified in dark-room animatic (#btn-hdr-animatic / #animatic-hdr-hud [H]).
 - [INFO] **animatic_stripboard_hud**: 1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).
+- [INFO] **animatic_film_hud**: Physical Film Stock Emulation HUD verified in dark-room animatic (#btn-film-animatic / #animatic-film-hud [E], DCTL & ALE downloads).
+- [INFO] **animatic_slate_hud**: SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -71,3 +79,5 @@
 | `PM-FEAT-014` | **P0** | `implemented` | **Advanced Multi-Pass VFX Compositing & Render Layer Manifest Engine (OpenEXR & Cryptomatte)**: Ship VfxRenderPassType, VfxLayerChannelSpec, CryptomatteManifestSpec, and VfxCompositingManifestSpec schemas, omni_director.tools.vfx_compositor (16/32-bit OpenEXR channel manifests, Murmur3 Cryptomatte hash generator, and Foundry Nuke .nk template generator), prompt auditor VFX compositing tokens, NLE bundle export, and an interactive Multi-Pass VFX Compositing HUD (#btn-vfx-animatic / #animatic-vfx-hud [X] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/vfx_compositor.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-015` | **P0** | `implemented` | **HDR10 / HLG Broadcast Color Volume & Mastering Display Metadata Engine (SMPTE ST 2084 PQ & ST 2086)**: Implement HdrMetadataSpec, HdrMasteringDisplaySpec, and SceneHdrReport schemas, omni_director.tools.hdr_signal (pure-Python PQ/HLG transforms, EOTF/OETF curves, MaxCLL/MaxFALL calculations, tone mapping operators, HDR10 JSON, HLG XML, DaVinci Resolve HDR XML export), CRAFT HDR prompt tokens, prompt auditor calibration rules, and an interactive HDR Color Volume HUD (#btn-hdr-animatic / #animatic-hdr-hud [H] hotkey) with HTML5 Canvas waveform monitor in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/hdr_signal.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-016` | **P0** | `implemented` | **1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)**: Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/stripboard_scheduler.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-017` | **P0** | `implemented` | **Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)**: Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/film_emulation.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-018` | **P0** | `implemented` | **SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine**: Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/clapper_slate.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |

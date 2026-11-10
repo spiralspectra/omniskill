@@ -1,6 +1,6 @@
 {
-  "version": "2.8.0",
-  "timestamp": "2026-11-09T17:20:04.029351+00:00",
+  "version": "2.9.0",
+  "timestamp": "2026-11-10T13:49:46.546051+00:00",
   "doctor_passed": true,
   "gates_passed": true,
   "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
@@ -224,13 +224,45 @@
       ],
       "priority": "P0",
       "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-017",
+      "title": "Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)",
+      "problem_statement": "Directors of Photography and colorists reviewing storyboards require authentic photochemical film stock emulation\u2014including silver halide crystal RMS granularity, dye cloud diffusion, rem-jet anti-halation layer absorption, gate weave mechanical jitter (\u00b13.5\u03bcm to \u00b112.0\u03bcm), push/pull development chemistry (\u00b12.0 EV), and DaVinci Resolve DCTL shader exports\u2014to eliminate clinical digital video artifacts and ensure cinematic analog texture.",
+      "proposed_solution": "Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/film_emulation.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-018",
+      "title": "SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine",
+      "problem_statement": "Production sound mixers, script supervisors, and DIT offload technicians require standardized SMPTE 12M linear/drop-frame timecode synchronization (HH:MM:SS:FF / HH:MM:SS;FF), production clapper slates (Scene/Take/Roll/Filter/FPS), and American Society of Cinematographers Media Hash List (ASC-MHL v2.0 XML) cryptographically sealed offload manifests (MD5, SHA-1, C4) to guarantee picture-to-sound synchronization and dual-destination archival data integrity.",
+      "proposed_solution": "Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/clapper_slate.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
     }
   ],
   "metrics": {
     "average_council_score": 100.0,
     "minimum_scene_score": 100.0,
     "showcase_bundles_evaluated": 10,
-    "pm_features_implemented": 16
+    "pm_features_implemented": 18
   },
   "bundles": [
     {
@@ -289,7 +321,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -348,7 +382,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -407,7 +443,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -466,7 +504,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -525,7 +565,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -582,7 +624,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -639,7 +683,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -696,7 +742,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -753,7 +801,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     },
     {
@@ -810,7 +860,9 @@
         "srt",
         "vtt",
         "dof",
-        "lut"
+        "lut",
+        "film",
+        "slate"
       ]
     }
   ]

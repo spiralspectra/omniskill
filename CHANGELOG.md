@@ -2,6 +2,31 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.9.0] - 2026-11-10
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-017: Cinematic Film Stock, Granular Halation & Gate Weave Physics Emulation Suite (Kodak/Fuji 35mm/16mm/65mm & Resolve DCTL/ALE Export)**:
+  - Module: `omni_director/tools/film_emulation.py`.
+  - Added schemas in `omni_director/schemas.py`: `FilmStockManufacturer` (`kodak`, `fuji`, `ilford`, `agfa`), `FilmGaugeFormat` (`gauge_16mm`, `gauge_35mm_2perf`, `gauge_35mm_3perf`, `gauge_35mm_4perf`, `gauge_65mm_imax`), `GrainPhysicsSpec` (RMS granularity, grain diameter, shadow/midtone/highlight weights), `HalationPhysicsSpec` (halation radius, intensity, rem-jet opacity, specular threshold, chromatic tint), `GateWeavePhysicsSpec` (lateral drift, vertical judder, pin tolerance, frequency), and `FilmStockSpec` (full emulsion profile). Bound `film_emulation` to `ScenePromptSpec` and `master_film_emulation` to `MasterProductionBible`.
+  - Implemented photochemical physics algorithms: microscopic RMS grain density distribution (`calculate_rms_grain_density`), Point Spread Function (PSF) rem-jet halation scattering (`simulate_halation_psf`), and mechanical gate weave transport judder (`calculate_gate_weave_offsets`).
+  - Implemented multi-format post-production exports: DaVinci Resolve GPU DCTL shader (`generate_davinci_dctl_shader` -> `film_stock_shader.dctl`), Avid Log Exchange film manifest (`export_film_stock_ale` -> `film_stock.ale`), and complete film emulation bundle packaging (`export_film_emulation_bundle`).
+  - CRAFT prompt token formatting (`format_film_emulation_prompt_token`) embedding stock name, gauge, RMS grain density, halation radius, and gate weave drift.
+  - CLI export support: `omni export --format film`, `--format all`, `--film-dctl`, and `--film-ale`.
+  - Dark-Room Cinema Animatic Interactive Film Stock HUD (`#animatic-film-hud`, hotkey `E`) featuring real-time grain, halation, gate weave, and chemical push/pull sliders, visual specification badges, and instant download buttons for DaVinci Resolve DCTL and Avid ALE.
+- **PM-FEAT-018: Smart Clapper Slate, DIT Media Hash List (ASC MHL v2.0) & SMPTE 12M Timecode Sync Suite**:
+  - Module: `omni_director/tools/clapper_slate.py`.
+  - Added schemas in `omni_director/schemas.py`: `TimecodeDropFrameMode` (`non_drop_frame_ndf`, `drop_frame_df`), `Smpte12MTimecodeSpec` (frame-accurate 24fps timecode), `ClapperSlateSpec` (scene, take, camera roll, sound roll, camera ID, FPS, day/night, int/ext, filter pack, shutter angle, director, DP), `AscMhlHashEntry` (per-file cryptographic digests), `AscMhlManifestSpec` (ASC-MHL v2.0 XML manifest), and `MasterProductionSlateSpec`. Bound `clapper_slate` to `ScenePromptSpec` and `master_slate_spec` to `MasterProductionBible`.
+  - Implemented frame-accurate SMPTE 12M timecode arithmetic (`calculate_smpte12m_frames`, `format_smpte12m_timecode`), dual-system sound sync transient offset calculation (`calculate_sound_sync_offset`), and cryptographic ASC-MHL v2.0 XML generation (`generate_asc_mhl_xml`) with xxHash64, SHA-1, and MD5 hashes.
+  - Implemented multi-format production slate exports: ASC-MHL v2.0 XML manifest (`asc_mhl_manifest.xml`), dual-system sound sync ALE (`sound_sync.ale`), production clapper slate log CSV (`clapper_slate_log.csv`), and complete slate bundle packaging (`export_slate_bundle`).
+  - CRAFT prompt token formatting (`format_clapper_slate_prompt_token`) embedding scene/take, roll IDs, SMPTE timecode, shutter angle, and audio transient markers.
+  - CLI export support: `omni export --format slate`, `--format all`, `--mhl-xml`, `--sound-ale`, and `--slate-csv`.
+  - Dark-Room Cinema Animatic Interactive Clapper Slate HUD (`#animatic-slate-hud`, hotkey `T`) featuring an animated SVG clapper arm with spring snap animation, Web Audio API acoustic 1.2 kHz wooden clack transient synthesis, live LED SMPTE 12M timecode readout, and instant download buttons for ASC-MHL XML, Sound Sync ALE, and Slate CSV.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-017` and `PM-FEAT-018` in `ProductManagerAgent.inspect_product()` as P0 implemented features.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated film stocks (`get_domain_film_emulation_spec`) and production clapper slate schedules (`get_domain_clapper_slate_spec`) in `omni_director/presets.py`.
+  - Updated prompt auditor Rule 4 and self-healing loop in `omni_director/tools/prompt_auditor.py` to evaluate and inject film stock and clapper slate CRAFT tokens with compliance reward scoring.
+  - Integrated 25.0/25.0 scoring in `ProductCouncilOrchestrator` across `council-fde`, `council-agent-engineer`, `council-strategist`, and `council-ux-designer`.
+
 ## [2.8.0] - 2026-11-09
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

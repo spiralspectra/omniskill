@@ -633,6 +633,61 @@
               "Multi-Pass VFX (7 OpenEXR passes)"
             ]
           }
+        },
+        "film_emulation": {
+          "stock_name": "Fuji Eterna 500T",
+          "stock_code": "8543",
+          "manufacturer": "fuji",
+          "gauge": "gauge_35mm_4perf",
+          "iso_rating": 500,
+          "color_temp_k": 3200,
+          "push_pull_stops": 0.0,
+          "grain": {
+            "rms_granularity": 4.0,
+            "grain_size_microns": 8.0,
+            "shadow_grain_weight": 1.1,
+            "midtone_grain_weight": 1.3,
+            "highlight_grain_weight": 0.7
+          },
+          "halation": {
+            "halation_radius_pixels": 7.5,
+            "halation_intensity": 0.42,
+            "rem_jet_opacity": 0.82,
+            "specular_threshold_nits": 320.0,
+            "chromatic_tint_rgb": [
+              0.95,
+              0.35,
+              0.15
+            ]
+          },
+          "gate_weave": {
+            "lateral_drift_microns": 0.6,
+            "vertical_judder_microns": 0.4,
+            "registration_pin_type": "mitchell_dual_pin",
+            "frequency_hz": 24.0
+          },
+          "description": "Fuji Eterna 500T 8543 (35mm 4-perf, soft pastel desaturation, creamy halation radius 7.5px, smooth gate weave 0.6μm)"
+        },
+        "clapper_slate": {
+          "scene_number": 1,
+          "take_number": 1,
+          "camera_roll": "A01",
+          "sound_roll": "SR01",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:00:00",
+            "timecode_out": "01:00:10:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
+          }
         }
       },
       {
@@ -1145,6 +1200,61 @@
             "optical_vfx": [
               "Multi-Pass VFX (7 OpenEXR passes)"
             ]
+          }
+        },
+        "film_emulation": {
+          "stock_name": "Fuji Eterna 500T",
+          "stock_code": "8543",
+          "manufacturer": "fuji",
+          "gauge": "gauge_35mm_4perf",
+          "iso_rating": 500,
+          "color_temp_k": 3200,
+          "push_pull_stops": 0.0,
+          "grain": {
+            "rms_granularity": 4.0,
+            "grain_size_microns": 8.0,
+            "shadow_grain_weight": 1.1,
+            "midtone_grain_weight": 1.3,
+            "highlight_grain_weight": 0.7
+          },
+          "halation": {
+            "halation_radius_pixels": 7.5,
+            "halation_intensity": 0.42,
+            "rem_jet_opacity": 0.82,
+            "specular_threshold_nits": 320.0,
+            "chromatic_tint_rgb": [
+              0.95,
+              0.35,
+              0.15
+            ]
+          },
+          "gate_weave": {
+            "lateral_drift_microns": 0.6,
+            "vertical_judder_microns": 0.4,
+            "registration_pin_type": "mitchell_dual_pin",
+            "frequency_hz": 24.0
+          },
+          "description": "Fuji Eterna 500T 8543 (35mm 4-perf, soft pastel desaturation, creamy halation radius 7.5px, smooth gate weave 0.6μm)"
+        },
+        "clapper_slate": {
+          "scene_number": 2,
+          "take_number": 1,
+          "camera_roll": "A02",
+          "sound_roll": "SR02",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:10:00",
+            "timecode_out": "01:00:20:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
           }
         }
       }
@@ -1874,6 +1984,218 @@
           "sag_turnaround_compliant": true
         }
       ]
+    },
+    "master_film_emulation": {
+      "stock_name": "Fuji Eterna 500T",
+      "stock_code": "8543",
+      "manufacturer": "fuji",
+      "gauge": "gauge_35mm_4perf",
+      "iso_rating": 500,
+      "color_temp_k": 3200,
+      "push_pull_stops": 0.0,
+      "grain": {
+        "rms_granularity": 4.0,
+        "grain_size_microns": 8.0,
+        "shadow_grain_weight": 1.1,
+        "midtone_grain_weight": 1.3,
+        "highlight_grain_weight": 0.7
+      },
+      "halation": {
+        "halation_radius_pixels": 7.5,
+        "halation_intensity": 0.42,
+        "rem_jet_opacity": 0.82,
+        "specular_threshold_nits": 320.0,
+        "chromatic_tint_rgb": [
+          0.95,
+          0.35,
+          0.15
+        ]
+      },
+      "gate_weave": {
+        "lateral_drift_microns": 0.6,
+        "vertical_judder_microns": 0.4,
+        "registration_pin_type": "mitchell_dual_pin",
+        "frequency_hz": 24.0
+      },
+      "description": "Fuji Eterna 500T 8543 (35mm 4-perf, soft pastel desaturation, creamy halation radius 7.5px, smooth gate weave 0.6μm)"
+    },
+    "film_emulation": {
+      "stock_name": "Fuji Eterna 500T",
+      "stock_code": "8543",
+      "manufacturer": "fuji",
+      "gauge": "gauge_35mm_4perf",
+      "iso_rating": 500,
+      "color_temp_k": 3200,
+      "push_pull_stops": 0.0,
+      "grain": {
+        "rms_granularity": 4.0,
+        "grain_size_microns": 8.0,
+        "shadow_grain_weight": 1.1,
+        "midtone_grain_weight": 1.3,
+        "highlight_grain_weight": 0.7
+      },
+      "halation": {
+        "halation_radius_pixels": 7.5,
+        "halation_intensity": 0.42,
+        "rem_jet_opacity": 0.82,
+        "specular_threshold_nits": 320.0,
+        "chromatic_tint_rgb": [
+          0.95,
+          0.35,
+          0.15
+        ]
+      },
+      "gate_weave": {
+        "lateral_drift_microns": 0.6,
+        "vertical_judder_microns": 0.4,
+        "registration_pin_type": "mitchell_dual_pin",
+        "frequency_hz": 24.0
+      },
+      "description": "Fuji Eterna 500T 8543 (35mm 4-perf, soft pastel desaturation, creamy halation radius 7.5px, smooth gate weave 0.6μm)"
+    },
+    "master_slate_spec": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "director": "Omni Director",
+      "dp": "Omni DP",
+      "scenes": [
+        {
+          "scene_number": 1,
+          "take_number": 1,
+          "camera_roll": "A01",
+          "sound_roll": "SR01",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:00:00",
+            "timecode_out": "01:00:10:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
+          }
+        },
+        {
+          "scene_number": 2,
+          "take_number": 1,
+          "camera_roll": "A02",
+          "sound_roll": "SR02",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:10:00",
+            "timecode_out": "01:00:20:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
+          }
+        }
+      ],
+      "asc_mhl": {
+        "mhl_version": "2.0",
+        "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "creation_date": "2026-11-10T13:49:47.811680+00:00",
+        "hash_entries": [
+          {
+            "file_path": "A01_01_take01.mov",
+            "file_size_bytes": 104857600,
+            "xxhash64": "cfb1f3c6cd129749",
+            "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
+            "md5": "b6d798f3dcf26ab6a6a53358998fb079",
+            "hash_timestamp": "2026-11-10T13:49:47.811669+00:00"
+          },
+          {
+            "file_path": "A02_02_take01.mov",
+            "file_size_bytes": 209715200,
+            "xxhash64": "f8305b45be608fd8",
+            "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
+            "md5": "980a4952b6a5da7152fca8b31a683344",
+            "hash_timestamp": "2026-11-10T13:49:47.811677+00:00"
+          }
+        ]
+      }
+    },
+    "slate_spec": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "director": "Omni Director",
+      "dp": "Omni DP",
+      "scenes": [
+        {
+          "scene_number": 1,
+          "take_number": 1,
+          "camera_roll": "A01",
+          "sound_roll": "SR01",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:00:00",
+            "timecode_out": "01:00:10:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
+          }
+        },
+        {
+          "scene_number": 2,
+          "take_number": 1,
+          "camera_roll": "A02",
+          "sound_roll": "SR02",
+          "camera_id": "A",
+          "fps": 24.0,
+          "day_night": "NIGHT",
+          "int_ext": "INT",
+          "filter_pack": "Black Pro-Mist 1/4",
+          "shutter_angle": 180.0,
+          "director": "Omni Director",
+          "dp": "Omni DP",
+          "timecode": {
+            "timecode_in": "01:00:10:00",
+            "timecode_out": "01:00:20:00",
+            "duration_frames": 240,
+            "frame_rate": 24.0,
+            "drop_frame": false
+          }
+        }
+      ],
+      "asc_mhl": {
+        "mhl_version": "2.0",
+        "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "creation_date": "2026-11-10T13:49:47.811680+00:00",
+        "hash_entries": [
+          {
+            "file_path": "A01_01_take01.mov",
+            "file_size_bytes": 104857600,
+            "xxhash64": "cfb1f3c6cd129749",
+            "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
+            "md5": "b6d798f3dcf26ab6a6a53358998fb079",
+            "hash_timestamp": "2026-11-10T13:49:47.811669+00:00"
+          },
+          {
+            "file_path": "A02_02_take01.mov",
+            "file_size_bytes": 209715200,
+            "xxhash64": "f8305b45be608fd8",
+            "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
+            "md5": "980a4952b6a5da7152fca8b31a683344",
+            "hash_timestamp": "2026-11-10T13:49:47.811677+00:00"
+          }
+        ]
+      }
     }
   },
   "storyboard_html_path": "examples/minimalist_luxury_2_0/storyboard_preview.html",
@@ -1938,13 +2260,15 @@
         "script_breakdown_compliant": true,
         "script_breakdown_reward": 1.0,
         "script_breakdown_descriptor": "[1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: MINIMALIST LUXURY HAUTE COUTURE SILK VEL - INITIATION, Cast: 1, 2]",
+        "film_emulation_configured": true,
+        "clapper_slate_configured": true,
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
       }
     },
@@ -1986,6 +2310,8 @@
         "script_breakdown_compliant": true,
         "script_breakdown_reward": 1.0,
         "script_breakdown_descriptor": "[1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: MINIMALIST LUXURY HAUTE COUTURE SILK VEL - CLIMAX, Cast: 1]",
+        "film_emulation_configured": true,
+        "clapper_slate_configured": true,
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -1998,9 +2324,9 @@
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "01919004-f74e-4c47-b72f-b08a04139e57",
+    "session_id": "4a715815-a31f-47f5-834f-23a5cb4a4ac4",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-09T17:20:05.235586+00:00",
+    "timestamp": "2026-11-10T13:49:47.809159+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -2010,67 +2336,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-09T17:20:05.235602+00:00",
-        "end_time": "2026-11-09T17:20:05.236037+00:00",
+        "start_time": "2026-11-10T13:49:47.809174+00:00",
+        "end_time": "2026-11-10T13:49:47.809615+00:00",
         "duration_ms": 0.44,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-09T17:20:05.236052+00:00",
-        "end_time": "2026-11-09T17:20:05.238084+00:00",
-        "duration_ms": 2.03,
+        "start_time": "2026-11-10T13:49:47.809631+00:00",
+        "end_time": "2026-11-10T13:49:47.811763+00:00",
+        "duration_ms": 2.13,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-09T17:20:05.238096+00:00",
-        "end_time": "2026-11-09T17:20:05.239176+00:00",
+        "start_time": "2026-11-10T13:49:47.811775+00:00",
+        "end_time": "2026-11-10T13:49:47.812851+00:00",
         "duration_ms": 1.08,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-09T17:20:05.239187+00:00",
-        "end_time": "2026-11-09T17:20:05.239316+00:00",
-        "duration_ms": 0.13,
+        "start_time": "2026-11-10T13:49:47.812869+00:00",
+        "end_time": "2026-11-10T13:49:47.813005+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-09T17:20:05.239324+00:00",
-        "end_time": "2026-11-09T17:20:05.240546+00:00",
-        "duration_ms": 1.22,
+        "start_time": "2026-11-10T13:49:47.813014+00:00",
+        "end_time": "2026-11-10T13:49:47.814402+00:00",
+        "duration_ms": 1.39,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-09T17:20:05.240554+00:00",
-        "end_time": "2026-11-09T17:20:05.240557+00:00",
+        "start_time": "2026-11-10T13:49:47.814411+00:00",
+        "end_time": "2026-11-10T13:49:47.814414+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-09T17:20:05.240564+00:00",
-        "end_time": "2026-11-09T17:20:05.243773+00:00",
-        "duration_ms": 3.21,
+        "start_time": "2026-11-10T13:49:47.814419+00:00",
+        "end_time": "2026-11-10T13:49:47.818152+00:00",
+        "duration_ms": 3.73,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-09T17:20:05.249222+00:00",
-        "end_time": "2026-11-09T17:20:05.259822+00:00",
-        "duration_ms": 10.6,
+        "start_time": "2026-11-10T13:49:47.827234+00:00",
+        "end_time": "2026-11-10T13:49:47.840154+00:00",
+        "duration_ms": 12.92,
         "details": {}
       }
     ],
-    "total_duration_ms": 18.71,
+    "total_duration_ms": 21.83,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "0bd8bb8bdc901fc2ca45aac8baee55832511eab953a0db65c064b91f1a14f6b4",
-      "storyboard_preview.html": "dbd6728071af7a278ab169de9c2e5cb27917ae816fa35afff61503e9d73f07b4",
+      "production_bundle.json": "018dc89123d9a8e385321cc0c7bfefe3a9607eb40edff7dedac86077608b2844",
+      "storyboard_preview.html": "0fcfc911c392ef9dd4decd4c35b706fc0bdee138e395880a1b896486914ef958",
       "timeline.edl": "72ba67d55f2b8b2ece89297d8c651d0c3483be4b4f78695f76cfacd64eae4527",
       "sequence.fcpxml": "c3cc20a01c3ef0cb096b8efa6b3e20c6f6736956705775e50b05532cd94187c3",
       "shot_list.csv": "3d2cb0835a542a6a34520e631da55b1073278f3dfead2f6e29aa0f95c901a21a",
@@ -2103,7 +2429,7 @@
   "council_report": {
     "version": "2.6.0",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-09T17:20:05.258421+00:00",
+    "timestamp": "2026-11-10T13:49:47.838306+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -2192,9 +2518,35 @@
                 "stripboard_schedule.csv"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "film_emulation_delivery",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "film_artifacts": [
+                "film_stock_shader.dctl",
+                "film_stock.ale"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "clapper_slate_delivery",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "slate_artifacts": [
+                "asc_mhl_manifest.xml",
+                "clapper_slate_log.csv"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 6 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 8 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -2210,6 +2562,28 @@
             "remediation": null,
             "suggested_fix": null,
             "details": null
+          },
+          {
+            "severity": "info",
+            "category": "film_emulation_prompt_token_compliance",
+            "message": "Physical film stock emulation CRAFT tokens or master spec verified across 2/2 scene prompts.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "film_scenes_count": 2,
+              "has_master_film_spec": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "clapper_slate_prompt_token_compliance",
+            "message": "SMPTE 12M clapper slate CRAFT tokens or master spec verified across 2/2 scene prompts.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "slate_scenes_count": 2,
+              "has_master_slate_spec": true
+            }
           }
         ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -2385,6 +2759,34 @@
               "dood_count": 2,
               "sag_turnaround": true
             }
+          },
+          {
+            "severity": "info",
+            "category": "domain_film_emulation_calibration",
+            "message": "Physical film stock emulation verified: Fuji Eterna 500T (fuji, gauge_35mm_4perf, RMS 4.0, halation 7.5px, gate weave 0.6μm) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "stock": "Fuji Eterna 500T",
+              "manufacturer": "fuji",
+              "gauge": "gauge_35mm_4perf",
+              "rms_granularity": 4.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_clapper_slate_calibration",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "slates_count": 2,
+              "camera_roll": "A01",
+              "sound_roll": "SR01",
+              "mhl_hash_entries": 0
+            }
           }
         ],
         "summary": "Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion)."
@@ -2440,6 +2842,22 @@
             "severity": "info",
             "category": "animatic_stripboard_hud",
             "message": "1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_film_hud",
+            "message": "Physical Film Stock Emulation HUD verified in dark-room animatic (#btn-film-animatic / #animatic-film-hud [E], DCTL & ALE downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_slate_hud",
+            "message": "SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -2663,6 +3081,38 @@
         "target_modules": [
           "omni_director/schemas.py",
           "omni_director/tools/stripboard_scheduler.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-017",
+        "title": "Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)",
+        "problem_statement": "Directors of Photography and colorists reviewing storyboards for 'Minimalist Luxury Haute Couture Silk Vel' require authentic photochemical film stock emulation—including silver halide crystal RMS granularity, dye cloud diffusion, rem-jet anti-halation layer absorption, gate weave mechanical jitter (±3.5μm to ±12.0μm), push/pull development chemistry (±2.0 EV), and DaVinci Resolve DCTL shader exports—to eliminate clinical digital video artifacts and ensure cinematic analog texture.",
+        "proposed_solution": "Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/film_emulation.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-018",
+        "title": "SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine",
+        "problem_statement": "Production sound mixers, script supervisors, and DIT offload technicians for 'Minimalist Luxury Haute Couture Silk Vel' require standardized SMPTE 12M linear/drop-frame timecode synchronization (HH:MM:SS:FF / HH:MM:SS;FF), production clapper slates (Scene/Take/Roll/Filter/FPS), and American Society of Cinematographers Media Hash List (ASC-MHL v2.0 XML) cryptographically sealed offload manifests (MD5, SHA-1, C4) to guarantee picture-to-sound synchronization and dual-destination archival data integrity.",
+        "proposed_solution": "Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/clapper_slate.py",
           "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",

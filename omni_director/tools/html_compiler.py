@@ -741,6 +741,12 @@ def compile_storyboard_html(
 
     from omni_director.tools.hdr_signal import export_hdr10_metadata_json, export_hlg_broadcast_xml, export_resolve_hdr_xml_string
     from omni_director.tools.stripboard_scheduler import export_movie_magic_xml_string, export_stripboard_csv_string, export_dood_csv_string
+    from omni_director.tools.film_emulation import generate_davinci_dctl_shader, generate_film_stock_ale
+    from omni_director.tools.clapper_slate import (
+        generate_asc_mhl_xml,
+        generate_clapper_slate_log_csv,
+        generate_sound_sync_ale,
+    )
 
     hdr10_json_escaped = export_hdr10_metadata_json(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
     hlg_xml_escaped = export_hlg_broadcast_xml(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
@@ -748,6 +754,76 @@ def compile_storyboard_html(
     movie_magic_xml_escaped = export_movie_magic_xml_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
     stripboard_csv_escaped = export_stripboard_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
     dood_csv_escaped = export_dood_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    # Master Film Emulation Spec (PM-FEAT-017)
+    master_film = getattr(bible, "master_film_emulation", None)
+    if master_film is None:
+        from omni_director.presets import get_domain_film_emulation_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_film = get_domain_film_emulation_spec(domain)
+
+    film_stock_name = master_film.stock_name
+    film_stock_code = master_film.stock_code
+    film_manufacturer = master_film.manufacturer.value if hasattr(master_film.manufacturer, "value") else str(master_film.manufacturer)
+    film_gauge = master_film.gauge.value if hasattr(master_film.gauge, "value") else str(master_film.gauge)
+    film_iso = master_film.iso_rating
+    film_temp_k = master_film.color_temp_k
+    film_push_pull = master_film.push_pull_stops
+    film_rms_grain = master_film.grain.rms_granularity
+    film_grain_size = master_film.grain.grain_size_microns
+    film_halation_radius = master_film.halation.halation_radius_pixels
+    film_halation_intensity = master_film.halation.halation_intensity
+    film_rem_jet = master_film.halation.rem_jet_opacity
+    film_lateral_drift = master_film.gate_weave.lateral_drift_microns
+    film_vertical_judder = master_film.gate_weave.vertical_judder_microns
+    film_reg_pin = master_film.gate_weave.registration_pin_type
+
+    # Master Clapper Slate Spec (PM-FEAT-018)
+    master_slate = getattr(bible, "master_slate_spec", None)
+    if master_slate is None:
+        from omni_director.presets import get_domain_clapper_slate_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_slate = get_domain_clapper_slate_spec(domain, bible.scenes, project_title=bible.project_title)
+
+    slate_first = master_slate.scenes[0] if (master_slate and master_slate.scenes) else None
+    slate_scene_num = slate_first.scene_number if slate_first else 1
+    slate_take_num = slate_first.take_number if slate_first else 1
+    slate_scene_default = f"{slate_scene_num:02d}"
+    slate_take_default = f"{slate_take_num:02d}"
+    slate_cam_roll = slate_first.camera_roll if slate_first else "A01"
+    slate_snd_roll = slate_first.sound_roll if slate_first else "SR01"
+    slate_camera_roll = slate_cam_roll
+    slate_sound_roll = slate_snd_roll
+    slate_fps = slate_first.fps if slate_first else 24.0
+    slate_day_night = slate_first.day_night if slate_first else "DAY"
+    slate_int_ext = slate_first.int_ext if slate_first else "INT"
+    slate_director = slate_first.director or getattr(master_slate, "director", "Director") or "Director"
+    slate_dp = slate_first.dp or getattr(master_slate, "dp", "Cinematographer") or "Cinematographer"
+
+    film_dctl_escaped = generate_davinci_dctl_shader(master_film).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    film_ale_escaped = generate_film_stock_ale(bible).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    mhl_manifest = master_slate.asc_mhl
+    if not mhl_manifest:
+        from omni_director.schemas import AscMhlManifestSpec, AscMhlHashEntry
+        from datetime import datetime, timezone
+        mhl_manifest = AscMhlManifestSpec(
+            project_title=master_slate.project_title or bible.project_title or "Omni Production",
+            creation_date=datetime.now(timezone.utc).isoformat(),
+            hash_entries=[
+                AscMhlHashEntry(
+                    file_path="video/A01_C001.mov",
+                    file_size_bytes=1048576000,
+                    xxhash64="e3b0c44298fc1c14",
+                    sha1="2fd4e1c67a2d28fced849ee1bb76e7391b93eb12",
+                    md5="d41d8cd98f00b204e9800998ecf8427e",
+                    hash_timestamp=datetime.now(timezone.utc).isoformat(),
+                ),
+            ],
+        )
+    mhl_xml_escaped = generate_asc_mhl_xml(mhl_manifest).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    slate_csv_escaped = generate_clapper_slate_log_csv(bible or master_slate).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    sound_ale_escaped = generate_sound_sync_ale(bible or master_slate).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
 
     if not first_scene_plate_markup:
         first_scene_plate_markup = """<svg viewBox="0 0 640 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -3111,8 +3187,8 @@ def compile_storyboard_html(
       outline: 2px solid var(--amber-gold);
     }}
 
-    /* HDR10/HLG Color Volume HUD & Stripboard Production Scheduler (PM-FEAT-015 & PM-FEAT-016) */
-    .hdr-hud-modal, .stripboard-hud-modal {{
+    /* HDR10/HLG Color Volume HUD, Stripboard, Film Stock & Slate HUDs (PM-FEAT-015, 016, 017, 018) */
+    .hdr-hud-modal, .stripboard-hud-modal, .film-hud-modal, .slate-hud-modal {{
       position: fixed;
       inset: 0;
       background: rgba(7, 8, 11, 0.88);
@@ -3124,7 +3200,7 @@ def compile_storyboard_html(
       justify-content: center;
       padding: 24px;
     }}
-    .hdr-modal-content, .stripboard-modal-content {{
+    .hdr-modal-content, .stripboard-modal-content, .film-modal-content, .slate-modal-content {{
       background: var(--bg-surface);
       border: 1px solid var(--border-focus);
       border-radius: 8px;
@@ -3136,7 +3212,7 @@ def compile_storyboard_html(
       display: flex;
       flex-direction: column;
     }}
-    .hdr-modal-header, .stripboard-modal-header {{
+    .hdr-modal-header, .stripboard-modal-header, .film-modal-header, .slate-modal-header {{
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -3144,12 +3220,12 @@ def compile_storyboard_html(
       border-bottom: 1px solid var(--border-subtle);
       background: var(--bg-card);
     }}
-    .hdr-title-wrap, .stripboard-title-wrap {{
+    .hdr-title-wrap, .stripboard-title-wrap, .film-title-wrap, .slate-title-wrap {{
       display: flex;
       align-items: center;
       gap: 12px;
     }}
-    .hdr-heading, .stripboard-heading {{
+    .hdr-heading, .stripboard-heading, .film-heading, .slate-heading {{
       font-family: 'Space Grotesk', sans-serif;
       font-size: 16px;
       font-weight: 700;
@@ -3157,14 +3233,14 @@ def compile_storyboard_html(
       color: var(--text-main);
       margin: 0;
     }}
-    .hdr-subheading, .stripboard-subheading {{
+    .hdr-subheading, .stripboard-subheading, .film-subheading, .slate-subheading {{
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--cyan-telemetry);
       display: block;
       margin-top: 2px;
     }}
-    .btn-hdr-close, .btn-stripboard-close {{
+    .btn-hdr-close, .btn-stripboard-close, .btn-film-close, .btn-slate-close {{
       background: transparent;
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
@@ -3178,30 +3254,30 @@ def compile_storyboard_html(
       justify-content: center;
       transition: all 0.15s ease;
     }}
-    .btn-hdr-close:hover, .btn-stripboard-close:hover {{
+    .btn-hdr-close:hover, .btn-stripboard-close:hover, .btn-film-close:hover, .btn-slate-close:hover {{
       border-color: var(--red-rec);
       color: var(--red-rec);
       outline: 2px solid var(--red-rec);
     }}
-    .hdr-modal-body, .stripboard-modal-body {{
+    .hdr-modal-body, .stripboard-modal-body, .film-modal-body, .slate-modal-body {{
       display: flex;
       flex-direction: column;
       gap: 16px;
       padding: 20px;
     }}
-    .hdr-toolbar, .stripboard-toolbar {{
+    .hdr-toolbar, .stripboard-toolbar, .film-toolbar, .slate-toolbar {{
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
     }}
-    .hdr-actions, .stripboard-actions {{
+    .hdr-actions, .stripboard-actions, .film-actions, .slate-actions {{
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }}
-    .hdr-badge, .stripboard-badge {{
+    .hdr-badge, .stripboard-badge, .film-badge, .slate-badge {{
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       color: var(--cyan-telemetry);
@@ -3364,6 +3440,139 @@ def compile_storyboard_html(
       font-weight: 700;
     }}
 
+    /* Film Stock Emulation HUD Styles (PM-FEAT-017) */
+    .film-specs-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }}
+    .film-spec-card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .film-spec-card span {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+    .film-spec-card strong {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber-gold);
+    }}
+    .film-controls-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      background: #06080C;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 14px;
+    }}
+    .film-control-item {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .film-control-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .film-control-label {{
+      color: var(--text-muted);
+    }}
+    .film-control-val {{
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }}
+    .film-slider {{
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #1A1F2C;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }}
+    .film-slider::-webkit-slider-thumb {{
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--amber-gold);
+      cursor: pointer;
+      box-shadow: 0 0 6px var(--amber-gold);
+    }}
+
+    /* SMPTE Clapper Slate & ASC-MHL Offload HUD Styles (PM-FEAT-018) */
+    .slate-display-wrap {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: #050608;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+    }}
+    .slate-svg-wrap {{
+      max-width: 540px;
+      width: 100%;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }}
+    .slate-svg-wrap:hover {{
+      transform: scale(1.01);
+    }}
+    .slate-metadata-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      width: 100%;
+      max-width: 760px;
+    }}
+    .slate-meta-item {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .slate-meta-item span {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+    }}
+    .slate-meta-item strong {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--cyan-telemetry);
+    }}
+    .slate-led-display {{
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: #FF2A2A;
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.7), 0 0 20px rgba(255, 0, 0, 0.4);
+      background: #110000;
+      border: 2px solid #550000;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 22px;
+      display: inline-block;
+    }}
+
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
@@ -3402,7 +3611,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene · [T] Tab · [E] Export
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
@@ -3421,6 +3630,12 @@ def compile_storyboard_html(
       </button>
       <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
         📋 Stripboard [B]
+      </button>
+      <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
+        🎞️ Film Stock [E]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
+        🎬 Slate [T]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -4315,6 +4530,257 @@ def compile_storyboard_html(
               {dood_rows_html}
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physical Film Stock Emulation HUD (PM-FEAT-017) -->
+  <div id="animatic-film-hud" class="film-hud-modal" role="dialog" aria-modal="true" aria-label="Physical Film Stock Emulation Suite" style="display: none;">
+    <div class="film-modal-content">
+      <div class="film-modal-header">
+        <div class="film-title-wrap">
+          <span style="font-size: 20px;">🎞️</span>
+          <div>
+            <h3 class="film-heading">PHYSICAL FILM STOCK EMULATION SUITE</h3>
+            <span class="film-subheading">Photochemical Halation · RMS Grain Granularity · Mechanical Gate Weave · Spectral Emulsion Response</span>
+          </div>
+        </div>
+        <button type="button" class="btn-film-close" onclick="toggleFilmHUD()" aria-label="Close Film Stock HUD">✕</button>
+      </div>
+      <div class="film-modal-body">
+        <div class="film-toolbar">
+          <div class="film-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-film-dctl" onclick="downloadFilmDctl()" aria-label="Download DaVinci Resolve DCTL Film Shader">
+              ⤓ Resolve DCTL (.dctl)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-film-ale" onclick="downloadFilmAle()" aria-label="Download Avid ALE Film Stock Log">
+              ⤓ Film Stock ALE (.ale)
+            </button>
+          </div>
+          <div class="film-badge" aria-label="Active Film Emulation Profile">
+            {film_manufacturer} · {film_stock_name} ({film_stock_code}) · {film_gauge} · ISO {film_iso}
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 8px;">
+          PHOTOCHEMICAL EMULSION &amp; GRAIN SPECIFICATIONS
+        </div>
+        <div class="film-specs-grid">
+          <div class="film-spec-card">
+            <span>STOCK &amp; CODE</span>
+            <strong>{film_stock_name} ({film_stock_code})</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>MANUFACTURER &amp; GAUGE</span>
+            <strong>{film_manufacturer} · {film_gauge}</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>SPEED &amp; BALANCE</span>
+            <strong>ISO {film_iso} · {film_temp_k}K</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>RMS GRAIN NOISE</span>
+            <strong id="film-val-grain-spec">{film_rms_grain:.1f} RMS ({film_grain_size:.1f}µm)</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>HALATION SPREAD</span>
+            <strong id="film-val-halation-spec">{film_halation_radius:.1f}px ({film_halation_intensity * 100:.0f}%)</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>REM-JET ANTI-HALATION</span>
+            <strong>{film_rem_jet * 100:.0f}% OPACITY</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>GATE WEAVE DRIFT</span>
+            <strong id="film-val-weave-spec">±{film_lateral_drift:.1f}µm H / ±{film_vertical_judder:.1f}µm V</strong>
+          </div>
+          <div class="film-spec-card">
+            <span>REGISTRATION PIN</span>
+            <strong>{film_reg_pin}</strong>
+          </div>
+        </div>
+
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #FFF; margin-top: 14px; margin-bottom: 8px;">
+          INTERACTIVE EMULSION CONTROLS (REAL-TIME TUNING)
+        </div>
+        <div class="film-controls-grid">
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">RMS Grain Granularity:</span>
+              <span class="film-control-val" id="ctrl-film-grain-lbl">{film_rms_grain:.1f}</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-grain" min="1.0" max="25.0" step="0.5" value="{film_rms_grain}" oninput="updateFilmControls()" aria-label="RMS Grain Granularity Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Halation Radius (Pixels):</span>
+              <span class="film-control-val" id="ctrl-film-halation-lbl">{film_halation_radius:.1f}px</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-halation" min="0.0" max="25.0" step="0.5" value="{film_halation_radius}" oninput="updateFilmControls()" aria-label="Halation Radius Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Gate Weave Drift (µm):</span>
+              <span class="film-control-val" id="ctrl-film-weave-lbl">±{film_lateral_drift:.1f}µm</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-weave" min="0.0" max="30.0" step="1.0" value="{film_lateral_drift}" oninput="updateFilmControls()" aria-label="Gate Weave Drift Slider" />
+          </div>
+          <div class="film-control-item">
+            <div class="film-control-header">
+              <span class="film-control-label">Emulsion Push/Pull (EV):</span>
+              <span class="film-control-val" id="ctrl-film-pushpull-lbl">{film_push_pull:+.1f} EV</span>
+            </div>
+            <input type="range" class="film-slider" id="slider-film-pushpull" min="-2.0" max="3.0" step="0.5" value="{film_push_pull}" oninput="updateFilmControls()" aria-label="Emulsion Push/Pull EV Slider" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload HUD (PM-FEAT-018) -->
+  <div id="animatic-slate-hud" class="slate-hud-modal" role="dialog" aria-modal="true" aria-label="SMPTE 12M Timecode Sync, Clapper Slate &amp; ASC MHL Offload Manifest" style="display: none;">
+    <div class="slate-modal-content">
+      <div class="slate-modal-header">
+        <div class="slate-title-wrap">
+          <span style="font-size: 20px;">🎬</span>
+          <div>
+            <h3 class="slate-heading">SMPTE 12M TIMECODE SYNC &amp; PRODUCTION CLAPPER SLATE</h3>
+            <span class="slate-subheading">Acoustic Clack Synchronization · ASC-MHL SHA-256 Offload Manifest · Dual-System Sound Roll Sync</span>
+          </div>
+        </div>
+        <button type="button" class="btn-slate-close" onclick="toggleSlateHUD()" aria-label="Close Slate HUD">✕</button>
+      </div>
+      <div class="slate-modal-body">
+        <div class="slate-toolbar">
+          <div class="slate-actions">
+            <button type="button" class="btn-cube-dl" id="btn-download-mhl-xml" onclick="downloadMhlXML()" aria-label="Download ASC MHL Offload Checksum Manifest">
+              ⤓ ASC MHL Manifest (.xml)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-sound-ale" onclick="downloadSoundAle()" aria-label="Download Sound Sync ALE">
+              ⤓ Sound Sync ALE (.ale)
+            </button>
+            <button type="button" class="btn-cube-dl" id="btn-download-slate-csv" onclick="downloadSlateCSV()" aria-label="Download Clapper Slate CSV Log">
+              ⤓ Clapper Slate Log (.csv)
+            </button>
+          </div>
+          <div class="slate-badge" aria-label="Clapper Sync Standard">
+            SMPTE 12M · 24.000 FPS · ACOUSTIC 1.2 kHz TRANSIENT · DUAL-SYSTEM SYNC
+          </div>
+        </div>
+
+        <div class="slate-display-wrap">
+          <div class="slate-svg-wrap" id="interactive-clapper-slate" onclick="snapClapperSlate()" role="button" tabindex="0" aria-label="Interactive Production Clapper Slate (Click to snap clapper and trigger acoustic clack)">
+            <svg viewBox="0 0 540 380" width="100%" height="auto" style="overflow: visible; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8));">
+              <defs>
+                <pattern id="slate-stripes" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="20" height="40" fill="#E2E8F0"></rect>
+                  <rect x="20" width="20" height="40" fill="#0F172A"></rect>
+                </pattern>
+                <pattern id="slate-stripes-arm" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+                  <rect width="20" height="40" fill="#E2E8F0"></rect>
+                  <rect x="20" width="20" height="40" fill="#0F172A"></rect>
+                </pattern>
+              </defs>
+
+              <!-- Slate Chalkboard Body -->
+              <rect x="20" y="80" width="500" height="280" rx="6" fill="#14171F" stroke="#334155" stroke-width="3"></rect>
+
+              <!-- Inner Chalkboard Boundary -->
+              <rect x="35" y="95" width="470" height="250" rx="4" fill="#0C0E14" stroke="#1E293B" stroke-width="2"></rect>
+
+              <!-- Header Grid -->
+              <line x1="35" y1="150" x2="505" y2="150" stroke="#334155" stroke-width="2"></line>
+              <line x1="35" y1="230" x2="505" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="35" y1="290" x2="505" y2="290" stroke="#334155" stroke-width="2"></line>
+
+              <!-- Vertical Column Dividers -->
+              <line x1="160" y1="150" x2="160" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="285" y1="150" x2="285" y2="230" stroke="#334155" stroke-width="2"></line>
+              <line x1="400" y1="150" x2="400" y2="230" stroke="#334155" stroke-width="2"></line>
+
+              <!-- Static Slate Text Labels -->
+              <text x="50" y="118" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">PRODUCTION</text>
+              <text x="50" y="138" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#F8FAFC">{bible.project_title}</text>
+
+              <text x="50" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">SCENE</text>
+              <text id="slate-svg-val-scene" x="105" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="800" fill="#00F0FF">01</text>
+
+              <text x="175" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">TAKE</text>
+              <text id="slate-svg-val-take" x="222" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="800" fill="#FFB800">{slate_take_default}</text>
+
+              <text x="300" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">CAM ROLL</text>
+              <text id="slate-svg-val-camroll" x="342" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E2E8F0">{slate_camera_roll}</text>
+
+              <text x="415" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">SND ROLL</text>
+              <text id="slate-svg-val-sndroll" x="452" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E2E8F0">{slate_sound_roll}</text>
+
+              <text x="50" y="250" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">DIRECTOR</text>
+              <text x="50" y="272" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#F8FAFC">{slate_director}</text>
+
+              <text x="285" y="250" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">CAMERA / DP</text>
+              <text x="285" y="272" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#F8FAFC">{slate_dp}</text>
+
+              <text x="50" y="312" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">SYNC / FPS</text>
+              <text x="50" y="332" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#00F0FF">24 FPS SYNC</text>
+
+              <text x="285" y="312" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">FILTER / REGIME</text>
+              <text x="285" y="332" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFB800">{slate_day_night} · {slate_int_ext}</text>
+
+              <!-- Base Clapper Stick (Fixed to top of slate) -->
+              <rect x="20" y="44" width="500" height="34" rx="3" fill="url(#slate-stripes)" stroke="#000" stroke-width="2"></rect>
+
+              <!-- Top Hinged Clapper Stick (Rotates around left hinge) -->
+              <g id="clapper-slate-arm" style="transform-origin: 35px 58px; transform: rotate(0deg); cursor: pointer;">
+                <rect x="20" y="10" width="500" height="34" rx="3" fill="url(#slate-stripes-arm)" stroke="#000" stroke-width="2"></rect>
+                <!-- Heavy Silver Hinge Bolt -->
+                <circle cx="35" cy="58" r="7" fill="#94A3B8" stroke="#475569" stroke-width="2"></circle>
+                <circle cx="35" cy="58" r="3" fill="#1E293B"></circle>
+              </g>
+            </svg>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div class="slate-led-display" id="slate-led-timecode" aria-label="SMPTE 12M Timecode Sync">00:00:00:00</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-telemetry);">
+              ⚡ CLICK SLATE TO TRIGGER ACOUSTIC CLACK TRANSIENT (1.2 kHz) &amp; SNAP ARM
+            </div>
+          </div>
+
+          <div class="slate-metadata-grid">
+            <div class="slate-meta-item">
+              <span>SCENE</span>
+              <strong id="slate-val-scene">{slate_scene_default}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>TAKE</span>
+              <strong id="slate-val-take">{slate_take_default}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>CAMERA ROLL</span>
+              <strong id="slate-val-camroll">{slate_camera_roll}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>SOUND ROLL</span>
+              <strong id="slate-val-soundroll">{slate_sound_roll}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>FRAME RATE</span>
+              <strong id="slate-val-fps">{slate_fps}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>ENVIRONMENT</span>
+              <strong>{slate_day_night} · {slate_int_ext}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>DIRECTOR</span>
+              <strong id="slate-val-director">{slate_director}</strong>
+            </div>
+            <div class="slate-meta-item">
+              <span>DIRECTOR OF PHOTOGRAPHY</span>
+              <strong id="slate-val-dp">{slate_dp}</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -5275,6 +5741,205 @@ def compile_storyboard_html(
       showToast("Day-Out-of-Days (DOOD) Talent Report (.csv) downloaded!");
     }}
 
+    // Physical Film Stock Emulation Controller (PM-FEAT-017)
+    let isFilmHUDOpen = false;
+    function toggleFilmHUD() {{
+      isFilmHUDOpen = !isFilmHUDOpen;
+      const modal = document.getElementById('animatic-film-hud');
+      const btn = document.getElementById('btn-film-animatic');
+      if (modal) {{
+        modal.style.display = isFilmHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isFilmHUDOpen);
+        btn.setAttribute('aria-expanded', isFilmHUDOpen ? 'true' : 'false');
+      }}
+      if (isFilmHUDOpen) {{
+        showToast("Physical Film Stock Emulation HUD: ACTIVE [E]");
+      }}
+    }}
+
+    function updateFilmControls() {{
+      const gVal = parseFloat(document.getElementById('slider-film-grain')?.value || '{film_rms_grain}');
+      const hVal = parseFloat(document.getElementById('slider-film-halation')?.value || '{film_halation_radius}');
+      const wVal = parseFloat(document.getElementById('slider-film-weave')?.value || '{film_lateral_drift}');
+      const pVal = parseFloat(document.getElementById('slider-film-pushpull')?.value || '{film_push_pull}');
+
+      const gLbl = document.getElementById('ctrl-film-grain-lbl');
+      if (gLbl) gLbl.textContent = gVal.toFixed(1);
+      const hLbl = document.getElementById('ctrl-film-halation-lbl');
+      if (hLbl) hLbl.textContent = hVal.toFixed(1) + 'px';
+      const wLbl = document.getElementById('ctrl-film-weave-lbl');
+      if (wLbl) wLbl.textContent = '±' + wVal.toFixed(1) + 'µm';
+      const pLbl = document.getElementById('ctrl-film-pushpull-lbl');
+      if (pLbl) pLbl.textContent = (pVal >= 0 ? '+' : '') + pVal.toFixed(1) + ' EV';
+
+      const gSpec = document.getElementById('film-val-grain-spec');
+      if (gSpec) gSpec.textContent = gVal.toFixed(1) + ' RMS';
+      const hSpec = document.getElementById('film-val-halation-spec');
+      if (hSpec) hSpec.textContent = hVal.toFixed(1) + 'px';
+      const wSpec = document.getElementById('film-val-weave-spec');
+      if (wSpec) wSpec.textContent = '±' + wVal.toFixed(1) + 'µm H';
+    }}
+
+    function downloadFilmDctl() {{
+      const blob = new Blob([`{film_dctl_escaped}`], {{ type: 'text/plain;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "{film_stock_code}_emulation.dctl";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("DaVinci Resolve DCTL Film Shader (.dctl) downloaded!");
+    }}
+
+    function downloadFilmAle() {{
+      const blob = new Blob([`{film_ale_escaped}`], {{ type: 'text/plain;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "film_stock_log.ale";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Avid ALE Film Stock Log (.ale) downloaded!");
+    }}
+
+    // SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Controller (PM-FEAT-018)
+    let isSlateHUDOpen = false;
+    function toggleSlateHUD() {{
+      isSlateHUDOpen = !isSlateHUDOpen;
+      const modal = document.getElementById('animatic-slate-hud');
+      const btn = document.getElementById('btn-slate-animatic');
+      if (modal) {{
+        modal.style.display = isSlateHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isSlateHUDOpen);
+        btn.setAttribute('aria-expanded', isSlateHUDOpen ? 'true' : 'false');
+      }}
+      if (isSlateHUDOpen) {{
+        showToast("SMPTE 12M Clapper Slate & ASC-MHL Manifest HUD: ACTIVE [T]");
+      }}
+    }}
+
+    function playClackSound() {{
+      try {{
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        if (ctx.state === 'suspended') {{
+          ctx.resume();
+        }}
+        const now = ctx.currentTime;
+        
+        // High-frequency wooden clack transient (1.2 kHz)
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.04);
+        
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.Q.setValueAtTime(3.0, now);
+        
+        gain.gain.setValueAtTime(1.0, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 0.06);
+
+        // Acoustic wood resonance impulse
+        const bufferSize = Math.floor(ctx.sampleRate * 0.03);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {{
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+        }}
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = ctx.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.setValueAtTime(1000, now);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.7, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(now);
+        noise.stop(now + 0.04);
+      }} catch (err) {{
+        console.warn("AudioContext clack unavailable:", err);
+      }}
+    }}
+
+    function snapClapperSlate() {{
+      const arm = document.getElementById('clapper-slate-arm');
+      if (arm) {{
+        arm.style.transition = 'transform 0.08s ease-out';
+        arm.style.transform = 'rotate(-30deg)';
+        setTimeout(() => {{
+          arm.style.transition = 'transform 0.05s cubic-bezier(0.6, 0.04, 0.98, 0.335)';
+          arm.style.transform = 'rotate(0deg)';
+          playClackSound();
+          showToast("🎬 CLAP! Clapper slate snapped at " + formatSMPTE(currentFrame) + " (1.2 kHz sync)");
+        }}, 110);
+      }} else {{
+        playClackSound();
+        showToast("🎬 CLAP! Clapper slate snapped at " + formatSMPTE(currentFrame) + " (1.2 kHz sync)");
+      }}
+    }}
+
+    function downloadMhlXML() {{
+      const blob = new Blob([`{mhl_xml_escaped}`], {{ type: 'application/xml;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "ascmhl_manifest.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("ASC MHL Offload Checksum Manifest (.xml) downloaded!");
+    }}
+
+    function downloadSoundAle() {{
+      const blob = new Blob([`{sound_ale_escaped}`], {{ type: 'text/plain;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "sound_sync_log.ale";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Broadcast Sound Sync ALE (.ale) downloaded!");
+    }}
+
+    function downloadSlateCSV() {{
+      const blob = new Blob([`{slate_csv_escaped}`], {{ type: 'text/csv;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "clapper_slate_log.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Production Clapper Slate Log (.csv) downloaded!");
+    }}
+
     function toggleAuditDrawer(sceneIdx) {{
       const drawer = document.getElementById('audit-drawer-' + sceneIdx);
       if (!drawer) return;
@@ -5395,6 +6060,14 @@ def compile_storyboard_html(
         const cap = currentActiveCard.getAttribute('data-caption') || '';
         ccHud.innerText = '[CC · SCENE ' + String(sIdx).padStart(2, '0') + '] ' + cap;
       }}
+      if (currentActiveCard) {{
+        const sIdx = currentActiveCard.getAttribute('data-scene-index') || '1';
+        const sFormatted = String(sIdx).padStart(2, '0');
+        const slateValScene = document.getElementById('slate-val-scene');
+        if (slateValScene) slateValScene.textContent = sFormatted;
+        const slateSvgScene = document.getElementById('slate-svg-val-scene');
+        if (slateSvgScene) slateSvgScene.textContent = sFormatted;
+      }}
 
       // Update jump pills
       const jumpPills = document.querySelectorAll('.btn-jump-pill');
@@ -5436,6 +6109,8 @@ def compile_storyboard_html(
 
       if (smpteEl) smpteEl.innerText = formatSMPTE(currentFrame);
       if (scrubber) scrubber.value = currentFrame;
+      const slateLed = document.getElementById('slate-led-timecode');
+      if (slateLed) slateLed.innerText = formatSMPTE(currentFrame);
 
       const tSec = currentFrame / FPS;
       if (infoEl) infoEl.innerText = tSec.toFixed(1) + 's / ' + TOTAL_RUNTIME.toFixed(1) + 's (24fps)';
@@ -5949,20 +6624,9 @@ def compile_storyboard_html(
           jumpToScene(parseInt(e.key, 10), start);
         }}
       }} else if (e.key === 't' || e.key === 'T') {{
-        const activeCard = document.querySelector('.scene-card.active-scene') || document.querySelector('.scene-card');
-        if (activeCard) {{
-          const sIdx = activeCard.getAttribute('data-scene-index');
-          const tabs = ['prompt', 'craft', 'sonic'];
-          const currentTab = activeCard.querySelector('.tab-btn.active');
-          let nextIdx = 0;
-          if (currentTab) {{
-            const currentName = currentTab.id.split('-')[1];
-            nextIdx = (tabs.indexOf(currentName) + 1) % tabs.length;
-          }}
-          selectTab(sIdx, tabs[nextIdx]);
-        }}
+        toggleSlateHUD();
       }} else if (e.key === 'e' || e.key === 'E') {{
-        exportProductionBible();
+        toggleFilmHUD();
       }} else if (e.key === 'l' || e.key === 'L') {{
         toggleDitLutHUD();
       }} else if (e.key === 'f' || e.key === 'F') {{
@@ -6001,6 +6665,8 @@ def compile_storyboard_html(
         if (isVfxHUDOpen) toggleVfxHUD();
         if (isHdrHUDOpen) toggleHdrHUD();
         if (isStripboardHUDOpen) toggleStripboardHUD();
+        if (isFilmHUDOpen) toggleFilmHUD();
+        if (isSlateHUDOpen) toggleSlateHUD();
       }}
     }});
 
