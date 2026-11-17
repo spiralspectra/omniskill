@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.9.0"
+__version__ = "2.10.0"
 
 
 class RegimeType(str, Enum):
@@ -1541,7 +1541,269 @@ class MasterProductionSlateSpec(BaseModel):
     asc_mhl: Optional[AscMhlManifestSpec] = Field(default=None, description="DIT ASC-MHL media offload verification manifest")
 
 
-# Aliases for PM-FEAT-015, PM-FEAT-016, PM-FEAT-017, and PM-FEAT-018
+# ==============================================================================
+# PM-FEAT-019: Aerial Drone Flight Paths, GPS Waypoints & Gimbal Telemetry Schemas
+# ==============================================================================
+
+
+class DroneRigType(str, Enum):
+    """Drone aerial platform and camera gimbal rig taxonomy (PM-FEAT-019)."""
+    HEAVY_LIFTER_ALTA_X = "heavy_lifter_alta_x"
+    COMPACT_CINEMA_INSPIRE3 = "compact_cinema_inspire3"
+    FPV_CINELIFTER_ACRO = "fpv_cinelifter_acro"
+    CABLE_CAM_HYBRID = "cable_cam_hybrid"
+    TETHERED_SURVEILLANCE = "tethered_surveillance"
+
+    heavy_lifter_alta_x = "heavy_lifter_alta_x"
+    compact_cinema_inspire3 = "compact_cinema_inspire3"
+    fpv_cinelifter_acro = "fpv_cinelifter_acro"
+    cable_cam_hybrid = "cable_cam_hybrid"
+    tethered_surveillance = "tethered_surveillance"
+    inspire3 = "compact_cinema_inspire3"
+    alta_x = "heavy_lifter_alta_x"
+    fpv = "fpv_cinelifter_acro"
+
+
+class FlightWaypointGPS(BaseModel):
+    """Single 3D GPS navigation waypoint and flight telemetry state (PM-FEAT-019)."""
+    waypoint_id: Union[int, str] = Field(default=1, description="Sequence waypoint index or ID (e.g. 1 or 'WP01')")
+    latitude: float = Field(default=34.0522, ge=-90.0, le=90.0, description="WGS84 latitude coordinate")
+    longitude: float = Field(default=-118.2437, ge=-180.0, le=180.0, description="WGS84 longitude coordinate")
+    altitude_m_agl: float = Field(default=15.0, ge=0.0, le=500.0, description="Altitude Above Ground Level (AGL) in meters")
+    altitude_ft_agl: float = Field(default=49.2, ge=0.0, description="Altitude Above Ground Level (AGL) in feet")
+    altitude_m_msl: float = Field(default=120.0, ge=-100.0, le=9000.0, description="Altitude Mean Sea Level (MSL) in meters")
+    speed_mps: float = Field(default=8.5, ge=0.0, le=60.0, description="Flight velocity in meters per second")
+    timestamp_s: float = Field(default=0.0, ge=0.0, description="Relative flight elapsed time in seconds")
+    heading_deg: float = Field(default=0.0, ge=0.0, le=360.0, description="Aircraft compass heading in degrees")
+    gimbal_pitch_deg: float = Field(default=-15.0, description="Gimbal pitch angle in degrees")
+    gimbal_yaw_deg: float = Field(default=0.0, description="Gimbal yaw angle in degrees")
+    sun_altitude_deg: float = Field(default=18.5, description="Solar altitude at waypoint")
+    sun_azimuth_deg: float = Field(default=245.0, description="Solar azimuth at waypoint")
+    solar_phase: str = Field(default="golden_hour", description="Diurnal solar phase")
+    crab_angle_deg: float = Field(default=3.2, description="Wind crab angle in degrees")
+    battery_pct: float = Field(default=100.0, ge=0.0, le=100.0, description="Remaining battery capacity percentage")
+    part_107_cleared: bool = Field(default=True, description="FAA Part 107 regulatory compliance clearance")
+    action_cue: str = Field(default="", description="Cinematic action or framing cue at waypoint")
+    action_beat: Optional[str] = Field(default=None, description="Cinematic action beat description")
+
+
+class GimbalOrientationSpec(BaseModel):
+    """3-axis camera gimbal orientation and optical framing telemetry (PM-FEAT-019)."""
+    pitch_deg: float = Field(default=-15.0, ge=-135.0, le=45.0, description="Gimbal tilt/pitch in degrees (-90 nadir, 0 horizon)")
+    yaw_deg: float = Field(default=0.0, ge=-360.0, le=360.0, description="Gimbal pan/yaw relative to flight path")
+    roll_deg: float = Field(default=0.0, ge=-45.0, le=45.0, description="Gimbal roll compensation in degrees")
+    clamped: bool = Field(default=False, description="Flag indicating if orientation was clamped by mechanical limits")
+    stabilization_mode: str = Field(default="follow_yaw", description="Gimbal stabilization mode (follow_yaw, fpv_lock, free_pan)")
+    focal_length_equiv_mm: float = Field(default=24.0, ge=12.0, le=200.0, description="Equivalent focal length in mm")
+
+
+class SolarPhase(str, Enum):
+    """Diurnal solar phase classifications (PM-FEAT-019)."""
+    GOLDEN_HOUR = "golden_hour"
+    BLUE_HOUR = "blue_hour"
+    HIGH_NOON = "high_noon"
+    DIRECT_DAYLIGHT = "direct_daylight"
+    CIVIL_TWILIGHT = "civil_twilight"
+    NIGHT = "night"
+
+    golden_hour = "golden_hour"
+    blue_hour = "blue_hour"
+    high_noon = "high_noon"
+    direct_daylight = "direct_daylight"
+    civil_twilight = "civil_twilight"
+    night = "night"
+
+
+class SolarEphemerisSpec(BaseModel):
+    """Solar celestial position, golden hour azimuth, and optical glare rating (PM-FEAT-019)."""
+    solar_elevation_deg: float = Field(default=18.5, ge=-90.0, le=90.0, description="Solar elevation angle above horizon in degrees")
+    solar_altitude_deg: float = Field(default=18.5, ge=-90.0, le=90.0, description="Solar elevation angle alias")
+    solar_azimuth_deg: float = Field(default=245.0, ge=0.0, le=360.0, description="Sun compass bearing azimuth in degrees")
+    solar_phase: str = Field(default="golden_hour", description="Diurnal solar phase (golden_hour, blue_hour, high_noon, civil_twilight)")
+    shadow_multiplier: float = Field(default=3.0, ge=0.0, description="Shadow length ratio relative to object height (1/tan(alt))")
+    cct_kelvin: int = Field(default=3500, description="Correlated color temperature in Kelvin")
+    golden_hour_active: bool = Field(default=True, description="Golden hour low-sun lighting active")
+    lens_flare_risk: str = Field(default="moderate", description="Direct lens flare risk assessment (low, moderate, high)")
+    color_temperature_kelvin: int = Field(default=3500, ge=2000, le=12000, description="Ambient daylight Kelvin temperature")
+
+
+class WindDriftVectorSpec(BaseModel):
+    """Aerodynamic wind vector, peak gusts, and crab angle compensation (PM-FEAT-019)."""
+    wind_speed_knots: float = Field(default=8.0, ge=0.0, le=45.0, description="Ambient wind speed in knots")
+    wind_speed_mps: float = Field(default=4.12, ge=0.0, description="Ambient wind speed in m/s")
+    wind_direction_deg: float = Field(default=270.0, ge=0.0, le=360.0, description="Wind originating compass direction")
+    gust_speed_knots: float = Field(default=12.0, ge=0.0, le=60.0, description="Peak gust speed in knots")
+    drift_compensation_deg: float = Field(default=3.2, ge=-90.0, le=90.0, description="Calculated crab angle drift compensation in degrees")
+    airspeed_mps: float = Field(default=10.0, ge=0.0, description="Drone true airspeed in m/s")
+    ground_speed_mps: float = Field(default=9.5, ge=0.0, description="Computed ground speed after wind vector addition in m/s")
+    drone_heading_deg: float = Field(default=0.0, ge=0.0, le=360.0, description="Aircraft compass heading in degrees")
+    course_over_ground_deg: float = Field(default=3.2, ge=0.0, le=360.0, description="True course over ground in degrees")
+    crab_angle_deg: float = Field(default=3.2, description="Wind crab angle in degrees")
+    crosswind_mps: float = Field(default=0.0, description="Crosswind vector component in m/s")
+    headwind_mps: float = Field(default=0.0, description="Headwind vector component in m/s")
+    turbulence_rating: str = Field(default="light", description="Flight turbulence rating (none, light, moderate, severe)")
+
+
+class DroneFlightPathSpec(BaseModel):
+    """Complete aerial drone flight plan, GPS trajectory, and camera gimbal telemetry (PM-FEAT-019)."""
+    flight_id: str = Field(default="FLIGHT_01", description="Unique flight mission plan identifier")
+    project_title: str = Field(default="", description="Production project title")
+    scene_index: Optional[int] = Field(default=None, description="Target scene index if scene-specific")
+    aircraft_model: str = Field(default="DJI Inspire 3 / Zenmuse X9-8K Air", description="Drone airframe and gimbal camera model")
+    pilot_in_command: str = Field(default="FAA Part 107 Commercial Remote Pilot", description="Certified pilot in command")
+    faa_registration: str = Field(default="FA39A7X901", description="FAA aircraft registration number")
+    drone_rig: DroneRigType = Field(default=DroneRigType.COMPACT_CINEMA_INSPIRE3, description="Drone aerial platform")
+    flight_profile: str = Field(default="flyover_reveal", description="Flight path choreography profile")
+    flight_pattern: str = Field(default="Orbit Reveal", description="Cinematic flight path geometry name")
+    min_altitude_agl_m: float = Field(default=5.0, ge=0.0, le=200.0, description="Minimum flight altitude AGL in meters")
+    max_altitude_agl_m: float = Field(default=45.0, ge=0.0, le=500.0, description="Maximum flight altitude AGL in meters")
+    max_altitude_m_agl: float = Field(default=45.0, description="Maximum flight altitude AGL alias")
+    total_distance_m: float = Field(default=250.0, ge=0.0, description="Total 3D path distance in meters")
+    flight_duration_s: float = Field(default=15.0, ge=1.0, le=1800.0, description="Total planned flight duration in seconds")
+    estimated_flight_duration_s: float = Field(default=15.0, description="Estimated total flight duration alias")
+    waypoints: List[FlightWaypointGPS] = Field(default_factory=list, description="Sequence of 3D GPS navigation waypoints")
+    gimbal: GimbalOrientationSpec = Field(default_factory=GimbalOrientationSpec, description="3-axis camera gimbal orientation")
+    solar_ephemeris: SolarEphemerisSpec = Field(default_factory=SolarEphemerisSpec, description="Sun position and solar ephemeris vector")
+    wind_drift: WindDriftVectorSpec = Field(default_factory=WindDriftVectorSpec, description="Aerodynamic wind drift and crab angle compensation")
+    part_107_compliant: bool = Field(default=True, description="Strict compliance with FAA Part 107 regulations")
+    faa_part_107_compliant: bool = Field(default=True, description="Strict compliance with FAA Part 107 regulations alias")
+    prompt_token: Optional[str] = Field(default=None, description="Rendered Gemini Omni prompt token")
+    description: str = Field(default="Autonomous GPS waypointed cinematic aerial sweep", description="Mission overview")
+
+
+# ==============================================================================
+# PM-FEAT-020: AICP Commercial Production Bid & Budget Breakdown Top Sheet Schemas
+# ==============================================================================
+
+
+class AicpSectionCode(str, Enum):
+    """AICP standardized commercial production cost summary section codes (PM-FEAT-020)."""
+    SECTION_A = "A"
+    SECTION_B = "B"
+    SECTION_C = "C"
+    SECTION_D = "D"
+    SECTION_E = "E"
+    SECTION_F = "F"
+    SECTION_G = "G"
+    SECTION_H = "H"
+    SECTION_I = "I"
+    SECTION_J = "J"
+    SECTION_K = "K"
+    SECTION_L = "L"
+    SECTION_M = "M"
+    SECTION_N = "N"
+
+    a = "A"
+    b = "B"
+    c = "C"
+    d = "D"
+    e = "E"
+    f = "F"
+    g = "G"
+    h = "H"
+    i = "I"
+    j = "J"
+    k = "K"
+    l = "L"
+    m = "M"
+    n = "N"
+
+
+class CrewLaborTier(str, Enum):
+    """Commercial production crew labor tier and union agreement classification (PM-FEAT-020)."""
+    TIER_UNION_DGA_IATSE = "union_dga_iatse"
+    TIER_COMMERCIAL_TIER_1 = "commercial_tier_1"
+    TIER_COMMERCIAL_TIER_2 = "commercial_tier_2"
+    TIER_NON_UNION_INDIE = "non_union_indie"
+
+    union_dga_iatse = "union_dga_iatse"
+    commercial_tier_1 = "commercial_tier_1"
+    commercial_tier_2 = "commercial_tier_2"
+    non_union_indie = "non_union_indie"
+    union = "union_dga_iatse"
+    tier_1 = "commercial_tier_1"
+    tier_2 = "commercial_tier_2"
+    indie = "non_union_indie"
+
+
+class AicpLineItemSpec(BaseModel):
+    """Detailed commercial budget line item mapped to AICP Chart of Accounts (PM-FEAT-020)."""
+    account_number: str = Field(default="B-101", description="AICP Chart of Accounts code, e.g. B-101")
+    account_code: str = Field(default="B-101", description="AICP Chart of Accounts code alias")
+    section: AicpSectionCode = Field(default=AicpSectionCode.SECTION_B, description="AICP standard section")
+    section_code: str = Field(default="B", description="AICP section code letter (A through N)")
+    section_name: str = Field(default="Shooting Production Crew", description="AICP section title")
+    description: str = Field(default="Director of Photography", description="Labor role, equipment package, or expense title")
+    crew_tier: CrewLaborTier = Field(default=CrewLaborTier.TIER_COMMERCIAL_TIER_1, description="Crew labor tier / agreement")
+    category: str = Field(default="labor", description="Item classification: labor or non-labor")
+    rate_basis: str = Field(default="day", description="Unit basis: day, week, flat, hour, prep_wrap")
+    units_count: float = Field(default=1.0, ge=0.0, description="Quantity / days budgeted")
+    days_or_qty: float = Field(default=1.0, ge=0.0, description="Days or quantity alias")
+    unit_rate_usd: float = Field(default=3500.0, ge=0.0, description="Unit rate in USD")
+    rate: float = Field(default=3500.0, ge=0.0, description="Unit rate alias in USD")
+    ot_hours: float = Field(default=0.0, ge=0.0, description="Estimated overtime hours")
+    subtotal: float = Field(default=3500.0, ge=0.0, description="Base subtotal (rate * days_or_qty)")
+    fringes_pct: float = Field(default=23.5, ge=0.0, le=100.0, description="Payroll fringes & union pension/health percentage")
+    fringe_pct: float = Field(default=23.5, ge=0.0, le=100.0, description="Payroll fringe percentage alias")
+    fringe_amount: float = Field(default=822.5, ge=0.0, description="Calculated fringe dollar amount")
+    total_cost_usd: float = Field(default=4322.5, ge=0.0, description="Total budgeted cost for line item")
+    total: float = Field(default=4322.5, ge=0.0, description="Total line cost alias")
+
+
+class AicpTopSheetSummarySpec(BaseModel):
+    """Executive AICP Top Sheet production summary and markup breakdown (PM-FEAT-020)."""
+    section_totals: Dict[str, float] = Field(default_factory=dict, description="Section subtotals keyed by section code (A-N)")
+    gross_production_costs_usd: float = Field(default=0.0, ge=0.0, description="Sum of sections A through G")
+    talent_costs_usd: float = Field(default=0.0, ge=0.0, description="Sum of sections H and I")
+    post_production_costs_usd: float = Field(default=0.0, ge=0.0, description="Sum of sections J through L")
+    insurance_and_fringes_usd: float = Field(default=0.0, ge=0.0, description="Section M insurance and payroll fringes")
+    subtotal_direct_costs_usd: float = Field(default=0.0, ge=0.0, description="Subtotal direct costs before markup")
+    direct_subtotal: float = Field(default=0.0, ge=0.0, description="Direct subtotal costs alias")
+    atl_subtotal: float = Field(default=0.0, ge=0.0, description="Above-The-Line subtotal (Sections A & H)")
+    btl_subtotal: float = Field(default=0.0, ge=0.0, description="Below-The-Line subtotal (Sections B-G, I-K)")
+    fringe_rate: float = Field(default=0.235, description="Payroll fringe rate percentage (23.5%)")
+    total_fringes: float = Field(default=0.0, description="Total payroll fringes in USD")
+    insurance_rate: float = Field(default=0.032, description="Production insurance percentage (3.2%)")
+    total_insurance: float = Field(default=0.0, description="Total production insurance in USD")
+    insurance_usd: float = Field(default=0.0, description="Total production insurance in USD alias")
+    insurance_usd: float = Field(default=0.0, description="Total production insurance in USD alias")
+    production_fee_pct: float = Field(default=18.0, ge=0.0, le=50.0, description="Production company fee percentage")
+    markup_rate: float = Field(default=0.18, description="Production company fee percentage alias")
+    production_fee_usd: float = Field(default=0.0, ge=0.0, description="Production company fee USD")
+    total_markup: float = Field(default=0.0, description="Total production company markup alias")
+    contingency_pct: float = Field(default=10.0, ge=0.0, le=30.0, description="Contingency reserve percentage")
+    contingency_rate: float = Field(default=0.10, description="Contingency reserve percentage alias")
+    contingency_usd: float = Field(default=0.0, ge=0.0, description="Contingency reserve USD")
+    total_contingency: float = Field(default=0.0, description="Total contingency USD alias")
+    grand_total_bid_usd: float = Field(default=0.0, ge=0.0, description="Final AICP bottom-line commercial bid")
+    grand_total: float = Field(default=0.0, ge=0.0, description="Final AICP grand total alias")
+    grand_total_bid: float = Field(default=0.0, ge=0.0, description="Grand total bid alias")
+    cost_per_second: float = Field(default=0.0, ge=0.0, description="Average Cost-Per-Second (CPS) in USD/s")
+
+
+class MasterAicpBidSpec(BaseModel):
+    """Complete AICP commercial production bid package and budget breakdown (PM-FEAT-020)."""
+    project_title: str = Field(default="Commercial Production", description="Commercial project campaign title")
+    client_brand: str = Field(default="Commercial Brand", description="Client / Brand advertiser")
+    client: str = Field(default="Commercial Client", description="Client name alias")
+    agency_name: str = Field(default="Creative Agency", description="Advertising agency of record")
+    production_company: str = Field(default="Omni Studio Productions", description="Production company name")
+    shoot_days_count: int = Field(default=1, ge=1, le=60, description="Number of budgeted shooting days")
+    shoot_days: int = Field(default=1, description="Shooting days alias")
+    prep_days: int = Field(default=2, description="Prep days count")
+    post_days: int = Field(default=5, description="Post days count")
+    total_runtime_seconds: float = Field(default=60.0, ge=1.0, description="Total commercial runtime in seconds")
+    shoot_location: str = Field(default="Los Angeles, CA", description="Primary shooting city / studio")
+    currency: str = Field(default="USD", description="Bid currency ISO code")
+    labor_tier: CrewLaborTier = Field(default=CrewLaborTier.TIER_COMMERCIAL_TIER_1, description="Primary crew labor tier")
+    line_items: List[AicpLineItemSpec] = Field(default_factory=list, description="Detailed line items")
+    top_sheet: AicpTopSheetSummarySpec = Field(default_factory=AicpTopSheetSummarySpec, description="AICP Top Sheet summary")
+    cost_per_second: float = Field(default=0.0, ge=0.0, description="Average Cost-Per-Second (CPS) in USD/s")
+    grand_total: float = Field(default=0.0, ge=0.0, description="Final AICP grand total in USD")
+    scene_allocations: List[Dict[str, Any]] = Field(default_factory=list, description="Per-scene financial allocations")
+
+
+# Aliases for PM-FEAT-015, PM-FEAT-016, PM-FEAT-017, PM-FEAT-018, PM-FEAT-019, and PM-FEAT-020
 HdrColorSpace = ColorVolumeGamut
 HdrToneMapping = ToneMappingOperator
 SceneHdrProfileSpec = SceneHdrReport
@@ -1553,6 +1815,12 @@ DayOutOfDaysRecordSpec = DayOutOfDaysRecord
 FilmStock = FilmStockSpec
 ClapperSlate = ClapperSlateSpec
 AscMhlManifest = AscMhlManifestSpec
+DroneFlight = DroneFlightPathSpec
+DroneFlightSpec = DroneFlightPathSpec
+AicpBid = MasterAicpBidSpec
+AicpBidSpec = MasterAicpBidSpec
+AicpLineItem = AicpLineItemSpec
+AicpTopSheet = AicpTopSheetSummarySpec
 
 
 class NanoBananaReference(BaseModel):
@@ -1582,9 +1850,9 @@ class ScenePromptSpec(BaseModel):
     scene_index: int = Field(..., description="1-indexed scene number")
     timestamp_range: str = Field(..., description="e.g. '00:00 - 00:08' or '+10s extension'")
     scene_title: str
-    regime: RegimeType
+    regime: RegimeType = Field(default=RegimeType.REGIME_1_ATMOSPHERIC, description="Camera regime")
     action_beats: List[str] = Field(
-        ...,
+        default_factory=list,
         max_length=3,
         description="Maximum 3 serialized cause-and-effect action beats for this 8-10s window"
     )
@@ -1601,9 +1869,24 @@ class ScenePromptSpec(BaseModel):
         description="Scene-specific synchronized audio details"
     )
     omni_prose_prompt: str = Field(
-        ...,
+        default="",
         description="The clean natural-language prose prompt ready to feed into Gemini Omni (NO markdown headers inside!)"
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def _validate_scene_prompt_aliases(cls, values: Any) -> Any:
+        if isinstance(values, dict):
+            if "omni_prose_prompt" not in values or not values.get("omni_prose_prompt"):
+                if "visual_prompt_text" in values:
+                    values["omni_prose_prompt"] = values["visual_prompt_text"]
+                elif "prompt" in values:
+                    values["omni_prose_prompt"] = values["prompt"]
+            if "regime" not in values:
+                values["regime"] = RegimeType.REGIME_1_ATMOSPHERIC
+            if "action_beats" not in values:
+                values["action_beats"] = []
+        return values
     conversational_edit_deltas: List[str] = Field(
         default_factory=list,
         description="Curated single-turn edit variations (e.g. Turn 2 lighting adjustment)"
@@ -1668,6 +1951,10 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="SMPTE 12M sync clapper slate and camera/sound take record (PM-FEAT-018)"
     )
+    drone_flight: Optional[DroneFlightPathSpec] = Field(
+        default=None,
+        description="Scene-specific aerial drone flight path, GPS waypoints, and gimbal telemetry (PM-FEAT-019)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -1731,6 +2018,14 @@ class ScenePromptSpec(BaseModel):
                 data["clapper_slate"] = data["slate"]
             if "clapper" in data and "clapper_slate" not in data:
                 data["clapper_slate"] = data["clapper"]
+            if "drone_flight_spec" in data and "drone_flight" not in data:
+                data["drone_flight"] = data["drone_flight_spec"]
+            if "drone_spec" in data and "drone_flight" not in data:
+                data["drone_flight"] = data["drone_spec"]
+            if "drone_path" in data and "drone_flight" not in data:
+                data["drone_flight"] = data["drone_path"]
+            if "drone" in data and "drone_flight" not in data and isinstance(data["drone"], (dict, DroneFlightPathSpec)):
+                data["drone_flight"] = data["drone"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -1812,6 +2107,14 @@ class ScenePromptSpec(BaseModel):
     @vfx_manifest.setter
     def vfx_manifest(self, value: Optional[VfxCompositingManifestSpec]) -> None:
         self.vfx_compositing = value
+
+    @property
+    def drone_spec(self) -> Optional[DroneFlightPathSpec]:
+        return self.drone_flight
+
+    @drone_spec.setter
+    def drone_spec(self, value: Optional[DroneFlightPathSpec]) -> None:
+        self.drone_flight = value
 
     @field_validator("action_beats")
     @classmethod
@@ -1936,6 +2239,38 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master slate specification alias (PM-FEAT-018)"
     )
+    master_drone_spec: Optional[DroneFlightPathSpec] = Field(
+        default=None,
+        description="Master aerial drone flight path and GPS mission specification (PM-FEAT-019)"
+    )
+    drone_spec: Optional[DroneFlightPathSpec] = Field(
+        default=None,
+        description="Master drone flight path specification alias (PM-FEAT-019)"
+    )
+    master_drone_flight: Optional[DroneFlightPathSpec] = Field(
+        default=None,
+        description="Master drone flight path specification alias (PM-FEAT-019)"
+    )
+    drone_flight: Optional[DroneFlightPathSpec] = Field(
+        default=None,
+        description="Master drone flight path specification alias (PM-FEAT-019)"
+    )
+    master_aicp_bid: Optional[MasterAicpBidSpec] = Field(
+        default=None,
+        description="Master AICP commercial production bid and budget breakdown top sheet (PM-FEAT-020)"
+    )
+    aicp_bid: Optional[MasterAicpBidSpec] = Field(
+        default=None,
+        description="Master AICP commercial bid alias (PM-FEAT-020)"
+    )
+    master_aicp_budget: Optional[MasterAicpBidSpec] = Field(
+        default=None,
+        description="Master AICP commercial budget alias (PM-FEAT-020)"
+    )
+    aicp_budget: Optional[MasterAicpBidSpec] = Field(
+        default=None,
+        description="Master AICP commercial budget alias (PM-FEAT-020)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -2011,7 +2346,39 @@ class MasterProductionBible(BaseModel):
         elif self.slate_spec is not None and self.master_slate_spec is None:
             object.__setattr__(self, "master_slate_spec", self.slate_spec)
 
+        # Synchronize Drone Flight and AICP Bid spec aliases (PM-FEAT-019 & PM-FEAT-020)
+        drone_source = self.master_drone_spec or self.drone_spec or self.master_drone_flight or self.drone_flight
+        if drone_source is not None:
+            if self.master_drone_spec is None:
+                object.__setattr__(self, "master_drone_spec", drone_source)
+            if self.drone_spec is None:
+                object.__setattr__(self, "drone_spec", drone_source)
+            if self.master_drone_flight is None:
+                object.__setattr__(self, "master_drone_flight", drone_source)
+            if self.drone_flight is None:
+                object.__setattr__(self, "drone_flight", drone_source)
+
+        bid_source = self.master_aicp_bid or self.aicp_bid or self.master_aicp_budget or self.aicp_budget
+        if bid_source is not None:
+            if self.master_aicp_bid is None:
+                object.__setattr__(self, "master_aicp_bid", bid_source)
+            if self.aicp_bid is None:
+                object.__setattr__(self, "aicp_bid", bid_source)
+            if self.master_aicp_budget is None:
+                object.__setattr__(self, "master_aicp_budget", bid_source)
+            if self.aicp_budget is None:
+                object.__setattr__(self, "aicp_budget", bid_source)
+
         return self
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        super().__setattr__(name, value)
+        if name in ("master_aicp_bid", "aicp_bid", "master_aicp_budget", "aicp_budget") and value is not None:
+            super().__setattr__("master_aicp_bid", value)
+            super().__setattr__("aicp_bid", value)
+        if name in ("master_drone_spec", "drone_spec", "master_drone_flight", "drone_flight") and value is not None:
+            super().__setattr__("master_drone_spec", value)
+            super().__setattr__("drone_spec", value)
 
 
     @property
@@ -2341,6 +2708,26 @@ __all__ = [
     "AscMhlManifestSpec",
     "AscMhlManifest",
     "MasterProductionSlateSpec",
+    # PM-FEAT-019: Aerial Drone Flight Paths & GPS Waypoints
+    "DroneRigType",
+    "FlightWaypointGPS",
+    "GimbalOrientationSpec",
+    "SolarPhase",
+    "SolarEphemerisSpec",
+    "WindDriftVectorSpec",
+    "DroneFlightPathSpec",
+    "DroneFlight",
+    "DroneFlightSpec",
+    # PM-FEAT-020: AICP Commercial Production Bid & Budget Breakdown
+    "AicpSectionCode",
+    "CrewLaborTier",
+    "AicpLineItemSpec",
+    "AicpTopSheetSummarySpec",
+    "MasterAicpBidSpec",
+    "AicpBid",
+    "AicpBidSpec",
+    "AicpLineItem",
+    "AicpTopSheet",
     # Council Schemas
     "CouncilPersona",
     "CouncilFindingSeverity",

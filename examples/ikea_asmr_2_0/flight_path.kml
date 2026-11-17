@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>IKEA: The Living Room Unfolds</name>
+    <description>Mission: DRONE_ARCH_01 - Profile: monolithic_orbital_reveal (Rig: DroneRigType.COMPACT_CINEMA_INSPIRE3)</description>
+    <Style id="flightPathStyle">
+      <LineStyle>
+        <color>ff00ffff</color>
+        <width>4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7f00aaee</color>
+      </PolyStyle>
+    </Style>
+    <Placemark>
+      <name>DRONE_ARCH_01 Trajectory</name>
+      <styleUrl>#flightPathStyle</styleUrl>
+      <LineString>
+        <extrude>1</extrude>
+        <tessellate>1</tessellate>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.243700,34.052200,22.0 -118.242967,34.052800,41.9 -118.242233,34.053400,41.9 -118.241500,34.054000,22.0</coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>WP 1: Waypoint 1: Aircraft takeoff & camera vector acquisition</name>
+      <description>Time: 0.0s | Alt AGL: 22.0m | Speed: 4.0m/s | Heading: 0.0°</description>
+      <Point>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.243700,34.052200,22.0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>WP 2: Waypoint 2: Mid-flight kinetic sweep & subject lock</name>
+      <description>Time: 6.0s | Alt AGL: 41.9m | Speed: 4.0m/s | Heading: 15.0°</description>
+      <Point>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.242967,34.052800,41.9</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>WP 3: Waypoint 3: Apex framing reveal & light glint</name>
+      <description>Time: 12.0s | Alt AGL: 41.9m | Speed: 4.0m/s | Heading: 30.0°</description>
+      <Point>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.242233,34.053400,41.9</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>WP 4: Waypoint 4: Terminal deceleration & hero composition hold</name>
+      <description>Time: 18.0s | Alt AGL: 22.0m | Speed: 4.0m/s | Heading: 45.0°</description>
+      <Point>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.241500,34.054000,22.0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

@@ -1,4 +1,5 @@
 import hashlib
+import math
 import re
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Union
@@ -7,6 +8,9 @@ from omni_director.schemas import (
     AcousticMaterialType,
     AcousticRoomImpulseResponse,
     ActionBeatSpec,
+    AicpLineItemSpec,
+    AicpSectionCode,
+    AicpTopSheetSummarySpec,
     AnamorphicSqueeze,
     AscMhlHashEntry,
     AscMhlManifestSpec,
@@ -18,6 +22,7 @@ from omni_director.schemas import (
     ColorLookSpec,
     ColorVolumeGamut,
     CraftCameraSpec,
+    CrewLaborTier,
     CryptomatteManifestSpec,
     DiegeticSonicSpec,
     DmxLightingFixture,
@@ -25,10 +30,14 @@ from omni_director.schemas import (
     DomainArchetype,
     DomainDofSpec,
     DomainLutSpec,
+    DroneFlightPathSpec,
+    DroneRigType,
     FilmGaugeFormat,
     FilmStockManufacturer,
     FilmStockSpec,
+    FlightWaypointGPS,
     GateWeavePhysicsSpec,
+    GimbalOrientationSpec,
     GrainPhysicsSpec,
     HalationPhysicsSpec,
     HdrMasteringDisplaySpec,
@@ -36,6 +45,7 @@ from omni_director.schemas import (
     HdrTransferFunction,
     LedWallGeometry,
     LightingRigSpec,
+    MasterAicpBidSpec,
     MasterBgmSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
@@ -50,6 +60,7 @@ from omni_director.schemas import (
     ScriptBreakdownSheet,
     SensorFormat,
     Smpte12MTimecodeSpec,
+    SolarEphemerisSpec,
     SpatialAudioObjectSpec,
     SpatialAudioSoundfieldSpec,
     SpatialCoordinate3D,
@@ -63,10 +74,16 @@ from omni_director.schemas import (
     VfxLayerChannelSpec,
     VfxRenderPassType,
     VirtualProductionStageSpec,
+    WindDriftVectorSpec,
 )
+from omni_director.tools.aicp_budget import calculate_aicp_top_sheet
 from omni_director.tools.clapper_slate import (
     calculate_smpte12m_frames,
     format_smpte12m_timecode,
+)
+from omni_director.tools.drone_flight import (
+    format_drone_flight_prompt_token,
+    synthesize_default_drone_flight,
 )
 from omni_director.tools.color_grade import get_preset_color_look
 from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
@@ -1644,6 +1661,517 @@ def get_domain_clapper_slate_spec(
     )
 
 
+def get_domain_drone_spec(domain: Union[DomainArchetype, str]) -> DroneFlightPathSpec:
+    """Calibrate aerial drone flight paths, GPS waypoints, gimbal telemetry, and Part 107 compliance (PM-FEAT-019)."""
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    base_lat = 34.0522
+    base_lon = -118.2437
+    base_msl = 120.0
+
+    if "automotive" in domain_key:
+        aircraft_model = "Freefly Systems Alta X / RED V-Raptor 8K"
+        rig = DroneRigType.HEAVY_LIFTER_ALTA_X
+        profile = "high_speed_vehicle_pursuit"
+        min_alt = 18.0
+        max_alt = 35.0  # 35m AGL
+        speed = 18.0    # 18 m/s
+        duration = 12.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-18.0,
+            yaw_deg=0.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=35.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=14.5,
+            solar_azimuth_deg=248.0,
+            golden_hour_active=True,
+            lens_flare_risk="moderate",
+            color_temperature_kelvin=3200,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=9.0,
+            wind_direction_deg=260.0,
+            gust_speed_knots=14.0,
+            drift_compensation_deg=3.5,
+            turbulence_rating="light",
+        )
+        desc = "Freefly Alta X heavy lift cinema quadcopter high-speed vehicle tracking at 18 m/s, 35m AGL with golden hour raking lighting."
+
+    elif "culinary" in domain_key:
+        aircraft_model = "Micro Cablecam Hybrid / Sony FX3"
+        rig = DroneRigType.CABLE_CAM_HYBRID
+        profile = "indoor_slow_orbital_reveal"
+        min_alt = 1.2
+        max_alt = 3.0   # 3m AGL
+        speed = 1.5     # 1.5 m/s
+        duration = 16.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-38.0,
+            yaw_deg=15.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=50.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=50.0,
+            solar_azimuth_deg=180.0,
+            golden_hour_active=False,
+            lens_flare_risk="low",
+            color_temperature_kelvin=3200,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=0.5,
+            wind_direction_deg=0.0,
+            gust_speed_knots=1.0,
+            drift_compensation_deg=0.0,
+            turbulence_rating="none",
+        )
+        desc = "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+
+    elif "luxury" in domain_key:
+        aircraft_model = "DJI Inspire 3 / Zenmuse X9-8K Air"
+        rig = DroneRigType.COMPACT_CINEMA_INSPIRE3
+        profile = "architectural_fashion_sweep"
+        min_alt = 8.0
+        max_alt = 20.0  # 20m AGL
+        speed = 4.5     # smooth pan
+        duration = 15.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-12.0,
+            yaw_deg=-5.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=40.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=11.0,
+            solar_azimuth_deg=262.0,
+            golden_hour_active=True,
+            lens_flare_risk="moderate",
+            color_temperature_kelvin=3400,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=6.0,
+            wind_direction_deg=275.0,
+            gust_speed_knots=9.0,
+            drift_compensation_deg=2.2,
+            turbulence_rating="light",
+        )
+        desc = "DJI Inspire 3 cinema quadcopter architectural location sweep, 20m AGL with golden hour raking light and smooth horizontal pan."
+
+    elif "kinetic" in domain_key:
+        aircraft_model = "Shendrones Thicc FPV Cinelifter / RED Komodo 6K"
+        rig = DroneRigType.FPV_CINELIFTER_ACRO
+        profile = "dynamic_fpv_canyon_dive"
+        min_alt = 6.0
+        max_alt = 38.0  # dynamic dive
+        speed = 25.0    # 25 m/s
+        duration = 10.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-42.0,  # aggressive gimbal pitch
+            yaw_deg=0.0,
+            roll_deg=5.0,
+            stabilization_mode="fpv_lock",
+            focal_length_equiv_mm=18.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=38.0,
+            solar_azimuth_deg=220.0,
+            golden_hour_active=False,
+            lens_flare_risk="moderate",
+            color_temperature_kelvin=5600,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=14.0,
+            wind_direction_deg=285.0,
+            gust_speed_knots=22.0,
+            drift_compensation_deg=5.8,
+            turbulence_rating="moderate",
+        )
+        desc = "FPV racing cinelifter drone dynamic dive and canyon carve at 25 m/s with aggressive gimbal pitch and high battery draw."
+
+    elif "hardware" in domain_key:
+        aircraft_model = "Precision Cleanroom Cablecam / Sony FX3"
+        rig = DroneRigType.CABLE_CAM_HYBRID
+        profile = "linear_cleanroom_flyover"
+        min_alt = 2.0
+        max_alt = 5.0   # 5m AGL
+        speed = 5.0     # steady 5 m/s
+        duration = 14.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-45.0,
+            yaw_deg=0.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=28.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=62.0,
+            solar_azimuth_deg=180.0,
+            golden_hour_active=False,
+            lens_flare_risk="low",
+            color_temperature_kelvin=5500,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=1.0,
+            wind_direction_deg=0.0,
+            gust_speed_knots=2.0,
+            drift_compensation_deg=0.0,
+            turbulence_rating="none",
+        )
+        desc = "Precision cablecam cleanroom quadcopter linear flyover at steady 5 m/s with studio high noon top-light illumination."
+
+    elif "architectural" in domain_key:
+        aircraft_model = "DJI Inspire 3 / Zenmuse X9-8K Air"
+        rig = DroneRigType.COMPACT_CINEMA_INSPIRE3
+        profile = "monolithic_orbital_reveal"
+        min_alt = 22.0
+        max_alt = 45.0  # 45m AGL, FAA Part 107 compliant <= 120m
+        speed = 4.0
+        duration = 18.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-20.0,
+            yaw_deg=-10.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=24.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=7.5,
+            solar_azimuth_deg=272.0,
+            golden_hour_active=True,
+            lens_flare_risk="moderate",
+            color_temperature_kelvin=3000,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=7.0,
+            wind_direction_deg=280.0,
+            gust_speed_knots=11.0,
+            drift_compensation_deg=2.8,
+            turbulence_rating="light",
+        )
+        desc = "DJI Inspire 3 cinema quadcopter slow orbital reveal at 45m AGL under magic hour / golden hour, FAA Part 107 compliant."
+
+    else:
+        aircraft_model = "DJI Inspire 3 / Zenmuse X9-8K Air"
+        rig = DroneRigType.COMPACT_CINEMA_INSPIRE3
+        profile = "cinematic_establishing_sweep"
+        min_alt = 10.0
+        max_alt = 25.0
+        speed = 6.0
+        duration = 15.0
+        dist = round(speed * duration, 1)
+        gimbal = GimbalOrientationSpec(
+            pitch_deg=-15.0,
+            yaw_deg=0.0,
+            roll_deg=0.0,
+            stabilization_mode="follow_yaw",
+            focal_length_equiv_mm=35.0,
+        )
+        solar = SolarEphemerisSpec(
+            solar_elevation_deg=20.0,
+            solar_azimuth_deg=240.0,
+            golden_hour_active=True,
+            lens_flare_risk="low",
+            color_temperature_kelvin=4000,
+        )
+        wind = WindDriftVectorSpec(
+            wind_speed_knots=5.0,
+            wind_direction_deg=270.0,
+            gust_speed_knots=8.0,
+            drift_compensation_deg=1.5,
+            turbulence_rating="light",
+        )
+        desc = f"Calibrated aerial drone flight path for {domain_key}, FAA Part 107 compliant."
+
+    waypoints: List[FlightWaypointGPS] = []
+    num_wp = 4
+    for i in range(num_wp):
+        frac = i / max(1, num_wp - 1)
+        cur_lat = round(base_lat + (frac * 0.0018), 6)
+        cur_lon = round(base_lon + (frac * 0.0022), 6)
+        cur_agl = round(min_alt + (math.sin(frac * math.pi) * (max_alt - min_alt)), 1)
+        cur_msl = round(base_msl + cur_agl, 1)
+        cur_time = round(frac * duration, 1)
+        cue = (
+            "Waypoint 1: Aircraft takeoff & camera vector acquisition" if i == 0
+            else "Waypoint 2: Mid-flight kinetic sweep & subject lock" if i == 1
+            else "Waypoint 3: Apex framing reveal & light glint" if i == 2
+            else "Waypoint 4: Terminal deceleration & hero composition hold"
+        )
+        waypoints.append(
+            FlightWaypointGPS(
+                waypoint_id=i + 1,
+                latitude=cur_lat,
+                longitude=cur_lon,
+                altitude_m_agl=cur_agl,
+                altitude_m_msl=cur_msl,
+                speed_mps=speed,
+                timestamp_s=cur_time,
+                heading_deg=round(frac * 45.0, 1),
+                action_cue=cue,
+            )
+        )
+
+    return DroneFlightPathSpec(
+        flight_id=f"DRONE_{domain_key.upper()[:4]}_01",
+        aircraft_model=aircraft_model,
+        drone_rig=rig,
+        flight_profile=profile,
+        min_altitude_agl_m=min_alt,
+        max_altitude_agl_m=max_alt,
+        total_distance_m=dist,
+        flight_duration_s=duration,
+        waypoints=waypoints,
+        gimbal=gimbal,
+        solar_ephemeris=solar,
+        wind_drift=wind,
+        faa_part_107_compliant=True,
+        description=desc,
+    )
+
+
+def get_domain_aicp_bid_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    total_runtime_seconds: Optional[int] = None,
+) -> MasterAicpBidSpec:
+    """Calibrate AICP commercial production bid packages and budgets across domain archetypes (PM-FEAT-020)."""
+    if isinstance(bible_or_domain, MasterProductionBible):
+        domain = bible_or_domain.domain_archetype or classify_brief_domain(f"{bible_or_domain.project_title} {bible_or_domain.logline}")
+        title = bible_or_domain.project_title
+        runtime = total_runtime_seconds or bible_or_domain.total_runtime_seconds
+    elif hasattr(bible_or_domain, "domain_archetype"):
+        domain = getattr(bible_or_domain, "domain_archetype", "culinary_asmr")
+        title = getattr(bible_or_domain, "project_title", "Commercial Production")
+        runtime = total_runtime_seconds or getattr(bible_or_domain, "total_runtime_seconds", 30)
+    else:
+        domain = bible_or_domain
+        title = f"{str(domain).replace('_', ' ').title()} Commercial"
+        runtime = total_runtime_seconds or 30
+
+    domain_key = domain.value if hasattr(domain, "value") else str(domain).lower()
+
+    if "automotive" in domain_key:
+        # Senior PM Spec: $320k - $480k -> Target Grand Total: $385,000 (Direct: $308,000)
+        labor_tier = CrewLaborTier.TIER_UNION_DGA_IATSE
+        days = 3
+        brand = "AeroDynamics Hypercar Group"
+        loc = "Willow Springs Raceway & Mojave Desert, CA"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Executive Producer / Line Producer (Prep & Wrap)", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=5.0, unit_rate_usd=2800.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="A-102", section=AicpSectionCode.SECTION_A, description="Production Manager & 1st AD", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=1800.0, fringes_pct=0.0, total_cost_usd=7200.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography (DGA/Local 600, 3 Shoot Days)", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=4500.0, fringes_pct=0.0, total_cost_usd=13500.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="1st AC & 2nd AC Focus Puller Unit", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2200.0, fringes_pct=0.0, total_cost_usd=6600.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="Chief Lighting Technician (Gaffer) & Best Boy Electric", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2600.0, fringes_pct=0.0, total_cost_usd=7800.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="Key Grip & Precision Rigging Grips", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2600.0, fringes_pct=0.0, total_cost_usd=7800.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="Production Sound Mixer & Telemetry Recordist", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=1600.0, fringes_pct=0.0, total_cost_usd=4800.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="Digital Imaging Technician (DIT) & On-Set Colorist", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=1600.0, fringes_pct=0.0, total_cost_usd=4800.0),
+            AicpLineItemSpec(account_number="B-107", section=AicpSectionCode.SECTION_B, description="Precision Pursuit Stunt Driver & Russian Arm Tech", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=3600.0, fringes_pct=0.0, total_cost_usd=10800.0),
+            AicpLineItemSpec(account_number="B-108", section=AicpSectionCode.SECTION_B, description="Heavy Lift Cinema Drone RPIC & Gimbal Operator", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=3200.0, fringes_pct=0.0, total_cost_usd=9600.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Raceway Track Rental, Desert BLM Permits & CHP Escort", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=18000.0, fringes_pct=0.0, total_cost_usd=18000.0),
+            AicpLineItemSpec(account_number="C-102", section=AicpSectionCode.SECTION_C, description="Crew Lodging, Remote Location Travel & Fuel Logistics", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=10000.0, fringes_pct=0.0, total_cost_usd=10000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Hero Hypercar Detailing, Carbon Fiber Armor & Racing Wardrobe", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=12000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="ARRI Alexa 35 High-Speed Package & Cooke S7/i Primes", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=4800.0, fringes_pct=0.0, total_cost_usd=14400.0),
+            AicpLineItemSpec(account_number="E-102", section=AicpSectionCode.SECTION_E, description="10-Ton Grip/Electric Truck & ARRI Skypanel X / Vortex8 Package", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=4200.0, fringes_pct=0.0, total_cost_usd=12600.0),
+            AicpLineItemSpec(account_number="E-103", section=AicpSectionCode.SECTION_E, description="Russian Arm Flight Head Pursuit Vehicle System Rental", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=6800.0, fringes_pct=0.0, total_cost_usd=20400.0),
+            AicpLineItemSpec(account_number="E-104", section=AicpSectionCode.SECTION_E, description="Freefly Alta X Octocopter Drone Package & Ground Station", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2800.0, fringes_pct=0.0, total_cost_usd=8400.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Practical Dust/Sparks Atmosphere & Safety Stunt Rigging", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=9000.0, fringes_pct=0.0, total_cost_usd=9000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Production Catering, Craft Services & Environmental Safety", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2200.0, fringes_pct=0.0, total_cost_usd=6600.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="SAG-AFTRA Principal Stunt Pilot / Driver Session Fees", crew_tier=labor_tier, rate_basis="day", units_count=3.0, unit_rate_usd=2600.0, fringes_pct=0.0, total_cost_usd=7800.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Talent Fitted Nomex Racing Suits & Ground Transport", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3800.0, fringes_pct=0.0, total_cost_usd=3800.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Commercial Offline Picture Editorial & High-Speed Conform", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=11000.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Dyno Engine Foley, Diegetic Spatial Audio & Dolby Atmos Mix", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=10000.0, fringes_pct=0.0, total_cost_usd=10000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="Automotive Paint Rig Removal & Baselight HDR 3D LUT Grade", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=11000.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Precision Vehicle Damage Liability & Negative Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6500.0, fringes_pct=0.0, total_cost_usd=6500.0),
+        ]
+
+    elif "culinary" in domain_key:
+        # Senior PM Spec: $95k - $165k -> Target Grand Total: $125,000 (Direct: $100,000)
+        labor_tier = CrewLaborTier.TIER_COMMERCIAL_TIER_2
+        days = 1
+        brand = "Nordic Gastronomy Artisans"
+        loc = "Culinary Soundstage, Stockholm / Brooklyn, NY"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Line Producer & Food Production Coordinator", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=2125.0, fringes_pct=0.0, total_cost_usd=8500.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography & Tabletop Macro Specialist", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="Master Food Stylist & Culinary Prep Chefs", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=8500.0, fringes_pct=0.0, total_cost_usd=8500.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="1st AC & Focus Puller (Macro Probe Precision)", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=1800.0, fringes_pct=0.0, total_cost_usd=1800.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="Gaffer & Tabletop Fiber Optic Lighting Technician", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=2200.0, fringes_pct=0.0, total_cost_usd=2200.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="Key Grip & Motion Control Arm Operator", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=2500.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="High-Resolution Binaural Audio Specialist (ASMR)", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=2800.0, fringes_pct=0.0, total_cost_usd=2800.0),
+            AicpLineItemSpec(account_number="B-107", section=AicpSectionCode.SECTION_B, description="DIT / ASC CDL Tabletop Color Specialist", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=2200.0, fringes_pct=0.0, total_cost_usd=2200.0),
+            AicpLineItemSpec(account_number="B-108", section=AicpSectionCode.SECTION_B, description="Micro-Drone Cablecam Indoor Pilot", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=7000.0, fringes_pct=0.0, total_cost_usd=7000.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Commercial Kitchen Soundstage Rental & Prep Facility", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=11500.0, fringes_pct=0.0, total_cost_usd=11500.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Culinary Hero Props, Artisan Ceramics & Organic Ingredients", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=9000.0, fringes_pct=0.0, total_cost_usd=9000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=14000.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Kitchen Prep Supplies, Commercial Sanitation & Catering", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="SAG-AFTRA Hand Model & Chef Talent Session Fees", crew_tier=labor_tier, rate_basis="day", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Talent Wardrobe Styling & Linen Apron Fittings", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=1000.0, fringes_pct=0.0, total_cost_usd=1000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4500.0, fringes_pct=0.0, total_cost_usd=4500.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4500.0, fringes_pct=0.0, total_cost_usd=4500.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="Organic Food Color Grading & Microscopic Clean-up", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Production Equipment & Tabletop Soundstage Liability Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=2000.0),
+        ]
+
+    elif "luxury" in domain_key:
+        # Senior PM Spec: $220k - $380k -> Target Grand Total: $295,000 (Direct: $236,000)
+        labor_tier = CrewLaborTier.TIER_COMMERCIAL_TIER_1
+        days = 2
+        brand = "Maison de Haute Horlogerie Paris"
+        loc = "Architectural Villa & Parisian Modernist Studio"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Executive Producer & Parisian Line Producer", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=5.0, unit_rate_usd=4400.0, fringes_pct=0.0, total_cost_usd=22000.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography (Vogue / Harper's Bazaar Cinematographer)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=16000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="Haute Couture Fashion Stylist & Tailoring Team", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=7000.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="Celebrity Hair, Makeup & SFX Beauty Team", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="Gaffer & Chic Chiaroscuro Lighting Electricians", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=4000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="Key Grip & Dolly Grip Master", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3500.0, fringes_pct=0.0, total_cost_usd=7000.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="DIT / Film Emulation Look Technician", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-107", section=AicpSectionCode.SECTION_B, description="DJI Inspire 3 Aerial Cinema Drone Pilot & Spotter", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Modernist Architectural Estate Location Fee & Permits", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=28000.0, fringes_pct=0.0, total_cost_usd=28000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Hero Archive Wardrobe, Haute Jewelry & Silk Fabric Scenics", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=24000.0, fringes_pct=0.0, total_cost_usd=24000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="RED V-Raptor XL 8K VV & Anamorphic ARRI Master Prime Lenses", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=19000.0, fringes_pct=0.0, total_cost_usd=38000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Diffused Silk Overhead Flyswatter & Wind Machine Rig", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Executive VIP Hospitality, Green Room & Artisanal Catering", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="International Runway Supermodel Session Fee (SAG-AFTRA)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=7000.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="VIP First Class Travel, Security Escort & Dressing Suite", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="High-Fashion Rhythmic Editorial Assembly & Beauty Cut", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=9000.0, fringes_pct=0.0, total_cost_usd=9000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Bespoke Minimalist Neoclassical Score & Spatial Audio Mix", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="35mm Film Grain Emulation & Golden Hour 3D LUT Color Grade", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="High-Value Haute Horlogerie Guarding & Commercial Production Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+        ]
+
+    elif "kinetic" in domain_key:
+        # Senior PM Spec: $280k - $450k -> Target Grand Total: $360,000 (Direct: $288,000)
+        labor_tier = CrewLaborTier.TIER_UNION_DGA_IATSE
+        days = 2
+        brand = "Vanguard Kinetic Athletics"
+        loc = "Red Rock Canyon & Industrial Airfield, NV"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Executive Producer & Action Stunt Coordinator", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=4500.0, fringes_pct=0.0, total_cost_usd=18000.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography (Action Sports Specialist, 2 Days)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=6500.0, fringes_pct=0.0, total_cost_usd=13000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="World Champion FPV Racing Drone Pilots (Dual Unit)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=6500.0, fringes_pct=0.0, total_cost_usd=13000.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="Wire Rigging & Extreme Stunt Safety Coordinators", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=5500.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="1st AC & High-Speed Optical Remote Technicians", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3200.0, fringes_pct=0.0, total_cost_usd=6400.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="Gaffer & Heavy Sun Guns High-Speed Lighting Unit", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=4200.0, fringes_pct=0.0, total_cost_usd=8400.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="Key Grip & Kinetic Track Arm Riggers", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=4200.0, fringes_pct=0.0, total_cost_usd=8400.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Airfield Tarmac & Red Rock Canyon Film Permits / EMT Medical", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=26000.0, fringes_pct=0.0, total_cost_usd=26000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Kinetic Performance Suits, Stunt Harnesses & Custom Hardware", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=13000.0, fringes_pct=0.0, total_cost_usd=13000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="ARRI Alexa Mini LF, Freefly Wave High-Speed & FPV Cinelifter Rigs", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=24000.0, fringes_pct=0.0, total_cost_usd=48000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Pneumatic Air Ratchet Stunt Rigs & Crash Mats", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=11000.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Desert Mobile Craft Services, Hydration & Medical Safety", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2800.0, fringes_pct=0.0, total_cost_usd=5600.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="SAG-AFTRA Olympic Parkour / Acrobat Talent Session Fees", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=7200.0, fringes_pct=0.0, total_cost_usd=14400.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Talent Physiotherapy, Custom Padding & Ground Transportation", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Dynamic Kinetic Editorial Assembly & Speed Ramp Post-Production", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=10000.0, fringes_pct=0.0, total_cost_usd=10000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Industrial Electronic Kinetic Beat & 3D Spatial Audio Soundfield", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="Wire Rig Paint Removal, Speed Blur VFX & Punchy Contrast Grade", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Aviation & High-Risk Stunt Commercial Production Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+        ]
+
+    elif "hardware" in domain_key:
+        # Senior PM Spec: $140k - $240k -> Target Grand Total: $185,000 (Direct: $148,000)
+        labor_tier = CrewLaborTier.TIER_COMMERCIAL_TIER_1
+        days = 2
+        brand = "Quantum Nanotech Semiconductor Labs"
+        loc = "ISO-5 Cleanroom Facility, Silicon Valley, CA"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Line Producer & Cleanroom Protocol Coordinator", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=3500.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography (Macro Tech Specialist, 2 Days)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="Motion Control Robotic Cinebot Operator (Bolt Jr+)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=5500.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="1st AC & Focus Puller (Microscopic Depth of Field)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="Gaffer & Anti-Reflective Cleanroom Lighting Tech", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="Precision Cleanroom Cablecam Operator", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="DIT / Semiconductor Visual Telemetry Specialist", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="ISO-5 Cleanroom Stage Rental & Bunny Suit Air Shower Protocol", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=12000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Silicon Wafer Scenics, Laser Anodized Aluminum Fixtures & Props", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=11000.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="Sony Venice 2 8K Cinema Camera & Bolt Jr+ High-Speed Cinebot", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=14000.0, fringes_pct=0.0, total_cost_usd=28000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Laser Alignment Optics, Coherent Ray Effects & Ion Cleaners", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Electrostatic Discharge (ESD) Protection Gear & Crew Catering", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="SAG-AFTRA Lead Scientist / Research Engineer Talent", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Cleanroom ESD Uniform Custom Tailoring", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=2000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Clean Geometric Editorial & CAD Schematic Alignment", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Minimalist Micro-Mechanical ASMR Foley & Resonant Sub-Bass Mix", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="Semiconductor Wafer Cryptomatte Pass & Clean Blue/White Grade", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Cleanroom Equipment & Robotic System Liability Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+        ]
+
+    elif "architectural" in domain_key:
+        # Senior PM Spec: $120k - $210k -> Target Grand Total: $160,000 (Direct: $128,000)
+        labor_tier = CrewLaborTier.TIER_COMMERCIAL_TIER_2
+        days = 2
+        brand = "Atelier Sanctuary Works"
+        loc = "Brutalist Concrete Pavilion & Zen Water Sanctuary, Kyoto / Switzerland"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Line Producer & Architectural Access Permits Supervisor", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography (Architectural & Natural Light Master)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=5500.0, fringes_pct=0.0, total_cost_usd=11000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="1st AC & Geometrical Lens Technician (Shift/Tilt Specialists)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="Gaffer & Bounce Board / Negative Fill Grips", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-104", section=AicpSectionCode.SECTION_B, description="Key Grip & Heavy Precision Slider Dolly Operator", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="B-105", section=AicpSectionCode.SECTION_B, description="DJI Inspire 3 Aerial Drone RPIC (Part 107 Compliant)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3500.0, fringes_pct=0.0, total_cost_usd=7000.0),
+            AicpLineItemSpec(account_number="B-106", section=AicpSectionCode.SECTION_B, description="DIT / ACES Photographic Colorist", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Pritzker Landmark Pavilion Location Fee & Drone Heritage Clearance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=16000.0, fringes_pct=0.0, total_cost_usd=16000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Minimalist Bronze Furnishings & Architectural Flora Styling", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="ARRI Alexa Mini LF & Arri Signature Prime / Tilt-Shift Lens Package", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=12000.0, fringes_pct=0.0, total_cost_usd=24000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Water Mirror Reflection Rig & Micro-Mist Atmosphere", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Quiet Environmental Power Generation & Boutique Catering", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="Solo Contemplative Figure Talent (SAG-AFTRA)", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Architectural Linen Garments & Custom Sandal Fittings", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=2000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Contemplative Static Framing Editorial Assembly", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Acoustic Room Impulse Response & Monastic Drone Soundscape", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="Pure Concrete Texture Preservation & Zen Neutral Color Grade", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=4000.0, fringes_pct=0.0, total_cost_usd=4000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Architectural Heritage Site Preservation & Liability Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=2000.0, fringes_pct=0.0, total_cost_usd=2000.0),
+        ]
+
+    else:
+        # Default Commercial Production Package
+        labor_tier = CrewLaborTier.TIER_COMMERCIAL_TIER_1
+        days = 2
+        brand = "Global Commercial Advertiser"
+        loc = "Universal Studios Soundstage, Los Angeles, CA"
+        line_items = [
+            AicpLineItemSpec(account_number="A-101", section=AicpSectionCode.SECTION_A, description="Executive Producer & Production Supervisor", crew_tier=labor_tier, rate_basis="prep_wrap", units_count=4.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="B-101", section=AicpSectionCode.SECTION_B, description="Director of Photography & Camera Operators", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=12000.0),
+            AicpLineItemSpec(account_number="B-102", section=AicpSectionCode.SECTION_B, description="Lighting, Grip & Sound Technicians", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=7500.0, fringes_pct=0.0, total_cost_usd=15000.0),
+            AicpLineItemSpec(account_number="B-103", section=AicpSectionCode.SECTION_B, description="Aerial Drone Pilot & DIT Offload Specialist", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=4500.0, fringes_pct=0.0, total_cost_usd=9000.0),
+            AicpLineItemSpec(account_number="C-101", section=AicpSectionCode.SECTION_C, description="Studio Soundstage & City Filming Permits", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=14000.0, fringes_pct=0.0, total_cost_usd=14000.0),
+            AicpLineItemSpec(account_number="D-101", section=AicpSectionCode.SECTION_D, description="Art Direction, Props & Wardrobe Package", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=10000.0, fringes_pct=0.0, total_cost_usd=10000.0),
+            AicpLineItemSpec(account_number="E-101", section=AicpSectionCode.SECTION_E, description="Cinema Camera Package, Lighting Truck & Drone System", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=11000.0, fringes_pct=0.0, total_cost_usd=22000.0),
+            AicpLineItemSpec(account_number="F-101", section=AicpSectionCode.SECTION_F, description="Practical Effects & Stage Rigging", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="G-101", section=AicpSectionCode.SECTION_G, description="Production Expenses, Catering & Craft Services", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=2500.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="H-101", section=AicpSectionCode.SECTION_H, description="SAG-AFTRA Principal On-Camera Talent", crew_tier=labor_tier, rate_basis="day", units_count=2.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="I-101", section=AicpSectionCode.SECTION_I, description="Talent Wardrobe Styling & Travel", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+            AicpLineItemSpec(account_number="J-101", section=AicpSectionCode.SECTION_J, description="Offline Editorial & Master Assembly", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=8000.0, fringes_pct=0.0, total_cost_usd=8000.0),
+            AicpLineItemSpec(account_number="K-101", section=AicpSectionCode.SECTION_K, description="Diegetic Sound Design, Score & 5.1 Re-Recording Mix", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=6000.0, fringes_pct=0.0, total_cost_usd=6000.0),
+            AicpLineItemSpec(account_number="L-101", section=AicpSectionCode.SECTION_L, description="3D LUT Color Grade & Flame Finishing", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=5000.0, fringes_pct=0.0, total_cost_usd=5000.0),
+            AicpLineItemSpec(account_number="M-101", section=AicpSectionCode.SECTION_M, description="Production General Liability & Equipment Insurance", crew_tier=labor_tier, rate_basis="flat", units_count=1.0, unit_rate_usd=3000.0, fringes_pct=0.0, total_cost_usd=3000.0),
+        ]
+
+    top_sheet = calculate_aicp_top_sheet(line_items, production_fee_pct=15.0, contingency_pct=10.0)
+
+    return MasterAicpBidSpec(
+        project_title=title,
+        client_brand=brand,
+        agency_name="Omni Creative Partners",
+        production_company="Omni Studio Productions",
+        shoot_days_count=days,
+        shoot_location=loc,
+        currency="USD",
+        labor_tier=labor_tier,
+        line_items=line_items,
+        top_sheet=top_sheet,
+    )
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -2220,6 +2748,10 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
         _bible_inst.master_slate_spec = get_domain_clapper_slate_spec(
             _arch, _bible_inst.scenes, project_title=_bible_inst.project_title
         )
+    if not getattr(_bible_inst, "master_drone_spec", None):
+        _bible_inst.master_drone_spec = get_domain_drone_spec(_arch)
+    if not getattr(_bible_inst, "master_aicp_bid", None):
+        _bible_inst.master_aicp_bid = get_domain_aicp_bid_spec(_bible_inst)
     for _idx, _sc in enumerate(_bible_inst.scenes, 1):
         if not _sc.speed_ramp:
             _sc.speed_ramp = get_domain_speed_ramp(_arch)
@@ -2249,6 +2781,8 @@ for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_
             _sc.film_emulation = _bible_inst.master_film_emulation
         if not getattr(_sc, "clapper_slate", None) and _bible_inst.master_slate_spec and len(_bible_inst.master_slate_spec.scenes) >= _idx:
             _sc.clapper_slate = _bible_inst.master_slate_spec.scenes[_idx - 1]
+        if not getattr(_sc, "drone_flight", None):
+            _sc.drone_flight = _bible_inst.master_drone_spec
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -2357,6 +2891,10 @@ def create_bible(
         bible.master_slate_spec = get_domain_clapper_slate_spec(
             bible.domain_archetype, bible.scenes, project_title=bible.project_title
         )
+    if not getattr(bible, "master_drone_spec", None):
+        bible.master_drone_spec = get_domain_drone_spec(bible.domain_archetype)
+    if not getattr(bible, "master_aicp_bid", None):
+        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible)
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -2387,6 +2925,8 @@ def create_bible(
             scene.film_emulation = bible.master_film_emulation
         if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
             scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
+        if not getattr(scene, "drone_flight", None):
+            scene.drone_flight = bible.master_drone_spec
 
     return bible
 
@@ -2432,6 +2972,10 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         bible.master_slate_spec = get_domain_clapper_slate_spec(
             bible.domain_archetype, bible.scenes, project_title=bible.project_title
         )
+    if not getattr(bible, "master_drone_spec", None):
+        bible.master_drone_spec = get_domain_drone_spec(bible.domain_archetype)
+    if not getattr(bible, "master_aicp_bid", None):
+        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible)
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
@@ -2461,6 +3005,8 @@ def get_preset_bible(name: str) -> MasterProductionBible:
             scene.film_emulation = bible.master_film_emulation
         if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
             scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
+        if not getattr(scene, "drone_flight", None):
+            scene.drone_flight = bible.master_drone_spec
     return bible
 
 
@@ -2496,6 +3042,10 @@ for _p in PRESETS.values():
         _p.master_film_emulation = get_domain_film_emulation_spec(_arch)
     if not getattr(_p, "master_slate_spec", None):
         _p.master_slate_spec = get_domain_clapper_slate_spec(_arch, _p.scenes, project_title=_p.project_title)
+    if not getattr(_p, "master_drone_spec", None):
+        _p.master_drone_spec = get_domain_drone_spec(_arch)
+    if not getattr(_p, "master_aicp_bid", None):
+        _p.master_aicp_bid = get_domain_aicp_bid_spec(_p)
     for _idx, _s in enumerate(_p.scenes, 1):
         if not getattr(_s, "spatial_audio", None):
             _s.spatial_audio = _p.master_spatial_audio
@@ -2509,5 +3059,7 @@ for _p in PRESETS.values():
             _s.film_emulation = _p.master_film_emulation
         if not getattr(_s, "clapper_slate", None) and _p.master_slate_spec and len(_p.master_slate_spec.scenes) >= _idx:
             _s.clapper_slate = _p.master_slate_spec.scenes[_idx - 1]
+        if not getattr(_s, "drone_flight", None):
+            _s.drone_flight = _p.master_drone_spec
 
 

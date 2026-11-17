@@ -24,6 +24,10 @@ from omni_director.tools.clapper_slate import (
     format_clapper_slate_prompt_token,
     synthesize_default_clapper_slate,
 )
+from omni_director.tools.drone_flight import (
+    format_drone_flight_prompt_token,
+    synthesize_default_drone_flight,
+)
 
 
 def audit_omni_scene_prompt(
@@ -259,6 +263,21 @@ def audit_omni_scene_prompt(
     elif clapper_slate_spec is not None:
         details["clapper_slate_configured"] = True
 
+    # Drone Flight Path & Aerial GPS Telemetry recognition & reward (PM-FEAT-019)
+    drone_flight_spec = getattr(scene, "drone_flight", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("drone_flight")
+    drone_patterns = r"(?:\[DRONE[ _]FLIGHT:?|drone\s*flight|flight\s*path|aerial\s*orbit|gimbal\s*pitch|flight\s*waypoint|flyover\s*reveal)"
+    drone_match = re.search(drone_patterns, prompt, re.IGNORECASE)
+    has_aerial_keywords = bool(re.search(r"\b(?:aerial|drone|flyover|orbit|overhead|altitude|bird's-eye|birds eye|uav)\b", prompt, re.IGNORECASE))
+    if drone_match or (drone_flight_spec is not None and has_aerial_keywords):
+        details["drone_flight_compliant"] = True
+        details["drone_flight_reward"] = 1.0
+        if drone_flight_spec is not None:
+            details["drone_flight_descriptor"] = format_drone_flight_prompt_token(drone_flight_spec)
+        elif drone_match:
+            details["drone_flight_descriptor"] = drone_match.group(0)
+    elif drone_flight_spec is not None:
+        details["drone_flight_configured"] = True
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -323,7 +342,7 @@ def audit_omni_scene_prompt(
         "camera", "shot", "lens", "framing", "dolly", "steadicam", "tripod",
         "pan", "tracking", "close-up", "wide", "prime", "tilt",
         "[hdr signal:", "[1st ad breakdown:", "[film emulation:", "[film_stock:",
-        "[production slate:", "[clapper_slate:",
+        "[production slate:", "[clapper_slate:", "[drone_flight:", "[drone flight:",
     ]
     has_camera = (
         any(term in prompt.lower() for term in camera_terms)
@@ -333,6 +352,8 @@ def audit_omni_scene_prompt(
         or "[film_stock:" in prompt.lower()
         or "[production slate:" in prompt.lower()
         or "[clapper_slate:" in prompt.lower()
+        or "[drone_flight:" in prompt.lower()
+        or "[drone flight:" in prompt.lower()
     )
     if craft_camera is not None:
         details["craft_camera_configured"] = True
@@ -741,6 +762,24 @@ def heal_omni_scene_prompt(
             working_prompt = working_prompt.rstrip() + f" {token}."
             if "injected_clapper_slate_spec" not in applied_patches:
                 applied_patches.append("injected_clapper_slate_spec")
+
+        # 3n. Inject Drone Flight Path tokens if configured or aerial keywords detected (PM-FEAT-019)
+        prev = working_prompt
+        drone_obj = (getattr(scene, "drone_flight", None) if is_spec else None) or (getattr(spec_context, "drone_flight", None) if spec_context else None) or kwargs.get("drone_flight")
+        has_aerial_intent = bool(re.search(r"\b(?:aerial|drone|flyover|orbit|overhead|altitude|bird's-eye|birds eye|uav)\b", working_prompt, re.IGNORECASE))
+        if drone_obj is None and has_aerial_intent:
+            profile = "orbit" if "orbit" in working_prompt.lower() else "flyover_reveal"
+            drone_obj = synthesize_default_drone_flight(profile=profile, alt_m=25.0)
+            if is_spec and getattr(scene, "drone_flight", None) is None:
+                try:
+                    scene.drone_flight = drone_obj
+                except Exception:
+                    pass
+        if drone_obj is not None and not re.search(r"\[DRONE[ _]FLIGHT:?|drone\s*flight|flight\s*path", working_prompt, re.IGNORECASE):
+            token = format_drone_flight_prompt_token(drone_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "injected_drone_flight_spec" not in applied_patches:
+                applied_patches.append("injected_drone_flight_spec")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt

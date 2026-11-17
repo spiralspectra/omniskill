@@ -834,6 +834,160 @@ def compile_storyboard_html(
           <text x="320" y="185" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="middle">MASTER CALIBRATION FRAME</text>
         </svg>"""
 
+
+    # Master Drone Aerial Flight Spec (PM-FEAT-019)
+    master_drone = getattr(bible, "master_drone_flight_spec", None)
+    if master_drone is None:
+        from omni_director.presets import get_domain_drone_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_drone = get_domain_drone_spec(domain)
+
+    drone_aircraft = getattr(master_drone, "aircraft_model", "Freefly Alta X / DJI Inspire 3")
+    drone_pic = getattr(master_drone, "pilot_in_command", "FAA Part 107 Remote PIC")
+    drone_faa_reg = getattr(master_drone, "faa_registration", "FA39A84BZ1")
+    drone_rig_type = getattr(master_drone, "drone_rig", "heavy_lift_octocopter")
+    if hasattr(drone_rig_type, "value"):
+        drone_rig_type = drone_rig_type.value
+    drone_pattern = getattr(master_drone, "flight_pattern", "orbital_hyperlapse")
+    drone_min_alt = float(getattr(master_drone, "min_altitude_agl_m", 15.0))
+    drone_max_alt = float(getattr(master_drone, "max_altitude_agl_m", getattr(master_drone, "max_altitude_m_agl", 85.0)))
+    drone_distance = float(getattr(master_drone, "total_distance_m", 420.0))
+    drone_duration = float(getattr(master_drone, "flight_duration_s", getattr(master_drone, "estimated_flight_duration_s", 28.0)))
+    drone_part107 = bool(getattr(master_drone, "part_107_compliant", getattr(master_drone, "faa_part_107_compliant", True)))
+
+    solar_spec = getattr(master_drone, "solar_ephemeris", None)
+    drone_solar_azimuth = float(getattr(solar_spec, "solar_azimuth_deg", 180.0)) if solar_spec else 180.0
+    drone_solar_altitude = float(getattr(solar_spec, "solar_altitude_deg", getattr(solar_spec, "solar_elevation_deg", 22.5))) if solar_spec else 22.5
+    drone_solar_phase = getattr(solar_spec, "solar_phase", "golden_hour") if solar_spec else "golden_hour"
+    if hasattr(drone_solar_phase, "value"):
+        drone_solar_phase = drone_solar_phase.value
+    drone_cct = int(getattr(solar_spec, "color_temperature_kelvin", getattr(solar_spec, "cct_kelvin", 3200))) if solar_spec else 3200
+
+    gimbal_spec = getattr(master_drone, "gimbal", None)
+    drone_gimbal_pitch = float(getattr(gimbal_spec, "pitch_deg", -25.0)) if gimbal_spec else -25.0
+    drone_gimbal_yaw = float(getattr(gimbal_spec, "yaw_deg", 12.0)) if gimbal_spec else 12.0
+    drone_gimbal_roll = float(getattr(gimbal_spec, "roll_deg", 0.0)) if gimbal_spec else 0.0
+
+    wind_spec = getattr(master_drone, "wind_drift", None)
+    drone_wind_speed = float(getattr(wind_spec, "wind_speed_knots", 6.5)) if wind_spec else 6.5
+    drone_wind_dir = float(getattr(wind_spec, "wind_direction_deg", 270.0)) if wind_spec else 270.0
+    drone_crab_angle = float(getattr(wind_spec, "crab_angle_deg", getattr(wind_spec, "drift_compensation_deg", 3.2))) if wind_spec else 3.2
+
+    from omni_director.tools.drone_aerial import (
+        generate_drone_flight_kml,
+        generate_drone_flight_gpx,
+        generate_drone_flight_sheet_csv,
+    )
+    drone_kml_escaped = generate_drone_flight_kml(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    drone_gpx_escaped = generate_drone_flight_gpx(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    drone_csv_escaped = generate_drone_flight_sheet_csv(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    drone_waypoints_data = []
+    drone_waypoints_rows = []
+    for idx, wp in enumerate(getattr(master_drone, "waypoints", [])):
+        w_id = getattr(wp, "waypoint_id", f"WP_{idx+1:02d}")
+        w_lat = float(getattr(wp, "latitude", 34.0522))
+        w_lon = float(getattr(wp, "longitude", -118.2437))
+        w_alt = float(getattr(wp, "altitude_m_agl", getattr(wp, "altitude_agl_m", 30.0)))
+        w_speed = float(getattr(wp, "speed_mps", 8.0))
+        w_action = getattr(wp, "action", "PULL_REVEAL")
+        drone_waypoints_data.append({
+            "id": w_id,
+            "lat": w_lat,
+            "lon": w_lon,
+            "alt": w_alt,
+            "speed": w_speed,
+            "action": w_action,
+        })
+        is_comp = w_alt <= 121.92
+        status_badge = f'<span class="drone-compliance-badge {'badge-ok' if is_comp else 'badge-warn'}">{'✓ COMPLIANT' if is_comp else '⚠ WAIVER REQ'}</span>'
+        drone_waypoints_rows.append(
+            f"<tr><td><strong>{w_id}</strong></td><td>{w_lat:.6f}, {w_lon:.6f}</td><td>{w_alt:.1f} m AGL</td><td>{w_speed:.1f} m/s</td><td>{status_badge}</td></tr>"
+        )
+    drone_waypoints_json = json.dumps(drone_waypoints_data)
+    drone_waypoints_tbody = "".join(drone_waypoints_rows)
+
+    # Master AICP Commercial Production Bid Spec (PM-FEAT-020)
+    master_aicp = getattr(bible, "master_aicp_bid_spec", None)
+    if master_aicp is None:
+        from omni_director.presets import get_domain_aicp_bid_spec
+        domain = getattr(bible, "domain_archetype", "kinetic_action")
+        master_aicp = get_domain_aicp_bid_spec(domain, bible.scenes)
+
+    aicp_ts = getattr(master_aicp, "top_sheet", None)
+    aicp_grand_total = float(getattr(aicp_ts, "grand_total", 245000.0)) if aicp_ts else 245000.0
+    aicp_atl_total = float(getattr(aicp_ts, "atl_total", getattr(aicp_ts, "above_the_line_total", 48000.0))) if aicp_ts else 48000.0
+    aicp_btl_shoot_total = float(getattr(aicp_ts, "btl_shoot_total", getattr(aicp_ts, "production_total", 112000.0))) if aicp_ts else 112000.0
+    aicp_post_total = float(getattr(aicp_ts, "post_production_total", getattr(aicp_ts, "post_total", 45000.0))) if aicp_ts else 45000.0
+    tot_dur = max(1.0, float(getattr(bible, "total_duration_sec", 30.0)))
+    aicp_cps = float(getattr(aicp_ts, "cost_per_second", getattr(aicp_ts, "cps", aicp_grand_total / tot_dur))) if aicp_ts else aicp_grand_total / tot_dur
+    aicp_insurance = float(getattr(aicp_ts, "insurance_total", 7350.0)) if aicp_ts else 7350.0
+    aicp_production_fee = float(getattr(aicp_ts, "production_fee_total", 24500.0)) if aicp_ts else 24500.0
+    aicp_contingency = float(getattr(aicp_ts, "contingency_total", 8150.0)) if aicp_ts else 8150.0
+
+    from omni_director.tools.aicp_budget import (
+        generate_aicp_bid_sheet_csv,
+        generate_aicp_bid_manifest_json,
+        generate_aicp_topsheet_md,
+        AICP_SECTION_NAMES,
+    )
+    aicp_csv_escaped = generate_aicp_bid_sheet_csv(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    aicp_json_escaped = generate_aicp_bid_manifest_json(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    aicp_md_escaped = generate_aicp_topsheet_md(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    from collections import defaultdict
+    aicp_sec_map = defaultdict(list)
+    for it in getattr(master_aicp, "line_items", []):
+        sc = getattr(it, "section_code", "B")
+        if hasattr(sc, "value"):
+            sc = sc.value
+        aicp_sec_map[sc].append(it)
+
+    aicp_accordion_list = []
+    for s_code in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]:
+        s_items = aicp_sec_map.get(s_code, [])
+        if not s_items:
+            continue
+        s_name = AICP_SECTION_NAMES.get(s_code, f"Section {s_code}")
+        s_subtotal = sum(float(getattr(item, "subtotal", getattr(item, "total_cost", 0.0))) for item in s_items)
+        s_rows = []
+        for item in s_items:
+            acct = getattr(item, "account_code", f"{s_code}-01")
+            desc = getattr(item, "description", "")
+            rate = float(getattr(item, "rate", 0.0))
+            qty = float(getattr(item, "quantity", 1.0))
+            unit = getattr(item, "unit", "days")
+            sub = float(getattr(item, "subtotal", getattr(item, "total_cost", rate * qty)))
+            s_rows.append(f"<tr><td><code>{acct}</code></td><td>{desc}</td><td>${rate:,.2f}</td><td>{qty:g} {unit}</td><td style=\"text-align:right;\"><strong>${sub:,.2f}</strong></td></tr>")
+        rows_joined = "".join(s_rows)
+        is_open = ' open' if s_code in ["A", "B"] else ''
+        aicp_accordion_list.append(f"""
+        <details class="aicp-sec-details"{is_open}>
+          <summary class="aicp-sec-summary">
+            <span><strong>[{s_code}] {s_name}</strong></span>
+            <span class="aicp-sec-total">${s_subtotal:,.2f}</span>
+          </summary>
+          <div class="aicp-sec-table-wrap">
+            <table class="aicp-table">
+              <thead>
+                <tr><th>Code</th><th>Description</th><th>Rate</th><th>Qty / Units</th><th style="text-align:right;">Subtotal</th></tr>
+              </thead>
+              <tbody>
+                {rows_joined}
+              </tbody>
+            </table>
+          </div>
+        </details>
+        """)
+    aicp_accordion_str = "".join(aicp_accordion_list)
+
+    aicp_doughnut_data = json.dumps({
+        "atl": aicp_atl_total,
+        "btl_shoot": aicp_btl_shoot_total,
+        "post": aicp_post_total,
+        "fees": aicp_insurance + aicp_production_fee + aicp_contingency,
+    })
+
     # Serialize bible for client-side export
     bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
 
@@ -3583,6 +3737,417 @@ def compile_storyboard_html(
       .prompt-text {{ color: #111 !important; }}
       .swatch-box {{ border: 1px solid #999 !important; }}
     }}
+
+    /* Drone Aerial Flight HUD (PM-FEAT-019) & AICP Commercial Production Bid HUD (PM-FEAT-020) */
+    .drone-hud-modal, .aicp-hud-modal {{
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }}
+    .drone-modal-content, .aicp-modal-content {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1020px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }}
+    .drone-modal-header, .aicp-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }}
+    .drone-title-wrap, .aicp-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .drone-heading, .aicp-heading {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }}
+    .drone-subheading, .aicp-subheading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }}
+    .btn-drone-close, .btn-aicp-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }}
+    .btn-drone-close:hover, .btn-aicp-close:hover {{
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }}
+    .drone-modal-body, .aicp-modal-body {{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }}
+    .drone-toolbar, .aicp-toolbar {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }}
+    .drone-badge-group, .aicp-badge-group {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .drone-badge, .aicp-badge {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }}
+    .drone-actions, .aicp-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .btn-drone-action, .btn-aicp-action {{
+      background: #141824;
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }}
+    .btn-drone-action:hover, .btn-aicp-action:hover {{
+      background: var(--cyan-telemetry);
+      color: #07080B;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }}
+    .drone-visuals-grid {{
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }}
+    @media (max-width: 820px) {{
+      .drone-visuals-grid {{ grid-template-columns: 1fr; }}
+    }}
+    .drone-canvas-panel, .drone-telemetry-panel {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .drone-panel-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }}
+    .badge-canvas-telemetry {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--amber-gold);
+    }}
+    #drone-path-canvas {{
+      width: 100%;
+      height: 240px;
+      background: #060709;
+      border: 1px solid #1A2030;
+      border-radius: 4px;
+      display: block;
+    }}
+    .drone-canvas-footer {{
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+    }}
+    .drone-telemetry-card {{
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .telemetry-card-title {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid #1A2030;
+      padding-bottom: 4px;
+    }}
+    .solar-compass-display {{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }}
+    .compass-details {{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+    }}
+    .gauges-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }}
+    .gauge-item {{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .gauge-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }}
+    .gauge-value {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }}
+    .gauge-bar-wrap {{
+      width: 100%;
+      height: 6px;
+      background: #141824;
+      border-radius: 3px;
+      overflow: hidden;
+    }}
+    .gauge-bar-fill {{
+      height: 100%;
+      background: var(--amber-gold);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }}
+    .gauge-sub {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }}
+    .drone-table-wrap {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .drone-waypoints-table, .aicp-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .drone-waypoints-table th, .aicp-table th {{
+      text-align: left;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 6px;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }}
+    .drone-waypoints-table td, .aicp-table td {{
+      padding: 7px 6px;
+      border-bottom: 1px solid #141824;
+      color: var(--text-main);
+    }}
+    .drone-compliance-badge {{
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }}
+    .drone-compliance-badge.badge-ok {{
+      color: var(--green-rec);
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }}
+    .drone-compliance-badge.badge-warn {{
+      color: var(--red-rec);
+      background: rgba(255, 59, 48, 0.1);
+      border: 1px solid rgba(255, 59, 48, 0.3);
+    }}
+    /* AICP Budget Dashboard Styles */
+    .aicp-dashboard-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }}
+    .aicp-metric-card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+    .aicp-metric-card.aicp-metric-primary {{
+      border-color: rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.04);
+    }}
+    .aicp-metric-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }}
+    .aicp-metric-value {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }}
+    .aicp-metric-card.aicp-metric-primary .aicp-metric-value {{
+      color: var(--cyan-telemetry);
+    }}
+    .aicp-metric-sub {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }}
+    .aicp-split-grid {{
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+    }}
+    @media (max-width: 860px) {{
+      .aicp-split-grid {{ grid-template-columns: 1fr; }}
+    }}
+    .aicp-chart-panel, .aicp-accordion-panel {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .doughnut-canvas-wrap {{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }}
+    #aicp-doughnut-canvas {{
+      display: block;
+      width: 280px;
+      height: 220px;
+    }}
+    .doughnut-legend {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+    }}
+    .legend-item {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .legend-color {{
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }}
+    .aicp-accordion-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+    }}
+    .aicp-sec-details {{
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }}
+    .aicp-sec-summary {{
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: var(--text-main);
+      background: #101420;
+      user-select: none;
+    }}
+    .aicp-sec-summary:hover {{
+      background: #171D2E;
+    }}
+    .aicp-sec-total {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+    }}
+    .aicp-sec-table-wrap {{
+      padding: 8px 12px;
+    }}
+
   </style>
 </head>
 <body>
@@ -3636,6 +4201,12 @@ def compile_storyboard_html(
       </button>
       <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
         🎬 Slate [T]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
+        🚁 Drone [D]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
+        💼 AICP [A]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -4786,6 +5357,225 @@ def compile_storyboard_html(
     </div>
   </div>
 
+  <!-- Drone Aerial Flight HUD (PM-FEAT-019) -->
+  <div id="animatic-drone-hud" class="drone-hud-modal" role="dialog" aria-modal="true" aria-label="Drone Aerial Flight HUD" style="display:none;">
+    <div class="drone-modal-content">
+      <div class="drone-modal-header">
+        <div class="drone-title-wrap">
+          <span style="font-size:20px;">🚁</span>
+          <div>
+            <h2 class="drone-heading">AERIAL DRONE FLIGHT TELEMETRY HUD</h2>
+            <span class="drone-subheading">FAA PART 107 · 3D WAYPOINTS · GIMBAL &amp; SOLAR EPHEMERIS</span>
+          </div>
+        </div>
+        <button type="button" class="btn-drone-close" onclick="toggleDroneHUD()" aria-label="Close Drone HUD">✕</button>
+      </div>
+
+      <div class="drone-modal-body">
+        <div class="drone-toolbar">
+          <div class="drone-badge-group">
+            <span class="drone-badge">AIRCRAFT: <strong>{drone_aircraft}</strong></span>
+            <span class="drone-badge">RIG: <strong>{drone_rig_type}</strong></span>
+            <span class="drone-badge">PIC: <strong>{drone_pic}</strong></span>
+            <span class="drone-badge">REG: <strong>{drone_faa_reg}</strong></span>
+            <span class="drone-badge">PATTERN: <strong>{drone_pattern}</strong></span>
+            <span class="drone-badge" style="color:var(--green-rec);border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.08);">
+              PART 107: <strong>{'COMPLIANT' if drone_part107 else 'WAIVER REQ'}</strong>
+            </span>
+          </div>
+          <div class="drone-actions">
+            <button type="button" class="btn-drone-action" id="btn-download-drone-kml" onclick="downloadDroneKML()" aria-label="Download Drone Flight Path KML">
+              ⤓ flight_path.kml
+            </button>
+            <button type="button" class="btn-drone-action" id="btn-download-drone-gpx" onclick="downloadDroneGPX()" aria-label="Download Drone Waypoints GPX">
+              ⤓ flight_waypoints.gpx
+            </button>
+            <button type="button" class="btn-drone-action" id="btn-download-drone-csv" onclick="downloadDroneCSV()" aria-label="Download Drone Flight Sheet CSV">
+              ⤓ drone_flight_sheet.csv
+            </button>
+          </div>
+        </div>
+
+        <div class="drone-visuals-grid">
+          <div class="drone-canvas-panel">
+            <div class="drone-panel-header">
+              <span>2D FLIGHT PATH &amp; WAYPOINT TRAJECTORY</span>
+              <span class="badge-canvas-telemetry">{drone_distance:.1f}m · {drone_duration:.1f}s</span>
+            </div>
+            <canvas id="drone-path-canvas" width="580" height="240" aria-label="2D Flight Path Trajectory Canvas"></canvas>
+            <div class="drone-canvas-footer">
+              <span>MIN ALT: {drone_min_alt:.1f}m AGL</span>
+              <span>MAX ALT: {drone_max_alt:.1f}m AGL (CEILING: 121.92m / 400ft)</span>
+            </div>
+          </div>
+
+          <div class="drone-telemetry-panel">
+            <div class="drone-telemetry-card">
+              <div class="telemetry-card-title">SOLAR EPHEMERIS COMPASS ROSE</div>
+              <div class="solar-compass-display">
+                <div class="compass-rose-container">
+                  <svg id="drone-compass-svg" viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="42" fill="#0A0C10" stroke="#222738" stroke-width="2" />
+                    <line x1="50" y1="8" x2="50" y2="92" stroke="#333A4D" stroke-width="1" stroke-dasharray="2 2" />
+                    <line x1="8" y1="50" x2="92" y2="50" stroke="#333A4D" stroke-width="1" stroke-dasharray="2 2" />
+                    <text x="50" y="16" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">N</text>
+                    <text x="50" y="90" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">S</text>
+                    <text x="14" y="53" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">W</text>
+                    <text x="86" y="53" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">E</text>
+                    <line id="solar-azimuth-line" x1="50" y1="50" x2="50" y2="18" stroke="#FFB800" stroke-width="2.5" stroke-linecap="round" />
+                    <circle id="solar-azimuth-dot" cx="50" cy="18" r="4" fill="#FFB800" />
+                  </svg>
+                </div>
+                <div class="compass-details">
+                  <div>AZIMUTH: <strong>{drone_solar_azimuth:.1f}°</strong></div>
+                  <div>ALTITUDE: <strong>{drone_solar_altitude:.1f}°</strong></div>
+                  <div>PHASE: <strong style="color:var(--amber-gold);">{drone_solar_phase.upper()}</strong></div>
+                  <div>CCT: <strong>{drone_cct} K</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="drone-telemetry-card">
+              <div class="telemetry-card-title">GIMBAL PITCH &amp; WIND DRIFT GAUGES</div>
+              <div class="gauges-grid">
+                <div class="gauge-item">
+                  <span class="gauge-label">GIMBAL PITCH</span>
+                  <div class="gauge-value">{drone_gimbal_pitch:.1f}°</div>
+                  <div class="gauge-bar-wrap">
+                    <div class="gauge-bar-fill" style="width: {min(100.0, max(0.0, (drone_gimbal_pitch + 90.0)/1.2)):.1f}%;"></div>
+                  </div>
+                  <span class="gauge-sub">ROLL: {drone_gimbal_roll:.1f}° · YAW: {drone_gimbal_yaw:.1f}°</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-label">WIND CRAB ANGLE</span>
+                  <div class="gauge-value">{drone_crab_angle:.1f}°</div>
+                  <div class="gauge-bar-wrap">
+                    <div class="gauge-bar-fill" style="width: {min(100.0, max(0.0, drone_crab_angle * 5.0)):.1f}%; background: var(--cyan-telemetry);"></div>
+                  </div>
+                  <span class="gauge-sub">WIND: {drone_wind_speed:.1f} kts @ {drone_wind_dir:.0f}°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="drone-table-wrap">
+          <div class="drone-panel-header">
+            <span>FLIGHT WAYPOINT SPECIFICATION TABLE</span>
+            <span class="badge-canvas-telemetry">{len(drone_waypoints_data)} WAYPOINTS</span>
+          </div>
+          <table class="drone-waypoints-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>GPS Coordinates (WGS84)</th>
+                <th>Altitude (AGL)</th>
+                <th>Target Speed</th>
+                <th>FAA Part 107 Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {drone_waypoints_tbody}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AICP Commercial Production Bid HUD (PM-FEAT-020) -->
+  <div id="animatic-aicp-hud" class="aicp-hud-modal" role="dialog" aria-modal="true" aria-label="AICP Commercial Production Bid HUD" style="display:none;">
+    <div class="aicp-modal-content">
+      <div class="aicp-modal-header">
+        <div class="aicp-title-wrap">
+          <span style="font-size:20px;">💼</span>
+          <div>
+            <h2 class="aicp-heading">AICP COMMERCIAL PRODUCTION BID &amp; BUDGET HUD</h2>
+            <span class="aicp-subheading">SECTIONS A–K TOP-SHEET · ATL / BTL ALLOCATION · COST-PER-SECOND TICKER</span>
+          </div>
+        </div>
+        <button type="button" class="btn-aicp-close" onclick="toggleAicpHUD()" aria-label="Close AICP HUD">✕</button>
+      </div>
+
+      <div class="aicp-modal-body">
+        <div class="aicp-toolbar">
+          <div class="aicp-badge-group">
+            <span class="aicp-badge">PROJECT: <strong>{bible.project_title}</strong></span>
+            <span class="aicp-badge">DURATION: <strong>{getattr(bible, 'total_duration_sec', 30.0):.1f}s</strong></span>
+            <span class="aicp-badge">STANDARD: <strong>AICP Commercial Form 2026</strong></span>
+          </div>
+          <div class="aicp-actions">
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-csv" onclick="downloadAicpCSV()" aria-label="Download AICP Bid Sheet CSV">
+              ⤓ aicp_bid_sheet.csv
+            </button>
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-json" onclick="downloadAicpJSON()" aria-label="Download AICP Bid Manifest JSON">
+              ⤓ aicp_bid_manifest.json
+            </button>
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-md" onclick="downloadAicpMD()" aria-label="Download Production Budget Top Sheet Markdown">
+              ⤓ production_budget_topsheet.md
+            </button>
+          </div>
+        </div>
+
+        <div class="aicp-dashboard-grid">
+          <div class="aicp-metric-card aicp-metric-primary">
+            <span class="aicp-metric-label">GRAND TOTAL BID</span>
+            <span class="aicp-metric-value" id="aicp-grand-total-val">${aicp_grand_total:,.2f}</span>
+            <span class="aicp-metric-sub">100% Total Production Commitment</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">ABOVE THE LINE (ATL)</span>
+            <span class="aicp-metric-value">${aicp_atl_total:,.2f}</span>
+            <span class="aicp-metric-sub">{((aicp_atl_total/max(1.0, aicp_grand_total))*100.0):.1f}% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">BTL SHOOT / PRODUCTION</span>
+            <span class="aicp-metric-value">${aicp_btl_shoot_total:,.2f}</span>
+            <span class="aicp-metric-sub">{((aicp_btl_shoot_total/max(1.0, aicp_grand_total))*100.0):.1f}% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">POST-PRODUCTION</span>
+            <span class="aicp-metric-value">${aicp_post_total:,.2f}</span>
+            <span class="aicp-metric-sub">{((aicp_post_total/max(1.0, aicp_grand_total))*100.0):.1f}% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card aicp-metric-ticker">
+            <span class="aicp-metric-label">COST-PER-SECOND (CPS)</span>
+            <span class="aicp-metric-value" style="color:var(--amber-gold);">${aicp_cps:,.2f}</span>
+            <span class="aicp-metric-sub">Across {getattr(bible, 'total_duration_sec', 30.0):.1f}s Timeline</span>
+          </div>
+        </div>
+
+        <div class="aicp-split-grid">
+          <div class="aicp-chart-panel">
+            <div class="drone-panel-header">
+              <span>FINANCIAL ALLOCATION DOUGHNUT</span>
+              <span class="badge-canvas-telemetry">ATL vs. BTL vs. POST</span>
+            </div>
+            <div class="doughnut-canvas-wrap">
+              <canvas id="aicp-doughnut-canvas" width="280" height="220" aria-label="AICP Financial Allocation Doughnut Chart"></canvas>
+            </div>
+            <div class="doughnut-legend">
+              <div class="legend-item"><span class="legend-color" style="background:#00F0FF;"></span>ATL: ${aicp_atl_total:,.0f}</div>
+              <div class="legend-item"><span class="legend-color" style="background:#FFB800;"></span>BTL Shoot: ${aicp_btl_shoot_total:,.0f}</div>
+              <div class="legend-item"><span class="legend-color" style="background:#00FF88;"></span>Post: ${aicp_post_total:,.0f}</div>
+              <div class="legend-item"><span class="legend-color" style="background:#7E88A4;"></span>Fees/Insur: ${(aicp_insurance + aicp_production_fee + aicp_contingency):,.0f}</div>
+            </div>
+          </div>
+
+          <div class="aicp-accordion-panel">
+            <div class="drone-panel-header">
+              <span>SECTIONS A–K LINE-ITEM BREAKDOWN</span>
+              <span class="badge-canvas-telemetry">ACCORDION VIEW</span>
+            </div>
+            <div class="aicp-accordion-wrap">
+              {aicp_accordion_str}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -5808,6 +6598,284 @@ def compile_storyboard_html(
       showToast("Avid ALE Film Stock Log (.ale) downloaded!");
     }}
 
+    // Aerial Drone Flight Paths & Telemetry Controller (PM-FEAT-019)
+    let isDroneHUDOpen = false;
+    function toggleDroneHUD() {{
+      isDroneHUDOpen = !isDroneHUDOpen;
+      const modal = document.getElementById('animatic-drone-hud');
+      const btn = document.getElementById('btn-drone-animatic');
+      if (modal) {{
+        modal.style.display = isDroneHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isDroneHUDOpen);
+        btn.setAttribute('aria-expanded', isDroneHUDOpen ? 'true' : 'false');
+      }}
+      if (isDroneHUDOpen) {{
+        drawDroneFlightPath();
+        updateCompassRose();
+        showToast("Aerial Drone Flight HUD: ACTIVE [D]");
+      }}
+    }}
+
+    function downloadDroneKML() {{
+      const blob = new Blob([`{drone_kml_escaped}`], {{ type: 'application/vnd.google-earth.kml+xml;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'flight_path.kml';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Flight Path (flight_path.kml)");
+    }}
+
+    function downloadDroneGPX() {{
+      const blob = new Blob([`{drone_gpx_escaped}`], {{ type: 'application/gpx+xml;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'flight_waypoints.gpx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Waypoints (flight_waypoints.gpx)");
+    }}
+
+    function downloadDroneCSV() {{
+      const blob = new Blob([`{drone_csv_escaped}`], {{ type: 'text/csv;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'drone_flight_sheet.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Flight Sheet (drone_flight_sheet.csv)");
+    }}
+
+    function updateCompassRose() {{
+      const az = {drone_solar_azimuth};
+      const rad = (az - 90) * Math.PI / 180;
+      const r = 32;
+      const x = 50 + r * Math.cos(rad);
+      const y = 50 + r * Math.sin(rad);
+      const line = document.getElementById('solar-azimuth-line');
+      const dot = document.getElementById('solar-azimuth-dot');
+      if (line) {{
+        line.setAttribute('x2', x.toFixed(1));
+        line.setAttribute('y2', y.toFixed(1));
+      }}
+      if (dot) {{
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+      }}
+    }}
+
+    function drawDroneFlightPath() {{
+      const canvas = document.getElementById('drone-path-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.fillStyle = '#060709';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid lines
+      ctx.strokeStyle = '#121622';
+      ctx.lineWidth = 1;
+      for (let x = 40; x < w; x += 40) {{
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }}
+      for (let y = 30; y < h; y += 30) {{
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }}
+
+      const waypoints = {drone_waypoints_json};
+      if (!waypoints || waypoints.length === 0) return;
+
+      const padX = 60;
+      const padY = 50;
+      const plotW = w - padX * 2;
+      const plotH = h - padY * 2;
+
+      let minLat = Infinity, maxLat = -Infinity, minLon = Infinity, maxLon = -Infinity;
+      waypoints.forEach(wp => {{
+        if (wp.lat < minLat) minLat = wp.lat;
+        if (wp.lat > maxLat) maxLat = wp.lat;
+        if (wp.lon < minLon) minLon = wp.lon;
+        if (wp.lon > maxLon) maxLon = wp.lon;
+      }});
+
+      const spanLat = (maxLat - minLat) || 0.001;
+      const spanLon = (maxLon - minLon) || 0.001;
+
+      const points = waypoints.map(wp => {{
+        const nx = (wp.lon - minLon) / spanLon;
+        const ny = (maxLat - wp.lat) / spanLat;
+        return {{
+          x: padX + nx * plotW,
+          y: padY + ny * plotH,
+          id: wp.id,
+          alt: wp.alt,
+          speed: wp.speed,
+        }};
+      }});
+
+      // Draw trajectory line with glow
+      ctx.shadowColor = '#00F0FF';
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {{
+        ctx.lineTo(points[i].x, points[i].y);
+      }}
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Draw waypoint nodes & altitude badges
+      points.forEach((pt, i) => {{
+        // Node circle
+        ctx.fillStyle = i === 0 ? '#00FF88' : (i === points.length - 1 ? '#FF3B30' : '#00F0FF');
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#07080B';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Node ID label
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#F0F2F8';
+        ctx.fillText(pt.id, pt.x - 14, pt.y - 12);
+
+        // Altitude badge
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#FFB800';
+        ctx.fillText(pt.alt.toFixed(1) + 'm', pt.x - 12, pt.y + 16);
+      }});
+    }}
+
+    // AICP Commercial Production Bid & Budget Controller (PM-FEAT-020)
+    let isAicpHUDOpen = false;
+    function toggleAicpHUD() {{
+      isAicpHUDOpen = !isAicpHUDOpen;
+      const modal = document.getElementById('animatic-aicp-hud');
+      const btn = document.getElementById('btn-aicp-animatic');
+      if (modal) {{
+        modal.style.display = isAicpHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isAicpHUDOpen);
+        btn.setAttribute('aria-expanded', isAicpHUDOpen ? 'true' : 'false');
+      }}
+      if (isAicpHUDOpen) {{
+        drawAicpDoughnut();
+        showToast("AICP Commercial Production Bid HUD: ACTIVE [A]");
+      }}
+    }}
+
+    function downloadAicpCSV() {{
+      const blob = new Blob([`{aicp_csv_escaped}`], {{ type: 'text/csv;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'aicp_bid_sheet.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded AICP Bid Sheet (aicp_bid_sheet.csv)");
+    }}
+
+    function downloadAicpJSON() {{
+      const blob = new Blob([`{aicp_json_escaped}`], {{ type: 'application/json;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'aicp_bid_manifest.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded AICP Bid Manifest (aicp_bid_manifest.json)");
+    }}
+
+    function downloadAicpMD() {{
+      const blob = new Blob([`{aicp_md_escaped}`], {{ type: 'text/markdown;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'production_budget_topsheet.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Budget Top Sheet (production_budget_topsheet.md)");
+    }}
+
+    function drawAicpDoughnut() {{
+      const canvas = document.getElementById('aicp-doughnut-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const d = {aicp_doughnut_data};
+      const values = [d.atl, d.btl_shoot, d.post, d.fees];
+      const colors = ['#00F0FF', '#FFB800', '#00FF88', '#7E88A4'];
+      const total = values.reduce((acc, v) => acc + v, 0);
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const rOuter = 82;
+      const rInner = 52;
+
+      let startAngle = -Math.PI / 2;
+
+      values.forEach((v, i) => {{
+        if (v <= 0) return;
+        const sliceAngle = (v / total) * Math.PI * 2;
+        const endAngle = startAngle + sliceAngle;
+
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.arc(cx, cy, rOuter, startAngle, endAngle);
+        ctx.arc(cx, cy, rInner, endAngle, startAngle, true);
+        ctx.closePath();
+        ctx.fill();
+
+        startAngle = endAngle;
+      }});
+
+      // Center text
+      ctx.fillStyle = '#F0F2F8';
+      ctx.font = 'bold 14px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const kVal = '$' + Math.round(total / 1000) + 'K';
+      ctx.fillText(kVal, cx, cy - 4);
+
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#7E88A4';
+      ctx.fillText('TOTAL BID', cx, cy + 12);
+    }}
+
     // SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Controller (PM-FEAT-018)
     let isSlateHUDOpen = false;
     function toggleSlateHUD() {{
@@ -6655,6 +7723,10 @@ def compile_storyboard_html(
         toggleHdrHUD();
       }} else if (e.key === 'b' || e.key === 'B') {{
         toggleStripboardHUD();
+      }} else if (e.key === 'd' || e.key === 'D') {{
+        toggleDroneHUD();
+      }} else if (e.key === 'a' || e.key === 'A') {{
+        toggleAicpHUD();
       }} else if (e.key === 'Escape') {{
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
@@ -6667,6 +7739,8 @@ def compile_storyboard_html(
         if (isStripboardHUDOpen) toggleStripboardHUD();
         if (isFilmHUDOpen) toggleFilmHUD();
         if (isSlateHUDOpen) toggleSlateHUD();
+        if (isDroneHUDOpen) toggleDroneHUD();
+        if (isAicpHUDOpen) toggleAicpHUD();
       }}
     }});
 
@@ -6681,6 +7755,8 @@ def compile_storyboard_html(
       refreshLutSplitFrames();
       drawVUMeter(document.getElementById('vu-meter-left'), -48);
       drawVUMeter(document.getElementById('vu-meter-right'), -48);
+      drawDroneFlightPath();
+      drawAicpDoughnut();
     }});
     renderFrame(0);
   </script>

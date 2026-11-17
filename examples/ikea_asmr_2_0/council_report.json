@@ -1,7 +1,7 @@
 {
-  "version": "2.6.0",
+  "version": "2.10.0",
   "project_title": "IKEA: The Living Room Unfolds",
-  "timestamp": "2026-11-10T13:49:46.590636+00:00",
+  "timestamp": "2026-11-17T09:33:42.180550+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -116,9 +116,39 @@
               "clapper_slate_log.csv"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_delivery",
+          "message": "Drone flight path KML, GPX track, Flight sheet CSV/MD, and Flight manifest JSON verified on disk: flight_path.kml, flight_waypoints.gpx, drone_flight_sheet.csv, drone_flight_sheet.md, drone_flight_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "drone_artifacts": [
+              "flight_path.kml",
+              "flight_waypoints.gpx",
+              "drone_flight_sheet.csv",
+              "drone_flight_sheet.md",
+              "drone_flight_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "aicp_budget_delivery",
+          "message": "AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: aicp_bid_sheet.csv, aicp_bid_manifest.json, production_budget_topsheet.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "aicp_artifacts": [
+              "aicp_bid_sheet.csv",
+              "aicp_bid_manifest.json",
+              "production_budget_topsheet.md"
+            ]
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 8 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 10 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -156,6 +186,40 @@
             "slate_scenes_count": 4,
             "has_master_slate_spec": true
           }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_schema_compliance",
+          "message": "Drone flight path specification verified: rig 'DroneRigType.COMPACT_CINEMA_INSPIRE3', profile 'monolithic_orbital_reveal', max altitude 45.0m AGL (FAA Part 107 compliant).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "max_altitude_agl_m": 45.0,
+            "part_107_compliant": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_prompt_token_compliance",
+          "message": "Aerial drone flight path CRAFT tokens or master spec verified across 4/4 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "drone_scenes_count": 4,
+            "has_master_drone_spec": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "aicp_budget_schema_consistency",
+          "message": "AICP commercial production bid verified: Top Sheet grand total $203,145.74 (Direct: $160,589.52, Markups/Fee: $42,556.22) mathematically consistent.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "grand_total": 203145.74,
+            "direct_costs": 160589.52,
+            "production_fee": 24088.43
+          }
         }
       ],
       "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -170,22 +234,22 @@
         {
           "severity": "info",
           "category": "domain_color_grading",
-          "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.REC709_NEUTRAL' for domain 'culinary_asmr'.",
+          "message": "Deterministic ASC CDL look preset aligned: 'ColorLookPreset.REC709_NEUTRAL' for domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "preset": "ColorLookPreset.REC709_NEUTRAL"
           }
         },
         {
           "severity": "info",
           "category": "sonic_mixer_calibration",
-          "message": "Calibrated 4-stem audio mixer verified for domain 'culinary_asmr' with target -23.0 LUFS across 4 channels.",
+          "message": "Calibrated 4-stem audio mixer verified for domain 'architectural_sanctuary' with target -23.0 LUFS across 4 channels.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "channels": [
               "dialogue",
               "foley",
@@ -197,44 +261,44 @@
         {
           "severity": "info",
           "category": "speed_ramp_alignment",
-          "message": "Kinetic speed ramp curves verified across all 4 scenes for domain 'culinary_asmr'.",
+          "message": "Kinetic speed ramp curves verified across all 4 scenes for domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "scene_count": 4
           }
         },
         {
           "severity": "info",
           "category": "optical_lens_alignment",
-          "message": "Cinematic optical lens package verified: 24mm T4.0 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'culinary_asmr'.",
+          "message": "Cinematic optical lens package verified: 24mm T4.0 (Large Format / ARRI LF (36.70 x 25.54mm)) for domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "focal_length_mm": 24
           }
         },
         {
           "severity": "info",
           "category": "virtual_production_alignment",
-          "message": "Virtual Production stage manifest verified: 'Panoramic 180 Cyclorama Volume Zeta' with 4 DMX fixtures for domain 'culinary_asmr'.",
+          "message": "Virtual Production stage manifest verified: 'Panoramic 180 Cyclorama Volume Zeta' with 4 DMX fixtures for domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "stage_name": "Panoramic 180 Cyclorama Volume Zeta"
           }
         },
         {
           "severity": "info",
           "category": "moco_rig_alignment",
-          "message": "Kinetic MoCo rig verified: 'motorized_dolly' (5 6-DOF waypoints, max 1.5 m/s) aligned with domain 'culinary_asmr'.",
+          "message": "Kinetic MoCo rig verified: 'motorized_dolly' (5 6-DOF waypoints, max 1.5 m/s) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "rig_type": "motorized_dolly",
             "waypoints": 5
           }
@@ -242,11 +306,11 @@
         {
           "severity": "info",
           "category": "lighting_rig_alignment",
-          "message": "Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'culinary_asmr'.",
+          "message": "Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "fixtures_count": 5,
             "key_to_fill": 4.0
           }
@@ -254,11 +318,11 @@
         {
           "severity": "info",
           "category": "domain_dof_calibration",
-          "message": "Domain DoF calibration verified: 'Panoramic deep focus' (T8.0, 18mm, circular iris, infinite far limit) aligned with domain 'culinary_asmr'.",
+          "message": "Domain DoF calibration verified: 'Panoramic deep focus' (T8.0, 18mm, circular iris, infinite far limit) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "focus_style": "Panoramic deep focus",
             "aperture": 8.0,
             "iris": "circular iris",
@@ -268,11 +332,11 @@
         {
           "severity": "info",
           "category": "domain_lut_calibration",
-          "message": "Domain 3D LUT color science verified: 'Verdant warm daylight organic' (verdant_warm_daylight, 33x33x33 verdant_warm_daylight_33x33.cube) aligned with domain 'culinary_asmr'.",
+          "message": "Domain 3D LUT color science verified: 'Verdant warm daylight organic' (verdant_warm_daylight, 33x33x33 verdant_warm_daylight_33x33.cube) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "lut_name": "Verdant warm daylight organic",
             "emulation": "verdant_warm_daylight",
             "cube": "verdant_warm_daylight_33x33.cube"
@@ -281,11 +345,11 @@
         {
           "severity": "info",
           "category": "domain_spatial_audio_calibration",
-          "message": "Domain spatial audio verified: ambisonic_b_format Atmos bed, 'Studio Soundstage' (RT60=1.85s, 2 3D objects) aligned with domain 'culinary_asmr'.",
+          "message": "Domain spatial audio verified: ambisonic_b_format Atmos bed, 'Studio Soundstage' (RT60=1.85s, 2 3D objects) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "bed_format": "ambisonic_b_format",
             "room": "Studio Soundstage",
             "objects": 2
@@ -294,11 +358,11 @@
         {
           "severity": "info",
           "category": "domain_vfx_compositing_calibration",
-          "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'culinary_asmr'.",
+          "message": "Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "format": "half_float_16",
             "passes": 7,
             "crypto_entries": 8
@@ -307,11 +371,11 @@
         {
           "severity": "info",
           "category": "domain_hdr_calibration",
-          "message": "Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 1000 nits peak, MaxCLL 980, MaxFALL 360, tone mapper aces_spline) aligned with domain 'culinary_asmr'.",
+          "message": "Domain HDR metadata verified: smpte_st_2084_pq (bt_2020, 1000 nits peak, MaxCLL 980, MaxFALL 360, tone mapper aces_spline) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "transfer_function": "smpte_st_2084_pq",
             "color_gamut": "bt_2020",
             "peak_nits": 1000.0,
@@ -321,11 +385,11 @@
         {
           "severity": "info",
           "category": "domain_stripboard_calibration",
-          "message": "1st AD Stripboard schedule verified: 4 strips across 2 shoot day(s), 1 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'culinary_asmr'.",
+          "message": "1st AD Stripboard schedule verified: 4 strips across 2 shoot day(s), 1 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "shoot_days": 2,
             "strips_count": 4,
             "dood_count": 1,
@@ -335,11 +399,11 @@
         {
           "severity": "info",
           "category": "domain_film_emulation_calibration",
-          "message": "Physical film stock emulation verified: Kodak Vision3 250D (kodak, gauge_65mm_imax, RMS 2.6, halation 5.0px, gate weave 0.3\u03bcm) aligned with domain 'culinary_asmr'.",
+          "message": "Physical film stock emulation verified: Kodak Vision3 250D (kodak, gauge_65mm_imax, RMS 2.6, halation 5.0px, gate weave 0.3\u03bcm) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "stock": "Kodak Vision3 250D",
             "manufacturer": "kodak",
             "gauge": "gauge_65mm_imax",
@@ -349,19 +413,46 @@
         {
           "severity": "info",
           "category": "domain_clapper_slate_calibration",
-          "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'culinary_asmr'.",
+          "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'architectural_sanctuary'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "domain": "culinary_asmr",
+            "domain": "architectural_sanctuary",
             "slates_count": 4,
             "camera_roll": "A01",
             "sound_roll": "SR01",
             "mhl_hash_entries": 0
           }
+        },
+        {
+          "severity": "info",
+          "category": "domain_drone_flight_calibration",
+          "message": "Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (monolithic_orbital_reveal, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'architectural_sanctuary'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "architectural_sanctuary",
+            "drone_rig": "DroneRigType.COMPACT_CINEMA_INSPIRE3",
+            "flight_profile": "monolithic_orbital_reveal",
+            "speed_mps": 0.0,
+            "altitude_agl_m": 0.0
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_aicp_budget_tiering",
+          "message": "AICP commercial production budget verified: Grand total $203,145.74 falls within target window [$120,000 - $210,000] for domain 'architectural_sanctuary'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "architectural_sanctuary",
+            "grand_total": 203145.74,
+            "target_min": 120000.0,
+            "target_max": 210000.0
+          }
         }
       ],
-      "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
+      "summary": "Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary)."
     },
     {
       "persona": "council-ux-designer",
@@ -430,6 +521,22 @@
           "severity": "info",
           "category": "animatic_slate_hud",
           "message": "SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_drone_hud",
+          "message": "Aerial Drone Flight Path HUD verified in dark-room animatic (#btn-drone-animatic / #animatic-drone-hud [D], KML, GPX & CSV downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_aicp_hud",
+          "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -687,6 +794,37 @@
         "omni_director/tools/clapper_slate.py",
         "omni_director/presets.py",
         "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-019",
+      "title": "Aerial Drone Flight Path Simulator & FAA Part 107 Airspace Compliance Engine",
+      "problem_statement": "Aerial directors of photography and remote pilot in command (RPIC) operators for 'IKEA: The Living Room Unfolds' require standardized 3D waypoint navigation (latitude/longitude/altitude AGL), 3-axis gimbal pitch/yaw trajectories, solar ephemeris calculation (golden hour/blue hour/solar noon), dynamic wind drift vectors, and strict FAA Part 107 regulatory compliance (120m / 400ft AGL ceiling, 45 m/s speed limits) with professional KML, GPX, and CSV flight manifests to ensure aerial shot safety and cinematographic continuity.",
+      "proposed_solution": "Implement DroneRigType, FlightProfile, FlightWaypointSpec, GimbalTrajectorySpec, WindVectorSpec, SolarEphemerisSpec, DroneFlightPathSpec, and MasterDroneSpec schemas, omni_director.tools.drone_flight / drone_aerial (3D waypoint interpolation, haversine distance, solar position math, wind drift deflection, KML flight path export, GPX GPS track export, drone flight sheet CSV/MD, flight manifest JSON), CRAFT drone flight prompt tokens ([DRONE_FLIGHT: ...]), prompt auditor aerial compliance rules, and an interactive 3D Drone Flight Path HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/drone_flight.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-020",
+      "title": "AICP Commercial Production Budget & Bid Form Estimator",
+      "problem_statement": "Commercial line producers, executive producers, and agency procurement directors for 'IKEA: The Living Room Unfolds' require standardized Association of Independent Commercial Producers (AICP) commercial production budgeting across all canonical sections A through K (Pre-Production/Wrap, Production Crew, Location & Travel, Props & Wardrobe, Studio & Equipment, Film Raw Stock/DIT, Director/Creative, Talent & Session, Editorial/Post, Contingency & Insurance, Production Markups/Fees) with automated tier-calibrated top sheets and CSV/JSON/Markdown exports to validate commercial feasibility and agency procurement compliance.",
+      "proposed_solution": "Implement AicpSectionCode, AicpLineItemSpec, AicpSectionBudgetSpec, AicpTopSheetSummarySpec, and MasterAicpBidSpec schemas, omni_director.tools.aicp_budget (line item rate calculation, overtime/fringes compounding, production markup application, top sheet synthesis, AICP bid sheet CSV generator, production budget top sheet Markdown generator, bid manifest JSON export), domain budget tier calibration ($95k-$480k across 6 archetypes), and an interactive AICP Commercial Production Bid HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/aicp_budget.py",
+        "omni_director/presets.py",
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/nle_export.py"
       ],

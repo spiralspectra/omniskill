@@ -1,7 +1,7 @@
 {
-  "version": "2.6.0",
+  "version": "2.10.0",
   "project_title": "Artisanal Japanese Culinary Ceremonial M",
-  "timestamp": "2026-11-10T13:49:48.013264+00:00",
+  "timestamp": "2026-11-17T09:33:44.020134+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -116,9 +116,39 @@
               "clapper_slate_log.csv"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_delivery",
+          "message": "Drone flight path KML, GPX track, Flight sheet CSV/MD, and Flight manifest JSON verified on disk: flight_path.kml, flight_waypoints.gpx, drone_flight_sheet.csv, drone_flight_sheet.md, drone_flight_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "drone_artifacts": [
+              "flight_path.kml",
+              "flight_waypoints.gpx",
+              "drone_flight_sheet.csv",
+              "drone_flight_sheet.md",
+              "drone_flight_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "aicp_budget_delivery",
+          "message": "AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: aicp_bid_sheet.csv, aicp_bid_manifest.json, production_budget_topsheet.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "aicp_artifacts": [
+              "aicp_bid_sheet.csv",
+              "aicp_bid_manifest.json",
+              "production_budget_topsheet.md"
+            ]
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 8 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 10 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -155,6 +185,40 @@
           "details": {
             "slate_scenes_count": 2,
             "has_master_slate_spec": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_schema_compliance",
+          "message": "Drone flight path specification verified: rig 'DroneRigType.CABLE_CAM_HYBRID', profile 'indoor_slow_orbital_reveal', max altitude 3.0m AGL (FAA Part 107 compliant).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "max_altitude_agl_m": 3.0,
+            "part_107_compliant": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "drone_flight_prompt_token_compliance",
+          "message": "Aerial drone flight path CRAFT tokens or master spec verified across 2/2 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "drone_scenes_count": 2,
+            "has_master_drone_spec": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "aicp_budget_schema_consistency",
+          "message": "AICP commercial production bid verified: Top Sheet grand total $158,002.24 (Direct: $124,902.96, Markups/Fee: $33,099.28) mathematically consistent.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "grand_total": 158002.24,
+            "direct_costs": 124902.96,
+            "production_fee": 18735.44
           }
         }
       ],
@@ -359,6 +423,33 @@
             "sound_roll": "SR01",
             "mhl_hash_entries": 0
           }
+        },
+        {
+          "severity": "info",
+          "category": "domain_drone_flight_calibration",
+          "message": "Aerial drone flight spec verified: DroneRigType.CABLE_CAM_HYBRID (indoor_slow_orbital_reveal, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'culinary_asmr'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "culinary_asmr",
+            "drone_rig": "DroneRigType.CABLE_CAM_HYBRID",
+            "flight_profile": "indoor_slow_orbital_reveal",
+            "speed_mps": 0.0,
+            "altitude_agl_m": 0.0
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_aicp_budget_tiering",
+          "message": "AICP commercial production budget verified: Grand total $158,002.24 falls within target window [$95,000 - $165,000] for domain 'culinary_asmr'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "culinary_asmr",
+            "grand_total": 158002.24,
+            "target_min": 95000.0,
+            "target_max": 165000.0
+          }
         }
       ],
       "summary": "Strategist review completed with score 25.0/25.0 (Domain: culinary_asmr)."
@@ -430,6 +521,22 @@
           "severity": "info",
           "category": "animatic_slate_hud",
           "message": "SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_drone_hud",
+          "message": "Aerial Drone Flight Path HUD verified in dark-room animatic (#btn-drone-animatic / #animatic-drone-hud [D], KML, GPX & CSV downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_aicp_hud",
+          "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -687,6 +794,37 @@
         "omni_director/tools/clapper_slate.py",
         "omni_director/presets.py",
         "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-019",
+      "title": "Aerial Drone Flight Path Simulator & FAA Part 107 Airspace Compliance Engine",
+      "problem_statement": "Aerial directors of photography and remote pilot in command (RPIC) operators for 'Artisanal Japanese Culinary Ceremonial M' require standardized 3D waypoint navigation (latitude/longitude/altitude AGL), 3-axis gimbal pitch/yaw trajectories, solar ephemeris calculation (golden hour/blue hour/solar noon), dynamic wind drift vectors, and strict FAA Part 107 regulatory compliance (120m / 400ft AGL ceiling, 45 m/s speed limits) with professional KML, GPX, and CSV flight manifests to ensure aerial shot safety and cinematographic continuity.",
+      "proposed_solution": "Implement DroneRigType, FlightProfile, FlightWaypointSpec, GimbalTrajectorySpec, WindVectorSpec, SolarEphemerisSpec, DroneFlightPathSpec, and MasterDroneSpec schemas, omni_director.tools.drone_flight / drone_aerial (3D waypoint interpolation, haversine distance, solar position math, wind drift deflection, KML flight path export, GPX GPS track export, drone flight sheet CSV/MD, flight manifest JSON), CRAFT drone flight prompt tokens ([DRONE_FLIGHT: ...]), prompt auditor aerial compliance rules, and an interactive 3D Drone Flight Path HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/drone_flight.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-020",
+      "title": "AICP Commercial Production Budget & Bid Form Estimator",
+      "problem_statement": "Commercial line producers, executive producers, and agency procurement directors for 'Artisanal Japanese Culinary Ceremonial M' require standardized Association of Independent Commercial Producers (AICP) commercial production budgeting across all canonical sections A through K (Pre-Production/Wrap, Production Crew, Location & Travel, Props & Wardrobe, Studio & Equipment, Film Raw Stock/DIT, Director/Creative, Talent & Session, Editorial/Post, Contingency & Insurance, Production Markups/Fees) with automated tier-calibrated top sheets and CSV/JSON/Markdown exports to validate commercial feasibility and agency procurement compliance.",
+      "proposed_solution": "Implement AicpSectionCode, AicpLineItemSpec, AicpSectionBudgetSpec, AicpTopSheetSummarySpec, and MasterAicpBidSpec schemas, omni_director.tools.aicp_budget (line item rate calculation, overtime/fringes compounding, production markup application, top sheet synthesis, AICP bid sheet CSV generator, production budget top sheet Markdown generator, bid manifest JSON export), domain budget tier calibration ($95k-$480k across 6 archetypes), and an interactive AICP Commercial Production Bid HUD in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/aicp_budget.py",
+        "omni_director/presets.py",
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/nle_export.py"
       ],

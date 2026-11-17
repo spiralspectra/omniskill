@@ -1,6 +1,6 @@
 # Product Council Audit Report: SEPHORA: London Pulse (Midnight Velvet)
 
-**Version**: 2.6.0 | **Timestamp**: `2026-11-10T13:49:46.766315+00:00`
+**Version**: 2.10.0 | **Timestamp**: `2026-11-17T09:33:42.402894+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 8 | FDE review completed with score 25.0/25.0. 8 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 3 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 15 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 8 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 10 | FDE review completed with score 25.0/25.0. 10 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 6 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 17 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 10 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -24,11 +24,16 @@
 - [INFO] **stripboard_schedule_delivery**: 1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.
 - [INFO] **film_emulation_delivery**: Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.
 - [INFO] **clapper_slate_delivery**: ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.
+- [INFO] **drone_flight_delivery**: Drone flight path KML, GPX track, Flight sheet CSV/MD, and Flight manifest JSON verified on disk: flight_path.kml, flight_waypoints.gpx, drone_flight_sheet.csv, drone_flight_sheet.md, drone_flight_manifest.json.
+- [INFO] **aicp_budget_delivery**: AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: aicp_bid_sheet.csv, aicp_bid_manifest.json, production_budget_topsheet.md.
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
 - [INFO] **film_emulation_prompt_token_compliance**: Physical film stock emulation CRAFT tokens or master spec verified across 4/4 scene prompts.
 - [INFO] **clapper_slate_prompt_token_compliance**: SMPTE 12M clapper slate CRAFT tokens or master spec verified across 4/4 scene prompts.
+- [INFO] **drone_flight_schema_compliance**: Drone flight path specification verified: rig 'DroneRigType.COMPACT_CINEMA_INSPIRE3', profile 'architectural_fashion_sweep', max altitude 20.0m AGL (FAA Part 107 compliant).
+- [INFO] **drone_flight_prompt_token_compliance**: Aerial drone flight path CRAFT tokens or master spec verified across 4/4 scene prompts.
+- [INFO] **aicp_budget_schema_consistency**: AICP commercial production bid verified: Top Sheet grand total $375,658.39 (Direct: $296,963.16, Markups/Fee: $78,695.23) mathematically consistent.
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -46,6 +51,8 @@
 - [INFO] **domain_stripboard_calibration**: 1st AD Stripboard schedule verified: 4 strips across 2 shoot day(s), 1 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_film_emulation_calibration**: Physical film stock emulation verified: Fuji Eterna 500T (fuji, gauge_35mm_4perf, RMS 4.0, halation 7.5px, gate weave 0.6μm) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_clapper_slate_calibration**: SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'luxury_fashion'.
+- [INFO] **domain_drone_flight_calibration**: Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (architectural_fashion_sweep, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'luxury_fashion'.
+- [INFO] **domain_aicp_budget_tiering**: AICP commercial production budget verified: Grand total $375,658.39 falls within target window [$220,000 - $380,000] for domain 'luxury_fashion'.
 
 ### COUNCIL-UX-DESIGNER
 - [INFO] **animatic_dof_hud**: Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).
@@ -56,6 +63,8 @@
 - [INFO] **animatic_stripboard_hud**: 1st AD Script Breakdown & Stripboard Production Console HUD verified in dark-room animatic (#btn-stripboard-animatic / #animatic-stripboard-hud [B]).
 - [INFO] **animatic_film_hud**: Physical Film Stock Emulation HUD verified in dark-room animatic (#btn-film-animatic / #animatic-film-hud [E], DCTL & ALE downloads).
 - [INFO] **animatic_slate_hud**: SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).
+- [INFO] **animatic_drone_hud**: Aerial Drone Flight Path HUD verified in dark-room animatic (#btn-drone-animatic / #animatic-drone-hud [D], KML, GPX & CSV downloads).
+- [INFO] **animatic_aicp_hud**: AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -81,3 +90,5 @@
 | `PM-FEAT-016` | **P0** | `implemented` | **1st AD Script Breakdown & Interactive Stripboard Production Scheduler Engine (Movie Magic & DOOD)**: Implement ScriptBreakdownSheet, StripboardStripSpec, MasterStripboardScheduleSpec, and DayOutOfDaysRecord schemas, omni_director.tools.stripboard_scheduler (1/8th-page breakdown generator, stripboard strip color-coding, DOOD matrix with SAG-AFTRA 12-hour turnaround validation, Movie Magic XML, Stripboard CSV, DOOD CSV export), CRAFT 1st AD prompt tokens, and an interactive Stripboard & DOOD Production Console (#btn-stripboard-animatic / #animatic-stripboard-hud [B] hotkey) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/stripboard_scheduler.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-017` | **P0** | `implemented` | **Physical Film Stock Emulation & Chemical Chemistry Engine (Microscopic Grain, Halation & Gate Weave)**: Implement FilmStockManufacturer, FilmGaugeFormat, GrainPhysicsSpec, HalationPhysicsSpec, GateWeavePhysicsSpec, and FilmStockSpec schemas, omni_director.tools.film_emulation (RMS grain density formulas, halation PSF simulation, gate weave sinusoidal jitter, Kodak/Fuji presets, DaVinci Resolve DCTL shader generator, Avid ALE log, Film Stock JSON export), CRAFT film emulation prompt tokens ([FILM_STOCK: ...]), prompt auditor photochemical verification rules, and an interactive Film Stock Emulation HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/film_emulation.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-018` | **P0** | `implemented` | **SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine**: Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/clapper_slate.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-019` | **P0** | `implemented` | **Aerial Drone Flight Path Simulator & FAA Part 107 Airspace Compliance Engine**: Implement DroneRigType, FlightProfile, FlightWaypointSpec, GimbalTrajectorySpec, WindVectorSpec, SolarEphemerisSpec, DroneFlightPathSpec, and MasterDroneSpec schemas, omni_director.tools.drone_flight / drone_aerial (3D waypoint interpolation, haversine distance, solar position math, wind drift deflection, KML flight path export, GPX GPS track export, drone flight sheet CSV/MD, flight manifest JSON), CRAFT drone flight prompt tokens ([DRONE_FLIGHT: ...]), prompt auditor aerial compliance rules, and an interactive 3D Drone Flight Path HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/drone_flight.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-020` | **P0** | `implemented` | **AICP Commercial Production Budget & Bid Form Estimator**: Implement AicpSectionCode, AicpLineItemSpec, AicpSectionBudgetSpec, AicpTopSheetSummarySpec, and MasterAicpBidSpec schemas, omni_director.tools.aicp_budget (line item rate calculation, overtime/fringes compounding, production markup application, top sheet synthesis, AICP bid sheet CSV generator, production budget top sheet Markdown generator, bid manifest JSON export), domain budget tier calibration ($95k-$480k across 6 archetypes), and an interactive AICP Commercial Production Bid HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/aicp_budget.py`, `omni_director/presets.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |

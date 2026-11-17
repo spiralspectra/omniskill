@@ -30,6 +30,7 @@ from omni_director.schemas import (
     ProductionBundle,
     SENIOR_PM_PERSONA_PROMPT,
     load_bible_from_json,
+    __version__,
 )
 from omni_director.telemetry import verify_bundle_checksums
 from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
@@ -399,6 +400,45 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-019",
+                title="Aerial Drone Flight Path Simulator & FAA Part 107 Airspace Compliance Engine",
+                problem_statement=(
+                    f"Aerial directors of photography and remote pilot in command (RPIC) operators{project_ctx} require standardized 3D waypoint "
+                    "navigation (latitude/longitude/altitude AGL), 3-axis gimbal pitch/yaw trajectories, solar ephemeris calculation (golden hour/blue hour/solar noon), "
+                    "dynamic wind drift vectors, and strict FAA Part 107 regulatory compliance (120m / 400ft AGL ceiling, 45 m/s speed limits) with professional "
+                    "KML, GPX, and CSV flight manifests to ensure aerial shot safety and cinematographic continuity."
+                ),
+                proposed_solution=(
+                    "Implement DroneRigType, FlightProfile, FlightWaypointSpec, GimbalTrajectorySpec, WindVectorSpec, SolarEphemerisSpec, DroneFlightPathSpec, and "
+                    "MasterDroneSpec schemas, omni_director.tools.drone_flight / drone_aerial (3D waypoint interpolation, haversine distance, solar position math, "
+                    "wind drift deflection, KML flight path export, GPX GPS track export, drone flight sheet CSV/MD, flight manifest JSON), CRAFT drone flight prompt "
+                    "tokens ([DRONE_FLIGHT: ...]), prompt auditor aerial compliance rules, and an interactive 3D Drone Flight Path HUD in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/drone_flight.py", "omni_director/presets.py", "omni_director/tools/prompt_auditor.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-020",
+                title="AICP Commercial Production Budget & Bid Form Estimator",
+                problem_statement=(
+                    f"Commercial line producers, executive producers, and agency procurement directors{project_ctx} require standardized Association of Independent "
+                    "Commercial Producers (AICP) commercial production budgeting across all canonical sections A through K (Pre-Production/Wrap, Production Crew, "
+                    "Location & Travel, Props & Wardrobe, Studio & Equipment, Film Raw Stock/DIT, Director/Creative, Talent & Session, Editorial/Post, "
+                    "Contingency & Insurance, Production Markups/Fees) with automated tier-calibrated top sheets and CSV/JSON/Markdown exports to validate "
+                    "commercial feasibility and agency procurement compliance."
+                ),
+                proposed_solution=(
+                    "Implement AicpSectionCode, AicpLineItemSpec, AicpSectionBudgetSpec, AicpTopSheetSummarySpec, and MasterAicpBidSpec schemas, "
+                    "omni_director.tools.aicp_budget (line item rate calculation, overtime/fringes compounding, production markup application, top sheet synthesis, "
+                    "AICP bid sheet CSV generator, production budget top sheet Markdown generator, bid manifest JSON export), domain budget tier calibration "
+                    "($95k-$480k across 6 archetypes), and an interactive AICP Commercial Production Bid HUD in the dark-room animatic."
+                ),
+                target_modules=["omni_director/schemas.py", "omni_director/tools/aicp_budget.py", "omni_director/presets.py", "omni_director/tools/html_compiler.py", "omni_director/tools/nle_export.py"],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -548,7 +588,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         pm_proposals = self.consult_product_manager(bible=bible, bundle=bundle, output_dir=resolved_out_dir)
 
         report = ProductCouncilReport(
-            version="2.6.0",
+            version=__version__,
             project_title=bible.project_title if bible else "Omni Production",
             timestamp=datetime.now(timezone.utc).isoformat(),
             overall_score=total_score,
@@ -831,6 +871,50 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"slate_artifacts": slate_items}
                 ))
 
+            # Verify Aerial Drone Flight Path deliverables (PM-FEAT-019)
+            kml_file = eval_dir / "flight_path.kml" if (eval_dir / "flight_path.kml").is_file() else (eval_dir / "drone_flight_plan.kml")
+            gpx_file = eval_dir / "flight_waypoints.gpx" if (eval_dir / "flight_waypoints.gpx").is_file() else (eval_dir / "drone_flight_track.gpx")
+            drone_csv = eval_dir / "drone_flight_sheet.csv"
+            drone_json = eval_dir / "drone_flight_manifest.json"
+            drone_md = eval_dir / "drone_flight_sheet.md"
+            if kml_file.is_file() or gpx_file.is_file() or drone_csv.is_file() or drone_json.is_file() or drone_md.is_file():
+                drone_items = []
+                if kml_file.is_file():
+                    drone_items.append(kml_file.name)
+                if gpx_file.is_file():
+                    drone_items.append(gpx_file.name)
+                if drone_csv.is_file():
+                    drone_items.append("drone_flight_sheet.csv")
+                if drone_md.is_file():
+                    drone_items.append("drone_flight_sheet.md")
+                if drone_json.is_file():
+                    drone_items.append("drone_flight_manifest.json")
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="drone_flight_delivery",
+                    message=f"Drone flight path KML, GPX track, Flight sheet CSV/MD, and Flight manifest JSON verified on disk: {', '.join(drone_items)}.",
+                    details={"drone_artifacts": drone_items}
+                ))
+
+            # Verify AICP Commercial Production Bid deliverables (PM-FEAT-020)
+            aicp_csv = eval_dir / "aicp_bid_sheet.csv" if (eval_dir / "aicp_bid_sheet.csv").is_file() else (eval_dir / "aicp_budget_bid.csv")
+            aicp_json = eval_dir / "aicp_bid_manifest.json" if (eval_dir / "aicp_bid_manifest.json").is_file() else (eval_dir / "aicp_budget_manifest.json")
+            aicp_md = eval_dir / "production_budget_topsheet.md" if (eval_dir / "production_budget_topsheet.md").is_file() else (eval_dir / "aicp_budget_summary.md")
+            if aicp_csv.is_file() or aicp_json.is_file() or aicp_md.is_file():
+                aicp_items = []
+                if aicp_csv.is_file():
+                    aicp_items.append(aicp_csv.name)
+                if aicp_json.is_file():
+                    aicp_items.append(aicp_json.name)
+                if aicp_md.is_file():
+                    aicp_items.append(aicp_md.name)
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="aicp_budget_delivery",
+                    message=f"AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: {', '.join(aicp_items)}.",
+                    details={"aicp_artifacts": aicp_items}
+                ))
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
         return PersonaReviewResult(
@@ -1029,6 +1113,74 @@ class ProductCouncilOrchestrator(BaseAgent):
                 details={"slate_scenes_count": slate_tokens_found, "has_master_slate_spec": has_slate_master}
             ))
 
+        # Check Drone Flight Path and AICP Commercial Production Bid schema and prompt compliance (PM-FEAT-019 & PM-FEAT-020)
+        drone_tokens_found = 0
+        has_drone_master = (
+            (hasattr(bible, "master_drone_spec") and bible.master_drone_spec is not None)
+            or any(getattr(s, "drone_flight", None) is not None for s in bible.scenes)
+        )
+        has_aicp_master = (
+            (hasattr(bible, "master_aicp_bid") and bible.master_aicp_bid is not None)
+            or (hasattr(bible, "aicp_bid") and getattr(bible, "aicp_bid") is not None)
+        )
+
+        for scene in bible.scenes:
+            p_text = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
+            if any(k in p_text for k in ("DRONE_FLIGHT", "DRONE FLIGHT", "[DRONE", "drone flight", "flight path", "aerial orbit", "gimbal pitch", "flight waypoint", "flyover reveal", "Alta X", "Inspire 3", "FPV")) or getattr(scene, "drone_flight", None) is not None:
+                drone_tokens_found += 1
+
+        drone_spec = getattr(bible, "master_drone_spec", None) or next((getattr(s, "drone_flight", None) for s in bible.scenes if getattr(s, "drone_flight", None) is not None), None)
+        if drone_spec is not None:
+            max_alt = getattr(drone_spec, "max_altitude_agl_m", getattr(drone_spec, "target_altitude_agl_m", 0.0))
+            is_compliant = getattr(drone_spec, "faa_part_107_compliant", max_alt <= 120.0)
+            if max_alt > 120.0 and not getattr(drone_spec, "waiver_granted", False):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="drone_part_107_airspace_violation",
+                    message=f"FAA Part 107 airspace violation: Drone maximum altitude {max_alt}m exceeds 120.0m (400ft AGL) statutory ceiling without Part 107.205 waiver.",
+                    suggested_fix="Cap drone maximum altitude to <= 120.0m AGL or grant Part 107 waiver.",
+                ))
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="drone_flight_schema_compliance",
+                    message=f"Drone flight path specification verified: rig '{getattr(drone_spec, 'drone_rig', 'cinema')}', profile '{getattr(drone_spec, 'flight_profile', 'orbit')}', max altitude {max_alt}m AGL (FAA Part 107 compliant).",
+                    details={"max_altitude_agl_m": max_alt, "part_107_compliant": is_compliant}
+                ))
+
+        if drone_tokens_found > 0 or has_drone_master:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="drone_flight_prompt_token_compliance",
+                message=f"Aerial drone flight path CRAFT tokens or master spec verified across {drone_tokens_found}/{len(bible.scenes)} scene prompts.",
+                details={"drone_scenes_count": drone_tokens_found, "has_master_drone_spec": has_drone_master}
+            ))
+
+        aicp_bid = getattr(bible, "master_aicp_bid", getattr(bible, "aicp_bid", None))
+        if aicp_bid is not None:
+            top_sheet = getattr(aicp_bid, "top_sheet", getattr(aicp_bid, "top_sheet_summary", None))
+            if top_sheet is not None:
+                grand_tot = getattr(top_sheet, "grand_total", getattr(top_sheet, "grand_total_bid_usd", getattr(top_sheet, "grand_total_bid", 0.0)))
+                direct_costs = getattr(top_sheet, "direct_subtotal", getattr(top_sheet, "subtotal_direct_costs_usd", getattr(top_sheet, "total_direct_costs", 0.0)))
+                prod_fee = getattr(top_sheet, "total_markup", getattr(top_sheet, "production_fee_usd", getattr(top_sheet, "production_fee_amount", 0.0)))
+                cont = getattr(top_sheet, "total_contingency", getattr(top_sheet, "contingency_usd", getattr(top_sheet, "contingency_amount", 0.0)))
+                calc_total = direct_costs + prod_fee + cont
+                diff = abs(grand_tot - calc_total)
+                if grand_tot > 0 and diff > (grand_tot * 0.02 + 5.0):
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="aicp_budget_math_discrepancy",
+                        message=f"AICP budget top sheet discrepancy: grand total ${grand_tot:,.2f} != direct costs + markups ${calc_total:,.2f} (diff ${diff:,.2f}).",
+                        suggested_fix="Recalculate top sheet summary totals in MasterAicpBidSpec.",
+                    ))
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="aicp_budget_schema_consistency",
+                        message=f"AICP commercial production bid verified: Top Sheet grand total ${grand_tot:,.2f} (Direct: ${direct_costs:,.2f}, Markups/Fee: ${prod_fee + cont:,.2f}) mathematically consistent.",
+                        details={"grand_total": grand_tot, "direct_costs": direct_costs, "production_fee": prod_fee}
+                    ))
+
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
         score = 25.0 * (avg_audit_score / 100.0)
         critical_count = len([f for f in findings if f.severity == CouncilFindingSeverity.CRITICAL])
@@ -1057,7 +1209,7 @@ class ProductCouncilOrchestrator(BaseAgent):
             )
 
         combined_text = f"{bible.project_title} {bible.logline}"
-        detected_domain = classify_brief_domain(combined_text)
+        detected_domain = getattr(bible, "domain_archetype", None) or classify_brief_domain(combined_text)
         archetype = DOMAIN_ARCHETYPES.get(detected_domain, {})
 
         # Check positive invariants across scene prompts (no negative prompt constraints)
@@ -1449,6 +1601,68 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain aerial drone flight path calibration (PM-FEAT-019)
+        drone_spec = getattr(bible, "master_drone_spec", None) or next((getattr(s, "drone_flight", None) for s in bible.scenes if getattr(s, "drone_flight", None) is not None), None)
+        if drone_spec is not None:
+            rig = str(getattr(drone_spec, "drone_rig", ""))
+            profile = str(getattr(drone_spec, "flight_profile", ""))
+            max_speed = getattr(drone_spec, "max_speed_mps", 0.0)
+            alt = getattr(drone_spec, "target_altitude_agl_m", 0.0)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="domain_drone_flight_calibration",
+                message=f"Aerial drone flight spec verified: {rig} ({profile}, speed {max_speed} m/s, altitude {alt}m AGL) calibrated for domain '{detected_domain}'.",
+                details={"domain": detected_domain, "drone_rig": rig, "flight_profile": profile, "speed_mps": max_speed, "altitude_agl_m": alt},
+            ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_drone_flight_calibration",
+                message="Master aerial drone flight path spec (master_drone_spec) missing from production bible.",
+                suggested_fix="Assign master_drone_spec via get_domain_drone_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain commercial production budget tiering (PM-FEAT-020)
+        aicp_bid = getattr(bible, "master_aicp_bid", getattr(bible, "aicp_bid", None))
+        if aicp_bid is not None:
+            top_sheet = getattr(aicp_bid, "top_sheet", getattr(aicp_bid, "top_sheet_summary", None))
+            grand_tot = getattr(top_sheet, "grand_total", getattr(top_sheet, "grand_total_bid_usd", getattr(top_sheet, "grand_total_bid", 0.0))) if top_sheet else 0.0
+
+            budget_targets = {
+                "automotive_robotics": (320000.0, 480000.0),
+                "culinary_asmr": (95000.0, 165000.0),
+                "luxury_fashion": (220000.0, 380000.0),
+                "kinetic_action": (280000.0, 450000.0),
+                "tech_hardware": (140000.0, 240000.0),
+                "architectural_sanctuary": (120000.0, 210000.0),
+            }
+            target_min, target_max = budget_targets.get(detected_domain, (50000.0, 500000.0))
+            if target_min <= grand_tot <= target_max:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_aicp_budget_tiering",
+                    message=f"AICP commercial production budget verified: Grand total ${grand_tot:,.2f} falls within target window [${target_min:,.0f} - ${target_max:,.0f}] for domain '{detected_domain}'.",
+                    details={"domain": detected_domain, "grand_total": grand_tot, "target_min": target_min, "target_max": target_max},
+                ))
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_aicp_budget_tiering",
+                    message=f"AICP budget ${grand_tot:,.2f} outside expected commercial tier [${target_min:,.0f} - ${target_max:,.0f}] for domain '{detected_domain}'.",
+                    details={"domain": detected_domain, "grand_total": grand_tot, "target_min": target_min, "target_max": target_max},
+                    suggested_fix=f"Adjust line item rates to target commercial budget of ${target_min:,.0f} - ${target_max:,.0f}.",
+                ))
+                score -= 0.25
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_aicp_budget_tiering",
+                message="Master AICP commercial production bid spec (master_aicp_bid) missing from production bible.",
+                suggested_fix="Assign master_aicp_bid via get_domain_aicp_bid_spec().",
+            ))
+            score -= 0.25
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
         return PersonaReviewResult(
@@ -1704,6 +1918,40 @@ class ProductCouncilOrchestrator(BaseAgent):
                         severity=CouncilFindingSeverity.INFO,
                         category="animatic_slate_hud",
                         message="SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).",
+                    ))
+
+                if ('id="btn-drone-animatic"' not in html_content and 'id="animatic-drone-hud"' not in html_content) or (
+                    'id="btn-download-drone-kml"' not in html_content or 'id="btn-download-drone-gpx"' not in html_content or 'id="btn-download-drone-csv"' not in html_content
+                ):
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_drone_hud",
+                        message="Compiled storyboard preview HTML lacks interactive Drone Flight Path HUD (#animatic-drone-hud, #btn-drone-animatic, #btn-download-drone-kml, #btn-download-drone-gpx, #btn-download-drone-csv).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-drone-animatic, #animatic-drone-hud, #btn-download-drone-kml, #btn-download-drone-gpx, and #btn-download-drone-csv."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_drone_hud",
+                        message="Aerial Drone Flight Path HUD verified in dark-room animatic (#btn-drone-animatic / #animatic-drone-hud [D], KML, GPX & CSV downloads).",
+                    ))
+
+                if ('id="btn-aicp-animatic"' not in html_content and 'id="animatic-aicp-hud"' not in html_content) or (
+                    'id="btn-download-aicp-csv"' not in html_content or 'id="btn-download-aicp-json"' not in html_content or 'id="btn-download-aicp-md"' not in html_content
+                ):
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.LOW,
+                        category="animatic_aicp_hud",
+                        message="Compiled storyboard preview HTML lacks interactive AICP Commercial Production Bid HUD (#animatic-aicp-hud, #btn-aicp-animatic, #btn-download-aicp-csv, #btn-download-aicp-json, #btn-download-aicp-md).",
+                        suggested_fix="Ensure compile_storyboard_html generates #btn-aicp-animatic, #animatic-aicp-hud, #btn-download-aicp-csv, #btn-download-aicp-json, and #btn-download-aicp-md."
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="animatic_aicp_hud",
+                        message="AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
                     ))
 
             except Exception:

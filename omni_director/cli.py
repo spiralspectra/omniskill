@@ -298,8 +298,20 @@ def handle_export(args_list: List[str]) -> int:
         generate_sound_sync_ale,
         synthesize_default_slate_spec,
     )
+    from omni_director.tools.drone_flight import (
+        export_drone_flight_bundle,
+        generate_drone_flight_kml,
+        generate_drone_flight_gpx,
+        synthesize_default_drone_flight,
+    )
+    from omni_director.tools.aicp_budget import (
+        export_aicp_budget_bundle,
+        generate_aicp_bid_sheet_csv,
+        generate_aicp_bid_manifest_json,
+        synthesize_default_aicp_bid,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, and clapper slate packages")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), and AICP commercial production bids")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -307,7 +319,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -324,6 +336,10 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--mhl-xml", action="store_true", help="Export ASC-MHL media hash list XML (asc_mhl_manifest.xml)")
     parser.add_argument("--sound-ale", action="store_true", help="Export sound sync Avid Log Exchange (sound_sync.ale)")
     parser.add_argument("--slate-csv", action="store_true", help="Export clapper slate log CSV (clapper_slate_log.csv)")
+    parser.add_argument("--drone-kml", action="store_true", help="Export Google Earth / DJI Pilot 2 flight path KML (flight_path.kml)")
+    parser.add_argument("--drone-gpx", action="store_true", help="Export GPS Exchange format waypoint GPX (flight_waypoints.gpx)")
+    parser.add_argument("--aicp-csv", action="store_true", help="Export AICP commercial production bid sheet CSV (aicp_bid_sheet.csv)")
+    parser.add_argument("--aicp-json", action="store_true", help="Export AICP bid manifest JSON (aicp_bid_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -465,6 +481,12 @@ def handle_export(args_list: List[str]) -> int:
         slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None) or synthesize_default_slate_spec(bible)
         slate_files = export_slate_bundle(slate_spec, out_dir, bible)
         exported_files.update(slate_files)
+    elif fmt == "drone":
+        drone_files = export_drone_flight_bundle(bible, out_dir)
+        exported_files.update(drone_files)
+    elif fmt == "aicp":
+        aicp_files = export_aicp_budget_bundle(bible, out_dir)
+        exported_files.update(aicp_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -535,6 +557,26 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "clapper_slate_log.csv"
         p.write_text(generate_clapper_slate_log_csv(bible), encoding="utf-8")
         exported_files["slate_csv"] = str(p.resolve())
+    if args.drone_kml:
+        drone_spec = getattr(bible, "master_drone_spec", None) or getattr(bible, "drone_spec", None) or synthesize_default_drone_flight()
+        p = out_dir / "flight_path.kml"
+        p.write_text(generate_drone_flight_kml(drone_spec, bible.project_title), encoding="utf-8")
+        exported_files["drone_kml"] = str(p.resolve())
+    if args.drone_gpx:
+        drone_spec = getattr(bible, "master_drone_spec", None) or getattr(bible, "drone_spec", None) or synthesize_default_drone_flight()
+        p = out_dir / "flight_waypoints.gpx"
+        p.write_text(generate_drone_flight_gpx(drone_spec, bible.project_title), encoding="utf-8")
+        exported_files["drone_gpx"] = str(p.resolve())
+    if args.aicp_csv:
+        aicp_bid = getattr(bible, "master_aicp_bid", None) or getattr(bible, "aicp_bid", None) or synthesize_default_aicp_bid(bible)
+        p = out_dir / "aicp_bid_sheet.csv"
+        p.write_text(generate_aicp_bid_sheet_csv(aicp_bid), encoding="utf-8")
+        exported_files["aicp_csv"] = str(p.resolve())
+    if args.aicp_json:
+        aicp_bid = getattr(bible, "master_aicp_bid", None) or getattr(bible, "aicp_bid", None) or synthesize_default_aicp_bid(bible)
+        p = out_dir / "aicp_bid_manifest.json"
+        p.write_text(generate_aicp_bid_manifest_json(aicp_bid), encoding="utf-8")
+        exported_files["aicp_json"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

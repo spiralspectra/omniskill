@@ -372,4 +372,16 @@ def export_all_nle_artifacts(
     except Exception:
         pass
 
+    try:
+        from omni_director.tools.drone_flight import export_drone_flight_bundle
+        res.update(export_drone_flight_bundle(bible, out_path))
+    except Exception:
+        pass
+
+    try:
+        from omni_director.tools.aicp_budget import export_aicp_budget_bundle
+        res.update(export_aicp_budget_bundle(bible, out_path))
+    except Exception:
+        pass
+
     return res

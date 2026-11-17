@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -3823,6 +3823,16 @@ class TestV26UXAnimaticDofAndLutHUDs:
             '<button id="btn-download-mhl-xml"></button>'
             '<button id="btn-download-sound-ale"></button>'
             '<button id="btn-download-slate-csv"></button>'
+            '<button id="btn-drone-animatic"></button>'
+            '<div id="animatic-drone-hud"></div>'
+            '<button id="btn-download-drone-kml"></button>'
+            '<button id="btn-download-drone-gpx"></button>'
+            '<button id="btn-download-drone-csv"></button>'
+            '<button id="btn-aicp-animatic"></button>'
+            '<div id="animatic-aicp-hud"></div>'
+            '<button id="btn-download-aicp-csv"></button>'
+            '<button id="btn-download-aicp-json"></button>'
+            '<button id="btn-download-aicp-md"></button>'
             '<div role="tablist"></div>'
             '<div class="cinema-toast" id="cinema-toast"></div>'
             '<script>function jumpToBeat() {}</script>'
@@ -5042,6 +5052,322 @@ class TestPMFeat017And018FilmStockAndClapperSlate:
         categories = [f.category for f in eng_review.findings]
         assert "film_emulation_prompt_token_compliance" in categories
         assert "clapper_slate_prompt_token_compliance" in categories
+
+
+class TestPMFeat019And020DroneFlightAndAicpBudget:
+    """Validation test suite for PM-FEAT-019 (Drone Flight Paths) & PM-FEAT-020 (AICP Budget)."""
+
+    def test_drone_flight_pydantic_schemas_and_bible_binding(self):
+        """Verifies Pydantic v2 schemas for PM-FEAT-019 and binding on ScenePromptSpec & MasterProductionBible."""
+        from omni_director.schemas import (
+            DroneRigType,
+            FlightWaypointGPS,
+            GimbalOrientationSpec,
+            SolarPhase,
+            SolarEphemerisSpec,
+            WindDriftVectorSpec,
+            DroneFlightPathSpec,
+            DroneFlight,
+            DroneFlightSpec,
+            ScenePromptSpec,
+            MasterProductionBible,
+        )
+        from omni_director.tools.drone_flight import (
+            synthesize_default_drone_flight,
+            format_drone_flight_prompt_token,
+            calculate_solar_ephemeris,
+            calculate_wind_drift_correction,
+        )
+
+        assert DroneFlight is DroneFlightPathSpec
+        assert DroneFlightSpec is DroneFlightPathSpec
+
+        # Solar & Wind ephemeris calculation
+        solar = calculate_solar_ephemeris(hour_utc=17.5, latitude=34.0522)
+        assert isinstance(solar, SolarEphemerisSpec)
+        assert solar.golden_hour_active is True
+
+        wind = calculate_wind_drift_correction(flight_heading_deg=45.0, drone_speed_mps=8.5, wind_speed_knots=10.0, wind_direction_deg=270.0)
+        assert isinstance(wind, WindDriftVectorSpec)
+        assert abs(wind.drift_compensation_deg) > 0.0
+
+        # Synthesize drone flight path
+        flight = synthesize_default_drone_flight(profile="orbit_reveal", alt_m=30.0)
+        assert isinstance(flight, DroneFlightPathSpec)
+        assert len(flight.waypoints) >= 4
+        assert flight.min_altitude_agl_m >= 2.0
+        assert flight.faa_part_107_compliant is True
+
+        token = format_drone_flight_prompt_token(flight)
+        assert "[DRONE_FLIGHT:" in token
+        assert "ALT=" in token
+        assert "SPEED=" in token
+
+        # Test binding on ScenePromptSpec
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        scene.drone_flight = flight
+        assert scene.drone_flight is not None
+        assert scene.drone_spec is not None
+        assert scene.drone_flight.flight_profile == "orbit_reveal"
+
+        # Test binding on MasterProductionBible
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.master_drone_spec = flight
+        assert bible.master_drone_spec is not None
+        assert bible.drone_spec.flight_profile == "orbit_reveal"
+
+    def test_aicp_budget_pydantic_schemas_and_bible_binding(self):
+        """Verifies Pydantic v2 schemas for PM-FEAT-020 and binding on MasterProductionBible."""
+        from omni_director.schemas import (
+            AicpSectionCode,
+            CrewLaborTier,
+            AicpLineItemSpec,
+            AicpTopSheetSummarySpec,
+            MasterAicpBidSpec,
+            AicpBid,
+            AicpBidSpec,
+            AicpLineItem,
+            AicpTopSheet,
+        )
+        from omni_director.tools.aicp_budget import (
+            calculate_aicp_top_sheet,
+            synthesize_default_aicp_bid,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+
+        assert AicpBid is MasterAicpBidSpec
+        assert AicpBidSpec is MasterAicpBidSpec
+        assert AicpLineItem is AicpLineItemSpec
+        assert AicpTopSheet is AicpTopSheetSummarySpec
+
+        # Test Top Sheet calculation
+        items = [
+            AicpLineItemSpec(
+                account_number="B-101",
+                section=AicpSectionCode.SECTION_B,
+                description="Director Fee",
+                rate_basis="day",
+                units_count=2.0,
+                unit_rate_usd=5000.0,
+                fringes_pct=21.0,
+            ),
+            AicpLineItemSpec(
+                account_number="D-101",
+                section=AicpSectionCode.SECTION_D,
+                description="ARRI Alexa 35 Camera Package",
+                rate_basis="day",
+                units_count=2.0,
+                unit_rate_usd=3500.0,
+                fringes_pct=0.0,
+            ),
+        ]
+        top_sheet = calculate_aicp_top_sheet(items, total_runtime_seconds=60.0)
+        assert isinstance(top_sheet, AicpTopSheetSummarySpec)
+        assert top_sheet.subtotal_direct_costs_usd > 17000.0
+        assert top_sheet.production_fee_usd > 0.0
+        assert top_sheet.insurance_usd > 0.0
+        assert top_sheet.grand_total_bid_usd > top_sheet.subtotal_direct_costs_usd
+        assert top_sheet.cost_per_second > 0.0
+
+        # Synthesize default AICP bid for Bible
+        bid = synthesize_default_aicp_bid(IKEA_ASMR_BIBLE)
+        assert isinstance(bid, MasterAicpBidSpec)
+        assert len(bid.line_items) >= 15
+        assert bid.top_sheet.grand_total_bid_usd > 50000.0
+
+        # Test binding on MasterProductionBible
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible.master_aicp_bid = bid
+        assert bible.master_aicp_bid is not None
+        assert bible.aicp_bid.project_title == bible.project_title
+
+    def test_prompt_auditor_drone_flight_token_and_healing(self):
+        """Verifies PromptAuditor recognizes [DRONE_FLIGHT: ...] and self-heals aerial keywords."""
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        # Prompt with aerial intent but missing token
+        raw_aerial_prompt = "A high-altitude aerial drone flyover revealing the coastline at sunrise <image_1>."
+        audit_raw = audit_omni_scene_prompt(raw_aerial_prompt)
+        assert audit_raw.score < 90.0
+
+        # Self-healing loop injects drone flight token and satisfies quality gate
+        healed = heal_omni_scene_prompt(raw_aerial_prompt)
+        assert "[DRONE_FLIGHT:" in healed.healed_prompt or "[drone_flight:" in healed.healed_prompt.lower()
+        audit_healed = audit_omni_scene_prompt(healed.healed_prompt)
+        assert audit_healed.score >= 90.0
+        assert audit_healed.passed is True
+
+    def test_nle_export_all_artifacts_includes_drone_and_aicp(self, tmp_path):
+        """Verifies export_all_nle_artifacts outputs drone and AICP production bundles."""
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        artifacts = export_all_nle_artifacts(IKEA_ASMR_BIBLE, tmp_path)
+
+        # Drone flight path files
+        assert "drone_kml" in artifacts
+        assert "drone_gpx" in artifacts
+        assert "drone_csv" in artifacts
+        assert "drone_md" in artifacts
+        assert "drone_manifest" in artifacts
+        assert (tmp_path / "flight_path.kml").exists()
+        assert (tmp_path / "flight_waypoints.gpx").exists()
+        assert (tmp_path / "drone_flight_sheet.csv").exists()
+        assert (tmp_path / "drone_flight_manifest.json").exists()
+
+        # AICP budget files
+        assert "aicp_csv" in artifacts
+        assert "aicp_manifest" in artifacts
+        assert "aicp_topsheet" in artifacts
+        assert (tmp_path / "aicp_bid_sheet.csv").exists()
+        assert (tmp_path / "aicp_bid_manifest.json").exists()
+        assert (tmp_path / "production_budget_topsheet.md").exists()
+
+    def test_cli_export_drone_and_aicp_options(self, tmp_path):
+        """Verifies omni export CLI flags for drone flight and AICP commercial production bids."""
+        from omni_director.cli import handle_export
+
+        # Format drone
+        drone_dir = tmp_path / "drone"
+        ret = handle_export(["--preset", "ikea-asmr", "--format", "drone", "--output-dir", str(drone_dir)])
+        assert ret == 0
+        assert (drone_dir / "flight_path.kml").exists()
+        assert (drone_dir / "flight_waypoints.gpx").exists()
+        assert (drone_dir / "drone_flight_sheet.csv").exists()
+
+        # Format aicp
+        aicp_dir = tmp_path / "aicp"
+        ret = handle_export(["--preset", "ikea-asmr", "--format", "aicp", "--output-dir", str(aicp_dir)])
+        assert ret == 0
+        assert (aicp_dir / "aicp_bid_sheet.csv").exists()
+        assert (aicp_dir / "aicp_bid_manifest.json").exists()
+        assert (aicp_dir / "production_budget_topsheet.md").exists()
+
+        # Granular flags
+        gran_dir = tmp_path / "granular"
+        ret = handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "csv",
+            "--drone-kml",
+            "--drone-gpx",
+            "--aicp-csv",
+            "--aicp-json",
+            "--output-dir", str(gran_dir),
+        ])
+        assert ret == 0
+        assert (gran_dir / "flight_path.kml").exists()
+        assert (gran_dir / "flight_waypoints.gpx").exists()
+        assert (gran_dir / "aicp_bid_sheet.csv").exists()
+        assert (gran_dir / "aicp_bid_manifest.json").exists()
+
+    def test_html_animatic_drone_and_aicp_huds(self, tmp_path):
+        """Verifies Drone Aerial Flight HUD and AICP Production Bid HUD in compiled animatic HTML."""
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        html_path = compile_storyboard_html(IKEA_ASMR_BIBLE, tmp_path)
+        assert html_path.exists()
+        html = html_path.read_text(encoding="utf-8")
+
+        # PM-FEAT-019: Drone Aerial Flight HUD
+        assert 'id="animatic-drone-hud"' in html
+        assert 'id="btn-drone-animatic"' in html
+        assert 'id="drone-path-canvas"' in html
+        assert 'id="btn-download-drone-kml"' in html
+        assert 'id="btn-download-drone-gpx"' in html
+        assert 'id="btn-download-drone-csv"' in html
+        assert "AERIAL DRONE FLIGHT TELEMETRY HUD" in html
+        assert "SOLAR EPHEMERIS COMPASS ROSE" in html
+        assert "GIMBAL PITCH &amp; WIND DRIFT GAUGES" in html
+        assert "FLIGHT WAYPOINT SPECIFICATION TABLE" in html
+        assert "toggleDroneHUD()" in html
+        assert "downloadDroneKML()" in html
+        assert "downloadDroneGPX()" in html
+        assert "downloadDroneCSV()" in html
+        assert "drawDroneFlightPath()" in html
+
+        # PM-FEAT-020: AICP Commercial Production Bid HUD
+        assert 'id="animatic-aicp-hud"' in html
+        assert 'id="btn-aicp-animatic"' in html
+        assert 'id="aicp-doughnut-canvas"' in html
+        assert 'id="btn-download-aicp-csv"' in html
+        assert 'id="btn-download-aicp-json"' in html
+        assert 'id="btn-download-aicp-md"' in html
+        assert "AICP COMMERCIAL PRODUCTION BID &amp; BUDGET HUD" in html
+        assert "GRAND TOTAL BID" in html
+        assert "COST-PER-SECOND (CPS)" in html
+        assert "FINANCIAL ALLOCATION DOUGHNUT" in html
+        assert "SECTIONS A–K LINE-ITEM BREAKDOWN" in html
+        assert "toggleAicpHUD()" in html
+        assert "downloadAicpCSV()" in html
+        assert "downloadAicpJSON()" in html
+        assert "downloadAicpMD()" in html
+        assert "drawAicpDoughnut()" in html
+
+        # Hotkeys registration: [D] and [A]
+        assert "e.key === 'd' || e.key === 'D'" in html
+        assert "e.key === 'a' || e.key === 'A'" in html
+        assert "if (isDroneHUDOpen) toggleDroneHUD();" in html
+        assert "if (isAicpHUDOpen) toggleAicpHUD();" in html
+
+    def test_domain_drone_calibrations_all_6_archetypes(self):
+        """Verifies PM-FEAT-019 domain drone specs across all 6 archetypes."""
+        from omni_director.presets import DOMAIN_ARCHETYPES, get_domain_drone_spec
+        from omni_director.schemas import DroneFlightPathSpec
+
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_drone_spec(domain)
+            assert isinstance(spec, DroneFlightPathSpec)
+            assert spec.max_altitude_agl_m <= 120.0  # FAA Part 107 ceiling
+            assert spec.faa_part_107_compliant is True
+            assert len(spec.waypoints) >= 2
+            assert spec.solar_ephemeris is not None
+            assert spec.wind_drift is not None
+
+    def test_domain_aicp_budget_calibrations_all_6_archetypes(self):
+        """Verifies PM-FEAT-020 domain AICP bid specs across all 6 archetypes."""
+        from omni_director.presets import DOMAIN_ARCHETYPES, get_domain_aicp_bid_spec
+        from omni_director.schemas import MasterAicpBidSpec
+
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_aicp_bid_spec(domain, total_runtime_seconds=32)
+            assert isinstance(spec, MasterAicpBidSpec)
+            assert len(spec.line_items) >= 5
+            assert spec.top_sheet.grand_total > 50_000.0
+            assert spec.top_sheet.cost_per_second > 1_000.0
+            assert spec.top_sheet.production_fee_pct > 0.0
+
+    def test_product_council_pm_feat_019_and_020_governance(self, tmp_path):
+        """Verifies Product Council evaluates PM-FEAT-019 and PM-FEAT-020 with high scores."""
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(bundle, tmp_path)
+
+        council = ProductCouncilOrchestrator()
+        report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
+
+        assert report.version == "2.10.0"
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0
+
+        # Verify PM recommendations include PM-FEAT-019 and PM-FEAT-020
+        feat_ids = {f.feature_id for f in report.pm_recommendations}
+        assert "PM-FEAT-019" in feat_ids
+        assert "PM-FEAT-020" in feat_ids
+
+
 
 
 

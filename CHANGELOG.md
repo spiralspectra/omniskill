@@ -2,6 +2,30 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.10.0] - 2026-11-17
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-019: Aerial Drone Flight Paths, GPS Waypoints, Gimbal Stabilization & Ephemeris Solar Position Calculator (DJI/Freefly KML/GPX Export & FAA Part 107 Airspace Compliance)**:
+  - Modules: `omni_director/tools/drone_aerial.py` and `omni_director/tools/drone_flight.py`.
+  - Added schemas in `omni_director/schemas.py`: `DroneRigType` (`fpv_racing_drone`, `heavy_lift_octocopter`, `cinema_quadcopter`, `cablecam_hybrid`), `FlightWaypointGPS` (WGS84 lat/lon, altitude AGL & MSL, speed in m/s, heading, pitch/yaw, action cue), `GimbalOrientationSpec` (3-axis gimbal limits, pitch/roll/yaw damping, target POI tracking), `SolarPhase` (`golden_hour`, `blue_hour`, `high_noon`, `civil_twilight`, `night`), `SolarEphemerisSpec` (solar elevation, solar azimuth, shadow length multiplier, CCT Kelvin, golden hour status, lens flare risk), `WindDriftVectorSpec` (wind speed, wind direction, crab angle, lateral drift offset), and `DroneFlightPathSpec`. Bound `drone_flight` to `ScenePromptSpec` and `master_drone_spec` to `MasterProductionBible`.
+  - Implemented aeronautical and astronomical algorithms: Jean Meeus / SunCalc solar ephemeris calculations (`calculate_solar_ephemeris`), wind vector resolution and crab angle math (`calculate_wind_drift_vector`), Haversine 3D distance calculations, 3-axis mechanical gimbal angle clamping and point-to-point targeting (`calculate_gimbal_angles`), and multi-waypoint flight path synthesis with FAA Part 107 120m AGL ceiling checks.
+  - Implemented multi-format flight plan exports: OGC KML v2.2 with 3D LineString (`generate_drone_flight_kml` / `generate_kml_flight_path` -> `flight_path.kml`), GPX 1.1 route waypoints (`generate_drone_flight_gpx` / `generate_gpx_flight_path` -> `flight_waypoints.gpx`), Showbiz telemetry CSV (`generate_drone_flight_sheet_csv` -> `drone_flight_sheet.csv`), Markdown flight log (`generate_drone_flight_sheet_md` -> `drone_flight_sheet.md`), JSON manifest (`generate_drone_flight_manifest_json` -> `drone_flight_manifest.json`), and complete drone flight bundle packaging (`export_drone_flight_bundle` / `export_drone_bundle`).
+  - CRAFT prompt token formatting (`format_drone_flight_prompt_token`) embedding rig type, altitude, flight profile, gimbal pitch, speed, and wind/solar conditions (`[DRONE_FLIGHT: ...]`).
+  - CLI export support: `omni export --format drone`, `--format all`, `--drone-kml`, and `--drone-gpx`.
+  - Dark-Room Cinema Animatic Interactive Drone Flight HUD (`#animatic-drone-hud`, hotkey `D`, toggle button `#btn-drone-animatic`) featuring 2D flight path canvas (`#drone-path-canvas`), dynamic trajectory glow lines, solar ephemeris SVG compass rose (`#solar-azimuth-line`, `#solar-azimuth-dot`), gimbal pitch and wind drift gauges, FAA Part 107 compliance badges, and instant download buttons for KML, GPX, and CSV flight sheets.
+- **PM-FEAT-020: AICP Commercial Production Bid Specification & Line-Item Budget Top-Sheet Engine (Crew Labor Tiers, Equipment Packages, Location Permitting & Cost-per-Second Analytics)**:
+  - Module: `omni_director/tools/aicp_budget.py`.
+  - Added schemas in `omni_director/schemas.py`: `AicpSectionCode` (Sections A through N covering Above-The-Line, Below-The-Line, Fringes, Insurance, Production Fee, and Contingency), `CrewLaborTier` (`dga_director`, `iatse_600_dp`, `dga_1st_ad`, `iatse_728_gaffer`, `local_80_key_grip`, `local_695_sound_mixer`, `local_600_dit`, `faa_part_107_pilot`), `AicpLineItemSpec`, `AicpTopSheetSummarySpec` (ATL/BTL totals, 23.5% payroll fringes, 3.2% production insurance, 18% production fee, 10% contingency reserve, grand total bid, cost-per-second), and `MasterAicpBidSpec`. Bound `master_aicp_bid` to `MasterProductionBible`.
+  - Implemented commercial financial algorithms: Standard union labor rate tables (`UNION_DAY_RATES`), full AICP financial aggregation (`calculate_aicp_top_sheet`), proportional scene budget distribution (`allocate_scene_budgets`), and domain-calibrated budget synthesis.
+  - Implemented multi-format commercial bid exports: Showbiz / Hot Budget compatible CSV (`generate_aicp_bid_sheet_csv` -> `aicp_bid_sheet.csv`), Executive C-suite Top Sheet markdown summary (`generate_aicp_topsheet_md` -> `production_budget_topsheet.md`), machine-readable JSON manifest (`generate_aicp_bid_manifest_json` -> `aicp_bid_manifest.json`), and complete commercial budget packaging (`export_aicp_budget_bundle`).
+  - CLI export support: `omni export --format aicp`, `--format all`, `--aicp-csv`, and `--aicp-json`.
+  - Dark-Room Cinema Animatic Interactive AICP Commercial Bid HUD (`#animatic-aicp-hud`, hotkey `A`, toggle button `#btn-aicp-animatic`) featuring 5-metric executive top-sheet financial cards, HTML5 Canvas financial allocation doughnut chart (`#aicp-doughnut-canvas`), live Cost-Per-Second ticker, interactive Sections A–K line-item accordion, and instant download buttons for AICP CSV, JSON, and Markdown summaries.
+- **Autonomous Product Council Governance & Presets Expansion**:
+  - Registered `PM-FEAT-019` and `PM-FEAT-020` in `ProductManagerAgent.inspect_product()` as P0 implemented features with full problem statements, solutions, and target modules.
+  - Equipped all 6 commercial domain archetypes with domain-calibrated drone flight specs (`get_domain_drone_spec`) and AICP commercial production bids (`get_domain_aicp_bid_spec`) in `omni_director/presets.py`.
+  - Updated prompt auditor Rule 4 and self-healing loop in `omni_director/tools/prompt_auditor.py` to evaluate and inject drone flight CRAFT tokens with compliance reward scoring.
+  - Integrated full 25.0/25.0 scoring in `ProductCouncilOrchestrator` across `council-fde`, `council-agent-engineer`, `council-strategist`, and `council-ux-designer`.
+
 ## [2.9.0] - 2026-11-10
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

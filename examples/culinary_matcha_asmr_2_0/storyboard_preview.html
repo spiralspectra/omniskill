@@ -2744,6 +2744,417 @@
       .prompt-text { color: #111 !important; }
       .swatch-box { border: 1px solid #999 !important; }
     }
+
+    /* Drone Aerial Flight HUD (PM-FEAT-019) & AICP Commercial Production Bid HUD (PM-FEAT-020) */
+    .drone-hud-modal, .aicp-hud-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .drone-modal-content, .aicp-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1020px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .drone-modal-header, .aicp-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .drone-title-wrap, .aicp-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .drone-heading, .aicp-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .drone-subheading, .aicp-subheading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }
+    .btn-drone-close, .btn-aicp-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-drone-close:hover, .btn-aicp-close:hover {
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--red-rec);
+    }
+    .drone-modal-body, .aicp-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }
+    .drone-toolbar, .aicp-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .drone-badge-group, .aicp-badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .drone-badge, .aicp-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .drone-actions, .aicp-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-drone-action, .btn-aicp-action {
+      background: #141824;
+      border: 1px solid var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-drone-action:hover, .btn-aicp-action:hover {
+      background: var(--cyan-telemetry);
+      color: #07080B;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }
+    .drone-visuals-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 820px) {
+      .drone-visuals-grid { grid-template-columns: 1fr; }
+    }
+    .drone-canvas-panel, .drone-telemetry-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .drone-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+    .badge-canvas-telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--amber-gold);
+    }
+    #drone-path-canvas {
+      width: 100%;
+      height: 240px;
+      background: #060709;
+      border: 1px solid #1A2030;
+      border-radius: 4px;
+      display: block;
+    }
+    .drone-canvas-footer {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .drone-telemetry-card {
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .telemetry-card-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid #1A2030;
+      padding-bottom: 4px;
+    }
+    .solar-compass-display {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .compass-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+    }
+    .gauges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .gauge-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .gauge-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+    .gauge-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .gauge-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: #141824;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .gauge-bar-fill {
+      height: 100%;
+      background: var(--amber-gold);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .gauge-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+    .drone-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .drone-waypoints-table, .aicp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .drone-waypoints-table th, .aicp-table th {
+      text-align: left;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 6px;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+    .drone-waypoints-table td, .aicp-table td {
+      padding: 7px 6px;
+      border-bottom: 1px solid #141824;
+      color: var(--text-main);
+    }
+    .drone-compliance-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .drone-compliance-badge.badge-ok {
+      color: var(--green-rec);
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+    .drone-compliance-badge.badge-warn {
+      color: var(--red-rec);
+      background: rgba(255, 59, 48, 0.1);
+      border: 1px solid rgba(255, 59, 48, 0.3);
+    }
+    /* AICP Budget Dashboard Styles */
+    .aicp-dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+    .aicp-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .aicp-metric-card.aicp-metric-primary {
+      border-color: rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.04);
+    }
+    .aicp-metric-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .aicp-metric-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .aicp-metric-card.aicp-metric-primary .aicp-metric-value {
+      color: var(--cyan-telemetry);
+    }
+    .aicp-metric-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+    .aicp-split-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 860px) {
+      .aicp-split-grid { grid-template-columns: 1fr; }
+    }
+    .aicp-chart-panel, .aicp-accordion-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .doughnut-canvas-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }
+    #aicp-doughnut-canvas {
+      display: block;
+      width: 280px;
+      height: 220px;
+    }
+    .doughnut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .aicp-accordion-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .aicp-sec-details {
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .aicp-sec-summary {
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: var(--text-main);
+      background: #101420;
+      user-select: none;
+    }
+    .aicp-sec-summary:hover {
+      background: #171D2E;
+    }
+    .aicp-sec-total {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+    }
+    .aicp-sec-table-wrap {
+      padding: 8px 12px;
+    }
+
   </style>
 </head>
 <body>
@@ -2893,6 +3304,12 @@
       </button>
       <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
         🎬 Slate [T]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
+        🚁 Drone [D]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
+        💼 AICP [A]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -4140,6 +4557,242 @@
             <div class="slate-meta-item">
               <span>DIRECTOR OF PHOTOGRAPHY</span>
               <strong id="slate-val-dp">Omni DP</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drone Aerial Flight HUD (PM-FEAT-019) -->
+  <div id="animatic-drone-hud" class="drone-hud-modal" role="dialog" aria-modal="true" aria-label="Drone Aerial Flight HUD" style="display:none;">
+    <div class="drone-modal-content">
+      <div class="drone-modal-header">
+        <div class="drone-title-wrap">
+          <span style="font-size:20px;">🚁</span>
+          <div>
+            <h2 class="drone-heading">AERIAL DRONE FLIGHT TELEMETRY HUD</h2>
+            <span class="drone-subheading">FAA PART 107 · 3D WAYPOINTS · GIMBAL &amp; SOLAR EPHEMERIS</span>
+          </div>
+        </div>
+        <button type="button" class="btn-drone-close" onclick="toggleDroneHUD()" aria-label="Close Drone HUD">✕</button>
+      </div>
+
+      <div class="drone-modal-body">
+        <div class="drone-toolbar">
+          <div class="drone-badge-group">
+            <span class="drone-badge">AIRCRAFT: <strong>Micro Cablecam Hybrid / Sony FX3</strong></span>
+            <span class="drone-badge">RIG: <strong>cable_cam_hybrid</strong></span>
+            <span class="drone-badge">PIC: <strong>FAA Part 107 Commercial Remote Pilot</strong></span>
+            <span class="drone-badge">REG: <strong>FA39A7X901</strong></span>
+            <span class="drone-badge">PATTERN: <strong>Orbit Reveal</strong></span>
+            <span class="drone-badge" style="color:var(--green-rec);border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.08);">
+              PART 107: <strong>COMPLIANT</strong>
+            </span>
+          </div>
+          <div class="drone-actions">
+            <button type="button" class="btn-drone-action" id="btn-download-drone-kml" onclick="downloadDroneKML()" aria-label="Download Drone Flight Path KML">
+              ⤓ flight_path.kml
+            </button>
+            <button type="button" class="btn-drone-action" id="btn-download-drone-gpx" onclick="downloadDroneGPX()" aria-label="Download Drone Waypoints GPX">
+              ⤓ flight_waypoints.gpx
+            </button>
+            <button type="button" class="btn-drone-action" id="btn-download-drone-csv" onclick="downloadDroneCSV()" aria-label="Download Drone Flight Sheet CSV">
+              ⤓ drone_flight_sheet.csv
+            </button>
+          </div>
+        </div>
+
+        <div class="drone-visuals-grid">
+          <div class="drone-canvas-panel">
+            <div class="drone-panel-header">
+              <span>2D FLIGHT PATH &amp; WAYPOINT TRAJECTORY</span>
+              <span class="badge-canvas-telemetry">24.0m · 16.0s</span>
+            </div>
+            <canvas id="drone-path-canvas" width="580" height="240" aria-label="2D Flight Path Trajectory Canvas"></canvas>
+            <div class="drone-canvas-footer">
+              <span>MIN ALT: 1.2m AGL</span>
+              <span>MAX ALT: 3.0m AGL (CEILING: 121.92m / 400ft)</span>
+            </div>
+          </div>
+
+          <div class="drone-telemetry-panel">
+            <div class="drone-telemetry-card">
+              <div class="telemetry-card-title">SOLAR EPHEMERIS COMPASS ROSE</div>
+              <div class="solar-compass-display">
+                <div class="compass-rose-container">
+                  <svg id="drone-compass-svg" viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="42" fill="#0A0C10" stroke="#222738" stroke-width="2" />
+                    <line x1="50" y1="8" x2="50" y2="92" stroke="#333A4D" stroke-width="1" stroke-dasharray="2 2" />
+                    <line x1="8" y1="50" x2="92" y2="50" stroke="#333A4D" stroke-width="1" stroke-dasharray="2 2" />
+                    <text x="50" y="16" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">N</text>
+                    <text x="50" y="90" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">S</text>
+                    <text x="14" y="53" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">W</text>
+                    <text x="86" y="53" fill="#7E88A4" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">E</text>
+                    <line id="solar-azimuth-line" x1="50" y1="50" x2="50" y2="18" stroke="#FFB800" stroke-width="2.5" stroke-linecap="round" />
+                    <circle id="solar-azimuth-dot" cx="50" cy="18" r="4" fill="#FFB800" />
+                  </svg>
+                </div>
+                <div class="compass-details">
+                  <div>AZIMUTH: <strong>180.0°</strong></div>
+                  <div>ALTITUDE: <strong>18.5°</strong></div>
+                  <div>PHASE: <strong style="color:var(--amber-gold);">GOLDEN_HOUR</strong></div>
+                  <div>CCT: <strong>3200 K</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="drone-telemetry-card">
+              <div class="telemetry-card-title">GIMBAL PITCH &amp; WIND DRIFT GAUGES</div>
+              <div class="gauges-grid">
+                <div class="gauge-item">
+                  <span class="gauge-label">GIMBAL PITCH</span>
+                  <div class="gauge-value">-38.0°</div>
+                  <div class="gauge-bar-wrap">
+                    <div class="gauge-bar-fill" style="width: 43.3%;"></div>
+                  </div>
+                  <span class="gauge-sub">ROLL: 0.0° · YAW: 15.0°</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-label">WIND CRAB ANGLE</span>
+                  <div class="gauge-value">3.2°</div>
+                  <div class="gauge-bar-wrap">
+                    <div class="gauge-bar-fill" style="width: 16.0%; background: var(--cyan-telemetry);"></div>
+                  </div>
+                  <span class="gauge-sub">WIND: 0.5 kts @ 0°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="drone-table-wrap">
+          <div class="drone-panel-header">
+            <span>FLIGHT WAYPOINT SPECIFICATION TABLE</span>
+            <span class="badge-canvas-telemetry">4 WAYPOINTS</span>
+          </div>
+          <table class="drone-waypoints-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>GPS Coordinates (WGS84)</th>
+                <th>Altitude (AGL)</th>
+                <th>Target Speed</th>
+                <th>FAA Part 107 Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td>34.052200, -118.243700</td><td>1.2 m AGL</td><td>1.5 m/s</td><td><span class="drone-compliance-badge badge-ok">✓ COMPLIANT</span></td></tr><tr><td><strong>2</strong></td><td>34.052800, -118.242967</td><td>2.8 m AGL</td><td>1.5 m/s</td><td><span class="drone-compliance-badge badge-ok">✓ COMPLIANT</span></td></tr><tr><td><strong>3</strong></td><td>34.053400, -118.242233</td><td>2.8 m AGL</td><td>1.5 m/s</td><td><span class="drone-compliance-badge badge-ok">✓ COMPLIANT</span></td></tr><tr><td><strong>4</strong></td><td>34.054000, -118.241500</td><td>1.2 m AGL</td><td>1.5 m/s</td><td><span class="drone-compliance-badge badge-ok">✓ COMPLIANT</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AICP Commercial Production Bid HUD (PM-FEAT-020) -->
+  <div id="animatic-aicp-hud" class="aicp-hud-modal" role="dialog" aria-modal="true" aria-label="AICP Commercial Production Bid HUD" style="display:none;">
+    <div class="aicp-modal-content">
+      <div class="aicp-modal-header">
+        <div class="aicp-title-wrap">
+          <span style="font-size:20px;">💼</span>
+          <div>
+            <h2 class="aicp-heading">AICP COMMERCIAL PRODUCTION BID &amp; BUDGET HUD</h2>
+            <span class="aicp-subheading">SECTIONS A–K TOP-SHEET · ATL / BTL ALLOCATION · COST-PER-SECOND TICKER</span>
+          </div>
+        </div>
+        <button type="button" class="btn-aicp-close" onclick="toggleAicpHUD()" aria-label="Close AICP HUD">✕</button>
+      </div>
+
+      <div class="aicp-modal-body">
+        <div class="aicp-toolbar">
+          <div class="aicp-badge-group">
+            <span class="aicp-badge">PROJECT: <strong>Artisanal Japanese Culinary Ceremonial M</strong></span>
+            <span class="aicp-badge">DURATION: <strong>30.0s</strong></span>
+            <span class="aicp-badge">STANDARD: <strong>AICP Commercial Form 2026</strong></span>
+          </div>
+          <div class="aicp-actions">
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-csv" onclick="downloadAicpCSV()" aria-label="Download AICP Bid Sheet CSV">
+              ⤓ aicp_bid_sheet.csv
+            </button>
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-json" onclick="downloadAicpJSON()" aria-label="Download AICP Bid Manifest JSON">
+              ⤓ aicp_bid_manifest.json
+            </button>
+            <button type="button" class="btn-aicp-action" id="btn-download-aicp-md" onclick="downloadAicpMD()" aria-label="Download Production Budget Top Sheet Markdown">
+              ⤓ production_budget_topsheet.md
+            </button>
+          </div>
+        </div>
+
+        <div class="aicp-dashboard-grid">
+          <div class="aicp-metric-card aicp-metric-primary">
+            <span class="aicp-metric-label">GRAND TOTAL BID</span>
+            <span class="aicp-metric-value" id="aicp-grand-total-val">$158,002.24</span>
+            <span class="aicp-metric-sub">100% Total Production Commitment</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">ABOVE THE LINE (ATL)</span>
+            <span class="aicp-metric-value">$48,000.00</span>
+            <span class="aicp-metric-sub">30.4% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">BTL SHOOT / PRODUCTION</span>
+            <span class="aicp-metric-value">$112,000.00</span>
+            <span class="aicp-metric-sub">70.9% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card">
+            <span class="aicp-metric-label">POST-PRODUCTION</span>
+            <span class="aicp-metric-value">$45,000.00</span>
+            <span class="aicp-metric-sub">28.5% of Grand Total</span>
+          </div>
+          <div class="aicp-metric-card aicp-metric-ticker">
+            <span class="aicp-metric-label">COST-PER-SECOND (CPS)</span>
+            <span class="aicp-metric-value" style="color:var(--amber-gold);">$2,633.37</span>
+            <span class="aicp-metric-sub">Across 30.0s Timeline</span>
+          </div>
+        </div>
+
+        <div class="aicp-split-grid">
+          <div class="aicp-chart-panel">
+            <div class="drone-panel-header">
+              <span>FINANCIAL ALLOCATION DOUGHNUT</span>
+              <span class="badge-canvas-telemetry">ATL vs. BTL vs. POST</span>
+            </div>
+            <div class="doughnut-canvas-wrap">
+              <canvas id="aicp-doughnut-canvas" width="280" height="220" aria-label="AICP Financial Allocation Doughnut Chart"></canvas>
+            </div>
+            <div class="doughnut-legend">
+              <div class="legend-item"><span class="legend-color" style="background:#00F0FF;"></span>ATL: $48,000</div>
+              <div class="legend-item"><span class="legend-color" style="background:#FFB800;"></span>BTL Shoot: $112,000</div>
+              <div class="legend-item"><span class="legend-color" style="background:#00FF88;"></span>Post: $45,000</div>
+              <div class="legend-item"><span class="legend-color" style="background:#7E88A4;"></span>Fees/Insur: $40,000</div>
+            </div>
+          </div>
+
+          <div class="aicp-accordion-panel">
+            <div class="drone-panel-header">
+              <span>SECTIONS A–K LINE-ITEM BREAKDOWN</span>
+              <span class="badge-canvas-telemetry">ACCORDION VIEW</span>
+            </div>
+            <div class="aicp-accordion-wrap">
+              
+        <details class="aicp-sec-details" open>
+          <summary class="aicp-sec-summary">
+            <span><strong>[B] Shooting Production Crew Labor</strong></span>
+            <span class="aicp-sec-total">$100,000.00</span>
+          </summary>
+          <div class="aicp-sec-table-wrap">
+            <table class="aicp-table">
+              <thead>
+                <tr><th>Code</th><th>Description</th><th>Rate</th><th>Qty / Units</th><th style="text-align:right;">Subtotal</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>B-101</code></td><td>Line Producer & Food Production Coordinator</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$8,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>Director of Photography & Tabletop Macro Specialist</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$5,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Master Food Stylist & Culinary Prep Chefs</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$8,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>1st AC & Focus Puller (Macro Probe Precision)</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$1,800.00</strong></td></tr><tr><td><code>B-101</code></td><td>Gaffer & Tabletop Fiber Optic Lighting Technician</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$2,200.00</strong></td></tr><tr><td><code>B-101</code></td><td>Key Grip & Motion Control Arm Operator</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$2,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>High-Resolution Binaural Audio Specialist (ASMR)</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$2,800.00</strong></td></tr><tr><td><code>B-101</code></td><td>DIT / ASC CDL Tabletop Color Specialist</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$2,200.00</strong></td></tr><tr><td><code>B-101</code></td><td>Micro-Drone Cablecam Indoor Pilot</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$7,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Commercial Kitchen Soundstage Rental & Prep Facility</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$11,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>Culinary Hero Props, Artisan Ceramics & Organic Ingredients</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$9,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$14,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$4,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Kitchen Prep Supplies, Commercial Sanitation & Catering</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$3,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>SAG-AFTRA Hand Model & Chef Talent Session Fees</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$3,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Talent Wardrobe Styling & Linen Apron Fittings</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$1,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$4,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$4,500.00</strong></td></tr><tr><td><code>B-101</code></td><td>Organic Food Color Grading & Microscopic Clean-up</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$3,000.00</strong></td></tr><tr><td><code>B-101</code></td><td>Production Equipment & Tabletop Soundstage Liability Insurance</td><td>$3,500.00</td><td>1 days</td><td style="text-align:right;"><strong>$2,000.00</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        
             </div>
           </div>
         </div>
@@ -5459,6 +6112,147 @@
           "frame_rate": 24.0,
           "drop_frame": false
         }
+      },
+      "drone_flight": {
+        "flight_id": "DRONE_CULI_01",
+        "project_title": "",
+        "scene_index": null,
+        "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+        "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+        "faa_registration": "FA39A7X901",
+        "drone_rig": "cable_cam_hybrid",
+        "flight_profile": "indoor_slow_orbital_reveal",
+        "flight_pattern": "Orbit Reveal",
+        "min_altitude_agl_m": 1.2,
+        "max_altitude_agl_m": 3.0,
+        "max_altitude_m_agl": 45.0,
+        "total_distance_m": 24.0,
+        "flight_duration_s": 16.0,
+        "estimated_flight_duration_s": 15.0,
+        "waypoints": [
+          {
+            "waypoint_id": 1,
+            "latitude": 34.0522,
+            "longitude": -118.2437,
+            "altitude_m_agl": 1.2,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 121.2,
+            "speed_mps": 1.5,
+            "timestamp_s": 0.0,
+            "heading_deg": 0.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 2,
+            "latitude": 34.0528,
+            "longitude": -118.242967,
+            "altitude_m_agl": 2.8,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 122.8,
+            "speed_mps": 1.5,
+            "timestamp_s": 5.3,
+            "heading_deg": 15.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 3,
+            "latitude": 34.0534,
+            "longitude": -118.242233,
+            "altitude_m_agl": 2.8,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 122.8,
+            "speed_mps": 1.5,
+            "timestamp_s": 10.7,
+            "heading_deg": 30.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 4,
+            "latitude": 34.054,
+            "longitude": -118.2415,
+            "altitude_m_agl": 1.2,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 121.2,
+            "speed_mps": 1.5,
+            "timestamp_s": 16.0,
+            "heading_deg": 45.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+            "action_beat": null
+          }
+        ],
+        "gimbal": {
+          "pitch_deg": -38.0,
+          "yaw_deg": 15.0,
+          "roll_deg": 0.0,
+          "clamped": false,
+          "stabilization_mode": "follow_yaw",
+          "focal_length_equiv_mm": 50.0
+        },
+        "solar_ephemeris": {
+          "solar_elevation_deg": 50.0,
+          "solar_altitude_deg": 18.5,
+          "solar_azimuth_deg": 180.0,
+          "solar_phase": "golden_hour",
+          "shadow_multiplier": 3.0,
+          "cct_kelvin": 3500,
+          "golden_hour_active": false,
+          "lens_flare_risk": "low",
+          "color_temperature_kelvin": 3200
+        },
+        "wind_drift": {
+          "wind_speed_knots": 0.5,
+          "wind_speed_mps": 4.12,
+          "wind_direction_deg": 0.0,
+          "gust_speed_knots": 1.0,
+          "drift_compensation_deg": 0.0,
+          "airspeed_mps": 10.0,
+          "ground_speed_mps": 9.5,
+          "drone_heading_deg": 0.0,
+          "course_over_ground_deg": 3.2,
+          "crab_angle_deg": 3.2,
+          "crosswind_mps": 0.0,
+          "headwind_mps": 0.0,
+          "turbulence_rating": "none"
+        },
+        "part_107_compliant": true,
+        "faa_part_107_compliant": true,
+        "prompt_token": null,
+        "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
       }
     },
     {
@@ -6033,6 +6827,147 @@
           "frame_rate": 24.0,
           "drop_frame": false
         }
+      },
+      "drone_flight": {
+        "flight_id": "DRONE_CULI_01",
+        "project_title": "",
+        "scene_index": null,
+        "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+        "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+        "faa_registration": "FA39A7X901",
+        "drone_rig": "cable_cam_hybrid",
+        "flight_profile": "indoor_slow_orbital_reveal",
+        "flight_pattern": "Orbit Reveal",
+        "min_altitude_agl_m": 1.2,
+        "max_altitude_agl_m": 3.0,
+        "max_altitude_m_agl": 45.0,
+        "total_distance_m": 24.0,
+        "flight_duration_s": 16.0,
+        "estimated_flight_duration_s": 15.0,
+        "waypoints": [
+          {
+            "waypoint_id": 1,
+            "latitude": 34.0522,
+            "longitude": -118.2437,
+            "altitude_m_agl": 1.2,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 121.2,
+            "speed_mps": 1.5,
+            "timestamp_s": 0.0,
+            "heading_deg": 0.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 2,
+            "latitude": 34.0528,
+            "longitude": -118.242967,
+            "altitude_m_agl": 2.8,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 122.8,
+            "speed_mps": 1.5,
+            "timestamp_s": 5.3,
+            "heading_deg": 15.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 3,
+            "latitude": 34.0534,
+            "longitude": -118.242233,
+            "altitude_m_agl": 2.8,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 122.8,
+            "speed_mps": 1.5,
+            "timestamp_s": 10.7,
+            "heading_deg": 30.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+            "action_beat": null
+          },
+          {
+            "waypoint_id": 4,
+            "latitude": 34.054,
+            "longitude": -118.2415,
+            "altitude_m_agl": 1.2,
+            "altitude_ft_agl": 49.2,
+            "altitude_m_msl": 121.2,
+            "speed_mps": 1.5,
+            "timestamp_s": 16.0,
+            "heading_deg": 45.0,
+            "gimbal_pitch_deg": -15.0,
+            "gimbal_yaw_deg": 0.0,
+            "sun_altitude_deg": 18.5,
+            "sun_azimuth_deg": 245.0,
+            "solar_phase": "golden_hour",
+            "crab_angle_deg": 3.2,
+            "battery_pct": 100.0,
+            "part_107_cleared": true,
+            "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+            "action_beat": null
+          }
+        ],
+        "gimbal": {
+          "pitch_deg": -38.0,
+          "yaw_deg": 15.0,
+          "roll_deg": 0.0,
+          "clamped": false,
+          "stabilization_mode": "follow_yaw",
+          "focal_length_equiv_mm": 50.0
+        },
+        "solar_ephemeris": {
+          "solar_elevation_deg": 50.0,
+          "solar_altitude_deg": 18.5,
+          "solar_azimuth_deg": 180.0,
+          "solar_phase": "golden_hour",
+          "shadow_multiplier": 3.0,
+          "cct_kelvin": 3500,
+          "golden_hour_active": false,
+          "lens_flare_risk": "low",
+          "color_temperature_kelvin": 3200
+        },
+        "wind_drift": {
+          "wind_speed_knots": 0.5,
+          "wind_speed_mps": 4.12,
+          "wind_direction_deg": 0.0,
+          "gust_speed_knots": 1.0,
+          "drift_compensation_deg": 0.0,
+          "airspeed_mps": 10.0,
+          "ground_speed_mps": 9.5,
+          "drone_heading_deg": 0.0,
+          "course_over_ground_deg": 3.2,
+          "crab_angle_deg": 3.2,
+          "crosswind_mps": 0.0,
+          "headwind_mps": 0.0,
+          "turbulence_rating": "none"
+        },
+        "part_107_compliant": true,
+        "faa_part_107_compliant": true,
+        "prompt_token": null,
+        "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
       }
     }
   ],
@@ -6881,7 +7816,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-10T13:49:47.987525+00:00",
+      "creation_date": "2026-11-17T09:33:43.978159+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -6889,7 +7824,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-10T13:49:47.987516+00:00"
+          "hash_timestamp": "2026-11-17T09:33:43.978150+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -6897,7 +7832,7 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-10T13:49:47.987522+00:00"
+          "hash_timestamp": "2026-11-17T09:33:43.978157+00:00"
         }
       ]
     }
@@ -6953,7 +7888,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-10T13:49:47.987525+00:00",
+      "creation_date": "2026-11-17T09:33:43.978159+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -6961,7 +7896,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-10T13:49:47.987516+00:00"
+          "hash_timestamp": "2026-11-17T09:33:43.978150+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -6969,10 +7904,2586 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-10T13:49:47.987522+00:00"
+          "hash_timestamp": "2026-11-17T09:33:43.978157+00:00"
         }
       ]
     }
+  },
+  "master_drone_spec": {
+    "flight_id": "DRONE_CULI_01",
+    "project_title": "",
+    "scene_index": null,
+    "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+    "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+    "faa_registration": "FA39A7X901",
+    "drone_rig": "cable_cam_hybrid",
+    "flight_profile": "indoor_slow_orbital_reveal",
+    "flight_pattern": "Orbit Reveal",
+    "min_altitude_agl_m": 1.2,
+    "max_altitude_agl_m": 3.0,
+    "max_altitude_m_agl": 45.0,
+    "total_distance_m": 24.0,
+    "flight_duration_s": 16.0,
+    "estimated_flight_duration_s": 15.0,
+    "waypoints": [
+      {
+        "waypoint_id": 1,
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 0.0,
+        "heading_deg": 0.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 2,
+        "latitude": 34.0528,
+        "longitude": -118.242967,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 5.3,
+        "heading_deg": 15.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 3,
+        "latitude": 34.0534,
+        "longitude": -118.242233,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 10.7,
+        "heading_deg": 30.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 4,
+        "latitude": 34.054,
+        "longitude": -118.2415,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 16.0,
+        "heading_deg": 45.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+        "action_beat": null
+      }
+    ],
+    "gimbal": {
+      "pitch_deg": -38.0,
+      "yaw_deg": 15.0,
+      "roll_deg": 0.0,
+      "clamped": false,
+      "stabilization_mode": "follow_yaw",
+      "focal_length_equiv_mm": 50.0
+    },
+    "solar_ephemeris": {
+      "solar_elevation_deg": 50.0,
+      "solar_altitude_deg": 18.5,
+      "solar_azimuth_deg": 180.0,
+      "solar_phase": "golden_hour",
+      "shadow_multiplier": 3.0,
+      "cct_kelvin": 3500,
+      "golden_hour_active": false,
+      "lens_flare_risk": "low",
+      "color_temperature_kelvin": 3200
+    },
+    "wind_drift": {
+      "wind_speed_knots": 0.5,
+      "wind_speed_mps": 4.12,
+      "wind_direction_deg": 0.0,
+      "gust_speed_knots": 1.0,
+      "drift_compensation_deg": 0.0,
+      "airspeed_mps": 10.0,
+      "ground_speed_mps": 9.5,
+      "drone_heading_deg": 0.0,
+      "course_over_ground_deg": 3.2,
+      "crab_angle_deg": 3.2,
+      "crosswind_mps": 0.0,
+      "headwind_mps": 0.0,
+      "turbulence_rating": "none"
+    },
+    "part_107_compliant": true,
+    "faa_part_107_compliant": true,
+    "prompt_token": null,
+    "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+  },
+  "drone_spec": {
+    "flight_id": "DRONE_CULI_01",
+    "project_title": "",
+    "scene_index": null,
+    "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+    "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+    "faa_registration": "FA39A7X901",
+    "drone_rig": "cable_cam_hybrid",
+    "flight_profile": "indoor_slow_orbital_reveal",
+    "flight_pattern": "Orbit Reveal",
+    "min_altitude_agl_m": 1.2,
+    "max_altitude_agl_m": 3.0,
+    "max_altitude_m_agl": 45.0,
+    "total_distance_m": 24.0,
+    "flight_duration_s": 16.0,
+    "estimated_flight_duration_s": 15.0,
+    "waypoints": [
+      {
+        "waypoint_id": 1,
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 0.0,
+        "heading_deg": 0.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 2,
+        "latitude": 34.0528,
+        "longitude": -118.242967,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 5.3,
+        "heading_deg": 15.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 3,
+        "latitude": 34.0534,
+        "longitude": -118.242233,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 10.7,
+        "heading_deg": 30.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 4,
+        "latitude": 34.054,
+        "longitude": -118.2415,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 16.0,
+        "heading_deg": 45.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+        "action_beat": null
+      }
+    ],
+    "gimbal": {
+      "pitch_deg": -38.0,
+      "yaw_deg": 15.0,
+      "roll_deg": 0.0,
+      "clamped": false,
+      "stabilization_mode": "follow_yaw",
+      "focal_length_equiv_mm": 50.0
+    },
+    "solar_ephemeris": {
+      "solar_elevation_deg": 50.0,
+      "solar_altitude_deg": 18.5,
+      "solar_azimuth_deg": 180.0,
+      "solar_phase": "golden_hour",
+      "shadow_multiplier": 3.0,
+      "cct_kelvin": 3500,
+      "golden_hour_active": false,
+      "lens_flare_risk": "low",
+      "color_temperature_kelvin": 3200
+    },
+    "wind_drift": {
+      "wind_speed_knots": 0.5,
+      "wind_speed_mps": 4.12,
+      "wind_direction_deg": 0.0,
+      "gust_speed_knots": 1.0,
+      "drift_compensation_deg": 0.0,
+      "airspeed_mps": 10.0,
+      "ground_speed_mps": 9.5,
+      "drone_heading_deg": 0.0,
+      "course_over_ground_deg": 3.2,
+      "crab_angle_deg": 3.2,
+      "crosswind_mps": 0.0,
+      "headwind_mps": 0.0,
+      "turbulence_rating": "none"
+    },
+    "part_107_compliant": true,
+    "faa_part_107_compliant": true,
+    "prompt_token": null,
+    "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+  },
+  "master_drone_flight": {
+    "flight_id": "DRONE_CULI_01",
+    "project_title": "",
+    "scene_index": null,
+    "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+    "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+    "faa_registration": "FA39A7X901",
+    "drone_rig": "cable_cam_hybrid",
+    "flight_profile": "indoor_slow_orbital_reveal",
+    "flight_pattern": "Orbit Reveal",
+    "min_altitude_agl_m": 1.2,
+    "max_altitude_agl_m": 3.0,
+    "max_altitude_m_agl": 45.0,
+    "total_distance_m": 24.0,
+    "flight_duration_s": 16.0,
+    "estimated_flight_duration_s": 15.0,
+    "waypoints": [
+      {
+        "waypoint_id": 1,
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 0.0,
+        "heading_deg": 0.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 2,
+        "latitude": 34.0528,
+        "longitude": -118.242967,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 5.3,
+        "heading_deg": 15.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 3,
+        "latitude": 34.0534,
+        "longitude": -118.242233,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 10.7,
+        "heading_deg": 30.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 4,
+        "latitude": 34.054,
+        "longitude": -118.2415,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 16.0,
+        "heading_deg": 45.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+        "action_beat": null
+      }
+    ],
+    "gimbal": {
+      "pitch_deg": -38.0,
+      "yaw_deg": 15.0,
+      "roll_deg": 0.0,
+      "clamped": false,
+      "stabilization_mode": "follow_yaw",
+      "focal_length_equiv_mm": 50.0
+    },
+    "solar_ephemeris": {
+      "solar_elevation_deg": 50.0,
+      "solar_altitude_deg": 18.5,
+      "solar_azimuth_deg": 180.0,
+      "solar_phase": "golden_hour",
+      "shadow_multiplier": 3.0,
+      "cct_kelvin": 3500,
+      "golden_hour_active": false,
+      "lens_flare_risk": "low",
+      "color_temperature_kelvin": 3200
+    },
+    "wind_drift": {
+      "wind_speed_knots": 0.5,
+      "wind_speed_mps": 4.12,
+      "wind_direction_deg": 0.0,
+      "gust_speed_knots": 1.0,
+      "drift_compensation_deg": 0.0,
+      "airspeed_mps": 10.0,
+      "ground_speed_mps": 9.5,
+      "drone_heading_deg": 0.0,
+      "course_over_ground_deg": 3.2,
+      "crab_angle_deg": 3.2,
+      "crosswind_mps": 0.0,
+      "headwind_mps": 0.0,
+      "turbulence_rating": "none"
+    },
+    "part_107_compliant": true,
+    "faa_part_107_compliant": true,
+    "prompt_token": null,
+    "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+  },
+  "drone_flight": {
+    "flight_id": "DRONE_CULI_01",
+    "project_title": "",
+    "scene_index": null,
+    "aircraft_model": "Micro Cablecam Hybrid / Sony FX3",
+    "pilot_in_command": "FAA Part 107 Commercial Remote Pilot",
+    "faa_registration": "FA39A7X901",
+    "drone_rig": "cable_cam_hybrid",
+    "flight_profile": "indoor_slow_orbital_reveal",
+    "flight_pattern": "Orbit Reveal",
+    "min_altitude_agl_m": 1.2,
+    "max_altitude_agl_m": 3.0,
+    "max_altitude_m_agl": 45.0,
+    "total_distance_m": 24.0,
+    "flight_duration_s": 16.0,
+    "estimated_flight_duration_s": 15.0,
+    "waypoints": [
+      {
+        "waypoint_id": 1,
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 0.0,
+        "heading_deg": 0.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 1: Aircraft takeoff & camera vector acquisition",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 2,
+        "latitude": 34.0528,
+        "longitude": -118.242967,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 5.3,
+        "heading_deg": 15.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 2: Mid-flight kinetic sweep & subject lock",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 3,
+        "latitude": 34.0534,
+        "longitude": -118.242233,
+        "altitude_m_agl": 2.8,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 122.8,
+        "speed_mps": 1.5,
+        "timestamp_s": 10.7,
+        "heading_deg": 30.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 3: Apex framing reveal & light glint",
+        "action_beat": null
+      },
+      {
+        "waypoint_id": 4,
+        "latitude": 34.054,
+        "longitude": -118.2415,
+        "altitude_m_agl": 1.2,
+        "altitude_ft_agl": 49.2,
+        "altitude_m_msl": 121.2,
+        "speed_mps": 1.5,
+        "timestamp_s": 16.0,
+        "heading_deg": 45.0,
+        "gimbal_pitch_deg": -15.0,
+        "gimbal_yaw_deg": 0.0,
+        "sun_altitude_deg": 18.5,
+        "sun_azimuth_deg": 245.0,
+        "solar_phase": "golden_hour",
+        "crab_angle_deg": 3.2,
+        "battery_pct": 100.0,
+        "part_107_cleared": true,
+        "action_cue": "Waypoint 4: Terminal deceleration & hero composition hold",
+        "action_beat": null
+      }
+    ],
+    "gimbal": {
+      "pitch_deg": -38.0,
+      "yaw_deg": 15.0,
+      "roll_deg": 0.0,
+      "clamped": false,
+      "stabilization_mode": "follow_yaw",
+      "focal_length_equiv_mm": 50.0
+    },
+    "solar_ephemeris": {
+      "solar_elevation_deg": 50.0,
+      "solar_altitude_deg": 18.5,
+      "solar_azimuth_deg": 180.0,
+      "solar_phase": "golden_hour",
+      "shadow_multiplier": 3.0,
+      "cct_kelvin": 3500,
+      "golden_hour_active": false,
+      "lens_flare_risk": "low",
+      "color_temperature_kelvin": 3200
+    },
+    "wind_drift": {
+      "wind_speed_knots": 0.5,
+      "wind_speed_mps": 4.12,
+      "wind_direction_deg": 0.0,
+      "gust_speed_knots": 1.0,
+      "drift_compensation_deg": 0.0,
+      "airspeed_mps": 10.0,
+      "ground_speed_mps": 9.5,
+      "drone_heading_deg": 0.0,
+      "course_over_ground_deg": 3.2,
+      "crab_angle_deg": 3.2,
+      "crosswind_mps": 0.0,
+      "headwind_mps": 0.0,
+      "turbulence_rating": "none"
+    },
+    "part_107_compliant": true,
+    "faa_part_107_compliant": true,
+    "prompt_token": null,
+    "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+  },
+  "master_aicp_bid": {
+    "project_title": "Culinary Asmr Commercial",
+    "client_brand": "Nordic Gastronomy Artisans",
+    "client": "Commercial Client",
+    "agency_name": "Omni Creative Partners",
+    "production_company": "Omni Studio Productions",
+    "shoot_days_count": 1,
+    "shoot_days": 1,
+    "prep_days": 2,
+    "post_days": 5,
+    "total_runtime_seconds": 60.0,
+    "shoot_location": "Culinary Soundstage, Stockholm / Brooklyn, NY",
+    "currency": "USD",
+    "labor_tier": "commercial_tier_2",
+    "line_items": [
+      {
+        "account_number": "A-101",
+        "account_code": "B-101",
+        "section": "A",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Line Producer & Food Production Coordinator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "prep_wrap",
+        "units_count": 4.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2125.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-101",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Director of Photography & Tabletop Macro Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 5000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 5000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1175.0,
+        "total_cost_usd": 6175.0,
+        "total": 6175.0
+      },
+      {
+        "account_number": "B-102",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Master Food Stylist & Culinary Prep Chefs",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 8500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-103",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "1st AC & Focus Puller (Macro Probe Precision)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 423.0,
+        "total_cost_usd": 2223.0,
+        "total": 2223.0
+      },
+      {
+        "account_number": "B-104",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Gaffer & Tabletop Fiber Optic Lighting Technician",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-105",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Key Grip & Motion Control Arm Operator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 587.5,
+        "total_cost_usd": 3087.5,
+        "total": 3087.5
+      },
+      {
+        "account_number": "B-106",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "High-Resolution Binaural Audio Specialist (ASMR)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 658.0,
+        "total_cost_usd": 3458.0,
+        "total": 3458.0
+      },
+      {
+        "account_number": "B-107",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "DIT / ASC CDL Tabletop Color Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-108",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Micro-Drone Cablecam Indoor Pilot",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 7000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 7000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1645.0,
+        "total_cost_usd": 8645.0,
+        "total": 8645.0
+      },
+      {
+        "account_number": "C-101",
+        "account_code": "B-101",
+        "section": "C",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Commercial Kitchen Soundstage Rental & Prep Facility",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 11500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 11500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2702.5,
+        "total_cost_usd": 14202.5,
+        "total": 14202.5
+      },
+      {
+        "account_number": "D-101",
+        "account_code": "B-101",
+        "section": "D",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Culinary Hero Props, Artisan Ceramics & Organic Ingredients",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 9000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 9000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2115.0,
+        "total_cost_usd": 11115.0,
+        "total": 11115.0
+      },
+      {
+        "account_number": "E-101",
+        "account_code": "B-101",
+        "section": "E",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 14000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 14000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 3290.0,
+        "total_cost_usd": 17290.0,
+        "total": 17290.0
+      },
+      {
+        "account_number": "F-101",
+        "account_code": "B-101",
+        "section": "F",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 940.0,
+        "total_cost_usd": 4940.0,
+        "total": 4940.0
+      },
+      {
+        "account_number": "G-101",
+        "account_code": "B-101",
+        "section": "G",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Kitchen Prep Supplies, Commercial Sanitation & Catering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "H-101",
+        "account_code": "B-101",
+        "section": "H",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "SAG-AFTRA Hand Model & Chef Talent Session Fees",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "I-101",
+        "account_code": "B-101",
+        "section": "I",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Talent Wardrobe Styling & Linen Apron Fittings",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 235.0,
+        "total_cost_usd": 1235.0,
+        "total": 1235.0
+      },
+      {
+        "account_number": "J-101",
+        "account_code": "B-101",
+        "section": "J",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "K-101",
+        "account_code": "B-101",
+        "section": "K",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "L-101",
+        "account_code": "B-101",
+        "section": "L",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Organic Food Color Grading & Microscopic Clean-up",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "M-101",
+        "account_code": "B-101",
+        "section": "M",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Production Equipment & Tabletop Soundstage Liability Insurance",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 470.0,
+        "total_cost_usd": 2470.0,
+        "total": 2470.0
+      }
+    ],
+    "top_sheet": {
+      "section_totals": {
+        "A": 10497.5,
+        "B": 39520.0,
+        "C": 14202.5,
+        "D": 11115.0,
+        "E": 17290.0,
+        "F": 4940.0,
+        "G": 3705.0,
+        "H": 3705.0,
+        "I": 1235.0,
+        "J": 5557.5,
+        "K": 5557.5,
+        "L": 3705.0,
+        "M": 27372.96,
+        "N": 33099.28
+      },
+      "gross_production_costs_usd": 101270.0,
+      "talent_costs_usd": 4940.0,
+      "post_production_costs_usd": 14820.0,
+      "insurance_and_fringes_usd": 27372.96,
+      "subtotal_direct_costs_usd": 124902.96,
+      "direct_subtotal": 124902.96,
+      "atl_subtotal": 14202.5,
+      "btl_subtotal": 106827.5,
+      "fringe_rate": 0.235,
+      "total_fringes": 23500.0,
+      "insurance_rate": 0.032,
+      "total_insurance": 3872.96,
+      "insurance_usd": 3872.96,
+      "production_fee_pct": 15.0,
+      "markup_rate": 0.15,
+      "production_fee_usd": 18735.44,
+      "total_markup": 18735.44,
+      "contingency_pct": 10.0,
+      "contingency_rate": 0.1,
+      "contingency_usd": 14363.84,
+      "total_contingency": 14363.84,
+      "grand_total_bid_usd": 158002.24,
+      "grand_total": 158002.24,
+      "grand_total_bid": 158002.24,
+      "cost_per_second": 2633.37
+    },
+    "cost_per_second": 0.0,
+    "grand_total": 0.0,
+    "scene_allocations": []
+  },
+  "aicp_bid": {
+    "project_title": "Culinary Asmr Commercial",
+    "client_brand": "Nordic Gastronomy Artisans",
+    "client": "Commercial Client",
+    "agency_name": "Omni Creative Partners",
+    "production_company": "Omni Studio Productions",
+    "shoot_days_count": 1,
+    "shoot_days": 1,
+    "prep_days": 2,
+    "post_days": 5,
+    "total_runtime_seconds": 60.0,
+    "shoot_location": "Culinary Soundstage, Stockholm / Brooklyn, NY",
+    "currency": "USD",
+    "labor_tier": "commercial_tier_2",
+    "line_items": [
+      {
+        "account_number": "A-101",
+        "account_code": "B-101",
+        "section": "A",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Line Producer & Food Production Coordinator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "prep_wrap",
+        "units_count": 4.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2125.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-101",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Director of Photography & Tabletop Macro Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 5000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 5000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1175.0,
+        "total_cost_usd": 6175.0,
+        "total": 6175.0
+      },
+      {
+        "account_number": "B-102",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Master Food Stylist & Culinary Prep Chefs",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 8500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-103",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "1st AC & Focus Puller (Macro Probe Precision)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 423.0,
+        "total_cost_usd": 2223.0,
+        "total": 2223.0
+      },
+      {
+        "account_number": "B-104",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Gaffer & Tabletop Fiber Optic Lighting Technician",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-105",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Key Grip & Motion Control Arm Operator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 587.5,
+        "total_cost_usd": 3087.5,
+        "total": 3087.5
+      },
+      {
+        "account_number": "B-106",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "High-Resolution Binaural Audio Specialist (ASMR)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 658.0,
+        "total_cost_usd": 3458.0,
+        "total": 3458.0
+      },
+      {
+        "account_number": "B-107",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "DIT / ASC CDL Tabletop Color Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-108",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Micro-Drone Cablecam Indoor Pilot",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 7000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 7000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1645.0,
+        "total_cost_usd": 8645.0,
+        "total": 8645.0
+      },
+      {
+        "account_number": "C-101",
+        "account_code": "B-101",
+        "section": "C",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Commercial Kitchen Soundstage Rental & Prep Facility",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 11500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 11500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2702.5,
+        "total_cost_usd": 14202.5,
+        "total": 14202.5
+      },
+      {
+        "account_number": "D-101",
+        "account_code": "B-101",
+        "section": "D",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Culinary Hero Props, Artisan Ceramics & Organic Ingredients",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 9000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 9000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2115.0,
+        "total_cost_usd": 11115.0,
+        "total": 11115.0
+      },
+      {
+        "account_number": "E-101",
+        "account_code": "B-101",
+        "section": "E",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 14000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 14000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 3290.0,
+        "total_cost_usd": 17290.0,
+        "total": 17290.0
+      },
+      {
+        "account_number": "F-101",
+        "account_code": "B-101",
+        "section": "F",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 940.0,
+        "total_cost_usd": 4940.0,
+        "total": 4940.0
+      },
+      {
+        "account_number": "G-101",
+        "account_code": "B-101",
+        "section": "G",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Kitchen Prep Supplies, Commercial Sanitation & Catering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "H-101",
+        "account_code": "B-101",
+        "section": "H",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "SAG-AFTRA Hand Model & Chef Talent Session Fees",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "I-101",
+        "account_code": "B-101",
+        "section": "I",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Talent Wardrobe Styling & Linen Apron Fittings",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 235.0,
+        "total_cost_usd": 1235.0,
+        "total": 1235.0
+      },
+      {
+        "account_number": "J-101",
+        "account_code": "B-101",
+        "section": "J",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "K-101",
+        "account_code": "B-101",
+        "section": "K",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "L-101",
+        "account_code": "B-101",
+        "section": "L",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Organic Food Color Grading & Microscopic Clean-up",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "M-101",
+        "account_code": "B-101",
+        "section": "M",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Production Equipment & Tabletop Soundstage Liability Insurance",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 470.0,
+        "total_cost_usd": 2470.0,
+        "total": 2470.0
+      }
+    ],
+    "top_sheet": {
+      "section_totals": {
+        "A": 10497.5,
+        "B": 39520.0,
+        "C": 14202.5,
+        "D": 11115.0,
+        "E": 17290.0,
+        "F": 4940.0,
+        "G": 3705.0,
+        "H": 3705.0,
+        "I": 1235.0,
+        "J": 5557.5,
+        "K": 5557.5,
+        "L": 3705.0,
+        "M": 27372.96,
+        "N": 33099.28
+      },
+      "gross_production_costs_usd": 101270.0,
+      "talent_costs_usd": 4940.0,
+      "post_production_costs_usd": 14820.0,
+      "insurance_and_fringes_usd": 27372.96,
+      "subtotal_direct_costs_usd": 124902.96,
+      "direct_subtotal": 124902.96,
+      "atl_subtotal": 14202.5,
+      "btl_subtotal": 106827.5,
+      "fringe_rate": 0.235,
+      "total_fringes": 23500.0,
+      "insurance_rate": 0.032,
+      "total_insurance": 3872.96,
+      "insurance_usd": 3872.96,
+      "production_fee_pct": 15.0,
+      "markup_rate": 0.15,
+      "production_fee_usd": 18735.44,
+      "total_markup": 18735.44,
+      "contingency_pct": 10.0,
+      "contingency_rate": 0.1,
+      "contingency_usd": 14363.84,
+      "total_contingency": 14363.84,
+      "grand_total_bid_usd": 158002.24,
+      "grand_total": 158002.24,
+      "grand_total_bid": 158002.24,
+      "cost_per_second": 2633.37
+    },
+    "cost_per_second": 0.0,
+    "grand_total": 0.0,
+    "scene_allocations": []
+  },
+  "master_aicp_budget": {
+    "project_title": "Culinary Asmr Commercial",
+    "client_brand": "Nordic Gastronomy Artisans",
+    "client": "Commercial Client",
+    "agency_name": "Omni Creative Partners",
+    "production_company": "Omni Studio Productions",
+    "shoot_days_count": 1,
+    "shoot_days": 1,
+    "prep_days": 2,
+    "post_days": 5,
+    "total_runtime_seconds": 60.0,
+    "shoot_location": "Culinary Soundstage, Stockholm / Brooklyn, NY",
+    "currency": "USD",
+    "labor_tier": "commercial_tier_2",
+    "line_items": [
+      {
+        "account_number": "A-101",
+        "account_code": "B-101",
+        "section": "A",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Line Producer & Food Production Coordinator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "prep_wrap",
+        "units_count": 4.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2125.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-101",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Director of Photography & Tabletop Macro Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 5000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 5000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1175.0,
+        "total_cost_usd": 6175.0,
+        "total": 6175.0
+      },
+      {
+        "account_number": "B-102",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Master Food Stylist & Culinary Prep Chefs",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 8500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-103",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "1st AC & Focus Puller (Macro Probe Precision)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 423.0,
+        "total_cost_usd": 2223.0,
+        "total": 2223.0
+      },
+      {
+        "account_number": "B-104",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Gaffer & Tabletop Fiber Optic Lighting Technician",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-105",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Key Grip & Motion Control Arm Operator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 587.5,
+        "total_cost_usd": 3087.5,
+        "total": 3087.5
+      },
+      {
+        "account_number": "B-106",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "High-Resolution Binaural Audio Specialist (ASMR)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 658.0,
+        "total_cost_usd": 3458.0,
+        "total": 3458.0
+      },
+      {
+        "account_number": "B-107",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "DIT / ASC CDL Tabletop Color Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-108",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Micro-Drone Cablecam Indoor Pilot",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 7000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 7000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1645.0,
+        "total_cost_usd": 8645.0,
+        "total": 8645.0
+      },
+      {
+        "account_number": "C-101",
+        "account_code": "B-101",
+        "section": "C",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Commercial Kitchen Soundstage Rental & Prep Facility",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 11500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 11500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2702.5,
+        "total_cost_usd": 14202.5,
+        "total": 14202.5
+      },
+      {
+        "account_number": "D-101",
+        "account_code": "B-101",
+        "section": "D",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Culinary Hero Props, Artisan Ceramics & Organic Ingredients",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 9000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 9000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2115.0,
+        "total_cost_usd": 11115.0,
+        "total": 11115.0
+      },
+      {
+        "account_number": "E-101",
+        "account_code": "B-101",
+        "section": "E",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 14000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 14000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 3290.0,
+        "total_cost_usd": 17290.0,
+        "total": 17290.0
+      },
+      {
+        "account_number": "F-101",
+        "account_code": "B-101",
+        "section": "F",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 940.0,
+        "total_cost_usd": 4940.0,
+        "total": 4940.0
+      },
+      {
+        "account_number": "G-101",
+        "account_code": "B-101",
+        "section": "G",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Kitchen Prep Supplies, Commercial Sanitation & Catering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "H-101",
+        "account_code": "B-101",
+        "section": "H",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "SAG-AFTRA Hand Model & Chef Talent Session Fees",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "I-101",
+        "account_code": "B-101",
+        "section": "I",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Talent Wardrobe Styling & Linen Apron Fittings",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 235.0,
+        "total_cost_usd": 1235.0,
+        "total": 1235.0
+      },
+      {
+        "account_number": "J-101",
+        "account_code": "B-101",
+        "section": "J",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "K-101",
+        "account_code": "B-101",
+        "section": "K",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "L-101",
+        "account_code": "B-101",
+        "section": "L",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Organic Food Color Grading & Microscopic Clean-up",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "M-101",
+        "account_code": "B-101",
+        "section": "M",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Production Equipment & Tabletop Soundstage Liability Insurance",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 470.0,
+        "total_cost_usd": 2470.0,
+        "total": 2470.0
+      }
+    ],
+    "top_sheet": {
+      "section_totals": {
+        "A": 10497.5,
+        "B": 39520.0,
+        "C": 14202.5,
+        "D": 11115.0,
+        "E": 17290.0,
+        "F": 4940.0,
+        "G": 3705.0,
+        "H": 3705.0,
+        "I": 1235.0,
+        "J": 5557.5,
+        "K": 5557.5,
+        "L": 3705.0,
+        "M": 27372.96,
+        "N": 33099.28
+      },
+      "gross_production_costs_usd": 101270.0,
+      "talent_costs_usd": 4940.0,
+      "post_production_costs_usd": 14820.0,
+      "insurance_and_fringes_usd": 27372.96,
+      "subtotal_direct_costs_usd": 124902.96,
+      "direct_subtotal": 124902.96,
+      "atl_subtotal": 14202.5,
+      "btl_subtotal": 106827.5,
+      "fringe_rate": 0.235,
+      "total_fringes": 23500.0,
+      "insurance_rate": 0.032,
+      "total_insurance": 3872.96,
+      "insurance_usd": 3872.96,
+      "production_fee_pct": 15.0,
+      "markup_rate": 0.15,
+      "production_fee_usd": 18735.44,
+      "total_markup": 18735.44,
+      "contingency_pct": 10.0,
+      "contingency_rate": 0.1,
+      "contingency_usd": 14363.84,
+      "total_contingency": 14363.84,
+      "grand_total_bid_usd": 158002.24,
+      "grand_total": 158002.24,
+      "grand_total_bid": 158002.24,
+      "cost_per_second": 2633.37
+    },
+    "cost_per_second": 0.0,
+    "grand_total": 0.0,
+    "scene_allocations": []
+  },
+  "aicp_budget": {
+    "project_title": "Culinary Asmr Commercial",
+    "client_brand": "Nordic Gastronomy Artisans",
+    "client": "Commercial Client",
+    "agency_name": "Omni Creative Partners",
+    "production_company": "Omni Studio Productions",
+    "shoot_days_count": 1,
+    "shoot_days": 1,
+    "prep_days": 2,
+    "post_days": 5,
+    "total_runtime_seconds": 60.0,
+    "shoot_location": "Culinary Soundstage, Stockholm / Brooklyn, NY",
+    "currency": "USD",
+    "labor_tier": "commercial_tier_2",
+    "line_items": [
+      {
+        "account_number": "A-101",
+        "account_code": "B-101",
+        "section": "A",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Line Producer & Food Production Coordinator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "prep_wrap",
+        "units_count": 4.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2125.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-101",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Director of Photography & Tabletop Macro Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 5000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 5000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1175.0,
+        "total_cost_usd": 6175.0,
+        "total": 6175.0
+      },
+      {
+        "account_number": "B-102",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Master Food Stylist & Culinary Prep Chefs",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 8500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 8500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1997.5,
+        "total_cost_usd": 10497.5,
+        "total": 10497.5
+      },
+      {
+        "account_number": "B-103",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "1st AC & Focus Puller (Macro Probe Precision)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 423.0,
+        "total_cost_usd": 2223.0,
+        "total": 2223.0
+      },
+      {
+        "account_number": "B-104",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Gaffer & Tabletop Fiber Optic Lighting Technician",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-105",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Key Grip & Motion Control Arm Operator",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 587.5,
+        "total_cost_usd": 3087.5,
+        "total": 3087.5
+      },
+      {
+        "account_number": "B-106",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "High-Resolution Binaural Audio Specialist (ASMR)",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2800.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2800.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 658.0,
+        "total_cost_usd": 3458.0,
+        "total": 3458.0
+      },
+      {
+        "account_number": "B-107",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "DIT / ASC CDL Tabletop Color Specialist",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2200.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2200.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 517.0,
+        "total_cost_usd": 2717.0,
+        "total": 2717.0
+      },
+      {
+        "account_number": "B-108",
+        "account_code": "B-101",
+        "section": "B",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Micro-Drone Cablecam Indoor Pilot",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 7000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 7000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1645.0,
+        "total_cost_usd": 8645.0,
+        "total": 8645.0
+      },
+      {
+        "account_number": "C-101",
+        "account_code": "B-101",
+        "section": "C",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Commercial Kitchen Soundstage Rental & Prep Facility",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 11500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 11500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2702.5,
+        "total_cost_usd": 14202.5,
+        "total": 14202.5
+      },
+      {
+        "account_number": "D-101",
+        "account_code": "B-101",
+        "section": "D",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Culinary Hero Props, Artisan Ceramics & Organic Ingredients",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 9000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 9000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 2115.0,
+        "total_cost_usd": 11115.0,
+        "total": 11115.0
+      },
+      {
+        "account_number": "E-101",
+        "account_code": "B-101",
+        "section": "E",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 14000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 14000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 3290.0,
+        "total_cost_usd": 17290.0,
+        "total": 17290.0
+      },
+      {
+        "account_number": "F-101",
+        "account_code": "B-101",
+        "section": "F",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 940.0,
+        "total_cost_usd": 4940.0,
+        "total": 4940.0
+      },
+      {
+        "account_number": "G-101",
+        "account_code": "B-101",
+        "section": "G",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Kitchen Prep Supplies, Commercial Sanitation & Catering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "H-101",
+        "account_code": "B-101",
+        "section": "H",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "SAG-AFTRA Hand Model & Chef Talent Session Fees",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "day",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "I-101",
+        "account_code": "B-101",
+        "section": "I",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Talent Wardrobe Styling & Linen Apron Fittings",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 1000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 1000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 235.0,
+        "total_cost_usd": 1235.0,
+        "total": 1235.0
+      },
+      {
+        "account_number": "J-101",
+        "account_code": "B-101",
+        "section": "J",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "K-101",
+        "account_code": "B-101",
+        "section": "K",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 4500.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 4500.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 1057.5,
+        "total_cost_usd": 5557.5,
+        "total": 5557.5
+      },
+      {
+        "account_number": "L-101",
+        "account_code": "B-101",
+        "section": "L",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Organic Food Color Grading & Microscopic Clean-up",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 3000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 3000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 705.0,
+        "total_cost_usd": 3705.0,
+        "total": 3705.0
+      },
+      {
+        "account_number": "M-101",
+        "account_code": "B-101",
+        "section": "M",
+        "section_code": "B",
+        "section_name": "Shooting Production Crew",
+        "description": "Production Equipment & Tabletop Soundstage Liability Insurance",
+        "crew_tier": "commercial_tier_2",
+        "category": "labor",
+        "rate_basis": "flat",
+        "units_count": 1.0,
+        "days_or_qty": 1.0,
+        "unit_rate_usd": 2000.0,
+        "rate": 3500.0,
+        "ot_hours": 0.0,
+        "subtotal": 2000.0,
+        "fringes_pct": 23.5,
+        "fringe_pct": 23.5,
+        "fringe_amount": 470.0,
+        "total_cost_usd": 2470.0,
+        "total": 2470.0
+      }
+    ],
+    "top_sheet": {
+      "section_totals": {
+        "A": 10497.5,
+        "B": 39520.0,
+        "C": 14202.5,
+        "D": 11115.0,
+        "E": 17290.0,
+        "F": 4940.0,
+        "G": 3705.0,
+        "H": 3705.0,
+        "I": 1235.0,
+        "J": 5557.5,
+        "K": 5557.5,
+        "L": 3705.0,
+        "M": 27372.96,
+        "N": 33099.28
+      },
+      "gross_production_costs_usd": 101270.0,
+      "talent_costs_usd": 4940.0,
+      "post_production_costs_usd": 14820.0,
+      "insurance_and_fringes_usd": 27372.96,
+      "subtotal_direct_costs_usd": 124902.96,
+      "direct_subtotal": 124902.96,
+      "atl_subtotal": 14202.5,
+      "btl_subtotal": 106827.5,
+      "fringe_rate": 0.235,
+      "total_fringes": 23500.0,
+      "insurance_rate": 0.032,
+      "total_insurance": 3872.96,
+      "insurance_usd": 3872.96,
+      "production_fee_pct": 15.0,
+      "markup_rate": 0.15,
+      "production_fee_usd": 18735.44,
+      "total_markup": 18735.44,
+      "contingency_pct": 10.0,
+      "contingency_rate": 0.1,
+      "contingency_usd": 14363.84,
+      "total_contingency": 14363.84,
+      "grand_total_bid_usd": 158002.24,
+      "grand_total": 158002.24,
+      "grand_total_bid": 158002.24,
+      "cost_per_second": 2633.37
+    },
+    "cost_per_second": 0.0,
+    "grand_total": 0.0,
+    "scene_allocations": []
   }
 };
 
@@ -8089,6 +11600,974 @@ Artisanal Japanese Culinary Ceremonial M - Climax	V	01:00:10:00	01:00:20:00	240	
       showToast("Avid ALE Film Stock Log (.ale) downloaded!");
     }
 
+    // Aerial Drone Flight Paths & Telemetry Controller (PM-FEAT-019)
+    let isDroneHUDOpen = false;
+    function toggleDroneHUD() {
+      isDroneHUDOpen = !isDroneHUDOpen;
+      const modal = document.getElementById('animatic-drone-hud');
+      const btn = document.getElementById('btn-drone-animatic');
+      if (modal) {
+        modal.style.display = isDroneHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isDroneHUDOpen);
+        btn.setAttribute('aria-expanded', isDroneHUDOpen ? 'true' : 'false');
+      }
+      if (isDroneHUDOpen) {
+        drawDroneFlightPath();
+        updateCompassRose();
+        showToast("Aerial Drone Flight HUD: ACTIVE [D]");
+      }
+    }
+
+    function downloadDroneKML() {
+      const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>DRONE_CULI_01 - </name>
+    <description>Omni Movie Director Cinematic Aerial Flight Path (Orbit Reveal)</description>
+    <Style id="dronePathStyle">
+      <LineStyle>
+        <color>ff00d7ff</color>
+        <width>4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7f00d7ff</color>
+      </PolyStyle>
+    </Style>
+    <Folder>
+      <name>Waypoints</name>
+      <Placemark>
+        <name>1</name>
+        <description>Alt: 1.2m AGL | Gimbal: -15.0° | Waypoint 1: Aircraft takeoff & camera vector acquisition</description>
+        <Point>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-118.2437,34.0522,1.2</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2</name>
+        <description>Alt: 2.8m AGL | Gimbal: -15.0° | Waypoint 2: Mid-flight kinetic sweep & subject lock</description>
+        <Point>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-118.242967,34.0528,2.8</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3</name>
+        <description>Alt: 2.8m AGL | Gimbal: -15.0° | Waypoint 3: Apex framing reveal & light glint</description>
+        <Point>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-118.242233,34.0534,2.8</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4</name>
+        <description>Alt: 1.2m AGL | Gimbal: -15.0° | Waypoint 4: Terminal deceleration & hero composition hold</description>
+        <Point>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-118.2415,34.054,1.2</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Placemark>
+      <name>DRONE_CULI_01 3D Trajectory</name>
+      <styleUrl>#dronePathStyle</styleUrl>
+      <LineString>
+        <extrude>1</extrude>
+        <tessellate>1</tessellate>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>-118.2437,34.0522,1.2 -118.242967,34.0528,2.8 -118.242233,34.0534,2.8 -118.2415,34.054,1.2</coordinates>
+      </LineString>
+    </Placemark>
+  </Document>
+</kml>`], { type: 'application/vnd.google-earth.kml+xml;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'flight_path.kml';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Flight Path (flight_path.kml)");
+    }
+
+    function downloadDroneGPX() {
+      const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Omni Movie Director v2.2.0" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>DRONE_CULI_01</name>
+    <desc> Aerial Cinematography Flight Path</desc>
+    <time>2026-06-21T18:00:00Z</time>
+  </metadata>
+  <wpt lat="34.052200" lon="-118.243700">
+    <ele>1.2</ele>
+    <name>1</name>
+    <desc>Speed: 1.5m/s | Waypoint 1: Aircraft takeoff & camera vector acquisition</desc>
+  </wpt>
+  <wpt lat="34.052800" lon="-118.242967">
+    <ele>2.8</ele>
+    <name>2</name>
+    <desc>Speed: 1.5m/s | Waypoint 2: Mid-flight kinetic sweep & subject lock</desc>
+  </wpt>
+  <wpt lat="34.053400" lon="-118.242233">
+    <ele>2.8</ele>
+    <name>3</name>
+    <desc>Speed: 1.5m/s | Waypoint 3: Apex framing reveal & light glint</desc>
+  </wpt>
+  <wpt lat="34.054000" lon="-118.241500">
+    <ele>1.2</ele>
+    <name>4</name>
+    <desc>Speed: 1.5m/s | Waypoint 4: Terminal deceleration & hero composition hold</desc>
+  </wpt>
+  <trk>
+    <name>DRONE_CULI_01 Track</name>
+    <trkseg>
+      <trkpt lat="34.052200" lon="-118.243700"><ele>1.2</ele></trkpt>
+      <trkpt lat="34.052800" lon="-118.242967"><ele>2.8</ele></trkpt>
+      <trkpt lat="34.053400" lon="-118.242233"><ele>2.8</ele></trkpt>
+      <trkpt lat="34.054000" lon="-118.241500"><ele>1.2</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx>`], { type: 'application/gpx+xml;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'flight_waypoints.gpx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Waypoints (flight_waypoints.gpx)");
+    }
+
+    function downloadDroneCSV() {
+      const blob = new Blob([`Waypoint,Lat,Lon,Altitude_m_AGL,Altitude_ft_AGL,Speed_mps,Heading_deg,Gimbal_Pitch_deg,Gimbal_Yaw_deg,Sun_Azimuth_deg,Sun_Altitude_deg,Sun_Phase,Wind_Crab_deg,Battery_Pct,Part107_Cleared,Action_Cue
+1,34.052200,-118.243700,1.2,49.2,1.5,0.0,-15.0,0.0,245.0,18.5,golden_hour,+3.2,100.0%,PASS,Waypoint 1: Aircraft takeoff & camera vector acquisition
+2,34.052800,-118.242967,2.8,49.2,1.5,15.0,-15.0,0.0,245.0,18.5,golden_hour,+3.2,100.0%,PASS,Waypoint 2: Mid-flight kinetic sweep & subject lock
+3,34.053400,-118.242233,2.8,49.2,1.5,30.0,-15.0,0.0,245.0,18.5,golden_hour,+3.2,100.0%,PASS,Waypoint 3: Apex framing reveal & light glint
+4,34.054000,-118.241500,1.2,49.2,1.5,45.0,-15.0,0.0,245.0,18.5,golden_hour,+3.2,100.0%,PASS,Waypoint 4: Terminal deceleration & hero composition hold
+`], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'drone_flight_sheet.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Drone Flight Sheet (drone_flight_sheet.csv)");
+    }
+
+    function updateCompassRose() {
+      const az = 180.0;
+      const rad = (az - 90) * Math.PI / 180;
+      const r = 32;
+      const x = 50 + r * Math.cos(rad);
+      const y = 50 + r * Math.sin(rad);
+      const line = document.getElementById('solar-azimuth-line');
+      const dot = document.getElementById('solar-azimuth-dot');
+      if (line) {
+        line.setAttribute('x2', x.toFixed(1));
+        line.setAttribute('y2', y.toFixed(1));
+      }
+      if (dot) {
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+      }
+    }
+
+    function drawDroneFlightPath() {
+      const canvas = document.getElementById('drone-path-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.fillStyle = '#060709';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid lines
+      ctx.strokeStyle = '#121622';
+      ctx.lineWidth = 1;
+      for (let x = 40; x < w; x += 40) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 30; y < h; y += 30) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      const waypoints = [{"id": 1, "lat": 34.0522, "lon": -118.2437, "alt": 1.2, "speed": 1.5, "action": "PULL_REVEAL"}, {"id": 2, "lat": 34.0528, "lon": -118.242967, "alt": 2.8, "speed": 1.5, "action": "PULL_REVEAL"}, {"id": 3, "lat": 34.0534, "lon": -118.242233, "alt": 2.8, "speed": 1.5, "action": "PULL_REVEAL"}, {"id": 4, "lat": 34.054, "lon": -118.2415, "alt": 1.2, "speed": 1.5, "action": "PULL_REVEAL"}];
+      if (!waypoints || waypoints.length === 0) return;
+
+      const padX = 60;
+      const padY = 50;
+      const plotW = w - padX * 2;
+      const plotH = h - padY * 2;
+
+      let minLat = Infinity, maxLat = -Infinity, minLon = Infinity, maxLon = -Infinity;
+      waypoints.forEach(wp => {
+        if (wp.lat < minLat) minLat = wp.lat;
+        if (wp.lat > maxLat) maxLat = wp.lat;
+        if (wp.lon < minLon) minLon = wp.lon;
+        if (wp.lon > maxLon) maxLon = wp.lon;
+      });
+
+      const spanLat = (maxLat - minLat) || 0.001;
+      const spanLon = (maxLon - minLon) || 0.001;
+
+      const points = waypoints.map(wp => {
+        const nx = (wp.lon - minLon) / spanLon;
+        const ny = (maxLat - wp.lat) / spanLat;
+        return {
+          x: padX + nx * plotW,
+          y: padY + ny * plotH,
+          id: wp.id,
+          alt: wp.alt,
+          speed: wp.speed,
+        };
+      });
+
+      // Draw trajectory line with glow
+      ctx.shadowColor = '#00F0FF';
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+      }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Draw waypoint nodes & altitude badges
+      points.forEach((pt, i) => {
+        // Node circle
+        ctx.fillStyle = i === 0 ? '#00FF88' : (i === points.length - 1 ? '#FF3B30' : '#00F0FF');
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#07080B';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Node ID label
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#F0F2F8';
+        ctx.fillText(pt.id, pt.x - 14, pt.y - 12);
+
+        // Altitude badge
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#FFB800';
+        ctx.fillText(pt.alt.toFixed(1) + 'm', pt.x - 12, pt.y + 16);
+      });
+    }
+
+    // AICP Commercial Production Bid & Budget Controller (PM-FEAT-020)
+    let isAicpHUDOpen = false;
+    function toggleAicpHUD() {
+      isAicpHUDOpen = !isAicpHUDOpen;
+      const modal = document.getElementById('animatic-aicp-hud');
+      const btn = document.getElementById('btn-aicp-animatic');
+      if (modal) {
+        modal.style.display = isAicpHUDOpen ? 'flex' : 'none';
+      }
+      if (btn) {
+        btn.classList.toggle('active', isAicpHUDOpen);
+        btn.setAttribute('aria-expanded', isAicpHUDOpen ? 'true' : 'false');
+      }
+      if (isAicpHUDOpen) {
+        drawAicpDoughnut();
+        showToast("AICP Commercial Production Bid HUD: ACTIVE [A]");
+      }
+    }
+
+    function downloadAicpCSV() {
+      const blob = new Blob([`# AICP COMMERCIAL PRODUCTION BID SHEET
+# Project,Culinary Asmr Commercial
+# Client/Brand,Nordic Gastronomy Artisans
+# Production Company,Omni Studio Productions
+# Shoot Days,1
+# Currency,USD
+
+Account,Section,Section_Name,Description,Category,Labor_Tier,Basis,Days_Qty,Unit_Rate_USD,Subtotal_USD,Fringes_Pct,Fringe_USD,Total_USD
+A-101,A,Shooting Production Crew,Line Producer & Food Production Coordinator,labor,commercial_tier_2,prep_wrap,4.0,2125.00,8500.00,23.5,1997.50,10497.50
+B-101,B,Shooting Production Crew,Director of Photography & Tabletop Macro Specialist,labor,commercial_tier_2,day,1.0,5000.00,5000.00,23.5,1175.00,6175.00
+B-102,B,Shooting Production Crew,Master Food Stylist & Culinary Prep Chefs,labor,commercial_tier_2,day,1.0,8500.00,8500.00,23.5,1997.50,10497.50
+B-103,B,Shooting Production Crew,1st AC & Focus Puller (Macro Probe Precision),labor,commercial_tier_2,day,1.0,1800.00,1800.00,23.5,423.00,2223.00
+B-104,B,Shooting Production Crew,Gaffer & Tabletop Fiber Optic Lighting Technician,labor,commercial_tier_2,day,1.0,2200.00,2200.00,23.5,517.00,2717.00
+B-105,B,Shooting Production Crew,Key Grip & Motion Control Arm Operator,labor,commercial_tier_2,day,1.0,2500.00,2500.00,23.5,587.50,3087.50
+B-106,B,Shooting Production Crew,High-Resolution Binaural Audio Specialist (ASMR),labor,commercial_tier_2,day,1.0,2800.00,2800.00,23.5,658.00,3458.00
+B-107,B,Shooting Production Crew,DIT / ASC CDL Tabletop Color Specialist,labor,commercial_tier_2,day,1.0,2200.00,2200.00,23.5,517.00,2717.00
+B-108,B,Shooting Production Crew,Micro-Drone Cablecam Indoor Pilot,labor,commercial_tier_2,day,1.0,7000.00,7000.00,23.5,1645.00,8645.00
+C-101,C,Shooting Production Crew,Commercial Kitchen Soundstage Rental & Prep Facility,labor,commercial_tier_2,day,1.0,11500.00,11500.00,23.5,2702.50,14202.50
+D-101,D,Shooting Production Crew,"Culinary Hero Props, Artisan Ceramics & Organic Ingredients",labor,commercial_tier_2,flat,1.0,9000.00,9000.00,23.5,2115.00,11115.00
+E-101,E,Shooting Production Crew,Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package,labor,commercial_tier_2,day,1.0,14000.00,14000.00,23.5,3290.00,17290.00
+F-101,F,Shooting Production Crew,"Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",labor,commercial_tier_2,flat,1.0,4000.00,4000.00,23.5,940.00,4940.00
+G-101,G,Shooting Production Crew,"Kitchen Prep Supplies, Commercial Sanitation & Catering",labor,commercial_tier_2,day,1.0,3000.00,3000.00,23.5,705.00,3705.00
+H-101,H,Shooting Production Crew,SAG-AFTRA Hand Model & Chef Talent Session Fees,labor,commercial_tier_2,day,1.0,3000.00,3000.00,23.5,705.00,3705.00
+I-101,I,Shooting Production Crew,Talent Wardrobe Styling & Linen Apron Fittings,labor,commercial_tier_2,flat,1.0,1000.00,1000.00,23.5,235.00,1235.00
+J-101,J,Shooting Production Crew,Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly,labor,commercial_tier_2,flat,1.0,4500.00,4500.00,23.5,1057.50,5557.50
+K-101,K,Shooting Production Crew,"Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",labor,commercial_tier_2,flat,1.0,4500.00,4500.00,23.5,1057.50,5557.50
+L-101,L,Shooting Production Crew,Organic Food Color Grading & Microscopic Clean-up,labor,commercial_tier_2,flat,1.0,3000.00,3000.00,23.5,705.00,3705.00
+M-101,M,Shooting Production Crew,Production Equipment & Tabletop Soundstage Liability Insurance,labor,commercial_tier_2,flat,1.0,2000.00,2000.00,23.5,470.00,2470.00
+
+# SUMMARY / MARKUP BREAKDOWN
+Section A-G,Gross Production Costs,,,,,,,,101270.00
+Section H-I,Talent Costs,,,,,,,,4940.00
+Section J-L,Post-Production Costs,,,,,,,,14820.00
+Insurance (3.2%),Production Insurance,,,,,,,,3872.96
+Payroll Fringes (23.5%),Total Labor Fringes,,,,,,,,23500.00
+Subtotal Direct Costs,,,,,,,,,124902.96
+Production Fee (15.0%),Company Markup,,,,,,,,18735.44
+Contingency (10.0%),Production Contingency Reserve,,,,,,,,14363.84
+GRAND TOTAL COMMERCIAL BID,,,,,,,,,158002.24
+Cost-Per-Second (CPS),\$2633.37/sec,,,,,,,,
+`], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'aicp_bid_sheet.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded AICP Bid Sheet (aicp_bid_sheet.csv)");
+    }
+
+    function downloadAicpJSON() {
+      const blob = new Blob([`{
+  "project_title": "Culinary Asmr Commercial",
+  "client_brand": "Nordic Gastronomy Artisans",
+  "client": "Commercial Client",
+  "agency_name": "Omni Creative Partners",
+  "production_company": "Omni Studio Productions",
+  "shoot_days_count": 1,
+  "shoot_days": 1,
+  "prep_days": 2,
+  "post_days": 5,
+  "total_runtime_seconds": 60.0,
+  "shoot_location": "Culinary Soundstage, Stockholm / Brooklyn, NY",
+  "currency": "USD",
+  "labor_tier": "commercial_tier_2",
+  "line_items": [
+    {
+      "account_number": "A-101",
+      "account_code": "B-101",
+      "section": "A",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Line Producer & Food Production Coordinator",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "prep_wrap",
+      "units_count": 4.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2125.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 8500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1997.5,
+      "total_cost_usd": 10497.5,
+      "total": 10497.5
+    },
+    {
+      "account_number": "B-101",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Director of Photography & Tabletop Macro Specialist",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 5000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 5000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1175.0,
+      "total_cost_usd": 6175.0,
+      "total": 6175.0
+    },
+    {
+      "account_number": "B-102",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Master Food Stylist & Culinary Prep Chefs",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 8500.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 8500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1997.5,
+      "total_cost_usd": 10497.5,
+      "total": 10497.5
+    },
+    {
+      "account_number": "B-103",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "1st AC & Focus Puller (Macro Probe Precision)",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 1800.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 1800.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 423.0,
+      "total_cost_usd": 2223.0,
+      "total": 2223.0
+    },
+    {
+      "account_number": "B-104",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Gaffer & Tabletop Fiber Optic Lighting Technician",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2200.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 2200.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 517.0,
+      "total_cost_usd": 2717.0,
+      "total": 2717.0
+    },
+    {
+      "account_number": "B-105",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Key Grip & Motion Control Arm Operator",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2500.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 2500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 587.5,
+      "total_cost_usd": 3087.5,
+      "total": 3087.5
+    },
+    {
+      "account_number": "B-106",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "High-Resolution Binaural Audio Specialist (ASMR)",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2800.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 2800.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 658.0,
+      "total_cost_usd": 3458.0,
+      "total": 3458.0
+    },
+    {
+      "account_number": "B-107",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "DIT / ASC CDL Tabletop Color Specialist",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2200.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 2200.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 517.0,
+      "total_cost_usd": 2717.0,
+      "total": 2717.0
+    },
+    {
+      "account_number": "B-108",
+      "account_code": "B-101",
+      "section": "B",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Micro-Drone Cablecam Indoor Pilot",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 7000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 7000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1645.0,
+      "total_cost_usd": 8645.0,
+      "total": 8645.0
+    },
+    {
+      "account_number": "C-101",
+      "account_code": "B-101",
+      "section": "C",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Commercial Kitchen Soundstage Rental & Prep Facility",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 11500.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 11500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 2702.5,
+      "total_cost_usd": 14202.5,
+      "total": 14202.5
+    },
+    {
+      "account_number": "D-101",
+      "account_code": "B-101",
+      "section": "D",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Culinary Hero Props, Artisan Ceramics & Organic Ingredients",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 9000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 9000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 2115.0,
+      "total_cost_usd": 11115.0,
+      "total": 11115.0
+    },
+    {
+      "account_number": "E-101",
+      "account_code": "B-101",
+      "section": "E",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Phantom Flex 4K High-Speed & Laowa 24mm Macro Probe Package",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 14000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 14000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 3290.0,
+      "total_cost_usd": 17290.0,
+      "total": 17290.0
+    },
+    {
+      "account_number": "F-101",
+      "account_code": "B-101",
+      "section": "F",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Piston Pour Rig, Liquid Nitrogen FX & Induction Surfaces",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 4000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 4000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 940.0,
+      "total_cost_usd": 4940.0,
+      "total": 4940.0
+    },
+    {
+      "account_number": "G-101",
+      "account_code": "B-101",
+      "section": "G",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Kitchen Prep Supplies, Commercial Sanitation & Catering",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 3000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 3000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 705.0,
+      "total_cost_usd": 3705.0,
+      "total": 3705.0
+    },
+    {
+      "account_number": "H-101",
+      "account_code": "B-101",
+      "section": "H",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "SAG-AFTRA Hand Model & Chef Talent Session Fees",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "day",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 3000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 3000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 705.0,
+      "total_cost_usd": 3705.0,
+      "total": 3705.0
+    },
+    {
+      "account_number": "I-101",
+      "account_code": "B-101",
+      "section": "I",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Talent Wardrobe Styling & Linen Apron Fittings",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 1000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 1000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 235.0,
+      "total_cost_usd": 1235.0,
+      "total": 1235.0
+    },
+    {
+      "account_number": "J-101",
+      "account_code": "B-101",
+      "section": "J",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Tabletop Rhythmic Macro Editorial & Speed-Ramp Assembly",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 4500.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 4500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1057.5,
+      "total_cost_usd": 5557.5,
+      "total": 5557.5
+    },
+    {
+      "account_number": "K-101",
+      "account_code": "B-101",
+      "section": "K",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Binaural ASMR Foley Mixing, Liquid Sizzle & Atmos Mastering",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 4500.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 4500.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 1057.5,
+      "total_cost_usd": 5557.5,
+      "total": 5557.5
+    },
+    {
+      "account_number": "L-101",
+      "account_code": "B-101",
+      "section": "L",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Organic Food Color Grading & Microscopic Clean-up",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 3000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 3000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 705.0,
+      "total_cost_usd": 3705.0,
+      "total": 3705.0
+    },
+    {
+      "account_number": "M-101",
+      "account_code": "B-101",
+      "section": "M",
+      "section_code": "B",
+      "section_name": "Shooting Production Crew",
+      "description": "Production Equipment & Tabletop Soundstage Liability Insurance",
+      "crew_tier": "commercial_tier_2",
+      "category": "labor",
+      "rate_basis": "flat",
+      "units_count": 1.0,
+      "days_or_qty": 1.0,
+      "unit_rate_usd": 2000.0,
+      "rate": 3500.0,
+      "ot_hours": 0.0,
+      "subtotal": 2000.0,
+      "fringes_pct": 23.5,
+      "fringe_pct": 23.5,
+      "fringe_amount": 470.0,
+      "total_cost_usd": 2470.0,
+      "total": 2470.0
+    }
+  ],
+  "top_sheet": {
+    "section_totals": {
+      "A": 10497.5,
+      "B": 39520.0,
+      "C": 14202.5,
+      "D": 11115.0,
+      "E": 17290.0,
+      "F": 4940.0,
+      "G": 3705.0,
+      "H": 3705.0,
+      "I": 1235.0,
+      "J": 5557.5,
+      "K": 5557.5,
+      "L": 3705.0,
+      "M": 27372.96,
+      "N": 33099.28
+    },
+    "gross_production_costs_usd": 101270.0,
+    "talent_costs_usd": 4940.0,
+    "post_production_costs_usd": 14820.0,
+    "insurance_and_fringes_usd": 27372.96,
+    "subtotal_direct_costs_usd": 124902.96,
+    "direct_subtotal": 124902.96,
+    "atl_subtotal": 14202.5,
+    "btl_subtotal": 106827.5,
+    "fringe_rate": 0.235,
+    "total_fringes": 23500.0,
+    "insurance_rate": 0.032,
+    "total_insurance": 3872.96,
+    "insurance_usd": 3872.96,
+    "production_fee_pct": 15.0,
+    "markup_rate": 0.15,
+    "production_fee_usd": 18735.44,
+    "total_markup": 18735.44,
+    "contingency_pct": 10.0,
+    "contingency_rate": 0.1,
+    "contingency_usd": 14363.84,
+    "total_contingency": 14363.84,
+    "grand_total_bid_usd": 158002.24,
+    "grand_total": 158002.24,
+    "grand_total_bid": 158002.24,
+    "cost_per_second": 2633.37
+  },
+  "cost_per_second": 0.0,
+  "grand_total": 0.0,
+  "scene_allocations": []
+}`], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'aicp_bid_manifest.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded AICP Bid Manifest (aicp_bid_manifest.json)");
+    }
+
+    function downloadAicpMD() {
+      const blob = new Blob([`# AICP Production Bid Top Sheet - Culinary Asmr Commercial
+
+## Commercial Production Identification
+- **Project Title**: \`Culinary Asmr Commercial\`
+- **Client / Brand**: \`Nordic Gastronomy Artisans\`
+- **Agency**: \`Omni Creative Partners\`
+- **Production Company**: \`Omni Studio Productions\`
+- **Shoot Days**: \`1 day(s)\` | **Location**: \`Culinary Soundstage, Stockholm / Brooklyn, NY\`
+- **Total Runtime**: \`60.0s\` | **Currency**: \`USD\`
+- **Labor Tier**: \`commercial_tier_2\`
+- **Cost-Per-Second (CPS)**: **\`\$2,633.37 / second\`**
+
+## Above-The-Line (ATL) vs Below-The-Line (BTL) Analysis
+- **Above-The-Line (ATL)**: \`\$14,202.50\` (11.4% of Direct Costs)
+- **Below-The-Line (BTL)**: \`\$106,827.50\` (85.5% of Direct Costs)
+
+## AICP Summary Cost Sections (Chart of Accounts)
+| Section | Description | Subtotal (USD) |
+|---|---|---|
+| Section A | Pre-Production & Wrap Crew | \$10,497.50 |
+| Section B | Shooting Production Crew Labor | \$39,520.00 |
+| Section C | Location & Travel Expenses | \$14,202.50 |
+| Section D | Props, Wardrobe & Sets | \$11,115.00 |
+| Section E | Equipment Rental (Camera/Grip/Electric/Drone) | \$17,290.00 |
+| Section F | Studio Soundstage & Facilities | \$4,940.00 |
+| Section G | Production Expenses & Catering | \$3,705.00 |
+| Section H | Talent Labor (SAG-AFTRA) | \$3,705.00 |
+| Section I | Talent Travel & Expenses | \$1,235.00 |
+| Section J | Post-Production Offline Editorial | \$5,557.50 |
+| Section K | Post Finishing, Color Grade & VFX | \$5,557.50 |
+| Section L | Sound Design & Final Mix | \$3,705.00 |
+| Section M | Production Insurance & Payroll Fringes | \$27,372.96 |
+| Section N | Production Fee & Contingency | \$33,099.28 |
+
+## Executive Summary & Markup Breakdown
+- **Gross Production Costs (Sections A-G)**: \`\$101,270.00\`
+- **Talent Costs (Sections H-I)**: \`\$4,940.00\`
+- **Post-Production Costs (Sections J-L)**: \`\$14,820.00\`
+- **Payroll Fringes (23.5% on Labor)**: \`\$23,500.00\`
+- **Production Insurance (3.2%)**: \`\$3,872.96\`
+---
+- **Subtotal Direct Costs**: \`\$124,902.96\`
+- **Production Fee Markup (15.0%)**: \`\$18,735.44\`
+- **Contingency Reserve (10.0%)**: \`\$14,363.84\`
+---
+### **GRAND TOTAL COMMERCIAL BID**: \`\$158,002.24 USD**
+### **COST-PER-SECOND**: \`\$2,633.37 / sec**
+`], { type: 'text/markdown;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'production_budget_topsheet.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloaded Budget Top Sheet (production_budget_topsheet.md)");
+    }
+
+    function drawAicpDoughnut() {
+      const canvas = document.getElementById('aicp-doughnut-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const d = {"atl": 48000.0, "btl_shoot": 112000.0, "post": 45000.0, "fees": 40000.0};
+      const values = [d.atl, d.btl_shoot, d.post, d.fees];
+      const colors = ['#00F0FF', '#FFB800', '#00FF88', '#7E88A4'];
+      const total = values.reduce((acc, v) => acc + v, 0);
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const rOuter = 82;
+      const rInner = 52;
+
+      let startAngle = -Math.PI / 2;
+
+      values.forEach((v, i) => {
+        if (v <= 0) return;
+        const sliceAngle = (v / total) * Math.PI * 2;
+        const endAngle = startAngle + sliceAngle;
+
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.arc(cx, cy, rOuter, startAngle, endAngle);
+        ctx.arc(cx, cy, rInner, endAngle, startAngle, true);
+        ctx.closePath();
+        ctx.fill();
+
+        startAngle = endAngle;
+      });
+
+      // Center text
+      ctx.fillStyle = '#F0F2F8';
+      ctx.font = 'bold 14px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const kVal = '$' + Math.round(total / 1000) + 'K';
+      ctx.fillText(kVal, cx, cy - 4);
+
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#7E88A4';
+      ctx.fillText('TOTAL BID', cx, cy + 12);
+    }
+
     // SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Controller (PM-FEAT-018)
     let isSlateHUDOpen = false;
     function toggleSlateHUD() {
@@ -8184,7 +12663,7 @@ Artisanal Japanese Culinary Ceremonial M - Climax	V	01:00:10:00	01:00:20:00	240	
 
     function downloadMhlXML() {
       const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
-<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-10T13:49:47.987525+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-10T13:49:47.987516+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-10T13:49:47.987522+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
+<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-17T09:33:43.978159+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-17T09:33:43.978150+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-17T09:33:43.978157+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -8952,6 +13431,10 @@ Scene_02_Take_01	VA1A2	01:00:10:00	01:00:20:00	240	A02	SR02	01:00:10:00	01:00:20
         toggleHdrHUD();
       } else if (e.key === 'b' || e.key === 'B') {
         toggleStripboardHUD();
+      } else if (e.key === 'd' || e.key === 'D') {
+        toggleDroneHUD();
+      } else if (e.key === 'a' || e.key === 'A') {
+        toggleAicpHUD();
       } else if (e.key === 'Escape') {
         if (isMoCoHUDOpen) toggleMoCoHUD();
         if (isGafferHUDOpen) toggleGafferHUD();
@@ -8964,6 +13447,8 @@ Scene_02_Take_01	VA1A2	01:00:10:00	01:00:20:00	240	A02	SR02	01:00:10:00	01:00:20
         if (isStripboardHUDOpen) toggleStripboardHUD();
         if (isFilmHUDOpen) toggleFilmHUD();
         if (isSlateHUDOpen) toggleSlateHUD();
+        if (isDroneHUDOpen) toggleDroneHUD();
+        if (isAicpHUDOpen) toggleAicpHUD();
       }
     });
 
@@ -8978,6 +13463,8 @@ Scene_02_Take_01	VA1A2	01:00:10:00	01:00:20:00	240	A02	SR02	01:00:10:00	01:00:20
       refreshLutSplitFrames();
       drawVUMeter(document.getElementById('vu-meter-left'), -48);
       drawVUMeter(document.getElementById('vu-meter-right'), -48);
+      drawDroneFlightPath();
+      drawAicpDoughnut();
     });
     renderFrame(0);
   </script>
