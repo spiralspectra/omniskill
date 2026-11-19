@@ -175,6 +175,60 @@ class RuntimeTelemetry(BaseModel):
             "master_look.cube",
             "dit_cart_manifest.json",
             "dit_manifest.json",
+            # PM-FEAT-013: Spatial Audio & Binaural Soundfield
+            "spatial_audio_adm.json",
+            "spatial_audio_adm_manifest.json",
+            "ambisonic_b_format.csv",
+            "spatial_audio_ambisonic_channels.csv",
+            "webaudio_spatial_config.json",
+            "spatial_webaudio_nodes.json",
+            "webaudio_spatial_panner.json",
+            # PM-FEAT-014: Multi-Pass VFX Compositing
+            "openexr_channels.json",
+            "vfx_compositing_manifest.json",
+            "cryptomatte_manifest.json",
+            "nuke_composite.nk",
+            "nuke_composite_template.nk",
+            # PM-FEAT-015: HDR Broadcast Color Volume
+            "hdr10_metadata.json",
+            "hlg_broadcast.xml",
+            "resolve_hdr_rcm.xml",
+            "hdr_master_report.json",
+            # PM-FEAT-016: 1st AD Stripboard & DOOD
+            "movie_magic_schedule.xml",
+            "stripboard_schedule.csv",
+            "dood_matrix.csv",
+            "stripboard_summary.json",
+            # PM-FEAT-017: Physical Film Stock Emulation
+            "film_emulation_spec.json",
+            "film_stock_shader.dctl",
+            "film_stock.ale",
+            # PM-FEAT-018: Clapper Slate & ASC-MHL
+            "slate_manifest.json",
+            "asc_mhl_manifest.xml",
+            "clapper_slate_log.csv",
+            "sound_sync.ale",
+            # PM-FEAT-019: Aerial Drone Flight Paths
+            "flight_path.kml",
+            "flight_waypoints.gpx",
+            "drone_flight_sheet.csv",
+            "drone_flight_sheet.md",
+            "drone_flight_manifest.json",
+            # PM-FEAT-020: AICP Commercial Production Bid
+            "aicp_bid_sheet.csv",
+            "aicp_bid_manifest.json",
+            "production_budget_topsheet.md",
+            # PM-FEAT-021: Multi-Aspect Social Reframe & Cutdowns
+            "reframe_crop_matrix.csv",
+            "cutdown_30s.edl",
+            "cutdown_15s.edl",
+            "cutdown_06s.edl",
+            "reframe_9x16.fcpxml",
+            "delivery_reframe_manifest.json",
+            # PM-FEAT-022: Broadcast QC, PSE Flash-Safety & Rights Clearance
+            "broadcast_qc_certificate.md",
+            "rights_clearance_matrix.csv",
+            "broadcast_qc_manifest.json",
         ]
 
         for name in known_artifact_names:

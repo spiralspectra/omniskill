@@ -454,7 +454,7 @@
         "spatial_audio": {
           "bed_format": "bed_7_1_4",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Parisian Marble Flagship Runway Hall",
             "room_volume_m3": 1200.0,
             "surface_area_m2": 850.0,
             "rt60_decay_sec": 1.45,
@@ -829,6 +829,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "DJI Inspire 3 cinema quadcopter architectural location sweep, 20m AGL with golden hour raking light and smooth horizontal pan."
+        },
+        "reframe_spec": {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       },
       {
@@ -1167,7 +1326,7 @@
         "spatial_audio": {
           "bed_format": "bed_7_1_4",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Parisian Marble Flagship Runway Hall",
             "room_volume_m3": 1200.0,
             "surface_area_m2": 850.0,
             "rt60_decay_sec": 1.45,
@@ -1538,6 +1697,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "DJI Inspire 3 cinema quadcopter architectural location sweep, 20m AGL with golden hour raking light and smooth horizontal pan."
+        },
+        "reframe_spec": {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       }
     ],
@@ -1858,7 +2176,7 @@
     "master_spatial_audio": {
       "bed_format": "bed_7_1_4",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Parisian Marble Flagship Runway Hall",
         "room_volume_m3": 1200.0,
         "surface_area_m2": 850.0,
         "rt60_decay_sec": 1.45,
@@ -1902,7 +2220,7 @@
     "spatial_audio": {
       "bed_format": "bed_7_1_4",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Parisian Marble Flagship Runway Hall",
         "room_volume_m3": 1200.0,
         "surface_area_m2": 850.0,
         "rt60_decay_sec": 1.45,
@@ -2386,7 +2704,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-17T09:33:43.716035+00:00",
+        "creation_date": "2026-11-19T10:09:55.040916+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2394,7 +2712,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-17T09:33:43.716025+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.040902+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2402,7 +2720,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-17T09:33:43.716033+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.040913+00:00"
           }
         ]
       }
@@ -2458,7 +2776,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-17T09:33:43.716035+00:00",
+        "creation_date": "2026-11-19T10:09:55.040916+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2466,7 +2784,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-17T09:33:43.716025+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.040902+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2474,7 +2792,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-17T09:33:43.716033+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.040913+00:00"
           }
         ]
       }
@@ -4966,6 +5284,1670 @@
       "cost_per_second": 0.0,
       "grand_total": 0.0,
       "scene_allocations": []
+    },
+    "master_reframe_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "tiktok_9x16",
+        "cinema_239",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "reframe_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "tiktok_9x16",
+        "cinema_239",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "delivery_reframe": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "tiktok_9x16",
+        "cinema_239",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.48,
+          "center_of_interest_y": 0.44,
+          "pan_mode": "ease_in_out_coi",
+          "pan_start_coi_x": 0.44,
+          "pan_end_coi_x": 0.52,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 979,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1236,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 147,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.48, 0.44) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 763,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.48,
+              "center_of_interest_y": 0.44,
+              "pan_mode": "ease_in_out_coi",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.44) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "master_broadcast_qc": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNILUXF10H",
+        "client_brand": "Minimalist Luxury Haute Couture Silk Vel",
+        "campaign_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 7.1.4 Cinema Master (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 4444 XQ / DCP-Ready",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Haute Couture Runway Model)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Minimalist Luxury Haute Couture Silk Vel Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Minimalist Luxury Haute Couture Silk Vel)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Luxury Fashion Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-MINI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "broadcast_qc": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNILUXF10H",
+        "client_brand": "Minimalist Luxury Haute Couture Silk Vel",
+        "campaign_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 7.1.4 Cinema Master (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 4444 XQ / DCP-Ready",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Haute Couture Runway Model)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Minimalist Luxury Haute Couture Silk Vel Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Minimalist Luxury Haute Couture Silk Vel)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Luxury Fashion Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-MINI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "qc_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNILUXF10H",
+        "client_brand": "Minimalist Luxury Haute Couture Silk Vel",
+        "campaign_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 7.1.4 Cinema Master (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 4444 XQ / DCP-Ready",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Haute Couture Runway Model)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Minimalist Luxury Haute Couture Silk Vel Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Minimalist Luxury Haute Couture Silk Vel)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Luxury Fashion Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-MINI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "trafficking_spec": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNILUXF10H",
+        "client_brand": "Minimalist Luxury Haute Couture Silk Vel",
+        "campaign_title": "Minimalist Luxury Haute Couture Silk Vel",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 7.1.4 Cinema Master (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 4444 XQ / DCP-Ready",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Haute Couture Runway Model)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Minimalist Luxury Haute Couture Silk Vel Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Minimalist Luxury Haute Couture Silk Vel)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Luxury Fashion Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-MINI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
     }
   },
   "storyboard_html_path": "examples/minimalist_luxury_2_0/storyboard_preview.html",
@@ -5033,15 +7015,24 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     },
     {
       "scene_index": 2,
@@ -5084,6 +7075,12 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.48,0.44) | ease_in_out_coi | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -5091,14 +7088,17 @@
         "image_refs_detected": [
           "<image_3>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "1ca8391d-2c96-4f83-8b64-e58c868ea666",
+    "session_id": "0750018a-a93b-4900-8276-937277e060b3",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-17T09:33:43.713357+00:00",
+    "timestamp": "2026-11-19T10:09:55.038073+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -5108,67 +7108,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-17T09:33:43.713377+00:00",
-        "end_time": "2026-11-17T09:33:43.713933+00:00",
-        "duration_ms": 0.56,
+        "start_time": "2026-11-19T10:09:55.038101+00:00",
+        "end_time": "2026-11-19T10:09:55.038593+00:00",
+        "duration_ms": 0.49,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-17T09:33:43.713962+00:00",
-        "end_time": "2026-11-17T09:33:43.716256+00:00",
-        "duration_ms": 2.29,
+        "start_time": "2026-11-19T10:09:55.038607+00:00",
+        "end_time": "2026-11-19T10:09:55.041729+00:00",
+        "duration_ms": 3.12,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-17T09:33:43.716268+00:00",
-        "end_time": "2026-11-17T09:33:43.717887+00:00",
-        "duration_ms": 1.62,
+        "start_time": "2026-11-19T10:09:55.041746+00:00",
+        "end_time": "2026-11-19T10:09:55.043386+00:00",
+        "duration_ms": 1.64,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-17T09:33:43.717907+00:00",
-        "end_time": "2026-11-17T09:33:43.718050+00:00",
-        "duration_ms": 0.14,
+        "start_time": "2026-11-19T10:09:55.043410+00:00",
+        "end_time": "2026-11-19T10:09:55.043581+00:00",
+        "duration_ms": 0.17,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-17T09:33:43.718059+00:00",
-        "end_time": "2026-11-17T09:33:43.719752+00:00",
-        "duration_ms": 1.69,
+        "start_time": "2026-11-19T10:09:55.043593+00:00",
+        "end_time": "2026-11-19T10:09:55.045249+00:00",
+        "duration_ms": 1.66,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-17T09:33:43.719770+00:00",
-        "end_time": "2026-11-17T09:33:43.719774+00:00",
+        "start_time": "2026-11-19T10:09:55.045257+00:00",
+        "end_time": "2026-11-19T10:09:55.045261+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-17T09:33:43.719781+00:00",
-        "end_time": "2026-11-17T09:33:43.728053+00:00",
-        "duration_ms": 8.27,
+        "start_time": "2026-11-19T10:09:55.045266+00:00",
+        "end_time": "2026-11-19T10:09:55.055861+00:00",
+        "duration_ms": 10.59,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-17T09:33:43.738188+00:00",
-        "end_time": "2026-11-17T09:33:43.756844+00:00",
-        "duration_ms": 18.66,
+        "start_time": "2026-11-19T10:09:55.075886+00:00",
+        "end_time": "2026-11-19T10:09:55.100233+00:00",
+        "duration_ms": 24.35,
         "details": {}
       }
     ],
-    "total_duration_ms": 33.23,
+    "total_duration_ms": 42.02,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "3332544937d101ef7465a1109627e22605551d2f9e1ba33fb6466bb6502e3ed2",
-      "storyboard_preview.html": "867eb4a56d3026ebd4720b21055f1ad38f77217e68153276fe2c0169687945b0",
+      "production_bundle.json": "9812fc3a6de62b93ac3f286ee63622afafef75148dc6616fce3db714ab048cac",
+      "storyboard_preview.html": "3f92ee27068abbe0d715a7d00caafd7c4574c9542af262a153bb4d952f7a5297",
       "timeline.edl": "72ba67d55f2b8b2ece89297d8c651d0c3483be4b4f78695f76cfacd64eae4527",
       "sequence.fcpxml": "c3cc20a01c3ef0cb096b8efa6b3e20c6f6736956705775e50b05532cd94187c3",
       "shot_list.csv": "3d2cb0835a542a6a34520e631da55b1073278f3dfead2f6e29aa0f95c901a21a",
@@ -5192,6 +7192,48 @@
       "focus_puller_cue_sheet.csv": "c5ed15e4176037949794ff6a36eb9b2a6005071b7e4e16cece1ce38be785a312",
       "production_look.cube": "18e090330512874b494579bd68e23de31984eafdd1cb3ff20ebd99d02aaf8bb7",
       "dit_cart_manifest.json": "4e11e3fc81e9972535274ec660278437c740866fb028cf28c734732d3e374a63",
+      "spatial_audio_adm.json": "6ff41c9f4958c7cdb1e51cd7275c7dbf6bc65e0fc1c90707863b1366b30a47c9",
+      "spatial_audio_adm_manifest.json": "6ff41c9f4958c7cdb1e51cd7275c7dbf6bc65e0fc1c90707863b1366b30a47c9",
+      "ambisonic_b_format.csv": "372184d92101ce44890a7d219982ee23f1c357dc9c41e6dbfb9cd9f9d08fee39",
+      "spatial_audio_ambisonic_channels.csv": "372184d92101ce44890a7d219982ee23f1c357dc9c41e6dbfb9cd9f9d08fee39",
+      "spatial_webaudio_nodes.json": "8a2806230611e188432ceb0dd3684a7c8d3557e1d6768c81c9d3004fbdd74fca",
+      "webaudio_spatial_panner.json": "8a2806230611e188432ceb0dd3684a7c8d3557e1d6768c81c9d3004fbdd74fca",
+      "openexr_channels.json": "e4134c1d1c21aac4938c0982f4bf52b19e01124890b87504f3097a86eb6f08b6",
+      "vfx_compositing_manifest.json": "e4134c1d1c21aac4938c0982f4bf52b19e01124890b87504f3097a86eb6f08b6",
+      "cryptomatte_manifest.json": "fcf0342a99b098ce85d516b881eb332d7beab707756053f7360469bd55512af8",
+      "nuke_composite.nk": "da3f10705d65c06f9529a201865179931b8064ca49c671d100aec2a703e912a8",
+      "nuke_composite_template.nk": "da3f10705d65c06f9529a201865179931b8064ca49c671d100aec2a703e912a8",
+      "hdr10_metadata.json": "e98bc602ce8ee330f51966eab9c9aebb311d544a1ecbc61c8eabe828f008f9cf",
+      "hlg_broadcast.xml": "10179bc12c65e1a84fdb527ffaf3cf395b13f89d0283b4ba5ee7b9187d0fb235",
+      "resolve_hdr_rcm.xml": "78f6e7cebe11909a9f4ba05608f69441c987b0c72f96106bba2075f9117e6003",
+      "hdr_master_report.json": "3a52c075cbb15fc0158eafb4b5d69b199474075d05bb9319da5828610cd4939e",
+      "movie_magic_schedule.xml": "b01a8a4fed5e2b63348b7e8332e6ac27de362056f62bc58fbb4e3bcf01071738",
+      "stripboard_schedule.csv": "30b5832e8e72df3383d96e3f0573be3e337d658adaeaeae373408ce0149026e3",
+      "dood_matrix.csv": "53a59a01c67a7f339f04c9b1a03bbf88a708fd82e3adfc40f1990720d2b43f71",
+      "stripboard_summary.json": "6b824243d6901b46d6c310f065cb89d6f8f60cc61eb25941220865b93051fcb9",
+      "film_emulation_spec.json": "dacf2f9453598ba9d505ce6ead0fbf426431828c7f23a79563d94e15bf888eda",
+      "film_stock_shader.dctl": "5c1af26c9e396cac2a5cdbf95ffc95157ce1d4b3f22c89359945f25febd4c109",
+      "film_stock.ale": "722e0ebc63bfb37fef32a7ee619318492f8d8f0bfefabcc614ac4f899529869e",
+      "slate_manifest.json": "a70dea9aad83284f704ceaf9af2f89401be406ff77cdc1642e96833d8f45c6bc",
+      "asc_mhl_manifest.xml": "1a8cb1c8f4531583c0157316eed658c1b8d57eb656dd3f9b566066b3a6f0e276",
+      "clapper_slate_log.csv": "9dfbfb862ec8ead4cef7559abdf602c0885967e7eb2935f4ec5d4bd02c50ffe4",
+      "sound_sync.ale": "e0bf8ddbf25666c70e6a7a09c099b4891d726f2ce0cb8f07eb20e2676665f713",
+      "flight_path.kml": "7f24ba3ffc75fe85f2a2cea52196755858ae8da40f37c78808a9e87beacdedff",
+      "flight_waypoints.gpx": "c738a63b6b875b2466d8783a730c96f5d3e82bc65d2cfb9250c43c32730f47d9",
+      "drone_flight_sheet.csv": "9d59f753d04dd2f75f9cb2b119cbdf225692f02e543053210b92fa72d38fedba",
+      "drone_flight_sheet.md": "f29853c440d7d6fde53f4013c41bb6dd2eb1816826f78bbb5ad46abc7a6e9a9f",
+      "drone_flight_manifest.json": "1cea390b28b42b5361e06f27838395c49fa42117ee36a8758918e946ee435f39",
+      "aicp_bid_sheet.csv": "7ee32a566f70af493bc4d7056e0dc950ed99d81bea8e1eb0ad9cc3fdab8841b3",
+      "aicp_bid_manifest.json": "b9ac6df2985777a7a69a147c4dc5ad9672ed480fc7322fc8dc837f271af0698a",
+      "production_budget_topsheet.md": "e77975595a259db53ed8c74001126ec0d2037bc47b59956d81b39429d5a351eb",
+      "reframe_crop_matrix.csv": "c784a8a599a7333227b6de5030f4a71a18a1cff3ace637845cedc6cd097cf474",
+      "cutdown_15s.edl": "a31c2bf94a65ae1ccdec77d90c80d562e3407bdbc396dec9a97d7a2092b7742a",
+      "cutdown_06s.edl": "cd473c7f3779ade4e56af091f623027d904ebf70129f20d1db049a3389cd8edc",
+      "reframe_9x16.fcpxml": "c7dea9f6f2b4070a41553e60a6591d173cc5e7c892b863133534d823a10ab4ef",
+      "delivery_reframe_manifest.json": "0e75c1f9ebbe46e61f679ac26077dbd79a88eeb7eaa32dd87bc5b765219495d6",
+      "broadcast_qc_certificate.md": "6ce1b8f2e42966992c61755d73f47afd0505a574de1df103eee636c9d03fb1ba",
+      "rights_clearance_matrix.csv": "816d546ebb5330e48838c1074faa39ed4c3e27abc0e33bd239b438b294c3d3ef",
+      "broadcast_qc_manifest.json": "cf95e26674714e6f3864b12d1b29e424872865c0b2f01457715dd7a7fe19e63d",
       "storyboards/anchor1_character_turnaround.svg": "755b580bc8708343824f964ce4d67d847b7e630be03c1968a9a1f273c6f252f6",
       "storyboards/anchor2_environment_master.svg": "794b41dd0b00f6074ba182b1324d2e6d54d0017ce01591676309d5092cfcd6a4",
       "storyboards/anchor3_scene_1_keyframe.svg": "f9b4ed8913c9d5c06020e0354652363a958ef9cb4caed1b32461c88e9fa3303f",
@@ -5199,9 +7241,9 @@
     }
   },
   "council_report": {
-    "version": "2.10.0",
+    "version": "2.11.0",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-17T09:33:43.754481+00:00",
+    "timestamp": "2026-11-19T10:09:55.097707+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -5269,51 +7311,59 @@
           {
             "severity": "info",
             "category": "hdr_metadata_delivery",
-            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "hdr_artifacts": [
-                "hdr10_metadata.json"
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "resolve_hdr_rcm.xml",
+                "hdr_master_report.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "stripboard_schedule_delivery",
-            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "stripboard_artifacts": [
                 "movie_magic_schedule.xml",
-                "stripboard_schedule.csv"
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "stripboard_summary.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "film_emulation_delivery",
-            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "film_artifacts": [
                 "film_stock_shader.dctl",
-                "film_stock.ale"
+                "film_stock.ale",
+                "film_emulation_spec.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "clapper_slate_delivery",
-            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "slate_artifacts": [
                 "asc_mhl_manifest.xml",
-                "clapper_slate_log.csv"
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "slate_manifest.json"
               ]
             }
           },
@@ -5346,9 +7396,39 @@
                 "production_budget_topsheet.md"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_delivery",
+            "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "reframe_artifacts": [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_delivery",
+            "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "qc_artifacts": [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -5419,6 +7499,31 @@
               "grand_total": 375658.39,
               "direct_costs": 296963.16,
               "production_fee": 44544.47
+            }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_schema_compliance",
+            "message": "Multi-aspect reframe manifest verified: 12 crop windows, 2 cutdowns, safe-zone audit passed.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "deliverable_matrix_count": 12,
+              "cutdowns_count": 2,
+              "reframe_scenes_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_schema_compliance",
+            "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "overall_verdict": "PASS",
+              "pse_verdict": "PASS",
+              "loudness_verdict": "PASS",
+              "max_flash_hz": 0.8
             }
           }
         ],
@@ -5545,13 +7650,13 @@
           {
             "severity": "info",
             "category": "domain_spatial_audio_calibration",
-            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Studio Soundstage' (RT60=1.45s, 2 3D objects) aligned with domain 'luxury_fashion'.",
+            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Parisian Marble Flagship Runway Hall' (RT60=1.45s, 2 3D objects) aligned with domain 'luxury_fashion'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "luxury_fashion",
               "bed_format": "bed_7_1_4",
-              "room": "Studio Soundstage",
+              "room": "Parisian Marble Flagship Runway Hall",
               "objects": 2
             }
           },
@@ -5613,7 +7718,7 @@
           {
             "severity": "info",
             "category": "domain_clapper_slate_calibration",
-            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'luxury_fashion'.",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 2 MHL hash entries) aligned with domain 'luxury_fashion'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -5621,21 +7726,21 @@
               "slates_count": 2,
               "camera_roll": "A01",
               "sound_roll": "SR01",
-              "mhl_hash_entries": 0
+              "mhl_hash_entries": 2
             }
           },
           {
             "severity": "info",
             "category": "domain_drone_flight_calibration",
-            "message": "Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (architectural_fashion_sweep, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'luxury_fashion'.",
+            "message": "Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (architectural_fashion_sweep, speed 4.5 m/s, altitude 20.0m AGL) calibrated for domain 'luxury_fashion'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "luxury_fashion",
               "drone_rig": "DroneRigType.COMPACT_CINEMA_INSPIRE3",
               "flight_profile": "architectural_fashion_sweep",
-              "speed_mps": 0.0,
-              "altitude_agl_m": 0.0
+              "speed_mps": 4.5,
+              "altitude_agl_m": 20.0
             }
           },
           {
@@ -5649,6 +7754,41 @@
               "grand_total": 375658.39,
               "target_min": 220000.0,
               "target_max": 380000.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_reframe_strategy",
+            "message": "Multi-aspect social reframe manifest verified: 12 crop windows and 2 cutdown timelines pass platform UI safe zones for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "deliverable_matrix_count": 12,
+              "cutdowns": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_broadcast_qc",
+            "message": "Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'luxury_fashion'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "loudness_standard": "ebu_r128",
+              "overall_verdict": "PASS",
+              "legal_clearance_complete": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_cross_alignment",
+            "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain_archetype": "luxury_fashion"
             }
           }
         ],
@@ -5737,6 +7877,62 @@
             "severity": "info",
             "category": "animatic_aicp_hud",
             "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_audio_mixer",
+            "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_cc_hud",
+            "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_export_bible",
+            "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_reframe_hud",
+            "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_qc_hud",
+            "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkey_collision",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_aicp_real_data",
+            "message": "AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -6025,6 +8221,38 @@
           "omni_director/schemas.py",
           "omni_director/tools/aicp_budget.py",
           "omni_director/presets.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-021",
+        "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+        "problem_statement": "Agency social producers and finishing editors for 'Minimalist Luxury Haute Couture Silk Vel' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+        "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/delivery_reframe.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-022",
+        "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+        "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'Minimalist Luxury Haute Couture Silk Vel' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+        "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/broadcast_qc.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"
         ],

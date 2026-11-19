@@ -458,7 +458,7 @@
         "spatial_audio": {
           "bed_format": "bed_7_1_4",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "High-Speed Raceway Acoustic Envelope",
             "room_volume_m3": 250.0,
             "surface_area_m2": 280.0,
             "rt60_decay_sec": 0.38,
@@ -855,6 +855,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Freefly Alta X heavy lift cinema quadcopter high-speed vehicle tracking at 18 m/s, 35m AGL with golden hour raking lighting."
+        },
+        "reframe_spec": {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       },
       {
@@ -1197,7 +1356,7 @@
         "spatial_audio": {
           "bed_format": "bed_7_1_4",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "High-Speed Raceway Acoustic Envelope",
             "room_volume_m3": 250.0,
             "surface_area_m2": 280.0,
             "rt60_decay_sec": 0.38,
@@ -1593,6 +1752,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Freefly Alta X heavy lift cinema quadcopter high-speed vehicle tracking at 18 m/s, 35m AGL with golden hour raking lighting."
+        },
+        "reframe_spec": {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       }
     ],
@@ -1913,7 +2231,7 @@
     "master_spatial_audio": {
       "bed_format": "bed_7_1_4",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "High-Speed Raceway Acoustic Envelope",
         "room_volume_m3": 250.0,
         "surface_area_m2": 280.0,
         "rt60_decay_sec": 0.38,
@@ -1976,7 +2294,7 @@
     "spatial_audio": {
       "bed_format": "bed_7_1_4",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "High-Speed Raceway Acoustic Envelope",
         "room_volume_m3": 250.0,
         "surface_area_m2": 280.0,
         "rt60_decay_sec": 0.38,
@@ -2479,7 +2797,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-17T09:33:43.278134+00:00",
+        "creation_date": "2026-11-19T10:09:54.549501+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2487,7 +2805,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-17T09:33:43.278122+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.549486+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2495,7 +2813,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-17T09:33:43.278131+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.549498+00:00"
           }
         ]
       }
@@ -2551,7 +2869,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-17T09:33:43.278134+00:00",
+        "creation_date": "2026-11-19T10:09:54.549501+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2559,7 +2877,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-17T09:33:43.278122+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.549486+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2567,7 +2885,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-17T09:33:43.278131+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.549498+00:00"
           }
         ]
       }
@@ -5587,6 +5905,1670 @@
       "cost_per_second": 0.0,
       "grand_total": 0.0,
       "scene_allocations": []
+    },
+    "master_reframe_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "reels_9x16",
+        "tiktok_9x16",
+        "meta_feed_4x5",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "reframe_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "reels_9x16",
+        "tiktok_9x16",
+        "meta_feed_4x5",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "delivery_reframe": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "reels_9x16",
+        "tiktok_9x16",
+        "meta_feed_4x5",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "linear_track",
+          "pan_start_coi_x": 0.46,
+          "pan_end_coi_x": 0.54,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 234,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "linear_track",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "master_broadcast_qc": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIAUTO10H",
+        "client_brand": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "campaign_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Surround (ATSC A/85)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / XDCAM HD422 50Mbps",
+        "legal_disclaimer_required": true
+      },
+      "loudness_compliance": {
+        "standard": "atsc_a85",
+        "target_integrated_lufs": -24.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 2.0,
+        "max_true_peak_dbtp": -2.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": true,
+        "verdict": "PASS",
+        "notes": "Compliant with ATSC A/85 (CALM Act US Broadcast): -23.0 LUFS (target -24.0 +/- 2.0 LU), True Peak -2.2 dBTP (limit -2.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Lead Test Pilot / Telematics Specialist)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Cyberpunk Neon-Lit High-Speed Electric M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Cyberpunk Neon-Lit High-Speed Electric M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Automotive Robotics Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-CYBE-2026-001",
+      "prompt_token": "[BROADCAST_QC: ATSC_A85 -24.0LUFS/-2.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "broadcast_qc": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIAUTO10H",
+        "client_brand": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "campaign_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Surround (ATSC A/85)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / XDCAM HD422 50Mbps",
+        "legal_disclaimer_required": true
+      },
+      "loudness_compliance": {
+        "standard": "atsc_a85",
+        "target_integrated_lufs": -24.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 2.0,
+        "max_true_peak_dbtp": -2.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": true,
+        "verdict": "PASS",
+        "notes": "Compliant with ATSC A/85 (CALM Act US Broadcast): -23.0 LUFS (target -24.0 +/- 2.0 LU), True Peak -2.2 dBTP (limit -2.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Lead Test Pilot / Telematics Specialist)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Cyberpunk Neon-Lit High-Speed Electric M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Cyberpunk Neon-Lit High-Speed Electric M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Automotive Robotics Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-CYBE-2026-001",
+      "prompt_token": "[BROADCAST_QC: ATSC_A85 -24.0LUFS/-2.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "qc_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIAUTO10H",
+        "client_brand": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "campaign_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Surround (ATSC A/85)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / XDCAM HD422 50Mbps",
+        "legal_disclaimer_required": true
+      },
+      "loudness_compliance": {
+        "standard": "atsc_a85",
+        "target_integrated_lufs": -24.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 2.0,
+        "max_true_peak_dbtp": -2.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": true,
+        "verdict": "PASS",
+        "notes": "Compliant with ATSC A/85 (CALM Act US Broadcast): -23.0 LUFS (target -24.0 +/- 2.0 LU), True Peak -2.2 dBTP (limit -2.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Lead Test Pilot / Telematics Specialist)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Cyberpunk Neon-Lit High-Speed Electric M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Cyberpunk Neon-Lit High-Speed Electric M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Automotive Robotics Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-CYBE-2026-001",
+      "prompt_token": "[BROADCAST_QC: ATSC_A85 -24.0LUFS/-2.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "trafficking_spec": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIAUTO10H",
+        "client_brand": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "campaign_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Surround (ATSC A/85)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / XDCAM HD422 50Mbps",
+        "legal_disclaimer_required": true
+      },
+      "loudness_compliance": {
+        "standard": "atsc_a85",
+        "target_integrated_lufs": -24.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 2.0,
+        "max_true_peak_dbtp": -2.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": true,
+        "verdict": "PASS",
+        "notes": "Compliant with ATSC A/85 (CALM Act US Broadcast): -23.0 LUFS (target -24.0 +/- 2.0 LU), True Peak -2.2 dBTP (limit -2.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 1.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 12.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -24.0,
+          "true_peak_ceiling_dbtp": -2.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Lead Test Pilot / Telematics Specialist)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Cyberpunk Neon-Lit High-Speed Electric M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Cyberpunk Neon-Lit High-Speed Electric M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Automotive Robotics Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America Broadcast + Global Paid Digital",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-CYBE-2026-001",
+      "prompt_token": "[BROADCAST_QC: ATSC_A85 -24.0LUFS/-2.0dBTP | PSE_BT1702 PASS | PASS]"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -5654,15 +7636,24 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     },
     {
       "scene_index": 2,
@@ -5705,6 +7696,12 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | linear_track | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 1.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -5712,14 +7709,17 @@
         "image_refs_detected": [
           "<image_3>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "c440f886-8ba0-4608-a930-961581991e82",
+    "session_id": "a85d96be-b934-4d20-aed6-633773ead9b2",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-17T09:33:43.272979+00:00",
+    "timestamp": "2026-11-19T10:09:54.545437+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -5729,67 +7729,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-17T09:33:43.272997+00:00",
-        "end_time": "2026-11-17T09:33:43.275863+00:00",
-        "duration_ms": 2.87,
+        "start_time": "2026-11-19T10:09:54.545455+00:00",
+        "end_time": "2026-11-19T10:09:54.547324+00:00",
+        "duration_ms": 1.87,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-17T09:33:43.275889+00:00",
-        "end_time": "2026-11-17T09:33:43.278384+00:00",
-        "duration_ms": 2.5,
+        "start_time": "2026-11-19T10:09:54.547343+00:00",
+        "end_time": "2026-11-19T10:09:54.550421+00:00",
+        "duration_ms": 3.08,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-17T09:33:43.278396+00:00",
-        "end_time": "2026-11-17T09:33:43.280438+00:00",
-        "duration_ms": 2.04,
+        "start_time": "2026-11-19T10:09:54.550434+00:00",
+        "end_time": "2026-11-19T10:09:54.551700+00:00",
+        "duration_ms": 1.27,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-17T09:33:43.280470+00:00",
-        "end_time": "2026-11-17T09:33:43.280961+00:00",
-        "duration_ms": 0.49,
+        "start_time": "2026-11-19T10:09:54.551720+00:00",
+        "end_time": "2026-11-19T10:09:54.551866+00:00",
+        "duration_ms": 0.15,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-17T09:33:43.280985+00:00",
-        "end_time": "2026-11-17T09:33:43.283810+00:00",
-        "duration_ms": 2.82,
+        "start_time": "2026-11-19T10:09:54.551876+00:00",
+        "end_time": "2026-11-19T10:09:54.553555+00:00",
+        "duration_ms": 1.68,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-17T09:33:43.283836+00:00",
-        "end_time": "2026-11-17T09:33:43.283842+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-19T10:09:54.553564+00:00",
+        "end_time": "2026-11-19T10:09:54.553568+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-17T09:33:43.283849+00:00",
-        "end_time": "2026-11-17T09:33:43.293918+00:00",
-        "duration_ms": 10.07,
+        "start_time": "2026-11-19T10:09:54.553574+00:00",
+        "end_time": "2026-11-19T10:09:54.563743+00:00",
+        "duration_ms": 10.17,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-17T09:33:43.311698+00:00",
-        "end_time": "2026-11-17T09:33:43.330252+00:00",
-        "duration_ms": 18.55,
+        "start_time": "2026-11-19T10:09:54.588317+00:00",
+        "end_time": "2026-11-19T10:09:54.619947+00:00",
+        "duration_ms": 31.63,
         "details": {}
       }
     ],
-    "total_duration_ms": 39.35,
+    "total_duration_ms": 49.85,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "9394d2ac4e880912db3dc5f4c82fd3e394c8a6b950fe69dd0aa622c9ee6ac6e8",
-      "storyboard_preview.html": "f64f45f97b842609a72d31bb162c7bf47ab5d8422a4c7c49e5cbc962a2d53470",
+      "production_bundle.json": "90e21175a39561b7a2ef97d7dcb8d4c2ec4a73faf258a9624c4c93b3baa8fb7e",
+      "storyboard_preview.html": "1a37e6f61ec5dfaf49943b7f06658a5c6a6d1a04d1ed2ef0d25046f44f4b9b3b",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -5813,6 +7813,48 @@
       "focus_puller_cue_sheet.csv": "764c8c1507590ebf971b16ac3f9a85ed7ad9f270331334f43331ba65c50604fd",
       "production_look.cube": "4a848a61c882ea3755968f154f4faaf892d1ee057e537629fed03087d154a73f",
       "dit_cart_manifest.json": "abcc67328a058bac630f6d31f77484b996b235718111ea7bfdbb1d772926bb38",
+      "spatial_audio_adm.json": "781a774b22e148991f23992a215599297737a29c848c15d370de2a596a188452",
+      "spatial_audio_adm_manifest.json": "781a774b22e148991f23992a215599297737a29c848c15d370de2a596a188452",
+      "ambisonic_b_format.csv": "1b2e21205e558bf76950b87aec8670b3e81933419f385a4b1268f24bd187dec4",
+      "spatial_audio_ambisonic_channels.csv": "1b2e21205e558bf76950b87aec8670b3e81933419f385a4b1268f24bd187dec4",
+      "spatial_webaudio_nodes.json": "4b502f48ec0ef0c97ab9d2c6602f2922557c887ff6a5a73405d99e167232b0bc",
+      "webaudio_spatial_panner.json": "4b502f48ec0ef0c97ab9d2c6602f2922557c887ff6a5a73405d99e167232b0bc",
+      "openexr_channels.json": "d7bbea7f88255a5bfa44e7d2e36361891c7b86a04597c98ebeba5731017dc88e",
+      "vfx_compositing_manifest.json": "d7bbea7f88255a5bfa44e7d2e36361891c7b86a04597c98ebeba5731017dc88e",
+      "cryptomatte_manifest.json": "921120ba8055a41fae3558f90b402f4a2467161e223a40a2e043eceb36432e86",
+      "nuke_composite.nk": "cb44ca777dbab26ff3c3b13e2c9bdff21304db9362d08bb1c56490ace6969c27",
+      "nuke_composite_template.nk": "cb44ca777dbab26ff3c3b13e2c9bdff21304db9362d08bb1c56490ace6969c27",
+      "hdr10_metadata.json": "6e21f776ef077736643e0d0eff123a539d70fe7a128ca17ed3732dae4a7e36ba",
+      "hlg_broadcast.xml": "03a334477954de39189d1ec818014102deb1945506fd4bf9cb34d16d71f038c1",
+      "resolve_hdr_rcm.xml": "4502e0ceb858329c714312b98b747e110973e738cc6d97d4a8862884e854decd",
+      "hdr_master_report.json": "92525a12bb3921cf00116628eafcbcd6f4426c720086cf74e171fa583b554552",
+      "movie_magic_schedule.xml": "b30366bd0863f7de22c0f6fc96e841416ed89fbd31e07b314f358c541a680c0b",
+      "stripboard_schedule.csv": "54977f46883b112e99c345abbfa507606cfb514431eca911bca91ccbd8a72508",
+      "dood_matrix.csv": "53a59a01c67a7f339f04c9b1a03bbf88a708fd82e3adfc40f1990720d2b43f71",
+      "stripboard_summary.json": "b3bc94c6f47e406400173f471d7533209bf6340f1c6039a8cf77a68b9fcdf490",
+      "film_emulation_spec.json": "d77ba656c3d6020f1286b3763439ae5f36fe2ab8276fd1379f85363fdd71de91",
+      "film_stock_shader.dctl": "2c7f9bb93bc4b6d47533a0f92f25890f4b15ab1b9311082fbecd6fa647d87006",
+      "film_stock.ale": "21e00aa9db26f0f2b219c4e05f2242e0085e40e47581a015e4da1a117be69ec2",
+      "slate_manifest.json": "125be1933da5ba9f57602c99a728c3475be50d96c73558807d3202abccbf65b1",
+      "asc_mhl_manifest.xml": "794173d05157742bcd37ffad651762be2dfeb2f5f99bc0b43faa0654e4fe43bc",
+      "clapper_slate_log.csv": "90e20bf01978114171962afc849b52ecbff2d016bd8b8b59428afa3a0fd3993b",
+      "sound_sync.ale": "b1ac6d2ac2ca3cb6dd5cf6459497cbfc51e6738499db281ae6d2cf35a472a8ea",
+      "flight_path.kml": "129d6d0062ecabf9f72268110e207d222f7d5d33545730d485b6b6d518671151",
+      "flight_waypoints.gpx": "564a2bedb6c7aef4593c4469ef87136046498569ac3e9a357b84766218c2320a",
+      "drone_flight_sheet.csv": "79d85da03f21168fd0ebae24941dc17a74a5ca259b506d341f9a301785ba0779",
+      "drone_flight_sheet.md": "7aa169bfd6337f4528ee490edc893cd7580b384d5f5ede02fd480596f258b6af",
+      "drone_flight_manifest.json": "f5443eaa0ebb682574d65bbe31d4114e81f55d05292a34e5b5dd7ab2b506a413",
+      "aicp_bid_sheet.csv": "0de151eb83eafdb6ccf7ac851f5f33daf34a8db635442badf6d5f8724c7cb5f3",
+      "aicp_bid_manifest.json": "15b7e6e3e2ac19b86ad0cd00fe61c00237831d005ac4edd446b10bbbee378dfc",
+      "production_budget_topsheet.md": "3f4e8ead4578ad073316ed04243373e8e3a06ccee5d1af073f1584c063eb9101",
+      "reframe_crop_matrix.csv": "18bac11ce564cbf36908b83bdc5fa9c48b9cb4ab5d8c9b9944bcd7774f139070",
+      "cutdown_15s.edl": "8debefde1555114ea536c04d01f4682aa5a84d41ea29502aeef7d314df593066",
+      "cutdown_06s.edl": "d28f83a3dcd458d2254990ded2391bad5fdc96bdb1e00d983ade5ea889880d76",
+      "reframe_9x16.fcpxml": "226fe0ed73761d2ef6a3570a4c0b68066d32cb3c76db07637b0c977eacc945b8",
+      "delivery_reframe_manifest.json": "1dc5eb2740b17886583603719cff7b1f412e80db24c9df2c759f30d1db571354",
+      "broadcast_qc_certificate.md": "f7b7be4aba33132c7272c0546bf472a24ef9c70c10deb5e7f1a12f8abfe25154",
+      "rights_clearance_matrix.csv": "d2ba1e4ef6e2671839a36923def9dd0b0d29b4b78e4c20e7230a264169734550",
+      "broadcast_qc_manifest.json": "6dbcd5303645ab7c6534adb68f564a494ceb47283d16bf20c57e62cd3460a7ab",
       "storyboards/anchor1_character_turnaround.svg": "6fe05754a2307303f0026fafee912853eb5678a6122250fbdaa7e4d27a3de121",
       "storyboards/anchor2_environment_master.svg": "280a27068876a5cd81b6be8ada54eb57417fadb13b22ec65b1f9565f7dff8972",
       "storyboards/anchor3_scene_1_keyframe.svg": "0d4958438163583ed492d93a00a88392becc547a0144d874b35853cd85620678",
@@ -5820,9 +7862,9 @@
     }
   },
   "council_report": {
-    "version": "2.10.0",
+    "version": "2.11.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-17T09:33:43.328169+00:00",
+    "timestamp": "2026-11-19T10:09:54.617094+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -5890,51 +7932,59 @@
           {
             "severity": "info",
             "category": "hdr_metadata_delivery",
-            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "hdr_artifacts": [
-                "hdr10_metadata.json"
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "resolve_hdr_rcm.xml",
+                "hdr_master_report.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "stripboard_schedule_delivery",
-            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "stripboard_artifacts": [
                 "movie_magic_schedule.xml",
-                "stripboard_schedule.csv"
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "stripboard_summary.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "film_emulation_delivery",
-            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "film_artifacts": [
                 "film_stock_shader.dctl",
-                "film_stock.ale"
+                "film_stock.ale",
+                "film_emulation_spec.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "clapper_slate_delivery",
-            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "slate_artifacts": [
                 "asc_mhl_manifest.xml",
-                "clapper_slate_log.csv"
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "slate_manifest.json"
               ]
             }
           },
@@ -5967,9 +8017,39 @@
                 "production_budget_topsheet.md"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_delivery",
+            "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "reframe_artifacts": [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_delivery",
+            "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "qc_artifacts": [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -6040,6 +8120,31 @@
               "grand_total": 390007.59,
               "direct_costs": 308306.39,
               "production_fee": 46245.96
+            }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_schema_compliance",
+            "message": "Multi-aspect reframe manifest verified: 12 crop windows, 2 cutdowns, safe-zone audit passed.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "deliverable_matrix_count": 12,
+              "cutdowns_count": 2,
+              "reframe_scenes_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_schema_compliance",
+            "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (1.80 Hz <= 3.0 Hz), loudness=PASS.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "overall_verdict": "PASS",
+              "pse_verdict": "PASS",
+              "loudness_verdict": "PASS",
+              "max_flash_hz": 1.8
             }
           }
         ],
@@ -6166,13 +8271,13 @@
           {
             "severity": "info",
             "category": "domain_spatial_audio_calibration",
-            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Studio Soundstage' (RT60=0.38s, 2 3D objects) aligned with domain 'automotive_robotics'.",
+            "message": "Domain spatial audio verified: bed_7_1_4 Atmos bed, 'High-Speed Raceway Acoustic Envelope' (RT60=0.38s, 2 3D objects) aligned with domain 'automotive_robotics'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "automotive_robotics",
               "bed_format": "bed_7_1_4",
-              "room": "Studio Soundstage",
+              "room": "High-Speed Raceway Acoustic Envelope",
               "objects": 2
             }
           },
@@ -6234,7 +8339,7 @@
           {
             "severity": "info",
             "category": "domain_clapper_slate_calibration",
-            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'automotive_robotics'.",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 2 MHL hash entries) aligned with domain 'automotive_robotics'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -6242,21 +8347,21 @@
               "slates_count": 2,
               "camera_roll": "A01",
               "sound_roll": "SR01",
-              "mhl_hash_entries": 0
+              "mhl_hash_entries": 2
             }
           },
           {
             "severity": "info",
             "category": "domain_drone_flight_calibration",
-            "message": "Aerial drone flight spec verified: DroneRigType.HEAVY_LIFTER_ALTA_X (high_speed_vehicle_pursuit, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'automotive_robotics'.",
+            "message": "Aerial drone flight spec verified: DroneRigType.HEAVY_LIFTER_ALTA_X (high_speed_vehicle_pursuit, speed 18.0 m/s, altitude 35.0m AGL) calibrated for domain 'automotive_robotics'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "automotive_robotics",
               "drone_rig": "DroneRigType.HEAVY_LIFTER_ALTA_X",
               "flight_profile": "high_speed_vehicle_pursuit",
-              "speed_mps": 0.0,
-              "altitude_agl_m": 0.0
+              "speed_mps": 18.0,
+              "altitude_agl_m": 35.0
             }
           },
           {
@@ -6270,6 +8375,41 @@
               "grand_total": 390007.59,
               "target_min": 320000.0,
               "target_max": 480000.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_reframe_strategy",
+            "message": "Multi-aspect social reframe manifest verified: 12 crop windows and 2 cutdown timelines pass platform UI safe zones for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "deliverable_matrix_count": 12,
+              "cutdowns": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_broadcast_qc",
+            "message": "Broadcast QC & trafficking spec verified (PASS, standard=atsc_a85, legal_cleared=True) for domain 'automotive_robotics'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "loudness_standard": "atsc_a85",
+              "overall_verdict": "PASS",
+              "legal_clearance_complete": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_cross_alignment",
+            "message": "Domain cross-alignment verified: explicit domain_archetype 'automotive_robotics' matches strategic brief classification.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain_archetype": "automotive_robotics"
             }
           }
         ],
@@ -6358,6 +8498,62 @@
             "severity": "info",
             "category": "animatic_aicp_hud",
             "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_audio_mixer",
+            "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_cc_hud",
+            "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_export_bible",
+            "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_reframe_hud",
+            "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_qc_hud",
+            "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkey_collision",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_aicp_real_data",
+            "message": "AICP HUD real-data binding verified ($390,007.59 matches master_aicp_bid).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -6646,6 +8842,38 @@
           "omni_director/schemas.py",
           "omni_director/tools/aicp_budget.py",
           "omni_director/presets.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-021",
+        "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+        "problem_statement": "Agency social producers and finishing editors for 'Cyberpunk Neon-Lit High-Speed Electric M' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+        "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/delivery_reframe.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-022",
+        "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+        "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'Cyberpunk Neon-Lit High-Speed Electric M' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+        "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/broadcast_qc.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"
         ],

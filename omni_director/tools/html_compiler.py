@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.1).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.11.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -347,6 +347,12 @@ def compile_storyboard_html(
         cov_macro_cam = cov_map["macro"].craft_camera.to_summary().replace('"', '&quot;')
 
         effective_deltas = scene.conversational_edit_deltas or synthesize_conversational_deltas(scene, bible)
+        deltas_joined = " | ".join(effective_deltas) if effective_deltas else ""
+        edit_deltas_html = (
+            f'<div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> {deltas_joined}</div>'
+            if deltas_joined
+            else ""
+        )
 
         # Dynamic Speed Ramping Telemetry Badge
         speed_ramp_badge_html = ""
@@ -412,6 +418,7 @@ def compile_storyboard_html(
             <div class="scene-visual-col">
               <div class="scene-visual-frame aspect-{bible.aspect_ratio.value.replace(':', '-').replace('.', '_')}">
                 {scene_plate_svg}
+                <svg class="scene-reframe-overlay" id="scene-reframe-overlay-{s_idx}" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true" style="display:none;"></svg>
                 <div class="viewfinder-overlay" id="viewfinder-overlay-{s_idx}" aria-hidden="true">
                   <div class="vf-action-safe" title="SMPTE 90% Action Safe"></div>
                   <div class="vf-title-safe" title="SMPTE 80% Title Safe"></div>
@@ -477,7 +484,7 @@ def compile_storyboard_html(
                 </div>
               </div>
 
-              {f'<div class="edit-deltas"><strong>Conversational Edit Deltas:</strong> {" | ".join(effective_deltas)}</div>' if effective_deltas else ''}
+              {edit_deltas_html}
             </div>
           </div>
         </div>
@@ -836,7 +843,12 @@ def compile_storyboard_html(
 
 
     # Master Drone Aerial Flight Spec (PM-FEAT-019)
-    master_drone = getattr(bible, "master_drone_flight_spec", None)
+    master_drone = (
+        getattr(bible, "master_drone_spec", None)
+        or getattr(bible, "drone_spec", None)
+        or getattr(bible, "master_drone_flight", None)
+        or getattr(bible, "drone_flight", None)
+    )
     if master_drone is None:
         from omni_director.presets import get_domain_drone_spec
         domain = getattr(bible, "domain_archetype", "kinetic_action")
@@ -890,7 +902,7 @@ def compile_storyboard_html(
         w_lon = float(getattr(wp, "longitude", -118.2437))
         w_alt = float(getattr(wp, "altitude_m_agl", getattr(wp, "altitude_agl_m", 30.0)))
         w_speed = float(getattr(wp, "speed_mps", 8.0))
-        w_action = getattr(wp, "action", "PULL_REVEAL")
+        w_action = getattr(wp, "action_cue", None) or getattr(wp, "action_beat", None) or getattr(wp, "action", "PULL_REVEAL")
         drone_waypoints_data.append({
             "id": w_id,
             "lat": w_lat,
@@ -900,7 +912,9 @@ def compile_storyboard_html(
             "action": w_action,
         })
         is_comp = w_alt <= 121.92
-        status_badge = f'<span class="drone-compliance-badge {'badge-ok' if is_comp else 'badge-warn'}">{'✓ COMPLIANT' if is_comp else '⚠ WAIVER REQ'}</span>'
+        badge_cls = "badge-ok" if is_comp else "badge-warn"
+        badge_label = "✓ COMPLIANT" if is_comp else "⚠ WAIVER REQ"
+        status_badge = f'<span class="drone-compliance-badge {badge_cls}">{badge_label}</span>'
         drone_waypoints_rows.append(
             f"<tr><td><strong>{w_id}</strong></td><td>{w_lat:.6f}, {w_lon:.6f}</td><td>{w_alt:.1f} m AGL</td><td>{w_speed:.1f} m/s</td><td>{status_badge}</td></tr>"
         )
@@ -908,22 +922,50 @@ def compile_storyboard_html(
     drone_waypoints_tbody = "".join(drone_waypoints_rows)
 
     # Master AICP Commercial Production Bid Spec (PM-FEAT-020)
-    master_aicp = getattr(bible, "master_aicp_bid_spec", None)
+    master_aicp = (
+        getattr(bible, "master_aicp_bid", None)
+        or getattr(bible, "aicp_bid", None)
+        or getattr(bible, "master_aicp_budget", None)
+        or getattr(bible, "aicp_budget", None)
+    )
     if master_aicp is None:
         from omni_director.presets import get_domain_aicp_bid_spec
-        domain = getattr(bible, "domain_archetype", "kinetic_action")
-        master_aicp = get_domain_aicp_bid_spec(domain, bible.scenes)
+        master_aicp = get_domain_aicp_bid_spec(bible)
 
     aicp_ts = getattr(master_aicp, "top_sheet", None)
-    aicp_grand_total = float(getattr(aicp_ts, "grand_total", 245000.0)) if aicp_ts else 245000.0
-    aicp_atl_total = float(getattr(aicp_ts, "atl_total", getattr(aicp_ts, "above_the_line_total", 48000.0))) if aicp_ts else 48000.0
-    aicp_btl_shoot_total = float(getattr(aicp_ts, "btl_shoot_total", getattr(aicp_ts, "production_total", 112000.0))) if aicp_ts else 112000.0
-    aicp_post_total = float(getattr(aicp_ts, "post_production_total", getattr(aicp_ts, "post_total", 45000.0))) if aicp_ts else 45000.0
-    tot_dur = max(1.0, float(getattr(bible, "total_duration_sec", 30.0)))
-    aicp_cps = float(getattr(aicp_ts, "cost_per_second", getattr(aicp_ts, "cps", aicp_grand_total / tot_dur))) if aicp_ts else aicp_grand_total / tot_dur
-    aicp_insurance = float(getattr(aicp_ts, "insurance_total", 7350.0)) if aicp_ts else 7350.0
-    aicp_production_fee = float(getattr(aicp_ts, "production_fee_total", 24500.0)) if aicp_ts else 24500.0
-    aicp_contingency = float(getattr(aicp_ts, "contingency_total", 8150.0)) if aicp_ts else 8150.0
+    tot_dur = max(1.0, float(getattr(bible, "total_runtime_seconds", total_runtime_sec) or total_runtime_sec))
+    aicp_grand_total = float(
+        (getattr(aicp_ts, "grand_total_bid_usd", 0.0) or getattr(aicp_ts, "grand_total", 0.0) or getattr(aicp_ts, "grand_total_bid", 0.0))
+        if aicp_ts
+        else getattr(master_aicp, "grand_total", 0.0)
+    )
+    aicp_atl_total = float(getattr(aicp_ts, "atl_subtotal", 0.0) or 0.0) if aicp_ts else 0.0
+    aicp_post_total = float(getattr(aicp_ts, "post_production_costs_usd", 0.0) or 0.0) if aicp_ts else 0.0
+    raw_btl_subtotal = float(getattr(aicp_ts, "btl_subtotal", 0.0) or 0.0) if aicp_ts else 0.0
+    if raw_btl_subtotal > 0.0:
+        aicp_btl_shoot_total = max(0.0, round(raw_btl_subtotal - aicp_post_total, 2))
+    else:
+        aicp_btl_shoot_total = float(getattr(aicp_ts, "gross_production_costs_usd", 0.0) or 0.0) if aicp_ts else 0.0
+    aicp_cps = float(
+        (getattr(aicp_ts, "cost_per_second", 0.0) or (aicp_grand_total / tot_dur))
+        if aicp_ts
+        else (aicp_grand_total / tot_dur)
+    )
+    aicp_insurance = float(
+        (getattr(aicp_ts, "total_insurance", 0.0) or getattr(aicp_ts, "insurance_usd", 0.0) or getattr(aicp_ts, "insurance_and_fringes_usd", 0.0))
+        if aicp_ts
+        else 0.0
+    )
+    aicp_production_fee = float(
+        (getattr(aicp_ts, "production_fee_usd", 0.0) or getattr(aicp_ts, "total_markup", 0.0))
+        if aicp_ts
+        else 0.0
+    )
+    aicp_contingency = float(
+        (getattr(aicp_ts, "contingency_usd", 0.0) or getattr(aicp_ts, "total_contingency", 0.0))
+        if aicp_ts
+        else 0.0
+    )
 
     from omni_director.tools.aicp_budget import (
         generate_aicp_bid_sheet_csv,
@@ -938,27 +980,43 @@ def compile_storyboard_html(
     from collections import defaultdict
     aicp_sec_map = defaultdict(list)
     for it in getattr(master_aicp, "line_items", []):
-        sc = getattr(it, "section_code", "B")
-        if hasattr(sc, "value"):
-            sc = sc.value
-        aicp_sec_map[sc].append(it)
+        sc_obj = getattr(it, "section", None)
+        if sc_obj is not None:
+            sc = sc_obj.value if hasattr(sc_obj, "value") else str(sc_obj)
+        else:
+            sc = getattr(it, "section_code", "B")
+            if hasattr(sc, "value"):
+                sc = sc.value
+        aicp_sec_map[str(sc).upper()].append(it)
 
     aicp_accordion_list = []
-    for s_code in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]:
+    for s_code in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]:
         s_items = aicp_sec_map.get(s_code, [])
-        if not s_items:
-            continue
         s_name = AICP_SECTION_NAMES.get(s_code, f"Section {s_code}")
-        s_subtotal = sum(float(getattr(item, "subtotal", getattr(item, "total_cost", 0.0))) for item in s_items)
         s_rows = []
-        for item in s_items:
-            acct = getattr(item, "account_code", f"{s_code}-01")
-            desc = getattr(item, "description", "")
-            rate = float(getattr(item, "rate", 0.0))
-            qty = float(getattr(item, "quantity", 1.0))
-            unit = getattr(item, "unit", "days")
-            sub = float(getattr(item, "subtotal", getattr(item, "total_cost", rate * qty)))
-            s_rows.append(f"<tr><td><code>{acct}</code></td><td>{desc}</td><td>${rate:,.2f}</td><td>{qty:g} {unit}</td><td style=\"text-align:right;\"><strong>${sub:,.2f}</strong></td></tr>")
+        if s_items:
+            s_subtotal = sum(
+                float(getattr(item, "total_cost_usd", 0.0) or getattr(item, "total", 0.0) or getattr(item, "subtotal", 0.0))
+                for item in s_items
+            )
+            for item in s_items:
+                acct = getattr(item, "account_number", None) or getattr(item, "account_code", f"{s_code}-01")
+                desc = getattr(item, "description", "")
+                rate = float(getattr(item, "unit_rate_usd", 0.0) or getattr(item, "rate", 0.0))
+                qty = float(getattr(item, "units_count", 0.0) or getattr(item, "days_or_qty", 1.0))
+                unit = getattr(item, "rate_basis", None) or getattr(item, "unit", "days")
+                sub = float(getattr(item, "total_cost_usd", 0.0) or getattr(item, "total", 0.0) or getattr(item, "subtotal", rate * qty))
+                s_rows.append(f"<tr><td><code>{acct}</code></td><td>{desc}</td><td>${rate:,.2f}</td><td>{qty:g} {unit}</td><td style=\"text-align:right;\"><strong>${sub:,.2f}</strong></td></tr>")
+        elif s_code == "N" and (aicp_production_fee > 0.0 or aicp_contingency > 0.0):
+            s_subtotal = round(aicp_production_fee + aicp_contingency, 2)
+            if aicp_production_fee > 0.0:
+                fee_pct = float(getattr(aicp_ts, "production_fee_pct", 18.0)) if aicp_ts else 18.0
+                s_rows.append(f"<tr><td><code>N-101</code></td><td>Production Company Markup ({fee_pct:.1f}%)</td><td>${aicp_production_fee:,.2f}</td><td>1 flat</td><td style=\"text-align:right;\"><strong>${aicp_production_fee:,.2f}</strong></td></tr>")
+            if aicp_contingency > 0.0:
+                cont_pct = float(getattr(aicp_ts, "contingency_pct", 10.0)) if aicp_ts else 10.0
+                s_rows.append(f"<tr><td><code>N-102</code></td><td>Production Contingency Reserve ({cont_pct:.1f}%)</td><td>${aicp_contingency:,.2f}</td><td>1 flat</td><td style=\"text-align:right;\"><strong>${aicp_contingency:,.2f}</strong></td></tr>")
+        else:
+            continue
         rows_joined = "".join(s_rows)
         is_open = ' open' if s_code in ["A", "B"] else ''
         aicp_accordion_list.append(f"""
@@ -970,7 +1028,7 @@ def compile_storyboard_html(
           <div class="aicp-sec-table-wrap">
             <table class="aicp-table">
               <thead>
-                <tr><th>Code</th><th>Description</th><th>Rate</th><th>Qty / Units</th><th style="text-align:right;">Subtotal</th></tr>
+                <tr><th scope="col">Code</th><th scope="col">Description</th><th scope="col">Rate</th><th scope="col">Qty / Units</th><th scope="col" style="text-align:right;">Subtotal</th></tr>
               </thead>
               <tbody>
                 {rows_joined}
@@ -987,6 +1045,238 @@ def compile_storyboard_html(
         "post": aicp_post_total,
         "fees": aicp_insurance + aicp_production_fee + aicp_contingency,
     })
+
+    # Master Multi-Aspect Reframe & Cutdown Delivery Spec (PM-FEAT-021)
+    from html import escape as _html_escape
+    from omni_director.tools.delivery_reframe import (
+        PLATFORM_SAFE_ZONES,
+        generate_cutdown_edl,
+        generate_reframe_manifest_json,
+        generate_reframe_matrix_csv,
+        synthesize_default_reframe_manifest,
+    )
+    master_reframe = (
+        getattr(bible, "master_reframe_manifest", None)
+        or getattr(bible, "reframe_manifest", None)
+        or getattr(bible, "delivery_reframe", None)
+    )
+    if master_reframe is None:
+        master_reframe = synthesize_default_reframe_manifest(bible)
+
+    reframe_csv_escaped = generate_reframe_matrix_csv(master_reframe).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    reframe_json_escaped = generate_reframe_manifest_json(master_reframe).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    reframe_edl_15_escaped = generate_cutdown_edl(master_reframe, "cutdown_15s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    reframe_edl_06_escaped = generate_cutdown_edl(master_reframe, "bumper_06s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    reframe_edl_30_escaped = generate_cutdown_edl(master_reframe, "cutdown_30s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    scene_time_lookup: Dict[int, Tuple[float, float]] = {}
+    for idx_sc, sc_obj in enumerate(bible.scenes or [], start=1):
+        sc_idx_num = int(getattr(sc_obj, "scene_index", idx_sc))
+        scene_time_lookup[sc_idx_num] = _parse_scene_times(sc_obj, sc_idx_num, total_scenes_count, total_runtime_sec)
+
+    reframe_scenes_payload: List[Dict[str, Any]] = []
+    for sr in getattr(master_reframe, "scene_reframes", []):
+        s_num = int(getattr(sr, "scene_index", 1))
+        st_s, en_s = scene_time_lookup.get(s_num, ((s_num - 1) * 5.0, s_num * 5.0))
+        wins_by_ratio: Dict[str, Dict[str, Any]] = {}
+        for cw in getattr(sr, "crop_windows", []):
+            r_val = cw.target_aspect_ratio.value if hasattr(cw.target_aspect_ratio, "value") else str(cw.target_aspect_ratio)
+            p_val = cw.platform.value if hasattr(cw.platform, "value") else str(cw.platform)
+            if r_val not in wins_by_ratio:
+                wins_by_ratio[r_val] = {
+                    "ratio": r_val,
+                    "platform": p_val,
+                    "source_w": int(cw.source_width_px),
+                    "source_h": int(cw.source_height_px),
+                    "crop_x": int(cw.crop_x_px),
+                    "crop_y": int(cw.crop_y_px),
+                    "crop_w": int(cw.crop_width_px),
+                    "crop_h": int(cw.crop_height_px),
+                    "out_w": int(cw.output_width_px),
+                    "out_h": int(cw.output_height_px),
+                    "coi_x": float(cw.center_of_interest_x),
+                    "coi_y": float(cw.center_of_interest_y),
+                    "safe_top": float(cw.safe_zone_top_pct),
+                    "safe_bottom": float(cw.safe_zone_bottom_pct),
+                    "safe_left": float(cw.safe_zone_left_pct),
+                    "safe_right": float(cw.safe_zone_right_pct),
+                    "ui_ok": bool(cw.ui_clearance_ok),
+                    "notes": str(cw.clearance_notes),
+                }
+        pan_val = sr.pan_mode.value if hasattr(sr.pan_mode, "value") else str(sr.pan_mode)
+        reframe_scenes_payload.append({
+            "scene_index": s_num,
+            "scene_title": str(getattr(sr, "scene_title", f"Scene {s_num}")),
+            "start_sec": round(st_s, 3),
+            "end_sec": round(en_s, 3),
+            "coi_x": float(getattr(sr, "center_of_interest_x", 0.5)),
+            "coi_y": float(getattr(sr, "center_of_interest_y", 0.48)),
+            "pan_start_x": float(getattr(sr, "pan_start_coi_x", 0.5)),
+            "pan_end_x": float(getattr(sr, "pan_end_coi_x", 0.5)),
+            "pan_mode": pan_val,
+            "all_cleared": bool(getattr(sr, "all_platforms_cleared", True)),
+            "windows": wins_by_ratio,
+        })
+
+    reframe_cutdowns_payload: Dict[str, Dict[str, Any]] = {
+        "hero_master": {
+            "type": "hero_master",
+            "label": "Hero Master",
+            "target_duration_sec": float(total_runtime_sec),
+            "actual_duration_sec": float(total_runtime_sec),
+            "pacing_notes": "Full unedited master storyboard assembly.",
+            "segments": [
+                {
+                    "scene_index": rs["scene_index"],
+                    "scene_title": rs["scene_title"],
+                    "source_in_sec": rs["start_sec"],
+                    "source_out_sec": rs["end_sec"],
+                    "rec_in_smpte": f"00:00:{int(rs['start_sec']):02d}:{int(round((rs['start_sec'] % 1) * 24)):02d}",
+                    "rec_out_smpte": f"00:00:{int(rs['end_sec']):02d}:{int(round((rs['end_sec'] % 1) * 24)):02d}",
+                    "duration_sec": round(max(0.5, rs["end_sec"] - rs["start_sec"]), 2),
+                    "role": "master",
+                }
+                for rs in reframe_scenes_payload
+            ],
+        }
+    }
+    for cv in getattr(master_reframe, "cutdown_versions", []):
+        ct_val = cv.cutdown_type.value if hasattr(cv.cutdown_type, "value") else str(cv.cutdown_type)
+        reframe_cutdowns_payload[ct_val] = {
+            "type": ct_val,
+            "label": str(cv.label),
+            "target_duration_sec": float(cv.target_duration_sec),
+            "actual_duration_sec": float(cv.actual_duration_sec),
+            "pacing_notes": str(cv.pacing_notes),
+            "segments": [
+                {
+                    "scene_index": int(seg.scene_index),
+                    "scene_title": str(seg.scene_title),
+                    "source_in_sec": float(seg.source_in_sec),
+                    "source_out_sec": float(seg.source_out_sec),
+                    "rec_in_smpte": str(seg.rec_in_smpte),
+                    "rec_out_smpte": str(seg.rec_out_smpte),
+                    "duration_sec": float(seg.duration_sec),
+                    "role": str(seg.narrative_role),
+                }
+                for seg in getattr(cv, "segments", [])
+            ],
+        }
+
+    reframe_safe_zones_clean: Dict[str, Dict[str, Any]] = {}
+    for pk, pv in PLATFORM_SAFE_ZONES.items():
+        reframe_safe_zones_clean[pk] = {
+            "top_pct": float(pv["top_pct"]),
+            "bottom_pct": float(pv["bottom_pct"]),
+            "left_pct": float(pv["left_pct"]),
+            "right_pct": float(pv["right_pct"]),
+            "notes": str(pv["notes"]),
+        }
+
+    reframe_scenes_json = json.dumps(reframe_scenes_payload).replace('</script>', '<\\/script>')
+    reframe_cutdowns_json = json.dumps(reframe_cutdowns_payload).replace('</script>', '<\\/script>')
+    reframe_safe_zones_json = json.dumps(reframe_safe_zones_clean).replace('</script>', '<\\/script>')
+    reframe_has_30s = "cutdown_30s" in reframe_cutdowns_payload
+    reframe_cutdown_30_btn = (
+        '<button type="button" role="radio" aria-checked="false" class="btn-cutdown-pill" data-cutdown="cutdown_30s" onclick="setCutdownMode(\'cutdown_30s\', this)">:30s Broadcast</button>'
+        if reframe_has_30s
+        else ""
+    )
+    reframe_src_aspect = master_reframe.source_aspect_ratio.value if hasattr(master_reframe.source_aspect_ratio, "value") else str(master_reframe.source_aspect_ratio)
+    reframe_matrix_count = int(getattr(master_reframe, "deliverable_matrix_count", len(reframe_scenes_payload) * 6))
+    reframe_audit_pass = bool(getattr(master_reframe, "safe_zone_audit_passed", True))
+
+    # Master Broadcast QC, PSE Flash-Safety & Rights Clearances (PM-FEAT-022)
+    from omni_director.tools.broadcast_qc import (
+        LOUDNESS_STANDARDS,
+        generate_clearance_matrix_csv,
+        generate_qc_certificate_md,
+        generate_qc_manifest_json,
+        synthesize_default_broadcast_qc_spec,
+    )
+    master_qc = (
+        getattr(bible, "master_broadcast_qc", None)
+        or getattr(bible, "broadcast_qc", None)
+        or getattr(bible, "qc_manifest", None)
+        or getattr(bible, "trafficking_spec", None)
+    )
+    if master_qc is None:
+        master_qc = synthesize_default_broadcast_qc_spec(bible)
+
+    qc_cert_md_escaped = generate_qc_certificate_md(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    qc_clearance_csv_escaped = generate_clearance_matrix_csv(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    qc_json_escaped = generate_qc_manifest_json(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+
+    qc_slate = master_qc.trafficking_slate
+    qc_loudness = master_qc.loudness_compliance
+    qc_cert_id = _html_escape(str(getattr(master_qc, "qc_certificate_id", "QC-2026-0001")))
+    qc_overall_verdict = master_qc.overall_verdict.value if hasattr(master_qc.overall_verdict, "value") else str(master_qc.overall_verdict)
+    qc_legal_ok = bool(getattr(master_qc, "legal_clearance_complete", True))
+    qc_ad_id = _html_escape(str(getattr(qc_slate, "ad_id_isci", "OMNI202630H")))
+    qc_spot_len = int(getattr(qc_slate, "spot_length_sec", total_runtime_sec))
+    qc_head_slate_tc = _html_escape(str(getattr(qc_slate, "head_slate_tc", "00:59:50:00")))
+    qc_two_pop_tc = _html_escape(str(getattr(qc_slate, "two_pop_tc", "00:59:58:00")))
+    qc_ffoa_tc = _html_escape(str(getattr(qc_slate, "first_frame_of_action_tc", "01:00:00:00")))
+    qc_codec = _html_escape(str(getattr(qc_slate, "video_codec_profile", "Apple ProRes 422 HQ")))
+    qc_audio_cfg = _html_escape(str(getattr(qc_slate, "audio_config", "Stereo L/R + 5.1 Surround")))
+    qc_cc_embedded = bool(getattr(qc_slate, "closed_captions_embedded", True))
+
+    qc_std_key = qc_loudness.standard.value if hasattr(qc_loudness.standard, "value") else str(qc_loudness.standard)
+    qc_measured_lufs = float(getattr(qc_loudness, "measured_integrated_lufs", -24.0))
+    qc_measured_tp = float(getattr(qc_loudness, "measured_true_peak_dbtp", -2.2))
+    qc_lra = float(getattr(qc_loudness, "loudness_range_lu", 6.5))
+
+    qc_standards_clean: Dict[str, Dict[str, Any]] = {}
+    for sk, sv in LOUDNESS_STANDARDS.items():
+        qc_standards_clean[sk] = {
+            "name": str(sv["name"]),
+            "target_lufs": float(sv["target_lufs"]),
+            "tolerance_lu": float(sv["tolerance_lu"]),
+            "max_true_peak_dbtp": float(sv["max_true_peak_dbtp"]),
+            "lra_max_lu": float(sv["lra_max_lu"]),
+            "dialogue_gated": bool(sv["dialogue_gated"]),
+        }
+    qc_standards_json = json.dumps(qc_standards_clean).replace('</script>', '<\\/script>')
+
+    qc_pse_payload: List[Dict[str, Any]] = []
+    for sp in getattr(master_qc, "scene_qc_profiles", []):
+        pse = sp.pse_check
+        v_s = pse.verdict.value if hasattr(pse.verdict, "value") else str(pse.verdict)
+        qc_pse_payload.append({
+            "scene_index": int(sp.scene_index),
+            "scene_title": str(sp.scene_title),
+            "max_flash_hz": float(pse.max_flash_frequency_hz),
+            "flash_limit_hz": float(pse.flash_limit_hz),
+            "lum_delta_nits": float(pse.max_luminance_delta_nits),
+            "red_flash": bool(pse.red_saturation_flash_detected),
+            "verdict": str(v_s),
+        })
+    qc_pse_json = json.dumps(qc_pse_payload).replace('</script>', '<\\/script>')
+
+    qc_clearance_rows: List[str] = []
+    for rec in getattr(master_qc, "clearance_records", []):
+        c_id = _html_escape(str(rec.clearance_id))
+        cat_s = rec.category.value if hasattr(rec.category, "value") else str(rec.category)
+        cat_label = _html_escape(cat_s.replace("_", " ").upper())
+        item_t = _html_escape(str(rec.item_title))
+        holder = _html_escape(str(rec.rights_holder))
+        terr = _html_escape(f"{rec.territory} · {rec.term_duration}")
+        ref_c = _html_escape(str(rec.reference_code))
+        st_s = rec.status.value if hasattr(rec.status, "value") else str(rec.status)
+        st_upper = st_s.upper()
+        if st_s == "cleared":
+            st_cls = "qc-badge-pass"
+        elif st_s == "pending_sign_off":
+            st_cls = "qc-badge-warn"
+        else:
+            st_cls = "qc-badge-fail"
+        qc_clearance_rows.append(
+            f"<tr><td><code>{c_id}</code></td><td>{cat_label}</td><td>{item_t}</td><td>{holder}</td><td>{terr}</td><td><code>{ref_c}</code></td><td><span class=\"qc-status-badge {st_cls}\">{_html_escape(st_upper)}</span></td></tr>"
+        )
+    qc_clearances_tbody = "".join(qc_clearance_rows)
+    qc_overall_cls = "qc-badge-pass" if qc_overall_verdict == "PASS" else ("qc-badge-warn" if qc_overall_verdict == "WARN" else "qc-badge-fail")
+    qc_legal_cls = "qc-badge-pass" if qc_legal_ok else "qc-badge-warn"
+    qc_legal_label = "CLEARED" if qc_legal_ok else "PENDING"
 
     # Serialize bible for client-side export
     bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
@@ -1009,8 +1299,10 @@ def compile_storyboard_html(
       --border-focus: #00F0FF;
       --cyan-telemetry: #00F0FF;
       --crimson-accent: #FF3366;
+      --red-rec: #FF3B30;
       --amber-gold: #FFB800;
       --green-pass: #10B981;
+      --green-rec: #00FF88;
       --text-main: #F0F2F8;
       --text-muted: #8E95AA;
       --text-dim: #7E88A4;
@@ -4148,6 +4440,383 @@ def compile_storyboard_html(
       padding: 8px 12px;
     }}
 
+    /* PM-FEAT-021 Reframe & Cutdown HUD + PM-FEAT-022 Broadcast QC HUD */
+    .reframe-hud-modal, .qc-hud-modal {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }}
+    .reframe-modal-content, .qc-modal-content {{
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1080px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }}
+    .reframe-modal-header, .qc-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }}
+    .reframe-title-wrap, .qc-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .reframe-heading, .qc-heading {{
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }}
+    .reframe-subheading, .qc-subheading {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }}
+    .btn-reframe-close, .btn-qc-close {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }}
+    .btn-reframe-close:hover, .btn-reframe-close:focus-visible,
+    .btn-qc-close:hover, .btn-qc-close:focus-visible {{
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }}
+    .reframe-modal-body, .qc-modal-body {{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }}
+    .reframe-toolbar, .qc-toolbar {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }}
+    .reframe-controls-group, .reframe-actions, .qc-badge-group, .qc-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }}
+    .reframe-label, .qc-label {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }}
+    .reframe-select, .qc-select {{
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }}
+    .reframe-select:focus-visible, .qc-select:focus-visible,
+    .btn-cutdown-pill:focus-visible, .btn-reframe-action:focus-visible,
+    .btn-qc-action:focus-visible, .reframe-ghost-chk:focus-visible {{
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }}
+    .reframe-ghost-label {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-main);
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+    }}
+    .reframe-ghost-chk {{
+      accent-color: var(--cyan-telemetry);
+      cursor: pointer;
+      width: 14px;
+      height: 14px;
+    }}
+    .reframe-cutdown-pills {{
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }}
+    .btn-cutdown-pill, .btn-reframe-action, .btn-qc-action {{
+      background: #101420;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+    .btn-cutdown-pill:hover, .btn-reframe-action:hover, .btn-qc-action:hover {{
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+    }}
+    .btn-cutdown-pill.active {{
+      background: rgba(0, 240, 255, 0.14);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }}
+    .reframe-split-grid {{
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+    }}
+    @media (max-width: 860px) {{
+      .reframe-split-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .reframe-preview-panel, .reframe-telemetry-panel, .qc-canvas-panel, .qc-slate-panel {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .reframe-stage-wrap {{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #050508;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }}
+    #reframe-preview-canvas {{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }}
+    #reframe-mask-svg {{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }}
+    .reframe-stage-overlay {{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }}
+    .scene-reframe-overlay {{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9;
+    }}
+    .reframe-kv-grid {{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .reframe-kv-box {{
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px;
+    }}
+    .reframe-kv-lbl {{
+      display: block;
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-bottom: 2px;
+    }}
+    .reframe-seg-list {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 210px;
+      overflow-y: auto;
+    }}
+    .reframe-seg-item {{
+      width: 100%;
+      text-align: left;
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }}
+    .reframe-seg-item:hover, .reframe-seg-item:focus-visible {{
+      border-color: var(--cyan-telemetry);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 1px;
+    }}
+    .qc-slate-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 10px;
+    }}
+    .qc-slate-cell {{
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .qc-slate-lbl {{
+      display: block;
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-bottom: 3px;
+    }}
+    .qc-charts-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }}
+    @media (max-width: 860px) {{
+      .qc-charts-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    #qc-loudness-canvas, #qc-pse-canvas {{
+      width: 100%;
+      height: auto;
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      display: block;
+    }}
+    .qc-twopop-led {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+      background: #090B10;
+      transition: all 0.12s ease;
+    }}
+    .qc-twopop-led.flash {{
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+      background: rgba(255, 184, 0, 0.16);
+      box-shadow: 0 0 12px rgba(255, 184, 0, 0.45);
+    }}
+    .qc-clearances-wrap {{
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+    }}
+    .qc-clearances-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }}
+    .qc-clearances-table th {{
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 10px;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      letter-spacing: 0.04em;
+    }}
+    .qc-clearances-table td {{
+      padding: 7px 8px;
+      border-bottom: 1px solid #141824;
+      color: var(--text-main);
+      vertical-align: top;
+    }}
+    .qc-status-badge {{
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }}
+    .qc-badge-pass {{
+      color: var(--green-rec);
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.35);
+    }}
+    .qc-badge-warn {{
+      color: var(--amber-gold);
+      background: rgba(255, 184, 0, 0.12);
+      border: 1px solid rgba(255, 184, 0, 0.4);
+    }}
+    .qc-badge-fail {{
+      color: var(--red-rec);
+      background: rgba(255, 59, 48, 0.12);
+      border: 1px solid rgba(255, 59, 48, 0.4);
+    }}
+
   </style>
 </head>
 <body>
@@ -4176,7 +4845,7 @@ def compile_storyboard_html(
     </div>
     <div class="hud-actions">
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [R] Reframe · [Q] QC · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
       <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
         🎯 Optical DoF HUD [F]
@@ -4207,6 +4876,12 @@ def compile_storyboard_html(
       </button>
       <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
         💼 AICP [A]
+      </button>
+      <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
+        📐 Reframe [R]
+      </button>
+      <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
+        📡 Broadcast QC [Q]
       </button>
       <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
         🎚️ AUDIO [M]
@@ -4244,7 +4919,7 @@ def compile_storyboard_html(
         </button>
         <div class="look-grading-controls" role="group" aria-label="Color Science and Look Grading">
           <label for="look-selector" class="look-label">LOOK:</label>
-          <select id="look-selector" class="look-selector" onchange="setLook(this.value)" aria-label="ASC CDL Look Preset [L]">
+          <select id="look-selector" class="look-selector" onchange="setLook(this.value)" aria-label="ASC CDL Look Preset">
             <option value="rec709_neutral">Rec.709 Neutral</option>
             <option value="kodak_5219_vision3">Kodak 5219 Vision3</option>
             <option value="fuji_eterna_500t">Fuji Eterna 500T</option>
@@ -5491,7 +6166,7 @@ def compile_storyboard_html(
           <span style="font-size:20px;">💼</span>
           <div>
             <h2 class="aicp-heading">AICP COMMERCIAL PRODUCTION BID &amp; BUDGET HUD</h2>
-            <span class="aicp-subheading">SECTIONS A–K TOP-SHEET · ATL / BTL ALLOCATION · COST-PER-SECOND TICKER</span>
+            <span class="aicp-subheading">SECTIONS A–N TOP-SHEET · ATL / BTL ALLOCATION · COST-PER-SECOND TICKER</span>
           </div>
         </div>
         <button type="button" class="btn-aicp-close" onclick="toggleAicpHUD()" aria-label="Close AICP HUD">✕</button>
@@ -5501,7 +6176,7 @@ def compile_storyboard_html(
         <div class="aicp-toolbar">
           <div class="aicp-badge-group">
             <span class="aicp-badge">PROJECT: <strong>{bible.project_title}</strong></span>
-            <span class="aicp-badge">DURATION: <strong>{getattr(bible, 'total_duration_sec', 30.0):.1f}s</strong></span>
+            <span class="aicp-badge">DURATION: <strong>{tot_dur:.1f}s</strong></span>
             <span class="aicp-badge">STANDARD: <strong>AICP Commercial Form 2026</strong></span>
           </div>
           <div class="aicp-actions">
@@ -5541,7 +6216,7 @@ def compile_storyboard_html(
           <div class="aicp-metric-card aicp-metric-ticker">
             <span class="aicp-metric-label">COST-PER-SECOND (CPS)</span>
             <span class="aicp-metric-value" style="color:var(--amber-gold);">${aicp_cps:,.2f}</span>
-            <span class="aicp-metric-sub">Across {getattr(bible, 'total_duration_sec', 30.0):.1f}s Timeline</span>
+            <span class="aicp-metric-sub">Across {tot_dur:.1f}s Timeline</span>
           </div>
         </div>
 
@@ -5564,13 +6239,220 @@ def compile_storyboard_html(
 
           <div class="aicp-accordion-panel">
             <div class="drone-panel-header">
-              <span>SECTIONS A–K LINE-ITEM BREAKDOWN</span>
+              <span>SECTIONS A–N LINE-ITEM BREAKDOWN</span>
               <span class="badge-canvas-telemetry">ACCORDION VIEW</span>
             </div>
             <div class="aicp-accordion-wrap">
               {aicp_accordion_str}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Aspect Social Reframe & Cutdown HUD (PM-FEAT-021) -->
+  <div id="animatic-reframe-hud" class="reframe-hud-modal" role="dialog" aria-modal="true" aria-labelledby="reframe-hud-title" style="display:none;">
+    <div class="reframe-modal-content">
+      <div class="reframe-modal-header">
+        <div class="reframe-title-wrap">
+          <span style="font-size:20px;">📐</span>
+          <div>
+            <h2 id="reframe-hud-title" class="reframe-heading">MULTI-ASPECT SOCIAL REFRAME &amp; CUTDOWN HUD</h2>
+            <span class="reframe-subheading">PM-FEAT-021 · 16:9 / 9:16 / 4:5 / 1:1 / 2.39:1 · TIKTOK &amp; REELS SAFE ZONES · CUTDOWN EDL</span>
+          </div>
+        </div>
+        <button type="button" class="btn-reframe-close" onclick="toggleReframeHUD()" aria-label="Close Reframe HUD">✕</button>
+      </div>
+
+      <div class="reframe-modal-body">
+        <div class="reframe-toolbar">
+          <div class="reframe-controls-group">
+            <label for="select-reframe-ratio" class="reframe-label">TARGET RATIO:</label>
+            <select id="select-reframe-ratio" class="reframe-select" onchange="setReframeRatio(this.value)" aria-label="Target Aspect Ratio">
+              <option value="16:9">16:9 Broadcast Master (1920×1080)</option>
+              <option value="9:16" selected>9:16 TikTok / Reels / Shorts (1080×1920)</option>
+              <option value="4:5">4:5 Meta / IG Feed (1080×1350)</option>
+              <option value="1:1">1:1 Social Square (1080×1080)</option>
+              <option value="2.39:1">2.39:1 Anamorphic Scope (2048×858)</option>
+            </select>
+
+            <label class="reframe-ghost-label" for="chk-reframe-ui-ghost">
+              <input type="checkbox" id="chk-reframe-ui-ghost" class="reframe-ghost-chk" checked onchange="toggleReframeGhost(this.checked)" aria-label="Toggle TikTok and Reels UI Ghost Overlay">
+              <span>TikTok/Reels UI Ghost</span>
+            </label>
+
+            <div class="reframe-cutdown-pills" id="reframe-cutdown-pills" role="radiogroup" aria-label="Commercial Cutdown Switcher">
+              <button type="button" role="radio" aria-checked="true" class="btn-cutdown-pill active" data-cutdown="hero_master" onclick="setCutdownMode('hero_master', this)">Master ({total_runtime_sec}s)</button>
+              {reframe_cutdown_30_btn}
+              <button type="button" role="radio" aria-checked="false" class="btn-cutdown-pill" data-cutdown="cutdown_15s" onclick="setCutdownMode('cutdown_15s', this)">:15s Social</button>
+              <button type="button" role="radio" aria-checked="false" class="btn-cutdown-pill" data-cutdown="bumper_06s" onclick="setCutdownMode('bumper_06s', this)">:06s Bumper</button>
+            </div>
+          </div>
+
+          <div class="reframe-actions">
+            <button type="button" class="btn-reframe-action" id="btn-download-reframe-csv" onclick="downloadReframeCSV()" aria-label="Download Reframe Crop Matrix CSV">
+              ⤓ reframe_crop_matrix.csv
+            </button>
+            <button type="button" class="btn-reframe-action" id="btn-download-cutdown-edl" onclick="downloadCutdownEDL()" aria-label="Download Cutdown CMX 3600 EDL">
+              ⤓ cutdown.edl
+            </button>
+            <button type="button" class="btn-reframe-action" id="btn-download-reframe-json" onclick="downloadReframeJSON()" aria-label="Download Delivery Reframe Manifest JSON">
+              ⤓ delivery_reframe_manifest.json
+            </button>
+          </div>
+        </div>
+
+        <div class="reframe-split-grid">
+          <div class="reframe-preview-panel">
+            <div class="drone-panel-header">
+              <span>LIVE ASPECT MASK &amp; COI PAN/SCAN MONITOR</span>
+              <span class="badge-canvas-telemetry" id="reframe-live-badge">SRC {reframe_src_aspect} · {reframe_matrix_count} CROPS</span>
+            </div>
+            <div class="reframe-stage-wrap">
+              <canvas id="reframe-preview-canvas" width="640" height="360" role="img" aria-label="Live Multi-Aspect Reframe Preview Canvas"></canvas>
+              <svg id="reframe-mask-svg" viewBox="0 0 640 360" aria-hidden="true"></svg>
+              <div id="reframe-stage-overlay" class="reframe-stage-overlay" aria-hidden="true"></div>
+            </div>
+            <div id="reframe-clearance-status" class="reframe-label" role="status" aria-live="polite">
+              Safe-Zone Audit: {'PASS' if reframe_audit_pass else 'WARN'}
+            </div>
+          </div>
+
+          <div class="reframe-telemetry-panel">
+            <div class="drone-panel-header">
+              <span>CROP TELEMETRY &amp; CUTDOWN SEGMENTS</span>
+              <span class="badge-canvas-telemetry" id="reframe-cutdown-dur-badge">{total_runtime_sec:.1f}s TIMELINE</span>
+            </div>
+            <div class="reframe-kv-grid">
+              <div class="reframe-kv-box">
+                <span class="reframe-kv-lbl">CROP WINDOW (PX)</span>
+                <strong id="reframe-kv-crop">1216×2160 @ (1312, 0)</strong>
+              </div>
+              <div class="reframe-kv-box">
+                <span class="reframe-kv-lbl">OUTPUT DELIVERABLE</span>
+                <strong id="reframe-kv-out">1080×1920 (9:16)</strong>
+              </div>
+              <div class="reframe-kv-box">
+                <span class="reframe-kv-lbl">SUBJECT COI / PAN</span>
+                <strong id="reframe-kv-coi">0.50, 0.48 · EASE</strong>
+              </div>
+              <div class="reframe-kv-box">
+                <span class="reframe-kv-lbl">PLATFORM CLEARANCE</span>
+                <strong id="reframe-kv-clear" style="color:var(--green-rec);">UI SAFE CLEARED</strong>
+              </div>
+            </div>
+            <div id="reframe-cutdown-notes" class="reframe-label"></div>
+            <div id="reframe-seg-list" class="reframe-seg-list" role="region" aria-label="Cutdown Timeline Segments"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Broadcast QC, PSE Flash-Safety & Clearances HUD (PM-FEAT-022) -->
+  <div id="animatic-qc-hud" class="qc-hud-modal" role="dialog" aria-modal="true" aria-labelledby="qc-hud-title" style="display:none;">
+    <div class="qc-modal-content">
+      <div class="qc-modal-header">
+        <div class="qc-title-wrap">
+          <span style="font-size:20px;">📡</span>
+          <div>
+            <h2 id="qc-hud-title" class="qc-heading">BROADCAST QC, PSE FLASH SAFETY &amp; CLEARANCES HUD</h2>
+            <span class="qc-subheading">PM-FEAT-022 · AD-ID / ISCI TRAFFICKING · ATSC A/85 &amp; EBU R128 · ITU-R BT.1702 PSE · RIGHTS LOCKER</span>
+          </div>
+        </div>
+        <button type="button" class="btn-qc-close" onclick="toggleQcHUD()" aria-label="Close Broadcast QC HUD">✕</button>
+      </div>
+
+      <div class="qc-modal-body">
+        <div class="qc-toolbar">
+          <div class="qc-badge-group">
+            <span class="aicp-badge">CERT: <strong>{qc_cert_id}</strong></span>
+            <span class="aicp-badge">VERDICT: <span class="qc-status-badge {qc_overall_cls}">{qc_overall_verdict}</span></span>
+            <span class="aicp-badge">RIGHTS GATE: <span class="qc-status-badge {qc_legal_cls}">{qc_legal_label}</span></span>
+          </div>
+          <div class="qc-actions">
+            <button type="button" class="btn-qc-action" id="btn-download-qc-cert" onclick="downloadQcCertMD()" aria-label="Download Broadcast QC Certificate Markdown">
+              ⤓ broadcast_qc_certificate.md
+            </button>
+            <button type="button" class="btn-qc-action" id="btn-download-clearance-csv" onclick="downloadClearanceCSV()" aria-label="Download Rights Clearance Matrix CSV">
+              ⤓ rights_clearance_matrix.csv
+            </button>
+            <button type="button" class="btn-qc-action" id="btn-download-qc-json" onclick="downloadQcJSON()" aria-label="Download Broadcast QC Manifest JSON">
+              ⤓ broadcast_qc_manifest.json
+            </button>
+          </div>
+        </div>
+
+        <div class="qc-slate-panel">
+          <div class="drone-panel-header">
+            <span>AD-ID / ISCI TRAFFICKING SLATE &amp; LEADER SEQUENCE</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span id="qc-twopop-led" class="qc-twopop-led" role="status" aria-live="polite">2-POP READY (Fr 168)</span>
+              <button type="button" class="btn-qc-action" id="btn-qc-twopop" onclick="triggerTwoPopCue()" aria-label="Fire 1kHz 1-Frame 2-Pop Sync Cue">
+                🔔 Fire 2-Pop Cue (1kHz)
+              </button>
+            </div>
+          </div>
+          <div class="qc-slate-grid">
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">AD-ID / ISCI CODE</span><strong>{qc_ad_id}</strong></div>
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">SPOT LENGTH</span><strong>:{qc_spot_len:02d}s</strong></div>
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">LEADER SEQUENCE</span><strong>5s Slate → 2s Black → 2-Pop @ Fr 168 → {qc_ffoa_tc}</strong></div>
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">HEAD SLATE / 2-POP TC</span><strong>{qc_head_slate_tc} / {qc_two_pop_tc}</strong></div>
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">MASTER CODEC PROFILE</span><strong>{qc_codec}</strong></div>
+            <div class="qc-slate-cell"><span class="qc-slate-lbl">AUDIO &amp; CAPTIONS</span><strong>{qc_audio_cfg} · CC: {'EMBEDDED' if qc_cc_embedded else 'MISSING'}</strong></div>
+          </div>
+        </div>
+
+        <div class="qc-charts-grid">
+          <div class="qc-canvas-panel">
+            <div class="drone-panel-header">
+              <span>BROADCAST LOUDNESS &amp; TRUE PEAK</span>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <label for="select-qc-loudness" class="qc-label">STD:</label>
+                <select id="select-qc-loudness" class="qc-select" onchange="setQcLoudnessStandard(this.value)" aria-label="Broadcast Loudness Standard">
+                  <option value="atsc_a85">ATSC A/85 (-24 LKFS)</option>
+                  <option value="ebu_r128">EBU R128 (-23 LUFS)</option>
+                  <option value="streaming_aes">Streaming AES (-14 LUFS)</option>
+                  <option value="theatrical_dcp">Theatrical DCP (-27 LKFS)</option>
+                </select>
+              </div>
+            </div>
+            <canvas id="qc-loudness-canvas" width="460" height="150" role="img" aria-label="Broadcast Loudness and True Peak Compliance Meter"></canvas>
+            <div id="qc-loudness-summary" class="qc-label" role="status" aria-live="polite"></div>
+          </div>
+
+          <div class="qc-canvas-panel">
+            <div class="drone-panel-header">
+              <span>ITU-R BT.1702 / OFCOM PSE FLASH SAFETY</span>
+              <span class="badge-canvas-telemetry">3.0 Hz CEILING</span>
+            </div>
+            <canvas id="qc-pse-canvas" width="460" height="150" role="img" aria-label="ITU-R BT.1702 Photosensitive Epilepsy Flash Rate Bar Chart"></canvas>
+            <div class="qc-label">Measured per-scene optical flash frequency (Hz) vs. ITU-R BT.1702 3.0 Hz threshold.</div>
+          </div>
+        </div>
+
+        <div class="qc-clearances-wrap">
+          <div class="drone-panel-header" style="margin-bottom:8px;">
+            <span>RIGHTS &amp; LEGAL CLEARANCES LOCKER</span>
+            <span class="badge-canvas-telemetry">TALENT · MUSIC · IP · PERMITS</span>
+          </div>
+          <table class="qc-clearances-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Category</th>
+                <th scope="col">Clearance Item</th>
+                <th scope="col">Rights Holder</th>
+                <th scope="col">Territory / Term</th>
+                <th scope="col">Ref Code</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {qc_clearances_tbody}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -6155,7 +7037,7 @@ def compile_storyboard_html(
     }}
 
     function generateCubeLUT(title, size) {{
-      let out = `# Created by Omni Movie Director v2.6.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
+      let out = `# Created by Omni Movie Director v2.11.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
       const step = 1.0 / (size - 1);
       for (let b = 0; b < size; b++) {{
         const blue = b * step;
@@ -6226,7 +7108,7 @@ def compile_storyboard_html(
       const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
       const admPayload = {{
         format: "ADM_ITU_R_BS_2076",
-        version: "2.8.0",
+        version: "2.11.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {{}},
         audio_objects: spatialData.audio_objects || [],
@@ -6342,7 +7224,7 @@ def compile_storyboard_html(
 
     function downloadNukeScript() {{
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.8.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.11.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
       const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -7185,6 +8067,9 @@ def compile_storyboard_html(
 
       updateActiveElements(tSec);
       updateMoCoFromTimeline(currentFrame / (TOTAL_FRAMES || 1));
+      if (typeof isReframeHUDOpen !== 'undefined' && isReframeHUDOpen) {{
+        drawReframePreview();
+      }}
     }}
 
     function onScrub(val) {{
@@ -7659,8 +8544,564 @@ def compile_storyboard_html(
       loop();
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1/2/3, T, E, L, M, O, K, G, U, C, V, P, Escape)
+    // PM-FEAT-021: Multi-Aspect Social Reframe & Cutdown Controller
+    const REFRAME_SCENES = {reframe_scenes_json};
+    const REFRAME_CUTDOWNS = {reframe_cutdowns_json};
+    const REFRAME_SAFE_ZONES = {reframe_safe_zones_json};
+    let isReframeHUDOpen = false;
+    let reframeTargetRatio = '9:16';
+    let reframeGhostActive = true;
+    let reframeCutdownMode = 'hero_master';
+    let lastReframeOpener = null;
+
+    function toggleReframeHUD() {{
+      isReframeHUDOpen = !isReframeHUDOpen;
+      const modal = document.getElementById('animatic-reframe-hud');
+      const btn = document.getElementById('btn-reframe-animatic');
+      if (modal) {{
+        modal.style.display = isReframeHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isReframeHUDOpen);
+        btn.setAttribute('aria-expanded', isReframeHUDOpen ? 'true' : 'false');
+      }}
+      if (isReframeHUDOpen) {{
+        lastReframeOpener = document.activeElement;
+        updateCutdownUI();
+        drawReframePreview();
+        updateStoryboardReframeMasks();
+        const closeBtn = modal ? modal.querySelector('.btn-reframe-close') : null;
+        if (closeBtn) closeBtn.focus();
+        showToast('📐 Social Reframe & Cutdown HUD: ACTIVE [R]');
+      }} else {{
+        updateStoryboardReframeMasks();
+        if (lastReframeOpener && typeof lastReframeOpener.focus === 'function') {{
+          lastReframeOpener.focus();
+        }}
+      }}
+    }}
+
+    function getActiveReframeScene() {{
+      const tSec = currentFrame / (FPS || 24);
+      for (let i = 0; i < REFRAME_SCENES.length; i++) {{
+        const sc = REFRAME_SCENES[i];
+        if (tSec >= sc.start_sec && tSec < sc.end_sec) return sc;
+      }}
+      return REFRAME_SCENES[0] || null;
+    }}
+
+    function setReframeRatio(ratio) {{
+      reframeTargetRatio = ratio || '9:16';
+      drawReframePreview();
+      updateStoryboardReframeMasks();
+      showToast('📐 Target Aspect Ratio: ' + reframeTargetRatio);
+    }}
+
+    function toggleReframeGhost(checked) {{
+      reframeGhostActive = !!checked;
+      drawReframePreview();
+      showToast(reframeGhostActive ? 'TikTok/Reels UI Ghost: ON' : 'TikTok/Reels UI Ghost: OFF');
+    }}
+
+    function setCutdownMode(mode, btnEl) {{
+      reframeCutdownMode = mode || 'hero_master';
+      document.querySelectorAll('.btn-cutdown-pill').forEach(b => {{
+        b.classList.remove('active');
+        b.setAttribute('aria-checked', 'false');
+      }});
+      if (btnEl) {{
+        btnEl.classList.add('active');
+        btnEl.setAttribute('aria-checked', 'true');
+      }}
+      updateCutdownUI();
+      drawReframePreview();
+      const cd = REFRAME_CUTDOWNS[reframeCutdownMode];
+      showToast('✂️ Cutdown Mode: ' + (cd ? cd.label : reframeCutdownMode));
+    }}
+
+    function updateCutdownUI() {{
+      const cd = REFRAME_CUTDOWNS[reframeCutdownMode] || REFRAME_CUTDOWNS['hero_master'];
+      if (!cd) return;
+      const durBadge = document.getElementById('reframe-cutdown-dur-badge');
+      const notesEl = document.getElementById('reframe-cutdown-notes');
+      const listEl = document.getElementById('reframe-seg-list');
+      if (durBadge) durBadge.textContent = Number(cd.actual_duration_sec || 0).toFixed(1) + 's TIMELINE';
+      if (notesEl) notesEl.textContent = cd.pacing_notes || '';
+      if (listEl) {{
+        listEl.innerHTML = '';
+        (cd.segments || []).forEach((seg, idx) => {{
+          const item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'reframe-seg-item';
+          const leftSpan = document.createElement('span');
+          const strongEl = document.createElement('strong');
+          strongEl.textContent = '#' + (idx + 1) + ' SC' + String(seg.scene_index).padStart(2, '0');
+          leftSpan.appendChild(strongEl);
+          leftSpan.appendChild(document.createTextNode(' · ' + (seg.scene_title || 'Shot')));
+          const rightSpan = document.createElement('span');
+          rightSpan.textContent = (seg.rec_in_smpte || '00:00:00:00') + ' (' + Number(seg.duration_sec || 0).toFixed(1) + 's · ' + String(seg.role || 'action').toUpperCase() + ')';
+          item.appendChild(leftSpan);
+          item.appendChild(rightSpan);
+          item.onclick = () => {{
+            jumpToScene(seg.scene_index, seg.source_in_sec || 0);
+            drawReframePreview();
+          }};
+          listEl.appendChild(item);
+        }});
+      }}
+    }}
+
+    function updateStoryboardReframeMasks() {{
+      const showCardOverlay = isReframeHUDOpen && reframeTargetRatio !== '{reframe_src_aspect}';
+      REFRAME_SCENES.forEach(sc => {{
+        const svg = document.getElementById('scene-reframe-overlay-' + sc.scene_index);
+        if (!svg) return;
+        if (!showCardOverlay) {{
+          svg.style.display = 'none';
+          svg.innerHTML = '';
+          return;
+        }}
+        const win = (sc.windows && sc.windows[reframeTargetRatio]) || null;
+        if (!win) return;
+        const sx = (win.crop_x / (win.source_w || 3840)) * 1920;
+        const sy = (win.crop_y / (win.source_h || 2160)) * 1080;
+        const sw = (win.crop_w / (win.source_w || 3840)) * 1920;
+        const sh = (win.crop_h / (win.source_h || 2160)) * 1080;
+        const maskId = 'rf-hole-' + sc.scene_index;
+        svg.style.display = 'block';
+        svg.innerHTML =
+          '<defs><mask id="' + maskId + '"><rect width="1920" height="1080" fill="white"/><rect x="' + sx.toFixed(1) + '" y="' + sy.toFixed(1) + '" width="' + sw.toFixed(1) + '" height="' + sh.toFixed(1) + '" fill="black"/></mask></defs>' +
+          '<rect width="1920" height="1080" fill="rgba(7,8,11,0.72)" mask="url(#' + maskId + ')"/>' +
+          '<rect x="' + sx.toFixed(1) + '" y="' + sy.toFixed(1) + '" width="' + sw.toFixed(1) + '" height="' + sh.toFixed(1) + '" fill="none" stroke="#00F0FF" stroke-width="4" stroke-dasharray="14 8"/>';
+      }});
+    }}
+
+    function drawReframePreview() {{
+      const canvas = document.getElementById('reframe-preview-canvas');
+      const maskSvg = document.getElementById('reframe-mask-svg');
+      const ghostDiv = document.getElementById('reframe-stage-overlay');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const sc = getActiveReframeScene();
+      const win = (sc && sc.windows && (sc.windows[reframeTargetRatio] || sc.windows['9:16'] || sc.windows['16:9'])) || {{
+        source_w: 3840, source_h: 2160, crop_x: 1312, crop_y: 0, crop_w: 1216, crop_h: 2160,
+        out_w: 1080, out_h: 1920, coi_x: 0.5, coi_y: 0.48, platform: 'tiktok_9x16',
+        safe_top: 14, safe_bottom: 35, safe_left: 6, safe_right: 15, ui_ok: true, notes: 'Cleared'
+      }};
+
+      // Interpolate animated COI pan along current scene progress
+      const tSec = currentFrame / (FPS || 24);
+      let progress = 0.5;
+      if (sc && sc.end_sec > sc.start_sec) {{
+        progress = Math.max(0, Math.min(1, (tSec - sc.start_sec) / (sc.end_sec - sc.start_sec)));
+      }}
+      const coiX = sc ? (sc.pan_start_x + (sc.pan_end_x - sc.pan_start_x) * progress) : win.coi_x;
+      const coiY = sc ? sc.coi_y : win.coi_y;
+
+      // Draw cinema background + horizon + subject silhouette at COI
+      ctx.clearRect(0, 0, W, H);
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, '#0D1322');
+      grad.addColorStop(1, '#050609');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle 16:9 composition grid
+      ctx.strokeStyle = 'rgba(126, 136, 164, 0.14)';
+      ctx.lineWidth = 1;
+      for (let gx = 1; gx < 6; gx++) {{
+        ctx.beginPath(); ctx.moveTo((W / 6) * gx, 0); ctx.lineTo((W / 6) * gx, H); ctx.stroke();
+      }}
+      for (let gy = 1; gy < 4; gy++) {{
+        ctx.beginPath(); ctx.moveTo(0, (H / 4) * gy); ctx.lineTo(W, (H / 4) * gy); ctx.stroke();
+      }}
+
+      // Subject focal target at COI
+      const subX = coiX * W;
+      const subY = coiY * H;
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.14)';
+      ctx.beginPath();
+      ctx.arc(subX, subY, 34, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(subX, subY, 18, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Draw scene label on canvas
+      ctx.fillStyle = '#F0F2F8';
+      ctx.font = 'bold 12px "Space Grotesk", sans-serif';
+      ctx.fillText('SCENE ' + String(sc ? sc.scene_index : 1).padStart(2, '0') + ' · ' + (sc ? sc.scene_title : 'Hero'), 14, 24);
+      ctx.fillStyle = '#8E95AA';
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillText(formatSMPTE(currentFrame) + ' · COI (' + coiX.toFixed(2) + ', ' + coiY.toFixed(2) + ')', 14, 42);
+
+      // Scale crop window onto 640x360 canvas
+      const rx = (win.crop_x / (win.source_w || 3840)) * W;
+      const ry = (win.crop_y / (win.source_h || 2160)) * H;
+      const rw = (win.crop_w / (win.source_w || 3840)) * W;
+      const rh = (win.crop_h / (win.source_h || 2160)) * H;
+
+      if (maskSvg) {{
+        maskSvg.innerHTML =
+          '<defs><mask id="hud-reframe-hole"><rect width="640" height="360" fill="white"/><rect x="' + rx.toFixed(1) + '" y="' + ry.toFixed(1) + '" width="' + rw.toFixed(1) + '" height="' + rh.toFixed(1) + '" fill="black"/></mask></defs>' +
+          '<rect width="640" height="360" fill="rgba(7,8,11,0.74)" mask="url(#hud-reframe-hole)"/>' +
+          '<rect x="' + rx.toFixed(1) + '" y="' + ry.toFixed(1) + '" width="' + rw.toFixed(1) + '" height="' + rh.toFixed(1) + '" fill="none" stroke="#00F0FF" stroke-width="2"/>' +
+          '<line x1="' + (rx + rw / 3).toFixed(1) + '" y1="' + ry.toFixed(1) + '" x2="' + (rx + rw / 3).toFixed(1) + '" y2="' + (ry + rh).toFixed(1) + '" stroke="rgba(0,240,255,0.22)" stroke-width="1"/>' +
+          '<line x1="' + (rx + (2 * rw) / 3).toFixed(1) + '" y1="' + ry.toFixed(1) + '" x2="' + (rx + (2 * rw) / 3).toFixed(1) + '" y2="' + (ry + rh).toFixed(1) + '" stroke="rgba(0,240,255,0.22)" stroke-width="1"/>' +
+          '<circle cx="' + subX.toFixed(1) + '" cy="' + subY.toFixed(1) + '" r="5" fill="#FFB800"/>';
+      }}
+
+      if (ghostDiv) {{
+        if (!reframeGhostActive) {{
+          ghostDiv.innerHTML = '';
+        }} else {{
+          const zone = REFRAME_SAFE_ZONES[win.platform] || REFRAME_SAFE_ZONES['tiktok_9x16'] || {{ top_pct: 14, bottom_pct: 35, left_pct: 6, right_pct: 15 }};
+          const leftPct = (rx / W) * 100;
+          const topPct = (ry / H) * 100;
+          const widthPct = (rw / W) * 100;
+          const heightPct = (rh / H) * 100;
+          ghostDiv.innerHTML =
+            '<div style="position:absolute;left:' + leftPct.toFixed(2) + '%;top:' + topPct.toFixed(2) + '%;width:' + widthPct.toFixed(2) + '%;height:' + heightPct.toFixed(2) + '%;box-sizing:border-box;">' +
+              '<div style="position:absolute;top:0;left:0;right:0;height:' + zone.top_pct + '%;background:rgba(255,59,48,0.18);border-bottom:1px dashed rgba(255,59,48,0.7);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:8px;color:#FF8A80;">TOP UI (' + zone.top_pct + '%)</div>' +
+              '<div style="position:absolute;bottom:0;left:0;right:0;height:' + zone.bottom_pct + '%;background:rgba(255,59,48,0.20);border-top:1px dashed rgba(255,59,48,0.75);padding:4px 6px;font-family:JetBrains Mono,monospace;font-size:8px;color:#FF8A80;display:flex;align-items:flex-end;">CAPTION / CTA UNSAFE (' + zone.bottom_pct + '%)</div>' +
+              '<div style="position:absolute;top:' + zone.top_pct + '%;bottom:' + zone.bottom_pct + '%;right:0;width:' + zone.right_pct + '%;background:rgba(255,184,0,0.16);border-left:1px dashed rgba(255,184,0,0.7);display:flex;flex-direction:column;align-items:center;justify-content:space-around;font-size:9px;color:#FFB800;"><span>♥</span><span>💬</span><span>↗</span></div>' +
+            '</div>';
+        }}
+      }}
+
+      // Update telemetry readouts
+      const kvCrop = document.getElementById('reframe-kv-crop');
+      const kvOut = document.getElementById('reframe-kv-out');
+      const kvCoi = document.getElementById('reframe-kv-coi');
+      const kvClear = document.getElementById('reframe-kv-clear');
+      const clrStatus = document.getElementById('reframe-clearance-status');
+      if (kvCrop) kvCrop.textContent = win.crop_w + '×' + win.crop_h + ' @ (' + win.crop_x + ', ' + win.crop_y + ')';
+      if (kvOut) kvOut.textContent = win.out_w + '×' + win.out_h + ' (' + reframeTargetRatio + ')';
+      if (kvCoi) kvCoi.textContent = coiX.toFixed(2) + ', ' + coiY.toFixed(2) + ' · ' + (sc ? sc.pan_mode : 'ease').toUpperCase();
+      if (kvClear) {{
+        kvClear.textContent = win.ui_ok ? 'UI SAFE CLEARED' : 'UI OVERLAP WARN';
+        kvClear.style.color = win.ui_ok ? 'var(--green-rec)' : 'var(--amber-gold)';
+      }}
+      if (clrStatus) clrStatus.textContent = (win.ui_ok ? '✓ ' : '⚠ ') + (win.notes || '');
+    }}
+
+    function downloadReframeCSV() {{
+      const blob = new Blob([`{reframe_csv_escaped}`], {{ type: 'text/csv;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reframe_crop_matrix.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded Reframe Crop Matrix (reframe_crop_matrix.csv)');
+    }}
+
+    function downloadCutdownEDL() {{
+      let edlText = `{reframe_edl_15_escaped}`;
+      let fname = 'cutdown_15s.edl';
+      if (reframeCutdownMode === 'bumper_06s') {{
+        edlText = `{reframe_edl_06_escaped}`;
+        fname = 'cutdown_06s.edl';
+      }} else if (reframeCutdownMode === 'cutdown_30s') {{
+        edlText = `{reframe_edl_30_escaped}`;
+        fname = 'cutdown_30s.edl';
+      }}
+      const blob = new Blob([edlText], {{ type: 'text/plain;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded Cutdown EDL (' + fname + ')');
+    }}
+
+    function downloadReframeJSON() {{
+      const blob = new Blob([`{reframe_json_escaped}`], {{ type: 'application/json;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'delivery_reframe_manifest.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded Delivery Reframe Manifest (delivery_reframe_manifest.json)');
+    }}
+
+    // PM-FEAT-022: Broadcast QC, PSE Flash-Safety & Clearances Controller
+    const QC_STANDARDS = {qc_standards_json};
+    const QC_PSE_PROFILES = {qc_pse_json};
+    const QC_MEASURED_LUFS = {qc_measured_lufs};
+    const QC_MEASURED_TP = {qc_measured_tp};
+    const QC_LRA = {qc_lra};
+    let isQcHUDOpen = false;
+    let qcLoudnessStd = '{qc_std_key}';
+    let lastQcOpener = null;
+
+    function toggleQcHUD() {{
+      isQcHUDOpen = !isQcHUDOpen;
+      const modal = document.getElementById('animatic-qc-hud');
+      const btn = document.getElementById('btn-qc-animatic');
+      if (modal) {{
+        modal.style.display = isQcHUDOpen ? 'flex' : 'none';
+      }}
+      if (btn) {{
+        btn.classList.toggle('active', isQcHUDOpen);
+        btn.setAttribute('aria-expanded', isQcHUDOpen ? 'true' : 'false');
+      }}
+      if (isQcHUDOpen) {{
+        lastQcOpener = document.activeElement;
+        const stdSel = document.getElementById('select-qc-loudness');
+        if (stdSel && QC_STANDARDS[qcLoudnessStd]) stdSel.value = qcLoudnessStd;
+        drawQcLoudnessMeter();
+        drawQcPseChart();
+        const closeBtn = modal ? modal.querySelector('.btn-qc-close') : null;
+        if (closeBtn) closeBtn.focus();
+        showToast('📡 Broadcast QC & Clearances HUD: ACTIVE [Q]');
+      }} else {{
+        if (lastQcOpener && typeof lastQcOpener.focus === 'function') {{
+          lastQcOpener.focus();
+        }}
+      }}
+    }}
+
+    function setQcLoudnessStandard(stdKey) {{
+      if (QC_STANDARDS[stdKey]) qcLoudnessStd = stdKey;
+      drawQcLoudnessMeter();
+      const cfg = QC_STANDARDS[qcLoudnessStd];
+      if (cfg) showToast('🔊 Loudness Target: ' + cfg.name);
+    }}
+
+    function drawQcLoudnessMeter() {{
+      const canvas = document.getElementById('qc-loudness-canvas');
+      const sumEl = document.getElementById('qc-loudness-summary');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#090B10';
+      ctx.fillRect(0, 0, W, H);
+
+      const cfg = QC_STANDARDS[qcLoudnessStd] || QC_STANDARDS['atsc_a85'];
+      const target = cfg.target_lufs;
+      const tol = cfg.tolerance_lu;
+      const maxTp = cfg.max_true_peak_dbtp;
+      const measured = (typeof currentLufsEstimate === 'number' && !Number.isNaN(currentLufsEstimate)) ? currentLufsEstimate : QC_MEASURED_LUFS;
+      const delta = Math.abs(measured - target);
+      const isPass = delta <= tol && QC_MEASURED_TP <= maxTp;
+      const isWarn = !isPass && delta <= (tol + 2.0) && QC_MEASURED_TP <= maxTp;
+
+      // Scale -40 to 0 LUFS across [110 .. W-24]
+      const x0 = 110;
+      const barW = W - 134;
+      const mapDbToX = (db) => x0 + Math.max(0, Math.min(1, (db + 40) / 40)) * barW;
+
+      // Tolerance band
+      const tLowX = mapDbToX(target - tol);
+      const tHighX = mapDbToX(target + tol);
+      ctx.fillStyle = 'rgba(0, 255, 136, 0.12)';
+      ctx.fillRect(tLowX, 20, Math.max(4, tHighX - tLowX), 42);
+
+      // Integrated LUFS bar
+      ctx.fillStyle = '#7E88A4';
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillText('INTEGRATED', 12, 40);
+      ctx.fillStyle = '#181D2B';
+      ctx.fillRect(x0, 26, barW, 20);
+      const measX = mapDbToX(measured);
+      ctx.fillStyle = isPass ? '#00FF88' : (isWarn ? '#FFB800' : '#FF3B30');
+      ctx.fillRect(x0, 26, Math.max(4, measX - x0), 20);
+
+      // Target marker line
+      const targX = mapDbToX(target);
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(targX, 18); ctx.lineTo(targX, 54); ctx.stroke();
+
+      ctx.fillStyle = '#F0F2F8';
+      ctx.fillText(measured.toFixed(1) + ' LUFS (Target ' + target.toFixed(1) + ' ± ' + tol.toFixed(1) + ')', x0, 66);
+
+      // True Peak bar
+      ctx.fillStyle = '#7E88A4';
+      ctx.fillText('TRUE PEAK', 12, 100);
+      ctx.fillStyle = '#181D2B';
+      ctx.fillRect(x0, 86, barW, 18);
+      const tpX = mapDbToX(QC_MEASURED_TP);
+      const tpLimX = mapDbToX(maxTp);
+      ctx.fillStyle = QC_MEASURED_TP <= maxTp ? '#00F0FF' : '#FF3B30';
+      ctx.fillRect(x0, 86, Math.max(4, tpX - x0), 18);
+      ctx.strokeStyle = '#FF3B30';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(tpLimX, 80); ctx.lineTo(tpLimX, 110); ctx.stroke();
+
+      ctx.fillStyle = '#F0F2F8';
+      ctx.fillText(QC_MEASURED_TP.toFixed(1) + ' dBTP (Ceiling ' + maxTp.toFixed(1) + ' dBTP) · LRA ' + QC_LRA.toFixed(1) + ' LU', x0, 126);
+
+      if (sumEl) {{
+        const verdict = isPass ? 'PASS' : (isWarn ? 'WARN' : 'FAIL');
+        sumEl.textContent = cfg.name + ' · Verdict: ' + verdict + ' (' + measured.toFixed(1) + ' LUFS / ' + QC_MEASURED_TP.toFixed(1) + ' dBTP)';
+      }}
+    }}
+
+    function drawQcPseChart() {{
+      const canvas = document.getElementById('qc-pse-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#090B10';
+      ctx.fillRect(0, 0, W, H);
+
+      const padL = 36;
+      const padR = 16;
+      const padT = 18;
+      const padB = 28;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+      const maxHzScale = 6.0;
+
+      // 3.0 Hz ITU-R BT.1702 ceiling dashed line
+      const limitY = padT + plotH * (1 - 3.0 / maxHzScale);
+      ctx.strokeStyle = '#FF3B30';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(padL, limitY); ctx.lineTo(W - padR, limitY); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#FF8A80';
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillText('3.0 Hz MAX', padL + 4, limitY - 4);
+
+      const items = QC_PSE_PROFILES.length ? QC_PSE_PROFILES : [{{ scene_index: 1, max_flash_hz: 0.8, verdict: 'PASS', red_flash: false }}];
+      const slotW = plotW / items.length;
+      const barW = Math.min(44, slotW * 0.55);
+
+      items.forEach((p, idx) => {{
+        const hz = Math.min(maxHzScale, Math.max(0, Number(p.max_flash_hz || 0)));
+        const bh = (hz / maxHzScale) * plotH;
+        const bx = padL + idx * slotW + (slotW - barW) / 2;
+        const by = padT + plotH - bh;
+        const color = (p.verdict === 'FAIL' || hz > 3.0 || p.red_flash) ? '#FF3B30' : (p.verdict === 'WARN' ? '#FFB800' : '#00FF88');
+        ctx.fillStyle = color;
+        ctx.fillRect(bx, by, barW, Math.max(3, bh));
+
+        ctx.fillStyle = '#F0F2F8';
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(hz.toFixed(1) + 'Hz', bx + barW / 2, Math.max(12, by - 4));
+        ctx.fillStyle = '#8E95AA';
+        ctx.fillText('S' + String(p.scene_index).padStart(2, '0'), bx + barW / 2, H - 10);
+      }});
+      ctx.textAlign = 'left';
+    }}
+
+    function triggerTwoPopCue() {{
+      try {{
+        if (!audioCtx) initWebAudio();
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        if (audioCtx) {{
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1000.0, now);
+          // 1 frame at 24fps = 41.67ms at -20 dBFS (0.1 linear)
+          g.gain.setValueAtTime(0.0001, now);
+          g.gain.linearRampToValueAtTime(0.1, now + 0.002);
+          g.gain.setValueAtTime(0.1, now + 0.039);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.042);
+          osc.connect(g);
+          g.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.045);
+        }}
+      }} catch (err) {{
+        console.warn('2-Pop Web Audio cue unavailable:', err);
+      }}
+      const led = document.getElementById('qc-twopop-led');
+      if (led) {{
+        led.classList.add('flash');
+        led.textContent = '2-POP FIRED · 1kHz @ Fr 168';
+        setTimeout(() => {{
+          led.classList.remove('flash');
+          led.textContent = '2-POP READY (Fr 168)';
+        }}, 450);
+      }}
+      showToast('🔔 2-Pop Sync Cue Fired (1kHz @ 1 frame / -20 dBFS)');
+    }}
+
+    function downloadQcCertMD() {{
+      const blob = new Blob([`{qc_cert_md_escaped}`], {{ type: 'text/markdown;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'broadcast_qc_certificate.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded QC Certificate (broadcast_qc_certificate.md)');
+    }}
+
+    function downloadClearanceCSV() {{
+      const blob = new Blob([`{qc_clearance_csv_escaped}`], {{ type: 'text/csv;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'rights_clearance_matrix.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded Clearances Matrix (rights_clearance_matrix.csv)');
+    }}
+
+    function downloadQcJSON() {{
+      const blob = new Blob([`{qc_json_escaped}`], {{ type: 'application/json;charset=utf-8;' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'broadcast_qc_manifest.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded Broadcast QC Manifest (broadcast_qc_manifest.json)');
+    }}
+
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, Escape)
     window.addEventListener('keydown', (e) => {{
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === 'Escape') {{
+        if (isMoCoHUDOpen) toggleMoCoHUD();
+        if (isGafferHUDOpen) toggleGafferHUD();
+        if (isVPStageModalOpen) toggleVPStageModal();
+        if (isDoFHUDOpen) toggleDoFHUD();
+        if (isDitLutHUDOpen) toggleDitLutHUD();
+        if (isSpatialHUDOpen) toggleSpatialHUD();
+        if (isVfxHUDOpen) toggleVfxHUD();
+        if (isHdrHUDOpen) toggleHdrHUD();
+        if (isStripboardHUDOpen) toggleStripboardHUD();
+        if (isFilmHUDOpen) toggleFilmHUD();
+        if (isSlateHUDOpen) toggleSlateHUD();
+        if (isDroneHUDOpen) toggleDroneHUD();
+        if (isAicpHUDOpen) toggleAicpHUD();
+        if (isReframeHUDOpen) toggleReframeHUD();
+        if (isQcHUDOpen) toggleQcHUD();
+        const mixerEl = document.getElementById('animatic-audio-mixer');
+        if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
+        return;
+      }}
       const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
       if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
 
@@ -7727,20 +9168,10 @@ def compile_storyboard_html(
         toggleDroneHUD();
       }} else if (e.key === 'a' || e.key === 'A') {{
         toggleAicpHUD();
-      }} else if (e.key === 'Escape') {{
-        if (isMoCoHUDOpen) toggleMoCoHUD();
-        if (isGafferHUDOpen) toggleGafferHUD();
-        if (isVPStageModalOpen) toggleVPStageModal();
-        if (isDoFHUDOpen) toggleDoFHUD();
-        if (isDitLutHUDOpen) toggleDitLutHUD();
-        if (isSpatialHUDOpen) toggleSpatialHUD();
-        if (isVfxHUDOpen) toggleVfxHUD();
-        if (isHdrHUDOpen) toggleHdrHUD();
-        if (isStripboardHUDOpen) toggleStripboardHUD();
-        if (isFilmHUDOpen) toggleFilmHUD();
-        if (isSlateHUDOpen) toggleSlateHUD();
-        if (isDroneHUDOpen) toggleDroneHUD();
-        if (isAicpHUDOpen) toggleAicpHUD();
+      }} else if (e.key === 'r' || e.key === 'R') {{
+        toggleReframeHUD();
+      }} else if (e.key === 'q' || e.key === 'Q') {{
+        toggleQcHUD();
       }}
     }});
 
@@ -7757,6 +9188,10 @@ def compile_storyboard_html(
       drawVUMeter(document.getElementById('vu-meter-right'), -48);
       drawDroneFlightPath();
       drawAicpDoughnut();
+      updateCutdownUI();
+      drawReframePreview();
+      drawQcLoudnessMeter();
+      drawQcPseChart();
     }});
     renderFrame(0);
   </script>

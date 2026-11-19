@@ -2,6 +2,28 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.11.0] - 2026-11-19
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-021: Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine (`16:9` -> `9:16` / `4:5` / `1:1` / `2.39:1` & `:30s` / `:15s` / `:06s` Cutdowns)**:
+  - Module: `omni_director/tools/delivery_reframe.py`.
+  - Added schemas in `omni_director/schemas.py`: `DeliverableAspectRatio`, `CutdownFormatType`, `SocialDeliveryPlatform`, `ReframePanMode`, `AspectCropWindowSpec`, `CutdownSegmentSpec`, `CutdownVersionSpec`, `SceneReframeSpec`, and `DeliveryReframeManifestSpec` (plus `ReframeManifest` / `SceneReframe` aliases). Bound `reframe_spec` to `ScenePromptSpec` and `master_reframe_manifest` to `MasterProductionBible`.
+  - Implemented pan-and-scan crop window calculation (`calculate_aspect_crop_window`), platform UI overlay safe-zone clearance auditing (`check_platform_ui_clearance` for Broadcast TV, TikTok 9:16, Instagram Reels 9:16, YouTube Shorts 9:16, Meta 4:5, Cinema 2.39:1), and automated broadcast/social editorial cutdown synthesis (`synthesize_cutdown_versions`).
+  - Implemented multi-format deliverables: crop & safe-zone matrix CSV (`reframe_crop_matrix.csv`), CMX 3600 cutdown EDLs (`cutdown_30s.edl`, `cutdown_15s.edl`, `cutdown_06s.edl`), FCPXML v1.10 vertical reframe timeline (`reframe_9x16.fcpxml`), JSON manifest (`delivery_reframe_manifest.json`), and complete bundle export (`export_reframe_bundle`).
+  - CRAFT prompt token formatting (`format_reframe_prompt_token`) and Dark-Room Cinema Animatic Multi-Aspect Social Reframe HUD (`#animatic-reframe-hud`, hotkey `R`).
+- **PM-FEAT-022: Broadcast QC, ITU-R BT.1702 / Harding FPA PSE Flash-Safety, ATSC A/85 & EBU R128 Loudness, Ad-ID Trafficking Slate & Legal Rights Clearance Engine**:
+  - Module: `omni_director/tools/broadcast_qc.py`.
+  - Added schemas in `omni_director/schemas.py`: `BroadcastLoudnessStandard`, `ClearanceCategory`, `ClearanceStatus`, `QcVerdictStatus`, `BroadcastTraffickingSlateSpec`, `LoudnessComplianceSpec`, `PseFlashCheckSpec`, `ClearanceRecordSpec`, `SceneQcProfileSpec`, and `MasterBroadcastQcSpec` (plus `BroadcastQcSpec` / `BroadcastQcManifest` / `SceneQcSpec` aliases). Bound `broadcast_qc` to `ScenePromptSpec` and `master_broadcast_qc` to `MasterProductionBible`.
+  - Implemented ITU-R BT.1702 / Ofcom Harding FPA photosensitive epilepsy flash-safety evaluation (`evaluate_scene_pse_safety`), ATSC A/85 / EBU R128 / Streaming AES / DCP loudness validation (`validate_loudness_target`), and rights clearance matrix synthesis (`synthesize_rights_clearances`).
+  - Implemented multi-format Broadcast QC deliverables: Executive Markdown QC Certificate (`broadcast_qc_certificate.md`), Rights & Clearances Matrix CSV (`rights_clearance_matrix.csv`), JSON manifest (`broadcast_qc_manifest.json`), and complete bundle export (`export_broadcast_qc_bundle`).
+  - CRAFT prompt token formatting (`format_broadcast_qc_prompt_token`) and Dark-Room Cinema Animatic Broadcast QC & Rights Clearance HUD (`#animatic-qc-hud`, hotkey `Q`).
+- **CLI, NLE Export, Telemetry & Council Runtime Fixes**:
+  - `omni_director/doctor.py`: Replaced hardcoded `"2.6.0"` version in `DoctorReport` with `DEFAULT_DOCTOR_VERSION` (`2.11.0`).
+  - `omni_director/telemetry.py`: Extended `known_artifact_names` SHA-256 verification coverage across all PM-FEAT-013..022 artifacts.
+  - `omni_director/tools/nle_export.py`: Added PM-FEAT-015..018 (`hdr`, `stripboard`, `film`, `slate`) and PM-FEAT-021..022 (`reframe`, `qc`) bundles to `export_all_nle_artifacts`, coerced `Path -> str`, and replaced silent `except Exception: pass` blocks with `logger.warning`.
+  - `omni_director/cli.py`: Added `--format reframe` and `--format qc`, wired missing granular flags (`--webaudio-config`, `--hdr-json`, `--hlg-xml`, `--resolve-hdr`, `--movie-magic-xml`, `--stripboard-csv`, `--dood-csv`, `--reframe-csv`, `--cutdown-edl`, `--reframe-fcpxml`, `--reframe-json`, `--qc-cert`, `--clearance-csv`, `--qc-json`), and unified `--format all` and `--export-nle` parity across PM-FEAT-001..022 with post-export `telemetry.json` manifest refresh.
+  - `scripts/run_daily_council.py`: Fixed `export_hdr_bundle(bundle.bible, out_path)` so scene HDR telemetry populates, standardized on `lens_package.csv` (removing duplicate `optical_lens_framing.csv`), deduplicated `nle_artifacts_exported`, and hardened `bump_project_version` with targeted regex replacements.
+
 ## [2.10.0] - 2026-11-17
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

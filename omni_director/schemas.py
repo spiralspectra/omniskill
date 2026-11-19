@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.10.0"
+__version__ = "2.11.0"
 
 
 class RegimeType(str, Enum):
@@ -740,6 +740,9 @@ class KineticContactChain(BaseModel):
             f"4. Evidence: {self.environmental_evidence} -> "
             f"5. Recovery: {self.recovery_stance}"
         )
+
+    def to_prompt_string(self) -> str:
+        return self.to_chain_str()
 
 
 class ActionBeatSpec(BaseModel):
@@ -1766,7 +1769,6 @@ class AicpTopSheetSummarySpec(BaseModel):
     insurance_rate: float = Field(default=0.032, description="Production insurance percentage (3.2%)")
     total_insurance: float = Field(default=0.0, description="Total production insurance in USD")
     insurance_usd: float = Field(default=0.0, description="Total production insurance in USD alias")
-    insurance_usd: float = Field(default=0.0, description="Total production insurance in USD alias")
     production_fee_pct: float = Field(default=18.0, ge=0.0, le=50.0, description="Production company fee percentage")
     markup_rate: float = Field(default=0.18, description="Production company fee percentage alias")
     production_fee_usd: float = Field(default=0.0, ge=0.0, description="Production company fee USD")
@@ -1821,6 +1823,310 @@ AicpBid = MasterAicpBidSpec
 AicpBidSpec = MasterAicpBidSpec
 AicpLineItem = AicpLineItemSpec
 AicpTopSheet = AicpTopSheetSummarySpec
+
+
+# ==============================================================================
+# PM-FEAT-021: Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdowns
+# ==============================================================================
+
+
+class DeliverableAspectRatio(str, Enum):
+    """Supported multi-aspect delivery ratios (PM-FEAT-021)."""
+    RATIO_16_9 = "16:9"
+    RATIO_9_16 = "9:16"
+    RATIO_4_5 = "4:5"
+    RATIO_1_1 = "1:1"
+    RATIO_2_39_1 = "2.39:1"
+
+
+class CutdownFormatType(str, Enum):
+    """Standard broadcast and paid-social cutdown durations (PM-FEAT-021)."""
+    HERO_MASTER = "hero_master"
+    CUTDOWN_30S = "cutdown_30s"
+    CUTDOWN_15S = "cutdown_15s"
+    BUMPER_06S = "bumper_06s"
+
+    # Lowercase aliases
+    hero_master = "hero_master"
+    cutdown_30s = "cutdown_30s"
+    cutdown_15s = "cutdown_15s"
+    bumper_06s = "bumper_06s"
+
+
+class SocialDeliveryPlatform(str, Enum):
+    """Target broadcast, social, and theatrical delivery platforms (PM-FEAT-021)."""
+    BROADCAST_TV = "broadcast_tv"
+    TIKTOK_9X16 = "tiktok_9x16"
+    REELS_9X16 = "reels_9x16"
+    YOUTUBE_SHORTS_9X16 = "youtube_shorts_9x16"
+    META_FEED_4X5 = "meta_feed_4x5"
+    CINEMA_239 = "cinema_239"
+
+    # Lowercase aliases
+    broadcast_tv = "broadcast_tv"
+    tiktok_9x16 = "tiktok_9x16"
+    reels_9x16 = "reels_9x16"
+    youtube_shorts_9x16 = "youtube_shorts_9x16"
+    meta_feed_4x5 = "meta_feed_4x5"
+    cinema_239 = "cinema_239"
+
+
+class ReframePanMode(str, Enum):
+    """Pan-and-scan reframe interpolation mode across aspect ratios (PM-FEAT-021)."""
+    STATIC_LOCK = "static_lock"
+    LINEAR_TRACK = "linear_track"
+    EASE_IN_OUT_COI = "ease_in_out_coi"
+    PILLARBOX_SAFE = "pillarbox_safe"
+
+    # Lowercase aliases
+    static_lock = "static_lock"
+    linear_track = "linear_track"
+    ease_in_out_coi = "ease_in_out_coi"
+    pillarbox_safe = "pillarbox_safe"
+
+
+class AspectCropWindowSpec(BaseModel):
+    """Calculated pan-and-scan crop window and platform UI safe-zone check (PM-FEAT-021)."""
+    target_aspect_ratio: DeliverableAspectRatio = Field(default=DeliverableAspectRatio.RATIO_9_16)
+    platform: SocialDeliveryPlatform = Field(default=SocialDeliveryPlatform.TIKTOK_9X16)
+    source_width_px: int = Field(default=3840, ge=320)
+    source_height_px: int = Field(default=2160, ge=240)
+    crop_x_px: int = Field(default=1312, ge=0)
+    crop_y_px: int = Field(default=0, ge=0)
+    crop_width_px: int = Field(default=1216, ge=100)
+    crop_height_px: int = Field(default=2160, ge=100)
+    output_width_px: int = Field(default=1080, ge=100)
+    output_height_px: int = Field(default=1920, ge=100)
+    center_of_interest_x: float = Field(default=0.5, ge=0.0, le=1.0, description="Normalized horizontal subject COI [0..1]")
+    center_of_interest_y: float = Field(default=0.48, ge=0.0, le=1.0, description="Normalized vertical subject COI [0..1]")
+    pan_mode: ReframePanMode = Field(default=ReframePanMode.EASE_IN_OUT_COI)
+    safe_zone_top_pct: float = Field(default=14.0, ge=0.0, le=50.0)
+    safe_zone_bottom_pct: float = Field(default=35.0, ge=0.0, le=50.0)
+    safe_zone_right_pct: float = Field(default=15.0, ge=0.0, le=50.0)
+    safe_zone_left_pct: float = Field(default=6.0, ge=0.0, le=50.0)
+    ui_clearance_ok: bool = Field(default=True, description="True if COI clears platform UI overlay zones")
+    clearance_notes: str = Field(default="Subject COI clears platform UI overlays.")
+
+    @property
+    def aspect_ratio(self) -> DeliverableAspectRatio:
+        return self.target_aspect_ratio
+
+    @property
+    def coi_x(self) -> float:
+        return self.center_of_interest_x
+
+    @property
+    def coi_y(self) -> float:
+        return self.center_of_interest_y
+
+
+class CutdownSegmentSpec(BaseModel):
+    """Single editorial cutdown segment mapped from source master to deliverable timeline (PM-FEAT-021)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    source_in_sec: float = Field(default=0.0, ge=0.0)
+    source_out_sec: float = Field(default=5.0, ge=0.0)
+    record_in_sec: float = Field(default=0.0, ge=0.0)
+    record_out_sec: float = Field(default=5.0, ge=0.0)
+    duration_sec: float = Field(default=5.0, ge=0.1)
+    src_in_smpte: str = Field(default="00:00:00:00")
+    src_out_smpte: str = Field(default="00:00:05:00")
+    rec_in_smpte: str = Field(default="00:00:00:00")
+    rec_out_smpte: str = Field(default="00:00:05:00")
+    narrative_role: str = Field(default="hook", description="hook, hero_action, product_reveal, cta_endcard")
+
+
+class CutdownVersionSpec(BaseModel):
+    """Complete broadcast/social cutdown timeline assembly (:30s, :15s, :06s) (PM-FEAT-021)."""
+    cutdown_type: CutdownFormatType = Field(default=CutdownFormatType.CUTDOWN_15S)
+    label: str = Field(default=":15s Social Cutdown")
+    target_duration_sec: float = Field(default=15.0, ge=1.0)
+    actual_duration_sec: float = Field(default=15.0, ge=0.1)
+    target_aspect_ratio: DeliverableAspectRatio = Field(default=DeliverableAspectRatio.RATIO_9_16)
+    target_platform: SocialDeliveryPlatform = Field(default=SocialDeliveryPlatform.TIKTOK_9X16)
+    segments: List[CutdownSegmentSpec] = Field(default_factory=list)
+    cta_endcard_sec: float = Field(default=2.0, ge=0.0)
+    pacing_notes: str = Field(default="Hook within 1.5s, hero product payoff by endcard.")
+
+
+class SceneReframeSpec(BaseModel):
+    """Per-scene multi-aspect reframe and COI tracking specification (PM-FEAT-021)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    source_aspect_ratio: DeliverableAspectRatio = Field(default=DeliverableAspectRatio.RATIO_16_9)
+    center_of_interest_x: float = Field(default=0.5, ge=0.0, le=1.0)
+    center_of_interest_y: float = Field(default=0.48, ge=0.0, le=1.0)
+    pan_mode: ReframePanMode = Field(default=ReframePanMode.EASE_IN_OUT_COI)
+    pan_start_coi_x: float = Field(default=0.5, ge=0.0, le=1.0)
+    pan_end_coi_x: float = Field(default=0.5, ge=0.0, le=1.0)
+    crop_windows: List[AspectCropWindowSpec] = Field(default_factory=list)
+    all_platforms_cleared: bool = Field(default=True)
+    prompt_token: str = Field(default="")
+
+    @property
+    def coi_x(self) -> float:
+        return self.center_of_interest_x
+
+    @property
+    def coi_y(self) -> float:
+        return self.center_of_interest_y
+
+
+class DeliveryReframeManifestSpec(BaseModel):
+    """Master multi-aspect social reframe, safe-zone matrix, and cutdown manifest (PM-FEAT-021)."""
+    project_title: str = Field(default="Commercial Production")
+    source_aspect_ratio: DeliverableAspectRatio = Field(default=DeliverableAspectRatio.RATIO_16_9)
+    source_resolution: str = Field(default="3840x2160")
+    fps: int = Field(default=24, ge=12, le=120)
+    target_platforms: List[SocialDeliveryPlatform] = Field(default_factory=list)
+    scene_reframes: List[SceneReframeSpec] = Field(default_factory=list)
+    cutdown_versions: List[CutdownVersionSpec] = Field(default_factory=list)
+    safe_zone_audit_passed: bool = Field(default=True)
+    deliverable_matrix_count: int = Field(default=0, ge=0)
+    prompt_token: str = Field(default="")
+
+
+# ==============================================================================
+# PM-FEAT-022: Broadcast QC, PSE Flash-Safety, Loudness & Rights Clearance
+# ==============================================================================
+
+
+class BroadcastLoudnessStandard(str, Enum):
+    """Broadcast, streaming, and theatrical audio loudness standards (PM-FEAT-022)."""
+    ATSC_A85 = "atsc_a85"
+    EBU_R128 = "ebu_r128"
+    STREAMING_AES = "streaming_aes"
+    THEATRICAL_DCP = "theatrical_dcp"
+
+    # Lowercase aliases
+    atsc_a85 = "atsc_a85"
+    ebu_r128 = "ebu_r128"
+    streaming_aes = "streaming_aes"
+    theatrical_dcp = "theatrical_dcp"
+
+
+class ClearanceCategory(str, Enum):
+    """Legal, union, and regulatory rights clearance categories (PM-FEAT-022)."""
+    TALENT_USAGE = "talent_usage"
+    MUSIC_SYNC_MASTER = "music_sync_master"
+    BRAND_TRADEMARK_IP = "brand_trademark_ip"
+    LOCATION_PERMIT = "location_permit"
+    AERIAL_FAA_WAIVER = "aerial_faa_waiver"
+
+    # Lowercase aliases
+    talent_usage = "talent_usage"
+    music_sync_master = "music_sync_master"
+    brand_trademark_ip = "brand_trademark_ip"
+    location_permit = "location_permit"
+    aerial_faa_waiver = "aerial_faa_waiver"
+
+
+class ClearanceStatus(str, Enum):
+    """Rights clearance execution status (PM-FEAT-022)."""
+    CLEARED = "cleared"
+    PENDING_SIGN_OFF = "pending_sign_off"
+    RESTRICTED_TERRITORY = "restricted_territory"
+
+    # Lowercase aliases
+    cleared = "cleared"
+    pending_sign_off = "pending_sign_off"
+    restricted_territory = "restricted_territory"
+
+
+class QcVerdictStatus(str, Enum):
+    """Broadcast technical Quality Control verdict status (PM-FEAT-022)."""
+    PASS = "PASS"
+    WARN = "WARN"
+    FAIL = "FAIL"
+
+
+class BroadcastTraffickingSlateSpec(BaseModel):
+    """Ad-ID / ISCI broadcast trafficking slate and delivery spec (PM-FEAT-022)."""
+    ad_id_isci: str = Field(default="OMNI0001000H", description="Ad-ID / ISCI commercial trafficking code")
+    client_brand: str = Field(default="Omni Commercial Brand")
+    campaign_title: str = Field(default="Commercial Production")
+    spot_length_sec: int = Field(default=30, ge=1)
+    slate_duration_sec: float = Field(default=5.0, ge=0.0)
+    first_frame_of_action_tc: str = Field(default="01:00:00:00")
+    head_slate_tc: str = Field(default="00:59:50:00")
+    two_pop_tc: str = Field(default="00:59:58:00")
+    audio_config: str = Field(default="Stereo L/R + 5.1 Surround")
+    closed_captions_embedded: bool = Field(default=True, description="EIA-608 / CEA-708 CC embedded")
+    video_codec_profile: str = Field(default="Apple ProRes 422 HQ / XDCAM HD422 50Mbps")
+    legal_disclaimer_required: bool = Field(default=False)
+
+
+class LoudnessComplianceSpec(BaseModel):
+    """Broadcast loudness and true-peak ceiling compliance specification (PM-FEAT-022)."""
+    standard: BroadcastLoudnessStandard = Field(default=BroadcastLoudnessStandard.ATSC_A85)
+    target_integrated_lufs: float = Field(default=-24.0)
+    measured_integrated_lufs: float = Field(default=-24.0)
+    tolerance_lu: float = Field(default=2.0, ge=0.0)
+    max_true_peak_dbtp: float = Field(default=-2.0)
+    measured_true_peak_dbtp: float = Field(default=-2.2)
+    loudness_range_lu: float = Field(default=6.5, ge=0.0)
+    dialogue_gated: bool = Field(default=True)
+    verdict: QcVerdictStatus = Field(default=QcVerdictStatus.PASS)
+    notes: str = Field(default="Compliant with ATSC A/85 CALM Act target (-24.0 LKFS +/- 2 LU, -2.0 dBTP ceiling).")
+
+
+class PseFlashCheckSpec(BaseModel):
+    """ITU-R BT.1702 / Ofcom Harding FPA photosensitive epilepsy flash-safety check (PM-FEAT-022)."""
+    standard_reference: str = Field(default="ITU-R BT.1702 / Ofcom Harding FPA")
+    max_flash_frequency_hz: float = Field(default=1.0, ge=0.0)
+    flash_limit_hz: float = Field(default=3.0)
+    max_luminance_delta_nits: float = Field(default=10.0, ge=0.0)
+    red_saturation_flash_detected: bool = Field(default=False)
+    spatial_pattern_risk: bool = Field(default=False)
+    verdict: QcVerdictStatus = Field(default=QcVerdictStatus.PASS)
+    remediation_notes: str = Field(default="No photosensitive flash (>3Hz) or saturated red flicker detected.")
+
+
+class ClearanceRecordSpec(BaseModel):
+    """Individual legal, talent, music, brand, location, or FAA clearance record (PM-FEAT-022)."""
+    clearance_id: str = Field(default="CLR-001")
+    category: ClearanceCategory = Field(default=ClearanceCategory.TALENT_USAGE)
+    item_title: str = Field(default="Principal Talent SAG-AFTRA Session & Broadcast Buyout")
+    rights_holder: str = Field(default="Production Legal / Talent Agency")
+    territory: str = Field(default="Worldwide / North America & EMEA")
+    term_duration: str = Field(default="1 Year Broadcast + Digital Paid Social")
+    status: ClearanceStatus = Field(default=ClearanceStatus.CLEARED)
+    reference_code: str = Field(default="SAG-2026-CLR-01")
+    notes: str = Field(default="")
+
+
+class SceneQcProfileSpec(BaseModel):
+    """Per-scene Broadcast QC, PSE flash safety, and chroma legality profile (PM-FEAT-022)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    pse_check: PseFlashCheckSpec = Field(default_factory=PseFlashCheckSpec)
+    loudness_target_lufs: float = Field(default=-24.0)
+    true_peak_ceiling_dbtp: float = Field(default=-2.0)
+    chroma_legal_rec709: bool = Field(default=True, description="Broadcast EBU R103 legal IRE/gamut check")
+    overall_verdict: QcVerdictStatus = Field(default=QcVerdictStatus.PASS)
+    prompt_token: str = Field(default="")
+
+
+class MasterBroadcastQcSpec(BaseModel):
+    """Complete Master Broadcast QC certificate, loudness, PSE, and rights clearance manifest (PM-FEAT-022)."""
+    project_title: str = Field(default="Commercial Production")
+    trafficking_slate: BroadcastTraffickingSlateSpec = Field(default_factory=BroadcastTraffickingSlateSpec)
+    loudness_compliance: LoudnessComplianceSpec = Field(default_factory=LoudnessComplianceSpec)
+    scene_qc_profiles: List[SceneQcProfileSpec] = Field(default_factory=list)
+    clearance_records: List[ClearanceRecordSpec] = Field(default_factory=list)
+    pse_overall_verdict: QcVerdictStatus = Field(default=QcVerdictStatus.PASS)
+    legal_clearance_complete: bool = Field(default=True)
+    overall_verdict: QcVerdictStatus = Field(default=QcVerdictStatus.PASS)
+    qc_certificate_id: str = Field(default="QC-2026-0001")
+    prompt_token: str = Field(default="")
+
+
+# Aliases for PM-FEAT-021 and PM-FEAT-022
+ReframeManifest = DeliveryReframeManifestSpec
+SceneReframe = SceneReframeSpec
+BroadcastQcSpec = MasterBroadcastQcSpec
+BroadcastQcManifest = MasterBroadcastQcSpec
+SceneQcSpec = SceneQcProfileSpec
 
 
 class NanoBananaReference(BaseModel):
@@ -1955,6 +2261,14 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific aerial drone flight path, GPS waypoints, and gimbal telemetry (PM-FEAT-019)"
     )
+    reframe_spec: Optional[SceneReframeSpec] = Field(
+        default=None,
+        description="Scene-specific multi-aspect social reframe and safe-zone crop specification (PM-FEAT-021)"
+    )
+    broadcast_qc: Optional[SceneQcProfileSpec] = Field(
+        default=None,
+        description="Scene-specific Broadcast QC, PSE flash safety, and loudness profile (PM-FEAT-022)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -2026,6 +2340,18 @@ class ScenePromptSpec(BaseModel):
                 data["drone_flight"] = data["drone_path"]
             if "drone" in data and "drone_flight" not in data and isinstance(data["drone"], (dict, DroneFlightPathSpec)):
                 data["drone_flight"] = data["drone"]
+            if "reframe" in data and "reframe_spec" not in data:
+                data["reframe_spec"] = data["reframe"]
+            if "aspect_reframe" in data and "reframe_spec" not in data:
+                data["reframe_spec"] = data["aspect_reframe"]
+            if "delivery_reframe" in data and "reframe_spec" not in data:
+                data["reframe_spec"] = data["delivery_reframe"]
+            if "qc_spec" in data and "broadcast_qc" not in data:
+                data["broadcast_qc"] = data["qc_spec"]
+            if "pse_qc" in data and "broadcast_qc" not in data:
+                data["broadcast_qc"] = data["pse_qc"]
+            if "trafficking_qc" in data and "broadcast_qc" not in data:
+                data["broadcast_qc"] = data["trafficking_qc"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -2115,6 +2441,63 @@ class ScenePromptSpec(BaseModel):
     @drone_spec.setter
     def drone_spec(self, value: Optional[DroneFlightPathSpec]) -> None:
         self.drone_flight = value
+
+    @property
+    def reframe(self) -> Optional[SceneReframeSpec]:
+        return self.reframe_spec
+
+    @reframe.setter
+    def reframe(self, value: Optional[SceneReframeSpec]) -> None:
+        self.reframe_spec = value
+
+    @property
+    def aspect_reframe(self) -> Optional[SceneReframeSpec]:
+        return self.reframe_spec
+
+    @aspect_reframe.setter
+    def aspect_reframe(self, value: Optional[SceneReframeSpec]) -> None:
+        self.reframe_spec = value
+
+    @property
+    def delivery_reframe(self) -> Optional[SceneReframeSpec]:
+        return self.reframe_spec
+
+    @delivery_reframe.setter
+    def delivery_reframe(self, value: Optional[SceneReframeSpec]) -> None:
+        self.reframe_spec = value
+
+    @property
+    def qc_spec(self) -> Optional[SceneQcProfileSpec]:
+        return self.broadcast_qc
+
+    @qc_spec.setter
+    def qc_spec(self, value: Optional[SceneQcProfileSpec]) -> None:
+        self.broadcast_qc = value
+
+    @property
+    def pse_qc(self) -> Optional[SceneQcProfileSpec]:
+        return self.broadcast_qc
+
+    @pse_qc.setter
+    def pse_qc(self, value: Optional[SceneQcProfileSpec]) -> None:
+        self.broadcast_qc = value
+
+    @property
+    def trafficking_qc(self) -> Optional[SceneQcProfileSpec]:
+        return self.broadcast_qc
+
+    @trafficking_qc.setter
+    def trafficking_qc(self, value: Optional[SceneQcProfileSpec]) -> None:
+        self.broadcast_qc = value
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name in ("reframe", "aspect_reframe", "delivery_reframe"):
+            super().__setattr__("reframe_spec", value)
+            return
+        if name in ("qc_spec", "pse_qc", "trafficking_qc"):
+            super().__setattr__("broadcast_qc", value)
+            return
+        super().__setattr__(name, value)
 
     @field_validator("action_beats")
     @classmethod
@@ -2271,6 +2654,34 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master AICP commercial budget alias (PM-FEAT-020)"
     )
+    master_reframe_manifest: Optional[DeliveryReframeManifestSpec] = Field(
+        default=None,
+        description="Master multi-aspect social reframe, safe-zone crop matrix, and cutdown manifest (PM-FEAT-021)"
+    )
+    reframe_manifest: Optional[DeliveryReframeManifestSpec] = Field(
+        default=None,
+        description="Master reframe manifest alias (PM-FEAT-021)"
+    )
+    delivery_reframe: Optional[DeliveryReframeManifestSpec] = Field(
+        default=None,
+        description="Master delivery reframe manifest alias (PM-FEAT-021)"
+    )
+    master_broadcast_qc: Optional[MasterBroadcastQcSpec] = Field(
+        default=None,
+        description="Master Broadcast QC certificate, loudness, PSE flash safety, and rights clearance manifest (PM-FEAT-022)"
+    )
+    broadcast_qc: Optional[MasterBroadcastQcSpec] = Field(
+        default=None,
+        description="Master broadcast QC alias (PM-FEAT-022)"
+    )
+    qc_manifest: Optional[MasterBroadcastQcSpec] = Field(
+        default=None,
+        description="Master QC manifest alias (PM-FEAT-022)"
+    )
+    trafficking_spec: Optional[MasterBroadcastQcSpec] = Field(
+        default=None,
+        description="Master broadcast trafficking spec alias (PM-FEAT-022)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -2369,6 +2780,27 @@ class MasterProductionBible(BaseModel):
             if self.aicp_budget is None:
                 object.__setattr__(self, "aicp_budget", bid_source)
 
+        # Synchronize Reframe Manifest and Broadcast QC spec aliases (PM-FEAT-021 & PM-FEAT-022)
+        reframe_source = self.master_reframe_manifest or self.reframe_manifest or self.delivery_reframe
+        if reframe_source is not None:
+            if self.master_reframe_manifest is None:
+                object.__setattr__(self, "master_reframe_manifest", reframe_source)
+            if self.reframe_manifest is None:
+                object.__setattr__(self, "reframe_manifest", reframe_source)
+            if self.delivery_reframe is None:
+                object.__setattr__(self, "delivery_reframe", reframe_source)
+
+        qc_source = self.master_broadcast_qc or self.broadcast_qc or self.qc_manifest or self.trafficking_spec
+        if qc_source is not None:
+            if self.master_broadcast_qc is None:
+                object.__setattr__(self, "master_broadcast_qc", qc_source)
+            if self.broadcast_qc is None:
+                object.__setattr__(self, "broadcast_qc", qc_source)
+            if self.qc_manifest is None:
+                object.__setattr__(self, "qc_manifest", qc_source)
+            if self.trafficking_spec is None:
+                object.__setattr__(self, "trafficking_spec", qc_source)
+
         return self
 
     def __setattr__(self, name: str, value: Any) -> None:
@@ -2376,9 +2808,22 @@ class MasterProductionBible(BaseModel):
         if name in ("master_aicp_bid", "aicp_bid", "master_aicp_budget", "aicp_budget") and value is not None:
             super().__setattr__("master_aicp_bid", value)
             super().__setattr__("aicp_bid", value)
+            super().__setattr__("master_aicp_budget", value)
+            super().__setattr__("aicp_budget", value)
         if name in ("master_drone_spec", "drone_spec", "master_drone_flight", "drone_flight") and value is not None:
             super().__setattr__("master_drone_spec", value)
             super().__setattr__("drone_spec", value)
+            super().__setattr__("master_drone_flight", value)
+            super().__setattr__("drone_flight", value)
+        if name in ("master_reframe_manifest", "reframe_manifest", "delivery_reframe") and value is not None:
+            super().__setattr__("master_reframe_manifest", value)
+            super().__setattr__("reframe_manifest", value)
+            super().__setattr__("delivery_reframe", value)
+        if name in ("master_broadcast_qc", "broadcast_qc", "qc_manifest", "trafficking_spec") and value is not None:
+            super().__setattr__("master_broadcast_qc", value)
+            super().__setattr__("broadcast_qc", value)
+            super().__setattr__("qc_manifest", value)
+            super().__setattr__("trafficking_spec", value)
 
 
     @property
@@ -2406,6 +2851,9 @@ class AuditResult(BaseModel):
     errors: List[str] = Field(default_factory=list)
     warnings: List[str] = Field(default_factory=list)
     details: Dict[str, Any] = Field(default_factory=dict)
+    drone_flight_compliant: bool = True
+    reframe_compliant: bool = True
+    broadcast_qc_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -2520,7 +2968,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.8.0"
+    version: str = "2.11.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -2728,6 +3176,32 @@ __all__ = [
     "AicpBidSpec",
     "AicpLineItem",
     "AicpTopSheet",
+    # PM-FEAT-021: Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdowns
+    "DeliverableAspectRatio",
+    "CutdownFormatType",
+    "SocialDeliveryPlatform",
+    "ReframePanMode",
+    "AspectCropWindowSpec",
+    "CutdownSegmentSpec",
+    "CutdownVersionSpec",
+    "SceneReframeSpec",
+    "DeliveryReframeManifestSpec",
+    "ReframeManifest",
+    "SceneReframe",
+    # PM-FEAT-022: Broadcast QC, PSE Flash-Safety, Loudness & Rights Clearance
+    "BroadcastLoudnessStandard",
+    "ClearanceCategory",
+    "ClearanceStatus",
+    "QcVerdictStatus",
+    "BroadcastTraffickingSlateSpec",
+    "LoudnessComplianceSpec",
+    "PseFlashCheckSpec",
+    "ClearanceRecordSpec",
+    "SceneQcProfileSpec",
+    "MasterBroadcastQcSpec",
+    "BroadcastQcSpec",
+    "BroadcastQcManifest",
+    "SceneQcSpec",
     # Council Schemas
     "CouncilPersona",
     "CouncilFindingSeverity",

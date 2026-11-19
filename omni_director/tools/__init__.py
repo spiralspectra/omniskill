@@ -215,6 +215,33 @@ from omni_director.tools.aicp_budget import (
     generate_aicp_topsheet_md,
     synthesize_default_aicp_bid,
 )
+from omni_director.tools.delivery_reframe import (
+    PLATFORM_SAFE_ZONES,
+    calculate_aspect_crop_window,
+    check_platform_ui_clearance,
+    export_reframe_bundle,
+    format_reframe_prompt_token,
+    generate_cutdown_edl,
+    generate_reframe_fcpxml,
+    generate_reframe_manifest_json,
+    generate_reframe_matrix_csv,
+    synthesize_cutdown_versions,
+    synthesize_default_reframe_manifest,
+    synthesize_default_scene_reframe,
+)
+from omni_director.tools.broadcast_qc import (
+    LOUDNESS_STANDARDS,
+    evaluate_scene_pse_safety,
+    export_broadcast_qc_bundle,
+    format_broadcast_qc_prompt_token,
+    generate_clearance_matrix_csv,
+    generate_qc_certificate_md,
+    generate_qc_manifest_json,
+    synthesize_default_broadcast_qc_spec,
+    synthesize_default_scene_qc,
+    synthesize_rights_clearances,
+    validate_loudness_target,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -405,5 +432,30 @@ __all__ = [
     "generate_aicp_topsheet_md",
     "generate_aicp_bid_manifest_json",
     "export_aicp_budget_bundle",
+    # Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdowns (PM-FEAT-021)
+    "PLATFORM_SAFE_ZONES",
+    "calculate_aspect_crop_window",
+    "check_platform_ui_clearance",
+    "synthesize_cutdown_versions",
+    "generate_cutdown_edl",
+    "generate_reframe_fcpxml",
+    "generate_reframe_matrix_csv",
+    "generate_reframe_manifest_json",
+    "export_reframe_bundle",
+    "format_reframe_prompt_token",
+    "synthesize_default_reframe_manifest",
+    "synthesize_default_scene_reframe",
+    # Broadcast QC, PSE Flash-Safety, Loudness & Rights Clearance (PM-FEAT-022)
+    "LOUDNESS_STANDARDS",
+    "evaluate_scene_pse_safety",
+    "validate_loudness_target",
+    "synthesize_rights_clearances",
+    "generate_qc_certificate_md",
+    "generate_clearance_matrix_csv",
+    "generate_qc_manifest_json",
+    "export_broadcast_qc_bundle",
+    "format_broadcast_qc_prompt_token",
+    "synthesize_default_broadcast_qc_spec",
+    "synthesize_default_scene_qc",
 ]
 

@@ -16,14 +16,21 @@ from omni_director.schemas import (
     AscMhlManifestSpec,
     AspectRatio,
     AudioStemMixerSpec,
+    BroadcastLoudnessStandard,
+    BroadcastTraffickingSlateSpec,
     CharacterTurnaroundSpec,
     ClapperSlateSpec,
+    ClearanceRecordSpec,
+    ClearanceStatus,
     ColorLookPreset,
     ColorLookSpec,
     ColorVolumeGamut,
     CraftCameraSpec,
     CrewLaborTier,
     CryptomatteManifestSpec,
+    CutdownFormatType,
+    DeliverableAspectRatio,
+    DeliveryReframeManifestSpec,
     DiegeticSonicSpec,
     DmxLightingFixture,
     DolbyAtmosBedFormat,
@@ -45,8 +52,10 @@ from omni_director.schemas import (
     HdrTransferFunction,
     LedWallGeometry,
     LightingRigSpec,
+    LoudnessComplianceSpec,
     MasterAicpBidSpec,
     MasterBgmSpec,
+    MasterBroadcastQcSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
     MasterProductionSlateSpec,
@@ -55,11 +64,17 @@ from omni_director.schemas import (
     MotionControlRigType,
     NanoBananaReference,
     OpticalLensSpec,
+    PseFlashCheckSpec,
+    QcVerdictStatus,
+    ReframePanMode,
     RegimeType,
     ScenePromptSpec,
+    SceneQcProfileSpec,
+    SceneReframeSpec,
     ScriptBreakdownSheet,
     SensorFormat,
     Smpte12MTimecodeSpec,
+    SocialDeliveryPlatform,
     SolarEphemerisSpec,
     SpatialAudioObjectSpec,
     SpatialAudioSoundfieldSpec,
@@ -97,6 +112,22 @@ from omni_director.tools.stripboard_scheduler import (
 )
 from omni_director.tools.vfx_compositor import generate_cryptomatte_manifest
 from omni_director.tools.virtual_production import synthesize_default_vp_stage
+from omni_director.tools.delivery_reframe import (
+    calculate_aspect_crop_window,
+    format_reframe_prompt_token,
+    synthesize_cutdown_versions,
+    synthesize_default_reframe_manifest,
+    synthesize_default_scene_reframe,
+)
+from omni_director.tools.broadcast_qc import (
+    LOUDNESS_STANDARDS,
+    evaluate_scene_pse_safety,
+    format_broadcast_qc_prompt_token,
+    synthesize_default_broadcast_qc_spec,
+    synthesize_default_scene_qc,
+    synthesize_rights_clearances,
+    validate_loudness_target,
+)
 
 DOMAIN_PRIORITY: List[str] = [
     "automotive_robotics",
@@ -817,6 +848,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.BED_7_1_4,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="High-Speed Raceway Acoustic Envelope",
                 room_volume_m3=250.0,
                 surface_area_m2=280.0,
                 rt60_decay_sec=0.38,
@@ -851,6 +883,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.BINAURAL_HRTF,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="Intimate Micro-Acoustic Kitchen Stage",
                 room_volume_m3=45.0,
                 surface_area_m2=65.0,
                 rt60_decay_sec=0.25,
@@ -880,6 +913,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.BED_7_1_4,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="Parisian Marble Flagship Runway Hall",
                 room_volume_m3=1200.0,
                 surface_area_m2=850.0,
                 rt60_decay_sec=1.45,
@@ -909,6 +943,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.AMBISONIC_HOA_3RD_ORDER,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="Monumental Concrete Wind & Canyon Arena",
                 room_volume_m3=8000.0,
                 surface_area_m2=3200.0,
                 rt60_decay_sec=2.10,
@@ -938,6 +973,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.BED_5_1_2,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="ISO-5 Acoustic-Damped Cleanroom Chamber",
                 room_volume_m3=85.0,
                 surface_area_m2=110.0,
                 rt60_decay_sec=0.18,
@@ -967,6 +1003,7 @@ def get_domain_spatial_audio_spec(archetype: Any) -> SpatialAudioSoundfieldSpec:
         return SpatialAudioSoundfieldSpec(
             bed_format=DolbyAtmosBedFormat.AMBISONIC_B_FORMAT,
             room_acoustics=AcousticRoomImpulseResponse(
+                room_name="Monolithic Stone Sanctuary & Atrium",
                 room_volume_m3=3500.0,
                 surface_area_m2=1900.0,
                 rt60_decay_sec=1.85,
@@ -2172,6 +2209,253 @@ def get_domain_aicp_bid_spec(
     )
 
 
+def _normalize_domain_key(bible_or_domain: Union[MasterProductionBible, DomainArchetype, str]) -> str:
+    """Resolve a MasterProductionBible, DomainArchetype, or raw string to one of the 6 domain keys."""
+    if isinstance(bible_or_domain, MasterProductionBible):
+        domain = bible_or_domain.domain_archetype or classify_brief_domain(
+            f"{bible_or_domain.project_title} {bible_or_domain.logline}"
+        )
+    elif hasattr(bible_or_domain, "domain_archetype"):
+        domain = getattr(bible_or_domain, "domain_archetype", "architectural_sanctuary") or "architectural_sanctuary"
+    else:
+        domain = bible_or_domain
+    raw = str(domain.value if hasattr(domain, "value") else domain).lower()
+    if "automotive" in raw:
+        return "automotive_robotics"
+    if "culinary" in raw or "asmr" in raw:
+        return "culinary_asmr"
+    if "luxury" in raw or "fashion" in raw:
+        return "luxury_fashion"
+    if "kinetic" in raw or "action" in raw:
+        return "kinetic_action"
+    if "hardware" in raw or "tech" in raw:
+        return "tech_hardware"
+    return "architectural_sanctuary"
+
+
+_DOMAIN_REFRAME_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "platforms": [
+            SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16,
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.CINEMA_239,
+        ],
+        "pan_mode": ReframePanMode.LINEAR_TRACK,
+        "coi_x": 0.50,
+        "coi_y": 0.48,
+        "cta_endcard_sec": 2.5,
+    },
+    "culinary_asmr": {
+        "platforms": [
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16,
+            SocialDeliveryPlatform.BROADCAST_TV,
+        ],
+        "pan_mode": ReframePanMode.STATIC_LOCK,
+        "coi_x": 0.50,
+        "coi_y": 0.48,
+        "cta_endcard_sec": 2.0,
+    },
+    "luxury_fashion": {
+        "platforms": [
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.CINEMA_239,
+            SocialDeliveryPlatform.BROADCAST_TV,
+        ],
+        "pan_mode": ReframePanMode.EASE_IN_OUT_COI,
+        "coi_x": 0.48,
+        "coi_y": 0.44,
+        "cta_endcard_sec": 2.5,
+    },
+    "kinetic_action": {
+        "platforms": [
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16,
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.BROADCAST_TV,
+        ],
+        "pan_mode": ReframePanMode.LINEAR_TRACK,
+        "coi_x": 0.50,
+        "coi_y": 0.46,
+        "cta_endcard_sec": 2.0,
+    },
+    "tech_hardware": {
+        "platforms": [
+            SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.BROADCAST_TV,
+        ],
+        "pan_mode": ReframePanMode.STATIC_LOCK,
+        "coi_x": 0.50,
+        "coi_y": 0.48,
+        "cta_endcard_sec": 2.5,
+    },
+    "architectural_sanctuary": {
+        "platforms": [
+            SocialDeliveryPlatform.REELS_9X16,
+            SocialDeliveryPlatform.META_FEED_4X5,
+            SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16,
+            SocialDeliveryPlatform.TIKTOK_9X16,
+            SocialDeliveryPlatform.CINEMA_239,
+        ],
+        "pan_mode": ReframePanMode.PILLARBOX_SAFE,
+        "coi_x": 0.50,
+        "coi_y": 0.46,
+        "cta_endcard_sec": 2.5,
+    },
+}
+
+_PLATFORM_TO_RATIO: Dict[SocialDeliveryPlatform, DeliverableAspectRatio] = {
+    SocialDeliveryPlatform.BROADCAST_TV: DeliverableAspectRatio.RATIO_16_9,
+    SocialDeliveryPlatform.TIKTOK_9X16: DeliverableAspectRatio.RATIO_9_16,
+    SocialDeliveryPlatform.REELS_9X16: DeliverableAspectRatio.RATIO_9_16,
+    SocialDeliveryPlatform.YOUTUBE_SHORTS_9X16: DeliverableAspectRatio.RATIO_9_16,
+    SocialDeliveryPlatform.META_FEED_4X5: DeliverableAspectRatio.RATIO_4_5,
+    SocialDeliveryPlatform.CINEMA_239: DeliverableAspectRatio.RATIO_2_39_1,
+}
+
+
+def get_domain_reframe_manifest(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+) -> DeliveryReframeManifestSpec:
+    """Calibrate multi-aspect social reframe, safe-zone crop windows, and cutdown timelines across all 6 domain archetypes (PM-FEAT-021)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cfg = _DOMAIN_REFRAME_CALIBRATIONS[domain_key]
+    manifest = synthesize_default_reframe_manifest(bible_or_domain, scenes=scenes)
+    platforms: List[SocialDeliveryPlatform] = list(cfg["platforms"])
+    pan_mode: ReframePanMode = cfg["pan_mode"]
+    coi_x: float = cfg["coi_x"]
+    coi_y: float = cfg["coi_y"]
+
+    manifest.target_platforms = platforms
+    for sr in manifest.scene_reframes:
+        sr.center_of_interest_x = coi_x
+        sr.center_of_interest_y = coi_y
+        sr.pan_mode = pan_mode
+        if pan_mode in (ReframePanMode.STATIC_LOCK, ReframePanMode.PILLARBOX_SAFE):
+            sr.pan_start_coi_x = coi_x
+            sr.pan_end_coi_x = coi_x
+        else:
+            sr.pan_start_coi_x = max(0.0, round(coi_x - 0.04, 3))
+            sr.pan_end_coi_x = min(1.0, round(coi_x + 0.04, 3))
+        windows = [
+            calculate_aspect_crop_window(
+                target_aspect_ratio=_PLATFORM_TO_RATIO[plat],
+                center_of_interest_x=coi_x,
+                center_of_interest_y=coi_y,
+                platform=plat,
+                pan_mode=pan_mode,
+            )
+            for plat in platforms
+        ]
+        # Include 1:1 social square feed crop alongside primary platform deliverables
+        windows.append(
+            calculate_aspect_crop_window(
+                target_aspect_ratio=DeliverableAspectRatio.RATIO_1_1,
+                center_of_interest_x=coi_x,
+                center_of_interest_y=coi_y,
+                platform=SocialDeliveryPlatform.META_FEED_4X5,
+                pan_mode=pan_mode,
+            )
+        )
+        sr.crop_windows = windows
+        sr.all_platforms_cleared = all(w.ui_clearance_ok for w in sr.crop_windows)
+        sr.prompt_token = format_reframe_prompt_token(sr)
+
+    for cut in manifest.cutdown_versions:
+        cut.target_platform = platforms[0]
+        cut.cta_endcard_sec = float(cfg["cta_endcard_sec"])
+
+    manifest.safe_zone_audit_passed = all(sr.all_platforms_cleared for sr in manifest.scene_reframes)
+    manifest.deliverable_matrix_count = sum(len(sr.crop_windows) for sr in manifest.scene_reframes)
+    manifest.prompt_token = format_reframe_prompt_token(manifest)
+    return manifest
+
+
+_DOMAIN_BROADCAST_QC_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "standard": BroadcastLoudnessStandard.ATSC_A85,
+        "ad_id_prefix": "AUTO",
+        "audio_config": "Stereo L/R + 5.1 Surround (ATSC A/85)",
+        "codec_profile": "Apple ProRes 422 HQ / XDCAM HD422 50Mbps",
+        "legal_disclaimer": True,
+        "territory": "North America Broadcast + Global Paid Digital",
+    },
+    "culinary_asmr": {
+        "standard": BroadcastLoudnessStandard.EBU_R128,
+        "ad_id_prefix": "CULN",
+        "audio_config": "Binaural Stereo L/R + 5.1 ASMR Bed (EBU R128)",
+        "codec_profile": "Apple ProRes 422 HQ 10-bit Rec.709",
+        "legal_disclaimer": False,
+        "territory": "North America, EMEA & APAC Broadcast + Social",
+    },
+    "luxury_fashion": {
+        "standard": BroadcastLoudnessStandard.EBU_R128,
+        "ad_id_prefix": "LUXF",
+        "audio_config": "Stereo L/R + 7.1.4 Cinema Master (EBU R128)",
+        "codec_profile": "Apple ProRes 4444 XQ / DCP-Ready",
+        "legal_disclaimer": False,
+        "territory": "Worldwide Flagship, Broadcast & EMEA Cinema",
+    },
+    "kinetic_action": {
+        "standard": BroadcastLoudnessStandard.ATSC_A85,
+        "ad_id_prefix": "KINT",
+        "audio_config": "Stereo L/R + 5.1 Ambisonic Surround (ATSC A/85)",
+        "codec_profile": "Apple ProRes 422 HQ / Broadcast MXF OP1a",
+        "legal_disclaimer": True,
+        "territory": "Global Broadcast, Stadium & Paid Social",
+    },
+    "tech_hardware": {
+        "standard": BroadcastLoudnessStandard.EBU_R128,
+        "ad_id_prefix": "TECH",
+        "audio_config": "Stereo L/R + 5.1 Precision Stem (EBU R128)",
+        "codec_profile": "Apple ProRes 422 HQ / Keynote 4K60 Master",
+        "legal_disclaimer": False,
+        "territory": "Worldwide Product Launch, OTT & Keynote",
+    },
+    "architectural_sanctuary": {
+        "standard": BroadcastLoudnessStandard.EBU_R128,
+        "ad_id_prefix": "ARCH",
+        "audio_config": "B-Format Ambisonic + Stereo L/R (EBU R128)",
+        "codec_profile": "Apple ProRes 422 HQ / EBU R103 Broadcast",
+        "legal_disclaimer": False,
+        "territory": "Global Broadcast, Museum & Architectural Press",
+    },
+}
+
+
+def get_domain_broadcast_qc_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+) -> MasterBroadcastQcSpec:
+    """Calibrate Broadcast QC, PSE flash-safety, loudness compliance, and rights clearances across all 6 domain archetypes (PM-FEAT-022)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cfg = _DOMAIN_BROADCAST_QC_CALIBRATIONS[domain_key]
+    spec = synthesize_default_broadcast_qc_spec(
+        bible_or_domain,
+        scenes=scenes,
+        standard=cfg["standard"],
+    )
+    spec.trafficking_slate.ad_id_isci = f"OMNI{cfg['ad_id_prefix']}{spec.trafficking_slate.spot_length_sec:02d}H"
+    spec.trafficking_slate.audio_config = cfg["audio_config"]
+    spec.trafficking_slate.video_codec_profile = cfg["codec_profile"]
+    spec.trafficking_slate.legal_disclaimer_required = bool(cfg["legal_disclaimer"])
+    for rec in spec.clearance_records:
+        rec.territory = cfg["territory"]
+    spec.prompt_token = format_broadcast_qc_prompt_token(spec)
+    return spec
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -2715,74 +2999,102 @@ KINETIC_FABRIC_BIBLE = MasterProductionBible(
 
 SEPHORA_LONDON_PULSE_BIBLE = SEPHORA_PULSE_BIBLE
 
-for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_BIBLE, KINETIC_FABRIC_BIBLE]:
-    _arch = _bible_inst.domain_archetype or classify_brief_domain(f"{_bible_inst.project_title} {_bible_inst.logline}")
-    _bible_inst.domain_archetype = _arch
-    if not _bible_inst.master_color_look:
-        _bible_inst.master_color_look = get_domain_color_look(_arch)
-    if not _bible_inst.master_audio_mixer:
-        _bible_inst.master_audio_mixer = get_domain_audio_mixer(_arch)
-    if not _bible_inst.master_lens_package:
-        _bible_inst.master_lens_package = get_domain_optical_lens(_arch)
-    if not _bible_inst.virtual_production:
-        _bible_inst.virtual_production = get_domain_virtual_production(_arch)
-    if not getattr(_bible_inst, "master_moco_rig", None):
-        _bible_inst.master_moco_rig = get_domain_moco_rig(_arch)
-    if not getattr(_bible_inst, "master_lighting_rig", None):
-        _bible_inst.master_lighting_rig = get_domain_lighting_rig(_arch)
-    if not getattr(_bible_inst, "master_dof_spec", None):
-        _bible_inst.master_dof_spec = get_domain_dof_spec(_arch)
-    if not getattr(_bible_inst, "master_lut_spec", None):
-        _bible_inst.master_lut_spec = get_domain_lut_spec(_arch)
-    if not getattr(_bible_inst, "master_spatial_audio", None):
-        _bible_inst.master_spatial_audio = get_domain_spatial_audio_spec(_arch)
-    if not getattr(_bible_inst, "master_vfx_manifest", None):
-        _bible_inst.master_vfx_manifest = get_domain_vfx_manifest(_arch)
-    if not getattr(_bible_inst, "master_hdr_spec", None):
-        _bible_inst.master_hdr_spec = get_domain_hdr_spec(_arch)
-    if not getattr(_bible_inst, "master_stripboard_schedule", None):
-        _bible_inst.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _bible_inst.scenes)
-    if not getattr(_bible_inst, "master_film_emulation", None):
-        _bible_inst.master_film_emulation = get_domain_film_emulation_spec(_arch)
-    if not getattr(_bible_inst, "master_slate_spec", None):
-        _bible_inst.master_slate_spec = get_domain_clapper_slate_spec(
-            _arch, _bible_inst.scenes, project_title=_bible_inst.project_title
+
+def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductionBible:
+    """Populate any unset master and per-scene technical specs using domain archetype calibrators."""
+    arch = bible.domain_archetype or classify_brief_domain(f"{bible.project_title} {bible.logline}")
+    bible.domain_archetype = arch
+
+    if not bible.master_color_look:
+        bible.master_color_look = get_domain_color_look(arch)
+    if not bible.master_audio_mixer:
+        bible.master_audio_mixer = get_domain_audio_mixer(arch)
+    if not bible.master_lens_package:
+        bible.master_lens_package = get_domain_optical_lens(arch)
+    if not bible.virtual_production:
+        bible.virtual_production = get_domain_virtual_production(arch)
+    if not getattr(bible, "master_moco_rig", None):
+        bible.master_moco_rig = get_domain_moco_rig(arch)
+    if not getattr(bible, "master_lighting_rig", None):
+        bible.master_lighting_rig = get_domain_lighting_rig(arch)
+    if not getattr(bible, "master_dof_spec", None):
+        bible.master_dof_spec = get_domain_dof_spec(arch)
+    if not getattr(bible, "master_lut_spec", None):
+        bible.master_lut_spec = get_domain_lut_spec(arch)
+    if not getattr(bible, "master_spatial_audio", None):
+        bible.master_spatial_audio = get_domain_spatial_audio_spec(arch)
+    if not getattr(bible, "master_vfx_manifest", None):
+        bible.master_vfx_manifest = get_domain_vfx_manifest(arch)
+    if not getattr(bible, "master_hdr_spec", None):
+        bible.master_hdr_spec = get_domain_hdr_spec(arch)
+    if not getattr(bible, "master_stripboard_schedule", None):
+        bible.master_stripboard_schedule = get_domain_stripboard_spec(arch, bible.scenes)
+    if not getattr(bible, "master_film_emulation", None):
+        bible.master_film_emulation = get_domain_film_emulation_spec(arch)
+    if not getattr(bible, "master_slate_spec", None):
+        bible.master_slate_spec = get_domain_clapper_slate_spec(
+            arch, bible.scenes, project_title=bible.project_title
         )
-    if not getattr(_bible_inst, "master_drone_spec", None):
-        _bible_inst.master_drone_spec = get_domain_drone_spec(_arch)
-    if not getattr(_bible_inst, "master_aicp_bid", None):
-        _bible_inst.master_aicp_bid = get_domain_aicp_bid_spec(_bible_inst)
-    for _idx, _sc in enumerate(_bible_inst.scenes, 1):
-        if not _sc.speed_ramp:
-            _sc.speed_ramp = get_domain_speed_ramp(_arch)
-        if not _sc.scene_color_look:
-            _sc.scene_color_look = _bible_inst.master_color_look
-        if not _sc.optical_lens:
-            _sc.optical_lens = _bible_inst.master_lens_package
-        if not _sc.virtual_production:
-            _sc.virtual_production = _bible_inst.virtual_production
-        if not getattr(_sc, "moco_rig", None):
-            _sc.moco_rig = _bible_inst.master_moco_rig
-        if not getattr(_sc, "lighting_rig", None):
-            _sc.lighting_rig = _bible_inst.master_lighting_rig
-        if not getattr(_sc, "dof_spec", None):
-            _sc.dof_spec = _bible_inst.master_dof_spec
-        if not getattr(_sc, "lut_spec", None):
-            _sc.lut_spec = _bible_inst.master_lut_spec
-        if not getattr(_sc, "spatial_audio", None):
-            _sc.spatial_audio = _bible_inst.master_spatial_audio
-        if not getattr(_sc, "vfx_compositing", None):
-            _sc.vfx_compositing = _bible_inst.master_vfx_manifest
-        if not getattr(_sc, "hdr_spec", None):
-            _sc.hdr_spec = _bible_inst.master_hdr_spec
-        if not getattr(_sc, "breakdown_sheet", None):
-            _sc.breakdown_sheet = extract_script_breakdown_sheet(_sc, _idx)
-        if not getattr(_sc, "film_emulation", None):
-            _sc.film_emulation = _bible_inst.master_film_emulation
-        if not getattr(_sc, "clapper_slate", None) and _bible_inst.master_slate_spec and len(_bible_inst.master_slate_spec.scenes) >= _idx:
-            _sc.clapper_slate = _bible_inst.master_slate_spec.scenes[_idx - 1]
-        if not getattr(_sc, "drone_flight", None):
-            _sc.drone_flight = _bible_inst.master_drone_spec
+    if not getattr(bible, "master_drone_spec", None):
+        bible.master_drone_spec = get_domain_drone_spec(arch)
+    if not getattr(bible, "master_aicp_bid", None):
+        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible)
+    if not getattr(bible, "master_reframe_manifest", None):
+        bible.master_reframe_manifest = get_domain_reframe_manifest(bible, bible.scenes)
+    if not getattr(bible, "master_broadcast_qc", None):
+        bible.master_broadcast_qc = get_domain_broadcast_qc_spec(bible, bible.scenes)
+
+    for idx, scene in enumerate(bible.scenes, 1):
+        if not scene.speed_ramp:
+            scene.speed_ramp = get_domain_speed_ramp(arch)
+        if not scene.scene_color_look:
+            scene.scene_color_look = bible.master_color_look
+        if not scene.optical_lens:
+            scene.optical_lens = bible.master_lens_package
+        if not scene.virtual_production:
+            scene.virtual_production = bible.virtual_production
+        if not getattr(scene, "moco_rig", None):
+            scene.moco_rig = bible.master_moco_rig
+        if not getattr(scene, "lighting_rig", None):
+            scene.lighting_rig = bible.master_lighting_rig
+        if not getattr(scene, "dof_spec", None):
+            scene.dof_spec = bible.master_dof_spec
+        if not getattr(scene, "lut_spec", None):
+            scene.lut_spec = bible.master_lut_spec
+        if not getattr(scene, "spatial_audio", None):
+            scene.spatial_audio = bible.master_spatial_audio
+        if not getattr(scene, "vfx_compositing", None):
+            scene.vfx_compositing = bible.master_vfx_manifest
+        if not getattr(scene, "hdr_spec", None):
+            scene.hdr_spec = bible.master_hdr_spec
+        if not getattr(scene, "breakdown_sheet", None):
+            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
+        if not getattr(scene, "film_emulation", None):
+            scene.film_emulation = bible.master_film_emulation
+        if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
+            scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
+        if not getattr(scene, "drone_flight", None):
+            scene.drone_flight = bible.master_drone_spec
+        if not getattr(scene, "reframe_spec", None):
+            if bible.master_reframe_manifest and len(bible.master_reframe_manifest.scene_reframes) >= idx:
+                scene.reframe_spec = bible.master_reframe_manifest.scene_reframes[idx - 1]
+            else:
+                scene.reframe_spec = synthesize_default_scene_reframe(
+                    scene=scene, scene_index=idx, scene_title=scene.scene_title, domain=arch
+                )
+        if not getattr(scene, "broadcast_qc", None):
+            if bible.master_broadcast_qc and len(bible.master_broadcast_qc.scene_qc_profiles) >= idx:
+                scene.broadcast_qc = bible.master_broadcast_qc.scene_qc_profiles[idx - 1]
+            else:
+                scene.broadcast_qc = synthesize_default_scene_qc(
+                    scene=scene, scene_index=idx, scene_title=scene.scene_title
+                )
+
+    return bible
+
+
+for _bible_inst in [IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE, SEPHORA_EXTENSION_40S_BIBLE, KINETIC_FABRIC_BIBLE]:
+    _hydrate_bible_domain_specs(_bible_inst)
 
 def build_ikea_asmr_bible() -> MasterProductionBible:
     """Builds a fresh instance of the IKEA ASMR golden preset bible."""
@@ -2861,74 +3173,7 @@ def create_bible(
             **kwargs,
         )
 
-    if not bible.master_color_look:
-        bible.master_color_look = get_domain_color_look(bible.domain_archetype)
-    if not bible.master_audio_mixer:
-        bible.master_audio_mixer = get_domain_audio_mixer(bible.domain_archetype)
-    if not bible.master_lens_package:
-        bible.master_lens_package = get_domain_optical_lens(bible.domain_archetype)
-    if not bible.virtual_production:
-        bible.virtual_production = get_domain_virtual_production(bible.domain_archetype)
-    if not getattr(bible, "master_moco_rig", None):
-        bible.master_moco_rig = get_domain_moco_rig(bible.domain_archetype)
-    if not getattr(bible, "master_lighting_rig", None):
-        bible.master_lighting_rig = get_domain_lighting_rig(bible.domain_archetype)
-    if not getattr(bible, "master_dof_spec", None):
-        bible.master_dof_spec = get_domain_dof_spec(bible.domain_archetype)
-    if not getattr(bible, "master_lut_spec", None):
-        bible.master_lut_spec = get_domain_lut_spec(bible.domain_archetype)
-    if not getattr(bible, "master_spatial_audio", None):
-        bible.master_spatial_audio = get_domain_spatial_audio_spec(bible.domain_archetype)
-    if not getattr(bible, "master_vfx_manifest", None):
-        bible.master_vfx_manifest = get_domain_vfx_manifest(bible.domain_archetype)
-    if not getattr(bible, "master_hdr_spec", None):
-        bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
-    if not getattr(bible, "master_stripboard_schedule", None):
-        bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
-    if not getattr(bible, "master_film_emulation", None):
-        bible.master_film_emulation = get_domain_film_emulation_spec(bible.domain_archetype)
-    if not getattr(bible, "master_slate_spec", None):
-        bible.master_slate_spec = get_domain_clapper_slate_spec(
-            bible.domain_archetype, bible.scenes, project_title=bible.project_title
-        )
-    if not getattr(bible, "master_drone_spec", None):
-        bible.master_drone_spec = get_domain_drone_spec(bible.domain_archetype)
-    if not getattr(bible, "master_aicp_bid", None):
-        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible)
-
-    for idx, scene in enumerate(bible.scenes, 1):
-        if not scene.speed_ramp:
-            scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
-        if not scene.scene_color_look:
-            scene.scene_color_look = bible.master_color_look
-        if not scene.optical_lens:
-            scene.optical_lens = bible.master_lens_package
-        if not scene.virtual_production:
-            scene.virtual_production = bible.virtual_production
-        if not getattr(scene, "moco_rig", None):
-            scene.moco_rig = bible.master_moco_rig
-        if not getattr(scene, "lighting_rig", None):
-            scene.lighting_rig = bible.master_lighting_rig
-        if not getattr(scene, "dof_spec", None):
-            scene.dof_spec = bible.master_dof_spec
-        if not getattr(scene, "lut_spec", None):
-            scene.lut_spec = bible.master_lut_spec
-        if not getattr(scene, "spatial_audio", None):
-            scene.spatial_audio = bible.master_spatial_audio
-        if not getattr(scene, "vfx_compositing", None):
-            scene.vfx_compositing = bible.master_vfx_manifest
-        if not getattr(scene, "hdr_spec", None):
-            scene.hdr_spec = bible.master_hdr_spec
-        if not getattr(scene, "breakdown_sheet", None):
-            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
-        if not getattr(scene, "film_emulation", None):
-            scene.film_emulation = bible.master_film_emulation
-        if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
-            scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
-        if not getattr(scene, "drone_flight", None):
-            scene.drone_flight = bible.master_drone_spec
-
-    return bible
+    return _hydrate_bible_domain_specs(bible)
 
 
 def get_preset_bible(name: str) -> MasterProductionBible:
@@ -2940,74 +3185,7 @@ def get_preset_bible(name: str) -> MasterProductionBible:
         available = ", ".join(PRESETS.keys())
         raise ValueError(f"Unknown preset: '{name}'. Available presets: {available}")
     bible = PRESETS[clean_name].model_copy(deep=True)
-    if not bible.domain_archetype:
-        bible.domain_archetype = classify_brief_domain(f"{bible.project_title} {bible.logline}")
-    if not bible.master_color_look:
-        bible.master_color_look = get_domain_color_look(bible.domain_archetype)
-    if not bible.master_audio_mixer:
-        bible.master_audio_mixer = get_domain_audio_mixer(bible.domain_archetype)
-    if not bible.master_lens_package:
-        bible.master_lens_package = get_domain_optical_lens(bible.domain_archetype)
-    if not bible.virtual_production:
-        bible.virtual_production = get_domain_virtual_production(bible.domain_archetype)
-    if not getattr(bible, "master_moco_rig", None):
-        bible.master_moco_rig = get_domain_moco_rig(bible.domain_archetype)
-    if not getattr(bible, "master_lighting_rig", None):
-        bible.master_lighting_rig = get_domain_lighting_rig(bible.domain_archetype)
-    if not getattr(bible, "master_dof_spec", None):
-        bible.master_dof_spec = get_domain_dof_spec(bible.domain_archetype)
-    if not getattr(bible, "master_lut_spec", None):
-        bible.master_lut_spec = get_domain_lut_spec(bible.domain_archetype)
-    if not getattr(bible, "master_spatial_audio", None):
-        bible.master_spatial_audio = get_domain_spatial_audio_spec(bible.domain_archetype)
-    if not getattr(bible, "master_vfx_manifest", None):
-        bible.master_vfx_manifest = get_domain_vfx_manifest(bible.domain_archetype)
-    if not getattr(bible, "master_hdr_spec", None):
-        bible.master_hdr_spec = get_domain_hdr_spec(bible.domain_archetype)
-    if not getattr(bible, "master_stripboard_schedule", None):
-        bible.master_stripboard_schedule = get_domain_stripboard_spec(bible.domain_archetype, bible.scenes)
-    if not getattr(bible, "master_film_emulation", None):
-        bible.master_film_emulation = get_domain_film_emulation_spec(bible.domain_archetype)
-    if not getattr(bible, "master_slate_spec", None):
-        bible.master_slate_spec = get_domain_clapper_slate_spec(
-            bible.domain_archetype, bible.scenes, project_title=bible.project_title
-        )
-    if not getattr(bible, "master_drone_spec", None):
-        bible.master_drone_spec = get_domain_drone_spec(bible.domain_archetype)
-    if not getattr(bible, "master_aicp_bid", None):
-        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible)
-    for idx, scene in enumerate(bible.scenes, 1):
-        if not scene.speed_ramp:
-            scene.speed_ramp = get_domain_speed_ramp(bible.domain_archetype)
-        if not scene.scene_color_look:
-            scene.scene_color_look = bible.master_color_look
-        if not scene.optical_lens:
-            scene.optical_lens = bible.master_lens_package
-        if not scene.virtual_production:
-            scene.virtual_production = bible.virtual_production
-        if not getattr(scene, "moco_rig", None):
-            scene.moco_rig = bible.master_moco_rig
-        if not getattr(scene, "lighting_rig", None):
-            scene.lighting_rig = bible.master_lighting_rig
-        if not getattr(scene, "dof_spec", None):
-            scene.dof_spec = bible.master_dof_spec
-        if not getattr(scene, "lut_spec", None):
-            scene.lut_spec = bible.master_lut_spec
-        if not getattr(scene, "spatial_audio", None):
-            scene.spatial_audio = bible.master_spatial_audio
-        if not getattr(scene, "vfx_compositing", None):
-            scene.vfx_compositing = bible.master_vfx_manifest
-        if not getattr(scene, "hdr_spec", None):
-            scene.hdr_spec = bible.master_hdr_spec
-        if not getattr(scene, "breakdown_sheet", None):
-            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, idx)
-        if not getattr(scene, "film_emulation", None):
-            scene.film_emulation = bible.master_film_emulation
-        if not getattr(scene, "clapper_slate", None) and bible.master_slate_spec and len(bible.master_slate_spec.scenes) >= idx:
-            scene.clapper_slate = bible.master_slate_spec.scenes[idx - 1]
-        if not getattr(scene, "drone_flight", None):
-            scene.drone_flight = bible.master_drone_spec
-    return bible
+    return _hydrate_bible_domain_specs(bible)
 
 
 def create_preset_bible(
@@ -3029,37 +3207,6 @@ get_preset = get_preset_bible
 
 # Backfill golden preset constants with domain specs at module import time
 for _p in PRESETS.values():
-    _arch = _p.domain_archetype or "culinary_asmr"
-    if not getattr(_p, "master_spatial_audio", None):
-        _p.master_spatial_audio = get_domain_spatial_audio_spec(_arch)
-    if not getattr(_p, "master_vfx_manifest", None):
-        _p.master_vfx_manifest = get_domain_vfx_manifest(_arch)
-    if not getattr(_p, "master_hdr_spec", None):
-        _p.master_hdr_spec = get_domain_hdr_spec(_arch)
-    if not getattr(_p, "master_stripboard_schedule", None):
-        _p.master_stripboard_schedule = get_domain_stripboard_spec(_arch, _p.scenes)
-    if not getattr(_p, "master_film_emulation", None):
-        _p.master_film_emulation = get_domain_film_emulation_spec(_arch)
-    if not getattr(_p, "master_slate_spec", None):
-        _p.master_slate_spec = get_domain_clapper_slate_spec(_arch, _p.scenes, project_title=_p.project_title)
-    if not getattr(_p, "master_drone_spec", None):
-        _p.master_drone_spec = get_domain_drone_spec(_arch)
-    if not getattr(_p, "master_aicp_bid", None):
-        _p.master_aicp_bid = get_domain_aicp_bid_spec(_p)
-    for _idx, _s in enumerate(_p.scenes, 1):
-        if not getattr(_s, "spatial_audio", None):
-            _s.spatial_audio = _p.master_spatial_audio
-        if not getattr(_s, "vfx_compositing", None):
-            _s.vfx_compositing = _p.master_vfx_manifest
-        if not getattr(_s, "hdr_spec", None):
-            _s.hdr_spec = _p.master_hdr_spec
-        if not getattr(_s, "breakdown_sheet", None):
-            _s.breakdown_sheet = extract_script_breakdown_sheet(_s, _idx)
-        if not getattr(_s, "film_emulation", None):
-            _s.film_emulation = _p.master_film_emulation
-        if not getattr(_s, "clapper_slate", None) and _p.master_slate_spec and len(_p.master_slate_spec.scenes) >= _idx:
-            _s.clapper_slate = _p.master_slate_spec.scenes[_idx - 1]
-        if not getattr(_s, "drone_flight", None):
-            _s.drone_flight = _p.master_drone_spec
+    _hydrate_bible_domain_specs(_p)
 
 

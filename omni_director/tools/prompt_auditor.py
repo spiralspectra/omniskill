@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
     PromptAuditResult,
+    QcVerdictStatus,
     RegimeType,
     ScenePromptSpec,
     StorytellingMode,
@@ -27,6 +28,14 @@ from omni_director.tools.clapper_slate import (
 from omni_director.tools.drone_flight import (
     format_drone_flight_prompt_token,
     synthesize_default_drone_flight,
+)
+from omni_director.tools.delivery_reframe import (
+    format_reframe_prompt_token,
+    synthesize_default_scene_reframe,
+)
+from omni_director.tools.broadcast_qc import (
+    format_broadcast_qc_prompt_token,
+    synthesize_default_scene_qc,
 )
 
 
@@ -278,6 +287,68 @@ def audit_omni_scene_prompt(
     elif drone_flight_spec is not None:
         details["drone_flight_configured"] = True
 
+    # Multi-Aspect Social Reframe & Safe-Zone recognition & reward (PM-FEAT-021)
+    reframe_spec_obj = (
+        getattr(scene, "reframe_spec", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("reframe_spec")
+            or kwargs.get("reframe")
+            or kwargs.get("aspect_reframe")
+            or kwargs.get("delivery_reframe")
+        )
+    )
+    reframe_patterns = r"(?:\[REFRAME:?|reframe|safe-?zone|ui_safe|center\s+of\s+interest|coi\(|cutdown|pan-and-scan)"
+    reframe_match = re.search(reframe_patterns, prompt, re.IGNORECASE)
+    reframe_compliant_val = True
+    if reframe_spec_obj is not None:
+        if getattr(reframe_spec_obj, "all_platforms_cleared", True) is False:
+            reframe_compliant_val = False
+            details["reframe_compliant"] = False
+            warnings.append(
+                "Reframe Safe-Zone Warning: Subject COI intrudes into target social platform UI overlay zone."
+            )
+        else:
+            details["reframe_compliant"] = True
+            details["reframe_reward"] = 1.0
+            details["reframe_descriptor"] = format_reframe_prompt_token(reframe_spec_obj)
+    elif reframe_match:
+        details["reframe_compliant"] = True
+        details["reframe_reward"] = 1.0
+        details["reframe_descriptor"] = reframe_match.group(0)
+
+    # Broadcast QC, PSE Flash-Safety & Loudness recognition & reward (PM-FEAT-022)
+    broadcast_qc_obj = (
+        getattr(scene, "broadcast_qc", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("broadcast_qc")
+            or kwargs.get("qc_spec")
+            or kwargs.get("pse_qc")
+            or kwargs.get("trafficking_qc")
+        )
+    )
+    qc_patterns = r"(?:\[BROADCAST[ _]QC:?|atsc\s*a/?85|ebu\s*r128|pse_bt1702|itu-?r\s*bt\.?1702|lufs|lkfs|dbtp|rec709_legal|broadcast\s*qc)"
+    qc_match = re.search(qc_patterns, prompt, re.IGNORECASE)
+    broadcast_qc_compliant_val = True
+    if broadcast_qc_obj is not None:
+        ov = getattr(broadcast_qc_obj, "overall_verdict", QcVerdictStatus.PASS)
+        ov_str = ov.value if hasattr(ov, "value") else str(ov)
+        if ov_str == "FAIL":
+            broadcast_qc_compliant_val = False
+            details["broadcast_qc_compliant"] = False
+            errors.append(
+                "Broadcast QC Violation: Scene failed ITU-R BT.1702 PSE flash-safety (>3.0 Hz) or loudness/chroma ceiling."
+            )
+        else:
+            details["broadcast_qc_compliant"] = True
+            details["broadcast_qc_reward"] = 1.0
+            details["broadcast_qc_descriptor"] = format_broadcast_qc_prompt_token(broadcast_qc_obj)
+    elif qc_match:
+        details["broadcast_qc_compliant"] = True
+        details["broadcast_qc_reward"] = 1.0
+        details["broadcast_qc_descriptor"] = qc_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -343,6 +414,7 @@ def audit_omni_scene_prompt(
         "pan", "tracking", "close-up", "wide", "prime", "tilt",
         "[hdr signal:", "[1st ad breakdown:", "[film emulation:", "[film_stock:",
         "[production slate:", "[clapper_slate:", "[drone_flight:", "[drone flight:",
+        "[reframe:", "[broadcast_qc:", "[broadcast qc:",
     ]
     has_camera = (
         any(term in prompt.lower() for term in camera_terms)
@@ -354,6 +426,9 @@ def audit_omni_scene_prompt(
         or "[clapper_slate:" in prompt.lower()
         or "[drone_flight:" in prompt.lower()
         or "[drone flight:" in prompt.lower()
+        or "[reframe:" in prompt.lower()
+        or "[broadcast_qc:" in prompt.lower()
+        or "[broadcast qc:" in prompt.lower()
     )
     if craft_camera is not None:
         details["craft_camera_configured"] = True
@@ -436,6 +511,18 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("clapper_slate_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("drone_flight_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("reframe_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("broadcast_qc_compliant"):
+            score = min(100.0, score + 1.0)
+
+    drone_ok = (
+        bool(details.get("drone_flight_compliant", False))
+        if (drone_flight_spec is not None or has_aerial_keywords)
+        else True
+    )
 
     return AuditResult(
         scene_index=effective_scene_index,
@@ -444,6 +531,9 @@ def audit_omni_scene_prompt(
         errors=errors,
         warnings=warnings,
         details=details,
+        drone_flight_compliant=drone_ok,
+        reframe_compliant=reframe_compliant_val,
+        broadcast_qc_compliant=broadcast_qc_compliant_val,
     )
 
 
@@ -553,12 +643,53 @@ def heal_omni_scene_prompt(
         ((getattr(scene, "clapper_slate", None) if is_spec else None) or (getattr(spec_context, "clapper_slate", None) if spec_context else None) or kwargs.get("clapper_slate"))
         and not (current_audit.details and current_audit.details.get("clapper_slate_compliant"))
     )
+    needs_drone_injection = bool(
+        (
+            (getattr(scene, "drone_flight", None) if is_spec else None)
+            or (getattr(spec_context, "drone_flight", None) if spec_context else None)
+            or kwargs.get("drone_flight")
+            or re.search(r"\b(?:aerial|drone|flyover|orbit|overhead|altitude|bird's-eye|birds eye|uav)\b", current_prompt, re.IGNORECASE)
+        )
+        and not (current_audit.details and current_audit.details.get("drone_flight_compliant"))
+    )
+    needs_reframe_injection = bool(
+        (
+            (getattr(scene, "reframe_spec", None) if is_spec else None)
+            or (getattr(spec_context, "reframe_spec", None) if spec_context else None)
+            or kwargs.get("reframe_spec")
+            or kwargs.get("reframe")
+            or kwargs.get("aspect_reframe")
+            or kwargs.get("delivery_reframe")
+        )
+        and not re.search(r"\[REFRAME:?", current_prompt, re.IGNORECASE)
+    )
+    needs_qc_injection = bool(
+        (
+            (getattr(scene, "broadcast_qc", None) if is_spec else None)
+            or (getattr(spec_context, "broadcast_qc", None) if spec_context else None)
+            or kwargs.get("broadcast_qc")
+            or kwargs.get("qc_spec")
+            or kwargs.get("pse_qc")
+            or kwargs.get("trafficking_qc")
+        )
+        and not re.search(r"\[BROADCAST[ _]QC:?", current_prompt, re.IGNORECASE)
+    )
 
-    if current_audit.passed and current_audit.score >= 100.0 and not current_audit.warnings and not needs_film_injection and not needs_slate_injection:
+    if (
+        current_audit.passed
+        and current_audit.score >= 100.0
+        and not current_audit.warnings
+        and not needs_film_injection
+        and not needs_slate_injection
+        and not needs_drone_injection
+        and not needs_reframe_injection
+        and not needs_qc_injection
+    ):
         if current_audit.details is None:
             current_audit.details = {}
         current_audit.details["healing_history"] = {
             "applied_patches": applied_patches,
+            "applied_fixes": list(applied_patches),
             "attempts_executed": attempts_executed,
             "initial_score": initial_score,
             "final_score": current_audit.score,
@@ -781,6 +912,65 @@ def heal_omni_scene_prompt(
             if "injected_drone_flight_spec" not in applied_patches:
                 applied_patches.append("injected_drone_flight_spec")
 
+        # 3o. Inject Multi-Aspect Reframe & Safe-Zone tokens (PM-FEAT-021)
+        reframe_obj = (
+            (getattr(scene, "reframe_spec", None) if is_spec else None)
+            or (getattr(spec_context, "reframe_spec", None) if spec_context else None)
+            or kwargs.get("reframe_spec")
+            or kwargs.get("reframe")
+            or kwargs.get("aspect_reframe")
+            or kwargs.get("delivery_reframe")
+        )
+        domain_arch_hint = str(getattr(spec_context, "domain_archetype", None) or kwargs.get("domain_archetype") or "architectural_sanctuary")
+        if reframe_obj is None:
+            reframe_obj = synthesize_default_scene_reframe(
+                scene=scene if is_spec else None,
+                scene_index=eff_scene_index,
+                domain=domain_arch_hint,
+            )
+        elif getattr(reframe_obj, "all_platforms_cleared", True) is False:
+            reframe_obj = synthesize_default_scene_reframe(
+                scene=None,
+                scene_index=eff_scene_index,
+                scene_title=getattr(reframe_obj, "scene_title", ""),
+                domain=domain_arch_hint,
+            )
+        if reframe_obj is not None and not re.search(r"\[REFRAME:?", working_prompt, re.IGNORECASE):
+            token = format_reframe_prompt_token(reframe_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "reframe_spec" not in applied_patches:
+                applied_patches.append("reframe_spec")
+
+        # 3p. Inject Broadcast QC & PSE Flash-Safety tokens (PM-FEAT-022)
+        qc_obj = (
+            (getattr(scene, "broadcast_qc", None) if is_spec else None)
+            or (getattr(spec_context, "broadcast_qc", None) if spec_context else None)
+            or kwargs.get("broadcast_qc")
+            or kwargs.get("qc_spec")
+            or kwargs.get("pse_qc")
+            or kwargs.get("trafficking_qc")
+        )
+        if qc_obj is None:
+            qc_obj = synthesize_default_scene_qc(
+                scene=scene if is_spec else None,
+                scene_index=eff_scene_index,
+            )
+        if qc_obj is not None and getattr(qc_obj, "overall_verdict", QcVerdictStatus.PASS) == QcVerdictStatus.FAIL:
+            working_prompt = re.sub(
+                r"\b(?:stroboscopic|strobe|strobing|rapid\s+flash(?:ing)?|rapid\s+flicker|red\s+strobe)\b",
+                "smooth continuous illumination",
+                working_prompt,
+                flags=re.IGNORECASE,
+            )
+            qc_obj = synthesize_default_scene_qc(scene=None, scene_index=eff_scene_index)
+            if "broadcast_qc" not in applied_patches:
+                applied_patches.append("broadcast_qc")
+        if qc_obj is not None and not re.search(r"\[BROADCAST[ _]QC:?", working_prompt, re.IGNORECASE):
+            token = format_broadcast_qc_prompt_token(qc_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "broadcast_qc" not in applied_patches:
+                applied_patches.append("broadcast_qc")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -859,6 +1049,14 @@ def heal_omni_scene_prompt(
                 scene.film_emulation = film_obj
             if slate_obj is not None and getattr(scene, "clapper_slate", None) is None:
                 scene.clapper_slate = slate_obj
+            if reframe_obj is not None and (getattr(scene, "reframe_spec", None) is None or not getattr(scene.reframe_spec, "all_platforms_cleared", True)):
+                scene.reframe_spec = reframe_obj
+                if "reframe_spec" not in applied_patches:
+                    applied_patches.append("reframe_spec")
+            if qc_obj is not None and (getattr(scene, "broadcast_qc", None) is None or getattr(scene.broadcast_qc, "overall_verdict", QcVerdictStatus.PASS) == QcVerdictStatus.FAIL):
+                scene.broadcast_qc = qc_obj
+                if "broadcast_qc" not in applied_patches:
+                    applied_patches.append("broadcast_qc")
             target_to_audit = scene
         else:
             if "action_beats" in kwargs and isinstance(kwargs["action_beats"], list) and len(kwargs["action_beats"]) > 3:
@@ -878,13 +1076,25 @@ def heal_omni_scene_prompt(
 
         needs_film_still = bool(film_obj is not None and not (current_audit.details and current_audit.details.get("film_emulation_compliant")))
         needs_slate_still = bool(slate_obj is not None and not (current_audit.details and current_audit.details.get("clapper_slate_compliant")))
-        if current_audit.passed and current_audit.score >= 90.0 and not needs_film_still and not needs_slate_still:
+        needs_drone_still = bool(drone_obj is not None and not (current_audit.details and current_audit.details.get("drone_flight_compliant")))
+        needs_reframe_still = bool(reframe_obj is not None and not (current_audit.details and current_audit.details.get("reframe_compliant")))
+        needs_qc_still = bool(qc_obj is not None and not (current_audit.details and current_audit.details.get("broadcast_qc_compliant")))
+        if (
+            current_audit.passed
+            and current_audit.score >= 90.0
+            and not needs_film_still
+            and not needs_slate_still
+            and not needs_drone_still
+            and not needs_reframe_still
+            and not needs_qc_still
+        ):
             break
 
     if current_audit.details is None:
         current_audit.details = {}
     current_audit.details["healing_history"] = {
         "applied_patches": applied_patches,
+        "applied_fixes": list(applied_patches),
         "attempts_executed": attempts_executed,
         "initial_score": initial_score,
         "final_score": current_audit.score,

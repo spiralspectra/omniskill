@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5298,7 +5298,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         assert "GRAND TOTAL BID" in html
         assert "COST-PER-SECOND (CPS)" in html
         assert "FINANCIAL ALLOCATION DOUGHNUT" in html
-        assert "SECTIONS A–K LINE-ITEM BREAKDOWN" in html
+        assert "SECTIONS A–N LINE-ITEM BREAKDOWN" in html
         assert "toggleAicpHUD()" in html
         assert "downloadAicpCSV()" in html
         assert "downloadAicpJSON()" in html
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.10.0"
+        assert report.version == "2.11.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5388,3 +5388,454 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
 
 
 
+
+
+class TestV211RegressionAndFdeUxFixes:
+    """Verifies Wave 2 FDE/UX bugfixes, Python 3.11 AST compatibility, backfill parity, and granular exports."""
+
+    def test_version_alignment_doctor_and_council(self):
+        import omni_director
+        from omni_director.doctor import run_doctor
+        from omni_director.schemas import ProductCouncilReport
+
+        assert omni_director.__version__ == "2.11.0"
+        report = run_doctor()
+        assert report.version == "2.11.0"
+        assert report.passed is True
+        assert report.exit_code == 0
+        council_report = ProductCouncilReport(project_title="Smoke Check")
+        assert council_report.version == "2.11.0"
+
+    def test_html_compiler_python_311_ast_compatibility(self):
+        import ast
+        from pathlib import Path
+
+        compiler_path = Path("omni_director/tools/html_compiler.py")
+        src = compiler_path.read_text(encoding="utf-8")
+        tree = ast.parse(src, filename=str(compiler_path), feature_version=(3, 11))
+        assert isinstance(tree, ast.Module)
+        assert any(
+            isinstance(node, ast.FunctionDef) and node.name == "compile_storyboard_html"
+            for node in tree.body
+        )
+
+    def test_html_aicp_real_totals_drone_override_and_ui_fixes(self, tmp_path):
+        import re
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_aicp_bid_spec, get_domain_drone_spec
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        custom_aicp = get_domain_aicp_bid_spec("automotive_robotics", total_runtime_seconds=32)
+        custom_drone = get_domain_drone_spec("automotive_robotics")
+        custom_drone.pilot_in_command = "Custom PIC Alpha-99"
+        bible.master_aicp_bid = custom_aicp
+        bible.master_drone_spec = custom_drone
+
+        html_path = compile_storyboard_html(bible, tmp_path)
+        html = html_path.read_text(encoding="utf-8")
+
+        # Real MasterAicpBidSpec totals (not hardcoded fallback figures) and Sections A-N
+        expected_grand = f"${custom_aicp.top_sheet.grand_total:,.2f}"
+        expected_atl = f"${custom_aicp.top_sheet.atl_subtotal:,.2f}"
+        expected_post = f"${custom_aicp.top_sheet.post_production_costs_usd:,.2f}"
+        assert expected_grand in html
+        assert expected_atl in html
+        assert expected_post in html
+        assert "SECTIONS A–N LINE-ITEM BREAKDOWN" in html
+
+        # Custom drone spec rendered
+        assert "Custom PIC Alpha-99" in html
+
+        # CSS tokens & accessibility/UI fixes
+        assert "--red-rec:" in html
+        assert "--green-rec:" in html
+        assert 'aria-label="ASC CDL Look Preset"' in html
+        look_select_match = re.search(r'<select[^>]*id="look-selector"[^>]*>.*?</select>', html, re.DOTALL)
+        assert look_select_match is not None
+        assert "[L]" not in look_select_match.group(0)
+
+        # Escape key closes mixer, reframe HUD, and QC HUD
+        assert "if (isReframeHUDOpen) toggleReframeHUD();" in html
+        assert "if (isQcHUDOpen) toggleQcHUD();" in html
+        assert "if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();" in html
+
+        # Zero duplicate hotkey bindings inside keydown listener
+        kd_idx = html.index("window.addEventListener('keydown'")
+        kd_block = html[kd_idx:kd_idx + 3500]
+        lower_keys = re.findall(r"e\.key === '([a-z0-9])'", kd_block)
+        assert len(lower_keys) == len(set(lower_keys)), f"Duplicate hotkeys found: {lower_keys}"
+
+    def test_creative_director_backfills_pm_feat_013_to_022(self):
+        from omni_director.agents.agent import CreativeDirectorAgent
+
+        director = CreativeDirectorAgent()
+        custom = director.synthesize_custom_bible(
+            raw_prompt="Sleek autonomous EV glides across wet basalt salt flats at twilight.",
+            genre="automotive_robotics",
+            project_title="Volt Horizon",
+        )
+        ctx = director.run({"bible": custom})
+        bible = ctx["bible"]
+
+        for attr in (
+            "master_spatial_audio",
+            "master_vfx_manifest",
+            "master_hdr_spec",
+            "master_stripboard_schedule",
+            "master_film_emulation",
+            "master_slate_spec",
+            "master_drone_spec",
+            "master_aicp_bid",
+            "master_reframe_manifest",
+            "master_broadcast_qc",
+        ):
+            assert getattr(bible, attr, None) is not None, f"Missing backfilled spec: {attr}"
+
+    def test_export_all_nle_artifacts_and_cli_granular_flags_pm_feat_015_to_022(self, tmp_path):
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        nle_dir = tmp_path / "nle_all"
+        exported = export_all_nle_artifacts(IKEA_ASMR_BIBLE, nle_dir)
+        exported_filenames = {Path(p).name for p in exported.values()}
+        expected_nle_files = {
+            "hdr10_metadata.json",
+            "hlg_broadcast.xml",
+            "resolve_hdr_rcm.xml",
+            "hdr_master_report.json",
+            "movie_magic_schedule.xml",
+            "stripboard_schedule.csv",
+            "dood_matrix.csv",
+            "stripboard_summary.json",
+            "film_emulation_spec.json",
+            "film_stock_shader.dctl",
+            "film_stock.ale",
+            "slate_manifest.json",
+            "asc_mhl_manifest.xml",
+            "clapper_slate_log.csv",
+            "sound_sync.ale",
+            "reframe_crop_matrix.csv",
+            "cutdown_15s.edl",
+            "cutdown_06s.edl",
+            "reframe_9x16.fcpxml",
+            "delivery_reframe_manifest.json",
+            "broadcast_qc_certificate.md",
+            "rights_clearance_matrix.csv",
+            "broadcast_qc_manifest.json",
+        }
+        assert expected_nle_files <= exported_filenames
+        for fname in expected_nle_files:
+            assert (nle_dir / fname).exists(), f"NLE artifact missing on disk: {fname}"
+
+        cli_dir = tmp_path / "cli_granular"
+        rc = handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "edl",
+            "--hdr-json",
+            "--hlg-xml",
+            "--resolve-hdr",
+            "--movie-magic-xml",
+            "--stripboard-csv",
+            "--dood-csv",
+            "--webaudio-config",
+            "--reframe-csv",
+            "--cutdown-edl",
+            "--reframe-fcpxml",
+            "--reframe-json",
+            "--qc-cert",
+            "--clearance-csv",
+            "--qc-json",
+            "--output-dir", str(cli_dir),
+        ])
+        assert rc == 0
+        for fname in (
+            "hdr10_metadata.json",
+            "hlg_broadcast.xml",
+            "resolve_hdr_rcm.xml",
+            "movie_magic_schedule.xml",
+            "stripboard_schedule.csv",
+            "dood_matrix.csv",
+            "webaudio_spatial_config.json",
+            "reframe_crop_matrix.csv",
+            "cutdown_15s.edl",
+            "cutdown_06s.edl",
+            "reframe_9x16.fcpxml",
+            "delivery_reframe_manifest.json",
+            "broadcast_qc_certificate.md",
+            "rights_clearance_matrix.csv",
+            "broadcast_qc_manifest.json",
+        ):
+            assert (cli_dir / fname).exists(), f"CLI granular export missing {fname}"
+
+
+class TestPMFeat021DeliveryReframeAndCutdowns:
+    """Verifies PM-FEAT-021: Multi-Aspect Auto-Reframe, Social UI Safe Zones & Cutdowns."""
+
+    def test_aspect_crop_window_and_ui_clearance(self):
+        from omni_director.schemas import DeliverableAspectRatio, SocialDeliveryPlatform
+        from omni_director.tools.delivery_reframe import (
+            calculate_aspect_crop_window,
+            check_platform_ui_clearance,
+        )
+
+        crop_9x16 = calculate_aspect_crop_window(
+            source_width=3840,
+            source_height=2160,
+            target_aspect_ratio=DeliverableAspectRatio.RATIO_9_16,
+            center_of_interest_x=0.5,
+            center_of_interest_y=0.45,
+            platform=SocialDeliveryPlatform.TIKTOK_9X16,
+        )
+        assert crop_9x16.crop_width_px == 1214
+        assert crop_9x16.crop_height_px == 2160
+        assert crop_9x16.crop_width_px % 2 == 0
+        assert crop_9x16.output_width_px == 1080
+        assert crop_9x16.output_height_px == 1920
+        assert crop_9x16.ui_clearance_ok is True
+
+        safe_report = check_platform_ui_clearance(0.5, 0.45, SocialDeliveryPlatform.TIKTOK_9X16)
+        assert safe_report["cleared"] is True
+        assert safe_report["violations"] == []
+
+        obstructed_report = check_platform_ui_clearance(0.95, 0.90, SocialDeliveryPlatform.TIKTOK_9X16)
+        assert obstructed_report["cleared"] is False
+        assert len(obstructed_report["violations"]) >= 2
+
+        crop_scope = calculate_aspect_crop_window(
+            source_width=3840,
+            source_height=2160,
+            target_aspect_ratio=DeliverableAspectRatio.RATIO_2_39_1,
+        )
+        assert crop_scope.crop_width_px == 3840
+        assert crop_scope.crop_height_px < 2160
+
+    def test_synthesize_cutdown_versions_and_exports(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import CutdownFormatType
+        from omni_director.tools.delivery_reframe import (
+            export_reframe_bundle,
+            synthesize_cutdown_versions,
+        )
+
+        # IKEA_ASMR_BIBLE has 32s runtime -> :30s, :15s, :06s
+        cutdowns = synthesize_cutdown_versions(IKEA_ASMR_BIBLE)
+        types = [c.cutdown_type for c in cutdowns]
+        assert CutdownFormatType.CUTDOWN_30S in types
+        assert CutdownFormatType.CUTDOWN_15S in types
+        assert CutdownFormatType.BUMPER_06S in types
+
+        short_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        short_bible.total_runtime_seconds = 20
+        short_cutdowns = synthesize_cutdown_versions(short_bible)
+        short_types = [c.cutdown_type for c in short_cutdowns]
+        assert CutdownFormatType.CUTDOWN_30S not in short_types
+        assert CutdownFormatType.CUTDOWN_15S in short_types
+        assert CutdownFormatType.BUMPER_06S in short_types
+
+        exported = export_reframe_bundle(IKEA_ASMR_BIBLE, tmp_path)
+        exported_filenames = {Path(p).name for p in exported.values()}
+        for fname in (
+            "reframe_crop_matrix.csv",
+            "cutdown_30s.edl",
+            "cutdown_15s.edl",
+            "cutdown_06s.edl",
+            "reframe_9x16.fcpxml",
+            "delivery_reframe_manifest.json",
+        ):
+            assert fname in exported_filenames
+            assert (tmp_path / fname).exists()
+
+    def test_domain_reframe_manifest_all_6_archetypes(self):
+        from omni_director.presets import DOMAIN_ARCHETYPES, get_domain_reframe_manifest
+        from omni_director.schemas import DeliveryReframeManifestSpec
+
+        for domain in DOMAIN_ARCHETYPES:
+            manifest = get_domain_reframe_manifest(domain)
+            assert isinstance(manifest, DeliveryReframeManifestSpec)
+            assert manifest.safe_zone_audit_passed is True
+            assert manifest.deliverable_matrix_count >= 3
+            assert "[REFRAME:" in manifest.prompt_token
+
+    def test_prompt_auditor_and_healing_reframe_rule_4(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.delivery_reframe import synthesize_default_scene_reframe
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        good_reframe = synthesize_default_scene_reframe(scene)
+        scene.reframe_spec = good_reframe
+
+        # Heal injects [REFRAME:...] token when missing
+        healed = heal_omni_scene_prompt(scene)
+        patches = healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+        assert "reframe_spec" in patches
+        assert "[REFRAME:" in healed.healed_prompt
+
+        audit_ok = audit_omni_scene_prompt(healed.healed)
+        assert audit_ok.details.get("reframe_compliant") is True
+
+        # Unsafe crop fails Rule 4 compliance
+        bad_reframe = good_reframe.model_copy(deep=True)
+        bad_reframe.all_platforms_cleared = False
+        scene_bad = scene.model_copy(deep=True)
+        scene_bad.reframe_spec = bad_reframe
+        audit_bad = audit_omni_scene_prompt(scene_bad)
+        assert audit_bad.details.get("reframe_compliant") is False
+
+    def test_html_and_cli_reframe_export(self, tmp_path):
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        html = compile_storyboard_html(IKEA_ASMR_BIBLE, tmp_path / "html").read_text(encoding="utf-8")
+        assert 'id="btn-reframe-animatic"' in html
+        assert 'id="animatic-reframe-hud"' in html
+        assert "e.key === 'r' || e.key === 'R'" in html
+
+        cli_out = tmp_path / "cli_reframe"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "reframe", "--output-dir", str(cli_out)]) == 0
+        assert (cli_out / "reframe_crop_matrix.csv").exists()
+        assert (cli_out / "cutdown_15s.edl").exists()
+        assert (cli_out / "cutdown_06s.edl").exists()
+        assert (cli_out / "reframe_9x16.fcpxml").exists()
+        assert (cli_out / "delivery_reframe_manifest.json").exists()
+
+
+class TestPMFeat022BroadcastQcAndClearances:
+    """Verifies PM-FEAT-022: Broadcast Trafficking, Loudness, PSE Flash-Safety & Clearances."""
+
+    def test_loudness_pse_safety_and_clearances(self, tmp_path):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import BroadcastLoudnessStandard, ClearanceCategory, QcVerdictStatus
+        from omni_director.tools.broadcast_qc import (
+            evaluate_scene_pse_safety,
+            export_broadcast_qc_bundle,
+            synthesize_rights_clearances,
+            validate_loudness_target,
+        )
+
+        # Loudness validation (ATSC A/85 & EBU R128)
+        atsc = validate_loudness_target(None, BroadcastLoudnessStandard.ATSC_A85)
+        assert atsc.target_integrated_lufs == -24.0
+        assert atsc.verdict == QcVerdictStatus.PASS
+
+        ebu = validate_loudness_target(None, BroadcastLoudnessStandard.EBU_R128)
+        assert ebu.target_integrated_lufs == -23.0
+        assert ebu.verdict == QcVerdictStatus.PASS
+
+        # PSE flash-safety: nominal vs simulated > 3.0 Hz strobe
+        nom_pse = evaluate_scene_pse_safety(IKEA_ASMR_BIBLE.scenes[0])
+        assert nom_pse.verdict == QcVerdictStatus.PASS
+        assert nom_pse.max_flash_frequency_hz <= 3.0
+
+        bad_pse = evaluate_scene_pse_safety("8hz strobe red strobe camera flash burst across frame")
+        assert bad_pse.verdict == QcVerdictStatus.FAIL
+        assert bad_pse.max_flash_frequency_hz > 3.0
+
+        # Rights clearances (includes aerial FAA waiver when drone spec attached)
+        clearances = synthesize_rights_clearances(IKEA_ASMR_BIBLE)
+        categories = {r.category for r in clearances}
+        assert {
+            ClearanceCategory.TALENT_USAGE,
+            ClearanceCategory.MUSIC_SYNC_MASTER,
+            ClearanceCategory.BRAND_TRADEMARK_IP,
+            ClearanceCategory.LOCATION_PERMIT,
+        } <= categories
+
+        exported = export_broadcast_qc_bundle(IKEA_ASMR_BIBLE, tmp_path)
+        exported_filenames = {Path(p).name for p in exported.values()}
+        for fname in (
+            "broadcast_qc_certificate.md",
+            "rights_clearance_matrix.csv",
+            "broadcast_qc_manifest.json",
+        ):
+            assert fname in exported_filenames
+            assert (tmp_path / fname).exists()
+
+    def test_domain_broadcast_qc_all_6_archetypes(self):
+        from omni_director.presets import DOMAIN_ARCHETYPES, get_domain_broadcast_qc_spec
+        from omni_director.schemas import MasterBroadcastQcSpec, QcVerdictStatus
+
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_broadcast_qc_spec(domain)
+            assert isinstance(spec, MasterBroadcastQcSpec)
+            assert spec.overall_verdict == QcVerdictStatus.PASS
+            assert len(spec.clearance_records) >= 4
+            assert "[BROADCAST_QC:" in spec.prompt_token
+
+    def test_prompt_auditor_and_healing_broadcast_qc_rule_4(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import QcVerdictStatus
+        from omni_director.tools.broadcast_qc import synthesize_default_scene_qc
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+
+        scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        good_qc = synthesize_default_scene_qc(scene)
+        scene.broadcast_qc = good_qc
+
+        healed = heal_omni_scene_prompt(scene)
+        patches = healed.audit.details.get("healing_history", {}).get("applied_patches", [])
+        assert "broadcast_qc" in patches
+        assert "[BROADCAST_QC:" in healed.healed_prompt
+
+        audit_ok = audit_omni_scene_prompt(healed.healed)
+        assert audit_ok.details.get("broadcast_qc_compliant") is True
+
+        # Simulated PSE FAIL triggers Broadcast QC Rule 4 violation
+        bad_qc = good_qc.model_copy(deep=True)
+        bad_qc.overall_verdict = QcVerdictStatus.FAIL
+        scene_bad = scene.model_copy(deep=True)
+        scene_bad.broadcast_qc = bad_qc
+        audit_bad = audit_omni_scene_prompt(scene_bad)
+        assert audit_bad.details.get("broadcast_qc_compliant") is False
+
+    def test_html_and_cli_broadcast_qc_export(self, tmp_path):
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        html = compile_storyboard_html(IKEA_ASMR_BIBLE, tmp_path / "html").read_text(encoding="utf-8")
+        assert 'id="btn-qc-animatic"' in html
+        assert 'id="animatic-qc-hud"' in html
+        assert "e.key === 'q' || e.key === 'Q'" in html
+
+        cli_out = tmp_path / "cli_qc"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "qc", "--output-dir", str(cli_out)]) == 0
+        assert (cli_out / "broadcast_qc_certificate.md").exists()
+        assert (cli_out / "rights_clearance_matrix.csv").exists()
+        assert (cli_out / "broadcast_qc_manifest.json").exists()
+
+
+class TestV211ProductCouncilIntegration:
+    """Verifies PM inspection covers all 22 features and Product Council passes >= 90/100."""
+
+    def test_pm_22_features_and_council_golden_preset_pass(self, tmp_path):
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
+        feat_ids = {p.feature_id for p in proposals}
+        assert len(proposals) == 22
+        assert "PM-FEAT-021" in feat_ids
+        assert "PM-FEAT-022" in feat_ids
+
+        council = ProductCouncilOrchestrator()
+        for idx, preset_bible in enumerate((IKEA_ASMR_BIBLE, SEPHORA_PULSE_BIBLE)):
+            out_dir = tmp_path / f"preset_{idx}"
+            bundle = ProductionBundle(
+                bible=preset_bible,
+                storyboard_html_path="",
+                bundle_json_path="",
+                visual_plates={},
+                audit_reports=[],
+            )
+            compile_storyboard_html(bundle, out_dir)
+            report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
+            assert report.version == "2.11.0"
+            assert report.passed is True
+            assert report.critical_findings_count == 0
+            assert report.overall_score >= 90.0

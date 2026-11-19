@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import csv
 import io
+import logging
 import re
 from pathlib import Path
 from typing import Dict, Tuple, Union
 from xml.sax.saxutils import escape as xml_escape
 
 from omni_director.schemas import MasterProductionBible, ScenePromptSpec
+
+logger = logging.getLogger("omni_director.nle_export")
 
 
 def _seconds_to_smpte_frames(seconds: float, fps: int = 24) -> str:
@@ -323,8 +326,8 @@ def export_all_nle_artifacts(
         stems_path = export_audio_stems_file(bible, out_path / "audio_stems_manifest.json")
         res["cdl"] = str(cdl_path)
         res["audio_stems"] = str(stems_path)
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.warning("CDL/audio stems export skipped: %s", exc)
 
     try:
         from omni_director.tools.optical_lens import export_lens_metadata_file
@@ -332,56 +335,114 @@ def export_all_nle_artifacts(
         lens_path = out_path / "lens_package.csv"
         export_lens_metadata_file(bible, lens_path)
         res["lens"] = str(lens_path)
-        res.update(export_virtual_production_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_virtual_production_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Optical lens/virtual production export skipped: %s", exc)
 
     try:
         from omni_director.tools.moco_kinematics import export_moco_bundle
-        res.update(export_moco_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_moco_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("MoCo bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.lighting_rig import export_lighting_bundle
-        res.update(export_lighting_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_lighting_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Lighting bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.dof_simulator import export_dof_bundle
-        res.update(export_dof_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_dof_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("DoF bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.dit_lut import export_dit_bundle
-        res.update(export_dit_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_dit_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("DIT LUT bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.spatial_audio import export_spatial_audio_bundle
-        res.update(export_spatial_audio_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_spatial_audio_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Spatial audio bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.vfx_compositor import export_vfx_compositing_bundle
-        res.update(export_vfx_compositing_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_vfx_compositing_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("VFX compositing bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.hdr_signal import export_hdr_bundle
+        res.update({k: str(v) for k, v in export_hdr_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("HDR bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
+        res.update({k: str(v) for k, v in export_stripboard_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Stripboard bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.film_emulation import export_film_emulation_bundle, synthesize_default_film_stock
+        film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None)
+        if film_spec is None:
+            domain = getattr(bible, "domain_archetype", None)
+            if domain:
+                try:
+                    from omni_director.presets import get_domain_film_emulation_spec
+                    film_spec = get_domain_film_emulation_spec(domain)
+                except Exception:
+                    film_spec = synthesize_default_film_stock()
+            else:
+                film_spec = synthesize_default_film_stock()
+        res.update({k: str(v) for k, v in export_film_emulation_bundle(film_spec, out_path, bible=bible).items()})
+    except Exception as exc:
+        logger.warning("Film emulation bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.clapper_slate import export_slate_bundle, synthesize_default_slate_spec
+        slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None)
+        if slate_spec is None:
+            domain = getattr(bible, "domain_archetype", None)
+            if domain:
+                try:
+                    from omni_director.presets import get_domain_clapper_slate_spec
+                    slate_spec = get_domain_clapper_slate_spec(domain, bible.scenes, project_title=bible.project_title)
+                except Exception:
+                    slate_spec = synthesize_default_slate_spec(bible)
+            else:
+                slate_spec = synthesize_default_slate_spec(bible)
+        res.update({k: str(v) for k, v in export_slate_bundle(slate_spec, out_path, bible=bible).items()})
+    except Exception as exc:
+        logger.warning("Clapper slate bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.drone_flight import export_drone_flight_bundle
-        res.update(export_drone_flight_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_drone_flight_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Drone flight bundle export skipped: %s", exc)
 
     try:
         from omni_director.tools.aicp_budget import export_aicp_budget_bundle
-        res.update(export_aicp_budget_bundle(bible, out_path))
-    except Exception:
-        pass
+        res.update({k: str(v) for k, v in export_aicp_budget_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("AICP budget bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.delivery_reframe import export_reframe_bundle
+        res.update({k: str(v) for k, v in export_reframe_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Delivery reframe bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.broadcast_qc import export_broadcast_qc_bundle
+        res.update({k: str(v) for k, v in export_broadcast_qc_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Broadcast QC bundle export skipped: %s", exc)
 
     return res

@@ -36,7 +36,7 @@ try:
     from omni_director import __version__
     DEFAULT_DOCTOR_VERSION = __version__
 except Exception:
-    DEFAULT_DOCTOR_VERSION = "2.10.0"
+    DEFAULT_DOCTOR_VERSION = "2.11.0"
 
 
 class CheckStatus(str, Enum):
@@ -277,7 +277,7 @@ def run_doctor(
     summary = f"Doctor check complete: {pass_count} passed, {warn_count} warnings, {fail_count} failures."
 
     return DoctorReport(
-        version="2.6.0",
+        version=DEFAULT_DOCTOR_VERSION,
         checks=checks,
         passed=passed,
         has_warnings=has_warnings,

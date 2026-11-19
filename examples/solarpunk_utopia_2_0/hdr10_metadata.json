@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "standard": "SMPTE ST 2086 / CTA-861.3 / ITU-R BT.2020",
-  "production_title": "Omni Production",
+  "production_title": "Solarpunk Architectural Sanctuary Featur",
   "transfer_function": "smpte_st_2084_pq",
   "target_color_gamut": "bt_2020",
   "mastering_display": {
@@ -50,5 +50,20 @@
     "shoulder_point_nits": 800.0,
     "tone_mapping_operator": "aces_spline"
   },
-  "scenes": []
+  "scenes": [
+    {
+      "scene_index": 1,
+      "max_cll_nits": 980.0,
+      "max_fall_nits": 360.0,
+      "pq_code_max_cll": 0.7496,
+      "pq_code_max_fall": 0.6413
+    },
+    {
+      "scene_index": 2,
+      "max_cll_nits": 980.0,
+      "max_fall_nits": 360.0,
+      "pq_code_max_cll": 0.7496,
+      "pq_code_max_fall": 0.6413
+    }
+  ]
 }

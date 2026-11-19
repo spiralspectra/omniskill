@@ -14,6 +14,7 @@ from typing import Any, Callable, Dict, List, Optional, Union
 from pydantic import ConfigDict
 
 from omni_director.config import DirectorConfig, cfg, validate_model_identifier
+import omni_director.presets as _presets_mod
 from omni_director.presets import (
     DOMAIN_ARCHETYPES,
     classify_brief_domain,
@@ -37,6 +38,14 @@ from omni_director.presets import (
     get_preset_bible,
 )
 from omni_director.tools.stripboard_scheduler import extract_script_breakdown_sheet
+from omni_director.tools.delivery_reframe import (
+    synthesize_default_reframe_manifest,
+    synthesize_default_scene_reframe,
+)
+from omni_director.tools.broadcast_qc import (
+    synthesize_default_broadcast_qc_spec,
+    synthesize_default_scene_qc,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -296,7 +305,7 @@ def synthesize_custom_bible(
         "Key hero subjects maintain optical edge consistency"
     ])
 
-    return MasterProductionBible(
+    bible = MasterProductionBible(
         project_title=title,
         logline=effective_prompt,
         creative_regime=regime,
@@ -375,6 +384,106 @@ def synthesize_custom_bible(
         master_drone_spec=domain_drone,
         master_aicp_bid=get_domain_aicp_bid_spec(domain, total_runtime_seconds=total_runtime_sec or 10),
     )
+    _backfill_production_specs(bible, domain)
+    return bible
+
+
+def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
+    """Backfills missing master & scene production specifications (PM-FEAT-007..022)."""
+    if not getattr(bible, "master_color_look", None):
+        bible.master_color_look = get_domain_color_look(arch)
+    if not getattr(bible, "master_audio_mixer", None):
+        bible.master_audio_mixer = get_domain_audio_mixer(arch)
+    if not getattr(bible, "master_lens_package", None):
+        bible.master_lens_package = get_domain_optical_lens(arch)
+    if not getattr(bible, "virtual_production", None):
+        bible.virtual_production = get_domain_virtual_production(arch)
+    if not getattr(bible, "master_moco_rig", None):
+        bible.master_moco_rig = get_domain_moco_rig(arch)
+    if not getattr(bible, "master_lighting_rig", None):
+        bible.master_lighting_rig = get_domain_lighting_rig(arch)
+    if not getattr(bible, "master_dof_spec", None):
+        bible.master_dof_spec = get_domain_dof_spec(arch)
+    if not getattr(bible, "master_lut_spec", None):
+        bible.master_lut_spec = get_domain_lut_spec(arch)
+    if not getattr(bible, "master_spatial_audio", None):
+        bible.master_spatial_audio = get_domain_spatial_audio_spec(arch)
+    if not getattr(bible, "master_vfx_manifest", None):
+        bible.master_vfx_manifest = get_domain_vfx_manifest(arch)
+    if not getattr(bible, "master_hdr_spec", None):
+        bible.master_hdr_spec = get_domain_hdr_spec(arch)
+    if not getattr(bible, "master_stripboard_schedule", None):
+        bible.master_stripboard_schedule = get_domain_stripboard_spec(arch, bible.scenes)
+    if not getattr(bible, "master_film_emulation", None):
+        bible.master_film_emulation = get_domain_film_emulation_spec(arch)
+    if not getattr(bible, "master_slate_spec", None):
+        bible.master_slate_spec = get_domain_clapper_slate_spec(arch, bible.scenes, project_title=bible.project_title)
+    if not getattr(bible, "master_drone_spec", None):
+        bible.master_drone_spec = get_domain_drone_spec(arch)
+    if not getattr(bible, "master_aicp_bid", None):
+        bible.master_aicp_bid = get_domain_aicp_bid_spec(bible, total_runtime_seconds=bible.total_runtime_seconds)
+
+    # PM-FEAT-021: Reframe Manifest (via presets if available in Wave 2, else direct tool synthesizer)
+    if not getattr(bible, "master_reframe_manifest", None):
+        reframe_fn = getattr(_presets_mod, "get_domain_reframe_manifest", None)
+        if callable(reframe_fn):
+            bible.master_reframe_manifest = reframe_fn(bible)
+        else:
+            bible.master_reframe_manifest = synthesize_default_reframe_manifest(bible)
+
+    # PM-FEAT-022: Broadcast QC Manifest (via presets if available in Wave 2, else direct tool synthesizer)
+    if not getattr(bible, "master_broadcast_qc", None):
+        qc_fn = getattr(_presets_mod, "get_domain_broadcast_qc_spec", None)
+        if callable(qc_fn):
+            bible.master_broadcast_qc = qc_fn(bible)
+        else:
+            bible.master_broadcast_qc = synthesize_default_broadcast_qc_spec(bible)
+
+    slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
+    reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
+    qc_scenes = getattr(bible.master_broadcast_qc, "scene_qc_profiles", []) if bible.master_broadcast_qc else []
+
+    for idx, scene in enumerate(bible.scenes):
+        if not getattr(scene, "speed_ramp", None):
+            scene.speed_ramp = get_domain_speed_ramp(arch)
+        if not getattr(scene, "scene_color_look", None):
+            scene.scene_color_look = bible.master_color_look
+        if not getattr(scene, "optical_lens", None):
+            scene.optical_lens = bible.master_lens_package
+        if not getattr(scene, "virtual_production", None):
+            scene.virtual_production = bible.virtual_production
+        if not getattr(scene, "moco_rig", None):
+            scene.moco_rig = bible.master_moco_rig
+        if not getattr(scene, "lighting_rig", None):
+            scene.lighting_rig = bible.master_lighting_rig
+        if not getattr(scene, "dof_spec", None):
+            scene.dof_spec = bible.master_dof_spec
+        if not getattr(scene, "lut_spec", None):
+            scene.lut_spec = bible.master_lut_spec
+        if not getattr(scene, "spatial_audio", None):
+            scene.spatial_audio = bible.master_spatial_audio
+        if not getattr(scene, "vfx_compositing", None):
+            scene.vfx_compositing = bible.master_vfx_manifest
+        if not getattr(scene, "hdr_spec", None):
+            scene.hdr_spec = bible.master_hdr_spec
+        if not getattr(scene, "breakdown_sheet", None):
+            scene.breakdown_sheet = extract_script_breakdown_sheet(scene, scene.scene_index)
+        if not getattr(scene, "film_emulation", None):
+            scene.film_emulation = bible.master_film_emulation
+        if not getattr(scene, "clapper_slate", None) and idx < len(slate_scenes):
+            scene.clapper_slate = slate_scenes[idx]
+        if not getattr(scene, "drone_flight", None):
+            scene.drone_flight = bible.master_drone_spec
+        if not getattr(scene, "reframe_spec", None):
+            if idx < len(reframe_scenes):
+                scene.reframe_spec = reframe_scenes[idx]
+            else:
+                scene.reframe_spec = synthesize_default_scene_reframe(scene=scene, scene_index=scene.scene_index, domain=arch)
+        if not getattr(scene, "broadcast_qc", None):
+            if idx < len(qc_scenes):
+                scene.broadcast_qc = qc_scenes[idx]
+            else:
+                scene.broadcast_qc = synthesize_default_scene_qc(scene=scene, scene_index=scene.scene_index)
 
 
 class IntakeAndResearchAgent(BaseAgent):
@@ -524,32 +633,7 @@ class CreativeDirectorAgent(BaseAgent):
         if bible is not None:
             if not getattr(bible, "domain_archetype", None):
                 bible.domain_archetype = context.get("domain_archetype") or classify_brief_domain(f"{bible.project_title} {bible.logline}")
-            arch = bible.domain_archetype
-            if not getattr(bible, "master_color_look", None):
-                bible.master_color_look = get_domain_color_look(arch)
-            if not getattr(bible, "master_audio_mixer", None):
-                bible.master_audio_mixer = get_domain_audio_mixer(arch)
-            if not getattr(bible, "master_moco_rig", None):
-                bible.master_moco_rig = get_domain_moco_rig(arch)
-            if not getattr(bible, "master_lighting_rig", None):
-                bible.master_lighting_rig = get_domain_lighting_rig(arch)
-            if not getattr(bible, "master_dof_spec", None):
-                bible.master_dof_spec = get_domain_dof_spec(arch)
-            if not getattr(bible, "master_lut_spec", None):
-                bible.master_lut_spec = get_domain_lut_spec(arch)
-            for scene in bible.scenes:
-                if not getattr(scene, "speed_ramp", None):
-                    scene.speed_ramp = get_domain_speed_ramp(arch)
-                if not getattr(scene, "scene_color_look", None):
-                    scene.scene_color_look = bible.master_color_look
-                if not getattr(scene, "moco_rig", None):
-                    scene.moco_rig = bible.master_moco_rig
-                if not getattr(scene, "lighting_rig", None):
-                    scene.lighting_rig = bible.master_lighting_rig
-                if not getattr(scene, "dof_spec", None):
-                    scene.dof_spec = bible.master_dof_spec
-                if not getattr(scene, "lut_spec", None):
-                    scene.lut_spec = bible.master_lut_spec
+            _backfill_production_specs(bible, bible.domain_archetype)
 
         context["bible"] = bible
         logger.info(f"[{self.name}] Sealed Bible: '{bible.project_title}' with {len(bible.scenes)} scenes.")

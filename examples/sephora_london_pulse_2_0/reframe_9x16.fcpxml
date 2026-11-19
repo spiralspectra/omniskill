@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080x1920p24" frameDuration="1/24s" width="1080" height="1920" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r4" name="SCENE_03" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r5" name="SCENE_04" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="SEPHORA: London Pulse (Midnight Velvet) (9:16 Reframe)">
+            <project name="SEPHORA: London Pulse (Midnight Velvet) (9:16 Reframe)">
+                <sequence format="r1" duration="480/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_The Soho Stare &amp; The Night Pan" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <adjust-transform position="2.0 3.0" scale="3.1605 3.1605"/>
+                            <note>COI(0.48,0.44) Crop 1214x2160@1236,0 | ease_in_out_coi</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_The Flagship Infiltration: Tactile " ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <adjust-transform position="2.0 3.0" scale="3.1605 3.1605"/>
+                            <note>COI(0.48,0.44) Crop 1214x2160@1236,0 | ease_in_out_coi</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_03_The Soho Runway Strut" ref="r4" offset="240/24s" duration="120/24s" start="0s" format="r1">
+                            <adjust-transform position="2.0 3.0" scale="3.1605 3.1605"/>
+                            <note>COI(0.48,0.44) Crop 1214x2160@1236,0 | ease_in_out_coi</note>
+                        </asset-clip>
+                        <asset-clip name="Scene_04_The Bag Lock &amp; The Soho Freeze" ref="r5" offset="360/24s" duration="120/24s" start="0s" format="r1">
+                            <adjust-transform position="2.0 3.0" scale="3.1605 3.1605"/>
+                            <note>COI(0.48,0.44) Crop 1214x2160@1236,0 | ease_in_out_coi</note>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

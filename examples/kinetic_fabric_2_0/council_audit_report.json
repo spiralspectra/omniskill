@@ -1,7 +1,7 @@
 {
-  "version": "2.10.0",
+  "version": "2.11.0",
   "project_title": "The Kinetic Fabric: Grounded Innovation",
-  "timestamp": "2026-11-17T09:33:42.817026+00:00",
+  "timestamp": "2026-11-19T10:09:54.089415+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -69,51 +69,59 @@
         {
           "severity": "info",
           "category": "hdr_metadata_delivery",
-          "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+          "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "hdr_artifacts": [
-              "hdr10_metadata.json"
+              "hdr10_metadata.json",
+              "hlg_broadcast.xml",
+              "resolve_hdr_rcm.xml",
+              "hdr_master_report.json"
             ]
           }
         },
         {
           "severity": "info",
           "category": "stripboard_schedule_delivery",
-          "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+          "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "stripboard_artifacts": [
               "movie_magic_schedule.xml",
-              "stripboard_schedule.csv"
+              "stripboard_schedule.csv",
+              "dood_matrix.csv",
+              "stripboard_summary.json"
             ]
           }
         },
         {
           "severity": "info",
           "category": "film_emulation_delivery",
-          "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+          "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "film_artifacts": [
               "film_stock_shader.dctl",
-              "film_stock.ale"
+              "film_stock.ale",
+              "film_emulation_spec.json"
             ]
           }
         },
         {
           "severity": "info",
           "category": "clapper_slate_delivery",
-          "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+          "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "slate_artifacts": [
               "asc_mhl_manifest.xml",
-              "clapper_slate_log.csv"
+              "clapper_slate_log.csv",
+              "sound_sync.ale",
+              "slate_manifest.json"
             ]
           }
         },
@@ -146,9 +154,39 @@
               "production_budget_topsheet.md"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "reframe_delivery",
+          "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "reframe_artifacts": [
+              "reframe_crop_matrix.csv",
+              "cutdown_15s.edl",
+              "cutdown_06s.edl",
+              "reframe_9x16.fcpxml",
+              "delivery_reframe_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "broadcast_qc_delivery",
+          "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "qc_artifacts": [
+              "broadcast_qc_certificate.md",
+              "rights_clearance_matrix.csv",
+              "broadcast_qc_manifest.json"
+            ]
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 12 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -219,6 +257,31 @@
             "grand_total": 366307.24,
             "direct_costs": 289570.94,
             "production_fee": 43435.64
+          }
+        },
+        {
+          "severity": "info",
+          "category": "reframe_schema_compliance",
+          "message": "Multi-aspect reframe manifest verified: 24 crop windows, 3 cutdowns, safe-zone audit passed.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "deliverable_matrix_count": 24,
+            "cutdowns_count": 3,
+            "reframe_scenes_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "broadcast_qc_schema_compliance",
+          "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "overall_verdict": "PASS",
+            "pse_verdict": "PASS",
+            "loudness_verdict": "PASS",
+            "max_flash_hz": 0.8
           }
         }
       ],
@@ -345,13 +408,13 @@
         {
           "severity": "info",
           "category": "domain_spatial_audio_calibration",
-          "message": "Domain spatial audio verified: ambisonic_hoa_3rd_order Atmos bed, 'Studio Soundstage' (RT60=2.10s, 2 3D objects) aligned with domain 'kinetic_action'.",
+          "message": "Domain spatial audio verified: ambisonic_hoa_3rd_order Atmos bed, 'Monumental Concrete Wind & Canyon Arena' (RT60=2.10s, 2 3D objects) aligned with domain 'kinetic_action'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "domain": "kinetic_action",
             "bed_format": "ambisonic_hoa_3rd_order",
-            "room": "Studio Soundstage",
+            "room": "Monumental Concrete Wind & Canyon Arena",
             "objects": 2
           }
         },
@@ -413,7 +476,7 @@
         {
           "severity": "info",
           "category": "domain_clapper_slate_calibration",
-          "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'kinetic_action'.",
+          "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 4 MHL hash entries) aligned with domain 'kinetic_action'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
@@ -421,21 +484,21 @@
             "slates_count": 4,
             "camera_roll": "A01",
             "sound_roll": "SR01",
-            "mhl_hash_entries": 0
+            "mhl_hash_entries": 4
           }
         },
         {
           "severity": "info",
           "category": "domain_drone_flight_calibration",
-          "message": "Aerial drone flight spec verified: DroneRigType.FPV_CINELIFTER_ACRO (dynamic_fpv_canyon_dive, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'kinetic_action'.",
+          "message": "Aerial drone flight spec verified: DroneRigType.FPV_CINELIFTER_ACRO (dynamic_fpv_canyon_dive, speed 25.0 m/s, altitude 38.0m AGL) calibrated for domain 'kinetic_action'.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "domain": "kinetic_action",
             "drone_rig": "DroneRigType.FPV_CINELIFTER_ACRO",
             "flight_profile": "dynamic_fpv_canyon_dive",
-            "speed_mps": 0.0,
-            "altitude_agl_m": 0.0
+            "speed_mps": 25.0,
+            "altitude_agl_m": 38.0
           }
         },
         {
@@ -449,6 +512,41 @@
             "grand_total": 366307.24,
             "target_min": 280000.0,
             "target_max": 450000.0
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_reframe_strategy",
+          "message": "Multi-aspect social reframe manifest verified: 24 crop windows and 3 cutdown timelines pass platform UI safe zones for domain 'kinetic_action'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "deliverable_matrix_count": 24,
+            "cutdowns": 3
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_broadcast_qc",
+          "message": "Broadcast QC & trafficking spec verified (PASS, standard=atsc_a85, legal_cleared=True) for domain 'kinetic_action'.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "loudness_standard": "atsc_a85",
+            "overall_verdict": "PASS",
+            "legal_clearance_complete": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_cross_alignment",
+          "message": "Domain cross-alignment verified: explicit domain_archetype 'kinetic_action' matches strategic brief classification.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain_archetype": "kinetic_action"
           }
         }
       ],
@@ -537,6 +635,62 @@
           "severity": "info",
           "category": "animatic_aicp_hud",
           "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_audio_mixer",
+          "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_cc_hud",
+          "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_export_bible",
+          "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_reframe_hud",
+          "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_qc_hud",
+          "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkey_collision",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_aicp_real_data",
+          "message": "AICP HUD real-data binding verified ($366,307.24 matches master_aicp_bid).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -825,6 +979,38 @@
         "omni_director/schemas.py",
         "omni_director/tools/aicp_budget.py",
         "omni_director/presets.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-021",
+      "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+      "problem_statement": "Agency social producers and finishing editors for 'The Kinetic Fabric: Grounded Innovation' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+      "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/delivery_reframe.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-022",
+      "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+      "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'The Kinetic Fabric: Grounded Innovation' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+      "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/broadcast_qc.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/nle_export.py"
       ],

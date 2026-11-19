@@ -442,7 +442,7 @@
         "spatial_audio": {
           "bed_format": "bed_5_1_2",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "ISO-5 Acoustic-Damped Cleanroom Chamber",
             "room_volume_m3": 85.0,
             "surface_area_m2": 110.0,
             "rt60_decay_sec": 0.18,
@@ -814,6 +814,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Precision cablecam cleanroom quadcopter linear flyover at steady 5 m/s with studio high noon top-light illumination."
+        },
+        "reframe_spec": {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       },
       {
@@ -1140,7 +1299,7 @@
         "spatial_audio": {
           "bed_format": "bed_5_1_2",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "ISO-5 Acoustic-Damped Cleanroom Chamber",
             "room_volume_m3": 85.0,
             "surface_area_m2": 110.0,
             "rt60_decay_sec": 0.18,
@@ -1511,6 +1670,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Precision cablecam cleanroom quadcopter linear flyover at steady 5 m/s with studio high noon top-light illumination."
+        },
+        "reframe_spec": {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       }
     ],
@@ -1831,7 +2149,7 @@
     "master_spatial_audio": {
       "bed_format": "bed_5_1_2",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "ISO-5 Acoustic-Damped Cleanroom Chamber",
         "room_volume_m3": 85.0,
         "surface_area_m2": 110.0,
         "rt60_decay_sec": 0.18,
@@ -1875,7 +2193,7 @@
     "spatial_audio": {
       "bed_format": "bed_5_1_2",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "ISO-5 Acoustic-Damped Cleanroom Chamber",
         "room_volume_m3": 85.0,
         "surface_area_m2": 110.0,
         "rt60_decay_sec": 0.18,
@@ -2359,7 +2677,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-17T09:33:44.185189+00:00",
+        "creation_date": "2026-11-19T10:09:55.539623+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2367,7 +2685,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-17T09:33:44.185175+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.539612+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2375,7 +2693,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-17T09:33:44.185186+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.539620+00:00"
           }
         ]
       }
@@ -2431,7 +2749,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-17T09:33:44.185189+00:00",
+        "creation_date": "2026-11-19T10:09:55.539623+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2439,7 +2757,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-17T09:33:44.185175+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.539612+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2447,7 +2765,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-17T09:33:44.185186+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.539620+00:00"
           }
         ]
       }
@@ -4851,6 +5169,1670 @@
       "cost_per_second": 0.0,
       "grand_total": 0.0,
       "scene_allocations": []
+    },
+    "master_reframe_manifest": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "meta_feed_4x5",
+        "reels_9x16",
+        "tiktok_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "reframe_manifest": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "meta_feed_4x5",
+        "reels_9x16",
+        "tiktok_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "delivery_reframe": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "youtube_shorts_9x16",
+        "meta_feed_4x5",
+        "reels_9x16",
+        "tiktok_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "youtube_shorts_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "master_broadcast_qc": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNITECH10H",
+        "client_brand": "Advanced Quantum Computing Silicon Proce",
+        "campaign_title": "Advanced Quantum Computing Silicon Proce",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Precision Stem (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / Keynote 4K60 Master",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Cleanroom Nanotech Systems Engineer)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Advanced Quantum Computing Silicon Proce Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Advanced Quantum Computing Silicon Proce)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Tech Hardware Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ADVA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "broadcast_qc": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNITECH10H",
+        "client_brand": "Advanced Quantum Computing Silicon Proce",
+        "campaign_title": "Advanced Quantum Computing Silicon Proce",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Precision Stem (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / Keynote 4K60 Master",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Cleanroom Nanotech Systems Engineer)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Advanced Quantum Computing Silicon Proce Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Advanced Quantum Computing Silicon Proce)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Tech Hardware Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ADVA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "qc_manifest": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNITECH10H",
+        "client_brand": "Advanced Quantum Computing Silicon Proce",
+        "campaign_title": "Advanced Quantum Computing Silicon Proce",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Precision Stem (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / Keynote 4K60 Master",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Cleanroom Nanotech Systems Engineer)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Advanced Quantum Computing Silicon Proce Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Advanced Quantum Computing Silicon Proce)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Tech Hardware Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ADVA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "trafficking_spec": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNITECH10H",
+        "client_brand": "Advanced Quantum Computing Silicon Proce",
+        "campaign_title": "Advanced Quantum Computing Silicon Proce",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Stereo L/R + 5.1 Precision Stem (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / Keynote 4K60 Master",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Cleanroom Nanotech Systems Engineer)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Advanced Quantum Computing Silicon Proce Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Advanced Quantum Computing Silicon Proce)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Tech Hardware Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Worldwide Product Launch, OTT & Keynote",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ADVA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -4918,15 +6900,24 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     },
     {
       "scene_index": 2,
@@ -4969,6 +6960,12 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -4976,14 +6973,17 @@
         "image_refs_detected": [
           "<image_3>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "100fdfa7-f7a9-447b-a2ca-89f1bedfbc08",
+    "session_id": "19d39fc0-4418-4dd1-9ad4-4121113b9a1b",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-17T09:33:44.181953+00:00",
+    "timestamp": "2026-11-19T10:09:55.536501+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -4993,67 +6993,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-17T09:33:44.181974+00:00",
-        "end_time": "2026-11-17T09:33:44.182691+00:00",
-        "duration_ms": 0.72,
+        "start_time": "2026-11-19T10:09:55.536520+00:00",
+        "end_time": "2026-11-19T10:09:55.537218+00:00",
+        "duration_ms": 0.7,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-17T09:33:44.182709+00:00",
-        "end_time": "2026-11-17T09:33:44.185413+00:00",
-        "duration_ms": 2.7,
+        "start_time": "2026-11-19T10:09:55.537235+00:00",
+        "end_time": "2026-11-19T10:09:55.540384+00:00",
+        "duration_ms": 3.15,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-17T09:33:44.185438+00:00",
-        "end_time": "2026-11-17T09:33:44.189644+00:00",
-        "duration_ms": 4.21,
+        "start_time": "2026-11-19T10:09:55.540394+00:00",
+        "end_time": "2026-11-19T10:09:55.542068+00:00",
+        "duration_ms": 1.67,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-17T09:33:44.189673+00:00",
-        "end_time": "2026-11-17T09:33:44.189830+00:00",
+        "start_time": "2026-11-19T10:09:55.542095+00:00",
+        "end_time": "2026-11-19T10:09:55.542254+00:00",
         "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-17T09:33:44.189839+00:00",
-        "end_time": "2026-11-17T09:33:44.192224+00:00",
-        "duration_ms": 2.38,
+        "start_time": "2026-11-19T10:09:55.542263+00:00",
+        "end_time": "2026-11-19T10:09:55.544387+00:00",
+        "duration_ms": 2.12,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-17T09:33:44.192245+00:00",
-        "end_time": "2026-11-17T09:33:44.192251+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-19T10:09:55.544402+00:00",
+        "end_time": "2026-11-19T10:09:55.544407+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-17T09:33:44.192259+00:00",
-        "end_time": "2026-11-17T09:33:44.200137+00:00",
-        "duration_ms": 7.88,
+        "start_time": "2026-11-19T10:09:55.544413+00:00",
+        "end_time": "2026-11-19T10:09:55.555535+00:00",
+        "duration_ms": 11.12,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-17T09:33:44.212231+00:00",
-        "end_time": "2026-11-17T09:33:44.231213+00:00",
-        "duration_ms": 18.98,
+        "start_time": "2026-11-19T10:09:55.583992+00:00",
+        "end_time": "2026-11-19T10:09:55.612625+00:00",
+        "duration_ms": 28.63,
         "details": {}
       }
     ],
-    "total_duration_ms": 37.04,
+    "total_duration_ms": 47.55,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "5829b644feffeb10f9c265fda9c78c5c485882d952131e78abe4150b40742de7",
-      "storyboard_preview.html": "fd3a03c6be0345f4e83f7a068f28f8d6e4586c7ba3394ef1a32ffc4dbac07588",
+      "production_bundle.json": "5f8062d2905a884cc1da4a584914f2e12abff4ad6210b2d06fa003833e7508b0",
+      "storyboard_preview.html": "0f5dc13c44cc2c91ffc1c4ef8b1c2b8c03925f4b758a2a0586f373d8c0b6823b",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -5077,6 +7077,48 @@
       "focus_puller_cue_sheet.csv": "0bcef91285d04b481c5789e42f814749dd7da32bbea97110c865377f305f11a2",
       "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
       "dit_cart_manifest.json": "c3ebdcf5e91d1bdf87fd93ebb1742a820682ee8c78d97c008e5836068be2cd73",
+      "spatial_audio_adm.json": "089eabeb12c3f76e20cabcc95b65ee36873753704a92a832563a8e7fab9639a1",
+      "spatial_audio_adm_manifest.json": "089eabeb12c3f76e20cabcc95b65ee36873753704a92a832563a8e7fab9639a1",
+      "ambisonic_b_format.csv": "d8a7334292ef2d680e4291ddc432de243ca3f604d823683fae790177591dc46a",
+      "spatial_audio_ambisonic_channels.csv": "d8a7334292ef2d680e4291ddc432de243ca3f604d823683fae790177591dc46a",
+      "spatial_webaudio_nodes.json": "5cf31bbd2e1721e8dc51059c425f31e8eabfbdd53ab8e77fd3b7331ce7533e73",
+      "webaudio_spatial_panner.json": "5cf31bbd2e1721e8dc51059c425f31e8eabfbdd53ab8e77fd3b7331ce7533e73",
+      "openexr_channels.json": "043612bcc0d07317c9feb444efbf074c7096c0d8f9be2e2829e5a7d2a3535ae0",
+      "vfx_compositing_manifest.json": "043612bcc0d07317c9feb444efbf074c7096c0d8f9be2e2829e5a7d2a3535ae0",
+      "cryptomatte_manifest.json": "e74c4d1509d5ee80938b7b5058be366bb61c119f5fe2fdfd14bfb98644661175",
+      "nuke_composite.nk": "c87350740297c1213bf3c6a641c106e668f6c4afbc6c06b8331704ca5ddc7903",
+      "nuke_composite_template.nk": "c87350740297c1213bf3c6a641c106e668f6c4afbc6c06b8331704ca5ddc7903",
+      "hdr10_metadata.json": "6b96ccd396be71553a5c0a8dd0fcc6fd247e1d7d36ea55f2b597d216bea26ce7",
+      "hlg_broadcast.xml": "257ee9207595d115933f73d7d0a5b7372d76b6cfef1c6c7dc108e4b97a11fa28",
+      "resolve_hdr_rcm.xml": "f635c062ffa31f11b96c2a5653a03a0e96f69e5bbd3c4ebd2e78bd017da09d9f",
+      "hdr_master_report.json": "116919462d577fd4a8d5e430e3b0b8664739539946eefac7a52af94e6fbaf9d2",
+      "movie_magic_schedule.xml": "0138cb7d43d2d04fbcf6668d395aeb06a0f015e557ab1fc412137e93246c7b58",
+      "stripboard_schedule.csv": "cc7390bad653f458114f71ef4da2be8e5300226f41ee4145cf710640dd1ef8f8",
+      "dood_matrix.csv": "53a59a01c67a7f339f04c9b1a03bbf88a708fd82e3adfc40f1990720d2b43f71",
+      "stripboard_summary.json": "9cd2a4b19cf5c0bb634a48ab714c3c7a67ee9de5e3adf52df63463af4be364af",
+      "film_emulation_spec.json": "f6f2aeded4546e4447581b7ebf5b4908679ba7e7eac4e883980c5a510cc535aa",
+      "film_stock_shader.dctl": "714c85a691687fa24cca7bd2988e2115745127592fd63e4ba0e49537d709bddd",
+      "film_stock.ale": "76e75fc5a36edb3bce6b7b9ed6069244cc9093322e4f8470f9f7b01f589d95bd",
+      "slate_manifest.json": "6d2de8e45c48e24e66323b3f742eb2336802b0b5452ba299a2a9e5024c31d789",
+      "asc_mhl_manifest.xml": "57bfc1fa458b0211222d98564a196dd872b83b88db959bd7389ebb67a5256e30",
+      "clapper_slate_log.csv": "c27965fb0a6f986a35cf428a8eb4b35dafa890ba684c18bd5414577a208fc10c",
+      "sound_sync.ale": "073c78adacf67942af2ed9e79a961625a39dcd71e1f1eb5372a980c1f0515141",
+      "flight_path.kml": "d8f4d2acdce0e000253d81fd54c3f8bca980283bcfdcc0f1aed982e5e58295e8",
+      "flight_waypoints.gpx": "524481832a6e39bb820ed9b358de76c11495857a705c3ba6e736be0c412120a5",
+      "drone_flight_sheet.csv": "3d9fb21ac1504acb6c76b58078f0e828cc5c9de1c05b15d9f56f2390288b02c2",
+      "drone_flight_sheet.md": "f6da349cb248769a62835e65705bc4c5eca2ad725b751100d147f86bb61c5b23",
+      "drone_flight_manifest.json": "2c2b776b138c8e2d9951fb35da499ab3ec2eca9253b04bd202bcff5211413994",
+      "aicp_bid_sheet.csv": "beba721185e19dc450110036b889a863c93822376bcf03cfcce8740ab1eabffc",
+      "aicp_bid_manifest.json": "aefdb555aadaf92c402eb395122ec131f048602663240490d278456ae0f78c5c",
+      "production_budget_topsheet.md": "346eac76b8a8063936f289bb660da5b2ca6acd21fc4a131c915dea2e4e7cfa50",
+      "reframe_crop_matrix.csv": "6ea91d2cd15992f33dfcfb89d3c5311e5b4f81c30e417a84b4f25b0d186932ab",
+      "cutdown_15s.edl": "69e6f1f374981ad751d419d56c3295ae955da0e455cb54d8d58c5cc75af8592b",
+      "cutdown_06s.edl": "39d2fae57dd0e8ffc02d1dd23ffbee22d05eeaaeed2aa850823c1728d2762e0e",
+      "reframe_9x16.fcpxml": "d5c00ef85d61661fdc6ae123c231a3e618f7af3bed63625cc9f765217ea990d4",
+      "delivery_reframe_manifest.json": "90723fa10d93ae9e98711c0417a4ed4e4243d42226ab176f840123647e42dff7",
+      "broadcast_qc_certificate.md": "b7c0f49f8f3d253a888bc8d495d323f5997c37cfc6e982ed7d8f2aeb8be2a7b5",
+      "rights_clearance_matrix.csv": "409c51693bc2c754ff9964af5e58569a272c0850c1ac7debc643c4d7e6580ab1",
+      "broadcast_qc_manifest.json": "0d5c754f9e0203ddb5cf71856efb62725e1987caaae8c961651da52c9997cee1",
       "storyboards/anchor1_character_turnaround.svg": "d9f4e8312df0655feaaebf0729586f217c4d79a21556d351b66707f0a2425ed2",
       "storyboards/anchor2_environment_master.svg": "467bdfa2dc732b74012d25b2adafd6a1d5a122b5c83cf872cfbc49ad9e84daa6",
       "storyboards/anchor3_scene_1_keyframe.svg": "871ffb56a79bc932e70c1c8a350b10e9fc06be8659987b9e822cbeee9e03e4b2",
@@ -5084,9 +7126,9 @@
     }
   },
   "council_report": {
-    "version": "2.10.0",
+    "version": "2.11.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-17T09:33:44.229132+00:00",
+    "timestamp": "2026-11-19T10:09:55.608730+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -5154,51 +7196,59 @@
           {
             "severity": "info",
             "category": "hdr_metadata_delivery",
-            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "hdr_artifacts": [
-                "hdr10_metadata.json"
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "resolve_hdr_rcm.xml",
+                "hdr_master_report.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "stripboard_schedule_delivery",
-            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "stripboard_artifacts": [
                 "movie_magic_schedule.xml",
-                "stripboard_schedule.csv"
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "stripboard_summary.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "film_emulation_delivery",
-            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "film_artifacts": [
                 "film_stock_shader.dctl",
-                "film_stock.ale"
+                "film_stock.ale",
+                "film_emulation_spec.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "clapper_slate_delivery",
-            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "slate_artifacts": [
                 "asc_mhl_manifest.xml",
-                "clapper_slate_log.csv"
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "slate_manifest.json"
               ]
             }
           },
@@ -5231,9 +7281,39 @@
                 "production_budget_topsheet.md"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_delivery",
+            "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "reframe_artifacts": [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_delivery",
+            "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "qc_artifacts": [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -5304,6 +7384,31 @@
               "grand_total": 233778.83,
               "direct_costs": 184805.4,
               "production_fee": 27720.81
+            }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_schema_compliance",
+            "message": "Multi-aspect reframe manifest verified: 12 crop windows, 2 cutdowns, safe-zone audit passed.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "deliverable_matrix_count": 12,
+              "cutdowns_count": 2,
+              "reframe_scenes_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_schema_compliance",
+            "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "overall_verdict": "PASS",
+              "pse_verdict": "PASS",
+              "loudness_verdict": "PASS",
+              "max_flash_hz": 0.8
             }
           }
         ],
@@ -5430,13 +7535,13 @@
           {
             "severity": "info",
             "category": "domain_spatial_audio_calibration",
-            "message": "Domain spatial audio verified: bed_5_1_2 Atmos bed, 'Studio Soundstage' (RT60=0.18s, 2 3D objects) aligned with domain 'tech_hardware'.",
+            "message": "Domain spatial audio verified: bed_5_1_2 Atmos bed, 'ISO-5 Acoustic-Damped Cleanroom Chamber' (RT60=0.18s, 2 3D objects) aligned with domain 'tech_hardware'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "tech_hardware",
               "bed_format": "bed_5_1_2",
-              "room": "Studio Soundstage",
+              "room": "ISO-5 Acoustic-Damped Cleanroom Chamber",
               "objects": 2
             }
           },
@@ -5498,7 +7603,7 @@
           {
             "severity": "info",
             "category": "domain_clapper_slate_calibration",
-            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'tech_hardware'.",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 2 MHL hash entries) aligned with domain 'tech_hardware'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -5506,21 +7611,21 @@
               "slates_count": 2,
               "camera_roll": "A01",
               "sound_roll": "SR01",
-              "mhl_hash_entries": 0
+              "mhl_hash_entries": 2
             }
           },
           {
             "severity": "info",
             "category": "domain_drone_flight_calibration",
-            "message": "Aerial drone flight spec verified: DroneRigType.CABLE_CAM_HYBRID (linear_cleanroom_flyover, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'tech_hardware'.",
+            "message": "Aerial drone flight spec verified: DroneRigType.CABLE_CAM_HYBRID (linear_cleanroom_flyover, speed 5.0 m/s, altitude 5.0m AGL) calibrated for domain 'tech_hardware'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "tech_hardware",
               "drone_rig": "DroneRigType.CABLE_CAM_HYBRID",
               "flight_profile": "linear_cleanroom_flyover",
-              "speed_mps": 0.0,
-              "altitude_agl_m": 0.0
+              "speed_mps": 5.0,
+              "altitude_agl_m": 5.0
             }
           },
           {
@@ -5534,6 +7639,41 @@
               "grand_total": 233778.83,
               "target_min": 140000.0,
               "target_max": 240000.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_reframe_strategy",
+            "message": "Multi-aspect social reframe manifest verified: 12 crop windows and 2 cutdown timelines pass platform UI safe zones for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "deliverable_matrix_count": 12,
+              "cutdowns": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_broadcast_qc",
+            "message": "Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'tech_hardware'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "loudness_standard": "ebu_r128",
+              "overall_verdict": "PASS",
+              "legal_clearance_complete": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_cross_alignment",
+            "message": "Domain cross-alignment verified: explicit domain_archetype 'tech_hardware' matches strategic brief classification.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain_archetype": "tech_hardware"
             }
           }
         ],
@@ -5622,6 +7762,62 @@
             "severity": "info",
             "category": "animatic_aicp_hud",
             "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_audio_mixer",
+            "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_cc_hud",
+            "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_export_bible",
+            "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_reframe_hud",
+            "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_qc_hud",
+            "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkey_collision",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_aicp_real_data",
+            "message": "AICP HUD real-data binding verified ($233,778.83 matches master_aicp_bid).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -5910,6 +8106,38 @@
           "omni_director/schemas.py",
           "omni_director/tools/aicp_budget.py",
           "omni_director/presets.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-021",
+        "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+        "problem_statement": "Agency social producers and finishing editors for 'Advanced Quantum Computing Silicon Proce' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+        "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/delivery_reframe.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-022",
+        "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+        "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'Advanced Quantum Computing Silicon Proce' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+        "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/broadcast_qc.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"
         ],

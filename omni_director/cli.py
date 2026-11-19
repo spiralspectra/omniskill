@@ -266,6 +266,7 @@ def handle_export(args_list: List[str]) -> int:
         export_ambisonic_track_csv,
         export_spatial_audio_bundle,
         export_web_audio_spatial_config,
+        synthesize_default_spatial_audio,
     )
     from omni_director.tools.vfx_compositor import (
         export_cryptomatte_sidecar_json,
@@ -284,6 +285,7 @@ def handle_export(args_list: List[str]) -> int:
         export_stripboard_csv,
         export_dood_csv,
         export_stripboard_bundle,
+        generate_stripboard_schedule,
     )
     from omni_director.tools.film_emulation import (
         export_film_emulation_bundle,
@@ -310,8 +312,21 @@ def handle_export(args_list: List[str]) -> int:
         generate_aicp_bid_manifest_json,
         synthesize_default_aicp_bid,
     )
+    from omni_director.tools.delivery_reframe import (
+        export_reframe_bundle,
+        generate_cutdown_edl,
+        generate_reframe_fcpxml,
+        generate_reframe_manifest_json,
+        generate_reframe_matrix_csv,
+    )
+    from omni_director.tools.broadcast_qc import (
+        export_broadcast_qc_bundle,
+        generate_clearance_matrix_csv,
+        generate_qc_certificate_md,
+        generate_qc_manifest_json,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), and AICP commercial production bids")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, and Broadcast QC / PSE / Rights clearance packages")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -319,7 +334,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -328,9 +343,16 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--dit-manifest", action="store_true", help="Export DIT cart offload manifest JSON (dit_cart_manifest.json)")
     parser.add_argument("--spatial-adm", action="store_true", help="Export ADM spatial audio metadata JSON (spatial_audio_adm.json)")
     parser.add_argument("--ambisonic-csv", action="store_true", help="Export HOA 3rd-order ambisonic track CSV (ambisonic_b_format.csv)")
+    parser.add_argument("--webaudio-config", action="store_true", help="Export Web Audio HRTF spatial panner config JSON (webaudio_spatial_config.json)")
     parser.add_argument("--vfx-manifest", action="store_true", help="Export OpenEXR channel manifest JSON (openexr_channels.json)")
     parser.add_argument("--cryptomatte-sidecar", action="store_true", help="Export Cryptomatte sidecar JSON (cryptomatte_manifest.json)")
     parser.add_argument("--nuke-script", action="store_true", help="Export Foundry Nuke compositing script (nuke_composite.nk)")
+    parser.add_argument("--hdr-json", action="store_true", help="Export HDR10 / SMPTE ST 2086 metadata JSON (hdr10_metadata.json)")
+    parser.add_argument("--hlg-xml", action="store_true", help="Export ARIB STD-B67 / BT.2100 HLG broadcast XML (hlg_broadcast.xml)")
+    parser.add_argument("--resolve-hdr", action="store_true", help="Export DaVinci Resolve HDR color management XML (resolve_hdr_rcm.xml)")
+    parser.add_argument("--movie-magic-xml", action="store_true", help="Export Movie Magic Scheduling XML (movie_magic_schedule.xml)")
+    parser.add_argument("--stripboard-csv", action="store_true", help="Export 1st AD Stripboard schedule CSV (stripboard_schedule.csv)")
+    parser.add_argument("--dood-csv", action="store_true", help="Export SAG-AFTRA Day-Out-of-Days matrix CSV (dood_matrix.csv)")
     parser.add_argument("--film-dctl", action="store_true", help="Export DaVinci Resolve DCTL film emulation shader (film_emulation.dctl)")
     parser.add_argument("--film-ale", action="store_true", help="Export film stock Avid Log Exchange (film_stock.ale)")
     parser.add_argument("--mhl-xml", action="store_true", help="Export ASC-MHL media hash list XML (asc_mhl_manifest.xml)")
@@ -340,6 +362,13 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--drone-gpx", action="store_true", help="Export GPS Exchange format waypoint GPX (flight_waypoints.gpx)")
     parser.add_argument("--aicp-csv", action="store_true", help="Export AICP commercial production bid sheet CSV (aicp_bid_sheet.csv)")
     parser.add_argument("--aicp-json", action="store_true", help="Export AICP bid manifest JSON (aicp_bid_manifest.json)")
+    parser.add_argument("--reframe-csv", action="store_true", help="Export multi-aspect reframe crop & UI safe-zone CSV (reframe_crop_matrix.csv)")
+    parser.add_argument("--cutdown-edl", action="store_true", help="Export :15s and :06s editorial cutdown CMX 3600 EDLs (cutdown_15s.edl, cutdown_06s.edl)")
+    parser.add_argument("--reframe-fcpxml", action="store_true", help="Export 9:16 social reframe FCPXML v1.10 timeline (reframe_9x16.fcpxml)")
+    parser.add_argument("--reframe-json", action="store_true", help="Export multi-aspect reframe manifest JSON (delivery_reframe_manifest.json)")
+    parser.add_argument("--qc-cert", action="store_true", help="Export Broadcast QC & PSE safety certificate Markdown (broadcast_qc_certificate.md)")
+    parser.add_argument("--clearance-csv", action="store_true", help="Export legal & rights clearance matrix CSV (rights_clearance_matrix.csv)")
+    parser.add_argument("--qc-json", action="store_true", help="Export Broadcast QC & rights manifest JSON (broadcast_qc_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -373,41 +402,10 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
-        cdl_path = out_dir / "production_grade.cdl"
-        stems_path = out_dir / "audio_stems_manifest.json"
-        export_asc_cdl_file(bible, cdl_path)
-        export_audio_stems_file(bible, stems_path)
-        exported_files["cdl"] = str(cdl_path.resolve())
-        exported_files["stems"] = str(stems_path.resolve())
-        lens_path = out_dir / "lens_package.csv"
-        export_lens_metadata_file(bible, lens_path)
-        exported_files["lens"] = str(lens_path.resolve())
-        vp_files = export_virtual_production_bundle(bible, out_dir)
-        exported_files.update(vp_files)
-        moco_files = export_moco_bundle(bible, out_dir)
-        exported_files.update(moco_files)
-        lighting_files = export_lighting_bundle(bible, out_dir)
-        exported_files.update(lighting_files)
-        dof_files = export_dof_bundle(bible, out_dir)
-        exported_files.update(dof_files)
-        lut_files = export_lut_bundle(bible, out_dir)
-        exported_files.update(lut_files)
-        spatial_files = export_spatial_audio_bundle(bible, out_dir)
-        exported_files.update(spatial_files)
-        vfx_files = export_vfx_compositing_bundle(bible, out_dir)
-        exported_files.update(vfx_files)
-        from omni_director.tools.hdr_signal import export_hdr_bundle
-        from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
-        hdr_files = export_hdr_bundle(bible, out_dir)
-        exported_files.update(hdr_files)
-        stripboard_files = export_stripboard_bundle(bible, out_dir)
-        exported_files.update(stripboard_files)
-        film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
-        film_files = export_film_emulation_bundle(film_spec, out_dir, bible)
-        exported_files.update(film_files)
-        slate_spec = getattr(bible, "master_slate_spec", None) or getattr(bible, "slate_spec", None) or synthesize_default_slate_spec(bible)
-        slate_files = export_slate_bundle(slate_spec, out_dir, bible)
-        exported_files.update(slate_files)
+        exported_files.update({k: str(v) for k, v in export_drone_flight_bundle(bible, out_dir).items()})
+        exported_files.update({k: str(v) for k, v in export_aicp_budget_bundle(bible, out_dir).items()})
+        exported_files.update({k: str(v) for k, v in export_reframe_bundle(bible, out_dir).items()})
+        exported_files.update({k: str(v) for k, v in export_broadcast_qc_bundle(bible, out_dir).items()})
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -487,6 +485,12 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "aicp":
         aicp_files = export_aicp_budget_bundle(bible, out_dir)
         exported_files.update(aicp_files)
+    elif fmt == "reframe":
+        reframe_files = export_reframe_bundle(bible, out_dir)
+        exported_files.update(reframe_files)
+    elif fmt == "qc":
+        qc_files = export_broadcast_qc_bundle(bible, out_dir)
+        exported_files.update(qc_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -513,6 +517,11 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "ambisonic_b_format.csv"
         export_ambisonic_track_csv(bible, p)
         exported_files["ambisonic_csv"] = str(p.resolve())
+    if args.webaudio_config:
+        spatial_spec = getattr(bible, "master_spatial_audio", None) or synthesize_default_spatial_audio(bible)
+        p = out_dir / "webaudio_spatial_config.json"
+        p.write_text(json.dumps(export_web_audio_spatial_config(spatial_spec), indent=2), encoding="utf-8")
+        exported_files["webaudio_config"] = str(p.resolve())
     if args.vfx_manifest:
         p = out_dir / "openexr_channels.json"
         export_openexr_channel_manifest_json(bible, p)
@@ -525,6 +534,32 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "nuke_composite.nk"
         export_nuke_comp_script(bible, p)
         exported_files["nuke_script"] = str(p.resolve())
+    if args.hdr_json:
+        p = out_dir / "hdr10_metadata.json"
+        p.write_text(export_hdr10_metadata_json(bible), encoding="utf-8")
+        exported_files["hdr_json"] = str(p.resolve())
+    if args.hlg_xml:
+        p = out_dir / "hlg_broadcast.xml"
+        p.write_text(export_hlg_broadcast_xml(bible), encoding="utf-8")
+        exported_files["hlg_xml"] = str(p.resolve())
+    if args.resolve_hdr:
+        p = out_dir / "resolve_hdr_rcm.xml"
+        export_resolve_hdr_xml(bible, p)
+        exported_files["resolve_hdr"] = str(p.resolve())
+    if args.movie_magic_xml or args.stripboard_csv or args.dood_csv:
+        schedule = getattr(bible, "master_stripboard_schedule", None) or getattr(bible, "stripboard_schedule", None) or generate_stripboard_schedule(bible)
+        if args.movie_magic_xml:
+            p = out_dir / "movie_magic_schedule.xml"
+            export_movie_magic_xml(schedule, p)
+            exported_files["movie_magic_xml"] = str(p.resolve())
+        if args.stripboard_csv:
+            p = out_dir / "stripboard_schedule.csv"
+            export_stripboard_csv(schedule, p)
+            exported_files["stripboard_csv"] = str(p.resolve())
+        if args.dood_csv:
+            p = out_dir / "dood_matrix.csv"
+            export_dood_csv(schedule, p)
+            exported_files["dood_csv"] = str(p.resolve())
     if args.film_dctl:
         film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
         p = out_dir / "film_emulation.dctl"
@@ -577,6 +612,38 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "aicp_bid_manifest.json"
         p.write_text(generate_aicp_bid_manifest_json(aicp_bid), encoding="utf-8")
         exported_files["aicp_json"] = str(p.resolve())
+    if args.reframe_csv:
+        p = out_dir / "reframe_crop_matrix.csv"
+        p.write_text(generate_reframe_matrix_csv(bible), encoding="utf-8")
+        exported_files["reframe_csv"] = str(p.resolve())
+    if args.cutdown_edl:
+        from omni_director.schemas import CutdownFormatType
+        p15 = out_dir / "cutdown_15s.edl"
+        p06 = out_dir / "cutdown_06s.edl"
+        p15.write_text(generate_cutdown_edl(bible, CutdownFormatType.CUTDOWN_15S, fps=args.fps), encoding="utf-8")
+        p06.write_text(generate_cutdown_edl(bible, CutdownFormatType.BUMPER_06S, fps=args.fps), encoding="utf-8")
+        exported_files["cutdown_15s_edl"] = str(p15.resolve())
+        exported_files["cutdown_06s_edl"] = str(p06.resolve())
+    if args.reframe_fcpxml:
+        p = out_dir / "reframe_9x16.fcpxml"
+        p.write_text(generate_reframe_fcpxml(bible, fps=args.fps), encoding="utf-8")
+        exported_files["reframe_fcpxml"] = str(p.resolve())
+    if args.reframe_json:
+        p = out_dir / "delivery_reframe_manifest.json"
+        p.write_text(generate_reframe_manifest_json(bible), encoding="utf-8")
+        exported_files["reframe_json"] = str(p.resolve())
+    if args.qc_cert:
+        p = out_dir / "broadcast_qc_certificate.md"
+        p.write_text(generate_qc_certificate_md(bible), encoding="utf-8")
+        exported_files["qc_cert"] = str(p.resolve())
+    if args.clearance_csv:
+        p = out_dir / "rights_clearance_matrix.csv"
+        p.write_text(generate_clearance_matrix_csv(bible), encoding="utf-8")
+        exported_files["clearance_csv"] = str(p.resolve())
+    if args.qc_json:
+        p = out_dir / "broadcast_qc_manifest.json"
+        p.write_text(generate_qc_manifest_json(bible), encoding="utf-8")
+        exported_files["qc_json"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 
@@ -857,26 +924,17 @@ def main(argv: Optional[list[str]] = None) -> int:
         if args.export_nle:
             from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
             from omni_director.tools.nle_export import export_all_nle_artifacts
-            from omni_director.tools.color_grade import export_asc_cdl_file
-            from omni_director.tools.audio_mixer import export_audio_stems_file
-            from omni_director.tools.optical_lens import export_lens_metadata_file
-            from omni_director.tools.virtual_production import export_virtual_production_bundle
-            from omni_director.tools.moco_kinematics import export_moco_bundle
-            from omni_director.tools.lighting_rig import export_lighting_bundle
-            from omni_director.tools.dof_simulator import export_dof_bundle
-            from omni_director.tools.dit_lut import export_lut_bundle
             out_p = Path(args.output_dir)
             export_all_nle_artifacts(bundle.bible, out_p, fps=24)
             (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
             (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
-            export_asc_cdl_file(bundle.bible, out_p / "production_grade.cdl")
-            export_audio_stems_file(bundle.bible, out_p / "audio_stems_manifest.json")
-            export_lens_metadata_file(bundle.bible, out_p / "lens_package.csv")
-            export_virtual_production_bundle(bundle.bible, out_p)
-            export_moco_bundle(bundle.bible, out_p)
-            export_lighting_bundle(bundle.bible, out_p)
-            export_dof_bundle(bundle.bible, out_p)
-            export_lut_bundle(bundle.bible, out_p)
+            if getattr(pipeline, "telemetry", None) is not None and (out_p / "telemetry.json").is_file():
+                pipeline.telemetry.write_manifest(out_p)
+                bundle.telemetry = pipeline.telemetry.to_dict()
+                if bundle.bundle_json_path and Path(bundle.bundle_json_path).is_file():
+                    Path(bundle.bundle_json_path).write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+                    pipeline.telemetry.write_manifest(out_p)
+                    bundle.telemetry = pipeline.telemetry.to_dict()
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

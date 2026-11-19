@@ -439,6 +439,63 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-021",
+                title="Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+                problem_statement=(
+                    f"Agency social producers and finishing editors{project_ctx} must deliver 16:9 broadcast masters alongside "
+                    "9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or "
+                    "platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns."
+                ),
+                proposed_solution=(
+                    "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, "
+                    "AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and "
+                    "DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, "
+                    "platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); "
+                    "6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] "
+                    "in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, "
+                    "deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/delivery_reframe.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-022",
+                title="Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+                problem_statement=(
+                    f"Commercial trafficking teams and network standards-and-practices engineers{project_ctx} require pre-delivery "
+                    "ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 "
+                    "(-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal "
+                    "clearance tracking before broadcast trafficking."
+                ),
+                proposed_solution=(
+                    "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, "
+                    "BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, "
+                    "SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, "
+                    "loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] "
+                    "prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & "
+                    "Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 "
+                    "PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/broadcast_qc.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -790,17 +847,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
 
             # Verify HDR10 / HLG Broadcast Color Volume Metadata deliverables (PM-FEAT-015)
-            hdr_json = eval_dir / "hdr10_metadata.json"
-            hlg_xml = eval_dir / "hlg_broadcast_metadata.xml"
-            resolve_hdr = eval_dir / "resolve_hdr_parameters.xml"
-            if hdr_json.is_file() or hlg_xml.is_file() or resolve_hdr.is_file():
-                hdr_items = []
-                if hdr_json.is_file():
-                    hdr_items.append("hdr10_metadata.json")
-                if hlg_xml.is_file():
-                    hdr_items.append("hlg_broadcast_metadata.xml")
-                if resolve_hdr.is_file():
-                    hdr_items.append("resolve_hdr_parameters.xml")
+            hdr_candidates = [
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "hlg_broadcast_metadata.xml",
+                "resolve_hdr_rcm.xml",
+                "resolve_hdr_parameters.xml",
+                "hdr_master_report.json",
+            ]
+            hdr_items = [name for name in hdr_candidates if (eval_dir / name).is_file()]
+            if hdr_items:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
                     category="hdr_metadata_delivery",
@@ -809,20 +865,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
 
             # Verify 1st AD Stripboard Production Scheduler deliverables (PM-FEAT-016)
-            mm_xml = eval_dir / "movie_magic_schedule.xml"
-            strip_csv = eval_dir / "stripboard_schedule.csv"
-            dood_csv = eval_dir / "day_out_of_days_matrix.csv"
-            breakdown_json = eval_dir / "script_breakdown_sheets.json"
-            if mm_xml.is_file() or strip_csv.is_file() or dood_csv.is_file() or breakdown_json.is_file():
-                stripboard_items = []
-                if mm_xml.is_file():
-                    stripboard_items.append("movie_magic_schedule.xml")
-                if strip_csv.is_file():
-                    stripboard_items.append("stripboard_schedule.csv")
-                if dood_csv.is_file():
-                    stripboard_items.append("day_out_of_days_matrix.csv")
-                if breakdown_json.is_file():
-                    stripboard_items.append("script_breakdown_sheets.json")
+            strip_candidates = [
+                "movie_magic_schedule.xml",
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "day_out_of_days_matrix.csv",
+                "stripboard_summary.json",
+                "script_breakdown_sheets.json",
+            ]
+            stripboard_items = [name for name in strip_candidates if (eval_dir / name).is_file()]
+            if stripboard_items:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
                     category="stripboard_schedule_delivery",
@@ -831,17 +883,14 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
 
             # Verify Physical Film Stock Emulation deliverables (PM-FEAT-017)
-            film_dctl = eval_dir / "film_stock_shader.dctl"
-            film_ale = eval_dir / "film_stock.ale"
-            film_json = eval_dir / "film_emulation_manifest.json"
-            if film_dctl.is_file() or film_ale.is_file() or film_json.is_file():
-                film_items = []
-                if film_dctl.is_file():
-                    film_items.append("film_stock_shader.dctl")
-                if film_ale.is_file():
-                    film_items.append("film_stock.ale")
-                if film_json.is_file():
-                    film_items.append("film_emulation_manifest.json")
+            film_candidates = [
+                "film_stock_shader.dctl",
+                "film_stock.ale",
+                "film_emulation_spec.json",
+                "film_emulation_manifest.json",
+            ]
+            film_items = [name for name in film_candidates if (eval_dir / name).is_file()]
+            if film_items:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
                     category="film_emulation_delivery",
@@ -850,20 +899,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
 
             # Verify SMPTE 12M Clapper Slate & ASC-MHL deliverables (PM-FEAT-018)
-            mhl_xml = eval_dir / "asc_mhl_manifest.xml"
-            slate_csv = eval_dir / "clapper_slate_log.csv"
-            sound_ale = eval_dir / "sound_sync_ale.ale"
-            slate_json = eval_dir / "master_slate_spec.json"
-            if mhl_xml.is_file() or slate_csv.is_file() or sound_ale.is_file() or slate_json.is_file():
-                slate_items = []
-                if mhl_xml.is_file():
-                    slate_items.append("asc_mhl_manifest.xml")
-                if slate_csv.is_file():
-                    slate_items.append("clapper_slate_log.csv")
-                if sound_ale.is_file():
-                    slate_items.append("sound_sync_ale.ale")
-                if slate_json.is_file():
-                    slate_items.append("master_slate_spec.json")
+            slate_candidates = [
+                "asc_mhl_manifest.xml",
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "sound_sync_ale.ale",
+                "slate_manifest.json",
+                "master_slate_spec.json",
+            ]
+            slate_items = [name for name in slate_candidates if (eval_dir / name).is_file()]
+            if slate_items:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
                     category="clapper_slate_delivery",
@@ -913,6 +958,38 @@ class ProductCouncilOrchestrator(BaseAgent):
                     category="aicp_budget_delivery",
                     message=f"AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: {', '.join(aicp_items)}.",
                     details={"aicp_artifacts": aicp_items}
+                ))
+
+            # Verify Multi-Aspect Reframe & Cutdown Delivery deliverables (PM-FEAT-021)
+            reframe_candidates = [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json",
+            ]
+            reframe_items = [name for name in reframe_candidates if (eval_dir / name).is_file()]
+            if reframe_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="reframe_delivery",
+                    message=f"Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: {', '.join(reframe_items)}.",
+                    details={"reframe_artifacts": reframe_items},
+                ))
+
+            # Verify Broadcast Technical QC & Rights Clearance deliverables (PM-FEAT-022)
+            qc_candidates = [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json",
+            ]
+            qc_items = [name for name in qc_candidates if (eval_dir / name).is_file()]
+            if qc_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="broadcast_qc_delivery",
+                    message=f"Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: {', '.join(qc_items)}.",
+                    details={"qc_artifacts": qc_items},
                 ))
 
         score = max(0.0, min(25.0, round(score, 2)))
@@ -1180,6 +1257,66 @@ class ProductCouncilOrchestrator(BaseAgent):
                         message=f"AICP commercial production bid verified: Top Sheet grand total ${grand_tot:,.2f} (Direct: ${direct_costs:,.2f}, Markups/Fee: ${prod_fee + cont:,.2f}) mathematically consistent.",
                         details={"grand_total": grand_tot, "direct_costs": direct_costs, "production_fee": prod_fee}
                     ))
+
+        # Check Multi-Aspect Reframe & Cutdown Delivery schema & prompt token compliance (PM-FEAT-021)
+        reframe_manifest = getattr(bible, "master_reframe_manifest", None)
+        reframe_tokens_found = 0
+        for scene in bible.scenes:
+            p_text = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", ""))
+            if "[REFRAME:" in p_text or "reframe" in p_text.lower() or getattr(scene, "reframe_spec", None) is not None:
+                reframe_tokens_found += 1
+
+        if reframe_manifest is not None:
+            safe_ok = bool(getattr(reframe_manifest, "safe_zone_audit_passed", True))
+            matrix_cnt = getattr(reframe_manifest, "deliverable_matrix_count", 0)
+            cut_cnt = len(getattr(reframe_manifest, "cutdown_versions", []) or [])
+            if not safe_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="reframe_safe_zone_violation",
+                    message="Multi-aspect reframe safe-zone audit failed: COI collides with platform UI overlay.",
+                    suggested_fix="Recenter subject COI within platform safe zones in master_reframe_manifest.",
+                ))
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="reframe_schema_compliance",
+                    message=f"Multi-aspect reframe manifest verified: {matrix_cnt} crop windows, {cut_cnt} cutdowns, safe-zone audit passed.",
+                    details={"deliverable_matrix_count": matrix_cnt, "cutdowns_count": cut_cnt, "reframe_scenes_count": reframe_tokens_found},
+                ))
+
+        # Check Broadcast QC, ITU-R BT.1702 PSE Flash-Safety & Loudness schema compliance (PM-FEAT-022)
+        qc_spec = getattr(bible, "master_broadcast_qc", None)
+        if qc_spec is not None:
+            overall_verdict = str(getattr(getattr(qc_spec, "overall_verdict", "PASS"), "value", getattr(qc_spec, "overall_verdict", "PASS")))
+            pse_verdict = str(getattr(getattr(qc_spec, "pse_overall_verdict", "PASS"), "value", getattr(qc_spec, "pse_overall_verdict", "PASS")))
+            loud_spec = getattr(qc_spec, "loudness_compliance", None)
+            loud_verdict = str(getattr(getattr(loud_spec, "verdict", "PASS"), "value", getattr(loud_spec, "verdict", "PASS"))) if loud_spec else "PASS"
+            max_flash_hz = max(
+                (getattr(getattr(sp, "pse_check", None), "max_flash_frequency_hz", 0.0) for sp in (getattr(qc_spec, "scene_qc_profiles", []) or [])),
+                default=0.0,
+            )
+            if max_flash_hz > 3.0 or pse_verdict.upper() == "FAIL":
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.CRITICAL,
+                    category="broadcast_qc_pse_violation",
+                    message=f"ITU-R BT.1702 PSE flash-safety failure: peak flash frequency {max_flash_hz:.2f} Hz exceeds 3.0 Hz safety ceiling.",
+                    suggested_fix="Reduce strobe/luminance flicker below 3.0 Hz and rerun broadcast QC.",
+                ))
+            elif overall_verdict.upper() == "FAIL" or loud_verdict.upper() == "FAIL":
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="broadcast_qc_loudness_violation",
+                    message=f"Broadcast QC non-compliant (overall={overall_verdict}, loudness={loud_verdict}).",
+                    suggested_fix="Adjust integrated LUFS / true-peak ceiling to match ATSC A/85 or EBU R128.",
+                ))
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="broadcast_qc_schema_compliance",
+                    message=f"Broadcast Technical QC verified: verdict={overall_verdict}, PSE={pse_verdict} ({max_flash_hz:.2f} Hz <= 3.0 Hz), loudness={loud_verdict}.",
+                    details={"overall_verdict": overall_verdict, "pse_verdict": pse_verdict, "loudness_verdict": loud_verdict, "max_flash_hz": max_flash_hz},
+                ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
         score = 25.0 * (avg_audit_score / 100.0)
@@ -1582,10 +1719,11 @@ class ProductCouncilOrchestrator(BaseAgent):
         slate_spec = getattr(bible, "master_slate_spec", getattr(bible, "slate_spec", None))
         if slate_spec:
             slates_count = len(getattr(slate_spec, "scenes", []))
-            mhl_manifest = getattr(slate_spec, "asc_mhl_manifest", None)
+            mhl_manifest = getattr(slate_spec, "asc_mhl", None) or getattr(slate_spec, "asc_mhl_manifest", None)
             hash_count = len(getattr(mhl_manifest, "hash_entries", [])) if mhl_manifest else 0
-            cam_roll = getattr(slate_spec, "camera_roll", "A01")
-            sound_roll = getattr(slate_spec, "sound_roll", "SR01")
+            first_slate = slate_spec.scenes[0] if getattr(slate_spec, "scenes", None) else None
+            cam_roll = getattr(first_slate, "camera_roll", None) or getattr(slate_spec, "camera_roll", "A01")
+            sound_roll = getattr(first_slate, "sound_roll", None) or getattr(slate_spec, "sound_roll", "SR01")
             findings.append(CouncilFinding(
                 severity=CouncilFindingSeverity.INFO,
                 category="domain_clapper_slate_calibration",
@@ -1606,8 +1744,9 @@ class ProductCouncilOrchestrator(BaseAgent):
         if drone_spec is not None:
             rig = str(getattr(drone_spec, "drone_rig", ""))
             profile = str(getattr(drone_spec, "flight_profile", ""))
-            max_speed = getattr(drone_spec, "max_speed_mps", 0.0)
-            alt = getattr(drone_spec, "target_altitude_agl_m", 0.0)
+            wps = getattr(drone_spec, "waypoints", []) or []
+            max_speed = max((getattr(w, "speed_mps", 0.0) for w in wps), default=getattr(drone_spec, "max_speed_mps", 0.0))
+            alt = getattr(drone_spec, "max_altitude_agl_m", getattr(drone_spec, "target_altitude_agl_m", 0.0))
             findings.append(CouncilFinding(
                 severity=CouncilFindingSeverity.INFO,
                 category="domain_drone_flight_calibration",
@@ -1662,6 +1801,80 @@ class ProductCouncilOrchestrator(BaseAgent):
                 suggested_fix="Assign master_aicp_bid via get_domain_aicp_bid_spec().",
             ))
             score -= 0.25
+
+        # Check multi-aspect social reframe & cutdown delivery alignment (PM-FEAT-021)
+        reframe_manifest = getattr(bible, "master_reframe_manifest", None)
+        if reframe_manifest is not None:
+            cut_count = len(getattr(reframe_manifest, "cutdown_versions", []) or [])
+            safe_ok = bool(getattr(reframe_manifest, "safe_zone_audit_passed", True))
+            matrix_count = getattr(reframe_manifest, "deliverable_matrix_count", 0)
+            if safe_ok and cut_count >= 2:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_reframe_strategy",
+                    message=f"Multi-aspect social reframe manifest verified: {matrix_count} crop windows and {cut_count} cutdown timelines pass platform UI safe zones for domain '{detected_domain}'.",
+                    details={"domain": detected_domain, "deliverable_matrix_count": matrix_count, "cutdowns": cut_count},
+                ))
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="domain_reframe_strategy",
+                    message=f"Reframe manifest incomplete or safe-zone collision detected (safe_ok={safe_ok}, cutdowns={cut_count}).",
+                    suggested_fix="Regenerate master_reframe_manifest via get_domain_reframe_manifest().",
+                ))
+                score -= 0.5
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_reframe_strategy",
+                message="Master multi-aspect reframe manifest (master_reframe_manifest) missing from production bible.",
+                suggested_fix="Assign master_reframe_manifest via get_domain_reframe_manifest().",
+            ))
+            score -= 0.25
+
+        # Check Broadcast QC, loudness standard alignment & rights clearance completeness (PM-FEAT-022)
+        qc_spec = getattr(bible, "master_broadcast_qc", None)
+        if qc_spec is not None:
+            expected_std = "atsc_a85" if detected_domain in {"automotive_robotics", "kinetic_action"} else "ebu_r128"
+            loud_spec = getattr(qc_spec, "loudness_compliance", None)
+            actual_std = str(getattr(getattr(loud_spec, "standard", expected_std), "value", getattr(loud_spec, "standard", expected_std))).lower() if loud_spec else expected_std
+            overall_v = str(getattr(getattr(qc_spec, "overall_verdict", "PASS"), "value", getattr(qc_spec, "overall_verdict", "PASS"))).upper()
+            cleared = bool(getattr(qc_spec, "legal_clearance_complete", True))
+            if overall_v == "FAIL":
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_broadcast_qc",
+                    message=f"Broadcast Technical QC verdict FAIL for domain '{detected_domain}'.",
+                    suggested_fix="Resolve PSE flash-safety or loudness target discrepancies before trafficking.",
+                ))
+                score -= 1.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_broadcast_qc",
+                    message=f"Broadcast QC & trafficking spec verified ({overall_v}, standard={actual_std}, legal_cleared={cleared}) for domain '{detected_domain}'.",
+                    details={"domain": detected_domain, "loudness_standard": actual_std, "overall_verdict": overall_v, "legal_clearance_complete": cleared},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_broadcast_qc",
+                message="Master Broadcast QC spec (master_broadcast_qc) missing from production bible.",
+                suggested_fix="Assign master_broadcast_qc via get_domain_broadcast_qc_spec().",
+            ))
+            score -= 0.25
+
+        # Verify domain cross-alignment across color/optical/reframe/QC specs
+        explicit_arch = getattr(bible, "domain_archetype", None)
+        if explicit_arch is not None:
+            explicit_str = str(getattr(explicit_arch, "value", explicit_arch)).lower()
+            if explicit_str == detected_domain:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_cross_alignment",
+                    message=f"Domain cross-alignment verified: explicit domain_archetype '{explicit_str}' matches strategic brief classification.",
+                    details={"domain_archetype": explicit_str},
+                ))
 
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"Strategist review completed with score {score}/25.0 (Domain: {detected_domain})."
@@ -1953,6 +2166,159 @@ class ProductCouncilOrchestrator(BaseAgent):
                         category="animatic_aicp_hud",
                         message="AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
                     ))
+
+                # Full compiled animatic controls & keybinding governance checks
+                is_full_animatic_html = (
+                    "addEventListener('keydown'" in html_content
+                    or 'addEventListener("keydown"' in html_content
+                    or "OMNI MOVIE DIRECTOR" in html_content
+                )
+
+                if is_full_animatic_html:
+                    if 'id="btn-toggle-mixer"' not in html_content or 'id="animatic-audio-mixer"' not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_audio_mixer",
+                            message="Compiled storyboard preview HTML lacks interactive Audio Mixing Console (#btn-toggle-mixer / #animatic-audio-mixer).",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-toggle-mixer and #animatic-audio-mixer.",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_audio_mixer",
+                            message="Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+                        ))
+
+                    if 'id="btn-cc-animatic"' not in html_content or 'id="animatic-cc-hud"' not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_cc_hud",
+                            message="Compiled storyboard preview HTML lacks Closed Captions HUD (#btn-cc-animatic / #animatic-cc-hud).",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-cc-animatic and #animatic-cc-hud.",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_cc_hud",
+                            message="Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+                        ))
+
+                    if 'id="btn-export-bible"' not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_export_bible",
+                            message="Compiled storyboard preview HTML lacks Export Production Bible button (#btn-export-bible).",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-export-bible.",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_export_bible",
+                            message="Export Production Bible JSON control verified (#btn-export-bible).",
+                        ))
+
+                    # PM-FEAT-021 Reframe HUD check
+                    if 'id="btn-reframe-animatic"' not in html_content and 'id="animatic-reframe-hud"' not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_reframe_hud",
+                            message="Compiled storyboard preview HTML lacks Multi-Aspect Social Reframe HUD (#btn-reframe-animatic / #animatic-reframe-hud).",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-reframe-animatic and #animatic-reframe-hud [R].",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_reframe_hud",
+                            message="Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+                        ))
+
+                    # PM-FEAT-022 Broadcast QC HUD check
+                    if 'id="btn-qc-animatic"' not in html_content and 'id="animatic-qc-hud"' not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_qc_hud",
+                            message="Compiled storyboard preview HTML lacks Broadcast Technical QC HUD (#btn-qc-animatic / #animatic-qc-hud).",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-qc-animatic and #animatic-qc-hud [Q].",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_qc_hud",
+                            message="Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+                        ))
+
+                    # Verify zero duplicate JS keydown hotkey bindings & Escape handler cleanup
+                    kd_match = re.search(r"addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html_content, re.DOTALL | re.MULTILINE)
+                    if kd_match:
+                        kd_block = kd_match.group(0)
+                        bound_literals = re.findall(r"e\.key\s*===\s*['\"]([^'\"]+)['\"]", kd_block)
+                        seen_keys: set[str] = set()
+                        dup_keys: list[str] = []
+                        for k_lit in bound_literals:
+                            if k_lit in seen_keys and k_lit not in dup_keys:
+                                dup_keys.append(k_lit)
+                            seen_keys.add(k_lit)
+                        if dup_keys:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.MEDIUM,
+                                category="animatic_hotkey_collision",
+                                message=f"Duplicate JS keydown hotkey bindings detected: {', '.join(dup_keys)}.",
+                                suggested_fix="Assign unique keyboard shortcuts per HUD toggle in html_compiler.py.",
+                            ))
+                            score -= 1.0
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkey_collision",
+                                message=f"Zero duplicate JS keydown hotkey bindings verified across {len(seen_keys)} key checks.",
+                            ))
+
+                        esc_idx = kd_block.find("e.key === 'Escape'")
+                        if esc_idx == -1:
+                            esc_idx = kd_block.find('e.key === "Escape"')
+                        esc_slice = kd_block[esc_idx:] if esc_idx != -1 else ""
+                        missing_esc: list[str] = []
+                        if "animatic-audio-mixer" in html_content and "animatic-audio-mixer" not in esc_slice and "toggleMixer" not in esc_slice:
+                            missing_esc.append("animatic-audio-mixer")
+                        if "animatic-reframe-hud" in html_content and "ReframeHUD" not in esc_slice and "animatic-reframe-hud" not in esc_slice:
+                            missing_esc.append("animatic-reframe-hud")
+                        if "animatic-qc-hud" in html_content and "QcHUD" not in esc_slice and "QCHUD" not in esc_slice and "animatic-qc-hud" not in esc_slice:
+                            missing_esc.append("animatic-qc-hud")
+                        if missing_esc:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_escape_dismissal",
+                                message=f"Escape key handler does not dismiss open panels: {', '.join(missing_esc)}.",
+                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, and QC HUD.",
+                            ))
+                            score -= 0.5
+
+                    # Verify real AICP bid values in HUD match bible.master_aicp_bid
+                    aicp_bid = getattr(bible, "master_aicp_bid", None)
+                    if aicp_bid is not None and 'id="aicp-grand-total-val"' in html_content:
+                        expected_total = float(getattr(getattr(aicp_bid, "top_sheet", None), "grand_total", 0.0) or 0.0)
+                        rendered_match = re.search(r'id="aicp-grand-total-val"[^>]*>\$?([0-9,]+\.\d{2})<', html_content)
+                        if rendered_match and expected_total > 0:
+                            rendered_total = float(rendered_match.group(1).replace(",", ""))
+                            if abs(rendered_total - expected_total) > 1.0:
+                                findings.append(CouncilFinding(
+                                    severity=CouncilFindingSeverity.MEDIUM,
+                                    category="animatic_aicp_real_data",
+                                    message=f"AICP HUD displays ${rendered_total:,.2f} instead of bible master_aicp_bid total ${expected_total:,.2f}.",
+                                    suggested_fix="Bind AICP HUD metrics directly to bible.master_aicp_bid.top_sheet.",
+                                ))
+                                score -= 1.0
+                            else:
+                                findings.append(CouncilFinding(
+                                    severity=CouncilFindingSeverity.INFO,
+                                    category="animatic_aicp_real_data",
+                                    message=f"AICP HUD real-data binding verified (${rendered_total:,.2f} matches master_aicp_bid).",
+                                ))
 
             except Exception:
                 pass

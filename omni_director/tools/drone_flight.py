@@ -258,7 +258,7 @@ def generate_drone_flight_gpx(spec: DroneFlightPathSpec, title: str = "Flight Wa
     """Generates a standard GPX 1.1 XML file for GPS flight controllers and GIS tools."""
     gpx = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<gpx version="1.1" creator="OmniDirector-v2.10.0" xmlns="http://www.topografix.com/GPX/1/1">',
+        '<gpx version="1.1" creator="OmniDirector-v2.11.0" xmlns="http://www.topografix.com/GPX/1/1">',
         '  <metadata>',
         f'    <name>{title}</name>',
         f'    <desc>Flight Plan {spec.flight_id} ({spec.flight_profile})</desc>',

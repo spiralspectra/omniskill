@@ -1,6 +1,6 @@
 # Product Council Audit Report: SEPHORA: London Pulse (Midnight Velvet)
 
-**Version**: 2.10.0 | **Timestamp**: `2026-11-17T09:33:43.053715+00:00`
+**Version**: 2.11.0 | **Timestamp**: `2026-11-19T10:09:54.361399+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 10 | FDE review completed with score 25.0/25.0. 10 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 6 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 17 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 10 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 12 | FDE review completed with score 25.0/25.0. 12 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 8 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 20 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 17 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -20,12 +20,14 @@
 - [INFO] **color_lut_delivery**: DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.
 - [INFO] **spatial_audio_delivery**: Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.
 - [INFO] **vfx_compositing_delivery**: Multi-pass VFX OpenEXR channels, Cryptomatte manifest, and Nuke composite script verified on disk: openexr_channels.json, cryptomatte_manifest.json, nuke_composite.nk.
-- [INFO] **hdr_metadata_delivery**: HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.
-- [INFO] **stripboard_schedule_delivery**: 1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.
-- [INFO] **film_emulation_delivery**: Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.
-- [INFO] **clapper_slate_delivery**: ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.
+- [INFO] **hdr_metadata_delivery**: HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.
+- [INFO] **stripboard_schedule_delivery**: 1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.
+- [INFO] **film_emulation_delivery**: Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.
+- [INFO] **clapper_slate_delivery**: ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.
 - [INFO] **drone_flight_delivery**: Drone flight path KML, GPX track, Flight sheet CSV/MD, and Flight manifest JSON verified on disk: flight_path.kml, flight_waypoints.gpx, drone_flight_sheet.csv, drone_flight_sheet.md, drone_flight_manifest.json.
 - [INFO] **aicp_budget_delivery**: AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: aicp_bid_sheet.csv, aicp_bid_manifest.json, production_budget_topsheet.md.
+- [INFO] **reframe_delivery**: Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.
+- [INFO] **broadcast_qc_delivery**: Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -34,6 +36,8 @@
 - [INFO] **drone_flight_schema_compliance**: Drone flight path specification verified: rig 'DroneRigType.COMPACT_CINEMA_INSPIRE3', profile 'architectural_fashion_sweep', max altitude 20.0m AGL (FAA Part 107 compliant).
 - [INFO] **drone_flight_prompt_token_compliance**: Aerial drone flight path CRAFT tokens or master spec verified across 4/4 scene prompts.
 - [INFO] **aicp_budget_schema_consistency**: AICP commercial production bid verified: Top Sheet grand total $375,658.39 (Direct: $296,963.16, Markups/Fee: $78,695.23) mathematically consistent.
+- [INFO] **reframe_schema_compliance**: Multi-aspect reframe manifest verified: 24 crop windows, 3 cutdowns, safe-zone audit passed.
+- [INFO] **broadcast_qc_schema_compliance**: Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -45,14 +49,17 @@
 - [INFO] **lighting_rig_alignment**: Volumetric studio lighting rig verified: 5 fixtures, Key:Fill 4.0:1, haze 'mineral_haze' aligned with domain 'luxury_fashion'.
 - [INFO] **domain_dof_calibration**: Domain DoF calibration verified: 'Anamorphic shallow portraiture' (T1.8, 85mm, 2x oval bokeh, rack-focus) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_lut_calibration**: Domain 3D LUT color science verified: 'Bleach Bypass Silver high-contrast' (bleach_bypass_silver, 33x33x33 bleach_bypass_silver_33x33.cube) aligned with domain 'luxury_fashion'.
-- [INFO] **domain_spatial_audio_calibration**: Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Studio Soundstage' (RT60=1.45s, 2 3D objects) aligned with domain 'luxury_fashion'.
+- [INFO] **domain_spatial_audio_calibration**: Domain spatial audio verified: bed_7_1_4 Atmos bed, 'Parisian Marble Flagship Runway Hall' (RT60=1.45s, 2 3D objects) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_vfx_compositing_calibration**: Domain VFX compositing manifest verified: OpenEXR half_float_16 (7 passes, 8 Cryptomatte IDs, ACEScg) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_hdr_calibration**: Domain HDR metadata verified: smpte_st_2084_pq (dci_p3_d65, 1000 nits peak, MaxCLL 880, MaxFALL 280, tone mapper reinhard_extended) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_stripboard_calibration**: 1st AD Stripboard schedule verified: 4 strips across 2 shoot day(s), 1 DOOD cast records (SAG-AFTRA 12-hour turnaround rest compliant) aligned with domain 'luxury_fashion'.
 - [INFO] **domain_film_emulation_calibration**: Physical film stock emulation verified: Fuji Eterna 500T (fuji, gauge_35mm_4perf, RMS 4.0, halation 7.5px, gate weave 0.6μm) aligned with domain 'luxury_fashion'.
-- [INFO] **domain_clapper_slate_calibration**: SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'luxury_fashion'.
-- [INFO] **domain_drone_flight_calibration**: Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (architectural_fashion_sweep, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'luxury_fashion'.
+- [INFO] **domain_clapper_slate_calibration**: SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 4 scene slates (Cam A01, Sound SR01, 4 MHL hash entries) aligned with domain 'luxury_fashion'.
+- [INFO] **domain_drone_flight_calibration**: Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (architectural_fashion_sweep, speed 4.5 m/s, altitude 20.0m AGL) calibrated for domain 'luxury_fashion'.
 - [INFO] **domain_aicp_budget_tiering**: AICP commercial production budget verified: Grand total $375,658.39 falls within target window [$220,000 - $380,000] for domain 'luxury_fashion'.
+- [INFO] **domain_reframe_strategy**: Multi-aspect social reframe manifest verified: 24 crop windows and 3 cutdown timelines pass platform UI safe zones for domain 'luxury_fashion'.
+- [INFO] **domain_broadcast_qc**: Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'luxury_fashion'.
+- [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
 - [INFO] **animatic_dof_hud**: Optical Depth-of-Field (DoF) interactive HUD verified in dark-room animatic (#btn-dof-animatic / #animatic-dof-hud [F]).
@@ -65,6 +72,13 @@
 - [INFO] **animatic_slate_hud**: SMPTE 12M Digital Clapper Slate HUD verified in dark-room animatic (#btn-slate-animatic / #animatic-slate-hud [T], ASC-MHL, Sound ALE & Slate CSV downloads).
 - [INFO] **animatic_drone_hud**: Aerial Drone Flight Path HUD verified in dark-room animatic (#btn-drone-animatic / #animatic-drone-hud [D], KML, GPX & CSV downloads).
 - [INFO] **animatic_aicp_hud**: AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).
+- [INFO] **animatic_audio_mixer**: Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).
+- [INFO] **animatic_cc_hud**: Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).
+- [INFO] **animatic_export_bible**: Export Production Bible JSON control verified (#btn-export-bible).
+- [INFO] **animatic_reframe_hud**: Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).
+- [INFO] **animatic_qc_hud**: Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 45 key checks.
+- [INFO] **animatic_aicp_real_data**: AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).
 
 ## Senior Product Manager Roadmap & Feature Inspection
 
@@ -92,3 +106,5 @@
 | `PM-FEAT-018` | **P0** | `implemented` | **SMPTE 12M Timecode Sync, Digital Clapper Slate & ASC-MHL Offload Manifest Engine**: Implement Smpte12MTimecodeSpec, ClapperSlateSpec, AscMhlHashEntry, AscMhlManifestSpec, and MasterProductionSlateSpec schemas, omni_director.tools.clapper_slate (SMPTE 12M frame conversion, drop-frame alignment, audio sync offset calculation, ASC-MHL v2.0 XML generator, clapper slate CSV log, Avid ALE sound sync log export), CRAFT clapper slate prompt tokens ([CLAPPER_SLATE: ...]), prompt auditor slate verification rules, and an interactive Digital Clapper Slate Console with clapper arm animation in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/clapper_slate.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-019` | **P0** | `implemented` | **Aerial Drone Flight Path Simulator & FAA Part 107 Airspace Compliance Engine**: Implement DroneRigType, FlightProfile, FlightWaypointSpec, GimbalTrajectorySpec, WindVectorSpec, SolarEphemerisSpec, DroneFlightPathSpec, and MasterDroneSpec schemas, omni_director.tools.drone_flight / drone_aerial (3D waypoint interpolation, haversine distance, solar position math, wind drift deflection, KML flight path export, GPX GPS track export, drone flight sheet CSV/MD, flight manifest JSON), CRAFT drone flight prompt tokens ([DRONE_FLIGHT: ...]), prompt auditor aerial compliance rules, and an interactive 3D Drone Flight Path HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/drone_flight.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-020` | **P0** | `implemented` | **AICP Commercial Production Budget & Bid Form Estimator**: Implement AicpSectionCode, AicpLineItemSpec, AicpSectionBudgetSpec, AicpTopSheetSummarySpec, and MasterAicpBidSpec schemas, omni_director.tools.aicp_budget (line item rate calculation, overtime/fringes compounding, production markup application, top sheet synthesis, AICP bid sheet CSV generator, production budget top sheet Markdown generator, bid manifest JSON export), domain budget tier calibration ($95k-$480k across 6 archetypes), and an interactive AICP Commercial Production Bid HUD in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/aicp_budget.py`, `omni_director/presets.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-021` | **P0** | `implemented` | **Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine**: Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud. | `omni_director/schemas.py`, `omni_director/tools/delivery_reframe.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-022` | **P0** | `implemented` | **Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite**: Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud. | `omni_director/schemas.py`, `omni_director/tools/broadcast_qc.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |

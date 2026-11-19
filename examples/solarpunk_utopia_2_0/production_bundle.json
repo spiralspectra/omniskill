@@ -442,7 +442,7 @@
         "spatial_audio": {
           "bed_format": "ambisonic_b_format",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Monolithic Stone Sanctuary & Atrium",
             "room_volume_m3": 3500.0,
             "surface_area_m2": 1900.0,
             "rt60_decay_sec": 1.85,
@@ -820,6 +820,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "DJI Inspire 3 cinema quadcopter slow orbital reveal at 45m AGL under magic hour / golden hour, FAA Part 107 compliant."
+        },
+        "reframe_spec": {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       },
       {
@@ -1146,7 +1305,7 @@
         "spatial_audio": {
           "bed_format": "ambisonic_b_format",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Monolithic Stone Sanctuary & Atrium",
             "room_volume_m3": 3500.0,
             "surface_area_m2": 1900.0,
             "rt60_decay_sec": 1.85,
@@ -1523,6 +1682,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "DJI Inspire 3 cinema quadcopter slow orbital reveal at 45m AGL under magic hour / golden hour, FAA Part 107 compliant."
+        },
+        "reframe_spec": {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       }
     ],
@@ -1843,7 +2161,7 @@
     "master_spatial_audio": {
       "bed_format": "ambisonic_b_format",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Monolithic Stone Sanctuary & Atrium",
         "room_volume_m3": 3500.0,
         "surface_area_m2": 1900.0,
         "rt60_decay_sec": 1.85,
@@ -1887,7 +2205,7 @@
     "spatial_audio": {
       "bed_format": "ambisonic_b_format",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Monolithic Stone Sanctuary & Atrium",
         "room_volume_m3": 3500.0,
         "surface_area_m2": 1900.0,
         "rt60_decay_sec": 1.85,
@@ -2371,7 +2689,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-17T09:33:43.510098+00:00",
+        "creation_date": "2026-11-19T10:09:54.809183+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2379,7 +2697,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-17T09:33:43.510088+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.809173+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2387,7 +2705,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-17T09:33:43.510095+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.809180+00:00"
           }
         ]
       }
@@ -2443,7 +2761,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-17T09:33:43.510098+00:00",
+        "creation_date": "2026-11-19T10:09:54.809183+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2451,7 +2769,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-17T09:33:43.510088+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.809173+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2459,7 +2777,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-17T09:33:43.510095+00:00"
+            "hash_timestamp": "2026-11-19T10:09:54.809180+00:00"
           }
         ]
       }
@@ -4863,6 +5181,1670 @@
       "cost_per_second": 0.0,
       "grand_total": 0.0,
       "scene_allocations": []
+    },
+    "master_reframe_manifest": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "tiktok_9x16",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "reframe_manifest": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "tiktok_9x16",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "delivery_reframe": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "tiktok_9x16",
+        "cinema_239"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.46,
+          "pan_mode": "pillarbox_safe",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "2.39:1",
+              "platform": "cinema_239",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 191,
+              "crop_width_px": 3840,
+              "crop_height_px": 1606,
+              "output_width_px": 2048,
+              "output_height_px": 858,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 5.0,
+              "safe_zone_bottom_pct": 5.0,
+              "safe_zone_right_pct": 5.0,
+              "safe_zone_left_pct": 5.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.50) clears cinema_239 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.46,
+              "pan_mode": "pillarbox_safe",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.46) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "reels_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.5,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "master_broadcast_qc": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIARCH10H",
+        "client_brand": "Solarpunk Architectural Sanctuary Featur",
+        "campaign_title": "Solarpunk Architectural Sanctuary Featur",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "B-Format Ambisonic + Stereo L/R (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / EBU R103 Broadcast",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Resident Spatial Architect / Meditator)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Solarpunk Architectural Sanctuary Featur Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Solarpunk Architectural Sanctuary Featur)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Architectural Sanctuary Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-SOLA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "broadcast_qc": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIARCH10H",
+        "client_brand": "Solarpunk Architectural Sanctuary Featur",
+        "campaign_title": "Solarpunk Architectural Sanctuary Featur",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "B-Format Ambisonic + Stereo L/R (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / EBU R103 Broadcast",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Resident Spatial Architect / Meditator)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Solarpunk Architectural Sanctuary Featur Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Solarpunk Architectural Sanctuary Featur)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Architectural Sanctuary Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-SOLA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "qc_manifest": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIARCH10H",
+        "client_brand": "Solarpunk Architectural Sanctuary Featur",
+        "campaign_title": "Solarpunk Architectural Sanctuary Featur",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "B-Format Ambisonic + Stereo L/R (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / EBU R103 Broadcast",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Resident Spatial Architect / Meditator)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Solarpunk Architectural Sanctuary Featur Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Solarpunk Architectural Sanctuary Featur)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Architectural Sanctuary Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-SOLA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "trafficking_spec": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNIARCH10H",
+        "client_brand": "Solarpunk Architectural Sanctuary Featur",
+        "campaign_title": "Solarpunk Architectural Sanctuary Featur",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "B-Format Ambisonic + Stereo L/R (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ / EBU R103 Broadcast",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Resident Spatial Architect / Meditator)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Solarpunk Architectural Sanctuary Featur Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Solarpunk Architectural Sanctuary Featur)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Architectural Sanctuary Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "Global Broadcast, Museum & Architectural Press",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-SOLA-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
     }
   },
   "storyboard_html_path": "examples/solarpunk_utopia_2_0/storyboard_preview.html",
@@ -4930,15 +6912,24 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     },
     {
       "scene_index": 2,
@@ -4981,6 +6972,12 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -4988,14 +6985,17 @@
         "image_refs_detected": [
           "<image_3>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "2580c616-2958-4812-bf02-96dfadd35e7d",
+    "session_id": "0c0aee9b-9c42-4882-bcab-62ec043dcc3a",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-17T09:33:43.507562+00:00",
+    "timestamp": "2026-11-19T10:09:54.806626+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -5005,67 +7005,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-17T09:33:43.507582+00:00",
-        "end_time": "2026-11-17T09:33:43.508082+00:00",
+        "start_time": "2026-11-19T10:09:54.806645+00:00",
+        "end_time": "2026-11-19T10:09:54.807141+00:00",
         "duration_ms": 0.5,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-17T09:33:43.508098+00:00",
-        "end_time": "2026-11-17T09:33:43.510312+00:00",
-        "duration_ms": 2.21,
+        "start_time": "2026-11-19T10:09:54.807155+00:00",
+        "end_time": "2026-11-19T10:09:54.809938+00:00",
+        "duration_ms": 2.78,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-17T09:33:43.510324+00:00",
-        "end_time": "2026-11-17T09:33:43.512080+00:00",
-        "duration_ms": 1.75,
+        "start_time": "2026-11-19T10:09:54.809948+00:00",
+        "end_time": "2026-11-19T10:09:54.811116+00:00",
+        "duration_ms": 1.17,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-17T09:33:43.512107+00:00",
-        "end_time": "2026-11-17T09:33:43.512264+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-19T10:09:54.811128+00:00",
+        "end_time": "2026-11-19T10:09:54.811238+00:00",
+        "duration_ms": 0.11,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-17T09:33:43.512286+00:00",
-        "end_time": "2026-11-17T09:33:43.513803+00:00",
-        "duration_ms": 1.52,
+        "start_time": "2026-11-19T10:09:54.811246+00:00",
+        "end_time": "2026-11-19T10:09:54.812847+00:00",
+        "duration_ms": 1.6,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-17T09:33:43.513813+00:00",
-        "end_time": "2026-11-17T09:33:43.513818+00:00",
+        "start_time": "2026-11-19T10:09:54.812854+00:00",
+        "end_time": "2026-11-19T10:09:54.812857+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-17T09:33:43.513824+00:00",
-        "end_time": "2026-11-17T09:33:43.521319+00:00",
-        "duration_ms": 7.49,
+        "start_time": "2026-11-19T10:09:54.812863+00:00",
+        "end_time": "2026-11-19T10:09:54.822627+00:00",
+        "duration_ms": 9.76,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-17T09:33:43.536905+00:00",
-        "end_time": "2026-11-17T09:33:43.557343+00:00",
-        "duration_ms": 20.44,
+        "start_time": "2026-11-19T10:09:54.838356+00:00",
+        "end_time": "2026-11-19T10:09:54.864336+00:00",
+        "duration_ms": 25.98,
         "details": {}
       }
     ],
-    "total_duration_ms": 34.07,
+    "total_duration_ms": 41.9,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "a73df4c2bf1bcf15caf2f478d63148fe328cd1e63c2065cb79dfce99bc635c98",
-      "storyboard_preview.html": "c293db4a1557046924d9ae60f518d364e624947a4372f5970d77130ae21ee027",
+      "production_bundle.json": "5300de1938e8dd336f5a956d5a29d4c197483dff401d1be8ae5029228c888b5f",
+      "storyboard_preview.html": "382c81f88c76c3f5c66133b28a07a7bd83a136d397af0285fd84a7796b417429",
       "timeline.edl": "2474883a4f7e6285c07876ae9865d4710db27d7b1d52ff0f761025969c771171",
       "sequence.fcpxml": "cc781d5a12479816ee287accf581d3f2a23ae6e7a62d86176e9e1ea801d94c86",
       "shot_list.csv": "9f952d7eebeece6c9defba91fda2c08472817a40655e695c179c92680da9dd21",
@@ -5089,6 +7089,48 @@
       "focus_puller_cue_sheet.csv": "c7404f4827cda0380dfc1904cfba993948c4f0212b77ea8d02d00207ef861846",
       "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
       "dit_cart_manifest.json": "7c33e361374970bb5d90169a7de4af63253eefdada2badeace3f9ecea6d48d7c",
+      "spatial_audio_adm.json": "000a276c7594441eb5f2b81010c7e947fbbad68ca838dcb8be32d7ffa2b047dd",
+      "spatial_audio_adm_manifest.json": "000a276c7594441eb5f2b81010c7e947fbbad68ca838dcb8be32d7ffa2b047dd",
+      "ambisonic_b_format.csv": "b156a66afa0cc1c2055aeb471d6e09935db08691d5425939baac527f177572c7",
+      "spatial_audio_ambisonic_channels.csv": "b156a66afa0cc1c2055aeb471d6e09935db08691d5425939baac527f177572c7",
+      "spatial_webaudio_nodes.json": "49a00dab2f0b1ab34a4a74fba7b877951ba991129b0ac3b7b907d03f7738686a",
+      "webaudio_spatial_panner.json": "49a00dab2f0b1ab34a4a74fba7b877951ba991129b0ac3b7b907d03f7738686a",
+      "openexr_channels.json": "478e92325d8e42eb5102d77a432a2f7983543d949d30b6b279bd8fc862b06024",
+      "vfx_compositing_manifest.json": "478e92325d8e42eb5102d77a432a2f7983543d949d30b6b279bd8fc862b06024",
+      "cryptomatte_manifest.json": "102cdca9b0543a4043c7b63ae324cbf0d2d1b39ba113542d027c6668ab62960a",
+      "nuke_composite.nk": "0431380b4ba6dd2a21faf2f368e5ae36d9cfcb0663352390f13ad39faf25dd78",
+      "nuke_composite_template.nk": "0431380b4ba6dd2a21faf2f368e5ae36d9cfcb0663352390f13ad39faf25dd78",
+      "hdr10_metadata.json": "642c64a5c3279b6d18bb531decdbddaea8b5364254ec45b27f15599180d029ee",
+      "hlg_broadcast.xml": "a52ba4e8b47bcd4db6663d2c3e0e7a87dde1bc980b8f0606893ddb7555f4c11f",
+      "resolve_hdr_rcm.xml": "c2d38f1a85baf6430d75ce072113f3c0b183f6f9b059633116c46258c6c026b7",
+      "hdr_master_report.json": "79186b0baceeafe73a53f214e1cf39ac05d3c51e99b4ecc8ca3149a32f41b804",
+      "movie_magic_schedule.xml": "72b1ffbc8c12ba75fd53494741b6f7332925dccb464748975394c2da1e77e990",
+      "stripboard_schedule.csv": "b1af7d79502385aa3a1ee2be6ce92e3a1e21eda0786670323187b8c2bf156c30",
+      "dood_matrix.csv": "53a59a01c67a7f339f04c9b1a03bbf88a708fd82e3adfc40f1990720d2b43f71",
+      "stripboard_summary.json": "9c0d23cf68cf63e7c33f9c67028809d6b596ece08e3b01001041a701fb9485b7",
+      "film_emulation_spec.json": "efa4d4949ea3a61ac7fe6afbed25da2c1e4a074573284b607c79d6731b2c8467",
+      "film_stock_shader.dctl": "255ff7cb535010d280ebb1368d92450844b9f34a28bcdbbdf9848a2dbdb93ee2",
+      "film_stock.ale": "9e8d53c9eb129c3f2b533f94d1b89f6870397b45fca0189c697babea1e936bfe",
+      "slate_manifest.json": "82a3bd3bfe326242a36147ec43c3c1c5ec5eee4af45f540b18553fccd99aca11",
+      "asc_mhl_manifest.xml": "f1b969fae6af41918c9a7b000603a8947c7c25fd57dab78b5359ea3d8aeb3c43",
+      "clapper_slate_log.csv": "d93f399d115ca9452a9d32c3271e8c5329faeb6e5043fb1050d2fdb6973bfef6",
+      "sound_sync.ale": "159bfded9e1cefa099793218ea2e23b8b1362c99c131d24b6ec54da650d55781",
+      "flight_path.kml": "a2f8ac7f2eac7b5f42d4285a7d80dbd1ea92b62bdc8d20417e2f3c2795eb69f3",
+      "flight_waypoints.gpx": "7ba5b2b493ca15015abee0f94bbca9907e669c3d9a126652116b6da091c08468",
+      "drone_flight_sheet.csv": "80e1aa963046da59227bd76bcd19e27257c94c9d92c3ce4f74b686fc10c93882",
+      "drone_flight_sheet.md": "087ebfa038de9fa259da81885bd9a31bf57d2619b9f0ce995faf127f7a19adb8",
+      "drone_flight_manifest.json": "3ea1839d2a6435c324237d99c291c52adc22d41ce8bd9489a493604156d5229a",
+      "aicp_bid_sheet.csv": "9507319b148cf67f52501ab418c5a446570070b733836156cf454e5aba9e0cf7",
+      "aicp_bid_manifest.json": "04509686cf0295ab75e0a93cd9ea7bc3a775df2dc4d9147c9814cd86019a4a39",
+      "production_budget_topsheet.md": "ffed95b1131eae6db8c581a936458029787f1730b0d0af38e095202df5201255",
+      "reframe_crop_matrix.csv": "73be0fec029fb042f2fd5db59a9c4d8d5f4643bc7754a08d55076191d2b1f04f",
+      "cutdown_15s.edl": "b6d43bad49d008218abcc506981230c99243fdb028178c3262c09a70a069d20c",
+      "cutdown_06s.edl": "285494d7e1c6f92c62deb25374d5919d2afe703d262b9938d03564138bc5b20b",
+      "reframe_9x16.fcpxml": "1acd2cda4e5128ea25e5bbf73a29bf5751a30548a9d4aeab6d2aaf2dcd677d96",
+      "delivery_reframe_manifest.json": "f12fc5dea3d96ea970ba352d15ff71db4daf2bd5786f29495512bc8cd146191c",
+      "broadcast_qc_certificate.md": "44c8ab2ded502770fe97dd11a96926889554f0a5330b919eb28f7de7c79a11fa",
+      "rights_clearance_matrix.csv": "5e2b6fa016641b1a58c3eecbebe5252f3e0709b8afd3192c53dfca89b22b14a3",
+      "broadcast_qc_manifest.json": "a6cff51189106facdb22832f1ce755d52accb6d78cdce11afc5ef52085f4f2c5",
       "storyboards/anchor1_character_turnaround.svg": "9dd047344bc05a328dc994056be2b82e5e8cacf07325a8c6927a5ccab01cadff",
       "storyboards/anchor2_environment_master.svg": "80a0fb2ebe918241aa3e9ae74249335c4d21b7aeed62da444b86b66ead4c2293",
       "storyboards/anchor3_scene_1_keyframe.svg": "947d6d5380ec25dffe62c6f15c49348d747e2e51405cc8b446c8482bfeac20ff",
@@ -5096,9 +7138,9 @@
     }
   },
   "council_report": {
-    "version": "2.10.0",
+    "version": "2.11.0",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-17T09:33:43.555242+00:00",
+    "timestamp": "2026-11-19T10:09:54.861742+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -5166,51 +7208,59 @@
           {
             "severity": "info",
             "category": "hdr_metadata_delivery",
-            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "hdr_artifacts": [
-                "hdr10_metadata.json"
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "resolve_hdr_rcm.xml",
+                "hdr_master_report.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "stripboard_schedule_delivery",
-            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "stripboard_artifacts": [
                 "movie_magic_schedule.xml",
-                "stripboard_schedule.csv"
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "stripboard_summary.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "film_emulation_delivery",
-            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "film_artifacts": [
                 "film_stock_shader.dctl",
-                "film_stock.ale"
+                "film_stock.ale",
+                "film_emulation_spec.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "clapper_slate_delivery",
-            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "slate_artifacts": [
                 "asc_mhl_manifest.xml",
-                "clapper_slate_log.csv"
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "slate_manifest.json"
               ]
             }
           },
@@ -5243,9 +7293,39 @@
                 "production_budget_topsheet.md"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_delivery",
+            "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "reframe_artifacts": [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_delivery",
+            "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "qc_artifacts": [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -5316,6 +7396,31 @@
               "grand_total": 203145.74,
               "direct_costs": 160589.52,
               "production_fee": 24088.43
+            }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_schema_compliance",
+            "message": "Multi-aspect reframe manifest verified: 12 crop windows, 2 cutdowns, safe-zone audit passed.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "deliverable_matrix_count": 12,
+              "cutdowns_count": 2,
+              "reframe_scenes_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_schema_compliance",
+            "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "overall_verdict": "PASS",
+              "pse_verdict": "PASS",
+              "loudness_verdict": "PASS",
+              "max_flash_hz": 0.8
             }
           }
         ],
@@ -5442,13 +7547,13 @@
           {
             "severity": "info",
             "category": "domain_spatial_audio_calibration",
-            "message": "Domain spatial audio verified: ambisonic_b_format Atmos bed, 'Studio Soundstage' (RT60=1.85s, 2 3D objects) aligned with domain 'architectural_sanctuary'.",
+            "message": "Domain spatial audio verified: ambisonic_b_format Atmos bed, 'Monolithic Stone Sanctuary & Atrium' (RT60=1.85s, 2 3D objects) aligned with domain 'architectural_sanctuary'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "architectural_sanctuary",
               "bed_format": "ambisonic_b_format",
-              "room": "Studio Soundstage",
+              "room": "Monolithic Stone Sanctuary & Atrium",
               "objects": 2
             }
           },
@@ -5510,7 +7615,7 @@
           {
             "severity": "info",
             "category": "domain_clapper_slate_calibration",
-            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'architectural_sanctuary'.",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 2 MHL hash entries) aligned with domain 'architectural_sanctuary'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -5518,21 +7623,21 @@
               "slates_count": 2,
               "camera_roll": "A01",
               "sound_roll": "SR01",
-              "mhl_hash_entries": 0
+              "mhl_hash_entries": 2
             }
           },
           {
             "severity": "info",
             "category": "domain_drone_flight_calibration",
-            "message": "Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (monolithic_orbital_reveal, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'architectural_sanctuary'.",
+            "message": "Aerial drone flight spec verified: DroneRigType.COMPACT_CINEMA_INSPIRE3 (monolithic_orbital_reveal, speed 4.0 m/s, altitude 45.0m AGL) calibrated for domain 'architectural_sanctuary'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "architectural_sanctuary",
               "drone_rig": "DroneRigType.COMPACT_CINEMA_INSPIRE3",
               "flight_profile": "monolithic_orbital_reveal",
-              "speed_mps": 0.0,
-              "altitude_agl_m": 0.0
+              "speed_mps": 4.0,
+              "altitude_agl_m": 45.0
             }
           },
           {
@@ -5546,6 +7651,41 @@
               "grand_total": 203145.74,
               "target_min": 120000.0,
               "target_max": 210000.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_reframe_strategy",
+            "message": "Multi-aspect social reframe manifest verified: 12 crop windows and 2 cutdown timelines pass platform UI safe zones for domain 'architectural_sanctuary'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "deliverable_matrix_count": 12,
+              "cutdowns": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_broadcast_qc",
+            "message": "Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'architectural_sanctuary'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "loudness_standard": "ebu_r128",
+              "overall_verdict": "PASS",
+              "legal_clearance_complete": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_cross_alignment",
+            "message": "Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain_archetype": "architectural_sanctuary"
             }
           }
         ],
@@ -5634,6 +7774,62 @@
             "severity": "info",
             "category": "animatic_aicp_hud",
             "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_audio_mixer",
+            "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_cc_hud",
+            "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_export_bible",
+            "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_reframe_hud",
+            "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_qc_hud",
+            "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkey_collision",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_aicp_real_data",
+            "message": "AICP HUD real-data binding verified ($203,145.74 matches master_aicp_bid).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -5922,6 +8118,38 @@
           "omni_director/schemas.py",
           "omni_director/tools/aicp_budget.py",
           "omni_director/presets.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-021",
+        "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+        "problem_statement": "Agency social producers and finishing editors for 'Solarpunk Architectural Sanctuary Featur' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+        "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/delivery_reframe.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-022",
+        "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+        "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'Solarpunk Architectural Sanctuary Featur' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+        "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/broadcast_qc.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"
         ],

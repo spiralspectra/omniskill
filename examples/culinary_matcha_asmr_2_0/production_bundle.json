@@ -454,7 +454,7 @@
         "spatial_audio": {
           "bed_format": "binaural_hrtf",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Intimate Micro-Acoustic Kitchen Stage",
             "room_volume_m3": 45.0,
             "surface_area_m2": 65.0,
             "rt60_decay_sec": 0.25,
@@ -832,6 +832,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+        },
+        "reframe_spec": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       },
       {
@@ -1170,7 +1329,7 @@
         "spatial_audio": {
           "bed_format": "binaural_hrtf",
           "room_acoustics": {
-            "room_name": "Studio Soundstage",
+            "room_name": "Intimate Micro-Acoustic Kitchen Stage",
             "room_volume_m3": 45.0,
             "surface_area_m2": 65.0,
             "rt60_decay_sec": 0.25,
@@ -1547,6 +1706,165 @@
           "faa_part_107_compliant": true,
           "prompt_token": null,
           "description": "Micro-quadcopter cablecam hybrid indoor low-altitude (3m AGL) smooth slow orbital reveal (1.5 m/s) with studio lighting."
+        },
+        "reframe_spec": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        "broadcast_qc": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
         }
       }
     ],
@@ -1867,7 +2185,7 @@
     "master_spatial_audio": {
       "bed_format": "binaural_hrtf",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Intimate Micro-Acoustic Kitchen Stage",
         "room_volume_m3": 45.0,
         "surface_area_m2": 65.0,
         "rt60_decay_sec": 0.25,
@@ -1911,7 +2229,7 @@
     "spatial_audio": {
       "bed_format": "binaural_hrtf",
       "room_acoustics": {
-        "room_name": "Studio Soundstage",
+        "room_name": "Intimate Micro-Acoustic Kitchen Stage",
         "room_volume_m3": 45.0,
         "surface_area_m2": 65.0,
         "rt60_decay_sec": 0.25,
@@ -2395,7 +2713,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-17T09:33:43.978159+00:00",
+        "creation_date": "2026-11-19T10:09:55.282939+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2403,7 +2721,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-17T09:33:43.978150+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2411,7 +2729,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-17T09:33:43.978157+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
           }
         ]
       }
@@ -2467,7 +2785,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-17T09:33:43.978159+00:00",
+        "creation_date": "2026-11-19T10:09:55.282939+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2475,7 +2793,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-17T09:33:43.978150+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2483,7 +2801,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-17T09:33:43.978157+00:00"
+            "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
           }
         ]
       }
@@ -5063,6 +5381,1670 @@
       "cost_per_second": 0.0,
       "grand_total": 0.0,
       "scene_allocations": []
+    },
+    "master_reframe_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "tiktok_9x16",
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "reframe_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "tiktok_9x16",
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "delivery_reframe": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "source_aspect_ratio": "16:9",
+      "source_resolution": "3840x2160",
+      "fps": 24,
+      "target_platforms": [
+        "tiktok_9x16",
+        "reels_9x16",
+        "meta_feed_4x5",
+        "youtube_shorts_9x16",
+        "broadcast_tv"
+      ],
+      "scene_reframes": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "source_aspect_ratio": "16:9",
+          "center_of_interest_x": 0.5,
+          "center_of_interest_y": 0.48,
+          "pan_mode": "static_lock",
+          "pan_start_coi_x": 0.5,
+          "pan_end_coi_x": 0.5,
+          "crop_windows": [
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "tiktok_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 35.0,
+              "safe_zone_right_pct": 15.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears tiktok_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "reels_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 14.0,
+              "safe_zone_bottom_pct": 32.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears reels_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "4:5",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1056,
+              "crop_y_px": 0,
+              "crop_width_px": 1728,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1350,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "9:16",
+              "platform": "youtube_shorts_9x16",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 1313,
+              "crop_y_px": 0,
+              "crop_width_px": 1214,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1920,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 12.0,
+              "safe_zone_bottom_pct": 30.0,
+              "safe_zone_right_pct": 14.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears youtube_shorts_9x16 UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "16:9",
+              "platform": "broadcast_tv",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 0,
+              "crop_y_px": 0,
+              "crop_width_px": 3840,
+              "crop_height_px": 2160,
+              "output_width_px": 1920,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 10.0,
+              "safe_zone_bottom_pct": 10.0,
+              "safe_zone_right_pct": 10.0,
+              "safe_zone_left_pct": 10.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears broadcast_tv UI safe-zone."
+            },
+            {
+              "target_aspect_ratio": "1:1",
+              "platform": "meta_feed_4x5",
+              "source_width_px": 3840,
+              "source_height_px": 2160,
+              "crop_x_px": 840,
+              "crop_y_px": 0,
+              "crop_width_px": 2160,
+              "crop_height_px": 2160,
+              "output_width_px": 1080,
+              "output_height_px": 1080,
+              "center_of_interest_x": 0.5,
+              "center_of_interest_y": 0.48,
+              "pan_mode": "static_lock",
+              "safe_zone_top_pct": 8.0,
+              "safe_zone_bottom_pct": 12.0,
+              "safe_zone_right_pct": 6.0,
+              "safe_zone_left_pct": 6.0,
+              "ui_clearance_ok": true,
+              "clearance_notes": "Subject COI (0.50, 0.48) clears meta_feed_4x5 UI safe-zone."
+            }
+          ],
+          "all_platforms_cleared": true,
+          "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]"
+        }
+      ],
+      "cutdown_versions": [
+        {
+          "cutdown_type": "cutdown_15s",
+          "label": ":15s Paid Social Cutdown",
+          "target_duration_sec": 15.0,
+          "actual_duration_sec": 15.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 5.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 7.5,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:05:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:07:12",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 10.0,
+              "record_in_sec": 7.5,
+              "record_out_sec": 15.0,
+              "duration_sec": 7.5,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:10:00",
+              "rec_in_smpte": "00:00:07:12",
+              "rec_out_smpte": "00:00:15:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":15s Paid Social Cutdown assembled from 2 key beats; brand CTA anchored in final frame."
+        },
+        {
+          "cutdown_type": "bumper_06s",
+          "label": ":06s Bumper Ad",
+          "target_duration_sec": 6.0,
+          "actual_duration_sec": 6.0,
+          "target_aspect_ratio": "9:16",
+          "target_platform": "tiktok_9x16",
+          "segments": [
+            {
+              "scene_index": 1,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+              "source_in_sec": 0.0,
+              "source_out_sec": 3.0,
+              "record_in_sec": 0.0,
+              "record_out_sec": 3.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:00:00",
+              "src_out_smpte": "00:00:03:00",
+              "rec_in_smpte": "00:00:00:00",
+              "rec_out_smpte": "00:00:03:00",
+              "narrative_role": "hook"
+            },
+            {
+              "scene_index": 2,
+              "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+              "source_in_sec": 5.0,
+              "source_out_sec": 8.0,
+              "record_in_sec": 3.0,
+              "record_out_sec": 6.0,
+              "duration_sec": 3.0,
+              "src_in_smpte": "00:00:05:00",
+              "src_out_smpte": "00:00:08:00",
+              "rec_in_smpte": "00:00:03:00",
+              "rec_out_smpte": "00:00:06:00",
+              "narrative_role": "cta_endcard"
+            }
+          ],
+          "cta_endcard_sec": 2.0,
+          "pacing_notes": ":06s Bumper Ad assembled from 2 key beats; brand CTA anchored in final frame."
+        }
+      ],
+      "safe_zone_audit_passed": true,
+      "deliverable_matrix_count": 12,
+      "prompt_token": "[REFRAME: 16:9->9:16/4:5/1:1 | 2 cutdowns | 12 crops | UI_SAFE_CLEARED]"
+    },
+    "master_broadcast_qc": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNICULN10H",
+        "client_brand": "Artisanal Japanese Culinary Ceremonial M",
+        "campaign_title": "Artisanal Japanese Culinary Ceremonial M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Binaural Stereo L/R + 5.1 ASMR Bed (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ 10-bit Rec.709",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Master Artisanal Chef / Tea Master)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Artisanal Japanese Culinary Ceremonial M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Artisanal Japanese Culinary Ceremonial M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Culinary Asmr Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ARTI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "broadcast_qc": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNICULN10H",
+        "client_brand": "Artisanal Japanese Culinary Ceremonial M",
+        "campaign_title": "Artisanal Japanese Culinary Ceremonial M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Binaural Stereo L/R + 5.1 ASMR Bed (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ 10-bit Rec.709",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Master Artisanal Chef / Tea Master)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Artisanal Japanese Culinary Ceremonial M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Artisanal Japanese Culinary Ceremonial M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Culinary Asmr Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ARTI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "qc_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNICULN10H",
+        "client_brand": "Artisanal Japanese Culinary Ceremonial M",
+        "campaign_title": "Artisanal Japanese Culinary Ceremonial M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Binaural Stereo L/R + 5.1 ASMR Bed (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ 10-bit Rec.709",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Master Artisanal Chef / Tea Master)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Artisanal Japanese Culinary Ceremonial M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Artisanal Japanese Culinary Ceremonial M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Culinary Asmr Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ARTI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "trafficking_spec": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "trafficking_slate": {
+        "ad_id_isci": "OMNICULN10H",
+        "client_brand": "Artisanal Japanese Culinary Ceremonial M",
+        "campaign_title": "Artisanal Japanese Culinary Ceremonial M",
+        "spot_length_sec": 10,
+        "slate_duration_sec": 5.0,
+        "first_frame_of_action_tc": "01:00:00:00",
+        "head_slate_tc": "00:59:50:00",
+        "two_pop_tc": "00:59:58:00",
+        "audio_config": "Binaural Stereo L/R + 5.1 ASMR Bed (EBU R128)",
+        "closed_captions_embedded": true,
+        "video_codec_profile": "Apple ProRes 422 HQ 10-bit Rec.709",
+        "legal_disclaimer_required": false
+      },
+      "loudness_compliance": {
+        "standard": "ebu_r128",
+        "target_integrated_lufs": -23.0,
+        "measured_integrated_lufs": -23.0,
+        "tolerance_lu": 0.5,
+        "max_true_peak_dbtp": -1.0,
+        "measured_true_peak_dbtp": -2.2,
+        "loudness_range_lu": 6.5,
+        "dialogue_gated": false,
+        "verdict": "PASS",
+        "notes": "Compliant with EBU R128 (European Broadcast): -23.0 LUFS (target -23.0 +/- 0.5 LU), True Peak -2.2 dBTP (limit -1.0 dBTP)."
+      },
+      "scene_qc_profiles": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "pse_check": {
+            "standard_reference": "ITU-R BT.1702 / Ofcom Harding FPA",
+            "max_flash_frequency_hz": 0.8,
+            "flash_limit_hz": 3.0,
+            "max_luminance_delta_nits": 8.0,
+            "red_saturation_flash_detected": false,
+            "spatial_pattern_risk": false,
+            "verdict": "PASS",
+            "remediation_notes": "Compliant with ITU-R BT.1702 / Ofcom Harding FPA (flash <= 3.0 Hz, luminance delta within safe envelope)."
+          },
+          "loudness_target_lufs": -23.0,
+          "true_peak_ceiling_dbtp": -1.0,
+          "chroma_legal_rec709": true,
+          "overall_verdict": "PASS",
+          "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        }
+      ],
+      "clearance_records": [
+        {
+          "clearance_id": "CLR-001",
+          "category": "talent_usage",
+          "item_title": "Principal Talent Buyout & Likeness (Master Artisanal Chef / Tea Master)",
+          "rights_holder": "SAG-AFTRA Commercial Signatory / Talent Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "12 Months Broadcast + OTT + Social",
+          "status": "cleared",
+          "reference_code": "SAG-2026-TAL-001",
+          "notes": "Principal performer residuals and AI likeness usage riders executed."
+        },
+        {
+          "clearance_id": "CLR-002",
+          "category": "music_sync_master",
+          "item_title": "Music Sync & Master License (Artisanal Japanese Culinary Ceremonial M Theme)",
+          "rights_holder": "Omni Original Score Publishing / Lyria Bespoke Stem Master",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "In Perpetuity (Work-for-Hire Master)",
+          "status": "cleared",
+          "reference_code": "MUS-2026-SYN-002",
+          "notes": "Full stem separation (Dialogue/Foley/Ambience/Music) cleared for M&E international delivery."
+        },
+        {
+          "clearance_id": "CLR-003",
+          "category": "brand_trademark_ip",
+          "item_title": "Brand Trademark, Product Hero & Packaging IP (Artisanal Japanese Culinary Ceremonial M)",
+          "rights_holder": "Advertiser Brand Legal & Product Counsel",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Campaign Term + Archive",
+          "status": "cleared",
+          "reference_code": "BRD-2026-TM-003",
+          "notes": "No uncleared third-party logos, license plates, or artwork visible in frame."
+        },
+        {
+          "clearance_id": "CLR-004",
+          "category": "location_permit",
+          "item_title": "Location Release & Municipal Film Permit (Culinary Asmr Sanctuary)",
+          "rights_holder": "Property Owner / Film Commission Permit Office",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Shoot Dates + Worldwide Perpetual Footage Rights",
+          "status": "cleared",
+          "reference_code": "LOC-2026-PRM-004",
+          "notes": "COI ($2M GL) filed; property release countersigned."
+        },
+        {
+          "clearance_id": "CLR-005",
+          "category": "aerial_faa_waiver",
+          "item_title": "FAA 14 CFR Part 107 Remote Pilot & Airspace Authorization",
+          "rights_holder": "FAA LAANC / Commercial RPIC Certificate",
+          "territory": "North America, EMEA & APAC Broadcast + Social",
+          "term_duration": "Production Flight Window",
+          "status": "cleared",
+          "reference_code": "FAA-P107-2026-005",
+          "notes": "Visual Line of Sight (VLOS) and Part 107 altitude envelope verified."
+        }
+      ],
+      "pse_overall_verdict": "PASS",
+      "legal_clearance_complete": true,
+      "overall_verdict": "PASS",
+      "qc_certificate_id": "QC-ARTI-2026-001",
+      "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -5130,15 +7112,24 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_1>",
-          "<image_2>"
+          "<image_2>",
+          "<image_1>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     },
     {
       "scene_index": 2,
@@ -5181,6 +7172,12 @@
         "film_emulation_configured": true,
         "clapper_slate_configured": true,
         "drone_flight_configured": true,
+        "reframe_compliant": true,
+        "reframe_reward": 1.0,
+        "reframe_descriptor": "[REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]",
+        "broadcast_qc_compliant": true,
+        "broadcast_qc_reward": 1.0,
+        "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -5188,14 +7185,17 @@
         "image_refs_detected": [
           "<image_3>"
         ]
-      }
+      },
+      "drone_flight_compliant": false,
+      "reframe_compliant": true,
+      "broadcast_qc_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "43b6b79d-e3a1-4e04-ae3a-32c2c917b6c4",
+    "session_id": "699721f5-b7ed-4fea-a0e2-a5ecf8d71c01",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-17T09:33:43.975021+00:00",
+    "timestamp": "2026-11-19T10:09:55.279663+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -5205,67 +7205,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-17T09:33:43.975039+00:00",
-        "end_time": "2026-11-17T09:33:43.975738+00:00",
-        "duration_ms": 0.7,
+        "start_time": "2026-11-19T10:09:55.279682+00:00",
+        "end_time": "2026-11-19T10:09:55.280406+00:00",
+        "duration_ms": 0.72,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-17T09:33:43.975753+00:00",
-        "end_time": "2026-11-17T09:33:43.978379+00:00",
-        "duration_ms": 2.63,
+        "start_time": "2026-11-19T10:09:55.280429+00:00",
+        "end_time": "2026-11-19T10:09:55.283748+00:00",
+        "duration_ms": 3.32,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-17T09:33:43.978391+00:00",
-        "end_time": "2026-11-17T09:33:43.979903+00:00",
-        "duration_ms": 1.51,
+        "start_time": "2026-11-19T10:09:55.283761+00:00",
+        "end_time": "2026-11-19T10:09:55.285172+00:00",
+        "duration_ms": 1.41,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-17T09:33:43.979932+00:00",
-        "end_time": "2026-11-17T09:33:43.980092+00:00",
+        "start_time": "2026-11-19T10:09:55.285192+00:00",
+        "end_time": "2026-11-19T10:09:55.285355+00:00",
         "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-17T09:33:43.980102+00:00",
-        "end_time": "2026-11-17T09:33:43.982017+00:00",
-        "duration_ms": 1.91,
+        "start_time": "2026-11-19T10:09:55.285366+00:00",
+        "end_time": "2026-11-19T10:09:55.287530+00:00",
+        "duration_ms": 2.16,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-17T09:33:43.982027+00:00",
-        "end_time": "2026-11-17T09:33:43.982031+00:00",
+        "start_time": "2026-11-19T10:09:55.287544+00:00",
+        "end_time": "2026-11-19T10:09:55.287547+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-17T09:33:43.982038+00:00",
-        "end_time": "2026-11-17T09:33:43.991994+00:00",
-        "duration_ms": 9.95,
+        "start_time": "2026-11-19T10:09:55.287554+00:00",
+        "end_time": "2026-11-19T10:09:55.297679+00:00",
+        "duration_ms": 10.12,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-17T09:33:44.002444+00:00",
-        "end_time": "2026-11-17T09:33:44.022752+00:00",
-        "duration_ms": 20.31,
+        "start_time": "2026-11-19T10:09:55.317233+00:00",
+        "end_time": "2026-11-19T10:09:55.344001+00:00",
+        "duration_ms": 26.77,
         "details": {}
       }
     ],
-    "total_duration_ms": 37.17,
+    "total_duration_ms": 44.66,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "5a120b8f4eca55c6b8f454c293e3f3f4d46606285a19dba479c4c446c960dbe1",
-      "storyboard_preview.html": "b3307e0180e6a936c40836baf36c2aedafd3fe940c40b6af2268c1448f1f4f62",
+      "production_bundle.json": "01689fe5fd4eec00e2f7cd44182b1653b41806a1d61db9815a80d5d0978bb9b0",
+      "storyboard_preview.html": "33d0b3692e3e74a70e027ce56b1232d853c3646af8e5ddeac1dca517057646b8",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -5289,6 +7289,48 @@
       "focus_puller_cue_sheet.csv": "54c6142dd9d9d889453129964f8e32e033fd92d538506446b11c97b20c970a59",
       "production_look.cube": "5db5b8a5bb44859d89e1994d724fba6e5295dec712b3c0886eaaaa3aa2dcf7aa",
       "dit_cart_manifest.json": "d89babdfe5a39a9ab17a781c8cad4770386eec8229d8206e003567ebba012bdb",
+      "spatial_audio_adm.json": "a7a8ad755b89a0641df6873c7cb61bfc7ce1b357535c6dfb3f18bfc6103cd30f",
+      "spatial_audio_adm_manifest.json": "a7a8ad755b89a0641df6873c7cb61bfc7ce1b357535c6dfb3f18bfc6103cd30f",
+      "ambisonic_b_format.csv": "b1881916f5a4201b02940b1dd67b3e8196f88d6de3199727ee3c70e0d13ebc29",
+      "spatial_audio_ambisonic_channels.csv": "b1881916f5a4201b02940b1dd67b3e8196f88d6de3199727ee3c70e0d13ebc29",
+      "spatial_webaudio_nodes.json": "40d3f7f0834c08c94ff849adee8cf5ed64754eea9ab1c93328a630ffeaa8db2e",
+      "webaudio_spatial_panner.json": "40d3f7f0834c08c94ff849adee8cf5ed64754eea9ab1c93328a630ffeaa8db2e",
+      "openexr_channels.json": "77b5b884100697fbe10457204d91ae176c6913a9b881df6b95d6205f51bd04d7",
+      "vfx_compositing_manifest.json": "77b5b884100697fbe10457204d91ae176c6913a9b881df6b95d6205f51bd04d7",
+      "cryptomatte_manifest.json": "7eac450202d87da75935519e3df67b71b637bdfafb306a58049b259f3742e54f",
+      "nuke_composite.nk": "fdf3fb6c0d3637efd2675e3458c443a0e659985b07947794ac2c7c4d8904e1a2",
+      "nuke_composite_template.nk": "fdf3fb6c0d3637efd2675e3458c443a0e659985b07947794ac2c7c4d8904e1a2",
+      "hdr10_metadata.json": "b0902f5f048aefc002ba813e84e4bc2a5dff9cd2f6690ca8a48ea6f1b67ab71d",
+      "hlg_broadcast.xml": "c5473cd7dab198355f8b4cb5662b55f3199826998860447995ecb30974e1a398",
+      "resolve_hdr_rcm.xml": "49ea318c9bd3a542b8bded097751bb686c6f6e3679a9adde61c6b23c52117fbd",
+      "hdr_master_report.json": "95c7ceac3fcad7e22406547bf8a302c84e994867e914d24941939c0743f1837d",
+      "movie_magic_schedule.xml": "4d38dbd9ca27d03d2884cbc0b51902f7b09f2f73c3aeab35ea7ccb9c3c548a92",
+      "stripboard_schedule.csv": "68720a312f95ff7d34a9829b46d6d1cb92786cf8927df1ad845b6920eae745eb",
+      "dood_matrix.csv": "53a59a01c67a7f339f04c9b1a03bbf88a708fd82e3adfc40f1990720d2b43f71",
+      "stripboard_summary.json": "d26e77d1392249cdb3183be95ec2d3ad9e858495af5ccb186d92ba7e01342a2e",
+      "film_emulation_spec.json": "f3dbcc3ed70f5e39642e358be0238233657b39f909d166045bbcab4d436f2e59",
+      "film_stock_shader.dctl": "1ea6862506fc6c86278eaec36ac5ba335b731101ba2c7cddf5c1564f33a2511f",
+      "film_stock.ale": "81b997b2dcbf38a121d5170f1d714addea36674da5619acb88acb6f8e2b1e27a",
+      "slate_manifest.json": "2bc2a1486ef4215f0d5ee3870c01ea01e85bed7a95bb075b5eaadb897591552e",
+      "asc_mhl_manifest.xml": "9609cbe67be58d90b79f375478fc595f9d4c099f534fba41ea278cfd93bd1861",
+      "clapper_slate_log.csv": "ccf028e61e3f77e7c2df55c893ed3baa533fbe651d0d2fd49d50a6317bb615ce",
+      "sound_sync.ale": "f4e39639602ec201831c2f3c17bb5c6b9154e5ff3a3efb297fd318416b624127",
+      "flight_path.kml": "0b8b4cdb8d1d493e35e74a6a65d0b3e598f9094f4f4ec20ec8ea2c9a2faea55d",
+      "flight_waypoints.gpx": "1386a826c02161a713838a77dac8db533e0ecc54f3f1e1202396a8dfaa1f3119",
+      "drone_flight_sheet.csv": "968196ff225755371cf8ad691e4e8ddde4ddc537105ba83e88429573c71c880c",
+      "drone_flight_sheet.md": "7eba0018960ff4bc0b8e7d38ceba417b38327ffee79a1e6d921133f3fa317389",
+      "drone_flight_manifest.json": "67cdc9b335721788910822f45dd532b1e115c89199c0f1d16c502d83517f89a8",
+      "aicp_bid_sheet.csv": "7297f7fca0ac0f13c5b6259c1ceccf40dad7793bc6e458234738e8cac9a28eca",
+      "aicp_bid_manifest.json": "1e8585f2baeba051aa503306aadae741e21e231f666612d5a91a24a925a084f4",
+      "production_budget_topsheet.md": "55bfa337b6b7c6fc7f7966663e964062ff7d61a243d0111c887ccff5a2e5588f",
+      "reframe_crop_matrix.csv": "89033ad8ae71a82c2ffe05358e57f309bbc79cf02eb83e3a25177d7998116735",
+      "cutdown_15s.edl": "649c0a9b0b78ba4f01e30fbae6be8048a21877aea5c4a3a7b3d6dba97a99d1ec",
+      "cutdown_06s.edl": "2d2ba1fc6aaf0a276bd6e5c7d710177a26e01e51feff3630dfe97254b0264647",
+      "reframe_9x16.fcpxml": "4b6f33900714c250dc12a2577e384304d7aea19ae04da29c3b05ca5024a699a9",
+      "delivery_reframe_manifest.json": "2da6853a836599d6caf3ffbb82ad57c82b27897104bd8bc0cf84914186cee623",
+      "broadcast_qc_certificate.md": "49613b363cde31afa208df3fcc00cce4b6f538d6e4b123d649c7bb82b8227118",
+      "rights_clearance_matrix.csv": "53befedf7c2943cf25c192b2225ed6899f210f1aab5924399e91f6a7a22ea7d6",
+      "broadcast_qc_manifest.json": "5cbf800c9209c8bf47f2d29d8709270acd272a7d9dd3f3ca4b0bb09d940733a6",
       "storyboards/anchor1_character_turnaround.svg": "49ac46caa0989d8e794c7b6a3ad955ef0bdac50829f056bffcac8d0d99327318",
       "storyboards/anchor2_environment_master.svg": "5996c07b6c1d1cc8a7ae5b336a2f98054b926655c1e957d2331bd774287c67bc",
       "storyboards/anchor3_scene_1_keyframe.svg": "e59e554ef651f1f3ca069cec3a26f410cff48ac0b8bda32f0454fd83e4e8d775",
@@ -5296,9 +7338,9 @@
     }
   },
   "council_report": {
-    "version": "2.10.0",
+    "version": "2.11.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-17T09:33:44.020134+00:00",
+    "timestamp": "2026-11-19T10:09:55.341210+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -5366,51 +7408,59 @@
           {
             "severity": "info",
             "category": "hdr_metadata_delivery",
-            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json.",
+            "message": "HDR10 mastering metadata JSON, HLG XML, and DaVinci Resolve HDR XML verified on disk: hdr10_metadata.json, hlg_broadcast.xml, resolve_hdr_rcm.xml, hdr_master_report.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "hdr_artifacts": [
-                "hdr10_metadata.json"
+                "hdr10_metadata.json",
+                "hlg_broadcast.xml",
+                "resolve_hdr_rcm.xml",
+                "hdr_master_report.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "stripboard_schedule_delivery",
-            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv.",
+            "message": "1st AD Movie Magic schedule XML, Stripboard CSV, DOOD matrix, and Breakdown sheets verified on disk: movie_magic_schedule.xml, stripboard_schedule.csv, dood_matrix.csv, stripboard_summary.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "stripboard_artifacts": [
                 "movie_magic_schedule.xml",
-                "stripboard_schedule.csv"
+                "stripboard_schedule.csv",
+                "dood_matrix.csv",
+                "stripboard_summary.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "film_emulation_delivery",
-            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale.",
+            "message": "Film stock DCTL shader, Avid ALE log, and Emulation manifest verified on disk: film_stock_shader.dctl, film_stock.ale, film_emulation_spec.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "film_artifacts": [
                 "film_stock_shader.dctl",
-                "film_stock.ale"
+                "film_stock.ale",
+                "film_emulation_spec.json"
               ]
             }
           },
           {
             "severity": "info",
             "category": "clapper_slate_delivery",
-            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv.",
+            "message": "ASC-MHL hash list XML, Clapper slate CSV, Sound sync ALE, and Slate JSON verified on disk: asc_mhl_manifest.xml, clapper_slate_log.csv, sound_sync.ale, slate_manifest.json.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "slate_artifacts": [
                 "asc_mhl_manifest.xml",
-                "clapper_slate_log.csv"
+                "clapper_slate_log.csv",
+                "sound_sync.ale",
+                "slate_manifest.json"
               ]
             }
           },
@@ -5443,9 +7493,39 @@
                 "production_budget_topsheet.md"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_delivery",
+            "message": "Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "reframe_artifacts": [
+                "reframe_crop_matrix.csv",
+                "cutdown_15s.edl",
+                "cutdown_06s.edl",
+                "reframe_9x16.fcpxml",
+                "delivery_reframe_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_delivery",
+            "message": "Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "qc_artifacts": [
+                "broadcast_qc_certificate.md",
+                "rights_clearance_matrix.csv",
+                "broadcast_qc_manifest.json"
+              ]
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 10 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -5516,6 +7596,31 @@
               "grand_total": 158002.24,
               "direct_costs": 124902.96,
               "production_fee": 18735.44
+            }
+          },
+          {
+            "severity": "info",
+            "category": "reframe_schema_compliance",
+            "message": "Multi-aspect reframe manifest verified: 12 crop windows, 2 cutdowns, safe-zone audit passed.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "deliverable_matrix_count": 12,
+              "cutdowns_count": 2,
+              "reframe_scenes_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "broadcast_qc_schema_compliance",
+            "message": "Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "overall_verdict": "PASS",
+              "pse_verdict": "PASS",
+              "loudness_verdict": "PASS",
+              "max_flash_hz": 0.8
             }
           }
         ],
@@ -5642,13 +7747,13 @@
           {
             "severity": "info",
             "category": "domain_spatial_audio_calibration",
-            "message": "Domain spatial audio verified: binaural_hrtf Atmos bed, 'Studio Soundstage' (RT60=0.25s, 2 3D objects) aligned with domain 'culinary_asmr'.",
+            "message": "Domain spatial audio verified: binaural_hrtf Atmos bed, 'Intimate Micro-Acoustic Kitchen Stage' (RT60=0.25s, 2 3D objects) aligned with domain 'culinary_asmr'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "culinary_asmr",
               "bed_format": "binaural_hrtf",
-              "room": "Studio Soundstage",
+              "room": "Intimate Micro-Acoustic Kitchen Stage",
               "objects": 2
             }
           },
@@ -5710,7 +7815,7 @@
           {
             "severity": "info",
             "category": "domain_clapper_slate_calibration",
-            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 0 MHL hash entries) aligned with domain 'culinary_asmr'.",
+            "message": "SMPTE 12M clapper slate & ASC-MHL v2.0 manifest verified: 2 scene slates (Cam A01, Sound SR01, 2 MHL hash entries) aligned with domain 'culinary_asmr'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -5718,21 +7823,21 @@
               "slates_count": 2,
               "camera_roll": "A01",
               "sound_roll": "SR01",
-              "mhl_hash_entries": 0
+              "mhl_hash_entries": 2
             }
           },
           {
             "severity": "info",
             "category": "domain_drone_flight_calibration",
-            "message": "Aerial drone flight spec verified: DroneRigType.CABLE_CAM_HYBRID (indoor_slow_orbital_reveal, speed 0.0 m/s, altitude 0.0m AGL) calibrated for domain 'culinary_asmr'.",
+            "message": "Aerial drone flight spec verified: DroneRigType.CABLE_CAM_HYBRID (indoor_slow_orbital_reveal, speed 1.5 m/s, altitude 3.0m AGL) calibrated for domain 'culinary_asmr'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "culinary_asmr",
               "drone_rig": "DroneRigType.CABLE_CAM_HYBRID",
               "flight_profile": "indoor_slow_orbital_reveal",
-              "speed_mps": 0.0,
-              "altitude_agl_m": 0.0
+              "speed_mps": 1.5,
+              "altitude_agl_m": 3.0
             }
           },
           {
@@ -5746,6 +7851,41 @@
               "grand_total": 158002.24,
               "target_min": 95000.0,
               "target_max": 165000.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_reframe_strategy",
+            "message": "Multi-aspect social reframe manifest verified: 12 crop windows and 2 cutdown timelines pass platform UI safe zones for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "deliverable_matrix_count": 12,
+              "cutdowns": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_broadcast_qc",
+            "message": "Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'culinary_asmr'.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "loudness_standard": "ebu_r128",
+              "overall_verdict": "PASS",
+              "legal_clearance_complete": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_cross_alignment",
+            "message": "Domain cross-alignment verified: explicit domain_archetype 'culinary_asmr' matches strategic brief classification.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain_archetype": "culinary_asmr"
             }
           }
         ],
@@ -5834,6 +7974,62 @@
             "severity": "info",
             "category": "animatic_aicp_hud",
             "message": "AICP Commercial Production Bid HUD verified in dark-room animatic (#btn-aicp-animatic / #animatic-aicp-hud [A], CSV, JSON & Markdown downloads).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_audio_mixer",
+            "message": "Interactive Audio Mixing Console verified (#btn-toggle-mixer / #animatic-audio-mixer [M]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_cc_hud",
+            "message": "Closed Captions HUD verified (#btn-cc-animatic / #animatic-cc-hud [C]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_export_bible",
+            "message": "Export Production Bible JSON control verified (#btn-export-bible).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_reframe_hud",
+            "message": "Multi-Aspect Social Reframe HUD verified (#btn-reframe-animatic / #animatic-reframe-hud [R]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_qc_hud",
+            "message": "Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkey_collision",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_aicp_real_data",
+            "message": "AICP HUD real-data binding verified ($158,002.24 matches master_aicp_bid).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -6122,6 +8318,38 @@
           "omni_director/schemas.py",
           "omni_director/tools/aicp_budget.py",
           "omni_director/presets.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-021",
+        "title": "Multi-Aspect Social Reframe, Safe-Zone Cropping & Cutdown Delivery Engine",
+        "problem_statement": "Agency social producers and finishing editors for 'Artisanal Japanese Culinary Ceremonial M' must deliver 16:9 broadcast masters alongside 9:16 TikTok/Instagram Reels/YouTube Shorts, 4:5 Meta/LinkedIn, and 1:1 feeds without subject cropping or platform UI overlay collisions, plus frame-accurate :30s, :15s, and :06s editorial cutdowns.",
+        "proposed_solution": "Implement DeliverableAspectRatio, CutdownFormatType, SocialDeliveryPlatform, ReframePanMode, AspectCropWindowSpec, CutdownSegmentSpec, CutdownVersionSpec, SceneReframeSpec, and DeliveryReframeManifestSpec schemas; omni_director.tools.delivery_reframe (COI crop window math, platform safe-zone validation, cutdown EDL/FCPXML/CSV/JSON exporters, [REFRAME: ...] prompt tokens); 6-domain calibration via get_domain_reframe_manifest(); and an interactive Multi-Aspect Reframe HUD [R] in the dark-room animatic. Acceptance criteria: safe_zone_audit_passed across all 6 archetypes, deliverable EDL/FCPXML/CSV/JSON exports, and HUD #btn-reframe-animatic / #animatic-reframe-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/delivery_reframe.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-022",
+        "title": "Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite",
+        "problem_statement": "Commercial trafficking teams and network standards-and-practices engineers for 'Artisanal Japanese Culinary Ceremonial M' require pre-delivery ITU-R BT.1702 photosensitive epilepsy (PSE) <=3Hz flash-safety verification, ATSC A/85 (-24 LKFS) & EBU R128 (-23 LUFS) loudness compliance, Ad-ID/ISCI head-slate specs, and SAG-AFTRA/music/location/FAA legal clearance tracking before broadcast trafficking.",
+        "proposed_solution": "Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/broadcast_qc.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/nle_export.py"
         ],
