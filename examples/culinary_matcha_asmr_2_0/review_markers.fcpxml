@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="Artisanal Japanese Culinary Ceremonial M Review">
+            <project name="Artisanal Japanese Culinary Ceremonial M Review Markers">
+                <sequence format="r1" duration="240/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_Artisanal Japanese Culinary Ceremoni" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-CULI-S01-01 | GREEN | director] Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal." note="Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_Artisanal Japanese Culinary Ceremoni" ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-CULI-S02-01 | GREEN | agency_creative] Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean." note="Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

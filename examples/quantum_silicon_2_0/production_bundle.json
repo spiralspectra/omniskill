@@ -973,6 +973,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S1",
+            "x_meters": -1.38,
+            "y_meters": -2.47,
+            "aim_azimuth_deg": 55.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s1",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s1",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 55deg, MS (85mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Cleanroom 6000K precision rim highlight across chamfered metal edges verified.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Advanced Quantum Computing Silicon Proce - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.46): Cleanroom 6000K precision rim highlight across chamfered metal edges verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -1829,6 +1916,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S2",
+            "x_meters": -0.03,
+            "y_meters": -2.4,
+            "aim_azimuth_deg": 89.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s2",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s2",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 89deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Hardware Product Lead",
+              "marker_color": "GREEN",
+              "comment": "Hero industrial design proportions and display UI sharpness signed off.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Advanced Quantum Computing Silicon Proce - Climax' @ 00:00:07:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.48): Hero industrial design proportions and display UI sharpness signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       }
     ],
@@ -2677,7 +2851,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-19T10:09:55.539623+00:00",
+        "creation_date": "2026-11-20T09:53:29.756376+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2685,7 +2859,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-19T10:09:55.539612+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.756360+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2693,7 +2867,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-19T10:09:55.539620+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.756373+00:00"
           }
         ]
       }
@@ -2749,7 +2923,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-19T10:09:55.539623+00:00",
+        "creation_date": "2026-11-20T09:53:29.756376+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2757,7 +2931,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-19T10:09:55.539612+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.756360+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2765,7 +2939,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-19T10:09:55.539620+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.756373+00:00"
           }
         ]
       }
@@ -6833,6 +7007,681 @@
       "overall_verdict": "PASS",
       "qc_certificate_id": "QC-ADVA-2026-001",
       "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "master_continuity_blocking": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S1",
+            "x_meters": -1.38,
+            "y_meters": -2.47,
+            "aim_azimuth_deg": 55.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s1",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s1",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 55deg, MS (85mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S2",
+            "x_meters": -0.03,
+            "y_meters": -2.4,
+            "aim_azimuth_deg": 89.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s2",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s2",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 89deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "continuity_blocking": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S1",
+            "x_meters": -1.38,
+            "y_meters": -2.47,
+            "aim_azimuth_deg": 55.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s1",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s1",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 55deg, MS (85mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S2",
+            "x_meters": -0.03,
+            "y_meters": -2.4,
+            "aim_azimuth_deg": 89.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s2",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s2",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 89deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "blocking_floorplan": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S1",
+            "x_meters": -1.38,
+            "y_meters": -2.47,
+            "aim_azimuth_deg": 55.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s1",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s1",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 55deg, MS (85mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 6.0,
+          "stage_depth_meters": 6.0,
+          "camera": {
+            "camera_id": "CAM_TECH_S2",
+            "x_meters": -0.03,
+            "y_meters": -2.4,
+            "aim_azimuth_deg": 89.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.35
+          },
+          "entities": [
+            {
+              "entity_id": "tech_hardware_primary_s2",
+              "label": "Anodized Hardware Flagship",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.3,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "tech_hardware_anchor_s2",
+              "label": "Precision Moco Turntable",
+              "role": "prop",
+              "x_meters": 0.0,
+              "y_meters": -0.4,
+              "facing_deg": 90.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 89deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "master_client_review": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Cleanroom 6000K precision rim highlight across chamfered metal edges verified.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Advanced Quantum Computing Silicon Proce - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.46): Cleanroom 6000K precision rim highlight across chamfered metal edges verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Hardware Product Lead",
+              "marker_color": "GREEN",
+              "comment": "Hero industrial design proportions and display UI sharpness signed off.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Advanced Quantum Computing Silicon Proce - Climax' @ 00:00:07:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.48): Hero industrial design proportions and display UI sharpness signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (tech_hardware); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "client_review": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Cleanroom 6000K precision rim highlight across chamfered metal edges verified.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Advanced Quantum Computing Silicon Proce - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.46): Cleanroom 6000K precision rim highlight across chamfered metal edges verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Hardware Product Lead",
+              "marker_color": "GREEN",
+              "comment": "Hero industrial design proportions and display UI sharpness signed off.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Advanced Quantum Computing Silicon Proce - Climax' @ 00:00:07:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.48): Hero industrial design proportions and display UI sharpness signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (tech_hardware); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "review_manifest": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Cleanroom 6000K precision rim highlight across chamfered metal edges verified.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Advanced Quantum Computing Silicon Proce - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.46): Cleanroom 6000K precision rim highlight across chamfered metal edges verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-TECH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Hardware Product Lead",
+              "marker_color": "GREEN",
+              "comment": "Hero industrial design proportions and display UI sharpness signed off.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Advanced Quantum Computing Silicon Proce - Climax' @ 00:00:07:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.48): Hero industrial design proportions and display UI sharpness signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Hardware Industrial Director & Product Lead",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (tech_hardware); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -6906,18 +7755,26 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 2,
@@ -6966,6 +7823,12 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -6976,14 +7839,16 @@
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "19d39fc0-4418-4dd1-9ad4-4121113b9a1b",
+    "session_id": "837d98bd-e206-47cf-9f2c-b57c52af0c40",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-19T10:09:55.536501+00:00",
+    "timestamp": "2026-11-20T09:53:29.752511+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -6993,67 +7858,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-19T10:09:55.536520+00:00",
-        "end_time": "2026-11-19T10:09:55.537218+00:00",
-        "duration_ms": 0.7,
+        "start_time": "2026-11-20T09:53:29.752533+00:00",
+        "end_time": "2026-11-20T09:53:29.753443+00:00",
+        "duration_ms": 0.91,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-19T10:09:55.537235+00:00",
-        "end_time": "2026-11-19T10:09:55.540384+00:00",
-        "duration_ms": 3.15,
+        "start_time": "2026-11-20T09:53:29.753478+00:00",
+        "end_time": "2026-11-20T09:53:29.757461+00:00",
+        "duration_ms": 3.98,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-19T10:09:55.540394+00:00",
-        "end_time": "2026-11-19T10:09:55.542068+00:00",
-        "duration_ms": 1.67,
+        "start_time": "2026-11-20T09:53:29.757479+00:00",
+        "end_time": "2026-11-20T09:53:29.759487+00:00",
+        "duration_ms": 2.01,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-19T10:09:55.542095+00:00",
-        "end_time": "2026-11-19T10:09:55.542254+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-20T09:53:29.759520+00:00",
+        "end_time": "2026-11-20T09:53:29.759689+00:00",
+        "duration_ms": 0.17,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-19T10:09:55.542263+00:00",
-        "end_time": "2026-11-19T10:09:55.544387+00:00",
-        "duration_ms": 2.12,
+        "start_time": "2026-11-20T09:53:29.759699+00:00",
+        "end_time": "2026-11-20T09:53:29.761961+00:00",
+        "duration_ms": 2.26,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-19T10:09:55.544402+00:00",
-        "end_time": "2026-11-19T10:09:55.544407+00:00",
+        "start_time": "2026-11-20T09:53:29.761980+00:00",
+        "end_time": "2026-11-20T09:53:29.761984+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-19T10:09:55.544413+00:00",
-        "end_time": "2026-11-19T10:09:55.555535+00:00",
-        "duration_ms": 11.12,
+        "start_time": "2026-11-20T09:53:29.761992+00:00",
+        "end_time": "2026-11-20T09:53:29.774233+00:00",
+        "duration_ms": 12.24,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-19T10:09:55.583992+00:00",
-        "end_time": "2026-11-19T10:09:55.612625+00:00",
-        "duration_ms": 28.63,
+        "start_time": "2026-11-20T09:53:29.806202+00:00",
+        "end_time": "2026-11-20T09:53:29.862151+00:00",
+        "duration_ms": 55.95,
         "details": {}
       }
     ],
-    "total_duration_ms": 47.55,
+    "total_duration_ms": 77.52,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "5f8062d2905a884cc1da4a584914f2e12abff4ad6210b2d06fa003833e7508b0",
-      "storyboard_preview.html": "0f5dc13c44cc2c91ffc1c4ef8b1c2b8c03925f4b758a2a0586f373d8c0b6823b",
+      "production_bundle.json": "33e42ae672bab629b254041b0ce27dd182b2e2cdd125c33258699bc5e2b03193",
+      "storyboard_preview.html": "aac75be2bf7fa7c843fc351697d67d14c311c65adf5b3d9f6d3d9f6d86ebe0f4",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "a1b631f98ecc46886afb242ebbee26814ba51507bbc0d84b94feb9010a495530",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -7063,6 +7928,10 @@
       "production_grade.cdl": "41dca2c923ebc74b74cd5b8c3ff033af781e56bd069779a5792451ea173b7591",
       "audio_stems_manifest.json": "f9bb8d9347536ef5317965ff4d761391465d57739b176b066f73587fa3b0b7d4",
       "lens_package.csv": "405adc1f3de876f7f7ecce0e9f7c982dab95a05b7d203ae29d4bc2ea560906d2",
+      "optical_lens_framing.csv": "405adc1f3de876f7f7ecce0e9f7c982dab95a05b7d203ae29d4bc2ea560906d2",
+      "vp_stage_spec.json": "ee3fea7c130325571fc56274fccd444f2ebcd7e0229bd175ebbac9659fdb6f01",
+      "ndisplay_stage_manifest.json": "a453517d47ad84191230723c6dcf4e5c69c44b8ab76fed23a44fcfc37872950a",
+      "dmx_patch.csv": "0a344367ccfdae736e34c56b9439ff3e1b35f834ac18d7a1a60108ce52c2180d",
       "moco_track.json": "456d2e38e73e0e5e9193385b0392c19fb7b1ec219618d1bbe611fee7358e2410",
       "moco_track.csv": "bf3177cf92a5ed222e0cfd4585f3691c7ac80012886480b37cb17002c7a3dd50",
       "moco_camera.fbx": "4d24686b471f2c9fffe5f23f6fb4b7b9213e91e538060161bdc3dd80f0b80619",
@@ -7084,10 +7953,12 @@
       "spatial_webaudio_nodes.json": "5cf31bbd2e1721e8dc51059c425f31e8eabfbdd53ab8e77fd3b7331ce7533e73",
       "webaudio_spatial_panner.json": "5cf31bbd2e1721e8dc51059c425f31e8eabfbdd53ab8e77fd3b7331ce7533e73",
       "openexr_channels.json": "043612bcc0d07317c9feb444efbf074c7096c0d8f9be2e2829e5a7d2a3535ae0",
+      "openexr_channel_manifest.json": "043612bcc0d07317c9feb444efbf074c7096c0d8f9be2e2829e5a7d2a3535ae0",
       "vfx_compositing_manifest.json": "043612bcc0d07317c9feb444efbf074c7096c0d8f9be2e2829e5a7d2a3535ae0",
       "cryptomatte_manifest.json": "e74c4d1509d5ee80938b7b5058be366bb61c119f5fe2fdfd14bfb98644661175",
       "nuke_composite.nk": "c87350740297c1213bf3c6a641c106e668f6c4afbc6c06b8331704ca5ddc7903",
       "nuke_composite_template.nk": "c87350740297c1213bf3c6a641c106e668f6c4afbc6c06b8331704ca5ddc7903",
+      "nuke_comp_script.nk": "c87350740297c1213bf3c6a641c106e668f6c4afbc6c06b8331704ca5ddc7903",
       "hdr10_metadata.json": "6b96ccd396be71553a5c0a8dd0fcc6fd247e1d7d36ea55f2b597d216bea26ce7",
       "hlg_broadcast.xml": "257ee9207595d115933f73d7d0a5b7372d76b6cfef1c6c7dc108e4b97a11fa28",
       "resolve_hdr_rcm.xml": "f635c062ffa31f11b96c2a5653a03a0e96f69e5bbd3c4ebd2e78bd017da09d9f",
@@ -7099,12 +7970,12 @@
       "film_emulation_spec.json": "f6f2aeded4546e4447581b7ebf5b4908679ba7e7eac4e883980c5a510cc535aa",
       "film_stock_shader.dctl": "714c85a691687fa24cca7bd2988e2115745127592fd63e4ba0e49537d709bddd",
       "film_stock.ale": "76e75fc5a36edb3bce6b7b9ed6069244cc9093322e4f8470f9f7b01f589d95bd",
-      "slate_manifest.json": "6d2de8e45c48e24e66323b3f742eb2336802b0b5452ba299a2a9e5024c31d789",
-      "asc_mhl_manifest.xml": "57bfc1fa458b0211222d98564a196dd872b83b88db959bd7389ebb67a5256e30",
+      "slate_manifest.json": "9dd07ba914a80117683ca4a4b8796b872b89b4d59d6369eebd169cff37304581",
+      "asc_mhl_manifest.xml": "b70ac7c4bae2fb4fcac6a7b38bd5835809cdc2c24acd7feb5fcad1db25d9aeb8",
       "clapper_slate_log.csv": "c27965fb0a6f986a35cf428a8eb4b35dafa890ba684c18bd5414577a208fc10c",
       "sound_sync.ale": "073c78adacf67942af2ed9e79a961625a39dcd71e1f1eb5372a980c1f0515141",
       "flight_path.kml": "d8f4d2acdce0e000253d81fd54c3f8bca980283bcfdcc0f1aed982e5e58295e8",
-      "flight_waypoints.gpx": "524481832a6e39bb820ed9b358de76c11495857a705c3ba6e736be0c412120a5",
+      "flight_waypoints.gpx": "791f3241af36a2dd1981c357df61461cad7038eb36f33277bb2d2aa91c0a05d7",
       "drone_flight_sheet.csv": "3d9fb21ac1504acb6c76b58078f0e828cc5c9de1c05b15d9f56f2390288b02c2",
       "drone_flight_sheet.md": "f6da349cb248769a62835e65705bc4c5eca2ad725b751100d147f86bb61c5b23",
       "drone_flight_manifest.json": "2c2b776b138c8e2d9951fb35da499ab3ec2eca9253b04bd202bcff5211413994",
@@ -7114,11 +7985,14 @@
       "reframe_crop_matrix.csv": "6ea91d2cd15992f33dfcfb89d3c5311e5b4f81c30e417a84b4f25b0d186932ab",
       "cutdown_15s.edl": "69e6f1f374981ad751d419d56c3295ae955da0e455cb54d8d58c5cc75af8592b",
       "cutdown_06s.edl": "39d2fae57dd0e8ffc02d1dd23ffbee22d05eeaaeed2aa850823c1728d2762e0e",
-      "reframe_9x16.fcpxml": "d5c00ef85d61661fdc6ae123c231a3e618f7af3bed63625cc9f765217ea990d4",
+      "reframe_9x16.fcpxml": "6b45e01ff8c4ce07d5a72018fabb82cab6e9a735bd67086bb6bd7fca2e67d802",
       "delivery_reframe_manifest.json": "90723fa10d93ae9e98711c0417a4ed4e4243d42226ab176f840123647e42dff7",
       "broadcast_qc_certificate.md": "b7c0f49f8f3d253a888bc8d495d323f5997c37cfc6e982ed7d8f2aeb8be2a7b5",
       "rights_clearance_matrix.csv": "409c51693bc2c754ff9964af5e58569a272c0850c1ac7debc643c4d7e6580ab1",
       "broadcast_qc_manifest.json": "0d5c754f9e0203ddb5cf71856efb62725e1987caaae8c961651da52c9997cee1",
+      "council_audit_report.json": "3df469c31a9174afbb49ad304a42e03492001efc953907cc53adc29d49cb6346",
+      "council_report.json": "3df469c31a9174afbb49ad304a42e03492001efc953907cc53adc29d49cb6346",
+      "council_report.md": "ae9cd7f2f16a00cb60d631c59f397ab7b41c3b0f95608fdf1c14b7cb929ba425",
       "storyboards/anchor1_character_turnaround.svg": "d9f4e8312df0655feaaebf0729586f217c4d79a21556d351b66707f0a2425ed2",
       "storyboards/anchor2_environment_master.svg": "467bdfa2dc732b74012d25b2adafd6a1d5a122b5c83cf872cfbc49ad9e84daa6",
       "storyboards/anchor3_scene_1_keyframe.svg": "871ffb56a79bc932e70c1c8a350b10e9fc06be8659987b9e822cbeee9e03e4b2",
@@ -7126,9 +8000,9 @@
     }
   },
   "council_report": {
-    "version": "2.11.0",
+    "version": "2.12.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-19T10:09:55.608730+00:00",
+    "timestamp": "2026-11-20T09:53:29.859135+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -7311,9 +8185,29 @@
                 "broadcast_qc_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema",
+            "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema",
+            "message": "MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -7410,6 +8304,38 @@
               "loudness_verdict": "PASS",
               "max_flash_hz": 0.8
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema_compliance",
+            "message": "Inter-scene editorial continuity verified across 1 cut(s): continuity_passed=True, axis_violations_count=0.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "cut_checks_count": 1,
+              "continuity_passed": true,
+              "axis_violations_count": 0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema_compliance",
+            "message": "Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "unresolved_blockers": 0,
+              "ready_for_live_render": true,
+              "overall_status": "approved"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_continuity_and_review_compliance",
+            "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
           }
         ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -7668,6 +8594,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_continuity_blocking",
+            "message": "Inter-scene continuity & 180-degree blocking aligned for domain 'tech_hardware' (screen_direction=static_centered, scenes=2, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "dominant_screen_direction": "static_centered",
+              "continuity_passed": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_client_review",
+            "message": "Client review & sign-off readiness verified for domain 'tech_hardware' (status=approved, unresolved_blockers=0, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "overall_status": "approved",
+              "ready_for_live_render": true
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'tech_hardware' matches strategic brief classification.",
             "remediation": null,
@@ -7808,8 +8758,48 @@
           },
           {
             "severity": "info",
+            "category": "animatic_blocking_hud",
+            "message": "180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_review_hud",
+            "message": "Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_departmental_toolbar",
+            "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_blocking_dialogs",
+            "message": "Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_wn",
+            "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8139,6 +9129,40 @@
           "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-023",
+        "title": "Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+        "problem_statement": "Script supervisors, directors of photography, and finishing editors for 'Advanced Quantum Computing Silicon Proce' need automated 180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate screen-direction reversals and axial jump cuts prior to rendering.",
+        "proposed_solution": "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/continuity_blocking.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-024",
+        "title": "Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+        "problem_statement": "Agency creatives, brand clients, directors, and post producers for 'Advanced Quantum Computing Silicon Proce' require frame-accurate spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, deterministic edit-delta compilation, and a strict live-render sign-off gate before committing billable Gemini Omni video generation credits.",
+        "proposed_solution": "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/review_notes.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r4" name="SCENE_03" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r5" name="SCENE_04" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="The Kinetic Fabric: Grounded Innovation Review">
+            <project name="The Kinetic Fabric: Grounded Innovation Review Markers">
+                <sequence format="r1" duration="480/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_The Microscopic Weave" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="77/24s" duration="1/24s" value="[REV-KINE-S01-01 | GREEN | director] 1.0x real-time kinetic contact chain and match-on-action axis continuity verified." note="Review Edit Delta [Scene 1 'The Microscopic Weave' @ 00:00:03:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: 1.0x real-time kinetic contact chain and match-on-action axis continuity verified. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_The Airflow Ignition" ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-KINE-S02-01 | GREEN | vfx_supervisor] 90-degree shutter motion clarity and aerodynamic streamline particles cleared." note="Review Edit Delta [Scene 2 'The Airflow Ignition' @ 00:00:11:05]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.46): 90-degree shutter motion clarity and aerodynamic streamline particles cleared. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_03_The Aerodynamic Deflection" ref="r4" offset="240/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-KINE-S03-01 | GREEN | agency_creative] Transient impact foley punch and percussive score lock verified at -24 LKFS." note="Review Edit Delta [Scene 3 'The Aerodynamic Deflection' @ 00:00:19:05]: Rebalance synchronized diegetic audio/foley mix: Transient impact foley punch and percussive score lock verified at -24 LKFS. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_04_The Deceleration &amp; The Form Lock" ref="r5" offset="360/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-KINE-S04-01 | GREEN | client_brand] Performance textile tension and hero brand mark legible across all social crops." note="Review Edit Delta [Scene 4 'The Deceleration &amp; The Form Lock' @ 00:00:27:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.44): Performance textile tension and hero brand mark legible across all social crops. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

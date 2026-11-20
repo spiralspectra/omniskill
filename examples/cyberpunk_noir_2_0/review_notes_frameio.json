@@ -1,0 +1,119 @@
+{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 2,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 2 scene(s) (automotive_robotics); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-AUTO-S01-01",
+      "scene_index": 1,
+      "timestamp": 2.0,
+      "timecode_smpte": "00:00:02:00",
+      "frame": 48,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "camera",
+      "text": "Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified.",
+      "annotation_pin": {
+        "x_norm": 0.46,
+        "y_norm": 0.5,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'Cyberpunk Neon-Lit High-Speed Electric M - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.50): Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-AUTO-S02-01",
+      "scene_index": 2,
+      "timestamp": 7.0,
+      "timecode_smpte": "00:00:07:00",
+      "frame": 168,
+      "author_role": "vfx_supervisor",
+      "author_name": "Senior VFX Supervisor",
+      "color": "GREEN",
+      "target_parameter": "lighting",
+      "text": "Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared.",
+      "annotation_pin": {
+        "x_norm": 0.54,
+        "y_norm": 0.48,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'Cyberpunk Neon-Lit High-Speed Electric M - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.54, 0.48): Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-AUTO-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:02:00",
+          "timecode_sec": 2.0,
+          "frame_number": 48,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified.",
+          "target_parameter": "camera",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.46,
+            "y_norm": 0.5,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'Cyberpunk Neon-Lit High-Speed Electric M - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.50): Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Automotive Director & OEM Brand Lead",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-AUTO-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:07:00",
+          "timecode_sec": 7.0,
+          "frame_number": 168,
+          "reviewer_role": "vfx_supervisor",
+          "reviewer_name": "Senior VFX Supervisor",
+          "marker_color": "GREEN",
+          "comment": "Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared.",
+          "target_parameter": "lighting",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.54,
+            "y_norm": 0.48,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'Cyberpunk Neon-Lit High-Speed Electric M - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.54, 0.48): Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Automotive Director & OEM Brand Lead",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}

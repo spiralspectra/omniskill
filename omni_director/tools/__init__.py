@@ -45,7 +45,9 @@ from omni_director.tools.optical_lens import (
     format_optical_prompt_token,
 )
 from omni_director.tools.prompt_auditor import (
+    audit_bible_inter_scene_continuity,
     audit_omni_scene_prompt,
+    compile_clean_omni_prompt,
     heal_omni_scene_prompt,
 )
 from omni_director.tools.speed_ramp import (
@@ -242,9 +244,33 @@ from omni_director.tools.broadcast_qc import (
     synthesize_rights_clearances,
     validate_loudness_target,
 )
+from omni_director.tools.continuity_blocking import (
+    evaluate_180_axis_and_30_rule,
+    export_continuity_bundle,
+    format_continuity_prompt_token,
+    generate_blocking_floorplan_svg,
+    generate_continuity_log_csv,
+    generate_continuity_manifest_json,
+    synthesize_default_continuity_blocking,
+    synthesize_scene_blocking,
+)
+from omni_director.tools.review_notes import (
+    compile_review_note_to_delta,
+    export_review_bundle,
+    format_review_prompt_token,
+    generate_client_signoff_md,
+    generate_frameio_review_json,
+    generate_resolve_marker_edl,
+    generate_review_fcpxml_markers,
+    generate_review_notes_csv,
+    synthesize_default_client_review,
+    synthesize_scene_review_signoff,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
+    "audit_bible_inter_scene_continuity",
+    "compile_clean_omni_prompt",
     "heal_omni_scene_prompt",
     "compile_storyboard_html",
     "generate_svg_storyboard_frame",
@@ -457,5 +483,25 @@ __all__ = [
     "format_broadcast_qc_prompt_token",
     "synthesize_default_broadcast_qc_spec",
     "synthesize_default_scene_qc",
+    # 180-Degree Continuity Axis, Eyeline & Overhead Blocking Floorplan (PM-FEAT-023)
+    "evaluate_180_axis_and_30_rule",
+    "synthesize_scene_blocking",
+    "synthesize_default_continuity_blocking",
+    "format_continuity_prompt_token",
+    "generate_continuity_log_csv",
+    "generate_blocking_floorplan_svg",
+    "generate_continuity_manifest_json",
+    "export_continuity_bundle",
+    # Client Review Notes, Frame-Accurate Annotations & Signoff Gate (PM-FEAT-024)
+    "synthesize_scene_review_signoff",
+    "synthesize_default_client_review",
+    "compile_review_note_to_delta",
+    "format_review_prompt_token",
+    "generate_resolve_marker_edl",
+    "generate_review_fcpxml_markers",
+    "generate_frameio_review_json",
+    "generate_review_notes_csv",
+    "generate_client_signoff_md",
+    "export_review_bundle",
 ]
 

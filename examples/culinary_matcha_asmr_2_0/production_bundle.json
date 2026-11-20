@@ -991,6 +991,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S1",
+            "x_meters": -0.0,
+            "y_meters": -2.3,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 20.4,
+            "focal_length_mm": 100,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s1",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s1",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -1865,6 +1952,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S2",
+            "x_meters": -0.84,
+            "y_meters": -1.74,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s2",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s2",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.48,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       }
     ],
@@ -2713,7 +2887,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-19T10:09:55.282939+00:00",
+        "creation_date": "2026-11-20T09:53:29.504577+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2721,7 +2895,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2729,7 +2903,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
           }
         ]
       }
@@ -2785,7 +2959,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-19T10:09:55.282939+00:00",
+        "creation_date": "2026-11-20T09:53:29.504577+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2793,7 +2967,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2801,7 +2975,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
+            "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
           }
         ]
       }
@@ -7045,6 +7219,681 @@
       "overall_verdict": "PASS",
       "qc_certificate_id": "QC-ARTI-2026-001",
       "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "master_continuity_blocking": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S1",
+            "x_meters": -0.0,
+            "y_meters": -2.3,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 20.4,
+            "focal_length_mm": 100,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s1",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s1",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S2",
+            "x_meters": -0.84,
+            "y_meters": -1.74,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s2",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s2",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "continuity_blocking": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S1",
+            "x_meters": -0.0,
+            "y_meters": -2.3,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 20.4,
+            "focal_length_mm": 100,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s1",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s1",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S2",
+            "x_meters": -0.84,
+            "y_meters": -1.74,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s2",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s2",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "blocking_floorplan": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "dominant_screen_direction": "static_centered",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "screen_direction": "static_centered",
+          "shot_scale": "MS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S1",
+            "x_meters": -0.0,
+            "y_meters": -2.3,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 20.4,
+            "focal_length_mm": 100,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s1",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s1",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "screen_direction": "static_centered",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 4.5,
+          "stage_depth_meters": 3.5,
+          "camera": {
+            "camera_id": "CAM_CULI_S2",
+            "x_meters": -0.84,
+            "y_meters": -1.74,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.25
+          },
+          "entities": [
+            {
+              "entity_id": "culinary_asmr_primary_s2",
+              "label": "Chef Prep Hands",
+              "role": "talent",
+              "x_meters": -0.4,
+              "y_meters": 0.1,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "culinary_asmr_anchor_s2",
+              "label": "Hero Culinary Plating Dish",
+              "role": "hero_product",
+              "x_meters": 0.3,
+              "y_meters": 0.4,
+              "facing_deg": 180.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "master_client_review": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.48,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "client_review": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.48,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "review_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-CULI-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.48,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Culinary Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -7118,18 +7967,26 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 2,
@@ -7178,6 +8035,12 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -7188,14 +8051,16 @@
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "699721f5-b7ed-4fea-a0e2-a5ecf8d71c01",
+    "session_id": "8876072f-3806-4e67-ba29-4f938428f37e",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-19T10:09:55.279663+00:00",
+    "timestamp": "2026-11-20T09:53:29.501161+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -7205,67 +8070,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-19T10:09:55.279682+00:00",
-        "end_time": "2026-11-19T10:09:55.280406+00:00",
-        "duration_ms": 0.72,
+        "start_time": "2026-11-20T09:53:29.501183+00:00",
+        "end_time": "2026-11-20T09:53:29.502006+00:00",
+        "duration_ms": 0.82,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-19T10:09:55.280429+00:00",
-        "end_time": "2026-11-19T10:09:55.283748+00:00",
-        "duration_ms": 3.32,
+        "start_time": "2026-11-20T09:53:29.502039+00:00",
+        "end_time": "2026-11-20T09:53:29.505785+00:00",
+        "duration_ms": 3.74,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-19T10:09:55.283761+00:00",
-        "end_time": "2026-11-19T10:09:55.285172+00:00",
-        "duration_ms": 1.41,
+        "start_time": "2026-11-20T09:53:29.505808+00:00",
+        "end_time": "2026-11-20T09:53:29.508467+00:00",
+        "duration_ms": 2.66,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-19T10:09:55.285192+00:00",
-        "end_time": "2026-11-19T10:09:55.285355+00:00",
-        "duration_ms": 0.16,
+        "start_time": "2026-11-20T09:53:29.508513+00:00",
+        "end_time": "2026-11-20T09:53:29.508693+00:00",
+        "duration_ms": 0.18,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-19T10:09:55.285366+00:00",
-        "end_time": "2026-11-19T10:09:55.287530+00:00",
-        "duration_ms": 2.16,
+        "start_time": "2026-11-20T09:53:29.508704+00:00",
+        "end_time": "2026-11-20T09:53:29.510946+00:00",
+        "duration_ms": 2.24,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-19T10:09:55.287544+00:00",
-        "end_time": "2026-11-19T10:09:55.287547+00:00",
+        "start_time": "2026-11-20T09:53:29.510965+00:00",
+        "end_time": "2026-11-20T09:53:29.510969+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-19T10:09:55.287554+00:00",
-        "end_time": "2026-11-19T10:09:55.297679+00:00",
-        "duration_ms": 10.12,
+        "start_time": "2026-11-20T09:53:29.510976+00:00",
+        "end_time": "2026-11-20T09:53:29.524054+00:00",
+        "duration_ms": 13.07,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-19T10:09:55.317233+00:00",
-        "end_time": "2026-11-19T10:09:55.344001+00:00",
-        "duration_ms": 26.77,
+        "start_time": "2026-11-20T09:53:29.559776+00:00",
+        "end_time": "2026-11-20T09:53:29.615584+00:00",
+        "duration_ms": 55.81,
         "details": {}
       }
     ],
-    "total_duration_ms": 44.66,
+    "total_duration_ms": 78.52,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "01689fe5fd4eec00e2f7cd44182b1653b41806a1d61db9815a80d5d0978bb9b0",
-      "storyboard_preview.html": "33d0b3692e3e74a70e027ce56b1232d853c3646af8e5ddeac1dca517057646b8",
+      "production_bundle.json": "4de7270db2bb2a063d3906bba8968401db98ca859586689751d898d09f881d92",
+      "storyboard_preview.html": "a41defc6e774ab4ca6db0c57c279b9bab099f40475877f4b1647ff274b465ec2",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -7275,6 +8140,10 @@
       "production_grade.cdl": "a3c8b5b7d26067097a9c35697f14f200713e7a7ecf4e84e6649aa22acc8c05c7",
       "audio_stems_manifest.json": "88cd34d8980c9c10f03bb1f324e6da2c00482f763ab5c778e48e411a64c68d12",
       "lens_package.csv": "ddf8e47808dccec80ba8c824ed90ead0ab59333634c066bebf0619930a393965",
+      "optical_lens_framing.csv": "ddf8e47808dccec80ba8c824ed90ead0ab59333634c066bebf0619930a393965",
+      "vp_stage_spec.json": "4c7fd9d920becf79eedf739f21e05b45c85ed778342ab6c669269eee2b3286e2",
+      "ndisplay_stage_manifest.json": "2e4ed17d5e22ec7968c38e5e1144746ce5a9292d8b529d3a12e4a6d2802d1315",
+      "dmx_patch.csv": "0a344367ccfdae736e34c56b9439ff3e1b35f834ac18d7a1a60108ce52c2180d",
       "moco_track.json": "b9ec0228e437c74b4aca3497ed074250fcc60cd3012d4f4e362eca6abbe5e786",
       "moco_track.csv": "971eaa0293bdff98faada36010d5d33d04f322990d8e79bf2d03d42c55fda999",
       "moco_camera.fbx": "ba36e8692246727bf9f78f1195f43f8ab95f7ee37765505a8fe3a687d8941e75",
@@ -7296,10 +8165,12 @@
       "spatial_webaudio_nodes.json": "40d3f7f0834c08c94ff849adee8cf5ed64754eea9ab1c93328a630ffeaa8db2e",
       "webaudio_spatial_panner.json": "40d3f7f0834c08c94ff849adee8cf5ed64754eea9ab1c93328a630ffeaa8db2e",
       "openexr_channels.json": "77b5b884100697fbe10457204d91ae176c6913a9b881df6b95d6205f51bd04d7",
+      "openexr_channel_manifest.json": "77b5b884100697fbe10457204d91ae176c6913a9b881df6b95d6205f51bd04d7",
       "vfx_compositing_manifest.json": "77b5b884100697fbe10457204d91ae176c6913a9b881df6b95d6205f51bd04d7",
       "cryptomatte_manifest.json": "7eac450202d87da75935519e3df67b71b637bdfafb306a58049b259f3742e54f",
       "nuke_composite.nk": "fdf3fb6c0d3637efd2675e3458c443a0e659985b07947794ac2c7c4d8904e1a2",
       "nuke_composite_template.nk": "fdf3fb6c0d3637efd2675e3458c443a0e659985b07947794ac2c7c4d8904e1a2",
+      "nuke_comp_script.nk": "fdf3fb6c0d3637efd2675e3458c443a0e659985b07947794ac2c7c4d8904e1a2",
       "hdr10_metadata.json": "b0902f5f048aefc002ba813e84e4bc2a5dff9cd2f6690ca8a48ea6f1b67ab71d",
       "hlg_broadcast.xml": "c5473cd7dab198355f8b4cb5662b55f3199826998860447995ecb30974e1a398",
       "resolve_hdr_rcm.xml": "49ea318c9bd3a542b8bded097751bb686c6f6e3679a9adde61c6b23c52117fbd",
@@ -7311,12 +8182,12 @@
       "film_emulation_spec.json": "f3dbcc3ed70f5e39642e358be0238233657b39f909d166045bbcab4d436f2e59",
       "film_stock_shader.dctl": "1ea6862506fc6c86278eaec36ac5ba335b731101ba2c7cddf5c1564f33a2511f",
       "film_stock.ale": "81b997b2dcbf38a121d5170f1d714addea36674da5619acb88acb6f8e2b1e27a",
-      "slate_manifest.json": "2bc2a1486ef4215f0d5ee3870c01ea01e85bed7a95bb075b5eaadb897591552e",
-      "asc_mhl_manifest.xml": "9609cbe67be58d90b79f375478fc595f9d4c099f534fba41ea278cfd93bd1861",
+      "slate_manifest.json": "a8098e2628e0e2d9b490c85b0c4d1204ceed19e4f673eec6a4c489240a9cb126",
+      "asc_mhl_manifest.xml": "c44758bfbdacc04b00677f9784aa5ce8d7e28ae106f1d322003eca58e7e93ce2",
       "clapper_slate_log.csv": "ccf028e61e3f77e7c2df55c893ed3baa533fbe651d0d2fd49d50a6317bb615ce",
       "sound_sync.ale": "f4e39639602ec201831c2f3c17bb5c6b9154e5ff3a3efb297fd318416b624127",
       "flight_path.kml": "0b8b4cdb8d1d493e35e74a6a65d0b3e598f9094f4f4ec20ec8ea2c9a2faea55d",
-      "flight_waypoints.gpx": "1386a826c02161a713838a77dac8db533e0ecc54f3f1e1202396a8dfaa1f3119",
+      "flight_waypoints.gpx": "7739cd22896d02cb033ce2ec7ce6c9ea02aae5cdb0c95abc3cfb7c5a14123668",
       "drone_flight_sheet.csv": "968196ff225755371cf8ad691e4e8ddde4ddc537105ba83e88429573c71c880c",
       "drone_flight_sheet.md": "7eba0018960ff4bc0b8e7d38ceba417b38327ffee79a1e6d921133f3fa317389",
       "drone_flight_manifest.json": "67cdc9b335721788910822f45dd532b1e115c89199c0f1d16c502d83517f89a8",
@@ -7326,11 +8197,14 @@
       "reframe_crop_matrix.csv": "89033ad8ae71a82c2ffe05358e57f309bbc79cf02eb83e3a25177d7998116735",
       "cutdown_15s.edl": "649c0a9b0b78ba4f01e30fbae6be8048a21877aea5c4a3a7b3d6dba97a99d1ec",
       "cutdown_06s.edl": "2d2ba1fc6aaf0a276bd6e5c7d710177a26e01e51feff3630dfe97254b0264647",
-      "reframe_9x16.fcpxml": "4b6f33900714c250dc12a2577e384304d7aea19ae04da29c3b05ca5024a699a9",
+      "reframe_9x16.fcpxml": "44f6cbefe82952567a2c0852a49bb62fdf44c7e8656740aea8850813bda5c4e7",
       "delivery_reframe_manifest.json": "2da6853a836599d6caf3ffbb82ad57c82b27897104bd8bc0cf84914186cee623",
       "broadcast_qc_certificate.md": "49613b363cde31afa208df3fcc00cce4b6f538d6e4b123d649c7bb82b8227118",
       "rights_clearance_matrix.csv": "53befedf7c2943cf25c192b2225ed6899f210f1aab5924399e91f6a7a22ea7d6",
       "broadcast_qc_manifest.json": "5cbf800c9209c8bf47f2d29d8709270acd272a7d9dd3f3ca4b0bb09d940733a6",
+      "council_audit_report.json": "8a3c7c2ca7b3f893e46a0f08c484d692e3cb765077e8af793531c1facf14b4a5",
+      "council_report.json": "8a3c7c2ca7b3f893e46a0f08c484d692e3cb765077e8af793531c1facf14b4a5",
+      "council_report.md": "9cb02706248af3696abf118ba60aecc6414fdf15ed553effbc647989a3b2721c",
       "storyboards/anchor1_character_turnaround.svg": "49ac46caa0989d8e794c7b6a3ad955ef0bdac50829f056bffcac8d0d99327318",
       "storyboards/anchor2_environment_master.svg": "5996c07b6c1d1cc8a7ae5b336a2f98054b926655c1e957d2331bd774287c67bc",
       "storyboards/anchor3_scene_1_keyframe.svg": "e59e554ef651f1f3ca069cec3a26f410cff48ac0b8bda32f0454fd83e4e8d775",
@@ -7338,9 +8212,9 @@
     }
   },
   "council_report": {
-    "version": "2.11.0",
+    "version": "2.12.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-19T10:09:55.341210+00:00",
+    "timestamp": "2026-11-20T09:53:29.613176+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -7523,9 +8397,29 @@
                 "broadcast_qc_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema",
+            "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema",
+            "message": "MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -7622,6 +8516,38 @@
               "loudness_verdict": "PASS",
               "max_flash_hz": 0.8
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema_compliance",
+            "message": "Inter-scene editorial continuity verified across 1 cut(s): continuity_passed=True, axis_violations_count=0.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "cut_checks_count": 1,
+              "continuity_passed": true,
+              "axis_violations_count": 0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema_compliance",
+            "message": "Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "unresolved_blockers": 0,
+              "ready_for_live_render": true,
+              "overall_status": "approved"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_continuity_and_review_compliance",
+            "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
           }
         ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -7880,6 +8806,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_continuity_blocking",
+            "message": "Inter-scene continuity & 180-degree blocking aligned for domain 'culinary_asmr' (screen_direction=static_centered, scenes=2, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "dominant_screen_direction": "static_centered",
+              "continuity_passed": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_client_review",
+            "message": "Client review & sign-off readiness verified for domain 'culinary_asmr' (status=approved, unresolved_blockers=0, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "overall_status": "approved",
+              "ready_for_live_render": true
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'culinary_asmr' matches strategic brief classification.",
             "remediation": null,
@@ -8020,8 +8970,48 @@
           },
           {
             "severity": "info",
+            "category": "animatic_blocking_hud",
+            "message": "180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_review_hud",
+            "message": "Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_departmental_toolbar",
+            "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_blocking_dialogs",
+            "message": "Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_wn",
+            "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8351,6 +9341,40 @@
           "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-023",
+        "title": "Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+        "problem_statement": "Script supervisors, directors of photography, and finishing editors for 'Artisanal Japanese Culinary Ceremonial M' need automated 180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate screen-direction reversals and axial jump cuts prior to rendering.",
+        "proposed_solution": "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/continuity_blocking.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-024",
+        "title": "Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+        "problem_statement": "Agency creatives, brand clients, directors, and post producers for 'Artisanal Japanese Culinary Ceremonial M' require frame-accurate spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, deterministic edit-delta compilation, and a strict live-render sign-off gate before committing billable Gemini Omni video generation credits.",
+        "proposed_solution": "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/review_notes.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",

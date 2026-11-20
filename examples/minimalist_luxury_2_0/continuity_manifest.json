@@ -1,0 +1,146 @@
+{
+  "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+  "dominant_screen_direction": "toward_camera",
+  "master_axis_deg": 0.0,
+  "master_axis_side": "A_SIDE",
+  "scene_blockings": [
+    {
+      "scene_index": 1,
+      "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+      "screen_direction": "toward_camera",
+      "shot_scale": "MCU",
+      "cut_type_in": "hard_cut",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 10.0,
+      "stage_depth_meters": 8.0,
+      "camera": {
+        "camera_id": "CAM_LUXU_S1",
+        "x_meters": -0.0,
+        "y_meters": -2.7,
+        "aim_azimuth_deg": 90.0,
+        "fov_deg": 39.6,
+        "focal_length_mm": 50,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.55
+      },
+      "entities": [
+        {
+          "entity_id": "luxury_fashion_primary_s1",
+          "label": "Lead Runway Talent",
+          "role": "talent",
+          "x_meters": 0.0,
+          "y_meters": 0.2,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 1.1,
+          "screen_direction": "toward_camera",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "luxury_fashion_anchor_s1",
+          "label": "Hero Couture Accessory",
+          "role": "hero_product",
+          "x_meters": 0.5,
+          "y_meters": 0.6,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Symmetrical eyeline MCU->CU progression (luxury_fashion): A_SIDE at 90deg, MCU (50mm), dir=toward_camera.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+      "screen_direction": "toward_camera",
+      "shot_scale": "CU",
+      "cut_type_in": "eyeline_cut",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 10.0,
+      "stage_depth_meters": 8.0,
+      "camera": {
+        "camera_id": "CAM_LUXU_S2",
+        "x_meters": -0.95,
+        "y_meters": -1.91,
+        "aim_azimuth_deg": 56.0,
+        "fov_deg": 23.9,
+        "focal_length_mm": 85,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.55
+      },
+      "entities": [
+        {
+          "entity_id": "luxury_fashion_primary_s2",
+          "label": "Lead Runway Talent",
+          "role": "talent",
+          "x_meters": 0.0,
+          "y_meters": 0.2,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 1.1,
+          "screen_direction": "toward_camera",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "luxury_fashion_anchor_s2",
+          "label": "Hero Couture Accessory",
+          "role": "hero_product",
+          "x_meters": 0.5,
+          "y_meters": 0.6,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Symmetrical eyeline MCU->CU progression (luxury_fashion): A_SIDE at 56deg, CU (85mm), dir=toward_camera.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    }
+  ],
+  "cut_checks": [
+    {
+      "from_scene_index": 1,
+      "to_scene_index": 2,
+      "cut_type": "eyeline_cut",
+      "axis_preserved": true,
+      "axis_side_from": "A_SIDE",
+      "axis_side_to": "A_SIDE",
+      "camera_angle_delta_deg": 34.0,
+      "thirty_degree_rule_ok": true,
+      "shot_scale_from": "MCU",
+      "shot_scale_to": "CU",
+      "screen_direction_consistent": true,
+      "eyeline_match_ok": true,
+      "kelvin_delta_k": 0.0,
+      "kelvin_continuity_ok": true,
+      "warnings": [],
+      "violations": [],
+      "passed": true
+    }
+  ],
+  "all_180_axis_locked": true,
+  "all_30_rule_passed": true,
+  "all_kelvin_continuous": true,
+  "continuity_passed": true,
+  "overall_continuity_score": 100.0,
+  "axis_violations_count": 0,
+  "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+}

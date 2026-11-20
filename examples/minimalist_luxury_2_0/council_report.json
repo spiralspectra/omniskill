@@ -1,7 +1,7 @@
 {
-  "version": "2.11.0",
+  "version": "2.12.0",
   "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-  "timestamp": "2026-11-19T10:09:55.097707+00:00",
+  "timestamp": "2026-11-20T09:53:29.305846+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -184,9 +184,29 @@
               "broadcast_qc_manifest.json"
             ]
           }
+        },
+        {
+          "severity": "info",
+          "category": "continuity_blocking_schema",
+          "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 2
+          }
+        },
+        {
+          "severity": "info",
+          "category": "client_review_schema",
+          "message": "MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 2
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 12 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 14 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -283,6 +303,38 @@
             "loudness_verdict": "PASS",
             "max_flash_hz": 0.8
           }
+        },
+        {
+          "severity": "info",
+          "category": "continuity_blocking_schema_compliance",
+          "message": "Inter-scene editorial continuity verified across 1 cut(s): continuity_passed=True, axis_violations_count=0.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "cut_checks_count": 1,
+            "continuity_passed": true,
+            "axis_violations_count": 0
+          }
+        },
+        {
+          "severity": "info",
+          "category": "client_review_schema_compliance",
+          "message": "Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "unresolved_blockers": 0,
+            "ready_for_live_render": true,
+            "overall_status": "approved"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_continuity_and_review_compliance",
+          "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
         }
       ],
       "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -541,6 +593,30 @@
         },
         {
           "severity": "info",
+          "category": "domain_continuity_blocking",
+          "message": "Inter-scene continuity & 180-degree blocking aligned for domain 'luxury_fashion' (screen_direction=toward_camera, scenes=2, continuity_passed=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "dominant_screen_direction": "toward_camera",
+            "continuity_passed": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_client_review",
+          "message": "Client review & sign-off readiness verified for domain 'luxury_fashion' (status=approved, unresolved_blockers=0, ready_for_live_render=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "overall_status": "approved",
+            "ready_for_live_render": true
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
           "remediation": null,
@@ -681,8 +757,48 @@
         },
         {
           "severity": "info",
+          "category": "animatic_blocking_hud",
+          "message": "180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_review_hud",
+          "message": "Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_departmental_toolbar",
+          "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_blocking_dialogs",
+          "message": "Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkeys_wn",
+          "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1012,6 +1128,40 @@
         "omni_director/presets.py",
         "omni_director/tools/prompt_auditor.py",
         "omni_director/tools/html_compiler.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-023",
+      "title": "Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+      "problem_statement": "Script supervisors, directors of photography, and finishing editors for 'Minimalist Luxury Haute Couture Silk Vel' need automated 180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate screen-direction reversals and axial jump cuts prior to rendering.",
+      "proposed_solution": "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/continuity_blocking.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-024",
+      "title": "Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+      "problem_statement": "Agency creatives, brand clients, directors, and post producers for 'Minimalist Luxury Haute Couture Silk Vel' require frame-accurate spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, deterministic edit-delta compilation, and a strict live-render sign-off gate before committing billable Gemini Omni video generation credits.",
+      "proposed_solution": "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/review_notes.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/nle_export.py"
       ],
       "priority": "P0",

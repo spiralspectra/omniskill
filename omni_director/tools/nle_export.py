@@ -445,4 +445,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("Broadcast QC bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.continuity_blocking import export_continuity_bundle
+        res.update({k: str(v) for k, v in export_continuity_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Continuity blocking bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.review_notes import export_review_bundle
+        res.update({k: str(v) for k, v in export_review_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("Client review bundle export skipped: %s", exc)
+
     return res

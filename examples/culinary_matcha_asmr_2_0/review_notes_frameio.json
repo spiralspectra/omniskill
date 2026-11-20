@@ -1,0 +1,119 @@
+{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "Artisanal Japanese Culinary Ceremonial M",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 2,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-CULI-S01-01",
+      "scene_index": 1,
+      "timestamp": 2.0,
+      "timecode_smpte": "00:00:02:00",
+      "frame": 48,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "lighting",
+      "text": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+      "annotation_pin": {
+        "x_norm": 0.5,
+        "y_norm": 0.44,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-CULI-S02-01",
+      "scene_index": 2,
+      "timestamp": 7.0,
+      "timecode_smpte": "00:00:07:00",
+      "frame": 168,
+      "author_role": "agency_creative",
+      "author_name": "Agency Creative Lead",
+      "color": "GREEN",
+      "target_parameter": "audio",
+      "text": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+      "annotation_pin": {
+        "x_norm": 0.48,
+        "y_norm": 0.52,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-CULI-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:02:00",
+          "timecode_sec": 2.0,
+          "frame_number": 48,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+          "target_parameter": "lighting",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.5,
+            "y_norm": 0.44,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Culinary Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-CULI-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:07:00",
+          "timecode_sec": 7.0,
+          "frame_number": 168,
+          "reviewer_role": "agency_creative",
+          "reviewer_name": "Agency Creative Lead",
+          "marker_color": "GREEN",
+          "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+          "target_parameter": "audio",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.48,
+            "y_norm": 0.52,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Culinary Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}

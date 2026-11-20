@@ -3533,6 +3533,557 @@
       background: rgba(255, 59, 48, 0.12);
       border: 1px solid rgba(255, 59, 48, 0.4);
     }
+    
+    /* v2.12.0 Departmental Toolbar Grouping (Header Crowding Fix) */
+    .hud-header {
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      padding: 12px 24px;
+    }
+    .hud-actions {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .dept-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      position: relative;
+    }
+    .dept-group {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .dept-pill-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+    .dept-pill-toggle:hover,
+    .dept-pill-toggle:focus-visible,
+    .dept-pill-toggle[aria-expanded="true"] {
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.1);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 1px;
+    }
+    .dept-count {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+    .dept-pill-toggle[aria-expanded="true"] .dept-count {
+      background: rgba(0, 240, 255, 0.2);
+      color: var(--cyan-telemetry);
+    }
+    .dept-tray {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      min-width: 220px;
+      background: rgba(14, 16, 23, 0.98);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
+      z-index: 250;
+    }
+    .dept-tray[hidden] {
+      display: none !important;
+    }
+    .dept-tray.dept-tray-right {
+      left: auto;
+      right: 0;
+    }
+    .dept-tray > button {
+      width: 100%;
+      justify-content: flex-start;
+      white-space: nowrap;
+    }
+    .hud-hotkeys {
+      font-size: 10px;
+      max-width: 100%;
+      flex-wrap: wrap;
+      line-height: 1.4;
+    }
+
+    /* PM-FEAT-023 Blocking & Continuity HUD + PM-FEAT-024 Client Review HUD */
+    .blocking-hud-modal, .review-hud-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .blocking-modal-content, .review-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 8px;
+      max-width: 1120px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .blocking-modal-header, .review-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .blocking-title-wrap, .review-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .blocking-heading, .review-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .blocking-subheading, .review-subheading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-telemetry);
+      display: block;
+      margin-top: 2px;
+    }
+    .btn-blocking-close, .btn-review-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-blocking-close:hover, .btn-blocking-close:focus-visible,
+    .btn-review-close:hover, .btn-review-close:focus-visible {
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+    .blocking-modal-body, .review-modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }
+    .blocking-toolbar, .review-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .blocking-badge-group, .blocking-actions, .review-badge-group, .review-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-blk-action, .btn-rev-action, .btn-blk-scene {
+      background: #101420;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-blk-action:hover, .btn-rev-action:hover, .btn-blk-scene:hover,
+    .btn-blk-action:focus-visible, .btn-rev-action:focus-visible, .btn-blk-scene:focus-visible {
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 1px;
+    }
+    .btn-blk-scene.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--cyan-telemetry);
+      color: var(--cyan-telemetry);
+      font-weight: 700;
+    }
+    .blocking-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 16px;
+    }
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 920px) {
+      .blocking-grid, .review-grid {
+        grid-template-columns: 1fr;
+      }
+      .hud-actions {
+        align-items: flex-start;
+      }
+      .dept-toolbar {
+        justify-content: flex-start;
+      }
+    }
+    .blocking-panel, .review-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .blocking-svg-wrap {
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    #blocking-floorplan-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .blocking-cam-node {
+      cursor: pointer;
+    }
+    .blocking-cam-node:focus-visible {
+      outline: 2px solid var(--cyan-telemetry);
+    }
+    .blocking-cam-node.active .blocking-fov-cone {
+      fill-opacity: 0.34;
+      stroke-width: 2.2;
+      stroke-opacity: 1;
+    }
+    .blocking-cam-node.active .blocking-cam-halo {
+      stroke-opacity: 0.9;
+    }
+    .blocking-kv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .blocking-kv-box {
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 7px 9px;
+    }
+    .blocking-kv-lbl {
+      display: block;
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-bottom: 2px;
+    }
+    .blocking-cut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .blocking-cut-table th {
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 10px;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .blocking-cut-table td {
+      padding: 8px;
+      border-bottom: 1px solid #161B29;
+      vertical-align: top;
+    }
+    .blocking-cut-row.active-cut {
+      background: rgba(0, 240, 255, 0.08);
+    }
+    .blk-subcell {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .blk-badge, .rev-status-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .blk-badge-pass, .rev-badge-approved {
+      color: var(--green-rec);
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid rgba(0, 255, 136, 0.4);
+    }
+    .blk-badge-warn, .rev-badge-pending {
+      color: var(--amber-gold);
+      background: rgba(255, 184, 0, 0.14);
+      border: 1px solid rgba(255, 184, 0, 0.45);
+    }
+    .blk-badge-fail, .rev-badge-changes {
+      color: var(--red-rec);
+      background: rgba(255, 59, 48, 0.14);
+      border: 1px solid rgba(255, 59, 48, 0.45);
+    }
+
+    /* PM-FEAT-024 Review Pin Canvas & Notes */
+    .review-stage-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #050609;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    .review-stage-wrap:focus-visible {
+      outline: 2px solid var(--cyan-telemetry);
+      outline-offset: 2px;
+    }
+    .review-stage-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .review-stage-media svg,
+    .review-stage-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .review-pin-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .review-pin-dot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      color: #07080B;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+      transition: transform 0.12s ease;
+    }
+    .review-pin-dot:hover,
+    .review-pin-dot:focus-visible,
+    .review-pin-dot.active {
+      transform: translate(-50%, -50%) scale(1.22);
+      outline: 2px solid var(--cyan-telemetry);
+      outline-offset: 2px;
+    }
+    .review-pin-draft {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px dashed var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.22);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .review-pin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .review-form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .review-input, .review-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius: 4px;
+    }
+    .review-input {
+      flex: 1 1 200px;
+    }
+    .review-input:focus-visible, .review-select:focus-visible {
+      outline: 2px solid var(--border-focus);
+      border-color: var(--cyan-telemetry);
+    }
+    .review-signoff-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .review-signoff-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .review-signoff-btns {
+      display: inline-flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .btn-rev-status {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn-rev-status:focus-visible {
+      outline: 2px solid var(--border-focus);
+    }
+    .btn-rev-status.active-approved {
+      border-color: var(--green-rec);
+      color: var(--green-rec);
+      background: rgba(0, 255, 136, 0.12);
+      font-weight: 700;
+    }
+    .btn-rev-status.active-changes {
+      border-color: var(--red-rec);
+      color: var(--red-rec);
+      background: rgba(255, 59, 48, 0.14);
+      font-weight: 700;
+    }
+    .btn-rev-status.active-pending {
+      border-color: var(--amber-gold);
+      color: var(--amber-gold);
+      background: rgba(255, 184, 0, 0.14);
+      font-weight: 700;
+    }
+    .review-notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 310px;
+      overflow-y: auto;
+    }
+    .review-note-card {
+      background: #090B10;
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--cyan-telemetry);
+      border-radius: 4px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+    }
+    .review-note-card.active-note {
+      border-color: var(--cyan-telemetry);
+      background: rgba(0, 240, 255, 0.08);
+    }
+    .review-note-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }
+    .btn-note-seek {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: var(--cyan-telemetry);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn-note-seek:focus-visible {
+      outline: 2px solid var(--border-focus);
+    }
+    .review-note-delta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px 6px;
+      border-radius: 3px;
+    }
 
   </style>
 </head>
@@ -3657,51 +4208,114 @@
       </div>
     </div>
     <div class="hud-actions">
+      <div class="dept-toolbar" role="navigation" aria-label="Production Department HUD Launchers">
+        <div class="dept-group" id="dept-group-camera" role="group" aria-label="Camera and Blocking Department">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-camera" onclick="toggleDeptGroup('camera')" aria-expanded="false" aria-controls="dept-tray-camera">
+            <span class="dept-pill-icon" aria-hidden="true">🎥</span>
+            <span>Camera &amp; Blocking</span>
+            <span class="dept-count">3</span>
+            <span class="dept-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="dept-tray" id="dept-tray-camera" role="group" aria-label="Camera and Blocking Tools" hidden>
+            <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
+              🎯 Optical DoF HUD [F]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
+              🚁 Drone [D]
+            </button>
+            <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
+              📐 Blocking [W]
+            </button>
+          </div>
+        </div>
+
+        <div class="dept-group" id="dept-group-color" role="group" aria-label="Color and VFX Department">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-color" onclick="toggleDeptGroup('color')" aria-expanded="false" aria-controls="dept-tray-color">
+            <span class="dept-pill-icon" aria-hidden="true">🎨</span>
+            <span>Color &amp; VFX</span>
+            <span class="dept-count">4</span>
+            <span class="dept-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="dept-tray" id="dept-tray-color" role="group" aria-label="Color and VFX Tools" hidden>
+            <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
+              🎨 DIT 3D LUT Suite [L]
+            </button>
+            <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
+              🌈 HDR Color [H]
+            </button>
+            <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
+              🎞️ Film Stock [E]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
+              ✨ VFX Passes [X]
+            </button>
+          </div>
+        </div>
+
+        <div class="dept-group" id="dept-group-audio" role="group" aria-label="Audio Department">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-audio" onclick="toggleDeptGroup('audio')" aria-expanded="false" aria-controls="dept-tray-audio">
+            <span class="dept-pill-icon" aria-hidden="true">🔊</span>
+            <span>Audio</span>
+            <span class="dept-count">2</span>
+            <span class="dept-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="dept-tray" id="dept-tray-audio" role="group" aria-label="Audio Tools" hidden>
+            <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
+              🔊 Spatial Audio [S]
+            </button>
+            <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
+              🎚️ AUDIO [M]
+            </button>
+          </div>
+        </div>
+
+        <div class="dept-group" id="dept-group-prep" role="group" aria-label="Prep and Budget Department">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-prep" onclick="toggleDeptGroup('prep')" aria-expanded="false" aria-controls="dept-tray-prep">
+            <span class="dept-pill-icon" aria-hidden="true">📋</span>
+            <span>Prep &amp; Budget</span>
+            <span class="dept-count">3</span>
+            <span class="dept-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="dept-tray" id="dept-tray-prep" role="group" aria-label="Prep and Budget Tools" hidden>
+            <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
+              📋 Stripboard [B]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
+              🎬 Slate [T]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
+              💼 AICP [A]
+            </button>
+          </div>
+        </div>
+
+        <div class="dept-group" id="dept-group-delivery" role="group" aria-label="Delivery, QC and Review Department">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
+            <span class="dept-pill-icon" aria-hidden="true">📡</span>
+            <span>Delivery, QC &amp; Review</span>
+            <span class="dept-count">3</span>
+            <span class="dept-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
+            <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
+              📐 Reframe [R]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
+              📡 Broadcast QC [Q]
+            </button>
+            <button type="button" class="btn-dof" id="btn-review-animatic" onclick="toggleReviewHUD()" aria-label="Client Review and Frame Pin Annotation HUD [N]" aria-expanded="false" aria-controls="animatic-review-hud">
+              📝 Review [N]
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
+          ⤓ Export Production Bible (.json)
+        </button>
+      </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [R] Reframe · [Q] QC · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [R] Reframe · [Q] QC · [N] Review · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
-      <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
-        🎯 Optical DoF HUD [F]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
-        🎨 DIT 3D LUT Suite [L]
-      </button>
-      <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
-        🔊 Spatial Audio [S]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
-        ✨ VFX Passes [X]
-      </button>
-      <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
-        🌈 HDR Color [H]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
-        📋 Stripboard [B]
-      </button>
-      <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
-        🎞️ Film Stock [E]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
-        🎬 Slate [T]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
-        🚁 Drone [D]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
-        💼 AICP [A]
-      </button>
-      <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
-        📐 Reframe [R]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
-        📡 Broadcast QC [Q]
-      </button>
-      <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
-        🎚️ AUDIO [M]
-      </button>
-      <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
-        ⤓ Export Production Bible (.json)
-      </button>
     </div>
   </header>
 
@@ -5613,6 +6227,263 @@
     </div>
   </div>
 
+  <!-- 180-Degree Blocking & Continuity HUD (PM-FEAT-023) -->
+  <div id="animatic-blocking-hud" class="blocking-hud-modal" role="dialog" aria-modal="true" aria-labelledby="blocking-hud-title" style="display:none;">
+    <div class="blocking-modal-content">
+      <div class="blocking-modal-header">
+        <div class="blocking-title-wrap">
+          <span style="font-size:20px;" aria-hidden="true">📐</span>
+          <div>
+            <h2 id="blocking-hud-title" class="blocking-heading">180° BLOCKING &amp; CONTINUITY FLOORPLAN HUD</h2>
+            <span class="blocking-subheading">PM-FEAT-023 · OVERHEAD STAGE FLOORPLAN · 180° AXIS LOCK · 30° RULE · EYELINE &amp; KELVIN MATRIX</span>
+          </div>
+        </div>
+        <button type="button" class="btn-blocking-close" onclick="toggleBlockingHUD()" aria-label="Close Blocking and Continuity HUD">✕</button>
+      </div>
+
+      <div class="blocking-modal-body">
+        <div class="blocking-toolbar">
+          <div class="blocking-badge-group">
+            <span class="aicp-badge">AXIS: <strong>A_SIDE (0°)</strong></span>
+            <span class="aicp-badge">TRAVEL: <strong>static_centered</strong></span>
+            <span class="aicp-badge">180° LOCK: <span class="blk-badge blk-badge-pass">PASS</span></span>
+            <span class="aicp-badge">30° RULE: <span class="blk-badge blk-badge-pass">PASS</span></span>
+            <span class="aicp-badge">CCT: <span class="blk-badge blk-badge-pass">PASS</span></span>
+            <span class="aicp-badge">VERDICT: <span class="blk-badge blk-badge-pass">PASS</span></span>
+          </div>
+          <div class="blocking-actions">
+            <button type="button" class="btn-blk-action" id="btn-download-continuity-csv" onclick="downloadContinuityCSV()" aria-label="Download Continuity Log CSV">
+              ⤓ continuity_log.csv
+            </button>
+            <button type="button" class="btn-blk-action" id="btn-download-blocking-svg" onclick="downloadBlockingSVG()" aria-label="Download Blocking Floorplan SVG">
+              ⤓ blocking_floorplan.svg
+            </button>
+            <button type="button" class="btn-blk-action" id="btn-download-continuity-json" onclick="downloadContinuityJSON()" aria-label="Download Continuity Manifest JSON">
+              ⤓ continuity_manifest.json
+            </button>
+          </div>
+        </div>
+
+        <div class="blocking-grid">
+          <div class="blocking-panel">
+            <div class="drone-panel-header">
+              <span>TOP-DOWN 2D STAGE FLOORPLAN (SYNCED WITH SMPTE SCRUBBER)</span>
+              <span class="badge-canvas-telemetry" id="blocking-active-scene-badge">SCENE 01</span>
+            </div>
+            <div class="blocking-scene-pills" style="display:flex;flex-wrap:wrap;gap:6px;" role="navigation" aria-label="Blocking Scene Selector">
+              <button type="button" class="btn-blk-scene active" id="blk-scene-pill-1" data-scene-index="1" onclick="selectBlockingScene(1)">S01 · MS (100mm)</button><button type="button" class="btn-blk-scene" id="blk-scene-pill-2" data-scene-index="2" onclick="selectBlockingScene(2)">S02 · MCU (50mm)</button>
+            </div>
+            <div class="blocking-svg-wrap">
+              <svg id="blocking-floorplan-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" role="img" aria-label="Interactive Overhead 180-Degree Continuity Blocking Floorplan">
+  <defs>
+    <marker id="blk-arrow-motion" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+  <rect width="840" height="520" fill="#090B10" rx="8"/>
+  <rect x="24" y="54" width="792" height="420" fill="#101420" stroke="#202434" stroke-width="1.5" rx="6"/>
+  <line x1="105.0" y1="54" x2="105.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="150.0" y1="54" x2="150.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="195.0" y1="54" x2="195.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="240.0" y1="54" x2="240.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="285.0" y1="54" x2="285.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="330.0" y1="54" x2="330.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="375.0" y1="54" x2="375.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="420.0" y1="54" x2="420.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="465.0" y1="54" x2="465.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="510.0" y1="54" x2="510.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="555.0" y1="54" x2="555.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="600.0" y1="54" x2="600.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="645.0" y1="54" x2="645.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="690.0" y1="54" x2="690.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="735.0" y1="54" x2="735.0" y2="474" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="440.0" x2="816" y2="440.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="395.0" x2="816" y2="395.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="350.0" x2="816" y2="350.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="305.0" x2="816" y2="305.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="260.0" x2="816" y2="260.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="215.0" x2="816" y2="215.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="170.0" x2="816" y2="170.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="125.0" x2="816" y2="125.0" stroke="#182032" stroke-width="0.8"/>
+  <line x1="24" y1="80.0" x2="816" y2="80.0" stroke="#182032" stroke-width="0.8"/>
+  <text x="28" y="34" fill="#F0F2F8" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">OVERHEAD STAGE BLOCKING — Artisanal Japanese Culinary Ceremonial M</text>
+  <rect x="630" y="16" width="186" height="24" rx="4" fill="#00FF88" fill-opacity="0.16" stroke="#00FF88" stroke-width="1"/>
+  <text x="723" y="32" text-anchor="middle" fill="#00FF88" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">180° AXIS LOCKED</text>
+  <line x1="69.0" y1="260.0" x2="771.0" y2="260.0" stroke="#FFB800" stroke-width="2" stroke-dasharray="8 6" opacity="0.9"/>
+  <text x="44" y="252.0" fill="#FFB800" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">180° LINE OF ACTION (A_SIDE)</text>
+  <g class="blocking-cam-node active" id="blocking-cam-node-1" data-scene-index="1" role="button" tabindex="0" aria-label="Jump to Scene 1 camera blocking (MS, 100mm)" onclick="selectBlockingScene(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectBlockingScene(1);}">
+    <polygon class="blocking-fov-cone" points="420.0,363.5 453.5,177.5 386.5,177.5" fill="#00F0FF" fill-opacity="0.16" stroke="#00F0FF" stroke-width="1.2" stroke-opacity="0.65"/>
+    <circle class="blocking-cam-halo" cx="420.0" cy="363.5" r="12" fill="none" stroke="#00F0FF" stroke-width="1.5" stroke-opacity="0.0"/>
+    <circle class="blocking-cam-dot" cx="420.0" cy="363.5" r="7.5" fill="#00F0FF" stroke="#090B10" stroke-width="1.5"/>
+    <text x="432.0" y="367.5" fill="#00F0FF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">S1 MS (100mm)</text>
+  </g>
+  <g class="blocking-cam-node" id="blocking-cam-node-2" data-scene-index="2" role="button" tabindex="0" aria-label="Jump to Scene 2 camera blocking (MCU, 50mm)" onclick="selectBlockingScene(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectBlockingScene(2);}">
+    <polygon class="blocking-fov-cone" points="382.2,338.3 534.7,226.7 428.6,155.1" fill="#A78BFA" fill-opacity="0.16" stroke="#A78BFA" stroke-width="1.2" stroke-opacity="0.65"/>
+    <circle class="blocking-cam-halo" cx="382.2" cy="338.3" r="12" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-opacity="0.0"/>
+    <circle class="blocking-cam-dot" cx="382.2" cy="338.3" r="7.5" fill="#A78BFA" stroke="#090B10" stroke-width="1.5"/>
+    <text x="394.2" y="342.3" fill="#A78BFA" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">S2 MCU (50mm)</text>
+  </g>
+  <circle cx="402.0" cy="255.5" r="9" fill="#38BDF8" fill-opacity="0.88" stroke="#F0F2F8" stroke-width="1.5"/>
+  <text x="402.0" y="242.5" text-anchor="middle" fill="#F0F2F8" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="600">Chef Prep Hands</text>
+  <circle cx="433.5" cy="242.0" r="9" fill="#F59E0B" fill-opacity="0.88" stroke="#F0F2F8" stroke-width="1.5"/>
+  <text x="433.5" y="229.0" text-anchor="middle" fill="#F0F2F8" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="600">Hero Culinary Plating Dish</text>
+  <circle cx="402.0" cy="255.5" r="9" fill="#38BDF8" fill-opacity="0.88" stroke="#F0F2F8" stroke-width="1.5"/>
+  <text x="402.0" y="242.5" text-anchor="middle" fill="#F0F2F8" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="600">Chef Prep Hands</text>
+  <circle cx="433.5" cy="242.0" r="9" fill="#F59E0B" fill-opacity="0.88" stroke="#F0F2F8" stroke-width="1.5"/>
+  <text x="433.5" y="229.0" text-anchor="middle" fill="#F0F2F8" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="600">Hero Culinary Plating Dish</text>
+  <text x="28" y="498" fill="#8E95AA" font-family="JetBrains Mono, monospace" font-size="10">Click any camera wedge to seek SMPTE timeline · Dashed Amber = 180° Axis · Blue Vector = Screen Travel</text>
+</svg>
+            </div>
+            <div class="blocking-kv-grid">
+              <div class="blocking-kv-box">
+                <span class="blocking-kv-lbl">ACTIVE CAMERA / LENS</span>
+                <strong id="blk-kv-cam">MS · 100mm (20.4° FOV)</strong>
+              </div>
+              <div class="blocking-kv-box">
+                <span class="blocking-kv-lbl">AIM AZIMUTH / EYELINE</span>
+                <strong id="blk-kv-aim">90.0° / +0.0°</strong>
+              </div>
+              <div class="blocking-kv-box">
+                <span class="blocking-kv-lbl">STAGE KELVIN / AXIS</span>
+                <strong id="blk-kv-kelvin">5600K · A_SIDE</strong>
+              </div>
+            </div>
+            <div id="blk-active-notes" class="blk-subcell">Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.</div>
+          </div>
+
+          <div class="blocking-panel">
+            <div class="drone-panel-header">
+              <span>INTER-SCENE CUT TRANSITION MATRIX</span>
+              <span class="badge-canvas-telemetry">1 CUT CHECK(S)</span>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="blocking-cut-table" aria-label="Inter-Scene Cut Continuity Matrix">
+                <thead>
+                  <tr>
+                    <th scope="col">Transition</th>
+                    <th scope="col">Axis Δ°</th>
+                    <th scope="col">30° Rule</th>
+                    <th scope="col">CCT ΔK</th>
+                    <th scope="col">Screen Dir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="blocking-cut-row" data-from-scene="1" data-to-scene="2"><td><strong>Scene 1 → 2</strong><br><span class="blk-subcell">match_on_action</span></td><td><code>34.0°</code> <span class="blk-subcell">(A_SIDE→A_SIDE)</span><br><span class="blk-badge blk-badge-pass">180° PASS</span></td><td><span class="blk-badge blk-badge-pass">30° PASS (MS→MCU)</span></td><td><span class="blk-badge blk-badge-pass">0K PASS</span></td><td><span class="blk-badge blk-badge-pass">LOCKED</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Review & Pin Annotation HUD (PM-FEAT-024) -->
+  <div id="animatic-review-hud" class="review-hud-modal" role="dialog" aria-modal="true" aria-labelledby="review-hud-title" style="display:none;">
+    <div class="review-modal-content">
+      <div class="review-modal-header">
+        <div class="review-title-wrap">
+          <span style="font-size:20px;" aria-hidden="true">📝</span>
+          <div>
+            <h2 id="review-hud-title" class="review-heading">CLIENT REVIEW &amp; FRAME PIN ANNOTATION HUD</h2>
+            <span class="review-subheading">PM-FEAT-024 · SMPTE FRAME PINS · RESOLVE EDL &amp; FCPXML MARKERS · FRAME.IO JSON · SIGNOFF GATE</span>
+          </div>
+        </div>
+        <button type="button" class="btn-review-close" onclick="toggleReviewHUD()" aria-label="Close Client Review HUD">✕</button>
+      </div>
+
+      <div class="review-modal-body">
+        <div class="review-toolbar">
+          <div class="review-badge-group">
+            <span class="aicp-badge">REV: <strong>v1</strong></span>
+            <span class="aicp-badge">STATUS: <span id="review-overall-badge" class="rev-status-badge rev-badge-approved">APPROVED</span></span>
+            <span class="aicp-badge">LIVE GATE: <span id="review-gate-badge" class="rev-status-badge rev-badge-approved">READY FOR LIVE RENDER</span></span>
+            <span class="aicp-badge">NOTES: <strong id="review-counts-label">2 TOTAL · 0 OPEN</strong></span>
+          </div>
+          <div class="review-actions">
+            <button type="button" class="btn-rev-action" id="btn-download-review-edl" onclick="downloadReviewEDL()" aria-label="Download Resolve Locator EDL">
+              ⤓ review_markers.edl
+            </button>
+            <button type="button" class="btn-rev-action" id="btn-download-review-fcpxml" onclick="downloadReviewFCPXML()" aria-label="Download FCPXML Markers">
+              ⤓ review_markers.fcpxml
+            </button>
+            <button type="button" class="btn-rev-action" id="btn-download-review-json" onclick="downloadReviewJSON()" aria-label="Download Frame.io Review JSON">
+              ⤓ review_notes_frameio.json
+            </button>
+            <button type="button" class="btn-rev-action" id="btn-download-review-md" onclick="downloadReviewMD()" aria-label="Download Client Signoff Markdown Report">
+              ⤓ client_signoff_report.md
+            </button>
+          </div>
+        </div>
+
+        <div class="review-grid">
+          <div class="review-panel">
+            <div class="drone-panel-header">
+              <span>INTERACTIVE FRAME PIN CANVAS (CLICK TO DROP PIN @ LIVE TC)</span>
+              <span class="badge-canvas-telemetry" id="review-live-tc">00:00:00:00</span>
+            </div>
+            <div class="review-form-row">
+              <label for="review-scene-select" class="qc-label">ACTIVE PLATE:</label>
+              <select id="review-scene-select" class="review-select" onchange="selectReviewScene(this.value)" aria-label="Select Scene for Pin Review">
+                <option value="1">Scene 01: Artisanal Japanese Culinary Cere</option><option value="2">Scene 02: Artisanal Japanese Culinary Cere</option>
+              </select>
+              <span id="review-pin-coords-badge" class="blk-subcell">Click stage to place pin · Target: (50%, 48%)</span>
+            </div>
+
+            <div id="review-pin-stage" class="review-stage-wrap" tabindex="0" role="application" aria-label="Interactive Frame Pin Stage. Click or press Enter or Space to drop a frame pin at the current SMPTE timecode. Use Arrow keys to nudge pin coordinates." onclick="onReviewStageClick(event)" onkeydown="onReviewStageKeyDown(event)">
+              <div id="review-stage-media" class="review-stage-media" aria-hidden="true"></div>
+              <div id="review-pin-layer" class="review-pin-layer"></div>
+              <div id="review-pin-draft" class="review-pin-draft" style="left:50%;top:48%;display:none;" aria-hidden="true"></div>
+            </div>
+
+            <form class="review-pin-form" onsubmit="submitReviewPinNote(event)">
+              <div class="review-form-row">
+                <select id="review-role-select" class="review-select" aria-label="Reviewer Role">
+                  <option value="client_brand">Client Brand</option>
+                  <option value="agency_creative">Agency Creative</option>
+                  <option value="director" selected>Director</option>
+                  <option value="post_producer">Post Producer</option>
+                  <option value="vfx_supervisor">VFX Supervisor</option>
+                </select>
+                <select id="review-color-select" class="review-select" aria-label="Marker Color Tag">
+                  <option value="CYAN">CYAN</option>
+                  <option value="AMBER">AMBER</option>
+                  <option value="RED">RED</option>
+                  <option value="GREEN">GREEN</option>
+                  <option value="MAGENTA">MAGENTA</option>
+                </select>
+                <select id="review-param-select" class="review-select" aria-label="Target Parameter">
+                  <option value="lighting">Lighting / Grade</option>
+                  <option value="camera">Camera / Framing</option>
+                  <option value="pacing">Pacing / Timing</option>
+                  <option value="audio">Audio / Foley</option>
+                  <option value="visual">Visual Continuity</option>
+                </select>
+                <label class="reframe-ghost-label" for="review-blocking-chk">
+                  <input type="checkbox" id="review-blocking-chk" class="reframe-ghost-chk">
+                  <span>Blocking Gate</span>
+                </label>
+              </div>
+              <div class="review-form-row">
+                <input type="text" id="review-note-input" class="review-input" placeholder="Enter frame-accurate review note (stamped @ live SMPTE TC)..." aria-label="Review annotation comment">
+                <button type="submit" class="btn-rev-action" id="btn-submit-review-pin">📌 Drop Pin Note</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="review-panel">
+            <div class="drone-panel-header">
+              <span>SCENE APPROVAL GATES &amp; TIMESTAMPED NOTES</span>
+              <span class="badge-canvas-telemetry">CLICK TIMECODE TO SEEK</span>
+            </div>
+            <div id="review-signoff-list" class="review-signoff-list" role="region" aria-label="Scene Approval Status Controls"></div>
+            <div id="review-notes-list" class="review-notes-list" role="region" aria-label="Timestamped Review Notes"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -7227,6 +8098,93 @@
         "chroma_legal_rec709": true,
         "overall_verdict": "PASS",
         "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+      },
+      "blocking_spec": {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "screen_direction": "static_centered",
+        "shot_scale": "MS",
+        "cut_type_in": "hard_cut",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S1",
+          "x_meters": -0.0,
+          "y_meters": -2.3,
+          "aim_azimuth_deg": 90.0,
+          "fov_deg": 20.4,
+          "focal_length_mm": 100,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s1",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s1",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      },
+      "review_signoff": {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S01-01",
+            "scene_index": 1,
+            "timecode_smpte": "00:00:02:00",
+            "timecode_sec": 2.0,
+            "frame_number": 48,
+            "reviewer_role": "director",
+            "reviewer_name": "Lead Creative Director",
+            "marker_color": "GREEN",
+            "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+            "target_parameter": "lighting",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.5,
+              "y_norm": 0.44,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
       }
     },
     {
@@ -8101,6 +9059,93 @@
         "chroma_legal_rec709": true,
         "overall_verdict": "PASS",
         "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+      },
+      "blocking_spec": {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "screen_direction": "static_centered",
+        "shot_scale": "MCU",
+        "cut_type_in": "match_on_action",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S2",
+          "x_meters": -0.84,
+          "y_meters": -1.74,
+          "aim_azimuth_deg": 56.0,
+          "fov_deg": 39.6,
+          "focal_length_mm": 50,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s2",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s2",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      },
+      "review_signoff": {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S02-01",
+            "scene_index": 2,
+            "timecode_smpte": "00:00:07:00",
+            "timecode_sec": 7.0,
+            "frame_number": 168,
+            "reviewer_role": "agency_creative",
+            "reviewer_name": "Agency Creative Lead",
+            "marker_color": "GREEN",
+            "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+            "target_parameter": "audio",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.48,
+              "y_norm": 0.52,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
       }
     }
   ],
@@ -8949,7 +9994,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-19T10:09:55.282939+00:00",
+      "creation_date": "2026-11-20T09:53:29.504577+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -8957,7 +10002,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
+          "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -8965,7 +10010,7 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
+          "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
         }
       ]
     }
@@ -9021,7 +10066,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-19T10:09:55.282939+00:00",
+      "creation_date": "2026-11-20T09:53:29.504577+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -9029,7 +10074,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-19T10:09:55.282924+00:00"
+          "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -9037,7 +10082,7 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-19T10:09:55.282936+00:00"
+          "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
         }
       ]
     }
@@ -13281,6 +14326,681 @@
     "overall_verdict": "PASS",
     "qc_certificate_id": "QC-ARTI-2026-001",
     "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+  },
+  "master_continuity_blocking": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "dominant_screen_direction": "static_centered",
+    "master_axis_deg": 0.0,
+    "master_axis_side": "A_SIDE",
+    "scene_blockings": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "screen_direction": "static_centered",
+        "shot_scale": "MS",
+        "cut_type_in": "hard_cut",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S1",
+          "x_meters": -0.0,
+          "y_meters": -2.3,
+          "aim_azimuth_deg": 90.0,
+          "fov_deg": 20.4,
+          "focal_length_mm": 100,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s1",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s1",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "screen_direction": "static_centered",
+        "shot_scale": "MCU",
+        "cut_type_in": "match_on_action",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S2",
+          "x_meters": -0.84,
+          "y_meters": -1.74,
+          "aim_azimuth_deg": 56.0,
+          "fov_deg": 39.6,
+          "focal_length_mm": 50,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s2",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s2",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      }
+    ],
+    "cut_checks": [
+      {
+        "from_scene_index": 1,
+        "to_scene_index": 2,
+        "cut_type": "match_on_action",
+        "axis_preserved": true,
+        "axis_side_from": "A_SIDE",
+        "axis_side_to": "A_SIDE",
+        "camera_angle_delta_deg": 34.0,
+        "thirty_degree_rule_ok": true,
+        "shot_scale_from": "MS",
+        "shot_scale_to": "MCU",
+        "screen_direction_consistent": true,
+        "eyeline_match_ok": true,
+        "kelvin_delta_k": 0.0,
+        "kelvin_continuity_ok": true,
+        "warnings": [],
+        "violations": [],
+        "passed": true
+      }
+    ],
+    "all_180_axis_locked": true,
+    "all_30_rule_passed": true,
+    "all_kelvin_continuous": true,
+    "continuity_passed": true,
+    "overall_continuity_score": 100.0,
+    "axis_violations_count": 0,
+    "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+  },
+  "continuity_blocking": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "dominant_screen_direction": "static_centered",
+    "master_axis_deg": 0.0,
+    "master_axis_side": "A_SIDE",
+    "scene_blockings": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "screen_direction": "static_centered",
+        "shot_scale": "MS",
+        "cut_type_in": "hard_cut",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S1",
+          "x_meters": -0.0,
+          "y_meters": -2.3,
+          "aim_azimuth_deg": 90.0,
+          "fov_deg": 20.4,
+          "focal_length_mm": 100,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s1",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s1",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "screen_direction": "static_centered",
+        "shot_scale": "MCU",
+        "cut_type_in": "match_on_action",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S2",
+          "x_meters": -0.84,
+          "y_meters": -1.74,
+          "aim_azimuth_deg": 56.0,
+          "fov_deg": 39.6,
+          "focal_length_mm": 50,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s2",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s2",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      }
+    ],
+    "cut_checks": [
+      {
+        "from_scene_index": 1,
+        "to_scene_index": 2,
+        "cut_type": "match_on_action",
+        "axis_preserved": true,
+        "axis_side_from": "A_SIDE",
+        "axis_side_to": "A_SIDE",
+        "camera_angle_delta_deg": 34.0,
+        "thirty_degree_rule_ok": true,
+        "shot_scale_from": "MS",
+        "shot_scale_to": "MCU",
+        "screen_direction_consistent": true,
+        "eyeline_match_ok": true,
+        "kelvin_delta_k": 0.0,
+        "kelvin_continuity_ok": true,
+        "warnings": [],
+        "violations": [],
+        "passed": true
+      }
+    ],
+    "all_180_axis_locked": true,
+    "all_30_rule_passed": true,
+    "all_kelvin_continuous": true,
+    "continuity_passed": true,
+    "overall_continuity_score": 100.0,
+    "axis_violations_count": 0,
+    "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+  },
+  "blocking_floorplan": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "dominant_screen_direction": "static_centered",
+    "master_axis_deg": 0.0,
+    "master_axis_side": "A_SIDE",
+    "scene_blockings": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "screen_direction": "static_centered",
+        "shot_scale": "MS",
+        "cut_type_in": "hard_cut",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S1",
+          "x_meters": -0.0,
+          "y_meters": -2.3,
+          "aim_azimuth_deg": 90.0,
+          "fov_deg": 20.4,
+          "focal_length_mm": 100,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s1",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s1",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "screen_direction": "static_centered",
+        "shot_scale": "MCU",
+        "cut_type_in": "match_on_action",
+        "line_of_action_deg": 0.0,
+        "axis_side": "A_SIDE",
+        "eyeline_angle_deg": 0.0,
+        "one_eighty_lock_ok": true,
+        "color_temp_kelvin": 5600,
+        "stage_width_meters": 4.5,
+        "stage_depth_meters": 3.5,
+        "camera": {
+          "camera_id": "CAM_CULI_S2",
+          "x_meters": -0.84,
+          "y_meters": -1.74,
+          "aim_azimuth_deg": 56.0,
+          "fov_deg": 39.6,
+          "focal_length_mm": 50,
+          "axis_side": "A_SIDE",
+          "axis_angle_deg": 0.0,
+          "height_meters": 1.25
+        },
+        "entities": [
+          {
+            "entity_id": "culinary_asmr_primary_s2",
+            "label": "Chef Prep Hands",
+            "role": "talent",
+            "x_meters": -0.4,
+            "y_meters": 0.1,
+            "facing_deg": 0.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#38BDF8"
+          },
+          {
+            "entity_id": "culinary_asmr_anchor_s2",
+            "label": "Hero Culinary Plating Dish",
+            "role": "hero_product",
+            "x_meters": 0.3,
+            "y_meters": 0.4,
+            "facing_deg": 180.0,
+            "eyeline_deg": 0.0,
+            "motion_dx_meters": 0.0,
+            "motion_dy_meters": 0.0,
+            "screen_direction": "static_centered",
+            "color_hex": "#F59E0B"
+          }
+        ],
+        "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+        "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+      }
+    ],
+    "cut_checks": [
+      {
+        "from_scene_index": 1,
+        "to_scene_index": 2,
+        "cut_type": "match_on_action",
+        "axis_preserved": true,
+        "axis_side_from": "A_SIDE",
+        "axis_side_to": "A_SIDE",
+        "camera_angle_delta_deg": 34.0,
+        "thirty_degree_rule_ok": true,
+        "shot_scale_from": "MS",
+        "shot_scale_to": "MCU",
+        "screen_direction_consistent": true,
+        "eyeline_match_ok": true,
+        "kelvin_delta_k": 0.0,
+        "kelvin_continuity_ok": true,
+        "warnings": [],
+        "violations": [],
+        "passed": true
+      }
+    ],
+    "all_180_axis_locked": true,
+    "all_30_rule_passed": true,
+    "all_kelvin_continuous": true,
+    "continuity_passed": true,
+    "overall_continuity_score": 100.0,
+    "axis_violations_count": 0,
+    "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+  },
+  "master_client_review": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "revision": 1,
+    "overall_status": "approved",
+    "overall_approval_status": "approved",
+    "scene_reviews": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S01-01",
+            "scene_index": 1,
+            "timecode_smpte": "00:00:02:00",
+            "timecode_sec": 2.0,
+            "frame_number": 48,
+            "reviewer_role": "director",
+            "reviewer_name": "Lead Creative Director",
+            "marker_color": "GREEN",
+            "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+            "target_parameter": "lighting",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.5,
+              "y_norm": 0.44,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S02-01",
+            "scene_index": 2,
+            "timecode_smpte": "00:00:07:00",
+            "timecode_sec": 7.0,
+            "frame_number": 168,
+            "reviewer_role": "agency_creative",
+            "reviewer_name": "Agency Creative Lead",
+            "marker_color": "GREEN",
+            "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+            "target_parameter": "audio",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.48,
+              "y_norm": 0.52,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      }
+    ],
+    "total_notes_count": 2,
+    "open_notes_count": 0,
+    "blocking_notes_count": 0,
+    "unresolved_blockers": 0,
+    "ready_for_live_render": true,
+    "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+    "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+  },
+  "client_review": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "revision": 1,
+    "overall_status": "approved",
+    "overall_approval_status": "approved",
+    "scene_reviews": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S01-01",
+            "scene_index": 1,
+            "timecode_smpte": "00:00:02:00",
+            "timecode_sec": 2.0,
+            "frame_number": 48,
+            "reviewer_role": "director",
+            "reviewer_name": "Lead Creative Director",
+            "marker_color": "GREEN",
+            "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+            "target_parameter": "lighting",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.5,
+              "y_norm": 0.44,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S02-01",
+            "scene_index": 2,
+            "timecode_smpte": "00:00:07:00",
+            "timecode_sec": 7.0,
+            "frame_number": 168,
+            "reviewer_role": "agency_creative",
+            "reviewer_name": "Agency Creative Lead",
+            "marker_color": "GREEN",
+            "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+            "target_parameter": "audio",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.48,
+              "y_norm": 0.52,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      }
+    ],
+    "total_notes_count": 2,
+    "open_notes_count": 0,
+    "blocking_notes_count": 0,
+    "unresolved_blockers": 0,
+    "ready_for_live_render": true,
+    "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+    "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+  },
+  "review_manifest": {
+    "project_title": "Artisanal Japanese Culinary Ceremonial M",
+    "revision": 1,
+    "overall_status": "approved",
+    "overall_approval_status": "approved",
+    "scene_reviews": [
+      {
+        "scene_index": 1,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S01-01",
+            "scene_index": 1,
+            "timecode_smpte": "00:00:02:00",
+            "timecode_sec": 2.0,
+            "frame_number": 48,
+            "reviewer_role": "director",
+            "reviewer_name": "Lead Creative Director",
+            "marker_color": "GREEN",
+            "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+            "target_parameter": "lighting",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.5,
+              "y_norm": 0.44,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      },
+      {
+        "scene_index": 2,
+        "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+        "revision": 1,
+        "approval_status": "approved",
+        "annotations": [
+          {
+            "note_id": "REV-CULI-S02-01",
+            "scene_index": 2,
+            "timecode_smpte": "00:00:07:00",
+            "timecode_sec": 7.0,
+            "frame_number": 168,
+            "reviewer_role": "agency_creative",
+            "reviewer_name": "Agency Creative Lead",
+            "marker_color": "GREEN",
+            "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+            "target_parameter": "audio",
+            "resolved": true,
+            "blocking_gate": false,
+            "pin": {
+              "x_norm": 0.48,
+              "y_norm": 0.52,
+              "radius_norm": 0.06
+            },
+            "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+          }
+        ],
+        "open_notes_count": 0,
+        "resolved_notes_count": 1,
+        "signoff_by": "Culinary Director & Brand Producer",
+        "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+      }
+    ],
+    "total_notes_count": 2,
+    "open_notes_count": 0,
+    "blocking_notes_count": 0,
+    "unresolved_blockers": 0,
+    "ready_for_live_render": true,
+    "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+    "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
   }
 };
 
@@ -13819,7 +15539,7 @@
     }
 
     function generateCubeLUT(title, size) {
-      let out = `# Created by Omni Movie Director v2.11.0
+      let out = `# Created by Omni Movie Director v2.12.0
 # Gamut Transform: ACEScg -> Rec.709 Gamma 2.4
 TITLE "${title}"
 LUT_3D_SIZE ${size}
@@ -13898,7 +15618,7 @@ DOMAIN_MAX 1.0 1.0 1.0
       const spatialData = MASTER_BIBLE.master_spatial_audio || {};
       const admPayload = {
         format: "ADM_ITU_R_BS_2076",
-        version: "2.11.0",
+        version: "2.12.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {},
         audio_objects: spatialData.audio_objects || [],
@@ -14024,7 +15744,7 @@ DOMAIN_MAX 1.0 1.0 1.0
 
     function downloadNukeScript() {
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.11.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.12.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
       const blob = new Blob([nkScript], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -15460,7 +17180,7 @@ Cost-Per-Second (CPS),\$2633.37/sec,,,,,,,,
 
     function downloadMhlXML() {
       const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
-<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-19T10:09:55.282939+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-19T10:09:55.282924+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-19T10:09:55.282936+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
+<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-20T09:53:29.504577+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-20T09:53:29.504561+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-20T09:53:29.504574+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -15690,6 +17410,8 @@ Scene_02_Take_01	VA1A2	01:00:10:00	01:00:20:00	240	A02	SR02	01:00:10:00	01:00:20
 
       updateActiveElements(tSec);
       updateMoCoFromTimeline(currentFrame / (TOTAL_FRAMES || 1));
+      if (typeof updateBlockingFromTimeline === 'function') updateBlockingFromTimeline(tSec);
+      if (typeof updateReviewFromTimeline === 'function') updateReviewFromTimeline(tSec);
       if (typeof isReframeHUDOpen !== 'undefined' && isReframeHUDOpen) {
         drawReframePreview();
       }
@@ -17295,100 +19017,1155 @@ CLR-005,aerial_faa_waiver,FAA 14 CFR Part 107 Remote Pilot & Airspace Authorizat
       showToast('Downloaded Broadcast QC Manifest (broadcast_qc_manifest.json)');
     }
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, Escape)
+    
+    // Departmental Toolbar Grouping Controller (v2.12.0)
+    let openDeptGroupId = null;
+
+    function closeAllDeptGroups(restoreFocus) {
+      document.querySelectorAll('.dept-pill-toggle').forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'false');
+      });
+      document.querySelectorAll('.dept-tray').forEach((tray) => {
+        tray.setAttribute('hidden', '');
+      });
+      if (restoreFocus && openDeptGroupId) {
+        const prevBtn = document.getElementById('dept-toggle-' + openDeptGroupId);
+        if (prevBtn) prevBtn.focus();
+      }
+      openDeptGroupId = null;
+    }
+
+    function toggleDeptGroup(deptId) {
+      const btn = document.getElementById('dept-toggle-' + deptId);
+      const tray = document.getElementById('dept-tray-' + deptId);
+      if (!btn || !tray) return;
+      const willOpen = tray.hasAttribute('hidden');
+      closeAllDeptGroups(false);
+      if (willOpen) {
+        tray.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        openDeptGroupId = deptId;
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (openDeptGroupId && !e.target.closest('.dept-group')) {
+        closeAllDeptGroups(false);
+      }
+    });
+
+    // PM-FEAT-023: 180-Degree Blocking & Continuity HUD Controller
+    const BLOCKING_SCENES = [{"scene_index": 1, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation", "start_sec": 0.0, "end_sec": 5.0, "screen_direction": "static_centered", "shot_scale": "MS", "cut_type_in": "hard_cut", "axis_side": "A_SIDE", "line_of_action_deg": 0.0, "eyeline_angle_deg": 0.0, "one_eighty_lock_ok": true, "color_temp_kelvin": 5600, "camera_id": "CAM_CULI_S1", "aim_azimuth_deg": 90.0, "fov_deg": 20.4, "focal_length_mm": 100, "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered."}, {"scene_index": 2, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax", "start_sec": 5.0, "end_sec": 10.0, "screen_direction": "static_centered", "shot_scale": "MCU", "cut_type_in": "match_on_action", "axis_side": "A_SIDE", "line_of_action_deg": 0.0, "eyeline_angle_deg": 0.0, "one_eighty_lock_ok": true, "color_temp_kelvin": 5600, "camera_id": "CAM_CULI_S2", "aim_azimuth_deg": 56.0, "fov_deg": 39.6, "focal_length_mm": 50, "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered."}];
+    let isBlockingHUDOpen = false;
+    let lastBlockingOpener = null;
+    let activeBlockingSceneIdx = BLOCKING_SCENES.length ? BLOCKING_SCENES[0].scene_index : 1;
+    let _lastBlockingSceneIdx = null;
+
+    function toggleBlockingHUD() {
+      isBlockingHUDOpen = !isBlockingHUDOpen;
+      const modal = document.getElementById('animatic-blocking-hud');
+      const btn = document.getElementById('btn-blocking-animatic');
+      if (modal) modal.style.display = isBlockingHUDOpen ? 'flex' : 'none';
+      if (btn) {
+        btn.classList.toggle('active', isBlockingHUDOpen);
+        btn.setAttribute('aria-expanded', isBlockingHUDOpen ? 'true' : 'false');
+      }
+      if (isBlockingHUDOpen) {
+        lastBlockingOpener = document.activeElement;
+        _lastBlockingSceneIdx = null;
+        updateBlockingFromTimeline(currentFrame / (FPS || 24));
+        const closeBtn = modal ? modal.querySelector('.btn-blocking-close') : null;
+        if (closeBtn) closeBtn.focus();
+        showToast('📐 180° Blocking & Continuity HUD: ACTIVE [W]');
+      } else {
+        if (lastBlockingOpener && typeof lastBlockingOpener.focus === 'function') {
+          lastBlockingOpener.focus();
+        }
+      }
+    }
+
+    function highlightBlockingScene(sIdx) {
+      activeBlockingSceneIdx = sIdx;
+      _lastBlockingSceneIdx = sIdx;
+      const spec = BLOCKING_SCENES.find((s) => s.scene_index === sIdx) || BLOCKING_SCENES[0];
+      if (!spec) return;
+      document.querySelectorAll('.blocking-cam-node').forEach((node) => {
+        const nIdx = parseInt(node.getAttribute('data-scene-index') || '0', 10);
+        node.classList.toggle('active', nIdx === spec.scene_index);
+      });
+      document.querySelectorAll('.btn-blk-scene').forEach((pill) => {
+        const pIdx = parseInt(pill.getAttribute('data-scene-index') || '0', 10);
+        pill.classList.toggle('active', pIdx === spec.scene_index);
+      });
+      document.querySelectorAll('.blocking-cut-row').forEach((row) => {
+        const fromIdx = parseInt(row.getAttribute('data-from-scene') || '0', 10);
+        const toIdx = parseInt(row.getAttribute('data-to-scene') || '0', 10);
+        row.classList.toggle('active-cut', fromIdx === spec.scene_index || toIdx === spec.scene_index);
+      });
+      const badge = document.getElementById('blocking-active-scene-badge');
+      if (badge) badge.textContent = 'SCENE ' + String(spec.scene_index).padStart(2, '0');
+      const kvCam = document.getElementById('blk-kv-cam');
+      if (kvCam) kvCam.textContent = spec.shot_scale + ' · ' + spec.focal_length_mm + 'mm (' + spec.fov_deg.toFixed(1) + '° FOV)';
+      const kvAim = document.getElementById('blk-kv-aim');
+      if (kvAim) kvAim.textContent = spec.aim_azimuth_deg.toFixed(1) + '° / ' + (spec.eyeline_angle_deg >= 0 ? '+' : '') + spec.eyeline_angle_deg.toFixed(1) + '°';
+      const kvKel = document.getElementById('blk-kv-kelvin');
+      if (kvKel) kvKel.textContent = spec.color_temp_kelvin + 'K · ' + spec.axis_side;
+      const notesEl = document.getElementById('blk-active-notes');
+      if (notesEl) notesEl.textContent = spec.blocking_notes;
+    }
+
+    function updateBlockingFromTimeline(tSec) {
+      if (!BLOCKING_SCENES.length) return;
+      const blockingHud = document.getElementById('animatic-blocking-hud');
+      const isHidden = !blockingHud || blockingHud.hidden || blockingHud.style.display === 'none';
+      let match = BLOCKING_SCENES.find((s) => tSec >= s.start_sec && tSec < s.end_sec);
+      if (!match) match = BLOCKING_SCENES[BLOCKING_SCENES.length - 1];
+      if (isHidden || !match || match.scene_index === _lastBlockingSceneIdx) return;
+      _lastBlockingSceneIdx = match.scene_index;
+      highlightBlockingScene(match.scene_index);
+    }
+
+    function selectBlockingScene(sIdx) {
+      const spec = BLOCKING_SCENES.find((s) => s.scene_index === sIdx);
+      if (!spec) return;
+      highlightBlockingScene(sIdx);
+      jumpToScene(sIdx, spec.start_sec);
+      showToast('📐 Blocking Focus: Scene ' + String(sIdx).padStart(2, '0') + ' (' + spec.shot_scale + ')');
+    }
+
+    function initBlockingHUD() {
+      highlightBlockingScene(activeBlockingSceneIdx);
+    }
+
+    function _triggerBlobDownload(content, mimeType, filename, toastMsg) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(toastMsg);
+    }
+
+    function downloadContinuityCSV() {
+      _triggerBlobDownload(`scene_index,scene_title,screen_direction,shot_scale,cut_type_in,axis_side,line_of_action_deg,camera_x_m,camera_y_m,camera_aim_deg,fov_deg,focal_length_mm,eyeline_deg,color_temp_kelvin,180_deg_lock,30_deg_rule_ok,kelvin_continuity_ok
+1,Artisanal Japanese Culinary Ceremonial M - Initiation,static_centered,MS,hard_cut,A_SIDE,0.0,-0.00,-2.30,90.0,20.4,100,+0.0,5600,PASS,PASS,PASS
+2,Artisanal Japanese Culinary Ceremonial M - Climax,static_centered,MCU,match_on_action,A_SIDE,0.0,-0.84,-1.74,56.0,39.6,50,+0.0,5600,PASS,PASS,PASS
+`, 'text/csv;charset=utf-8;', 'continuity_log.csv', 'Downloaded Continuity Log (continuity_log.csv)');
+    }
+
+    function downloadBlockingSVG() {
+      _triggerBlobDownload(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" width="840" height="520" role="img" aria-label="Overhead 180-Degree Continuity Blocking Floorplan">
+  <defs>
+    <marker id="arrow-motion" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+  <rect width="840" height="520" fill="#0B0F17" rx="10"/>
+  <rect x="24" y="54" width="792" height="420" fill="#111827" stroke="#1F2937" stroke-width="1.5" rx="6"/>
+  <line x1="105.0" y1="54" x2="105.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="150.0" y1="54" x2="150.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="195.0" y1="54" x2="195.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="240.0" y1="54" x2="240.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="285.0" y1="54" x2="285.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="330.0" y1="54" x2="330.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="375.0" y1="54" x2="375.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="420.0" y1="54" x2="420.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="465.0" y1="54" x2="465.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="510.0" y1="54" x2="510.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="555.0" y1="54" x2="555.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="600.0" y1="54" x2="600.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="645.0" y1="54" x2="645.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="690.0" y1="54" x2="690.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="735.0" y1="54" x2="735.0" y2="474" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="440.0" x2="816" y2="440.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="395.0" x2="816" y2="395.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="350.0" x2="816" y2="350.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="305.0" x2="816" y2="305.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="260.0" x2="816" y2="260.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="215.0" x2="816" y2="215.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="170.0" x2="816" y2="170.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="125.0" x2="816" y2="125.0" stroke="#1E293B" stroke-width="0.7"/>
+  <line x1="24" y1="80.0" x2="816" y2="80.0" stroke="#1E293B" stroke-width="0.7"/>
+  <text x="28" y="34" fill="#F8FAFC" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700">OVERHEAD BLOCKING FLOORPLAN — Artisanal Japanese Culinary Ceremonial M</text>
+  <rect x="630" y="16" width="186" height="24" rx="4" fill="#10B981" fill-opacity="0.18" stroke="#10B981" stroke-width="1"/>
+  <text x="723" y="32" text-anchor="middle" fill="#10B981" font-family="ui-monospace, monospace" font-size="11" font-weight="700">180° AXIS LOCKED</text>
+  <line x1="69.0" y1="260.0" x2="771.0" y2="260.0" stroke="#F59E0B" stroke-width="2" stroke-dasharray="8 6" opacity="0.9"/>
+  <text x="44" y="252.0" fill="#F59E0B" font-family="ui-monospace, monospace" font-size="10" font-weight="600">180° LINE OF ACTION (A_SIDE)</text>
+  <polygon points="420.0,363.5 453.5,177.5 386.5,177.5" fill="#38BDF8" fill-opacity="0.14" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.55"/>
+  <circle cx="420.0" cy="363.5" r="7" fill="#38BDF8" stroke="#0B0F17" stroke-width="1.5"/>
+  <text x="430.0" y="367.5" fill="#38BDF8" font-family="ui-monospace, monospace" font-size="10" font-weight="700">S1 MS (100mm)</text>
+  <polygon points="382.2,338.3 534.7,226.7 428.6,155.1" fill="#A78BFA" fill-opacity="0.14" stroke="#A78BFA" stroke-width="1" stroke-opacity="0.55"/>
+  <circle cx="382.2" cy="338.3" r="7" fill="#A78BFA" stroke="#0B0F17" stroke-width="1.5"/>
+  <text x="392.2" y="342.3" fill="#A78BFA" font-family="ui-monospace, monospace" font-size="10" font-weight="700">S2 MCU (50mm)</text>
+  <circle cx="402.0" cy="255.5" r="9" fill="#38BDF8" fill-opacity="0.85" stroke="#F8FAFC" stroke-width="1.5"/>
+  <text x="402.0" y="242.5" text-anchor="middle" fill="#E2E8F0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">Chef Prep Hands</text>
+  <circle cx="433.5" cy="242.0" r="9" fill="#F59E0B" fill-opacity="0.85" stroke="#F8FAFC" stroke-width="1.5"/>
+  <text x="433.5" y="229.0" text-anchor="middle" fill="#E2E8F0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">Hero Culinary Plating Dish</text>
+  <circle cx="402.0" cy="255.5" r="9" fill="#38BDF8" fill-opacity="0.85" stroke="#F8FAFC" stroke-width="1.5"/>
+  <text x="402.0" y="242.5" text-anchor="middle" fill="#E2E8F0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">Chef Prep Hands</text>
+  <circle cx="433.5" cy="242.0" r="9" fill="#F59E0B" fill-opacity="0.85" stroke="#F8FAFC" stroke-width="1.5"/>
+  <text x="433.5" y="229.0" text-anchor="middle" fill="#E2E8F0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">Hero Culinary Plating Dish</text>
+  <text x="28" y="498" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="10">Legend: Dashed Amber = 180° Axis | Shaded Wedges = Camera FOV Cones | Blue Arrow = Screen Direction Motion Vector</text>
+</svg>
+`, 'image/svg+xml;charset=utf-8;', 'blocking_floorplan.svg', 'Downloaded Blocking Floorplan (blocking_floorplan.svg)');
+    }
+
+    function downloadContinuityJSON() {
+      _triggerBlobDownload(`{
+  "project_title": "Artisanal Japanese Culinary Ceremonial M",
+  "dominant_screen_direction": "static_centered",
+  "master_axis_deg": 0.0,
+  "master_axis_side": "A_SIDE",
+  "scene_blockings": [
+    {
+      "scene_index": 1,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+      "screen_direction": "static_centered",
+      "shot_scale": "MS",
+      "cut_type_in": "hard_cut",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 4.5,
+      "stage_depth_meters": 3.5,
+      "camera": {
+        "camera_id": "CAM_CULI_S1",
+        "x_meters": -0.0,
+        "y_meters": -2.3,
+        "aim_azimuth_deg": 90.0,
+        "fov_deg": 20.4,
+        "focal_length_mm": 100,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.25
+      },
+      "entities": [
+        {
+          "entity_id": "culinary_asmr_primary_s1",
+          "label": "Chef Prep Hands",
+          "role": "talent",
+          "x_meters": -0.4,
+          "y_meters": 0.1,
+          "facing_deg": 0.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "culinary_asmr_anchor_s1",
+          "label": "Hero Culinary Plating Dish",
+          "role": "hero_product",
+          "x_meters": 0.3,
+          "y_meters": 0.4,
+          "facing_deg": 180.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 90deg, MS (100mm), dir=static_centered.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+      "screen_direction": "static_centered",
+      "shot_scale": "MCU",
+      "cut_type_in": "match_on_action",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 4.5,
+      "stage_depth_meters": 3.5,
+      "camera": {
+        "camera_id": "CAM_CULI_S2",
+        "x_meters": -0.84,
+        "y_meters": -1.74,
+        "aim_azimuth_deg": 56.0,
+        "fov_deg": 39.6,
+        "focal_length_mm": 50,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.25
+      },
+      "entities": [
+        {
+          "entity_id": "culinary_asmr_primary_s2",
+          "label": "Chef Prep Hands",
+          "role": "talent",
+          "x_meters": -0.4,
+          "y_meters": 0.1,
+          "facing_deg": 0.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "culinary_asmr_anchor_s2",
+          "label": "Hero Culinary Plating Dish",
+          "role": "hero_product",
+          "x_meters": 0.3,
+          "y_meters": 0.4,
+          "facing_deg": 180.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Tabletop locked A-side axis (culinary_asmr): A_SIDE at 56deg, MCU (50mm), dir=static_centered.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    }
+  ],
+  "cut_checks": [
+    {
+      "from_scene_index": 1,
+      "to_scene_index": 2,
+      "cut_type": "match_on_action",
+      "axis_preserved": true,
+      "axis_side_from": "A_SIDE",
+      "axis_side_to": "A_SIDE",
+      "camera_angle_delta_deg": 34.0,
+      "thirty_degree_rule_ok": true,
+      "shot_scale_from": "MS",
+      "shot_scale_to": "MCU",
+      "screen_direction_consistent": true,
+      "eyeline_match_ok": true,
+      "kelvin_delta_k": 0.0,
+      "kelvin_continuity_ok": true,
+      "warnings": [],
+      "violations": [],
+      "passed": true
+    }
+  ],
+  "all_180_axis_locked": true,
+  "all_30_rule_passed": true,
+  "all_kelvin_continuous": true,
+  "continuity_passed": true,
+  "overall_continuity_score": 100.0,
+  "axis_violations_count": 0,
+  "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+}`, 'application/json;charset=utf-8;', 'continuity_manifest.json', 'Downloaded Continuity Manifest (continuity_manifest.json)');
+    }
+
+    // PM-FEAT-024: Client Review & Pin Annotation HUD Controller
+    const REVIEW_STATE = {"project_title": "Artisanal Japanese Culinary Ceremonial M", "revision": 1, "overall_status": "approved", "ready_for_live_render": true, "scene_reviews": [{"scene_index": 1, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation", "start_sec": 0.0, "end_sec": 5.0, "revision": 1, "approval_status": "approved", "signoff_by": "Culinary Director & Brand Producer", "annotations": [{"note_id": "REV-CULI-S01-01", "scene_index": 1, "timecode_smpte": "00:00:02:00", "timecode_sec": 2.0, "frame_number": 48, "reviewer_role": "director", "reviewer_name": "Lead Creative Director", "marker_color": "GREEN", "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.", "target_parameter": "lighting", "resolved": true, "blocking_gate": false, "x_norm": 0.5, "y_norm": 0.44, "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."}]}, {"scene_index": 2, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax", "start_sec": 5.0, "end_sec": 10.0, "revision": 1, "approval_status": "approved", "signoff_by": "Culinary Director & Brand Producer", "annotations": [{"note_id": "REV-CULI-S02-01", "scene_index": 2, "timecode_smpte": "00:00:07:00", "timecode_sec": 7.0, "frame_number": 168, "reviewer_role": "agency_creative", "reviewer_name": "Agency Creative Lead", "marker_color": "GREEN", "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.", "target_parameter": "audio", "resolved": true, "blocking_gate": false, "x_norm": 0.48, "y_norm": 0.52, "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."}]}]};
+    const REVIEW_INITIAL_EDL = `TITLE: ARTISANAL JAPANESE CULINARY CEREMONIAL M REVIEW MARKERS
+FCM: NON-DROP FRAME
+
+001  AX       V     C        00:00:02:00 00:00:02:01 00:00:02:00 00:00:02:01
+* FROM CLIP NAME: SCENE_01_PLATE.MP4
+* LOC: 00:00:02:00 GREEN [REV-CULI-S01-01 | director | RESOLVED] Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.
+
+002  AX       V     C        00:00:07:00 00:00:07:01 00:00:07:00 00:00:07:01
+* FROM CLIP NAME: SCENE_02_PLATE.MP4
+* LOC: 00:00:07:00 GREEN [REV-CULI-S02-01 | agency_creative | RESOLVED] Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.
+`;
+    const REVIEW_INITIAL_FCPXML = `<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="Artisanal Japanese Culinary Ceremonial M Review">
+            <project name="Artisanal Japanese Culinary Ceremonial M Review Markers">
+                <sequence format="r1" duration="240/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_Artisanal Japanese Culinary Ceremoni" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-CULI-S01-01 | GREEN | director] Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal." note="Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_Artisanal Japanese Culinary Ceremoni" ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-CULI-S02-01 | GREEN | agency_creative] Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean." note="Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>
+`;
+    const REVIEW_INITIAL_JSON = `{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "Artisanal Japanese Culinary Ceremonial M",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 2,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-CULI-S01-01",
+      "scene_index": 1,
+      "timestamp": 2.0,
+      "timecode_smpte": "00:00:02:00",
+      "frame": 48,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "lighting",
+      "text": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+      "annotation_pin": {
+        "x_norm": 0.5,
+        "y_norm": 0.44,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-CULI-S02-01",
+      "scene_index": 2,
+      "timestamp": 7.0,
+      "timecode_smpte": "00:00:07:00",
+      "frame": 168,
+      "author_role": "agency_creative",
+      "author_name": "Agency Creative Lead",
+      "color": "GREEN",
+      "target_parameter": "audio",
+      "text": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+      "annotation_pin": {
+        "x_norm": 0.48,
+        "y_norm": 0.52,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-CULI-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:02:00",
+          "timecode_sec": 2.0,
+          "frame_number": 48,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal.",
+          "target_parameter": "lighting",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.5,
+            "y_norm": 0.44,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Culinary Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-CULI-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:07:00",
+          "timecode_sec": 7.0,
+          "frame_number": 168,
+          "reviewer_role": "agency_creative",
+          "reviewer_name": "Agency Creative Lead",
+          "marker_color": "GREEN",
+          "comment": "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean.",
+          "target_parameter": "audio",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.48,
+            "y_norm": 0.52,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Culinary Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}`;
+    const REVIEW_INITIAL_MD = `# Client Review & Stakeholder Signoff Report: Artisanal Japanese Culinary Ceremonial M
+
+- **Revision**: \`v1\`
+- **Overall Status**: \`APPROVED\`
+- **Live-Render Gate**: **\`READY FOR LIVE RENDER\`**
+- **Total Notes**: \`2\` | **Open**: \`0\` | **Blocking**: \`0\`
+- **Summary**: Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.
+
+## Per-Scene Signoff Matrix
+| Scene | Title | Revision | Status | Open Notes | Resolved | Signoff Authority |
+|---|---|---|---|---|---|---|
+| 1 | Artisanal Japanese Culinary Ceremonial M - Initiation | v1 | \`APPROVED\` | 0 | 1 | Culinary Director & Brand Producer |
+| 2 | Artisanal Japanese Culinary Ceremonial M - Climax | v1 | \`APPROVED\` | 0 | 1 | Culinary Director & Brand Producer |
+
+## Timestamped Annotation & Edit Delta Log
+| Note ID | Scene | Timecode | Role | Color | Status | Comment | Compiled Edit Delta |
+|---|---|---|---|---|---|---|---|
+| \`REV-CULI-S01-01\` | 1 | \`00:00:02:00\` | \`director\` | \`GREEN\` | \`RESOLVED\` | Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. | Review Edit Delta [Scene 1 'Artisanal Japanese Culinary Ceremonial M - Initiation' @ 00:00:02:00]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.44): Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal. Preserve <image_1> character identity and <image_2> environment invariants. |
+| \`REV-CULI-S02-01\` | 2 | \`00:00:07:00\` | \`agency_creative\` | \`GREEN\` | \`RESOLVED\` | Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. | Review Edit Delta [Scene 2 'Artisanal Japanese Culinary Ceremonial M - Climax' @ 00:00:07:00]: Rebalance synchronized diegetic audio/foley mix: Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean. Preserve <image_1> character identity and <image_2> environment invariants. |
+`;
+    let isReviewHUDOpen = false;
+    let lastReviewOpener = null;
+    let activeReviewSceneIdx = REVIEW_STATE.scene_reviews.length ? REVIEW_STATE.scene_reviews[0].scene_index : 1;
+    let activeReviewNoteId = null;
+    let draftPinX = 0.50;
+    let draftPinY = 0.48;
+    let reviewDirty = false;
+
+    const MARKER_HEX_MAP = {
+      CYAN: '#00F0FF',
+      AMBER: '#FFB800',
+      RED: '#FF3B30',
+      GREEN: '#00FF88',
+      MAGENTA: '#FF4FD8'
+    };
+
+    function toggleReviewHUD() {
+      isReviewHUDOpen = !isReviewHUDOpen;
+      const modal = document.getElementById('animatic-review-hud');
+      const btn = document.getElementById('btn-review-animatic');
+      if (modal) modal.style.display = isReviewHUDOpen ? 'flex' : 'none';
+      if (btn) {
+        btn.classList.toggle('active', isReviewHUDOpen);
+        btn.setAttribute('aria-expanded', isReviewHUDOpen ? 'true' : 'false');
+      }
+      if (isReviewHUDOpen) {
+        lastReviewOpener = document.activeElement;
+        updateReviewFromTimeline(currentFrame / (FPS || 24));
+        renderReviewHUD();
+        const closeBtn = modal ? modal.querySelector('.btn-review-close') : null;
+        if (closeBtn) closeBtn.focus();
+        showToast('📝 Client Review & Pin Annotation HUD: ACTIVE [N]');
+      } else {
+        if (lastReviewOpener && typeof lastReviewOpener.focus === 'function') {
+          lastReviewOpener.focus();
+        }
+      }
+    }
+
+    function _recalcReviewSummary() {
+      let total = 0;
+      let open = 0;
+      let blocking = 0;
+      let anyChanges = false;
+      let anyPending = false;
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        if (sr.approval_status === 'changes_requested') anyChanges = true;
+        if (sr.approval_status === 'pending_review') anyPending = true;
+        sr.annotations.forEach((n) => {
+          total += 1;
+          if (!n.resolved) {
+            open += 1;
+            if (n.blocking_gate) blocking += 1;
+          }
+        });
+      });
+      REVIEW_STATE.overall_status = anyChanges ? 'changes_requested' : (anyPending ? 'pending_review' : 'approved');
+      REVIEW_STATE.ready_for_live_render = (!anyChanges) && (blocking === 0);
+
+      const overallEl = document.getElementById('review-overall-badge');
+      if (overallEl) {
+        overallEl.className = 'rev-status-badge ' + (
+          REVIEW_STATE.overall_status === 'approved' ? 'rev-badge-approved' :
+          (REVIEW_STATE.overall_status === 'changes_requested' ? 'rev-badge-changes' : 'rev-badge-pending')
+        );
+        overallEl.textContent = (
+          REVIEW_STATE.overall_status === 'approved' ? 'APPROVED' :
+          (REVIEW_STATE.overall_status === 'changes_requested' ? 'CHANGES REQUESTED' : 'PENDING')
+        );
+      }
+      const gateEl = document.getElementById('review-gate-badge');
+      if (gateEl) {
+        gateEl.className = 'rev-status-badge ' + (REVIEW_STATE.ready_for_live_render ? 'rev-badge-approved' : 'rev-badge-changes');
+        gateEl.textContent = REVIEW_STATE.ready_for_live_render ? 'READY FOR LIVE RENDER' : 'BLOCKED PENDING SIGN-OFF';
+      }
+      const cntEl = document.getElementById('review-counts-label');
+      if (cntEl) cntEl.textContent = total + ' TOTAL · ' + open + ' OPEN';
+    }
+
+    function _renderReviewStageMedia(sIdx) {
+      const mediaBox = document.getElementById('review-stage-media');
+      if (!mediaBox) return;
+      mediaBox.innerHTML = '';
+      const frameEl = document.querySelector('#scene-' + sIdx + ' .scene-visual-frame');
+      if (frameEl) {
+        const plate = frameEl.querySelector('svg:not(.scene-reframe-overlay), img, .svg-placeholder');
+        if (plate) {
+          mediaBox.appendChild(plate.cloneNode(true));
+          return;
+        }
+      }
+      const fallback = document.createElement('div');
+      fallback.className = 'svg-placeholder';
+      fallback.textContent = 'Scene ' + String(sIdx).padStart(2, '0') + ' Review Plate';
+      mediaBox.appendChild(fallback);
+    }
+
+    function _renderReviewPins() {
+      const layer = document.getElementById('review-pin-layer');
+      if (!layer) return;
+      layer.innerHTML = '';
+      const sr = REVIEW_STATE.scene_reviews.find((s) => s.scene_index === activeReviewSceneIdx);
+      if (!sr) return;
+      sr.annotations.forEach((note, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'review-pin-dot' + (note.note_id === activeReviewNoteId ? ' active' : '');
+        btn.style.left = ((note.x_norm || 0.5) * 100).toFixed(1) + '%';
+        btn.style.top = ((note.y_norm || 0.48) * 100).toFixed(1) + '%';
+        btn.style.background = MARKER_HEX_MAP[note.marker_color] || '#00F0FF';
+        btn.textContent = String(idx + 1);
+        btn.setAttribute('aria-label', 'Pin ' + (idx + 1) + ' at ' + note.timecode_smpte + ': ' + note.comment);
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          jumpToReviewNote(note.note_id);
+        };
+        layer.appendChild(btn);
+      });
+    }
+
+    function _renderReviewSignoffs() {
+      const box = document.getElementById('review-signoff-list');
+      if (!box) return;
+      box.innerHTML = '';
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        const row = document.createElement('div');
+        row.className = 'review-signoff-row';
+        const stLabel = sr.approval_status === 'approved' ? 'APPROVED' : (sr.approval_status === 'changes_requested' ? 'CHANGES REQUESTED' : 'PENDING');
+        const stCls = sr.approval_status === 'approved' ? 'rev-badge-approved' : (sr.approval_status === 'changes_requested' ? 'rev-badge-changes' : 'rev-badge-pending');
+
+        const left = document.createElement('div');
+        const titleStrong = document.createElement('strong');
+        titleStrong.textContent = 'S' + String(sr.scene_index).padStart(2, '0') + ' ';
+        const badgeSpan = document.createElement('span');
+        badgeSpan.className = 'rev-status-badge ' + stCls;
+        badgeSpan.textContent = stLabel;
+        left.appendChild(titleStrong);
+        left.appendChild(badgeSpan);
+
+        const btns = document.createElement('div');
+        btns.className = 'review-signoff-btns';
+        [
+          ['approved', 'APPROVED', 'active-approved'],
+          ['changes_requested', 'CHANGES REQUESTED', 'active-changes'],
+          ['pending_review', 'PENDING', 'active-pending']
+        ].forEach(([val, lbl, activeCls]) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'btn-rev-status' + (sr.approval_status === val ? ' ' + activeCls : '');
+          b.textContent = lbl;
+          b.onclick = () => setSceneApprovalStatus(sr.scene_index, val);
+          btns.appendChild(b);
+        });
+
+        row.appendChild(left);
+        row.appendChild(btns);
+        box.appendChild(row);
+      });
+    }
+
+    function _renderReviewNotesList() {
+      const list = document.getElementById('review-notes-list');
+      if (!list) return;
+      list.innerHTML = '';
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        sr.annotations.forEach((note) => {
+          const card = document.createElement('div');
+          card.className = 'review-note-card' + (note.note_id === activeReviewNoteId ? ' active-note' : '');
+          card.style.borderLeftColor = MARKER_HEX_MAP[note.marker_color] || '#00F0FF';
+
+          const top = document.createElement('div');
+          top.className = 'review-note-top';
+
+          const leftMeta = document.createElement('div');
+          leftMeta.style.display = 'flex';
+          leftMeta.style.alignItems = 'center';
+          leftMeta.style.gap = '6px';
+          const seekBtn = document.createElement('button');
+          seekBtn.type = 'button';
+          seekBtn.className = 'btn-note-seek';
+          seekBtn.textContent = 'S' + String(note.scene_index).padStart(2, '0') + ' @ ' + note.timecode_smpte;
+          seekBtn.onclick = () => jumpToReviewNote(note.note_id);
+          const roleSpan = document.createElement('span');
+          roleSpan.textContent = note.note_id + ' · ' + note.reviewer_role + ' · (' + Math.round((note.x_norm || 0.5) * 100) + '%, ' + Math.round((note.y_norm || 0.48) * 100) + '%)';
+          leftMeta.appendChild(seekBtn);
+          leftMeta.appendChild(roleSpan);
+
+          const resBtn = document.createElement('button');
+          resBtn.type = 'button';
+          resBtn.className = 'btn-rev-status ' + (note.resolved ? 'active-approved' : 'active-changes');
+          resBtn.textContent = note.resolved ? 'RESOLVED' : (note.blocking_gate ? 'BLOCKING' : 'OPEN');
+          resBtn.onclick = () => toggleReviewNoteResolved(note.note_id);
+
+          top.appendChild(leftMeta);
+          top.appendChild(resBtn);
+
+          const body = document.createElement('div');
+          body.textContent = note.comment;
+
+          const delta = document.createElement('div');
+          delta.className = 'review-note-delta';
+          delta.textContent = note.compiled_edit_delta || ('Delta [' + note.target_parameter + ']: ' + note.comment);
+
+          card.appendChild(top);
+          card.appendChild(body);
+          card.appendChild(delta);
+          list.appendChild(card);
+        });
+      });
+    }
+
+    function renderReviewHUD() {
+      const sel = document.getElementById('review-scene-select');
+      if (sel && String(sel.value) !== String(activeReviewSceneIdx)) {
+        sel.value = String(activeReviewSceneIdx);
+      }
+      const tcEl = document.getElementById('review-live-tc');
+      if (tcEl) tcEl.textContent = formatSMPTE(currentFrame);
+      _recalcReviewSummary();
+      _renderReviewStageMedia(activeReviewSceneIdx);
+      _renderReviewPins();
+      _renderReviewSignoffs();
+      _renderReviewNotesList();
+    }
+
+    function selectReviewScene(sVal) {
+      const sIdx = parseInt(sVal, 10) || 1;
+      activeReviewSceneIdx = sIdx;
+      const sr = REVIEW_STATE.scene_reviews.find((s) => s.scene_index === sIdx);
+      if (sr) jumpToScene(sIdx, sr.start_sec);
+      renderReviewHUD();
+    }
+
+    function updateReviewFromTimeline(tSec) {
+      const tcEl = document.getElementById('review-live-tc');
+      if (tcEl) tcEl.textContent = formatSMPTE(currentFrame);
+      if (!REVIEW_STATE.scene_reviews.length) return;
+      let match = REVIEW_STATE.scene_reviews.find((s) => tSec >= s.start_sec && tSec < s.end_sec);
+      if (!match) match = REVIEW_STATE.scene_reviews[REVIEW_STATE.scene_reviews.length - 1];
+      if (match && match.scene_index !== activeReviewSceneIdx) {
+        activeReviewSceneIdx = match.scene_index;
+        if (isReviewHUDOpen) renderReviewHUD();
+      }
+    }
+
+    function _syncReviewDraftPin(focusInput, announceToast) {
+      const draftEl = document.getElementById('review-pin-draft');
+      if (draftEl) {
+        draftEl.style.left = (draftPinX * 100).toFixed(1) + '%';
+        draftEl.style.top = (draftPinY * 100).toFixed(1) + '%';
+        draftEl.style.display = 'block';
+      }
+      const coordsEl = document.getElementById('review-pin-coords-badge');
+      const liveTc = formatSMPTE(currentFrame);
+      if (coordsEl) {
+        coordsEl.textContent = 'Pin Target: (' + Math.round(draftPinX * 100) + '%, ' + Math.round(draftPinY * 100) + '%) @ ' + liveTc;
+      }
+      if (focusInput) {
+        const inputEl = document.getElementById('review-note-input');
+        if (inputEl) inputEl.focus();
+      }
+      if (announceToast) {
+        showToast('📌 Pin positioned at (' + Math.round(draftPinX * 100) + '%, ' + Math.round(draftPinY * 100) + '%) @ ' + liveTc);
+      }
+    }
+
+    function onReviewStageClick(event) {
+      const stage = document.getElementById('review-pin-stage');
+      if (!stage) return;
+      const rect = stage.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const xNorm = Math.max(0.02, Math.min(0.98, (event.clientX - rect.left) / rect.width));
+      const yNorm = Math.max(0.02, Math.min(0.98, (event.clientY - rect.top) / rect.height));
+      draftPinX = Number(xNorm.toFixed(3));
+      draftPinY = Number(yNorm.toFixed(3));
+      _syncReviewDraftPin(true, true);
+    }
+
+    function onReviewStageKeyDown(event) {
+      if (event.target && event.target !== event.currentTarget && event.target.closest && event.target.closest('.review-pin-dot')) return;
+      const key = event.key;
+      const isArrow = key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown';
+      const isActivate = key === 'Enter' || key === ' ' || event.code === 'Space';
+      if (!isArrow && !isActivate) return;
+      event.preventDefault();
+      event.stopPropagation();
+
+      const draftEl = document.getElementById('review-pin-draft');
+      const isDraftVisible = Boolean(draftEl && draftEl.style.display !== 'none');
+      if (!isDraftVisible) {
+        draftPinX = 0.50;
+        draftPinY = 0.50;
+      }
+
+      if (key === 'ArrowLeft') {
+        draftPinX = Math.max(0.02, Math.min(0.98, Number((draftPinX - 0.02).toFixed(3))));
+        _syncReviewDraftPin(false, false);
+      } else if (key === 'ArrowRight') {
+        draftPinX = Math.max(0.02, Math.min(0.98, Number((draftPinX + 0.02).toFixed(3))));
+        _syncReviewDraftPin(false, false);
+      } else if (key === 'ArrowUp') {
+        draftPinY = Math.max(0.02, Math.min(0.98, Number((draftPinY - 0.02).toFixed(3))));
+        _syncReviewDraftPin(false, false);
+      } else if (key === 'ArrowDown') {
+        draftPinY = Math.max(0.02, Math.min(0.98, Number((draftPinY + 0.02).toFixed(3))));
+        _syncReviewDraftPin(false, false);
+      } else if (isActivate) {
+        _syncReviewDraftPin(true, true);
+      }
+    }
+
+    function submitReviewPinNote(event) {
+      event.preventDefault();
+      const inputEl = document.getElementById('review-note-input');
+      const comment = inputEl ? inputEl.value.trim() : '';
+      if (!comment) {
+        showToast('Enter a review note comment before dropping the pin.');
+        if (inputEl) inputEl.focus();
+        return;
+      }
+      const sr = REVIEW_STATE.scene_reviews.find((s) => s.scene_index === activeReviewSceneIdx) || REVIEW_STATE.scene_reviews[0];
+      if (!sr) return;
+      const roleVal = (document.getElementById('review-role-select') || { value: 'director' }).value;
+      const colorVal = (document.getElementById('review-color-select') || { value: 'CYAN' }).value;
+      const paramVal = (document.getElementById('review-param-select') || { value: 'lighting' }).value;
+      const isBlocking = Boolean((document.getElementById('review-blocking-chk') || { checked: false }).checked);
+      const tcStr = formatSMPTE(currentFrame);
+      const tSec = Number((currentFrame / (FPS || 24)).toFixed(2));
+      const nextNum = sr.annotations.length + 1;
+      const noteId = 'REV-S' + String(sr.scene_index).padStart(2, '0') + '-' + String(nextNum).padStart(2, '0');
+      const deltaStr = 'Review Edit Delta [Scene ' + sr.scene_index + " '" + sr.scene_title + "' @ " + tcStr + ']: ' +
+        'Apply targeted ' + paramVal + ' refinement centered at (' + draftPinX.toFixed(2) + ', ' + draftPinY.toFixed(2) + '): ' + comment + '.';
+
+      sr.annotations.push({
+        note_id: noteId,
+        scene_index: sr.scene_index,
+        timecode_smpte: tcStr,
+        timecode_sec: tSec,
+        frame_number: Math.floor(currentFrame),
+        reviewer_role: roleVal,
+        reviewer_name: roleVal.replace(/_/g, ' ').toUpperCase(),
+        marker_color: colorVal,
+        comment: comment,
+        target_parameter: paramVal,
+        resolved: false,
+        blocking_gate: isBlocking,
+        x_norm: draftPinX,
+        y_norm: draftPinY,
+        compiled_edit_delta: deltaStr
+      });
+      if (isBlocking) sr.approval_status = 'changes_requested';
+      reviewDirty = true;
+      activeReviewNoteId = noteId;
+      if (inputEl) inputEl.value = '';
+      const draftEl = document.getElementById('review-pin-draft');
+      if (draftEl) draftEl.style.display = 'none';
+      renderReviewHUD();
+      showToast('📌 Added ' + noteId + ' @ ' + tcStr + ' (' + Math.round(draftPinX * 100) + '%, ' + Math.round(draftPinY * 100) + '%)');
+    }
+
+    function jumpToReviewNote(noteId) {
+      for (const sr of REVIEW_STATE.scene_reviews) {
+        const note = sr.annotations.find((n) => n.note_id === noteId);
+        if (note) {
+          activeReviewSceneIdx = note.scene_index;
+          activeReviewNoteId = note.note_id;
+          renderFrame(note.frame_number);
+          renderReviewHUD();
+          showToast('⏩ Seeked to ' + note.note_id + ' @ ' + note.timecode_smpte);
+          return;
+        }
+      }
+    }
+
+    function toggleReviewNoteResolved(noteId) {
+      for (const sr of REVIEW_STATE.scene_reviews) {
+        const note = sr.annotations.find((n) => n.note_id === noteId);
+        if (note) {
+          note.resolved = !note.resolved;
+          if (note.resolved) {
+            const hasOpenBlocking = sr.annotations.some((n) => !n.resolved && n.blocking_gate);
+            const hasOpenAny = sr.annotations.some((n) => !n.resolved);
+            if (sr.approval_status === 'changes_requested' && !hasOpenBlocking) {
+              sr.approval_status = hasOpenAny ? 'pending_review' : 'approved';
+            }
+          } else if (note.blocking_gate) {
+            sr.approval_status = 'changes_requested';
+          }
+          reviewDirty = true;
+          renderReviewHUD();
+          showToast(note.note_id + (note.resolved ? ' marked RESOLVED' : ' reopened'));
+          return;
+        }
+      }
+    }
+
+    function setSceneApprovalStatus(sceneIdx, statusVal) {
+      const sr = REVIEW_STATE.scene_reviews.find((s) => s.scene_index === sceneIdx);
+      if (!sr) return;
+      sr.approval_status = statusVal;
+      reviewDirty = true;
+      renderReviewHUD();
+      const label = statusVal === 'approved' ? 'APPROVED' : (statusVal === 'changes_requested' ? 'CHANGES REQUESTED' : 'PENDING');
+      showToast('Scene ' + String(sceneIdx).padStart(2, '0') + ' signoff set to ' + label);
+    }
+
+    function initReviewHUD() {
+      renderReviewHUD();
+    }
+
+    function _buildDynamicReviewEDL() {
+      if (!reviewDirty) return REVIEW_INITIAL_EDL;
+      const lines = ['TITLE: ' + REVIEW_STATE.project_title.toUpperCase().slice(0, 48) + ' REVIEW MARKERS', 'FCM: NON-DROP FRAME', ''];
+      let ev = 1;
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        sr.annotations.forEach((n) => {
+          const tcIn = n.timecode_smpte || '00:00:00:00';
+          const tcOut = formatSMPTE((n.frame_number || 0) + 1);
+          const st = n.resolved ? 'RESOLVED' : 'OPEN';
+          lines.push(String(ev).padStart(3, '0') + '  AX       V     C        ' + tcIn + ' ' + tcOut + ' ' + tcIn + ' ' + tcOut);
+          lines.push('* FROM CLIP NAME: SCENE_' + String(sr.scene_index).padStart(2, '0') + '_PLATE.MP4');
+          lines.push('* LOC: ' + tcIn + ' ' + n.marker_color + ' [' + n.note_id + ' | ' + n.reviewer_role + ' | ' + st + '] ' + n.comment);
+          lines.push('');
+          ev += 1;
+        });
+      });
+      return lines.join('\n');
+    }
+
+    function _buildDynamicReviewFCPXML() {
+      if (!reviewDirty) return REVIEW_INITIAL_FCPXML;
+      const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      const totalScenes = Math.max(1, REVIEW_STATE.scene_reviews.length);
+      const fps = 24;
+      const clipDurSec = 5;
+      const clipFrames = clipDurSec * fps;
+      const resources = ['        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>'];
+      const spine = [];
+      let offset = 0;
+      let sceneStartSec = 0;
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        const resId = 'r' + (sr.scene_index + 1);
+        resources.push('        <asset id="' + resId + '" name="SCENE_' + String(sr.scene_index).padStart(2, '0') + '" start="0s" duration="' + clipFrames + '/24s" hasVideo="1" hasAudio="1" format="r1"/>');
+        const markers = sr.annotations.map((n) => {
+          const tcSec = Number(n.timecode_sec || 0);
+          const relSec = tcSec >= sceneStartSec ? (tcSec - sceneStartSec) : tcSec;
+          const localFrames = Math.max(0, Math.min(clipFrames - 1, Math.round(relSec * fps)));
+          return '                            <marker start="' + localFrames + '/24s" duration="1/24s" value="' + esc('[' + n.note_id + ' | ' + n.marker_color + ' | ' + n.reviewer_role + '] ' + n.comment) + '" note="' + esc(n.compiled_edit_delta || n.comment) + '" completed="' + (n.resolved ? '1' : '0') + '"/>';
+        });
+        spine.push('                        <asset-clip name="' + esc('Scene_' + String(sr.scene_index).padStart(2, '0')) + '" ref="' + resId + '" offset="' + offset + '/24s" duration="' + clipFrames + '/24s" start="0s" format="r1">\n' + markers.join('\n') + '\n                        </asset-clip>');
+        offset += clipFrames;
+        sceneStartSec += clipDurSec;
+      });
+      return '<?xml version="1.0" encoding="UTF-8"?>\n<fcpxml version="1.10">\n    <resources>\n' + resources.join('\n') + '\n    </resources>\n    <library>\n        <event name="' + esc(REVIEW_STATE.project_title) + ' Review">\n            <project name="' + esc(REVIEW_STATE.project_title) + ' Review Markers">\n                <sequence format="r1" duration="' + (totalScenes * clipFrames) + '/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">\n                    <spine>\n' + spine.join('\n') + '\n                    </spine>\n                </sequence>\n            </project>\n        </event>\n    </library>\n</fcpxml>\n';
+    }
+
+    function _buildDynamicReviewJSON() {
+      if (!reviewDirty) return REVIEW_INITIAL_JSON;
+      const comments = [];
+      let totalNotes = 0;
+      let openNotes = 0;
+      let blockingNotes = 0;
+      const sceneSignoffs = REVIEW_STATE.scene_reviews.map((sr) => {
+        let srOpen = 0;
+        let srResolved = 0;
+        sr.annotations.forEach((n) => {
+          totalNotes += 1;
+          if (n.resolved) {
+            srResolved += 1;
+          } else {
+            srOpen += 1;
+            openNotes += 1;
+            if (n.blocking_gate) blockingNotes += 1;
+          }
+          comments.push({
+            id: n.note_id,
+            scene_index: n.scene_index,
+            timestamp: n.timecode_sec,
+            timecode_smpte: n.timecode_smpte,
+            frame: n.frame_number,
+            author_role: n.reviewer_role,
+            author_name: n.reviewer_name,
+            color: n.marker_color,
+            target_parameter: n.target_parameter,
+            text: n.comment,
+            annotation_pin: { x_norm: n.x_norm, y_norm: n.y_norm, radius_norm: 0.06 },
+            resolved: n.resolved,
+            blocking_gate: n.blocking_gate,
+            compiled_edit_delta: n.compiled_edit_delta
+          });
+        });
+        sr.open_notes_count = srOpen;
+        sr.resolved_notes_count = srResolved;
+        return Object.assign({}, sr, {
+          open_notes_count: srOpen,
+          resolved_notes_count: srResolved
+        });
+      });
+      return JSON.stringify({
+        schema_format: 'frameio_review_v4_compatible',
+        project_title: REVIEW_STATE.project_title,
+        revision: REVIEW_STATE.revision,
+        overall_status: REVIEW_STATE.overall_status,
+        overall_approval_status: REVIEW_STATE.overall_status,
+        ready_for_live_render: REVIEW_STATE.ready_for_live_render,
+        total_notes_count: totalNotes,
+        open_notes_count: openNotes,
+        blocking_notes_count: blockingNotes,
+        unresolved_blockers: blockingNotes,
+        comments: comments,
+        scene_signoffs: sceneSignoffs
+      }, null, 2);
+    }
+
+    function _buildDynamicReviewMD() {
+      if (!reviewDirty) return REVIEW_INITIAL_MD;
+      const gate = REVIEW_STATE.ready_for_live_render ? 'READY FOR LIVE RENDER' : 'BLOCKED PENDING SIGN-OFF';
+      const lines = [
+        '# Client Review & Stakeholder Signoff Report: ' + REVIEW_STATE.project_title,
+        '',
+        '- **Revision**: `v' + REVIEW_STATE.revision + '`',
+        '- **Overall Status**: `' + REVIEW_STATE.overall_status.toUpperCase() + '`',
+        '- **Live-Render Gate**: **`' + gate + '`**',
+        '',
+        '## Per-Scene Signoff Matrix',
+        '| Scene | Title | Status | Notes |',
+        '|---|---|---|---|'
+      ];
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        lines.push('| ' + sr.scene_index + ' | ' + sr.scene_title + ' | `' + sr.approval_status.toUpperCase() + '` | ' + sr.annotations.length + ' |');
+      });
+      lines.push('', '## Timestamped Annotation Log', '| Note ID | Scene | Timecode | Pin | Status | Comment |', '|---|---|---|---|---|---|');
+      REVIEW_STATE.scene_reviews.forEach((sr) => {
+        sr.annotations.forEach((n) => {
+          const st = n.resolved ? 'RESOLVED' : (n.blocking_gate ? 'BLOCKING' : 'OPEN');
+          lines.push('| `' + n.note_id + '` | ' + n.scene_index + ' | `' + n.timecode_smpte + '` | (' + Math.round((n.x_norm || 0.5) * 100) + '%, ' + Math.round((n.y_norm || 0.48) * 100) + '%) | `' + st + '` | ' + n.comment + ' |');
+        });
+      });
+      return lines.join('\n') + '\n';
+    }
+
+    function downloadReviewEDL() {
+      _triggerBlobDownload(_buildDynamicReviewEDL(), 'text/plain;charset=utf-8;', 'review_markers.edl', 'Downloaded Resolve Locator EDL (review_markers.edl)');
+    }
+
+    function downloadReviewFCPXML() {
+      _triggerBlobDownload(_buildDynamicReviewFCPXML(), 'application/xml;charset=utf-8;', 'review_markers.fcpxml', 'Downloaded FCPXML Markers (review_markers.fcpxml)');
+    }
+
+    function downloadReviewJSON() {
+      _triggerBlobDownload(_buildDynamicReviewJSON(), 'application/json;charset=utf-8;', 'review_notes_frameio.json', 'Downloaded Frame.io Review JSON (review_notes_frameio.json)');
+    }
+
+    function downloadReviewMD() {
+      _triggerBlobDownload(_buildDynamicReviewMD(), 'text/markdown;charset=utf-8;', 'client_signoff_report.md', 'Downloaded Client Signoff Report (client_signoff_report.md)');
+    }
+
+
+    function closeSecondaryOpenHUDs() {
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen;
+      if (isMoCoHUDOpen) toggleMoCoHUD();
+      if (isGafferHUDOpen) toggleGafferHUD();
+      if (isVPStageModalOpen) toggleVPStageModal();
+      if (isDoFHUDOpen) toggleDoFHUD();
+      if (isDitLutHUDOpen) toggleDitLutHUD();
+      if (isSpatialHUDOpen) toggleSpatialHUD();
+      if (isVfxHUDOpen) toggleVfxHUD();
+      if (isHdrHUDOpen) toggleHdrHUD();
+      if (isStripboardHUDOpen) toggleStripboardHUD();
+      if (isFilmHUDOpen) toggleFilmHUD();
+      if (isSlateHUDOpen) toggleSlateHUD();
+      if (isDroneHUDOpen) toggleDroneHUD();
+      if (isAicpHUDOpen) toggleAicpHUD();
+      return hadSecondary;
+    }
+
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Escape)
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {
-        if (isMoCoHUDOpen) toggleMoCoHUD();
-        if (isGafferHUDOpen) toggleGafferHUD();
-        if (isVPStageModalOpen) toggleVPStageModal();
-        if (isDoFHUDOpen) toggleDoFHUD();
-        if (isDitLutHUDOpen) toggleDitLutHUD();
-        if (isSpatialHUDOpen) toggleSpatialHUD();
-        if (isVfxHUDOpen) toggleVfxHUD();
-        if (isHdrHUDOpen) toggleHdrHUD();
-        if (isStripboardHUDOpen) toggleStripboardHUD();
-        if (isFilmHUDOpen) toggleFilmHUD();
-        if (isSlateHUDOpen) toggleSlateHUD();
-        if (isDroneHUDOpen) toggleDroneHUD();
-        if (isAicpHUDOpen) toggleAicpHUD();
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen;
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
+        if (isBlockingHUDOpen) toggleBlockingHUD();
+        if (isReviewHUDOpen) toggleReviewHUD();
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
+        else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
         return;
       }
-      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
-
+      const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
       if (e.code === 'Space') {
-        if (activeTag === 'button' || activeTag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) {
-          return;
-        }
-        e.preventDefault();
-        togglePlay();
-      } else if (e.code === 'ArrowLeft') {
-        e.preventDefault();
-        renderFrame(currentFrame - FPS); // Seek back 1s
-      } else if (e.code === 'ArrowRight') {
-        e.preventDefault();
-        renderFrame(currentFrame + FPS); // Seek forward 1s
-      } else if (e.key === ',' || e.code === 'Comma') {
-        e.preventDefault();
-        renderFrame(currentFrame - 1); // Step back 1 frame
-      } else if (e.key === '.' || e.code === 'Period') {
-        e.preventDefault();
-        renderFrame(currentFrame + 1); // Step forward 1 frame
-      } else if (e.key === 'Home' || e.key === '0') {
-        e.preventDefault();
-        renderFrame(0); // Rewind to head
-      } else if (e.key >= '1' && e.key <= '9') {
+        if (tag === 'button' || tag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) return;
+        e.preventDefault(); togglePlay();
+      } else if (e.code === 'ArrowLeft') { e.preventDefault(); renderFrame(currentFrame - FPS); }
+      else if (e.code === 'ArrowRight') { e.preventDefault(); renderFrame(currentFrame + FPS); }
+      else if (e.key === ',' || e.code === 'Comma') { e.preventDefault(); renderFrame(currentFrame - 1); }
+      else if (e.key === '.' || e.code === 'Period') { e.preventDefault(); renderFrame(currentFrame + 1); }
+      else if (e.key === 'Home' || e.key === '0') { e.preventDefault(); renderFrame(0); }
+      else if (e.key >= '1' && e.key <= '9') {
         const card = document.getElementById('scene-' + e.key);
-        if (card) {
-          const start = parseFloat(card.getAttribute('data-start-sec') || '0');
-          jumpToScene(parseInt(e.key, 10), start);
-        }
-      } else if (e.key === 't' || e.key === 'T') {
-        toggleSlateHUD();
-      } else if (e.key === 'e' || e.key === 'E') {
-        toggleFilmHUD();
-      } else if (e.key === 'l' || e.key === 'L') {
-        toggleDitLutHUD();
-      } else if (e.key === 'f' || e.key === 'F') {
-        toggleDoFHUD();
-      } else if (e.key === 'm' || e.key === 'M') {
-        toggleMixer();
-      } else if (e.key === 'o' || e.key === 'O') {
-        toggleLoop();
-      } else if (e.key === 'k' || e.key === 'K') {
-        toggleMoCoHUD();
-      } else if (e.key === 'g' || e.key === 'G') {
-        toggleGafferHUD();
-      } else if (e.key === 'u' || e.key === 'U') {
-        toggleSafeGuides();
-      } else if (e.key === 'c' || e.key === 'C') {
-        toggleCC();
-      } else if (e.key === 'v' || e.key === 'V') {
-        toggleViewfinder();
-      } else if (e.key === 'p' || e.key === 'P') {
-        toggleVPStageModal();
-      } else if (e.key === 's' || e.key === 'S') {
-        toggleSpatialHUD();
-      } else if (e.key === 'x' || e.key === 'X') {
-        toggleVfxHUD();
-      } else if (e.key === 'h' || e.key === 'H') {
-        toggleHdrHUD();
-      } else if (e.key === 'b' || e.key === 'B') {
-        toggleStripboardHUD();
-      } else if (e.key === 'd' || e.key === 'D') {
-        toggleDroneHUD();
-      } else if (e.key === 'a' || e.key === 'A') {
-        toggleAicpHUD();
-      } else if (e.key === 'r' || e.key === 'R') {
-        toggleReframeHUD();
-      } else if (e.key === 'q' || e.key === 'Q') {
-        toggleQcHUD();
+        if (card) jumpToScene(parseInt(e.key, 10), parseFloat(card.getAttribute('data-start-sec') || '0'));
       }
+      else if (e.key === 't' || e.key === 'T') toggleSlateHUD();
+      else if (e.key === 'e' || e.key === 'E') toggleFilmHUD();
+      else if (e.key === 'l' || e.key === 'L') toggleDitLutHUD();
+      else if (e.key === 'f' || e.key === 'F') toggleDoFHUD();
+      else if (e.key === 'm' || e.key === 'M') toggleMixer();
+      else if (e.key === 'o' || e.key === 'O') toggleLoop();
+      else if (e.key === 'k' || e.key === 'K') toggleMoCoHUD();
+      else if (e.key === 'g' || e.key === 'G') toggleGafferHUD();
+      else if (e.key === 'u' || e.key === 'U') toggleSafeGuides();
+      else if (e.key === 'c' || e.key === 'C') toggleCC();
+      else if (e.key === 'v' || e.key === 'V') toggleViewfinder();
+      else if (e.key === 'p' || e.key === 'P') toggleVPStageModal();
+      else if (e.key === 's' || e.key === 'S') toggleSpatialHUD();
+      else if (e.key === 'x' || e.key === 'X') toggleVfxHUD();
+      else if (e.key === 'h' || e.key === 'H') toggleHdrHUD();
+      else if (e.key === 'b' || e.key === 'B') toggleStripboardHUD();
+      else if (e.key === 'd' || e.key === 'D') toggleDroneHUD();
+      else if (e.key === 'a' || e.key === 'A') toggleAicpHUD();
+      else if (e.key === 'r' || e.key === 'R') toggleReframeHUD();
+      else if (e.key === 'q' || e.key === 'Q') toggleQcHUD();
+      else if (e.key === 'w' || e.key === 'W') toggleBlockingHUD();
+      else if (e.key === 'n' || e.key === 'N') toggleReviewHUD();
     });
 
     // Initialize first frame and default look
@@ -17408,6 +20185,8 @@ CLR-005,aerial_faa_waiver,FAA 14 CFR Part 107 Remote Pilot & Airspace Authorizat
       drawReframePreview();
       drawQcLoudnessMeter();
       drawQcPseChart();
+      initBlockingHUD();
+      initReviewHUD();
     });
     renderFrame(0);
   </script>

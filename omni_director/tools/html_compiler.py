@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.11.0).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.12.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -1277,6 +1277,19 @@ def compile_storyboard_html(
     qc_overall_cls = "qc-badge-pass" if qc_overall_verdict == "PASS" else ("qc-badge-warn" if qc_overall_verdict == "WARN" else "qc-badge-fail")
     qc_legal_cls = "qc-badge-pass" if qc_legal_ok else "qc-badge-warn"
     qc_legal_label = "CLEARED" if qc_legal_ok else "PENDING"
+
+    from omni_director.tools.html_hud_v212 import build_v212_hud_bundle
+
+    v212_bundle = build_v212_hud_bundle(
+        bible=bible,
+        bundle=bundle,
+        scene_time_lookup=scene_time_lookup,
+        total_runtime_sec=total_runtime_sec,
+    )
+    v212_toolbar_html = v212_bundle["toolbar_actions_html"]
+    v212_css = v212_bundle["css"]
+    v212_modals_html = v212_bundle["modals_html"]
+    v212_js = v212_bundle["js"]
 
     # Serialize bible for client-side export
     bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
@@ -4816,7 +4829,7 @@ def compile_storyboard_html(
       background: rgba(255, 59, 48, 0.12);
       border: 1px solid rgba(255, 59, 48, 0.4);
     }}
-
+    {v212_css}
   </style>
 </head>
 <body>
@@ -4843,53 +4856,7 @@ def compile_storyboard_html(
         <span class="model-pill">gemini-omni-1.1-flash-preview</span>
       </div>
     </div>
-    <div class="hud-actions">
-      <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [R] Reframe · [Q] QC · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
-      </span>
-      <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
-        🎯 Optical DoF HUD [F]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
-        🎨 DIT 3D LUT Suite [L]
-      </button>
-      <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
-        🔊 Spatial Audio [S]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
-        ✨ VFX Passes [X]
-      </button>
-      <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
-        🌈 HDR Color [H]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
-        📋 Stripboard [B]
-      </button>
-      <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
-        🎞️ Film Stock [E]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
-        🎬 Slate [T]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
-        🚁 Drone [D]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
-        💼 AICP [A]
-      </button>
-      <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
-        📐 Reframe [R]
-      </button>
-      <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
-        📡 Broadcast QC [Q]
-      </button>
-      <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
-        🎚️ AUDIO [M]
-      </button>
-      <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
-        ⤓ Export Production Bible (.json)
-      </button>
-    </div>
+{v212_toolbar_html}
   </header>
 
   <!-- Sticky Cinema Transport Bar & SMPTE Scrubber -->
@@ -6457,6 +6424,7 @@ def compile_storyboard_html(
       </div>
     </div>
   </div>
+{v212_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -7037,7 +7005,7 @@ def compile_storyboard_html(
     }}
 
     function generateCubeLUT(title, size) {{
-      let out = `# Created by Omni Movie Director v2.11.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
+      let out = `# Created by Omni Movie Director v2.12.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
       const step = 1.0 / (size - 1);
       for (let b = 0; b < size; b++) {{
         const blue = b * step;
@@ -7108,7 +7076,7 @@ def compile_storyboard_html(
       const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
       const admPayload = {{
         format: "ADM_ITU_R_BS_2076",
-        version: "2.11.0",
+        version: "2.12.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {{}},
         audio_objects: spatialData.audio_objects || [],
@@ -7224,7 +7192,7 @@ def compile_storyboard_html(
 
     function downloadNukeScript() {{
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.11.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.12.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
       const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -8067,6 +8035,8 @@ def compile_storyboard_html(
 
       updateActiveElements(tSec);
       updateMoCoFromTimeline(currentFrame / (TOTAL_FRAMES || 1));
+      if (typeof updateBlockingFromTimeline === 'function') updateBlockingFromTimeline(tSec);
+      if (typeof updateReviewFromTimeline === 'function') updateReviewFromTimeline(tSec);
       if (typeof isReframeHUDOpen !== 'undefined' && isReframeHUDOpen) {{
         drawReframePreview();
       }}
@@ -9079,100 +9049,76 @@ def compile_storyboard_html(
       showToast('Downloaded Broadcast QC Manifest (broadcast_qc_manifest.json)');
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, Escape)
+    {v212_js}
+
+    function closeSecondaryOpenHUDs() {{
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen;
+      if (isMoCoHUDOpen) toggleMoCoHUD();
+      if (isGafferHUDOpen) toggleGafferHUD();
+      if (isVPStageModalOpen) toggleVPStageModal();
+      if (isDoFHUDOpen) toggleDoFHUD();
+      if (isDitLutHUDOpen) toggleDitLutHUD();
+      if (isSpatialHUDOpen) toggleSpatialHUD();
+      if (isVfxHUDOpen) toggleVfxHUD();
+      if (isHdrHUDOpen) toggleHdrHUD();
+      if (isStripboardHUDOpen) toggleStripboardHUD();
+      if (isFilmHUDOpen) toggleFilmHUD();
+      if (isSlateHUDOpen) toggleSlateHUD();
+      if (isDroneHUDOpen) toggleDroneHUD();
+      if (isAicpHUDOpen) toggleAicpHUD();
+      return hadSecondary;
+    }}
+
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        if (isMoCoHUDOpen) toggleMoCoHUD();
-        if (isGafferHUDOpen) toggleGafferHUD();
-        if (isVPStageModalOpen) toggleVPStageModal();
-        if (isDoFHUDOpen) toggleDoFHUD();
-        if (isDitLutHUDOpen) toggleDitLutHUD();
-        if (isSpatialHUDOpen) toggleSpatialHUD();
-        if (isVfxHUDOpen) toggleVfxHUD();
-        if (isHdrHUDOpen) toggleHdrHUD();
-        if (isStripboardHUDOpen) toggleStripboardHUD();
-        if (isFilmHUDOpen) toggleFilmHUD();
-        if (isSlateHUDOpen) toggleSlateHUD();
-        if (isDroneHUDOpen) toggleDroneHUD();
-        if (isAicpHUDOpen) toggleAicpHUD();
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen;
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
+        if (isBlockingHUDOpen) toggleBlockingHUD();
+        if (isReviewHUDOpen) toggleReviewHUD();
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
+        else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
         return;
       }}
-      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
-
+      const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
       if (e.code === 'Space') {{
-        if (activeTag === 'button' || activeTag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) {{
-          return;
-        }}
-        e.preventDefault();
-        togglePlay();
-      }} else if (e.code === 'ArrowLeft') {{
-        e.preventDefault();
-        renderFrame(currentFrame - FPS); // Seek back 1s
-      }} else if (e.code === 'ArrowRight') {{
-        e.preventDefault();
-        renderFrame(currentFrame + FPS); // Seek forward 1s
-      }} else if (e.key === ',' || e.code === 'Comma') {{
-        e.preventDefault();
-        renderFrame(currentFrame - 1); // Step back 1 frame
-      }} else if (e.key === '.' || e.code === 'Period') {{
-        e.preventDefault();
-        renderFrame(currentFrame + 1); // Step forward 1 frame
-      }} else if (e.key === 'Home' || e.key === '0') {{
-        e.preventDefault();
-        renderFrame(0); // Rewind to head
-      }} else if (e.key >= '1' && e.key <= '9') {{
+        if (tag === 'button' || tag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) return;
+        e.preventDefault(); togglePlay();
+      }} else if (e.code === 'ArrowLeft') {{ e.preventDefault(); renderFrame(currentFrame - FPS); }}
+      else if (e.code === 'ArrowRight') {{ e.preventDefault(); renderFrame(currentFrame + FPS); }}
+      else if (e.key === ',' || e.code === 'Comma') {{ e.preventDefault(); renderFrame(currentFrame - 1); }}
+      else if (e.key === '.' || e.code === 'Period') {{ e.preventDefault(); renderFrame(currentFrame + 1); }}
+      else if (e.key === 'Home' || e.key === '0') {{ e.preventDefault(); renderFrame(0); }}
+      else if (e.key >= '1' && e.key <= '9') {{
         const card = document.getElementById('scene-' + e.key);
-        if (card) {{
-          const start = parseFloat(card.getAttribute('data-start-sec') || '0');
-          jumpToScene(parseInt(e.key, 10), start);
-        }}
-      }} else if (e.key === 't' || e.key === 'T') {{
-        toggleSlateHUD();
-      }} else if (e.key === 'e' || e.key === 'E') {{
-        toggleFilmHUD();
-      }} else if (e.key === 'l' || e.key === 'L') {{
-        toggleDitLutHUD();
-      }} else if (e.key === 'f' || e.key === 'F') {{
-        toggleDoFHUD();
-      }} else if (e.key === 'm' || e.key === 'M') {{
-        toggleMixer();
-      }} else if (e.key === 'o' || e.key === 'O') {{
-        toggleLoop();
-      }} else if (e.key === 'k' || e.key === 'K') {{
-        toggleMoCoHUD();
-      }} else if (e.key === 'g' || e.key === 'G') {{
-        toggleGafferHUD();
-      }} else if (e.key === 'u' || e.key === 'U') {{
-        toggleSafeGuides();
-      }} else if (e.key === 'c' || e.key === 'C') {{
-        toggleCC();
-      }} else if (e.key === 'v' || e.key === 'V') {{
-        toggleViewfinder();
-      }} else if (e.key === 'p' || e.key === 'P') {{
-        toggleVPStageModal();
-      }} else if (e.key === 's' || e.key === 'S') {{
-        toggleSpatialHUD();
-      }} else if (e.key === 'x' || e.key === 'X') {{
-        toggleVfxHUD();
-      }} else if (e.key === 'h' || e.key === 'H') {{
-        toggleHdrHUD();
-      }} else if (e.key === 'b' || e.key === 'B') {{
-        toggleStripboardHUD();
-      }} else if (e.key === 'd' || e.key === 'D') {{
-        toggleDroneHUD();
-      }} else if (e.key === 'a' || e.key === 'A') {{
-        toggleAicpHUD();
-      }} else if (e.key === 'r' || e.key === 'R') {{
-        toggleReframeHUD();
-      }} else if (e.key === 'q' || e.key === 'Q') {{
-        toggleQcHUD();
+        if (card) jumpToScene(parseInt(e.key, 10), parseFloat(card.getAttribute('data-start-sec') || '0'));
       }}
+      else if (e.key === 't' || e.key === 'T') toggleSlateHUD();
+      else if (e.key === 'e' || e.key === 'E') toggleFilmHUD();
+      else if (e.key === 'l' || e.key === 'L') toggleDitLutHUD();
+      else if (e.key === 'f' || e.key === 'F') toggleDoFHUD();
+      else if (e.key === 'm' || e.key === 'M') toggleMixer();
+      else if (e.key === 'o' || e.key === 'O') toggleLoop();
+      else if (e.key === 'k' || e.key === 'K') toggleMoCoHUD();
+      else if (e.key === 'g' || e.key === 'G') toggleGafferHUD();
+      else if (e.key === 'u' || e.key === 'U') toggleSafeGuides();
+      else if (e.key === 'c' || e.key === 'C') toggleCC();
+      else if (e.key === 'v' || e.key === 'V') toggleViewfinder();
+      else if (e.key === 'p' || e.key === 'P') toggleVPStageModal();
+      else if (e.key === 's' || e.key === 'S') toggleSpatialHUD();
+      else if (e.key === 'x' || e.key === 'X') toggleVfxHUD();
+      else if (e.key === 'h' || e.key === 'H') toggleHdrHUD();
+      else if (e.key === 'b' || e.key === 'B') toggleStripboardHUD();
+      else if (e.key === 'd' || e.key === 'D') toggleDroneHUD();
+      else if (e.key === 'a' || e.key === 'A') toggleAicpHUD();
+      else if (e.key === 'r' || e.key === 'R') toggleReframeHUD();
+      else if (e.key === 'q' || e.key === 'Q') toggleQcHUD();
+      else if (e.key === 'w' || e.key === 'W') toggleBlockingHUD();
+      else if (e.key === 'n' || e.key === 'N') toggleReviewHUD();
     }});
 
     // Initialize first frame and default look
@@ -9192,6 +9138,8 @@ def compile_storyboard_html(
       drawReframePreview();
       drawQcLoudnessMeter();
       drawQcPseChart();
+      initBlockingHUD();
+      initReviewHUD();
     }});
     renderFrame(0);
   </script>

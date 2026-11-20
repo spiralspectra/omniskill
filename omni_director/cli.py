@@ -325,8 +325,22 @@ def handle_export(args_list: List[str]) -> int:
         generate_qc_certificate_md,
         generate_qc_manifest_json,
     )
+    from omni_director.tools.continuity_blocking import (
+        export_continuity_bundle,
+        generate_blocking_floorplan_svg,
+        generate_continuity_log_csv,
+        generate_continuity_manifest_json,
+    )
+    from omni_director.tools.review_notes import (
+        export_review_bundle,
+        generate_client_signoff_md,
+        generate_frameio_review_json,
+        generate_resolve_marker_edl,
+        generate_review_fcpxml_markers,
+        generate_review_notes_csv,
+    )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, and Broadcast QC / PSE / Rights clearance packages")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, and client review marker/signoff packages")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -334,7 +348,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -369,6 +383,14 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--qc-cert", action="store_true", help="Export Broadcast QC & PSE safety certificate Markdown (broadcast_qc_certificate.md)")
     parser.add_argument("--clearance-csv", action="store_true", help="Export legal & rights clearance matrix CSV (rights_clearance_matrix.csv)")
     parser.add_argument("--qc-json", action="store_true", help="Export Broadcast QC & rights manifest JSON (broadcast_qc_manifest.json)")
+    parser.add_argument("--continuity-csv", action="store_true", help="Export 180-degree continuity blocking log CSV (continuity_log.csv)")
+    parser.add_argument("--blocking-svg", action="store_true", help="Export overhead 2D blocking floorplan SVG (blocking_floorplan.svg)")
+    parser.add_argument("--continuity-json", action="store_true", help="Export continuity blocking manifest JSON (continuity_manifest.json)")
+    parser.add_argument("--review-edl", action="store_true", help="Export DaVinci Resolve / Avid locator marker EDL (review_markers.edl)")
+    parser.add_argument("--review-fcpxml", action="store_true", help="Export FCPXML v1.10 timeline markers (review_markers.fcpxml)")
+    parser.add_argument("--review-json", action="store_true", help="Export Frame.io-compatible review annotations JSON (review_notes_frameio.json)")
+    parser.add_argument("--review-csv", action="store_true", help="Export client review annotations ledger CSV (review_notes.csv)")
+    parser.add_argument("--signoff-md", action="store_true", help="Export client review & live-render signoff report Markdown (client_signoff_report.md)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
@@ -402,10 +424,6 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
-        exported_files.update({k: str(v) for k, v in export_drone_flight_bundle(bible, out_dir).items()})
-        exported_files.update({k: str(v) for k, v in export_aicp_budget_bundle(bible, out_dir).items()})
-        exported_files.update({k: str(v) for k, v in export_reframe_bundle(bible, out_dir).items()})
-        exported_files.update({k: str(v) for k, v in export_broadcast_qc_bundle(bible, out_dir).items()})
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -491,6 +509,12 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "qc":
         qc_files = export_broadcast_qc_bundle(bible, out_dir)
         exported_files.update(qc_files)
+    elif fmt == "continuity":
+        continuity_files = export_continuity_bundle(bible, out_dir)
+        exported_files.update(continuity_files)
+    elif fmt == "review":
+        review_files = export_review_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update(review_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -644,6 +668,38 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "broadcast_qc_manifest.json"
         p.write_text(generate_qc_manifest_json(bible), encoding="utf-8")
         exported_files["qc_json"] = str(p.resolve())
+    if args.continuity_csv:
+        p = out_dir / "continuity_log.csv"
+        p.write_text(generate_continuity_log_csv(bible), encoding="utf-8")
+        exported_files["continuity_csv"] = str(p.resolve())
+    if args.blocking_svg:
+        p = out_dir / "blocking_floorplan.svg"
+        p.write_text(generate_blocking_floorplan_svg(bible), encoding="utf-8")
+        exported_files["blocking_svg"] = str(p.resolve())
+    if args.continuity_json:
+        p = out_dir / "continuity_manifest.json"
+        p.write_text(generate_continuity_manifest_json(bible), encoding="utf-8")
+        exported_files["continuity_json"] = str(p.resolve())
+    if args.review_edl:
+        p = out_dir / "review_markers.edl"
+        p.write_text(generate_resolve_marker_edl(bible, fps=args.fps), encoding="utf-8")
+        exported_files["review_edl"] = str(p.resolve())
+    if args.review_fcpxml:
+        p = out_dir / "review_markers.fcpxml"
+        p.write_text(generate_review_fcpxml_markers(bible, fps=args.fps), encoding="utf-8")
+        exported_files["review_fcpxml"] = str(p.resolve())
+    if args.review_json:
+        p = out_dir / "review_notes_frameio.json"
+        p.write_text(generate_frameio_review_json(bible), encoding="utf-8")
+        exported_files["review_json"] = str(p.resolve())
+    if args.review_csv:
+        p = out_dir / "review_notes.csv"
+        p.write_text(generate_review_notes_csv(bible), encoding="utf-8")
+        exported_files["review_csv"] = str(p.resolve())
+    if args.signoff_md:
+        p = out_dir / "client_signoff_report.md"
+        p.write_text(generate_client_signoff_md(bible), encoding="utf-8")
+        exported_files["signoff_md"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

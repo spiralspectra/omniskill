@@ -4,9 +4,12 @@ import re
 from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
+    InterSceneCutCheckSpec,
+    MasterProductionBible,
     PromptAuditResult,
     QcVerdictStatus,
     RegimeType,
+    ReviewApprovalStatus,
     ScenePromptSpec,
     StorytellingMode,
 )
@@ -37,6 +40,12 @@ from omni_director.tools.broadcast_qc import (
     format_broadcast_qc_prompt_token,
     synthesize_default_scene_qc,
 )
+from omni_director.tools.continuity_blocking import (
+    evaluate_180_axis_and_30_rule,
+    format_continuity_prompt_token,
+    synthesize_scene_blocking,
+)
+from omni_director.tools.review_notes import format_review_prompt_token
 
 
 def audit_omni_scene_prompt(
@@ -349,6 +358,66 @@ def audit_omni_scene_prompt(
         details["broadcast_qc_reward"] = 1.0
         details["broadcast_qc_descriptor"] = qc_match.group(0)
 
+    # 180-Degree Continuity Axis & Blocking recognition & reward (PM-FEAT-023)
+    blocking_spec_obj = (
+        getattr(scene, "blocking_spec", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("blocking_spec")
+            or kwargs.get("continuity_blocking")
+            or kwargs.get("blocking")
+        )
+    )
+    continuity_patterns = r"(?:\[CONTINUITY[ _]AXIS:?|180_deg_lock|180-degree\s+axis|line\s+of\s+action|eyeline\s+match|screen\s+direction)"
+    continuity_match = re.search(continuity_patterns, prompt, re.IGNORECASE)
+    continuity_blocking_compliant_val = True
+    if blocking_spec_obj is not None:
+        if getattr(blocking_spec_obj, "one_eighty_lock_ok", True) is False:
+            continuity_blocking_compliant_val = False
+            details["continuity_blocking_compliant"] = False
+            warnings.append(
+                "Continuity Blocking Warning: Scene failed 180-degree axis lock on stage blocking."
+            )
+        else:
+            details["continuity_blocking_compliant"] = True
+            details["continuity_blocking_reward"] = 1.0
+            details["continuity_blocking_descriptor"] = format_continuity_prompt_token(blocking_spec_obj)
+    elif continuity_match:
+        details["continuity_blocking_compliant"] = True
+        details["continuity_blocking_reward"] = 1.0
+        details["continuity_blocking_descriptor"] = continuity_match.group(0)
+
+    # Client Review Signoff Gate recognition & reward (PM-FEAT-024)
+    review_signoff_obj = (
+        getattr(scene, "review_signoff", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("review_signoff")
+            or kwargs.get("review_spec")
+            or kwargs.get("client_review")
+        )
+    )
+    review_patterns = r"(?:\[REVIEW[ _]GATE:?|review_gate|open_notes=)"
+    review_match = re.search(review_patterns, prompt, re.IGNORECASE)
+    review_gate_compliant_val = True
+    if review_signoff_obj is not None:
+        rev_status = getattr(review_signoff_obj, "approval_status", ReviewApprovalStatus.APPROVED)
+        rev_status_str = rev_status.value if hasattr(rev_status, "value") else str(rev_status)
+        if rev_status_str == ReviewApprovalStatus.CHANGES_REQUESTED.value:
+            review_gate_compliant_val = False
+            details["review_gate_compliant"] = False
+            warnings.append(
+                "Client Review Warning: Scene has CHANGES_REQUESTED pending stakeholder resolution."
+            )
+        else:
+            details["review_gate_compliant"] = True
+            details["review_gate_reward"] = 1.0
+            details["review_gate_descriptor"] = format_review_prompt_token(review_signoff_obj)
+    elif review_match:
+        details["review_gate_compliant"] = True
+        details["review_gate_reward"] = 1.0
+        details["review_gate_descriptor"] = review_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -415,6 +484,7 @@ def audit_omni_scene_prompt(
         "[hdr signal:", "[1st ad breakdown:", "[film emulation:", "[film_stock:",
         "[production slate:", "[clapper_slate:", "[drone_flight:", "[drone flight:",
         "[reframe:", "[broadcast_qc:", "[broadcast qc:",
+        "[continuity_axis:", "[continuity axis:",
     ]
     has_camera = (
         any(term in prompt.lower() for term in camera_terms)
@@ -429,6 +499,8 @@ def audit_omni_scene_prompt(
         or "[reframe:" in prompt.lower()
         or "[broadcast_qc:" in prompt.lower()
         or "[broadcast qc:" in prompt.lower()
+        or "[continuity_axis:" in prompt.lower()
+        or "[continuity axis:" in prompt.lower()
     )
     if craft_camera is not None:
         details["craft_camera_configured"] = True
@@ -517,6 +589,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("broadcast_qc_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("continuity_blocking_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("review_gate_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -534,6 +610,8 @@ def audit_omni_scene_prompt(
         drone_flight_compliant=drone_ok,
         reframe_compliant=reframe_compliant_val,
         broadcast_qc_compliant=broadcast_qc_compliant_val,
+        continuity_blocking_compliant=continuity_blocking_compliant_val,
+        review_gate_compliant=review_gate_compliant_val,
     )
 
 
@@ -674,6 +752,26 @@ def heal_omni_scene_prompt(
         )
         and not re.search(r"\[BROADCAST[ _]QC:?", current_prompt, re.IGNORECASE)
     )
+    needs_continuity_injection = bool(
+        (
+            (getattr(scene, "blocking_spec", None) if is_spec else None)
+            or (getattr(spec_context, "blocking_spec", None) if spec_context else None)
+            or kwargs.get("blocking_spec")
+            or kwargs.get("continuity_blocking")
+            or kwargs.get("blocking")
+        )
+        and not re.search(r"\[CONTINUITY[ _]AXIS:?", current_prompt, re.IGNORECASE)
+    )
+    needs_review_injection = bool(
+        (
+            (getattr(scene, "review_signoff", None) if is_spec else None)
+            or (getattr(spec_context, "review_signoff", None) if spec_context else None)
+            or kwargs.get("review_signoff")
+            or kwargs.get("review_spec")
+            or kwargs.get("client_review")
+        )
+        and not re.search(r"\[REVIEW[ _]GATE:?", current_prompt, re.IGNORECASE)
+    )
 
     if (
         current_audit.passed
@@ -684,6 +782,8 @@ def heal_omni_scene_prompt(
         and not needs_drone_injection
         and not needs_reframe_injection
         and not needs_qc_injection
+        and not needs_continuity_injection
+        and not needs_review_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -971,6 +1071,49 @@ def heal_omni_scene_prompt(
             if "broadcast_qc" not in applied_patches:
                 applied_patches.append("broadcast_qc")
 
+        # 3q. Inject 180-Degree Continuity Axis & Blocking tokens (PM-FEAT-023)
+        blocking_obj = (
+            (getattr(scene, "blocking_spec", None) if is_spec else None)
+            or (getattr(spec_context, "blocking_spec", None) if spec_context else None)
+            or kwargs.get("blocking_spec")
+            or kwargs.get("continuity_blocking")
+            or kwargs.get("blocking")
+        )
+        if blocking_obj is None:
+            blocking_obj = synthesize_scene_blocking(
+                scene=scene if is_spec else None,
+                scene_index=eff_scene_index,
+                domain=domain_arch_hint,
+            )
+        elif getattr(blocking_obj, "one_eighty_lock_ok", True) is False:
+            blocking_obj = synthesize_scene_blocking(
+                scene=None,
+                scene_index=eff_scene_index,
+                domain=domain_arch_hint,
+            )
+            if "blocking_spec" not in applied_patches:
+                applied_patches.append("blocking_spec")
+        if blocking_obj is not None and not re.search(r"\[CONTINUITY[ _]AXIS:?", working_prompt, re.IGNORECASE):
+            token = format_continuity_prompt_token(blocking_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "blocking_spec" not in applied_patches:
+                applied_patches.append("blocking_spec")
+
+        # 3r. Inject Client Review Signoff Gate tokens (PM-FEAT-024)
+        # Only inject [REVIEW_GATE: when review_obj is explicitly present; never auto-approve unreviewed scenes.
+        review_obj = (
+            (getattr(scene, "review_signoff", None) if is_spec else None)
+            or (getattr(spec_context, "review_signoff", None) if spec_context else None)
+            or kwargs.get("review_signoff")
+            or kwargs.get("review_spec")
+            or kwargs.get("client_review")
+        )
+        if review_obj is not None and not re.search(r"\[REVIEW[ _]GATE:?", working_prompt, re.IGNORECASE):
+            token = format_review_prompt_token(review_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "review_signoff" not in applied_patches:
+                applied_patches.append("review_signoff")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -1057,6 +1200,14 @@ def heal_omni_scene_prompt(
                 scene.broadcast_qc = qc_obj
                 if "broadcast_qc" not in applied_patches:
                     applied_patches.append("broadcast_qc")
+            if blocking_obj is not None and (getattr(scene, "blocking_spec", None) is None or not getattr(scene.blocking_spec, "one_eighty_lock_ok", True)):
+                scene.blocking_spec = blocking_obj
+                if "blocking_spec" not in applied_patches:
+                    applied_patches.append("blocking_spec")
+            if review_obj is not None and getattr(scene, "review_signoff", None) is None:
+                scene.review_signoff = review_obj
+                if "review_signoff" not in applied_patches:
+                    applied_patches.append("review_signoff")
             target_to_audit = scene
         else:
             if "action_beats" in kwargs and isinstance(kwargs["action_beats"], list) and len(kwargs["action_beats"]) > 3:
@@ -1079,6 +1230,8 @@ def heal_omni_scene_prompt(
         needs_drone_still = bool(drone_obj is not None and not (current_audit.details and current_audit.details.get("drone_flight_compliant")))
         needs_reframe_still = bool(reframe_obj is not None and not (current_audit.details and current_audit.details.get("reframe_compliant")))
         needs_qc_still = bool(qc_obj is not None and not (current_audit.details and current_audit.details.get("broadcast_qc_compliant")))
+        needs_continuity_still = bool(blocking_obj is not None and not (current_audit.details and current_audit.details.get("continuity_blocking_compliant")))
+        needs_review_still = bool(review_obj is not None and not (current_audit.details and current_audit.details.get("review_gate_compliant")))
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -1087,6 +1240,8 @@ def heal_omni_scene_prompt(
             and not needs_drone_still
             and not needs_reframe_still
             and not needs_qc_still
+            and not needs_continuity_still
+            and not needs_review_still
         ):
             break
 
@@ -1102,3 +1257,56 @@ def heal_omni_scene_prompt(
     }
 
     return HealedPromptResult(scene if is_spec else working_prompt, current_audit)
+
+
+def audit_bible_inter_scene_continuity(
+    bible: MasterProductionBible,
+) -> List[InterSceneCutCheckSpec]:
+    """Audits inter-scene 180-degree axis, 30-degree rule, and Kelvin continuity across a MasterProductionBible."""
+    scenes = list(getattr(bible, "scenes", []) or [])
+    if len(scenes) < 2:
+        return []
+
+    domain = getattr(bible, "domain_archetype", None) or "architectural_sanctuary"
+    blockings = []
+    prev_blk = None
+    for sc in scenes:
+        blk = getattr(sc, "blocking_spec", None)
+        if blk is None:
+            blk = synthesize_scene_blocking(sc, scene_index=sc.scene_index, domain=domain, prev_blocking=prev_blk)
+        blockings.append(blk)
+        prev_blk = blk
+
+    checks: List[InterSceneCutCheckSpec] = []
+    for i in range(len(blockings) - 1):
+        prev_b = blockings[i]
+        next_b = blockings[i + 1]
+        checks.append(
+            evaluate_180_axis_and_30_rule(
+                prev_b,
+                next_b,
+                prev_kelvin=getattr(prev_b, "color_temp_kelvin", 5600),
+                next_kelvin=getattr(next_b, "color_temp_kelvin", 5600),
+            )
+        )
+    return checks
+
+
+_MACHINE_TELEMETRY_TOKEN_RE = re.compile(
+    r"\s*\[(?:DOF|3D_LUT|3D\s+LUT|HDR\s+Signal|HDR_SIGNAL|1st\s+AD\s+Breakdown|"
+    r"FILM_STOCK|FILM\s+EMULATION|CLAPPER_SLATE|PRODUCTION\s+SLATE|"
+    r"DRONE_FLIGHT|DRONE\s+FLIGHT|REFRAME|BROADCAST_QC|BROADCAST\s+QC|"
+    r"CONTINUITY_AXIS|CONTINUITY\s+AXIS|REVIEW_GATE|REVIEW\s+GATE|"
+    r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
+    r"VFX_COMPOSITING|VFX\s+COMPOSITING)\s*:[^\]]*\]\.?",
+    re.IGNORECASE,
+)
+
+
+def compile_clean_omni_prompt(prose: str) -> str:
+    """Strips machine-only bracketed telemetry tokens while preserving natural cinematography prose and audio cues."""
+    if not prose:
+        return ""
+    cleaned = _MACHINE_TELEMETRY_TOKEN_RE.sub("", prose)
+    cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()
+    return cleaned

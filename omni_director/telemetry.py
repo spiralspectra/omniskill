@@ -40,6 +40,158 @@ SECRET_PATTERN = re.compile(
     r"AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+|ya29\.[0-9A-Za-z\-_]+|ghp_[0-9A-Za-z]+|github_pat_[0-9A-Za-z_]+"
 )
 
+KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
+    # Core bundle & storyboard deliverables
+    "production_bundle.json",
+    "production_bible.json",
+    "storyboard_preview.html",
+    # PM-FEAT-001..004: NLE timelines, shot lists, call sheets, subtitles, CDL & audio stems
+    "timeline.edl",
+    "sequence.fcpxml",
+    "shot_list.csv",
+    "call_sheet.md",
+    "subtitles.srt",
+    "subtitles.vtt",
+    "production_grade.cdl",
+    "audio_stems_manifest.json",
+    # PM-FEAT-007 & PM-FEAT-008: Optical lens & Virtual Production stage
+    "lens_package.csv",
+    "optical_lens_framing.csv",
+    "virtual_production_manifest.json",
+    "unreal_dmx_patch.csv",
+    "vp_stage_spec.json",
+    "ndisplay_stage_manifest.json",
+    "dmx_patch.csv",
+    # PM-FEAT-009: MoCo kinematics
+    "moco_track.json",
+    "moco_track.csv",
+    "moco_camera.fbx",
+    "moco_camera_track.json",
+    "moco_waypoints.csv",
+    "moco_trajectory.fbx",
+    # PM-FEAT-010: Studio lighting plot & gaffer call sheet
+    "lighting_plot.json",
+    "studio_lighting_plot.json",
+    "gaffer_callsheet.csv",
+    "gaffer_call_sheet.csv",
+    # PM-FEAT-011: Depth of field & 1st AC focus puller cue sheet
+    "dof_chart.json",
+    "depth_of_field_chart.json",
+    "optical_chart.json",
+    "focus_puller_cue_sheet.csv",
+    "cue_sheet.csv",
+    # PM-FEAT-012: DIT 3D LUT & cart manifest
+    "production_look.cube",
+    "master_look.cube",
+    "dit_cart_manifest.json",
+    "dit_manifest.json",
+    # PM-FEAT-013: Spatial Audio & Binaural Soundfield
+    "spatial_audio_adm.json",
+    "spatial_audio_adm_manifest.json",
+    "ambisonic_b_format.csv",
+    "spatial_audio_ambisonic_channels.csv",
+    "webaudio_spatial_config.json",
+    "spatial_webaudio_nodes.json",
+    "webaudio_spatial_panner.json",
+    # PM-FEAT-014: Multi-Pass VFX Compositing
+    "openexr_channels.json",
+    "openexr_channel_manifest.json",
+    "vfx_compositing_manifest.json",
+    "cryptomatte_manifest.json",
+    "nuke_composite.nk",
+    "nuke_composite_template.nk",
+    "nuke_comp_script.nk",
+    # PM-FEAT-015: HDR Broadcast Color Volume
+    "hdr10_metadata.json",
+    "hlg_broadcast.xml",
+    "resolve_hdr_rcm.xml",
+    "hdr_master_report.json",
+    # PM-FEAT-016: 1st AD Stripboard & DOOD
+    "movie_magic_schedule.xml",
+    "stripboard_schedule.csv",
+    "dood_matrix.csv",
+    "stripboard_summary.json",
+    # PM-FEAT-017: Physical Film Stock Emulation
+    "film_emulation_spec.json",
+    "film_stock_shader.dctl",
+    "film_emulation.dctl",
+    "film_stock.ale",
+    # PM-FEAT-018: Clapper Slate & ASC-MHL
+    "slate_manifest.json",
+    "asc_mhl_manifest.xml",
+    "clapper_slate_log.csv",
+    "sound_sync.ale",
+    # PM-FEAT-019: Aerial Drone Flight Paths
+    "flight_path.kml",
+    "flight_waypoints.gpx",
+    "drone_flight_sheet.csv",
+    "drone_flight_sheet.md",
+    "drone_flight_manifest.json",
+    # PM-FEAT-020: AICP Commercial Production Bid
+    "aicp_bid_sheet.csv",
+    "aicp_bid_manifest.json",
+    "production_budget_topsheet.md",
+    # PM-FEAT-021: Multi-Aspect Social Reframe & Cutdowns
+    "reframe_crop_matrix.csv",
+    "cutdown_30s.edl",
+    "cutdown_15s.edl",
+    "cutdown_06s.edl",
+    "reframe_9x16.fcpxml",
+    "delivery_reframe_manifest.json",
+    # PM-FEAT-022: Broadcast QC, PSE Flash-Safety & Rights Clearance
+    "broadcast_qc_certificate.md",
+    "rights_clearance_matrix.csv",
+    "broadcast_qc_manifest.json",
+    # PM-FEAT-023: 180-Degree Continuity Axis & Blocking Floorplan
+    "continuity_log.csv",
+    "blocking_floorplan.svg",
+    "continuity_manifest.json",
+    # PM-FEAT-024: Client Review Notes, Frame-Accurate Annotations & Signoff Gate
+    "review_markers.edl",
+    "review_markers.fcpxml",
+    "review_notes_frameio.json",
+    "review_notes.csv",
+    "client_signoff_report.md",
+)
+
+DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
+    ".json",
+    ".html",
+    ".svg",
+    ".cube",
+    ".edl",
+    ".fcpxml",
+    ".xml",
+    ".csv",
+    ".md",
+    ".srt",
+    ".vtt",
+    ".cdl",
+    ".fbx",
+    ".nk",
+    ".dctl",
+    ".ale",
+    ".kml",
+    ".gpx",
+})
+
+_TELEMETRY_MANIFEST_NAMES: frozenset[str] = frozenset({
+    "telemetry.json",
+    "telemetry_manifest.json",
+})
+
+
+def _is_skippable_artifact(rel_path: Path) -> bool:
+    """Returns True for telemetry manifests, hidden files/dirs, and temporary files."""
+    if any(part.startswith(".") for part in rel_path.parts):
+        return True
+    name = rel_path.name
+    if name in _TELEMETRY_MANIFEST_NAMES:
+        return True
+    if name.startswith("~$") or name.endswith((".tmp", ".bak", ".swp", "~")) or ".tmp_" in name:
+        return True
+    return False
+
 
 def _is_sensitive_key(key: str) -> bool:
     """Checks if a dictionary key contains sensitive credential terms while preserving safe keys."""
@@ -136,113 +288,38 @@ class RuntimeTelemetry(BaseModel):
             )
 
     def compute_artifact_checksums(self, output_dir: Union[str, Path]) -> Dict[str, str]:
-        """Computes SHA-256 hex digests for bundle files, NLE exports, SVG keyframes, and 3D LUT profiles."""
+        """Computes SHA-256 hex digests for known production deliverables and discovered artifacts."""
         out_path = Path(output_dir)
         checksums: Dict[str, str] = {}
+        if not out_path.is_dir():
+            self.artifact_checksums = checksums
+            return checksums
+
         target_files: List[Path] = []
+        seen_rel_paths: set[str] = set()
 
-        known_artifact_names = [
-            "production_bundle.json",
-            "production_bible.json",
-            "storyboard_preview.html",
-            "timeline.edl",
-            "sequence.fcpxml",
-            "shot_list.csv",
-            "call_sheet.md",
-            "subtitles.srt",
-            "subtitles.vtt",
-            "production_grade.cdl",
-            "audio_stems_manifest.json",
-            "lens_package.csv",
-            "virtual_production_manifest.json",
-            "unreal_dmx_patch.csv",
-            "moco_track.json",
-            "moco_track.csv",
-            "moco_camera.fbx",
-            "moco_camera_track.json",
-            "moco_waypoints.csv",
-            "moco_trajectory.fbx",
-            "lighting_plot.json",
-            "studio_lighting_plot.json",
-            "gaffer_callsheet.csv",
-            "gaffer_call_sheet.csv",
-            "dof_chart.json",
-            "depth_of_field_chart.json",
-            "optical_chart.json",
-            "focus_puller_cue_sheet.csv",
-            "cue_sheet.csv",
-            "production_look.cube",
-            "master_look.cube",
-            "dit_cart_manifest.json",
-            "dit_manifest.json",
-            # PM-FEAT-013: Spatial Audio & Binaural Soundfield
-            "spatial_audio_adm.json",
-            "spatial_audio_adm_manifest.json",
-            "ambisonic_b_format.csv",
-            "spatial_audio_ambisonic_channels.csv",
-            "webaudio_spatial_config.json",
-            "spatial_webaudio_nodes.json",
-            "webaudio_spatial_panner.json",
-            # PM-FEAT-014: Multi-Pass VFX Compositing
-            "openexr_channels.json",
-            "vfx_compositing_manifest.json",
-            "cryptomatte_manifest.json",
-            "nuke_composite.nk",
-            "nuke_composite_template.nk",
-            # PM-FEAT-015: HDR Broadcast Color Volume
-            "hdr10_metadata.json",
-            "hlg_broadcast.xml",
-            "resolve_hdr_rcm.xml",
-            "hdr_master_report.json",
-            # PM-FEAT-016: 1st AD Stripboard & DOOD
-            "movie_magic_schedule.xml",
-            "stripboard_schedule.csv",
-            "dood_matrix.csv",
-            "stripboard_summary.json",
-            # PM-FEAT-017: Physical Film Stock Emulation
-            "film_emulation_spec.json",
-            "film_stock_shader.dctl",
-            "film_stock.ale",
-            # PM-FEAT-018: Clapper Slate & ASC-MHL
-            "slate_manifest.json",
-            "asc_mhl_manifest.xml",
-            "clapper_slate_log.csv",
-            "sound_sync.ale",
-            # PM-FEAT-019: Aerial Drone Flight Paths
-            "flight_path.kml",
-            "flight_waypoints.gpx",
-            "drone_flight_sheet.csv",
-            "drone_flight_sheet.md",
-            "drone_flight_manifest.json",
-            # PM-FEAT-020: AICP Commercial Production Bid
-            "aicp_bid_sheet.csv",
-            "aicp_bid_manifest.json",
-            "production_budget_topsheet.md",
-            # PM-FEAT-021: Multi-Aspect Social Reframe & Cutdowns
-            "reframe_crop_matrix.csv",
-            "cutdown_30s.edl",
-            "cutdown_15s.edl",
-            "cutdown_06s.edl",
-            "reframe_9x16.fcpxml",
-            "delivery_reframe_manifest.json",
-            # PM-FEAT-022: Broadcast QC, PSE Flash-Safety & Rights Clearance
-            "broadcast_qc_certificate.md",
-            "rights_clearance_matrix.csv",
-            "broadcast_qc_manifest.json",
-        ]
-
-        for name in known_artifact_names:
+        for name in KNOWN_PRODUCTION_ARTIFACTS:
             p = out_path / name
-            if p.is_file() and p not in target_files:
+            if p.is_file():
+                rel = p.relative_to(out_path).as_posix()
+                if rel not in seen_rel_paths and not _is_skippable_artifact(Path(rel)):
+                    seen_rel_paths.add(rel)
+                    target_files.append(p)
+
+        discovered_files = sorted(
+            (p for p in out_path.rglob("*") if p.is_file()),
+            key=lambda p: p.relative_to(out_path).as_posix(),
+        )
+        for p in discovered_files:
+            rel_obj = p.relative_to(out_path)
+            if _is_skippable_artifact(rel_obj):
+                continue
+            if p.suffix.lower() not in DISCOVERABLE_ARTIFACT_EXTENSIONS:
+                continue
+            rel = rel_obj.as_posix()
+            if rel not in seen_rel_paths:
+                seen_rel_paths.add(rel)
                 target_files.append(p)
-
-        for svg_file in sorted(out_path.rglob("*.svg")):
-            if svg_file.is_file() and svg_file not in target_files:
-                target_files.append(svg_file)
-
-        for cube_file in sorted(out_path.rglob("*.cube")):
-            if cube_file.is_file() and cube_file not in target_files:
-                target_files.append(cube_file)
 
         for file in target_files:
             rel_path = file.relative_to(out_path).as_posix()

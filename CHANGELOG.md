@@ -2,6 +2,23 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.12.0] - 2026-11-20
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-023: Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine**:
+  - Module: `omni_director/tools/continuity_blocking.py` with corresponding Pydantic schemas in `omni_director/schemas.py` and 6-archetype domain calibrations in `omni_director/presets.py`.
+  - Enforces 180-degree line-of-action continuity, screen-direction locks, eyeline match pairs, and overhead 2D stage floorplan blocking coordinates across consecutive scenes.
+  - CRAFT prompt token formatting (`[CONTINUITY_AXIS: ...]`), CLI export support (`omni export --format continuity`), NLE & `RuntimeTelemetry` checksum integration, and Dark-Room Cinema Animatic Overhead Blocking & 180° Axis HUD (`#animatic-blocking-hud`, hotkey `W`).
+- **PM-FEAT-024: Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine**:
+  - Module: `omni_director/tools/review_notes.py` with corresponding Pydantic schemas in `omni_director/schemas.py`.
+  - Supports frame-accurate spatial pin annotations, CMX 3600 `* LOC:` DaVinci Resolve markers, FCPXML `<marker>` timeline annotations, Frame.io JSON review payloads, and Markdown Revision Sign-Off reports.
+  - CLI export support (`omni export --format review`), NLE & `RuntimeTelemetry` checksum integration, and Dark-Room Cinema Animatic Client Review & Revision Sign-Off HUD (`#animatic-review-hud`, hotkey `N`).
+- **Cross-Cutting Council, Pipeline & UX Fixes**:
+  - Fixed `--mode continuous` / `extension` propagation in `CreativeDirectorAgent`.
+  - Added `compile_clean_omni_prompt` normalization prior to live `gemini-omni-1.1-flash-preview` video rendering and enforced the `ready_for_live_render` gate.
+  - Eliminated duplicate export I/O across `omni_director/cli.py` and `scripts/run_daily_council.py`, and unified `RuntimeTelemetry` SHA-256 artifact checksum discovery.
+  - Organized `.hud-actions` into 5 WCAG 2.2 AA departmental toolbar groups via `omni_director/tools/html_hud_v212.py`.
+
 ## [2.11.0] - 2026-11-19
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

@@ -46,6 +46,14 @@ from omni_director.tools.broadcast_qc import (
     synthesize_default_broadcast_qc_spec,
     synthesize_default_scene_qc,
 )
+from omni_director.tools.continuity_blocking import (
+    synthesize_default_continuity_blocking,
+    synthesize_scene_blocking,
+)
+from omni_director.tools.review_notes import (
+    synthesize_default_client_review,
+    synthesize_scene_review_signoff,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -439,9 +447,27 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
         else:
             bible.master_broadcast_qc = synthesize_default_broadcast_qc_spec(bible)
 
+    # PM-FEAT-023: 180-Degree Continuity Axis & Blocking Floorplan (via presets if available in Phase 2a, else tool synthesizer)
+    if not getattr(bible, "master_continuity_blocking", None):
+        blocking_fn = getattr(_presets_mod, "get_domain_continuity_blocking_spec", None)
+        if callable(blocking_fn):
+            bible.master_continuity_blocking = blocking_fn(bible)
+        else:
+            bible.master_continuity_blocking = synthesize_default_continuity_blocking(bible)
+
+    # PM-FEAT-024: Client Review Notes & Signoff Gate (via presets if available in Phase 2a, else tool synthesizer)
+    if not getattr(bible, "master_client_review", None):
+        review_fn = getattr(_presets_mod, "get_domain_client_review_spec", None)
+        if callable(review_fn):
+            bible.master_client_review = review_fn(bible)
+        else:
+            bible.master_client_review = synthesize_default_client_review(bible)
+
     slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
     reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
     qc_scenes = getattr(bible.master_broadcast_qc, "scene_qc_profiles", []) if bible.master_broadcast_qc else []
+    blocking_scenes = getattr(bible.master_continuity_blocking, "scene_blockings", []) if bible.master_continuity_blocking else []
+    review_scenes = getattr(bible.master_client_review, "scene_reviews", []) if bible.master_client_review else []
 
     for idx, scene in enumerate(bible.scenes):
         if not getattr(scene, "speed_ramp", None):
@@ -484,6 +510,26 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
                 scene.broadcast_qc = qc_scenes[idx]
             else:
                 scene.broadcast_qc = synthesize_default_scene_qc(scene=scene, scene_index=scene.scene_index)
+        if not getattr(scene, "blocking_spec", None):
+            if idx < len(blocking_scenes):
+                scene.blocking_spec = blocking_scenes[idx]
+            else:
+                prev_blk = bible.scenes[idx - 1].blocking_spec if idx > 0 else None
+                scene.blocking_spec = synthesize_scene_blocking(
+                    scene=scene,
+                    scene_index=scene.scene_index,
+                    domain=arch,
+                    prev_blocking=prev_blk,
+                )
+        if not getattr(scene, "review_signoff", None):
+            if idx < len(review_scenes):
+                scene.review_signoff = review_scenes[idx]
+            else:
+                scene.review_signoff = synthesize_scene_review_signoff(
+                    scene=scene,
+                    scene_index=scene.scene_index,
+                    domain=arch,
+                )
 
 
 class IntakeAndResearchAgent(BaseAgent):
@@ -574,11 +620,13 @@ class CreativeDirectorAgent(BaseAgent):
         genre: Optional[str] = None,
         aspect_ratio: Optional[AspectRatio] = None,
         total_runtime_sec: Optional[int] = None,
+        storytelling_mode: StorytellingMode = StorytellingMode.MODE_A_PARALLEL_CUT,
     ) -> MasterProductionBible:
         """Synthesizes a domain-aware MasterProductionBible from custom creative brief."""
         return synthesize_custom_bible(
             raw_prompt=raw_prompt,
             config=self.config,
+            storytelling_mode=storytelling_mode,
             project_title=project_title,
             creative_brief=creative_brief,
             genre=genre,
@@ -589,6 +637,12 @@ class CreativeDirectorAgent(BaseAgent):
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
 
         logger.info(f"[{self.name}] Synthesizing Master Production Bible...")
+        continuous_mode = bool(context.get("continuous_mode", False))
+        target_mode = (
+            StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            if continuous_mode
+            else StorytellingMode.MODE_A_PARALLEL_CUT
+        )
         bible = None
         if "bible" in context and isinstance(context["bible"], MasterProductionBible):
             bible = context["bible"]
@@ -626,11 +680,13 @@ class CreativeDirectorAgent(BaseAgent):
             # ONLY synthesize a custom bible when raw_prompt is provided, or default to ikea-asmr when both preset and prompt are empty.
             if bible is None:
                 if raw_prompt and raw_prompt.strip():
-                    bible = synthesize_custom_bible(raw_prompt, self.config)
+                    bible = synthesize_custom_bible(raw_prompt, self.config, storytelling_mode=target_mode)
                 else:
                     bible = get_preset_bible("ikea-asmr")
 
         if bible is not None:
+            if continuous_mode and bible.storytelling_mode != StorytellingMode.MODE_B_CONTINUOUS_CHAIN and bible.total_runtime_seconds <= 40:
+                bible.storytelling_mode = StorytellingMode.MODE_B_CONTINUOUS_CHAIN
             if not getattr(bible, "domain_archetype", None):
                 bible.domain_archetype = context.get("domain_archetype") or classify_brief_domain(f"{bible.project_title} {bible.logline}")
             _backfill_production_specs(bible, bible.domain_archetype)
@@ -939,6 +995,19 @@ class OmniVideoRenderAgent(BaseAgent):
             context["video_manifests"] = []
             context["rendered_videos"] = []
             return context
+
+        dry_run = context.get("dry_run", self.config.dry_run)
+        if not dry_run:
+            client_review = getattr(bible, "master_client_review", None) or getattr(bible, "client_review", None)
+            review_ready = getattr(client_review, "ready_for_live_render", True) if client_review is not None else True
+            if not review_ready or context.get("ready_for_live_render") is False:
+                logger.warning(
+                    f"[{self.name}] Blocking live video render: client review signoff gate not cleared (ready_for_live_render=False)."
+                )
+                context["video_render_status"] = "blocked_by_client_review"
+                context["video_manifests"] = []
+                context["rendered_videos"] = []
+                return context
 
         visual_plates = context.get("visual_plates", {})
         logger.info(f"[{self.name}] Executing video pipeline for '{bible.project_title}'...")

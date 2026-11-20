@@ -979,6 +979,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "screen_direction": "toward_camera",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S1",
+            "x_meters": -0.0,
+            "y_meters": -4.7,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 73.7,
+            "focal_length_mm": 24,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s1",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s1",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 90deg, WS (24mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -1841,6 +1928,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "screen_direction": "toward_camera",
+          "shot_scale": "MLS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S2",
+            "x_meters": -1.85,
+            "y_meters": -3.24,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s2",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s2",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 56deg, MLS (50mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MLS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        "review_signoff": {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.44,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       }
     ],
@@ -2689,7 +2863,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-19T10:09:54.809183+00:00",
+        "creation_date": "2026-11-20T09:53:28.900992+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2697,7 +2871,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-19T10:09:54.809173+00:00"
+            "hash_timestamp": "2026-11-20T09:53:28.900981+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2705,7 +2879,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-19T10:09:54.809180+00:00"
+            "hash_timestamp": "2026-11-20T09:53:28.900989+00:00"
           }
         ]
       }
@@ -2761,7 +2935,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-19T10:09:54.809183+00:00",
+        "creation_date": "2026-11-20T09:53:28.900992+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2769,7 +2943,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-19T10:09:54.809173+00:00"
+            "hash_timestamp": "2026-11-20T09:53:28.900981+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2777,7 +2951,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-19T10:09:54.809180+00:00"
+            "hash_timestamp": "2026-11-20T09:53:28.900989+00:00"
           }
         ]
       }
@@ -6845,6 +7019,681 @@
       "overall_verdict": "PASS",
       "qc_certificate_id": "QC-SOLA-2026-001",
       "prompt_token": "[BROADCAST_QC: EBU_R128 -23.0LUFS/-1.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "master_continuity_blocking": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "dominant_screen_direction": "toward_camera",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "screen_direction": "toward_camera",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S1",
+            "x_meters": -0.0,
+            "y_meters": -4.7,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 73.7,
+            "focal_length_mm": 24,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s1",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s1",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 90deg, WS (24mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "screen_direction": "toward_camera",
+          "shot_scale": "MLS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S2",
+            "x_meters": -1.85,
+            "y_meters": -3.24,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s2",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s2",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 56deg, MLS (50mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MLS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "hard_cut",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MLS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "continuity_blocking": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "dominant_screen_direction": "toward_camera",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "screen_direction": "toward_camera",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S1",
+            "x_meters": -0.0,
+            "y_meters": -4.7,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 73.7,
+            "focal_length_mm": 24,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s1",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s1",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 90deg, WS (24mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "screen_direction": "toward_camera",
+          "shot_scale": "MLS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S2",
+            "x_meters": -1.85,
+            "y_meters": -3.24,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s2",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s2",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 56deg, MLS (50mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MLS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "hard_cut",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MLS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "blocking_floorplan": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "dominant_screen_direction": "toward_camera",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "screen_direction": "toward_camera",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S1",
+            "x_meters": -0.0,
+            "y_meters": -4.7,
+            "aim_azimuth_deg": 90.0,
+            "fov_deg": 73.7,
+            "focal_length_mm": 24,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s1",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s1",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 90deg, WS (24mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "screen_direction": "toward_camera",
+          "shot_scale": "MLS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 0.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5600,
+          "stage_width_meters": 14.0,
+          "stage_depth_meters": 10.0,
+          "camera": {
+            "camera_id": "CAM_ARCH_S2",
+            "x_meters": -1.85,
+            "y_meters": -3.24,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.5
+          },
+          "entities": [
+            {
+              "entity_id": "architectural_sanctuary_primary_s2",
+              "label": "Sanctuary Architectural Anchor",
+              "role": "hero_product",
+              "x_meters": 0.0,
+              "y_meters": 0.8,
+              "facing_deg": 270.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "toward_camera",
+              "color_hex": "#F59E0B"
+            },
+            {
+              "entity_id": "architectural_sanctuary_anchor_s2",
+              "label": "Bespoke Interior Element",
+              "role": "prop",
+              "x_meters": -1.0,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 0.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.6,
+              "screen_direction": "toward_camera",
+              "color_hex": "#38BDF8"
+            }
+          ],
+          "blocking_notes": "Architectural wide-to-medium axial reveal (architectural_sanctuary): A_SIDE at 56deg, MLS (50mm), dir=toward_camera.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=MLS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "hard_cut",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MLS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    "master_client_review": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.44,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (architectural_sanctuary); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "client_review": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.44,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (architectural_sanctuary); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "review_manifest": {
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:02:00",
+              "timecode_sec": 2.0,
+              "frame_number": 48,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-ARCH-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:07:00",
+              "timecode_sec": 7.0,
+              "frame_number": 168,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+              "target_parameter": "lighting",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.44,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Architectural Director & Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 2,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 2 scene(s) (architectural_sanctuary); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
     }
   },
   "storyboard_html_path": "examples/solarpunk_utopia_2_0/storyboard_preview.html",
@@ -6918,18 +7767,26 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=toward_camera scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
         "craft_camera_configured": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 2,
@@ -6978,6 +7835,12 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=toward_camera scale=MLS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -6988,14 +7851,16 @@
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "0c0aee9b-9c42-4882-bcab-62ec043dcc3a",
+    "session_id": "8372aa0f-7da9-4aca-9f35-9f1e51b6d62a",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-19T10:09:54.806626+00:00",
+    "timestamp": "2026-11-20T09:53:28.898472+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -7005,67 +7870,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-19T10:09:54.806645+00:00",
-        "end_time": "2026-11-19T10:09:54.807141+00:00",
-        "duration_ms": 0.5,
+        "start_time": "2026-11-20T09:53:28.898492+00:00",
+        "end_time": "2026-11-20T09:53:28.898973+00:00",
+        "duration_ms": 0.48,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-19T10:09:54.807155+00:00",
-        "end_time": "2026-11-19T10:09:54.809938+00:00",
-        "duration_ms": 2.78,
+        "start_time": "2026-11-20T09:53:28.898988+00:00",
+        "end_time": "2026-11-20T09:53:28.901872+00:00",
+        "duration_ms": 2.88,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-19T10:09:54.809948+00:00",
-        "end_time": "2026-11-19T10:09:54.811116+00:00",
-        "duration_ms": 1.17,
+        "start_time": "2026-11-20T09:53:28.901883+00:00",
+        "end_time": "2026-11-20T09:53:28.903632+00:00",
+        "duration_ms": 1.75,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-19T10:09:54.811128+00:00",
-        "end_time": "2026-11-19T10:09:54.811238+00:00",
-        "duration_ms": 0.11,
+        "start_time": "2026-11-20T09:53:28.903665+00:00",
+        "end_time": "2026-11-20T09:53:28.903809+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-19T10:09:54.811246+00:00",
-        "end_time": "2026-11-19T10:09:54.812847+00:00",
-        "duration_ms": 1.6,
+        "start_time": "2026-11-20T09:53:28.903818+00:00",
+        "end_time": "2026-11-20T09:53:28.905633+00:00",
+        "duration_ms": 1.81,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-19T10:09:54.812854+00:00",
-        "end_time": "2026-11-19T10:09:54.812857+00:00",
+        "start_time": "2026-11-20T09:53:28.905649+00:00",
+        "end_time": "2026-11-20T09:53:28.905653+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-19T10:09:54.812863+00:00",
-        "end_time": "2026-11-19T10:09:54.822627+00:00",
-        "duration_ms": 9.76,
+        "start_time": "2026-11-20T09:53:28.905660+00:00",
+        "end_time": "2026-11-20T09:53:28.919785+00:00",
+        "duration_ms": 14.12,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-19T10:09:54.838356+00:00",
-        "end_time": "2026-11-19T10:09:54.864336+00:00",
-        "duration_ms": 25.98,
+        "start_time": "2026-11-20T09:53:28.947175+00:00",
+        "end_time": "2026-11-20T09:53:29.001179+00:00",
+        "duration_ms": 54.0,
         "details": {}
       }
     ],
-    "total_duration_ms": 41.9,
+    "total_duration_ms": 75.18,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "5300de1938e8dd336f5a956d5a29d4c197483dff401d1be8ae5029228c888b5f",
-      "storyboard_preview.html": "382c81f88c76c3f5c66133b28a07a7bd83a136d397af0285fd84a7796b417429",
+      "production_bundle.json": "ad08545ee1ac5ad09228acc04da5c9b49264655fe76cdb16c8a49f5d3380f605",
+      "storyboard_preview.html": "584f39f153934c501cf32691d61a6ab8e876be738a558fbe46a8e35dc1f9e1c2",
       "timeline.edl": "2474883a4f7e6285c07876ae9865d4710db27d7b1d52ff0f761025969c771171",
       "sequence.fcpxml": "cc781d5a12479816ee287accf581d3f2a23ae6e7a62d86176e9e1ea801d94c86",
       "shot_list.csv": "9f952d7eebeece6c9defba91fda2c08472817a40655e695c179c92680da9dd21",
@@ -7075,6 +7940,10 @@
       "production_grade.cdl": "41dca2c923ebc74b74cd5b8c3ff033af781e56bd069779a5792451ea173b7591",
       "audio_stems_manifest.json": "625d574bbd13b46279833a6026a985f5f9f1e23ec8e841501e593d1cb026ff52",
       "lens_package.csv": "da4ac27be2fdee62bb0c8bdea2f772a96d2bf3426a0fbb1a2bb17e14141a3640",
+      "optical_lens_framing.csv": "da4ac27be2fdee62bb0c8bdea2f772a96d2bf3426a0fbb1a2bb17e14141a3640",
+      "vp_stage_spec.json": "eafd82a5f4a45612b78596d7ac3d71c09ac367ac2b85653a2f3350914a85fdd6",
+      "ndisplay_stage_manifest.json": "a8b632688e9fab93557ee6f825cd70915c90710d3a616a6ecfdfbd461b589d15",
+      "dmx_patch.csv": "0a344367ccfdae736e34c56b9439ff3e1b35f834ac18d7a1a60108ce52c2180d",
       "moco_track.json": "283b2bf1bf7bf83307682bccbe0a284bb0093349c8d5190ecad9ab562de69380",
       "moco_track.csv": "c63bab2fc70950cce042dec026146317f8d28b115e4e2f12bd3a6e2bbae2dfe3",
       "moco_camera.fbx": "59e0e6cdaf6101815ea8d6c55ad6fd1aa9e68a12cd81a11ef44bca843c5d218e",
@@ -7096,10 +7965,12 @@
       "spatial_webaudio_nodes.json": "49a00dab2f0b1ab34a4a74fba7b877951ba991129b0ac3b7b907d03f7738686a",
       "webaudio_spatial_panner.json": "49a00dab2f0b1ab34a4a74fba7b877951ba991129b0ac3b7b907d03f7738686a",
       "openexr_channels.json": "478e92325d8e42eb5102d77a432a2f7983543d949d30b6b279bd8fc862b06024",
+      "openexr_channel_manifest.json": "478e92325d8e42eb5102d77a432a2f7983543d949d30b6b279bd8fc862b06024",
       "vfx_compositing_manifest.json": "478e92325d8e42eb5102d77a432a2f7983543d949d30b6b279bd8fc862b06024",
       "cryptomatte_manifest.json": "102cdca9b0543a4043c7b63ae324cbf0d2d1b39ba113542d027c6668ab62960a",
       "nuke_composite.nk": "0431380b4ba6dd2a21faf2f368e5ae36d9cfcb0663352390f13ad39faf25dd78",
       "nuke_composite_template.nk": "0431380b4ba6dd2a21faf2f368e5ae36d9cfcb0663352390f13ad39faf25dd78",
+      "nuke_comp_script.nk": "0431380b4ba6dd2a21faf2f368e5ae36d9cfcb0663352390f13ad39faf25dd78",
       "hdr10_metadata.json": "642c64a5c3279b6d18bb531decdbddaea8b5364254ec45b27f15599180d029ee",
       "hlg_broadcast.xml": "a52ba4e8b47bcd4db6663d2c3e0e7a87dde1bc980b8f0606893ddb7555f4c11f",
       "resolve_hdr_rcm.xml": "c2d38f1a85baf6430d75ce072113f3c0b183f6f9b059633116c46258c6c026b7",
@@ -7111,12 +7982,12 @@
       "film_emulation_spec.json": "efa4d4949ea3a61ac7fe6afbed25da2c1e4a074573284b607c79d6731b2c8467",
       "film_stock_shader.dctl": "255ff7cb535010d280ebb1368d92450844b9f34a28bcdbbdf9848a2dbdb93ee2",
       "film_stock.ale": "9e8d53c9eb129c3f2b533f94d1b89f6870397b45fca0189c697babea1e936bfe",
-      "slate_manifest.json": "82a3bd3bfe326242a36147ec43c3c1c5ec5eee4af45f540b18553fccd99aca11",
-      "asc_mhl_manifest.xml": "f1b969fae6af41918c9a7b000603a8947c7c25fd57dab78b5359ea3d8aeb3c43",
+      "slate_manifest.json": "84376a72b0c3251c6f31004eb6d998417708115798fbf76cc46e34b1f3a341c9",
+      "asc_mhl_manifest.xml": "f9ed6fe526be1de0eb816bad1b5526970d1ddac3cb0132dc6d133c009c266753",
       "clapper_slate_log.csv": "d93f399d115ca9452a9d32c3271e8c5329faeb6e5043fb1050d2fdb6973bfef6",
       "sound_sync.ale": "159bfded9e1cefa099793218ea2e23b8b1362c99c131d24b6ec54da650d55781",
       "flight_path.kml": "a2f8ac7f2eac7b5f42d4285a7d80dbd1ea92b62bdc8d20417e2f3c2795eb69f3",
-      "flight_waypoints.gpx": "7ba5b2b493ca15015abee0f94bbca9907e669c3d9a126652116b6da091c08468",
+      "flight_waypoints.gpx": "e6497a68de73e54fb0036290d1f2703dd8088c64b66bec2089d73dd1b036d544",
       "drone_flight_sheet.csv": "80e1aa963046da59227bd76bcd19e27257c94c9d92c3ce4f74b686fc10c93882",
       "drone_flight_sheet.md": "087ebfa038de9fa259da81885bd9a31bf57d2619b9f0ce995faf127f7a19adb8",
       "drone_flight_manifest.json": "3ea1839d2a6435c324237d99c291c52adc22d41ce8bd9489a493604156d5229a",
@@ -7126,11 +7997,14 @@
       "reframe_crop_matrix.csv": "73be0fec029fb042f2fd5db59a9c4d8d5f4643bc7754a08d55076191d2b1f04f",
       "cutdown_15s.edl": "b6d43bad49d008218abcc506981230c99243fdb028178c3262c09a70a069d20c",
       "cutdown_06s.edl": "285494d7e1c6f92c62deb25374d5919d2afe703d262b9938d03564138bc5b20b",
-      "reframe_9x16.fcpxml": "1acd2cda4e5128ea25e5bbf73a29bf5751a30548a9d4aeab6d2aaf2dcd677d96",
+      "reframe_9x16.fcpxml": "392e4521e30ac0ab26d8ab0c5e14f110cad2dcdb6e324908c5c9a3732de34fa6",
       "delivery_reframe_manifest.json": "f12fc5dea3d96ea970ba352d15ff71db4daf2bd5786f29495512bc8cd146191c",
       "broadcast_qc_certificate.md": "44c8ab2ded502770fe97dd11a96926889554f0a5330b919eb28f7de7c79a11fa",
       "rights_clearance_matrix.csv": "5e2b6fa016641b1a58c3eecbebe5252f3e0709b8afd3192c53dfca89b22b14a3",
       "broadcast_qc_manifest.json": "a6cff51189106facdb22832f1ce755d52accb6d78cdce11afc5ef52085f4f2c5",
+      "council_audit_report.json": "c16f9792de4c7d6548dd4b0b6c356c293bffe9d62883e42563154cb414db0c27",
+      "council_report.json": "c16f9792de4c7d6548dd4b0b6c356c293bffe9d62883e42563154cb414db0c27",
+      "council_report.md": "89311e5025cea64d8adfad9bea93d1e61684c71bad178ad50ca7b97eac3d687d",
       "storyboards/anchor1_character_turnaround.svg": "9dd047344bc05a328dc994056be2b82e5e8cacf07325a8c6927a5ccab01cadff",
       "storyboards/anchor2_environment_master.svg": "80a0fb2ebe918241aa3e9ae74249335c4d21b7aeed62da444b86b66ead4c2293",
       "storyboards/anchor3_scene_1_keyframe.svg": "947d6d5380ec25dffe62c6f15c49348d747e2e51405cc8b446c8482bfeac20ff",
@@ -7138,9 +8012,9 @@
     }
   },
   "council_report": {
-    "version": "2.11.0",
+    "version": "2.12.0",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-19T10:09:54.861742+00:00",
+    "timestamp": "2026-11-20T09:53:28.998402+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -7323,9 +8197,29 @@
                 "broadcast_qc_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema",
+            "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema",
+            "message": "MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -7422,6 +8316,38 @@
               "loudness_verdict": "PASS",
               "max_flash_hz": 0.8
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema_compliance",
+            "message": "Inter-scene editorial continuity verified across 1 cut(s): continuity_passed=True, axis_violations_count=0.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "cut_checks_count": 1,
+              "continuity_passed": true,
+              "axis_violations_count": 0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema_compliance",
+            "message": "Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "unresolved_blockers": 0,
+              "ready_for_live_render": true,
+              "overall_status": "approved"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_continuity_and_review_compliance",
+            "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
           }
         ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -7680,6 +8606,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_continuity_blocking",
+            "message": "Inter-scene continuity & 180-degree blocking aligned for domain 'architectural_sanctuary' (screen_direction=toward_camera, scenes=2, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "dominant_screen_direction": "toward_camera",
+              "continuity_passed": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_client_review",
+            "message": "Client review & sign-off readiness verified for domain 'architectural_sanctuary' (status=approved, unresolved_blockers=0, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "overall_status": "approved",
+              "ready_for_live_render": true
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.",
             "remediation": null,
@@ -7820,8 +8770,48 @@
           },
           {
             "severity": "info",
+            "category": "animatic_blocking_hud",
+            "message": "180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_review_hud",
+            "message": "Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_departmental_toolbar",
+            "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_blocking_dialogs",
+            "message": "Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_wn",
+            "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8151,6 +9141,40 @@
           "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-023",
+        "title": "Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+        "problem_statement": "Script supervisors, directors of photography, and finishing editors for 'Solarpunk Architectural Sanctuary Featur' need automated 180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate screen-direction reversals and axial jump cuts prior to rendering.",
+        "proposed_solution": "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/continuity_blocking.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-024",
+        "title": "Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+        "problem_statement": "Agency creatives, brand clients, directors, and post producers for 'Solarpunk Architectural Sanctuary Featur' require frame-accurate spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, deterministic edit-delta compilation, and a strict live-render sign-off gate before committing billable Gemini Omni video generation credits.",
+        "proposed_solution": "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/review_notes.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",

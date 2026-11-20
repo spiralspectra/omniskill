@@ -1,0 +1,223 @@
+{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "IKEA: The Living Room Unfolds",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 4,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 4 scene(s) (architectural_sanctuary); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-ARCH-S01-01",
+      "scene_index": 1,
+      "timestamp": 3.2,
+      "timecode_smpte": "00:00:03:05",
+      "frame": 77,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "framing",
+      "text": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+      "annotation_pin": {
+        "x_norm": 0.5,
+        "y_norm": 0.46,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Awakening Box' @ 00:00:03:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-ARCH-S02-01",
+      "scene_index": 2,
+      "timestamp": 11.2,
+      "timecode_smpte": "00:00:11:05",
+      "frame": 269,
+      "author_role": "agency_creative",
+      "author_name": "Agency Creative Lead",
+      "color": "GREEN",
+      "target_parameter": "lighting",
+      "text": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+      "annotation_pin": {
+        "x_norm": 0.44,
+        "y_norm": 0.48,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Hyper-Kinetic Self-Assembly' @ 00:00:11:05]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-ARCH-S03-01",
+      "scene_index": 3,
+      "timestamp": 19.2,
+      "timecode_smpte": "00:00:19:05",
+      "frame": 461,
+      "author_role": "client_brand",
+      "author_name": "Brand Creative Lead",
+      "color": "GREEN",
+      "target_parameter": "wardrobe",
+      "text": "Bespoke furniture geometry, textile drape, and brand color palette fidelity signed off.",
+      "annotation_pin": {
+        "x_norm": 0.54,
+        "y_norm": 0.5,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 3 'Upholstery & Soft Architecture' @ 00:00:19:05]: Apply targeted wardrobe refinement centered at frame coordinates (0.54, 0.50): Bespoke furniture geometry, textile drape, and brand color palette fidelity signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-ARCH-S04-01",
+      "scene_index": 4,
+      "timestamp": 27.2,
+      "timecode_smpte": "00:00:27:05",
+      "frame": 653,
+      "author_role": "post_producer",
+      "author_name": "Finishing Post Producer",
+      "color": "GREEN",
+      "target_parameter": "audio",
+      "text": "Acoustic room-tone transition from resonant space to dampened sanctuary cleared.",
+      "annotation_pin": {
+        "x_norm": 0.5,
+        "y_norm": 0.52,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Final Flourish & The ASMR Stillness' @ 00:00:27:05]: Rebalance synchronized diegetic audio/foley mix: Acoustic room-tone transition from resonant space to dampened sanctuary cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Awakening Box",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:03:05",
+          "timecode_sec": 3.2,
+          "frame_number": 77,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+          "target_parameter": "framing",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.5,
+            "y_norm": 0.46,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Awakening Box' @ 00:00:03:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Hyper-Kinetic Self-Assembly",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:11:05",
+          "timecode_sec": 11.2,
+          "frame_number": 269,
+          "reviewer_role": "agency_creative",
+          "reviewer_name": "Agency Creative Lead",
+          "marker_color": "GREEN",
+          "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+          "target_parameter": "lighting",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.44,
+            "y_norm": 0.48,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Hyper-Kinetic Self-Assembly' @ 00:00:11:05]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "Upholstery & Soft Architecture",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S03-01",
+          "scene_index": 3,
+          "timecode_smpte": "00:00:19:05",
+          "timecode_sec": 19.2,
+          "frame_number": 461,
+          "reviewer_role": "client_brand",
+          "reviewer_name": "Brand Creative Lead",
+          "marker_color": "GREEN",
+          "comment": "Bespoke furniture geometry, textile drape, and brand color palette fidelity signed off.",
+          "target_parameter": "wardrobe",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.54,
+            "y_norm": 0.5,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 3 'Upholstery & Soft Architecture' @ 00:00:19:05]: Apply targeted wardrobe refinement centered at frame coordinates (0.54, 0.50): Bespoke furniture geometry, textile drape, and brand color palette fidelity signed off. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Final Flourish & The ASMR Stillness",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S04-01",
+          "scene_index": 4,
+          "timecode_smpte": "00:00:27:05",
+          "timecode_sec": 27.2,
+          "frame_number": 653,
+          "reviewer_role": "post_producer",
+          "reviewer_name": "Finishing Post Producer",
+          "marker_color": "GREEN",
+          "comment": "Acoustic room-tone transition from resonant space to dampened sanctuary cleared.",
+          "target_parameter": "audio",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.5,
+            "y_norm": 0.52,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Final Flourish & The ASMR Stillness' @ 00:00:27:05]: Rebalance synchronized diegetic audio/foley mix: Acoustic room-tone transition from resonant space to dampened sanctuary cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}

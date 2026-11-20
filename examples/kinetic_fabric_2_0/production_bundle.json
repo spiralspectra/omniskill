@@ -924,6 +924,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "screen_direction": "left_to_right",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S1",
+            "x_meters": -2.24,
+            "y_meters": -3.82,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 65.5,
+            "focal_length_mm": 28,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s1",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s1",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 56deg, WS (28mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        "review_signoff": {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:03:05",
+              "timecode_sec": 3.2,
+              "frame_number": 77,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "1.0x real-time kinetic contact chain and match-on-action axis continuity verified.",
+              "target_parameter": "pacing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Microscopic Weave' @ 00:00:03:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: 1.0x real-time kinetic contact chain and match-on-action axis continuity verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -1756,6 +1843,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MS",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S2",
+            "x_meters": 0.1,
+            "y_meters": -3.5,
+            "aim_azimuth_deg": 92.0,
+            "fov_deg": 54.4,
+            "focal_length_mm": 35,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s2",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s2",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 92deg, MS (35mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        "review_signoff": {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:11:05",
+              "timecode_sec": 11.2,
+              "frame_number": 269,
+              "reviewer_role": "vfx_supervisor",
+              "reviewer_name": "Senior VFX Supervisor",
+              "marker_color": "GREEN",
+              "comment": "90-degree shutter motion clarity and aerodynamic streamline particles cleared.",
+              "target_parameter": "camera",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.46,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Airflow Ignition' @ 00:00:11:05]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.46): 90-degree shutter motion clarity and aerodynamic streamline particles cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -2585,6 +2759,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S3",
+            "x_meters": 1.29,
+            "y_meters": -2.28,
+            "aim_azimuth_deg": 126.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s3",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s3",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 126deg, MCU (50mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        "review_signoff": {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S03-01",
+              "scene_index": 3,
+              "timecode_smpte": "00:00:19:05",
+              "timecode_sec": 19.2,
+              "frame_number": 461,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Transient impact foley punch and percussive score lock verified at -24 LKFS.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.52,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 3 'The Aerodynamic Deflection' @ 00:00:19:05]: Rebalance synchronized diegetic audio/foley mix: Transient impact foley punch and percussive score lock verified at -24 LKFS. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       },
       {
@@ -3417,6 +3678,93 @@
           "chroma_legal_rec709": true,
           "overall_verdict": "PASS",
           "prompt_token": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]"
+        },
+        "blocking_spec": {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "screen_direction": "left_to_right",
+          "shot_scale": "CU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S4",
+            "x_meters": -0.5,
+            "y_meters": -2.23,
+            "aim_azimuth_deg": 74.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s4",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s4",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 74deg, CU (85mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        "review_signoff": {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S04-01",
+              "scene_index": 4,
+              "timecode_smpte": "00:00:27:05",
+              "timecode_sec": 27.2,
+              "frame_number": 653,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Brand Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Performance textile tension and hero brand mark legible across all social crops.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Deceleration & The Form Lock' @ 00:00:27:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.44): Performance textile tension and hero brand mark legible across all social crops. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
         }
       }
     ],
@@ -4337,7 +4685,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "The Kinetic Fabric: Grounded Innovation",
-        "creation_date": "2026-11-19T10:09:52.608918+00:00",
+        "creation_date": "2026-11-20T09:53:26.565521+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -4345,7 +4693,7 @@
             "xxhash64": "6d6982250c77c4d4",
             "sha1": "f765223c7504d6251ac0d444bc866d933ed76cd2",
             "md5": "435dfd2c731b5e8985bd975f1c3988e0",
-            "hash_timestamp": "2026-11-19T10:09:52.608894+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565490+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -4353,7 +4701,7 @@
             "xxhash64": "ca317695850ce119",
             "sha1": "d3d54facd5f6501afb33efcf6035066c688a103c",
             "md5": "d5fbd6c0cb65a0a7d2e7a8871347263c",
-            "hash_timestamp": "2026-11-19T10:09:52.608906+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565504+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -4361,7 +4709,7 @@
             "xxhash64": "72c3cb9fd5e2d8c5",
             "sha1": "6075e65b2dc06da5e5552b34dd1f27b89f77beb1",
             "md5": "03c3154c9a3cd705b90998d894a25ec7",
-            "hash_timestamp": "2026-11-19T10:09:52.608911+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565512+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -4369,7 +4717,7 @@
             "xxhash64": "26ac7c2498e48cc3",
             "sha1": "85be479e72c6d0d6ff3624d4bba038e6337abcd1",
             "md5": "95b000b18f0ff77d3739730fe789d512",
-            "hash_timestamp": "2026-11-19T10:09:52.608915+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565518+00:00"
           }
         ]
       }
@@ -4467,7 +4815,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "The Kinetic Fabric: Grounded Innovation",
-        "creation_date": "2026-11-19T10:09:52.608918+00:00",
+        "creation_date": "2026-11-20T09:53:26.565521+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -4475,7 +4823,7 @@
             "xxhash64": "6d6982250c77c4d4",
             "sha1": "f765223c7504d6251ac0d444bc866d933ed76cd2",
             "md5": "435dfd2c731b5e8985bd975f1c3988e0",
-            "hash_timestamp": "2026-11-19T10:09:52.608894+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565490+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -4483,7 +4831,7 @@
             "xxhash64": "ca317695850ce119",
             "sha1": "d3d54facd5f6501afb33efcf6035066c688a103c",
             "md5": "d5fbd6c0cb65a0a7d2e7a8871347263c",
-            "hash_timestamp": "2026-11-19T10:09:52.608906+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565504+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -4491,7 +4839,7 @@
             "xxhash64": "72c3cb9fd5e2d8c5",
             "sha1": "6075e65b2dc06da5e5552b34dd1f27b89f77beb1",
             "md5": "03c3154c9a3cd705b90998d894a25ec7",
-            "hash_timestamp": "2026-11-19T10:09:52.608911+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565512+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -4499,7 +4847,7 @@
             "xxhash64": "26ac7c2498e48cc3",
             "sha1": "85be479e72c6d0d6ff3624d4bba038e6337abcd1",
             "md5": "95b000b18f0ff77d3739730fe789d512",
-            "hash_timestamp": "2026-11-19T10:09:52.608915+00:00"
+            "hash_timestamp": "2026-11-20T09:53:26.565518+00:00"
           }
         ]
       }
@@ -9847,6 +10195,1317 @@
       "overall_verdict": "PASS",
       "qc_certificate_id": "QC-THEK-2026-001",
       "prompt_token": "[BROADCAST_QC: ATSC_A85 -24.0LUFS/-2.0dBTP | PSE_BT1702 PASS | PASS]"
+    },
+    "master_continuity_blocking": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "dominant_screen_direction": "left_to_right",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "screen_direction": "left_to_right",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S1",
+            "x_meters": -2.24,
+            "y_meters": -3.82,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 65.5,
+            "focal_length_mm": 28,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s1",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s1",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 56deg, WS (28mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MS",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S2",
+            "x_meters": 0.1,
+            "y_meters": -3.5,
+            "aim_azimuth_deg": 92.0,
+            "fov_deg": 54.4,
+            "focal_length_mm": 35,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s2",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s2",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 92deg, MS (35mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S3",
+            "x_meters": 1.29,
+            "y_meters": -2.28,
+            "aim_azimuth_deg": 126.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s3",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s3",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 126deg, MCU (50mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "screen_direction": "left_to_right",
+          "shot_scale": "CU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S4",
+            "x_meters": -0.5,
+            "y_meters": -2.23,
+            "aim_azimuth_deg": 74.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s4",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s4",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 74deg, CU (85mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 36.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 2,
+          "to_scene_index": 3,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 3,
+          "to_scene_index": 4,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 52.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MCU",
+          "shot_scale_to": "CU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+    },
+    "continuity_blocking": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "dominant_screen_direction": "left_to_right",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "screen_direction": "left_to_right",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S1",
+            "x_meters": -2.24,
+            "y_meters": -3.82,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 65.5,
+            "focal_length_mm": 28,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s1",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s1",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 56deg, WS (28mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MS",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S2",
+            "x_meters": 0.1,
+            "y_meters": -3.5,
+            "aim_azimuth_deg": 92.0,
+            "fov_deg": 54.4,
+            "focal_length_mm": 35,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s2",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s2",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 92deg, MS (35mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S3",
+            "x_meters": 1.29,
+            "y_meters": -2.28,
+            "aim_azimuth_deg": 126.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s3",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s3",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 126deg, MCU (50mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "screen_direction": "left_to_right",
+          "shot_scale": "CU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S4",
+            "x_meters": -0.5,
+            "y_meters": -2.23,
+            "aim_azimuth_deg": 74.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s4",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s4",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 74deg, CU (85mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 36.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 2,
+          "to_scene_index": 3,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 3,
+          "to_scene_index": 4,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 52.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MCU",
+          "shot_scale_to": "CU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+    },
+    "blocking_floorplan": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "dominant_screen_direction": "left_to_right",
+      "master_axis_deg": 0.0,
+      "master_axis_side": "A_SIDE",
+      "scene_blockings": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "screen_direction": "left_to_right",
+          "shot_scale": "WS",
+          "cut_type_in": "hard_cut",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S1",
+            "x_meters": -2.24,
+            "y_meters": -3.82,
+            "aim_azimuth_deg": 56.0,
+            "fov_deg": 65.5,
+            "focal_length_mm": 28,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s1",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s1",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 56deg, WS (28mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MS",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S2",
+            "x_meters": 0.1,
+            "y_meters": -3.5,
+            "aim_azimuth_deg": 92.0,
+            "fov_deg": 54.4,
+            "focal_length_mm": 35,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s2",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s2",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 92deg, MS (35mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "screen_direction": "left_to_right",
+          "shot_scale": "MCU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S3",
+            "x_meters": 1.29,
+            "y_meters": -2.28,
+            "aim_azimuth_deg": 126.0,
+            "fov_deg": 39.6,
+            "focal_length_mm": 50,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s3",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s3",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 126deg, MCU (50mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "screen_direction": "left_to_right",
+          "shot_scale": "CU",
+          "cut_type_in": "match_on_action",
+          "line_of_action_deg": 0.0,
+          "axis_side": "A_SIDE",
+          "eyeline_angle_deg": 15.0,
+          "one_eighty_lock_ok": true,
+          "color_temp_kelvin": 5200,
+          "stage_width_meters": 16.0,
+          "stage_depth_meters": 12.0,
+          "camera": {
+            "camera_id": "CAM_KINE_S4",
+            "x_meters": -0.5,
+            "y_meters": -2.23,
+            "aim_azimuth_deg": 74.0,
+            "fov_deg": 23.9,
+            "focal_length_mm": 85,
+            "axis_side": "A_SIDE",
+            "axis_angle_deg": 0.0,
+            "height_meters": 1.4
+          },
+          "entities": [
+            {
+              "entity_id": "kinetic_action_primary_s4",
+              "label": "Kinetic Athlete / Performer",
+              "role": "talent",
+              "x_meters": -1.4,
+              "y_meters": 0.2,
+              "facing_deg": 0.0,
+              "eyeline_deg": 15.0,
+              "motion_dx_meters": 2.6,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "left_to_right",
+              "color_hex": "#38BDF8"
+            },
+            {
+              "entity_id": "kinetic_action_anchor_s4",
+              "label": "Technical Impact Anchor",
+              "role": "hero_product",
+              "x_meters": 1.6,
+              "y_meters": 0.5,
+              "facing_deg": 180.0,
+              "eyeline_deg": -15.0,
+              "motion_dx_meters": 0.0,
+              "motion_dy_meters": 0.0,
+              "screen_direction": "static_centered",
+              "color_hex": "#F59E0B"
+            }
+          ],
+          "blocking_notes": "Dynamic match-on-action axis (kinetic_action): A_SIDE at 74deg, CU (85mm), dir=left_to_right.",
+          "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+        }
+      ],
+      "cut_checks": [
+        {
+          "from_scene_index": 1,
+          "to_scene_index": 2,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 36.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "WS",
+          "shot_scale_to": "MS",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 2,
+          "to_scene_index": 3,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 34.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MS",
+          "shot_scale_to": "MCU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        },
+        {
+          "from_scene_index": 3,
+          "to_scene_index": 4,
+          "cut_type": "match_on_action",
+          "axis_preserved": true,
+          "axis_side_from": "A_SIDE",
+          "axis_side_to": "A_SIDE",
+          "camera_angle_delta_deg": 52.0,
+          "thirty_degree_rule_ok": true,
+          "shot_scale_from": "MCU",
+          "shot_scale_to": "CU",
+          "screen_direction_consistent": true,
+          "eyeline_match_ok": true,
+          "kelvin_delta_k": 0.0,
+          "kelvin_continuity_ok": true,
+          "warnings": [],
+          "violations": [],
+          "passed": true
+        }
+      ],
+      "all_180_axis_locked": true,
+      "all_30_rule_passed": true,
+      "all_kelvin_continuous": true,
+      "continuity_passed": true,
+      "overall_continuity_score": 100.0,
+      "axis_violations_count": 0,
+      "prompt_token": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]"
+    },
+    "master_client_review": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:03:05",
+              "timecode_sec": 3.2,
+              "frame_number": 77,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "1.0x real-time kinetic contact chain and match-on-action axis continuity verified.",
+              "target_parameter": "pacing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Microscopic Weave' @ 00:00:03:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: 1.0x real-time kinetic contact chain and match-on-action axis continuity verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:11:05",
+              "timecode_sec": 11.2,
+              "frame_number": 269,
+              "reviewer_role": "vfx_supervisor",
+              "reviewer_name": "Senior VFX Supervisor",
+              "marker_color": "GREEN",
+              "comment": "90-degree shutter motion clarity and aerodynamic streamline particles cleared.",
+              "target_parameter": "camera",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.46,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Airflow Ignition' @ 00:00:11:05]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.46): 90-degree shutter motion clarity and aerodynamic streamline particles cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S03-01",
+              "scene_index": 3,
+              "timecode_smpte": "00:00:19:05",
+              "timecode_sec": 19.2,
+              "frame_number": 461,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Transient impact foley punch and percussive score lock verified at -24 LKFS.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.52,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 3 'The Aerodynamic Deflection' @ 00:00:19:05]: Rebalance synchronized diegetic audio/foley mix: Transient impact foley punch and percussive score lock verified at -24 LKFS. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S04-01",
+              "scene_index": 4,
+              "timecode_smpte": "00:00:27:05",
+              "timecode_sec": 27.2,
+              "frame_number": 653,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Brand Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Performance textile tension and hero brand mark legible across all social crops.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Deceleration & The Form Lock' @ 00:00:27:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.44): Performance textile tension and hero brand mark legible across all social crops. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 4,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 4 scene(s) (kinetic_action); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "client_review": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:03:05",
+              "timecode_sec": 3.2,
+              "frame_number": 77,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "1.0x real-time kinetic contact chain and match-on-action axis continuity verified.",
+              "target_parameter": "pacing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Microscopic Weave' @ 00:00:03:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: 1.0x real-time kinetic contact chain and match-on-action axis continuity verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:11:05",
+              "timecode_sec": 11.2,
+              "frame_number": 269,
+              "reviewer_role": "vfx_supervisor",
+              "reviewer_name": "Senior VFX Supervisor",
+              "marker_color": "GREEN",
+              "comment": "90-degree shutter motion clarity and aerodynamic streamline particles cleared.",
+              "target_parameter": "camera",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.46,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Airflow Ignition' @ 00:00:11:05]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.46): 90-degree shutter motion clarity and aerodynamic streamline particles cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S03-01",
+              "scene_index": 3,
+              "timecode_smpte": "00:00:19:05",
+              "timecode_sec": 19.2,
+              "frame_number": 461,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Transient impact foley punch and percussive score lock verified at -24 LKFS.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.52,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 3 'The Aerodynamic Deflection' @ 00:00:19:05]: Rebalance synchronized diegetic audio/foley mix: Transient impact foley punch and percussive score lock verified at -24 LKFS. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S04-01",
+              "scene_index": 4,
+              "timecode_smpte": "00:00:27:05",
+              "timecode_sec": 27.2,
+              "frame_number": 653,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Brand Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Performance textile tension and hero brand mark legible across all social crops.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Deceleration & The Form Lock' @ 00:00:27:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.44): Performance textile tension and hero brand mark legible across all social crops. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 4,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 4 scene(s) (kinetic_action); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "review_manifest": {
+      "project_title": "The Kinetic Fabric: Grounded Innovation",
+      "revision": 1,
+      "overall_status": "approved",
+      "overall_approval_status": "approved",
+      "scene_reviews": [
+        {
+          "scene_index": 1,
+          "scene_title": "The Microscopic Weave",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S01-01",
+              "scene_index": 1,
+              "timecode_smpte": "00:00:03:05",
+              "timecode_sec": 3.2,
+              "frame_number": 77,
+              "reviewer_role": "director",
+              "reviewer_name": "Lead Creative Director",
+              "marker_color": "GREEN",
+              "comment": "1.0x real-time kinetic contact chain and match-on-action axis continuity verified.",
+              "target_parameter": "pacing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.48,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 1 'The Microscopic Weave' @ 00:00:03:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: 1.0x real-time kinetic contact chain and match-on-action axis continuity verified. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "The Airflow Ignition",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S02-01",
+              "scene_index": 2,
+              "timecode_smpte": "00:00:11:05",
+              "timecode_sec": 11.2,
+              "frame_number": 269,
+              "reviewer_role": "vfx_supervisor",
+              "reviewer_name": "Senior VFX Supervisor",
+              "marker_color": "GREEN",
+              "comment": "90-degree shutter motion clarity and aerodynamic streamline particles cleared.",
+              "target_parameter": "camera",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.46,
+                "y_norm": 0.46,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 2 'The Airflow Ignition' @ 00:00:11:05]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.46): 90-degree shutter motion clarity and aerodynamic streamline particles cleared. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 3,
+          "scene_title": "The Aerodynamic Deflection",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S03-01",
+              "scene_index": 3,
+              "timecode_smpte": "00:00:19:05",
+              "timecode_sec": 19.2,
+              "frame_number": 461,
+              "reviewer_role": "agency_creative",
+              "reviewer_name": "Agency Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Transient impact foley punch and percussive score lock verified at -24 LKFS.",
+              "target_parameter": "audio",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.52,
+                "y_norm": 0.52,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 3 'The Aerodynamic Deflection' @ 00:00:19:05]: Rebalance synchronized diegetic audio/foley mix: Transient impact foley punch and percussive score lock verified at -24 LKFS. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        {
+          "scene_index": 4,
+          "scene_title": "The Deceleration & The Form Lock",
+          "revision": 1,
+          "approval_status": "approved",
+          "annotations": [
+            {
+              "note_id": "REV-KINE-S04-01",
+              "scene_index": 4,
+              "timecode_smpte": "00:00:27:05",
+              "timecode_sec": 27.2,
+              "frame_number": 653,
+              "reviewer_role": "client_brand",
+              "reviewer_name": "Brand Creative Lead",
+              "marker_color": "GREEN",
+              "comment": "Performance textile tension and hero brand mark legible across all social crops.",
+              "target_parameter": "framing",
+              "resolved": true,
+              "blocking_gate": false,
+              "pin": {
+                "x_norm": 0.5,
+                "y_norm": 0.44,
+                "radius_norm": 0.06
+              },
+              "compiled_edit_delta": "Review Edit Delta [Scene 4 'The Deceleration & The Form Lock' @ 00:00:27:05]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.44): Performance textile tension and hero brand mark legible across all social crops. Preserve <image_1> character identity and <image_2> environment invariants."
+            }
+          ],
+          "open_notes_count": 0,
+          "resolved_notes_count": 1,
+          "signoff_by": "Action Director & Global Brand Producer",
+          "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        }
+      ],
+      "total_notes_count": 4,
+      "open_notes_count": 0,
+      "blocking_notes_count": 0,
+      "unresolved_blockers": 0,
+      "ready_for_live_render": true,
+      "signoff_summary": "Revision 1 approved across 4 scene(s) (kinetic_action); all stakeholder pin annotations resolved and live render gate cleared.",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
     }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
@@ -9934,15 +11593,23 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=left_to_right scale=WS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 2,
@@ -9991,15 +11658,23 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=left_to_right scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
-          "<image_2>",
-          "<image_1>"
+          "<image_1>",
+          "<image_2>"
         ]
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 3,
@@ -10048,6 +11723,12 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=left_to_right scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -10055,7 +11736,9 @@
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     },
     {
       "scene_index": 4,
@@ -10104,18 +11787,26 @@
         "broadcast_qc_compliant": true,
         "broadcast_qc_reward": 1.0,
         "broadcast_qc_descriptor": "[BROADCAST_QC: -24.0LUFS/-2.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]",
+        "continuity_blocking_compliant": true,
+        "continuity_blocking_reward": 1.0,
+        "continuity_blocking_descriptor": "[CONTINUITY_AXIS: dir=left_to_right scale=CU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+15deg]",
+        "review_gate_compliant": true,
+        "review_gate_reward": 1.0,
+        "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
         "craft_camera_inferred": true
       },
       "drone_flight_compliant": false,
       "reframe_compliant": true,
-      "broadcast_qc_compliant": true
+      "broadcast_qc_compliant": true,
+      "continuity_blocking_compliant": true,
+      "review_gate_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "05cb5fa2-99e0-494d-bcf5-e0b6b778ab3d",
+    "session_id": "c2490fba-8625-41d1-91b5-4f48428932db",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-19T10:09:54.009792+00:00",
+    "timestamp": "2026-11-20T09:53:28.089691+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -10125,67 +11816,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-19T10:09:54.009812+00:00",
-        "end_time": "2026-11-19T10:09:54.009818+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-20T09:53:28.089757+00:00",
+        "end_time": "2026-11-20T09:53:28.089776+00:00",
+        "duration_ms": 0.02,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-19T10:09:54.009833+00:00",
-        "end_time": "2026-11-19T10:09:54.010983+00:00",
-        "duration_ms": 1.15,
+        "start_time": "2026-11-20T09:53:28.089800+00:00",
+        "end_time": "2026-11-20T09:53:28.091284+00:00",
+        "duration_ms": 1.48,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-19T10:09:54.010993+00:00",
-        "end_time": "2026-11-19T10:09:54.012934+00:00",
-        "duration_ms": 1.94,
+        "start_time": "2026-11-20T09:53:28.091313+00:00",
+        "end_time": "2026-11-20T09:53:28.095602+00:00",
+        "duration_ms": 4.29,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-19T10:09:54.012959+00:00",
-        "end_time": "2026-11-19T10:09:54.013127+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-20T09:53:28.095628+00:00",
+        "end_time": "2026-11-20T09:53:28.095812+00:00",
+        "duration_ms": 0.18,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-19T10:09:54.013136+00:00",
-        "end_time": "2026-11-19T10:09:54.017600+00:00",
-        "duration_ms": 4.46,
+        "start_time": "2026-11-20T09:53:28.095822+00:00",
+        "end_time": "2026-11-20T09:53:28.101472+00:00",
+        "duration_ms": 5.64,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-19T10:09:54.017609+00:00",
-        "end_time": "2026-11-19T10:09:54.017613+00:00",
-        "duration_ms": 0.0,
+        "start_time": "2026-11-20T09:53:28.101533+00:00",
+        "end_time": "2026-11-20T09:53:28.101544+00:00",
+        "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-19T10:09:54.017619+00:00",
-        "end_time": "2026-11-19T10:09:54.031143+00:00",
-        "duration_ms": 13.52,
+        "start_time": "2026-11-20T09:53:28.101552+00:00",
+        "end_time": "2026-11-20T09:53:28.121471+00:00",
+        "duration_ms": 19.92,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-19T10:09:54.054773+00:00",
-        "end_time": "2026-11-19T10:09:54.092259+00:00",
-        "duration_ms": 37.49,
+        "start_time": "2026-11-20T09:53:28.158908+00:00",
+        "end_time": "2026-11-20T09:53:28.231797+00:00",
+        "duration_ms": 72.89,
         "details": {}
       }
     ],
-    "total_duration_ms": 58.74,
+    "total_duration_ms": 104.43,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "326f10030b0dd26f6f2d790e800d03fb9c78b239c36eff53d915ad678cb17f6f",
-      "storyboard_preview.html": "25a2791024f2e4a251e5882cb2b2460d2f880d2d52285f96ba8547cbea5ee681",
+      "production_bundle.json": "441d91fe7c7322caa86bbcfa157ae23b1f329b3b8dd0fdea97bba91f8bea7b37",
+      "storyboard_preview.html": "b7ea1b3bf3f12754f4a769ccc0513da18da680412d8f8b27bebfedbc52152600",
       "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
       "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
       "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
@@ -10195,6 +11886,10 @@
       "production_grade.cdl": "d3152921967e873745bf85417a4220c5a2f640b589fddba52c92f3d6bee3caa1",
       "audio_stems_manifest.json": "5375fe9253bd7a1546645fba5259df8b08085be6b6aa7eb5302c59aaafa26f49",
       "lens_package.csv": "baae661a7573c22756260b0388916d74b0ea4146a7a2204d71c174f6919087e5",
+      "optical_lens_framing.csv": "baae661a7573c22756260b0388916d74b0ea4146a7a2204d71c174f6919087e5",
+      "vp_stage_spec.json": "d2b435df0b62e6ecc4b0bcd4fd40551d26ae2e9c0e78717ebe9283d5b8dd57c2",
+      "ndisplay_stage_manifest.json": "e9e86419dc4ad136ae9bfa778c6d2ced671bb7f7d64343126dc1a215ec157360",
+      "dmx_patch.csv": "0a344367ccfdae736e34c56b9439ff3e1b35f834ac18d7a1a60108ce52c2180d",
       "moco_track.json": "1c4701b5909c8f478abfad8936051545df4e16d10240053b95f7930907359cb5",
       "moco_track.csv": "681eeadc9a6688d25b8d34303096ec4729da4d64e7f03e9368382f89893f9e42",
       "moco_camera.fbx": "e9f91ccc343be71fb8560b70d3392c9d1feb5e00120146746525b130fd804d78",
@@ -10216,10 +11911,12 @@
       "spatial_webaudio_nodes.json": "eb6d81f2b8bd72ee909b6308cbff4bda7250ec70d66a76c0c5f750154c623550",
       "webaudio_spatial_panner.json": "eb6d81f2b8bd72ee909b6308cbff4bda7250ec70d66a76c0c5f750154c623550",
       "openexr_channels.json": "94b08bda9cc3ef717d8163b368825e4091c6b8d822a11c7a0676013e93db720a",
+      "openexr_channel_manifest.json": "94b08bda9cc3ef717d8163b368825e4091c6b8d822a11c7a0676013e93db720a",
       "vfx_compositing_manifest.json": "94b08bda9cc3ef717d8163b368825e4091c6b8d822a11c7a0676013e93db720a",
       "cryptomatte_manifest.json": "faf73a92b5980da2563a93ae34838892f5c78e17dac2fd4d7fdf02a4c0134122",
       "nuke_composite.nk": "d5b687f5c8f484420ce956db2a5583c4f399dbfa0e904b09739ba4312667be74",
       "nuke_composite_template.nk": "d5b687f5c8f484420ce956db2a5583c4f399dbfa0e904b09739ba4312667be74",
+      "nuke_comp_script.nk": "d5b687f5c8f484420ce956db2a5583c4f399dbfa0e904b09739ba4312667be74",
       "hdr10_metadata.json": "281a1fdfcc28417ab42f12cc9a005784c6be61657be3b92402e4e6c72eebca8f",
       "hlg_broadcast.xml": "f0550e19d152df86fabe4968a85fb9fa404635e735937e6bf9bd546b0eaf2466",
       "resolve_hdr_rcm.xml": "b8431a33c098fee8a73762baacf14dd806473e5b1347cd992df6180904c6668e",
@@ -10231,12 +11928,12 @@
       "film_emulation_spec.json": "b476e0ca806fde9fa859fa104d721214c5155441365d7159a7233b9843a1fc30",
       "film_stock_shader.dctl": "957bea397af35374b9fb142a82853591791519fce9898d7957e803b1115a28ec",
       "film_stock.ale": "e44e53c3492050c48047933b518b5d828934c5200345f381939818611bf1ecd5",
-      "slate_manifest.json": "3643a64497ca3a5a25771de16fe1e34f693dc8e6e9eedeba2d86afd6bf804b2a",
-      "asc_mhl_manifest.xml": "605f51d6c62e2f28b9e5caf65488e1bd7ebdac018a7b9697f14b5d2c56f641a7",
+      "slate_manifest.json": "0fc443b79b65dfb0be6df67a0d0567a0f93a1383b363549accae6b5cde8f0360",
+      "asc_mhl_manifest.xml": "a372cc974d43e419c27d14b9bba6842a57ac87bc55562c972ff95ae75fab48ce",
       "clapper_slate_log.csv": "3141900b29c5160c09d5abf577c8be9a35eff8bfc0206644867a24894bf35bb9",
       "sound_sync.ale": "66250e4c087aead4b318667a519d0a9ec4e60f1782c988259756401d2935f3e6",
       "flight_path.kml": "4549b83dbc809d3a3a19ca748a461153a6cbb4d920348f884f18606857f75c56",
-      "flight_waypoints.gpx": "994809aeaca5c3909d19578c3fd823596cd70df01a46f1efc7f1fbb6e50c7a01",
+      "flight_waypoints.gpx": "b7a3cc55392afef81faa97166a954ec8051e281e96bf8d05d005ef8055955b08",
       "drone_flight_sheet.csv": "856d75077523efd3004e713fed64775cbb2a287336bd92dc134b2bc0dc894c55",
       "drone_flight_sheet.md": "a5beeb31053cf8896a5e4c9d76741c08d76d478870c89cff8de72075a9355709",
       "drone_flight_manifest.json": "6cd61ed5ce7cb15d860bdd1d53bed9917adbea5b36513009891a2faa87aee732",
@@ -10247,11 +11944,14 @@
       "cutdown_30s.edl": "28416f5504e814089fb33bb7d21a498a050269e1a70dd9019cd4a0e7755a5249",
       "cutdown_15s.edl": "c6cc61bd2f8bba8f2bc3e179f8d7c5942bd31783c0cac19ca763037154ebde1c",
       "cutdown_06s.edl": "a8ea2594b2982c363ed7f0a86b853e0e8630d029ba18773a8fa787e574d27b65",
-      "reframe_9x16.fcpxml": "6ec40c25084e366f9f80cd60772c988452b22fd97f017b1b7c4c231c4b630e46",
+      "reframe_9x16.fcpxml": "2b54f1259054f3cca562cc665ff34dc1e59f2d89c1fe6270edebe083bddc82bd",
       "delivery_reframe_manifest.json": "7ac5b40b8056ef8b4b4522cd3a2e1e5b77a27c5a8296568e52812c0731f6e6f6",
       "broadcast_qc_certificate.md": "7f807c758cde4adf53133754a62526853c13a830f69244fd0fb1c279b15e16e9",
       "rights_clearance_matrix.csv": "d685345dafd20daf8fb6a75de200fc7dab61f9fb9160dc3e1e0bedfad1e30634",
       "broadcast_qc_manifest.json": "60e5801eca21afe964c57d0f99a64669b1f2b5650cb843cb16b9f68e5d9de86d",
+      "council_audit_report.json": "401e15fe1839656cb38fb977bdd3505fffd8a78132b091d9021f747957f65396",
+      "council_report.json": "401e15fe1839656cb38fb977bdd3505fffd8a78132b091d9021f747957f65396",
+      "council_report.md": "fe6f1e9eb9f27e7660b9f355d39bffaa13b01180eb1ef6439ef99633c95d919d",
       "storyboards/anchor1_character_turnaround.svg": "05706815bdc1181349cc711fa3f72c3a59e95fdf94f0fa44c5eb67c31e395121",
       "storyboards/anchor2_environment_master.svg": "6e154ec59cc638c7e5be5464114645663d4ba06ba84be94046b4155299044420",
       "storyboards/anchor3_scene_1_keyframe.svg": "0a99c197f89e53c7fb37a7fbe7052a126d4fea4acda11ad5d44782021a8c202d",
@@ -10261,9 +11961,9 @@
     }
   },
   "council_report": {
-    "version": "2.11.0",
+    "version": "2.12.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-19T10:09:54.089415+00:00",
+    "timestamp": "2026-11-20T09:53:28.229221+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -10446,9 +12146,29 @@
                 "broadcast_qc_manifest.json"
               ]
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema",
+            "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 4
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema",
+            "message": "MasterClientReviewSpec verified (4 scenes, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 4
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 12 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -10545,6 +12265,38 @@
               "loudness_verdict": "PASS",
               "max_flash_hz": 0.8
             }
+          },
+          {
+            "severity": "info",
+            "category": "continuity_blocking_schema_compliance",
+            "message": "Inter-scene editorial continuity verified across 3 cut(s): continuity_passed=True, axis_violations_count=0.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "cut_checks_count": 3,
+              "continuity_passed": true,
+              "axis_violations_count": 0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_schema_compliance",
+            "message": "Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "unresolved_blockers": 0,
+              "ready_for_live_render": true,
+              "overall_status": "approved"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_continuity_and_review_compliance",
+            "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
           }
         ],
         "summary": "Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%)."
@@ -10803,6 +12555,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_continuity_blocking",
+            "message": "Inter-scene continuity & 180-degree blocking aligned for domain 'kinetic_action' (screen_direction=left_to_right, scenes=4, continuity_passed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "dominant_screen_direction": "left_to_right",
+              "continuity_passed": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_client_review",
+            "message": "Client review & sign-off readiness verified for domain 'kinetic_action' (status=approved, unresolved_blockers=0, ready_for_live_render=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "overall_status": "approved",
+              "ready_for_live_render": true
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'kinetic_action' matches strategic brief classification.",
             "remediation": null,
@@ -10943,8 +12719,48 @@
           },
           {
             "severity": "info",
+            "category": "animatic_blocking_hud",
+            "message": "180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_review_hud",
+            "message": "Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_departmental_toolbar",
+            "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_blocking_dialogs",
+            "message": "Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 45 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_wn",
+            "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -11274,6 +13090,40 @@
           "omni_director/presets.py",
           "omni_director/tools/prompt_auditor.py",
           "omni_director/tools/html_compiler.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-023",
+        "title": "Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+        "problem_statement": "Script supervisors, directors of photography, and finishing editors for 'The Kinetic Fabric: Grounded Innovation' need automated 180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate screen-direction reversals and axial jump cuts prior to rendering.",
+        "proposed_solution": "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/continuity_blocking.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-024",
+        "title": "Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+        "problem_statement": "Agency creatives, brand clients, directors, and post producers for 'The Kinetic Fabric: Grounded Innovation' require frame-accurate spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, deterministic edit-delta compilation, and a strict live-render sign-off gate before committing billable Gemini Omni video generation credits.",
+        "proposed_solution": "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/review_notes.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
         ],
         "priority": "P0",

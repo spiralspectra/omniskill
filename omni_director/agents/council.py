@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
@@ -33,7 +34,12 @@ from omni_director.schemas import (
     __version__,
 )
 from omni_director.telemetry import verify_bundle_checksums
-from omni_director.tools.prompt_auditor import audit_omni_scene_prompt, heal_omni_scene_prompt
+from omni_director.tools.html_compiler import compile_storyboard_html
+from omni_director.tools.prompt_auditor import (
+    audit_bible_inter_scene_continuity,
+    audit_omni_scene_prompt,
+    heal_omni_scene_prompt,
+)
 
 logger = logging.getLogger("omni_director.council")
 
@@ -496,6 +502,66 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-023",
+                title="Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine",
+                problem_statement=(
+                    f"Script supervisors, directors of photography, and finishing editors{project_ctx} need automated "
+                    "180-degree line-of-action enforcement, 30-degree camera angle delta validation, eyeline match checks, "
+                    "Kelvin continuity bounds (<=1500K across cuts), and overhead 2D stage blocking floorplans to eliminate "
+                    "screen-direction reversals and axial jump cuts prior to rendering."
+                ),
+                proposed_solution=(
+                    "Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, "
+                    "InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; "
+                    "omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, "
+                    "continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] "
+                    "prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via "
+                    "get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] "
+                    "(#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/continuity_blocking.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-024",
+                title="Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine",
+                problem_statement=(
+                    f"Agency creatives, brand clients, directors, and post producers{project_ctx} require frame-accurate "
+                    "spatial pin annotations on storyboard frames, DaVinci Resolve/FCPXML/Frame.io v4 marker round-tripping, "
+                    "deterministic edit-delta compilation, and a strict live-render sign-off gate before committing "
+                    "billable Gemini Omni video generation credits."
+                ),
+                proposed_solution=(
+                    "Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, "
+                    "ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; "
+                    "omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, "
+                    "review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, "
+                    "[REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an "
+                    "interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, "
+                    "#review-pin-stage) in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/review_notes.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -619,7 +685,7 @@ class ProductCouncilOrchestrator(BaseAgent):
         reviews.append(fde_review)
 
         # 2. Council Agent Engineer Review (25 pts max)
-        ae_review = self._review_agent_engineer(bible=bible, auto_heal=auto_heal)
+        ae_review = self._review_agent_engineer(bible=bible, auto_heal=auto_heal, bundle=bundle)
         reviews.append(ae_review)
 
         # 3. Council Strategist Review (25 pts max)
@@ -992,6 +1058,63 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"qc_artifacts": qc_items},
                 ))
 
+            # Verify Inter-Scene Editorial Continuity & Overhead Blocking Floorplan deliverables (PM-FEAT-023)
+            continuity_candidates = [
+                "continuity_log.csv",
+                "blocking_floorplan.svg",
+                "continuity_manifest.json",
+            ]
+            continuity_items = [name for name in continuity_candidates if (eval_dir / name).is_file()]
+            if continuity_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="continuity_blocking_delivery",
+                    message=f"Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: {', '.join(continuity_items)}.",
+                    details={"continuity_artifacts": continuity_items},
+                ))
+
+            # Verify Client Review, Frame-Accurate Markers & Sign-Off deliverables (PM-FEAT-024)
+            review_candidates = [
+                "review_markers.edl",
+                "review_markers.fcpxml",
+                "review_notes_frameio.json",
+                "review_notes.csv",
+                "client_signoff_report.md",
+            ]
+            review_items = [name for name in review_candidates if (eval_dir / name).is_file()]
+            if review_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="client_review_delivery",
+                    message=f"Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: {', '.join(review_items)}.",
+                    details={"review_artifacts": review_items},
+                ))
+
+        # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
+        blocking_spec = getattr(bible, "master_continuity_blocking", None)
+        if blocking_spec is not None:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="continuity_blocking_schema",
+                message=(
+                    f"MasterContinuityBlockingSpec verified ({len(getattr(blocking_spec, 'scene_blockings', []) or [])} scenes, "
+                    f"continuity_passed={bool(getattr(blocking_spec, 'continuity_passed', True))})."
+                ),
+                details={"scene_count": len(getattr(blocking_spec, "scene_blockings", []) or [])},
+            ))
+
+        review_spec = getattr(bible, "master_client_review", None)
+        if review_spec is not None:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="client_review_schema",
+                message=(
+                    f"MasterClientReviewSpec verified ({len(getattr(review_spec, 'scene_reviews', []) or [])} scenes, "
+                    f"ready_for_live_render={bool(getattr(review_spec, 'ready_for_live_render', True))})."
+                ),
+                details={"scene_count": len(getattr(review_spec, "scene_reviews", []) or [])},
+            ))
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
         return PersonaReviewResult(
@@ -1005,9 +1128,13 @@ class ProductCouncilOrchestrator(BaseAgent):
         self,
         bible: Optional[MasterProductionBible],
         auto_heal: bool = True,
+        bundle: Optional[ProductionBundle] = None,
     ) -> PersonaReviewResult:
         """Audits scene prompts against 7-Point standards and self-heals defects."""
+        if bible is None and bundle is not None:
+            bible = bundle.bible
         findings: List[CouncilFinding] = []
+        penalty_points = 0.0
         if bible is None or not bible.scenes:
             return PersonaReviewResult(
                 persona=CouncilPersona.COUNCIL_AGENT_ENGINEER,
@@ -1318,10 +1445,146 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"overall_verdict": overall_verdict, "pse_verdict": pse_verdict, "loudness_verdict": loud_verdict, "max_flash_hz": max_flash_hz},
                 ))
 
+        # Check Inter-Scene Editorial Continuity & 180-Degree Axis Blocking (PM-FEAT-023)
+        inter_scene_checks = audit_bible_inter_scene_continuity(bible)
+        inter_scene_violations = [
+            v
+            for chk in inter_scene_checks
+            for v in (getattr(chk, "violations", None) or [])
+        ]
+        failed_cuts = [
+            chk
+            for chk in inter_scene_checks
+            if not getattr(chk, "passed", True) or not getattr(chk, "axis_preserved", True)
+        ]
+        blocking_spec = getattr(bible, "master_continuity_blocking", None)
+        if blocking_spec is not None:
+            cont_passed = bool(getattr(blocking_spec, "continuity_passed", True))
+            all_180 = bool(getattr(blocking_spec, "all_180_axis_locked", True))
+            spec_cuts = getattr(blocking_spec, "cut_checks", []) or []
+            spec_viol_count = int(
+                getattr(
+                    blocking_spec,
+                    "axis_violations_count",
+                    sum(len(getattr(c, "violations", []) or []) for c in spec_cuts),
+                )
+                or 0
+            )
+            spec_failed_cuts = [
+                c
+                for c in spec_cuts
+                if not getattr(c, "passed", True) or not getattr(c, "axis_preserved", True) or bool(getattr(c, "violations", None))
+            ]
+        else:
+            cont_passed = True
+            all_180 = True
+            spec_viol_count = 0
+            spec_failed_cuts = []
+
+        if inter_scene_violations or failed_cuts or not cont_passed or not all_180 or spec_viol_count > 0 or spec_failed_cuts:
+            total_axis_issues = max(len(inter_scene_violations), len(failed_cuts), spec_viol_count, len(spec_failed_cuts), 1)
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="continuity_axis_violation",
+                message=(
+                    f"Inter-scene continuity / 180-degree axis violation detected "
+                    f"(continuity_passed={cont_passed}, axis_violations_count={max(spec_viol_count, len(inter_scene_violations))}, "
+                    f"failed_cuts={max(len(failed_cuts), len(spec_failed_cuts))})."
+                ),
+                suggested_fix="Preserve 180-degree line-of-action side, >=30-degree camera angle delta, and <=1500K Kelvin continuity across cuts.",
+                details={"axis_violations_count": total_axis_issues, "violations": inter_scene_violations[:5]},
+            ))
+            penalty_points += 3.0
+        elif blocking_spec is not None or inter_scene_checks:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="continuity_blocking_schema_compliance",
+                message=(
+                    f"Inter-scene editorial continuity verified across {len(inter_scene_checks)} cut(s): "
+                    f"continuity_passed={cont_passed}, axis_violations_count=0."
+                ),
+                details={"cut_checks_count": len(inter_scene_checks), "continuity_passed": cont_passed, "axis_violations_count": 0},
+            ))
+
+        # Check Client Review & Live-Render Sign-Off Gate (PM-FEAT-024)
+        review_spec = getattr(bible, "master_client_review", None)
+        if review_spec is not None:
+            raw_unresolved = int(getattr(review_spec, "unresolved_blockers", getattr(review_spec, "blocking_notes_count", 0)) or 0)
+            raw_blocking_cnt = int(getattr(review_spec, "blocking_notes_count", 0) or 0)
+            computed_blockers = sum(
+                1
+                for sr in (getattr(review_spec, "scene_reviews", []) or [])
+                for ann in (getattr(sr, "annotations", []) or [])
+                if not getattr(ann, "resolved", True) and getattr(ann, "blocking_gate", False)
+            )
+            unresolved_blockers = max(raw_unresolved, raw_blocking_cnt, computed_blockers)
+            ready_for_render = bool(getattr(review_spec, "ready_for_live_render", True))
+            overall_rev_st = str(
+                getattr(getattr(review_spec, "overall_status", "approved"), "value", getattr(review_spec, "overall_status", "approved"))
+            ).lower()
+            if unresolved_blockers > 0 or not ready_for_render or overall_rev_st == "changes_requested":
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="client_review_gate_blocked",
+                    message=(
+                        f"Client review live-render gate blocked: unresolved_blockers={unresolved_blockers}, "
+                        f"ready_for_live_render={ready_for_render}, overall_status={overall_rev_st}."
+                    ),
+                    suggested_fix="Resolve all blocking client review annotations and approve scenes before live render.",
+                    details={"unresolved_blockers": unresolved_blockers, "ready_for_live_render": ready_for_render},
+                ))
+                penalty_points += 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="client_review_schema_compliance",
+                    message=(
+                        f"Client review sign-off gate verified: unresolved_blockers=0, "
+                        f"ready_for_live_render=True, status={overall_rev_st}."
+                    ),
+                    details={"unresolved_blockers": 0, "ready_for_live_render": True, "overall_status": overall_rev_st},
+                ))
+
+        # Check continuity_blocking_compliant and review_gate_compliant on bundle.audit_reports
+        if bundle is not None and getattr(bundle, "audit_reports", None):
+            non_cont_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "continuity_blocking_compliant", True)
+            ]
+            non_rev_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "review_gate_compliant", True)
+            ]
+            if non_cont_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_continuity_non_compliant",
+                    message=f"Bundle audit_reports flagged continuity_blocking_compliant=False on scene(s): {non_cont_scenes}.",
+                    suggested_fix="Heal 180-degree continuity axis locks and rerun scene prompt audits.",
+                ))
+                penalty_points += 2.0
+            if non_rev_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_review_gate_non_compliant",
+                    message=f"Bundle audit_reports flagged review_gate_compliant=False on scene(s): {non_rev_scenes}.",
+                    suggested_fix="Resolve pending client review change requests on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_cont_scenes and not non_rev_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_continuity_and_review_compliance",
+                    message=f"Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
         score = 25.0 * (avg_audit_score / 100.0)
         critical_count = len([f for f in findings if f.severity == CouncilFindingSeverity.CRITICAL])
         score -= (critical_count * 10.0)
+        score -= penalty_points
         score = max(0.0, min(25.0, round(score, 2)))
 
         summary = f"Agent Engineer review completed with score {score}/25.0 (Prompt Audit avg: {avg_audit_score:.1f}%)."
@@ -1864,6 +2127,113 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check Inter-Scene Continuity & 180-Degree Blocking domain alignment (PM-FEAT-023)
+        expected_screen_dirs = {
+            "culinary_asmr": "static_centered",
+            "automotive_robotics": "left_to_right",
+            "luxury_fashion": "toward_camera",
+            "kinetic_action": "left_to_right",
+            "tech_hardware": "static_centered",
+            "architectural_sanctuary": "toward_camera",
+        }
+        blocking_manifest = getattr(bible, "master_continuity_blocking", None)
+        if blocking_manifest is not None:
+            cont_passed = bool(getattr(blocking_manifest, "continuity_passed", True))
+            all_180 = bool(getattr(blocking_manifest, "all_180_axis_locked", True))
+            axis_viol = int(
+                getattr(
+                    blocking_manifest,
+                    "axis_violations_count",
+                    sum(len(getattr(c, "violations", []) or []) for c in (getattr(blocking_manifest, "cut_checks", []) or [])),
+                )
+                or 0
+            )
+            dom_dir = str(
+                getattr(getattr(blocking_manifest, "dominant_screen_direction", ""), "value", getattr(blocking_manifest, "dominant_screen_direction", ""))
+            ).lower()
+            if not cont_passed or not all_180 or axis_viol > 0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_continuity_blocking",
+                    message=f"Inter-scene continuity blocking failed for domain '{detected_domain}' (continuity_passed={cont_passed}, axis_violations={axis_viol}).",
+                    suggested_fix="Resolve 180-degree axis or 30-degree cut violations in master_continuity_blocking.",
+                ))
+                score -= 1.0
+            elif detected_domain in expected_screen_dirs and dom_dir and dom_dir != expected_screen_dirs[detected_domain]:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_continuity_blocking",
+                    message=(
+                        f"Dominant screen direction '{dom_dir}' differs from domain archetype '{detected_domain}' "
+                        f"calibration '{expected_screen_dirs[detected_domain]}'."
+                    ),
+                    suggested_fix="Calibrate master_continuity_blocking via get_domain_continuity_blocking_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_continuity_blocking",
+                    message=(
+                        f"Inter-scene continuity & 180-degree blocking aligned for domain '{detected_domain}' "
+                        f"(screen_direction={dom_dir}, scenes={len(getattr(blocking_manifest, 'scene_blockings', []) or [])}, continuity_passed=True)."
+                    ),
+                    details={"domain": detected_domain, "dominant_screen_direction": dom_dir, "continuity_passed": True},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_continuity_blocking",
+                message="Master continuity blocking spec (master_continuity_blocking) missing from production bible.",
+                suggested_fix="Assign master_continuity_blocking via get_domain_continuity_blocking_spec().",
+            ))
+            score -= 0.25
+
+        # Check Client Review & Sign-Off Gate readiness across the 6 archetypes (PM-FEAT-024)
+        review_manifest = getattr(bible, "master_client_review", None)
+        if review_manifest is not None:
+            ready_render = bool(getattr(review_manifest, "ready_for_live_render", True))
+            overall_rev = str(
+                getattr(getattr(review_manifest, "overall_status", "approved"), "value", getattr(review_manifest, "overall_status", "approved"))
+            ).lower()
+            raw_blockers = int(getattr(review_manifest, "unresolved_blockers", getattr(review_manifest, "blocking_notes_count", 0)) or 0)
+            computed_blockers = sum(
+                1
+                for sr in (getattr(review_manifest, "scene_reviews", []) or [])
+                for ann in (getattr(sr, "annotations", []) or [])
+                if not getattr(ann, "resolved", True) and getattr(ann, "blocking_gate", False)
+            )
+            eff_blockers = max(raw_blockers, int(getattr(review_manifest, "blocking_notes_count", 0) or 0), computed_blockers)
+            if not ready_render or eff_blockers > 0 or overall_rev == "changes_requested":
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_client_review",
+                    message=(
+                        f"Client review sign-off gate incomplete for domain '{detected_domain}' "
+                        f"(status={overall_rev}, unresolved_blockers={eff_blockers}, ready_for_live_render={ready_render})."
+                    ),
+                    suggested_fix="Resolve blocking stakeholder annotations and obtain sign-off before live render.",
+                ))
+                score -= 1.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_client_review",
+                    message=(
+                        f"Client review & sign-off readiness verified for domain '{detected_domain}' "
+                        f"(status={overall_rev}, unresolved_blockers=0, ready_for_live_render=True)."
+                    ),
+                    details={"domain": detected_domain, "overall_status": overall_rev, "ready_for_live_render": True},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_client_review",
+                message="Master client review spec (master_client_review) missing from production bible.",
+                suggested_fix="Assign master_client_review via get_domain_client_review_spec().",
+            ))
+            score -= 0.25
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -1943,15 +2313,30 @@ class ProductCouncilOrchestrator(BaseAgent):
                     ))
                     score -= 1.5
 
-        # Verify compiled storyboard HTML transport controls if present
+        # Verify compiled storyboard HTML transport controls if present (or compile in temp dir for raw bible audits)
         html_path = (
             Path(bundle.storyboard_html_path)
             if (bundle and bundle.storyboard_html_path)
             else (Path(output_dir) / "storyboard_preview.html" if output_dir else None)
         )
+        html_content: Optional[str] = None
         if html_path and html_path.is_file():
             try:
                 html_content = html_path.read_text(encoding="utf-8")
+            except Exception:
+                html_content = None
+        else:
+            try:
+                with tempfile.TemporaryDirectory() as tmp_compile_dir:
+                    compile_target = bundle.model_copy(deep=True) if bundle is not None else bible
+                    compiled_path = compile_storyboard_html(compile_target, output_dir=tmp_compile_dir)
+                    if compiled_path and Path(compiled_path).is_file():
+                        html_content = Path(compiled_path).read_text(encoding="utf-8")
+            except Exception:
+                html_content = None
+
+        if html_content:
+            try:
                 if 'id="btn-play-animatic"' not in html_content or 'id="smpte-timecode"' not in html_content:
                     findings.append(CouncilFinding(
                         severity=CouncilFindingSeverity.MEDIUM,
@@ -2252,7 +2637,92 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).",
                         ))
 
-                    # Verify zero duplicate JS keydown hotkey bindings & Escape handler cleanup
+                    # PM-FEAT-023 180-Degree Blocking & Continuity HUD check
+                    missing_blocking_ids = [
+                        el_id
+                        for el_id in ("animatic-blocking-hud", "btn-blocking-animatic", "blocking-floorplan-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_blocking_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_blocking_hud",
+                            message=f"Compiled storyboard preview HTML lacks 180-Degree Blocking HUD element(s): {', '.join('#' + i for i in missing_blocking_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-blocking-animatic, #animatic-blocking-hud, and #blocking-floorplan-svg [W].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_blocking_hud",
+                            message="180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).",
+                        ))
+
+                    # PM-FEAT-024 Client Review & Frame Pin Annotation HUD check
+                    missing_review_ids = [
+                        el_id
+                        for el_id in ("animatic-review-hud", "btn-review-animatic", "review-pin-stage")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_review_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_review_hud",
+                            message=f"Compiled storyboard preview HTML lacks Client Review & Frame Pin HUD element(s): {', '.join('#' + i for i in missing_review_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-review-animatic, #animatic-review-hud, and #review-pin-stage [N].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_review_hud",
+                            message="Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
+                        ))
+
+                    # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
+                    missing_dept_groups = [
+                        grp_id
+                        for grp_id in ("dept-group-camera", "dept-group-delivery")
+                        if f'id="{grp_id}"' not in html_content
+                    ]
+                    if missing_dept_groups:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_departmental_toolbar",
+                            message=f"Compiled storyboard preview HTML lacks departmental toolbar group(s): {', '.join('#' + g for g in missing_dept_groups)}.",
+                            suggested_fix="Group departmental HUD toggles into #dept-group-camera and #dept-group-delivery.",
+                        ))
+                        score -= 0.5
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_departmental_toolbar",
+                            message="Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
+                        ))
+
+                    # Zero blocking dialog calls check (alert/confirm/prompt)
+                    script_blocks = re.findall(r"<script\b[^>]*>(.*?)</script>", html_content, re.DOTALL | re.IGNORECASE)
+                    blocking_dialog_hits: list[str] = []
+                    for sb in script_blocks:
+                        blocking_dialog_hits.extend(
+                            re.findall(r"(?<![.\w\$])(?:window\.)?(?:alert|confirm|prompt)\s*\(", sb)
+                        )
+                    if blocking_dialog_hits:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.MEDIUM,
+                            category="animatic_blocking_dialogs",
+                            message=f"Blocking JS dialog call(s) detected in compiled animatic: {', '.join(blocking_dialog_hits[:3])}.",
+                            suggested_fix="Replace alert/confirm/prompt with non-blocking showToast() and inline dark-room HUD controls.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_blocking_dialogs",
+                            message="Zero blocking JS dialog calls (alert/confirm/prompt) verified.",
+                        ))
+
+                    # Verify zero duplicate JS keydown hotkey bindings, W & N hotkeys, & Escape handler cleanup
                     kd_match = re.search(r"addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html_content, re.DOTALL | re.MULTILINE)
                     if kd_match:
                         kd_block = kd_match.group(0)
@@ -2278,10 +2748,37 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message=f"Zero duplicate JS keydown hotkey bindings verified across {len(seen_keys)} key checks.",
                             ))
 
+                        has_w_key = bool(re.search(r"e\.key\s*===\s*['\"][wW]['\"]", kd_block))
+                        has_n_key = bool(re.search(r"e\.key\s*===\s*['\"][nN]['\"]", kd_block))
+                        if not (has_w_key and has_n_key):
+                            missing_hk = []
+                            if not has_w_key:
+                                missing_hk.append("W")
+                            if not has_n_key:
+                                missing_hk.append("N")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_wn",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_hk)}.",
+                                suggested_fix="Bind W (Blocking HUD) and N (Client Review HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_wn",
+                                message="Blocking [W] and Client Review [N] keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
-                        esc_slice = kd_block[esc_idx:] if esc_idx != -1 else ""
+                        esc_end = kd_block.find("return;", esc_idx) if esc_idx != -1 else -1
+                        esc_slice = (
+                            kd_block[esc_idx:esc_end]
+                            if (esc_idx != -1 and esc_end != -1)
+                            else (kd_block[esc_idx:] if esc_idx != -1 else "")
+                        )
                         missing_esc: list[str] = []
                         if "animatic-audio-mixer" in html_content and "animatic-audio-mixer" not in esc_slice and "toggleMixer" not in esc_slice:
                             missing_esc.append("animatic-audio-mixer")
@@ -2289,12 +2786,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                             missing_esc.append("animatic-reframe-hud")
                         if "animatic-qc-hud" in html_content and "QcHUD" not in esc_slice and "QCHUD" not in esc_slice and "animatic-qc-hud" not in esc_slice:
                             missing_esc.append("animatic-qc-hud")
+                        if "animatic-blocking-hud" in html_content and "BlockingHUD" not in esc_slice and "animatic-blocking-hud" not in esc_slice:
+                            missing_esc.append("animatic-blocking-hud")
+                        if "animatic-review-hud" in html_content and "ReviewHUD" not in esc_slice and "animatic-review-hud" not in esc_slice:
+                            missing_esc.append("animatic-review-hud")
                         if missing_esc:
                             findings.append(CouncilFinding(
                                 severity=CouncilFindingSeverity.LOW,
                                 category="animatic_escape_dismissal",
                                 message=f"Escape key handler does not dismiss open panels: {', '.join(missing_esc)}.",
-                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, and QC HUD.",
+                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, and review HUD.",
                             ))
                             score -= 0.5
 

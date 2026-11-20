@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="Cyberpunk Neon-Lit High-Speed Electric M Review">
+            <project name="Cyberpunk Neon-Lit High-Speed Electric M Review Markers">
+                <sequence format="r1" duration="240/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_Cyberpunk Neon-Lit High-Speed Electr" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-AUTO-S01-01 | GREEN | director] Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified." note="Review Edit Delta [Scene 1 'Cyberpunk Neon-Lit High-Speed Electric M - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.46, 0.50): Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_Cyberpunk Neon-Lit High-Speed Electr" ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="48/24s" duration="1/24s" value="[REV-AUTO-S02-01 | GREEN | vfx_supervisor] Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared." note="Review Edit Delta [Scene 2 'Cyberpunk Neon-Lit High-Speed Electric M - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.54, 0.48): Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

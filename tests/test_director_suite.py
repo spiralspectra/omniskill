@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.11.0"
+        assert report.version == "2.12.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,13 +5398,13 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.11.0"
+        assert omni_director.__version__ == "2.12.0"
         report = run_doctor()
-        assert report.version == "2.11.0"
+        assert report.version == "2.12.0"
         assert report.passed is True
         assert report.exit_code == 0
         council_report = ProductCouncilReport(project_title="Smoke Check")
-        assert council_report.version == "2.11.0"
+        assert council_report.version == "2.12.0"
 
     def test_html_compiler_python_311_ast_compatibility(self):
         import ast
@@ -5819,7 +5819,7 @@ class TestV211ProductCouncilIntegration:
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         feat_ids = {p.feature_id for p in proposals}
-        assert len(proposals) == 22
+        assert len(proposals) >= 22
         assert "PM-FEAT-021" in feat_ids
         assert "PM-FEAT-022" in feat_ids
 
@@ -5835,7 +5835,772 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version == "2.11.0"
+            assert report.version == "2.12.0"
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
+
+
+
+class TestV212PMFeat023And024ContinuityAndClientReview:
+    """Verifies v2.12.0 PM-FEAT-023 (180-deg Continuity & Blocking) and PM-FEAT-024 (Client Review & Signoff Gate)."""
+
+    def test_continuity_blocking_schemas_and_180_axis_validation(self):
+        import csv
+        import io
+        import json
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_continuity_blocking_spec,
+        )
+        from omni_director.schemas import (
+            CameraAxisPlacement,
+            ContinuityManifest,
+            EditorialCutType,
+            InterSceneCutCheckSpec,
+            MasterContinuityBlockingSpec,
+            MasterProductionBible,
+            RegimeType,
+            SceneBlocking,
+            SceneBlockingSpec,
+            ScenePromptSpec,
+            ScreenDirection,
+            ShotScaleSize,
+            StageBlockingEntity,
+        )
+        from omni_director.tools.continuity_blocking import (
+            evaluate_180_axis_and_30_rule,
+            generate_blocking_floorplan_svg,
+            generate_continuity_log_csv,
+            generate_continuity_manifest_json,
+        )
+
+        # Verify schema aliases
+        assert ContinuityManifest is MasterContinuityBlockingSpec
+        assert SceneBlocking is SceneBlockingSpec
+
+        entity = StageBlockingEntity(
+            entity_id="hero_1",
+            label="Hero Subject",
+            role="talent",
+            x_meters=-1.2,
+            y_meters=0.5,
+            facing_deg=90.0,
+            eyeline_deg=12.0,
+            motion_dx_meters=2.0,
+            motion_dy_meters=0.0,
+            screen_direction=ScreenDirection.LEFT_TO_RIGHT,
+        )
+        cam_a = CameraAxisPlacement(
+            camera_id="CAM_A",
+            x_meters=-2.0,
+            y_meters=-3.5,
+            aim_azimuth_deg=80.0,
+            fov_deg=48.0,
+            focal_length_mm=35,
+            axis_side="A_SIDE",
+        )
+        blk_1 = SceneBlockingSpec(
+            scene_index=1,
+            scene_title="Opening Wide",
+            screen_direction=ScreenDirection.LEFT_TO_RIGHT,
+            shot_scale=ShotScaleSize.WS,
+            cut_type_in=EditorialCutType.HARD_CUT,
+            line_of_action_deg=0.0,
+            axis_side="A_SIDE",
+            eyeline_angle_deg=12.0,
+            one_eighty_lock_ok=True,
+            color_temp_kelvin=5200,
+            camera=cam_a,
+            entities=[entity],
+        )
+
+        # Verify ScenePromptSpec & MasterProductionBible alias wiring
+        sc_alias_1 = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Alias Check",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            timestamp_range="00:00 - 00:08",
+            omni_prose_prompt="Wide 35mm shot.",
+            continuity_blocking=blk_1,
+        )
+        assert sc_alias_1.blocking_spec is not None
+        assert sc_alias_1.continuity_blocking is sc_alias_1.blocking_spec
+        assert sc_alias_1.blocking is sc_alias_1.blocking_spec
+
+        manifest_alias = MasterContinuityBlockingSpec(
+            project_title="Alias Test",
+            scene_blockings=[blk_1],
+        )
+        bible_alias = MasterProductionBible(
+            project_title="Alias Bible",
+            logline="Test logline",
+            creative_regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            storytelling_mode=IKEA_ASMR_BIBLE.storytelling_mode,
+            aspect_ratio=IKEA_ASMR_BIBLE.aspect_ratio,
+            environment=IKEA_ASMR_BIBLE.environment,
+            camera_rig=IKEA_ASMR_BIBLE.camera_rig,
+            sonic_blueprint=IKEA_ASMR_BIBLE.sonic_blueprint,
+            master_bgm=IKEA_ASMR_BIBLE.master_bgm,
+            nano_banana_assets=IKEA_ASMR_BIBLE.nano_banana_assets,
+            scenes=[sc_alias_1],
+            continuity_blocking=manifest_alias,
+        )
+        assert bible_alias.master_continuity_blocking is not None
+        assert bible_alias.continuity_blocking is bible_alias.master_continuity_blocking
+        assert bible_alias.blocking_floorplan is bible_alias.master_continuity_blocking
+
+        # 1. Valid compliant cut
+        blk_good = SceneBlockingSpec(
+            scene_index=2,
+            scene_title="Compliant Medium",
+            screen_direction=ScreenDirection.LEFT_TO_RIGHT,
+            shot_scale=ShotScaleSize.MS,
+            cut_type_in=EditorialCutType.MATCH_ON_ACTION,
+            axis_side="A_SIDE",
+            color_temp_kelvin=5600,
+            camera=CameraAxisPlacement(
+                camera_id="CAM_B",
+                x_meters=1.5,
+                y_meters=-2.8,
+                aim_azimuth_deg=125.0,
+                focal_length_mm=50,
+                axis_side="A_SIDE",
+            ),
+        )
+        chk_ok = evaluate_180_axis_and_30_rule(blk_1, blk_good, prev_kelvin=5200, next_kelvin=5600)
+        assert isinstance(chk_ok, InterSceneCutCheckSpec)
+        assert chk_ok.axis_preserved is True
+        assert chk_ok.thirty_degree_rule_ok is True
+        assert chk_ok.kelvin_continuity_ok is True
+        assert chk_ok.passed is True
+        assert chk_ok.violations == []
+
+        # 2. 180-degree axis crossing violation
+        blk_180_cross = blk_good.model_copy(deep=True)
+        blk_180_cross.axis_side = "B_SIDE"
+        blk_180_cross.camera.axis_side = "B_SIDE"
+        blk_180_cross.camera.aim_azimuth_deg = 260.0
+        chk_180 = evaluate_180_axis_and_30_rule(blk_1, blk_180_cross, prev_kelvin=5200, next_kelvin=5400)
+        assert chk_180.axis_preserved is False
+        assert chk_180.passed is False
+        assert any("180-degree axis" in v for v in chk_180.violations)
+
+        # 3. 30-degree rule jump-cut violation (same shot scale, < 30 deg delta)
+        blk_30_prev = blk_good.model_copy(deep=True)
+        blk_30_next = blk_good.model_copy(deep=True)
+        blk_30_next.scene_index = 3
+        blk_30_next.cut_type_in = EditorialCutType.HARD_CUT
+        blk_30_next.camera.aim_azimuth_deg = blk_30_prev.camera.aim_azimuth_deg + 10.0
+        chk_30 = evaluate_180_axis_and_30_rule(blk_30_prev, blk_30_next, prev_kelvin=5600, next_kelvin=5600)
+        assert chk_30.thirty_degree_rule_ok is False
+        assert chk_30.passed is False
+        assert any("30-degree rule" in v for v in chk_30.violations)
+
+        # 4. >1500K color temperature shift violation
+        chk_kelvin = evaluate_180_axis_and_30_rule(blk_1, blk_good, prev_kelvin=3200, next_kelvin=5600)
+        assert chk_kelvin.kelvin_continuity_ok is False
+        assert chk_kelvin.kelvin_delta_k == 2400.0
+        assert chk_kelvin.passed is False
+        assert any("Kelvin" in v for v in chk_kelvin.violations)
+
+        # Export helpers (SVG, CSV, JSON)
+        svg = generate_blocking_floorplan_svg(IKEA_ASMR_BIBLE)
+        assert "<svg " in svg
+        assert "180° LINE OF ACTION" in svg
+        assert "OVERHEAD BLOCKING FLOORPLAN" in svg
+
+        csv_text = generate_continuity_log_csv(IKEA_ASMR_BIBLE)
+        rows = list(csv.reader(io.StringIO(csv_text)))
+        assert rows[0][:5] == ["scene_index", "scene_title", "screen_direction", "shot_scale", "cut_type_in"]
+        assert len(rows) == 1 + len(IKEA_ASMR_BIBLE.scenes)
+
+        manifest_json = json.loads(generate_continuity_manifest_json(IKEA_ASMR_BIBLE))
+        assert manifest_json["continuity_passed"] is True
+        assert len(manifest_json["scene_blockings"]) == len(IKEA_ASMR_BIBLE.scenes)
+
+        # Verify across all 6 domain archetypes
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_continuity_blocking_spec(domain)
+            assert isinstance(spec, MasterContinuityBlockingSpec)
+            assert spec.overall_continuity_score >= 90.0
+            assert spec.axis_violations_count == 0
+            assert spec.continuity_passed is True
+            assert "[CONTINUITY_AXIS:" in spec.prompt_token
+
+    def test_client_review_schemas_nle_markers_and_delta_compilation(self):
+        import csv
+        import io
+        import json
+        import xml.etree.ElementTree as ET
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_client_review_spec,
+        )
+        from omni_director.schemas import (
+            ClientReviewManifest,
+            MarkerColorTag,
+            MasterClientReviewSpec,
+            MasterProductionBible,
+            RegimeType,
+            ReviewAnnotationSpec,
+            ReviewApprovalStatus,
+            ReviewerRole,
+            ReviewPinCoordinate,
+            ScenePromptSpec,
+            SceneReviewSignoffSpec,
+            SceneReviewSpec,
+        )
+        from omni_director.tools.review_notes import (
+            compile_review_note_to_delta,
+            generate_client_signoff_md,
+            generate_frameio_review_json,
+            generate_resolve_marker_edl,
+            generate_review_fcpxml_markers,
+            generate_review_notes_csv,
+        )
+
+        # Verify schema aliases
+        assert ClientReviewManifest is MasterClientReviewSpec
+        assert SceneReviewSpec is SceneReviewSignoffSpec
+
+        pin = ReviewPinCoordinate(x_norm=0.42, y_norm=0.38, radius_norm=0.05)
+        note = ReviewAnnotationSpec(
+            note_id="REV-TEST-01",
+            scene_index=1,
+            timecode_smpte="00:00:02:12",
+            timecode_sec=2.5,
+            frame_number=60,
+            reviewer_role=ReviewerRole.CLIENT_BRAND,
+            reviewer_name="Brand Creative Director",
+            marker_color=MarkerColorTag.AMBER,
+            comment="Warm key light on hero packaging by +200K",
+            target_parameter="lighting",
+            resolved=True,
+            blocking_gate=False,
+            pin=pin,
+        )
+        delta = compile_review_note_to_delta(note, IKEA_ASMR_BIBLE.scenes[0])
+        assert "Review Edit Delta" in delta
+        assert "00:00:02:12" in delta
+        assert "(0.42, 0.38)" in delta
+        assert "<image_1>" in delta
+        note.compiled_edit_delta = delta
+
+        sr = SceneReviewSignoffSpec(
+            scene_index=1,
+            scene_title=IKEA_ASMR_BIBLE.scenes[0].scene_title,
+            revision=1,
+            approval_status=ReviewApprovalStatus.APPROVED,
+            annotations=[note],
+        )
+        assert sr.open_notes_count == 0
+        assert sr.resolved_notes_count == 1
+
+        # Verify ScenePromptSpec & MasterProductionBible alias wiring
+        sc_alias = ScenePromptSpec(
+            scene_index=1,
+            scene_title="Review Alias",
+            regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            timestamp_range="00:00 - 00:08",
+            omni_prose_prompt="Wide shot.",
+            review_spec=sr,
+        )
+        assert sc_alias.review_signoff is sr
+        assert sc_alias.review_spec is sr
+        assert sc_alias.client_review is sr
+
+        master_review = MasterClientReviewSpec(
+            project_title="Review Alias Bible",
+            scene_reviews=[sr],
+        )
+        assert master_review.ready_for_live_render is True
+        bible_alias = MasterProductionBible(
+            project_title="Review Alias Bible",
+            logline="Test logline",
+            creative_regime=RegimeType.REGIME_1_ATMOSPHERIC,
+            storytelling_mode=IKEA_ASMR_BIBLE.storytelling_mode,
+            aspect_ratio=IKEA_ASMR_BIBLE.aspect_ratio,
+            environment=IKEA_ASMR_BIBLE.environment,
+            camera_rig=IKEA_ASMR_BIBLE.camera_rig,
+            sonic_blueprint=IKEA_ASMR_BIBLE.sonic_blueprint,
+            master_bgm=IKEA_ASMR_BIBLE.master_bgm,
+            nano_banana_assets=IKEA_ASMR_BIBLE.nano_banana_assets,
+            scenes=[sc_alias],
+            client_review=master_review,
+        )
+        assert bible_alias.master_client_review is master_review
+        assert bible_alias.client_review is master_review
+        assert bible_alias.review_manifest is master_review
+
+        # NLE Marker EDL, FCPXML, Frame.io JSON, CSV, and Markdown Signoff
+        edl = generate_resolve_marker_edl(IKEA_ASMR_BIBLE)
+        assert "FCM: NON-DROP FRAME" in edl
+        assert "* LOC:" in edl
+
+        fcpxml = generate_review_fcpxml_markers(IKEA_ASMR_BIBLE)
+        assert "<marker " in fcpxml
+        root = ET.fromstring(fcpxml)
+        assert root.tag == "fcpxml"
+        assert len(root.findall(".//marker")) >= len(IKEA_ASMR_BIBLE.scenes)
+
+        frameio = json.loads(generate_frameio_review_json(IKEA_ASMR_BIBLE))
+        assert frameio["schema_format"] == "frameio_review_v4_compatible"
+        assert frameio["ready_for_live_render"] is True
+        assert len(frameio["comments"]) >= len(IKEA_ASMR_BIBLE.scenes)
+
+        csv_text = generate_review_notes_csv(IKEA_ASMR_BIBLE)
+        rows = list(csv.reader(io.StringIO(csv_text)))
+        assert rows[0][:4] == ["note_id", "scene_index", "scene_title", "timecode_smpte"]
+        assert len(rows) >= 1 + len(IKEA_ASMR_BIBLE.scenes)
+
+        md = generate_client_signoff_md(IKEA_ASMR_BIBLE)
+        assert "# Client Review & Stakeholder Signoff Report:" in md
+        assert "READY FOR LIVE RENDER" in md
+
+        # Verify across all 6 domain archetypes
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_client_review_spec(domain)
+            assert isinstance(spec, MasterClientReviewSpec)
+            assert spec.ready_for_live_render is True
+            assert spec.unresolved_blockers == 0
+            assert "[REVIEW_GATE:" in spec.prompt_token
+
+    def test_prompt_auditor_continuity_review_and_clean_prose(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import InterSceneCutCheckSpec, ReviewApprovalStatus
+        from omni_director.tools.continuity_blocking import synthesize_scene_blocking
+        from omni_director.tools.prompt_auditor import (
+            audit_bible_inter_scene_continuity,
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+        from omni_director.tools.review_notes import synthesize_scene_review_signoff
+
+        scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        good_blocking = synthesize_scene_blocking(scene, scene_index=scene.scene_index, domain="architectural_sanctuary")
+        good_review = synthesize_scene_review_signoff(scene, scene_index=scene.scene_index, domain="architectural_sanctuary")
+
+        # 1. String prompt token recognition
+        token_prompt = (
+            "Wide 35mm tracking shot at 1.0x real-time speed with rigid ash flooring, "
+            "tactile acoustic foley click, "
+            f"{good_blocking.prompt_token} {good_review.prompt_token}"
+        )
+        audit_tokens = audit_omni_scene_prompt(token_prompt)
+        assert audit_tokens.details.get("continuity_blocking_compliant") is True
+        assert audit_tokens.details.get("review_gate_compliant") is True
+        assert audit_tokens.continuity_blocking_compliant is True
+        assert audit_tokens.review_gate_compliant is True
+
+        # 2. Failed 180-degree axis lock & CHANGES_REQUESTED flagged
+        bad_blocking = good_blocking.model_copy(deep=True)
+        bad_blocking.one_eighty_lock_ok = False
+        bad_review = good_review.model_copy(deep=True)
+        bad_review.approval_status = ReviewApprovalStatus.CHANGES_REQUESTED
+
+        scene_bad = scene.model_copy(deep=True)
+        scene_bad.blocking_spec = bad_blocking
+        scene_bad.review_signoff = bad_review
+        audit_bad = audit_omni_scene_prompt(scene_bad)
+        assert audit_bad.continuity_blocking_compliant is False
+        assert audit_bad.details.get("continuity_blocking_compliant") is False
+        assert audit_bad.review_gate_compliant is False
+        assert audit_bad.details.get("review_gate_compliant") is False
+
+        # 3. Self-healing via heal_omni_scene_prompt
+        scene_to_heal = scene.model_copy(deep=True)
+        scene_to_heal.blocking_spec = bad_blocking
+        scene_to_heal.review_signoff = None
+        healed = heal_omni_scene_prompt(
+            scene_to_heal,
+            blocking_spec=good_blocking,
+            review_signoff=good_review,
+        )
+        assert "[CONTINUITY_AXIS:" in healed.healed_prompt
+        assert "[REVIEW_GATE:" in healed.healed_prompt
+        assert healed.audit.continuity_blocking_compliant is True
+        assert healed.audit.review_gate_compliant is True
+
+        # 4. Inter-scene bible continuity audit
+        checks = audit_bible_inter_scene_continuity(IKEA_ASMR_BIBLE)
+        assert len(checks) == max(0, len(IKEA_ASMR_BIBLE.scenes) - 1)
+        assert all(isinstance(c, InterSceneCutCheckSpec) and c.passed for c in checks)
+
+        # 5. Clean Omni prompt strips machine tokens but preserves natural prose and audio cues
+        dirty_prose = (
+            "Sunlit Scandinavian apartment at 1.0x real-time speed. "
+            "[Dialogue: Whispered voiceover] [SFX: Crisp wooden dowel click] "
+            "[Ambience: Quiet morning room tone] [Music: Minimalist cello] "
+            "[DOF: f/2.8 focus=2.5m] [REFRAME: 16:9->9:16] "
+            f"{good_blocking.prompt_token} {good_review.prompt_token}"
+        )
+        clean_prose = compile_clean_omni_prompt(dirty_prose)
+        assert "[CONTINUITY_AXIS:" not in clean_prose
+        assert "[REVIEW_GATE:" not in clean_prose
+        assert "[DOF:" not in clean_prose
+        assert "[REFRAME:" not in clean_prose
+        assert "Sunlit Scandinavian apartment at 1.0x real-time speed." in clean_prose
+        assert "[Dialogue: Whispered voiceover]" in clean_prose
+        assert "[SFX: Crisp wooden dowel click]" in clean_prose
+        assert "[Ambience: Quiet morning room tone]" in clean_prose
+        assert "[Music: Minimalist cello]" in clean_prose
+
+    def test_cli_export_and_nle_all_includes_continuity_and_review(self, tmp_path):
+        from omni_director.agents.agent import DirectorPipeline
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        expected_8_files = (
+            "continuity_log.csv",
+            "blocking_floorplan.svg",
+            "continuity_manifest.json",
+            "review_markers.edl",
+            "review_markers.fcpxml",
+            "review_notes_frameio.json",
+            "review_notes.csv",
+            "client_signoff_report.md",
+        )
+
+        # --format continuity
+        cont_dir = tmp_path / "cli_continuity"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "continuity", "--output-dir", str(cont_dir)]) == 0
+        for fname in expected_8_files[:3]:
+            assert (cont_dir / fname).is_file()
+
+        # --format review
+        rev_dir = tmp_path / "cli_review"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "review", "--output-dir", str(rev_dir)]) == 0
+        for fname in expected_8_files[3:]:
+            assert (rev_dir / fname).is_file()
+
+        # --format all
+        all_dir = tmp_path / "cli_all"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "all", "--output-dir", str(all_dir)]) == 0
+        for fname in expected_8_files:
+            assert (all_dir / fname).is_file()
+
+        # Granular flags
+        gran_dir = tmp_path / "cli_granular"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "edl",
+            "--continuity-csv",
+            "--blocking-svg",
+            "--continuity-json",
+            "--review-edl",
+            "--review-fcpxml",
+            "--review-json",
+            "--review-csv",
+            "--signoff-md",
+            "--output-dir", str(gran_dir),
+        ]) == 0
+        for fname in expected_8_files:
+            assert (gran_dir / fname).is_file()
+
+        # Full pipeline bundle + export_all_nle_artifacts + verify_bundle_checksums
+        bundle_dir = tmp_path / "full_bundle"
+        pipeline = DirectorPipeline()
+        pipeline.run(
+            preset_name="ikea-asmr",
+            output_dir=str(bundle_dir),
+            dry_run=True,
+            render_video=False,
+        )
+        exported = export_all_nle_artifacts(IKEA_ASMR_BIBLE, bundle_dir)
+        exported_names = {Path(p).name for p in exported.values()}
+        for fname in expected_8_files:
+            assert fname in exported_names
+            assert (bundle_dir / fname).is_file()
+
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(bundle_dir)
+        is_valid, errors = verify_bundle_checksums(bundle_dir)
+        assert is_valid is True, f"Bundle checksum verification failed: {errors}"
+        assert errors == []
+
+    def test_continuous_mode_propagation_and_live_render_review_gate(self, tmp_path):
+        from omni_director.agents.agent import (
+            CreativeDirectorAgent,
+            DirectorPipeline,
+            OmniVideoRenderAgent,
+        )
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import (
+            MasterClientReviewSpec,
+            ReviewApprovalStatus,
+            StorytellingMode,
+        )
+
+        # 1. CreativeDirectorAgent respects continuous_mode=True
+        director = CreativeDirectorAgent()
+        dir_ctx = director.run({
+            "raw_prompt": "A serene architectural light shift moving across a quiet limestone courtyard.",
+            "continuous_mode": True,
+        })
+        assert dir_ctx["bible"].storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+
+        # 2. DirectorPipeline.run propagates continuous_mode=True
+        pipeline = DirectorPipeline()
+        bundle = pipeline.run(
+            prompt="A continuous tracking shot through a sunlit botanical conservatory.",
+            continuous_mode=True,
+            output_dir=str(tmp_path / "continuous_run"),
+            dry_run=True,
+            render_video=False,
+        )
+        assert bundle.bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+
+        # 3. OmniVideoRenderAgent blocks live render when ready_for_live_render is False
+        gated_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        gated_bible.master_client_review = MasterClientReviewSpec(
+            project_title=gated_bible.project_title,
+            overall_status=ReviewApprovalStatus.CHANGES_REQUESTED,
+            blocking_notes_count=1,
+            ready_for_live_render=False,
+        )
+        video_agent = OmniVideoRenderAgent()
+        render_ctx = video_agent.run({
+            "bible": gated_bible,
+            "render_video": True,
+            "dry_run": False,
+            "audit_passed": True,
+            "prompt_audits": [],
+        })
+        assert render_ctx["video_render_status"] == "blocked_by_client_review"
+        assert render_ctx["rendered_videos"] == []
+
+    def test_html_animatic_v212_huds_toolbar_ast_and_council_24_features(self, tmp_path):
+        import ast
+        import re
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        # 1. Python 3.11 AST validation for html_compiler.py & html_hud_v212.py
+        for rel_path in (
+            "omni_director/tools/html_compiler.py",
+            "omni_director/tools/html_hud_v212.py",
+        ):
+            src_path = Path(rel_path)
+            tree = ast.parse(src_path.read_text(encoding="utf-8"), filename=rel_path, feature_version=(3, 11))
+            assert isinstance(tree, ast.Module)
+
+        # 2. Compile HTML animatic & verify v2.12.0 toolbar, HUDs, hotkeys, Escape, and zero blocking dialogs
+        out_dir = tmp_path / "html_v212"
+        bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(bundle, out_dir)
+        html = html_path.read_text(encoding="utf-8")
+
+        for selector_id in (
+            "dept-group-camera",
+            "dept-group-delivery",
+            "animatic-blocking-hud",
+            "btn-blocking-animatic",
+            "blocking-floorplan-svg",
+            "animatic-review-hud",
+            "btn-review-animatic",
+            "review-pin-stage",
+        ):
+            assert f'id="{selector_id}"' in html, f"Missing HTML element #{selector_id}"
+
+        assert "e.key === 'w' || e.key === 'W'" in html
+        assert "e.key === 'n' || e.key === 'N'" in html
+        assert "if (isBlockingHUDOpen) toggleBlockingHUD();" in html
+        assert "if (isReviewHUDOpen) toggleReviewHUD();" in html
+
+        # Zero blocking native browser dialogs
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+
+        # Zero duplicate e.key bindings inside keydown listener
+        keydown_match = re.search(
+            r"window\.addEventListener\('keydown'.*?document\.addEventListener\('DOMContentLoaded'",
+            html,
+            re.DOTALL,
+        )
+        assert keydown_match is not None
+        keydown_block = keydown_match.group(0)
+        bound_keys = re.findall(r"e\.key\s*===\s*'([^']+)'", keydown_block)
+        assert len(bound_keys) == len(set(bound_keys)), f"Duplicate e.key bindings found: {bound_keys}"
+
+        # 3. ProductManagerAgent (24 proposals) & ProductCouncilOrchestrator (v2.12.0 >= 90.0)
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
+        feat_ids = {p.feature_id for p in proposals}
+        assert len(proposals) == 24
+        assert "PM-FEAT-023" in feat_ids
+        assert "PM-FEAT-024" in feat_ids
+
+        council = ProductCouncilOrchestrator()
+        report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
+        assert report.version == "2.12.0"
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0
+
+    def test_v212_adversarial_edge_cases(self):
+        import xml.etree.ElementTree as ET
+        from omni_director.config import DirectorConfig
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_continuity_blocking_spec
+        from omni_director.schemas import (
+            LightingRigSpec,
+            MasterClientReviewSpec,
+            MasterContinuityBlockingSpec,
+            ProductionBundle,
+            ReviewAnnotationSpec,
+            ReviewApprovalStatus,
+            SceneBlockingSpec,
+            SceneReviewSignoffSpec,
+            ShotScaleSize,
+            StudioLightFixtureSpec,
+        )
+        from omni_director.tools.continuity_blocking import (
+            synthesize_default_continuity_blocking,
+            synthesize_scene_blocking,
+        )
+        from omni_director.tools.html_hud_v212 import build_v212_hud_bundle
+        from omni_director.tools.omni_video import GeminiOmniVideoEngine
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+        from omni_director.tools.review_notes import generate_review_fcpxml_markers
+
+        # 1. PENDING_REVIEW gating & GeminiOmniVideoEngine direct live-render gate
+        pending_spec = MasterClientReviewSpec(overall_status=ReviewApprovalStatus.PENDING_REVIEW)
+        assert pending_spec.ready_for_live_render is False
+        assert pending_spec.overall_approval_status == ReviewApprovalStatus.PENDING_REVIEW
+
+        gated_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        gated_bible.master_client_review = pending_spec
+        engine = GeminiOmniVideoEngine(DirectorConfig(dry_run=False))
+        blocked_res = engine.render_production_scenes(gated_bible)
+        assert len(blocked_res) == len(gated_bible.scenes)
+        assert all(r["status"] == "blocked_by_client_review" for r in blocked_res)
+
+        # 2. cct_kelvin fixture propagation into synthesize_default_continuity_blocking & domain presets
+        kelvin_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        kelvin_bible.scenes[0].lighting_rig = LightingRigSpec(
+            rig_name="Warm Tungsten Key",
+            fixtures=[
+                StudioLightFixtureSpec(fixture_id="KEY_01", cct_kelvin=3000),
+                StudioLightFixtureSpec(fixture_id="FILL_01", cct_kelvin=3400),
+            ],
+        )
+        synth_cont = synthesize_default_continuity_blocking(kelvin_bible)
+        assert synth_cont.scene_blockings[0].color_temp_kelvin == 3200
+        domain_cont = get_domain_continuity_blocking_spec(kelvin_bible)
+        assert domain_cont.scene_blockings[0].color_temp_kelvin == 3200
+
+        # 3. 30-degree fallback guarantees distinct ShotScaleSize when aim delta < 32 deg
+        prev_blk = SceneBlockingSpec(scene_index=1, shot_scale=ShotScaleSize.MS)
+        prev_blk.camera.aim_azimuth_deg = 90.0
+        sc_same_scale = IKEA_ASMR_BIBLE.scenes[1].model_copy(deep=True)
+        sc_same_scale.scene_index = 2
+        sc_same_scale.scene_title = "Medium Shot Followup"
+        sc_same_scale.omni_prose_prompt = "Medium shot MS tracking subject."
+        next_blk = synthesize_scene_blocking(sc_same_scale, scene_index=2, prev_blocking=prev_blk)
+        assert next_blk.shot_scale != prev_blk.shot_scale
+
+        # 4. timecode_sec >= 5.0 FCPXML marker placement without modulo wrapping
+        fcpxml_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        fcpxml_bible.scenes = fcpxml_bible.scenes[:2]
+        fcpxml_bible.scenes[0].timestamp_range = "00:00 - 00:10"
+        fcpxml_bible.scenes[1].timestamp_range = "00:10 - 00:20"
+        note_s1 = ReviewAnnotationSpec(note_id="N-S1", scene_index=1, timecode_sec=7.5, comment="Note at 7.5s")
+        note_s2 = ReviewAnnotationSpec(note_id="N-S2", scene_index=2, timecode_sec=12.5, comment="Note at 12.5s")
+        fcpxml_bible.master_client_review = MasterClientReviewSpec(
+            project_title="FCPXML Timing Test",
+            scene_reviews=[
+                SceneReviewSignoffSpec(scene_index=1, scene_title="S1", annotations=[note_s1]),
+                SceneReviewSignoffSpec(scene_index=2, scene_title="S2", annotations=[note_s2]),
+            ],
+        )
+        fcpxml_10s = generate_review_fcpxml_markers(fcpxml_bible, fps=24)
+        root_10s = ET.fromstring(fcpxml_10s)
+        markers_10s = root_10s.findall(".//marker")
+        assert markers_10s[0].attrib["start"] == "180/24s"
+        assert markers_10s[1].attrib["start"] == "60/24s"
+
+        # Also check 5s fallback on MasterClientReviewSpec for scene 2 at 7.5s -> 60/24s
+        fallback_review = MasterClientReviewSpec(
+            project_title="Fallback 5s Review",
+            scene_reviews=[
+                SceneReviewSignoffSpec(scene_index=1, scene_title="S1", annotations=[]),
+                SceneReviewSignoffSpec(
+                    scene_index=2,
+                    scene_title="S2",
+                    annotations=[ReviewAnnotationSpec(note_id="N-FB", scene_index=2, timecode_sec=7.5, comment="Scene 2 at 7.5s")],
+                ),
+            ],
+        )
+        fcpxml_fb = generate_review_fcpxml_markers(fallback_review, fps=24)
+        root_fb = ET.fromstring(fcpxml_fb)
+        markers_fb = root_fb.findall(".//marker")
+        assert markers_fb[1].attrib["start"] == "60/24s"
+
+        # 5. </script> breakout escaping in html_hud_v212.py
+        xss_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        xss_payload = "Shot </script><script>alert(1)</script>"
+        xss_cont = synthesize_default_continuity_blocking(xss_bible)
+        xss_cont.scene_blockings[0].scene_title = xss_payload
+        xss_cont.scene_blockings[0].blocking_notes = xss_payload
+        xss_bible.master_continuity_blocking = xss_cont
+        xss_bible.master_client_review = MasterClientReviewSpec(
+            project_title="XSS Escape Test",
+            scene_reviews=[
+                SceneReviewSignoffSpec(
+                    scene_index=1,
+                    scene_title=xss_payload,
+                    annotations=[ReviewAnnotationSpec(note_id="XSS-1", scene_index=1, comment=xss_payload)],
+                )
+            ],
+        )
+        xss_bundle = ProductionBundle(bible=xss_bible, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        hud = build_v212_hud_bundle(xss_bible, xss_bundle, {1: (0.0, 8.0)}, 32)
+        js_lines = hud["js"].splitlines()
+        blk_line = next(line for line in js_lines if "const BLOCKING_SCENES =" in line)
+        rev_line = next(line for line in js_lines if "const REVIEW_STATE =" in line)
+        assert "</script>" not in blk_line
+        assert "<\\/script>" in blk_line
+        assert "</script>" not in rev_line
+        assert "<\\/script>" in rev_line
+
+        # 6. .model_dump() / .model_validate() round-trip preservation
+        cont_orig = MasterContinuityBlockingSpec(
+            project_title="RoundTrip Continuity",
+            overall_continuity_score=83.5,
+            axis_violations_count=2,
+        )
+        cont_rt = MasterContinuityBlockingSpec.model_validate(cont_orig.model_dump())
+        assert cont_rt.overall_continuity_score == 83.5
+        assert cont_rt.axis_violations_count == 2
+
+        rev_orig = MasterClientReviewSpec(
+            project_title="RoundTrip Review",
+            overall_status=ReviewApprovalStatus.CHANGES_REQUESTED,
+            blocking_notes_count=3,
+        )
+        assert rev_orig.overall_approval_status == ReviewApprovalStatus.CHANGES_REQUESTED
+        assert rev_orig.unresolved_blockers == 3
+        rev_rt = MasterClientReviewSpec.model_validate(rev_orig.model_dump())
+        assert rev_rt.overall_approval_status == ReviewApprovalStatus.CHANGES_REQUESTED
+        assert rev_rt.unresolved_blockers == 3
+        assert rev_rt.ready_for_live_render is False
+
+        # 7. heal_omni_scene_prompt does NOT auto-synthesize APPROVED review_signoff when review_obj is None
+        unreviewed_scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        unreviewed_scene.review_signoff = None
+        unreviewed_scene.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with oak table and foley click."
+        healed_scene_out, healed_audit_out = heal_omni_scene_prompt(unreviewed_scene)
+        assert healed_scene_out.review_signoff is None
+        assert "[REVIEW_GATE:" not in healed_scene_out.omni_prose_prompt
+        assert healed_audit_out.passed is True

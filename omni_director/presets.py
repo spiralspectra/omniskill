@@ -18,6 +18,7 @@ from omni_director.schemas import (
     AudioStemMixerSpec,
     BroadcastLoudnessStandard,
     BroadcastTraffickingSlateSpec,
+    CameraAxisPlacement,
     CharacterTurnaroundSpec,
     ClapperSlateSpec,
     ClearanceRecordSpec,
@@ -39,6 +40,7 @@ from omni_director.schemas import (
     DomainLutSpec,
     DroneFlightPathSpec,
     DroneRigType,
+    EditorialCutType,
     FilmGaugeFormat,
     FilmStockManufacturer,
     FilmStockSpec,
@@ -50,12 +52,16 @@ from omni_director.schemas import (
     HdrMasteringDisplaySpec,
     HdrMetadataSpec,
     HdrTransferFunction,
+    InterSceneCutCheckSpec,
     LedWallGeometry,
     LightingRigSpec,
     LoudnessComplianceSpec,
+    MarkerColorTag,
     MasterAicpBidSpec,
     MasterBgmSpec,
     MasterBroadcastQcSpec,
+    MasterClientReviewSpec,
+    MasterContinuityBlockingSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
     MasterProductionSlateSpec,
@@ -68,11 +74,19 @@ from omni_director.schemas import (
     QcVerdictStatus,
     ReframePanMode,
     RegimeType,
+    ReviewAnnotationSpec,
+    ReviewApprovalStatus,
+    ReviewerRole,
+    ReviewPinCoordinate,
+    SceneBlockingSpec,
     ScenePromptSpec,
     SceneQcProfileSpec,
     SceneReframeSpec,
+    SceneReviewSignoffSpec,
+    ScreenDirection,
     ScriptBreakdownSheet,
     SensorFormat,
+    ShotScaleSize,
     Smpte12MTimecodeSpec,
     SocialDeliveryPlatform,
     SolarEphemerisSpec,
@@ -81,6 +95,7 @@ from omni_director.schemas import (
     SpatialCoordinate3D,
     SpeedRampCurveSpec,
     SpeedRampMode,
+    StageBlockingEntity,
     StemChannelStrip,
     StemType,
     StorytellingMode,
@@ -127,6 +142,18 @@ from omni_director.tools.broadcast_qc import (
     synthesize_default_scene_qc,
     synthesize_rights_clearances,
     validate_loudness_target,
+)
+from omni_director.tools.continuity_blocking import (
+    evaluate_180_axis_and_30_rule,
+    format_continuity_prompt_token,
+    synthesize_default_continuity_blocking,
+    synthesize_scene_blocking,
+)
+from omni_director.tools.review_notes import (
+    compile_review_note_to_delta,
+    format_review_prompt_token,
+    synthesize_default_client_review,
+    synthesize_scene_review_signoff,
 )
 
 DOMAIN_PRIORITY: List[str] = [
@@ -2456,6 +2483,506 @@ def get_domain_broadcast_qc_spec(
     return spec
 
 
+_DOMAIN_CONTINUITY_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "culinary_asmr": {
+        "screen_direction": ScreenDirection.STATIC_CENTERED,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.MS, ShotScaleSize.MCU, ShotScaleSize.CU, ShotScaleSize.ECU],
+        "cut_type_followup": EditorialCutType.MATCH_ON_ACTION,
+        "aim_azimuths": [90.0, 56.0, 122.0, 88.0],
+        "focal_lengths": [50, 65, 85, 100],
+        "eyeline_deg": 0.0,
+        "stage_width": 4.5,
+        "stage_depth": 3.5,
+        "cam_height": 1.25,
+        "cam_distances": [1.8, 1.5, 1.2, 0.9],
+        "kelvin": 3600,
+        "default_scene_titles": [
+            "Tabletop Mise-en-Place",
+            "Artisan Prep & Heat",
+            "Tactile Pour & Glaze",
+            "Hero Garnish & Steam",
+        ],
+        "primary_entity": ("Chef Prep Hands", "talent", -0.4, 0.1, 0.0, 0.0, 0.0, "#38BDF8"),
+        "anchor_entity": ("Hero Culinary Plating Dish", "hero_product", 0.3, 0.4, 180.0, 0.0, 0.0, "#F59E0B"),
+        "notes_label": "Tabletop locked A-side axis",
+    },
+    "automotive_robotics": {
+        "screen_direction": ScreenDirection.LEFT_TO_RIGHT,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.EWS, ShotScaleSize.WS, ShotScaleSize.MLS, ShotScaleSize.MS],
+        "cut_type_followup": EditorialCutType.MATCH_ON_ACTION,
+        "aim_azimuths": [64.0, 98.0, 60.0, 102.0],
+        "focal_lengths": [24, 28, 35, 50],
+        "eyeline_deg": 15.0,
+        "stage_width": 24.0,
+        "stage_depth": 14.0,
+        "cam_height": 1.1,
+        "cam_distances": [5.2, 4.2, 3.4, 2.8],
+        "kelvin": 5600,
+        "default_scene_titles": [
+            "Rolling Telemetry Ignition",
+            "Lateral Pursuit Acceleration",
+            "Robotic Chassis Apex",
+            "Wet Tarmac Horizon Lock",
+        ],
+        "primary_entity": ("Autonomous Hypercar Chassis", "vehicle", -2.4, 0.5, 0.0, 4.2, 0.0, "#38BDF8"),
+        "anchor_entity": ("Russian Arm Pursuit Rig", "prop", -3.2, -1.8, 0.0, 4.2, 0.0, "#F59E0B"),
+        "notes_label": "Lateral left-to-right pursuit vector",
+    },
+    "luxury_fashion": {
+        "screen_direction": ScreenDirection.TOWARD_CAMERA,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.MCU, ShotScaleSize.CU, ShotScaleSize.MCU, ShotScaleSize.CU],
+        "cut_type_followup": EditorialCutType.EYELINE_CUT,
+        "aim_azimuths": [90.0, 56.0, 122.0, 88.0],
+        "focal_lengths": [65, 85, 50, 85],
+        "eyeline_deg": 0.0,
+        "stage_width": 10.0,
+        "stage_depth": 8.0,
+        "cam_height": 1.55,
+        "cam_distances": [2.2, 1.7, 2.2, 1.7],
+        "kelvin": 4800,
+        "default_scene_titles": [
+            "Symmetrical Runway Approach",
+            "Couture Eyeline Close-Up",
+            "Flagship Corridor Stride",
+            "Climactic Hero Silhouette",
+        ],
+        "primary_entity": ("Lead Runway Talent", "talent", 0.0, 0.2, 270.0, 0.0, 1.1, "#38BDF8"),
+        "anchor_entity": ("Hero Couture Accessory", "hero_product", 0.5, 0.6, 270.0, 0.0, 0.0, "#F59E0B"),
+        "notes_label": "Symmetrical eyeline MCU->CU progression",
+    },
+    "kinetic_action": {
+        "screen_direction": ScreenDirection.LEFT_TO_RIGHT,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.WS, ShotScaleSize.MS, ShotScaleSize.MCU, ShotScaleSize.CU],
+        "cut_type_followup": EditorialCutType.MATCH_ON_ACTION,
+        "aim_azimuths": [56.0, 92.0, 126.0, 74.0],
+        "focal_lengths": [28, 35, 50, 85],
+        "eyeline_deg": 15.0,
+        "stage_width": 16.0,
+        "stage_depth": 12.0,
+        "cam_height": 1.4,
+        "cam_distances": [4.0, 3.0, 2.2, 1.8],
+        "kelvin": 5200,
+        "default_scene_titles": [
+            "Kinetic Launch & Vector",
+            "Match-on-Action Drive",
+            "Aerodynamic Peak Tension",
+            "Impact Lock & Settle",
+        ],
+        "primary_entity": ("Kinetic Athlete / Performer", "talent", -1.4, 0.2, 0.0, 2.6, 0.0, "#38BDF8"),
+        "anchor_entity": ("Technical Impact Anchor", "hero_product", 1.6, 0.5, 180.0, 0.0, 0.0, "#F59E0B"),
+        "notes_label": "Dynamic match-on-action axis",
+    },
+    "tech_hardware": {
+        "screen_direction": ScreenDirection.STATIC_CENTERED,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.MS, ShotScaleSize.MCU, ShotScaleSize.CU, ShotScaleSize.ECU],
+        "cut_type_followup": EditorialCutType.MATCH_ON_ACTION,
+        "aim_azimuths": [55.0, 89.0, 123.0, 72.0],
+        "focal_lengths": [50, 65, 85, 100],
+        "eyeline_deg": 0.0,
+        "stage_width": 6.0,
+        "stage_depth": 6.0,
+        "cam_height": 1.35,
+        "cam_distances": [2.4, 1.9, 1.5, 1.1],
+        "kelvin": 6000,
+        "default_scene_titles": [
+            "Cleanroom Chassis Reveal",
+            "Orbital Chamfer Sweep",
+            "Precision Hinge Articulation",
+            "Silicon Macro Specular",
+        ],
+        "primary_entity": ("Anodized Hardware Flagship", "hero_product", 0.0, 0.3, 270.0, 0.0, 0.0, "#38BDF8"),
+        "anchor_entity": ("Precision Moco Turntable", "prop", 0.0, -0.4, 90.0, 0.0, 0.0, "#F59E0B"),
+        "notes_label": "Cleanroom precision orbital axis",
+    },
+    "architectural_sanctuary": {
+        "screen_direction": ScreenDirection.TOWARD_CAMERA,
+        "axis_side": "A_SIDE",
+        "master_axis_deg": 0.0,
+        "shot_scales": [ShotScaleSize.WS, ShotScaleSize.MLS, ShotScaleSize.MS, ShotScaleSize.MCU],
+        "cut_type_followup": EditorialCutType.HARD_CUT,
+        "aim_azimuths": [90.0, 56.0, 122.0, 88.0],
+        "focal_lengths": [24, 35, 50, 65],
+        "eyeline_deg": 0.0,
+        "stage_width": 14.0,
+        "stage_depth": 10.0,
+        "cam_height": 1.5,
+        "cam_distances": [4.2, 3.3, 2.6, 2.0],
+        "kelvin": 5400,
+        "default_scene_titles": [
+            "Wide Spatial Sanctuary",
+            "Architectural Daylight Reveal",
+            "Medium Material Harmony",
+            "Tactile Sanctuary Anchor",
+        ],
+        "primary_entity": ("Sanctuary Architectural Anchor", "hero_product", 0.0, 0.8, 270.0, 0.0, 0.0, "#F59E0B"),
+        "anchor_entity": ("Bespoke Interior Element", "prop", -1.0, 0.2, 0.0, 0.0, 0.6, "#38BDF8"),
+        "notes_label": "Architectural wide-to-medium axial reveal",
+    },
+}
+
+
+def get_domain_continuity_blocking_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    project_title: str = "Omni Production",
+) -> MasterContinuityBlockingSpec:
+    """Calibrate 180-degree axis lock, shot scale progression, screen direction, and blocking entities across all 6 domain archetypes (PM-FEAT-023)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cfg = _DOMAIN_CONTINUITY_CALIBRATIONS[domain_key]
+
+    if isinstance(bible_or_domain, MasterProductionBible):
+        eff_title = bible_or_domain.project_title if project_title == "Omni Production" else project_title
+        eff_scenes: List[Optional[ScenePromptSpec]] = list(scenes if scenes is not None else (bible_or_domain.scenes or []))
+        is_mode_b = bible_or_domain.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+    else:
+        eff_title = project_title
+        eff_scenes = list(scenes) if scenes is not None else []
+        is_mode_b = False
+
+    if not eff_scenes:
+        eff_scenes = [None] * len(cfg["default_scene_titles"])
+
+    screen_dir: ScreenDirection = cfg["screen_direction"]
+    axis_side: str = cfg["axis_side"]
+    axis_deg: float = float(cfg["master_axis_deg"])
+    eyeline_deg: float = float(cfg["eyeline_deg"])
+    base_kelvin: int = int(cfg["kelvin"])
+
+    blockings: List[SceneBlockingSpec] = []
+    prev_kelvin: Optional[int] = None
+
+    for idx, sc in enumerate(eff_scenes, start=1):
+        slot = (idx - 1) % len(cfg["shot_scales"])
+        eff_idx = sc.scene_index if sc is not None else idx
+        eff_scene_title = (
+            (sc.scene_title if sc is not None and sc.scene_title else None)
+            or cfg["default_scene_titles"][(idx - 1) % len(cfg["default_scene_titles"])]
+        )
+        shot_scale: ShotScaleSize = cfg["shot_scales"][slot]
+        aim_deg: float = float(cfg["aim_azimuths"][slot])
+        focal_mm = (
+            int(getattr(sc.craft_camera, "focal_length_mm", 0) or 0)
+            if sc is not None and getattr(sc, "craft_camera", None) is not None
+            else 0
+        ) or int(cfg["focal_lengths"][slot])
+        fov_deg = round(math.degrees(2.0 * math.atan(36.0 / (2.0 * max(8.0, float(focal_mm))))), 1)
+
+        is_ext = bool(
+            is_mode_b
+            or (
+                sc is not None
+                and re.search(r"\+10s|extension", getattr(sc, "timestamp_range", "") or "", re.IGNORECASE)
+            )
+        )
+        if idx == 1:
+            cut_in = EditorialCutType.HARD_CUT
+        elif is_ext:
+            cut_in = EditorialCutType.CONTINUOUS_EXTENSION
+        else:
+            cut_in = cfg["cut_type_followup"]
+
+        # Resolve Kelvin while guaranteeing <= 1500K continuity across cuts
+        scene_kelvin = base_kelvin
+        if sc is not None:
+            lighting = getattr(sc, "lighting_rig", None)
+            if lighting is not None and getattr(lighting, "fixtures", None):
+                k_vals = [
+                    float(k)
+                    for f in lighting.fixtures
+                    for k in (getattr(f, "cct_kelvin", getattr(f, "color_temp_k", None)),)
+                    if k is not None
+                ]
+                if k_vals:
+                    scene_kelvin = int(round(sum(k_vals) / len(k_vals)))
+            else:
+                m_k = re.search(r"\b(\d{4})K\b", getattr(sc, "omni_prose_prompt", "") or "")
+                if m_k:
+                    parsed_k = int(m_k.group(1))
+                    if 2000 <= parsed_k <= 12000:
+                        scene_kelvin = parsed_k
+        if prev_kelvin is not None and abs(scene_kelvin - prev_kelvin) > 1500:
+            scene_kelvin = prev_kelvin + (1200 if scene_kelvin > prev_kelvin else -1200)
+        prev_kelvin = scene_kelvin
+
+        rad = math.radians(aim_deg)
+        cam_dist = float(cfg["cam_distances"][slot])
+        cam_x = round(-cam_dist * math.cos(rad), 2)
+        cam_y = round(-abs(cam_dist * math.sin(rad)) - 0.5, 2)
+
+        p_label, p_role, px, py, pface, pdx, pdy, phex = cfg["primary_entity"]
+        a_label, a_role, ax, ay, aface, adx, ady, ahex = cfg["anchor_entity"]
+        entities = [
+            StageBlockingEntity(
+                entity_id=f"{domain_key}_primary_s{eff_idx}",
+                label=p_label,
+                role=p_role,
+                x_meters=float(px),
+                y_meters=float(py),
+                facing_deg=float(pface),
+                eyeline_deg=eyeline_deg,
+                motion_dx_meters=float(pdx),
+                motion_dy_meters=float(pdy),
+                screen_direction=screen_dir,
+                color_hex=phex,
+            ),
+            StageBlockingEntity(
+                entity_id=f"{domain_key}_anchor_s{eff_idx}",
+                label=a_label,
+                role=a_role,
+                x_meters=float(ax),
+                y_meters=float(ay),
+                facing_deg=float(aface),
+                eyeline_deg=-eyeline_deg if eyeline_deg else 0.0,
+                motion_dx_meters=float(adx),
+                motion_dy_meters=float(ady),
+                screen_direction=ScreenDirection.STATIC_CENTERED if adx == 0.0 and ady == 0.0 else screen_dir,
+                color_hex=ahex,
+            ),
+        ]
+
+        cam = CameraAxisPlacement(
+            camera_id=f"CAM_{domain_key[:4].upper()}_S{eff_idx}",
+            x_meters=cam_x,
+            y_meters=cam_y,
+            aim_azimuth_deg=round(aim_deg, 1),
+            fov_deg=fov_deg,
+            focal_length_mm=focal_mm,
+            axis_side=axis_side,
+            axis_angle_deg=axis_deg,
+            height_meters=float(cfg["cam_height"]),
+        )
+
+        blk = SceneBlockingSpec(
+            scene_index=eff_idx,
+            scene_title=eff_scene_title,
+            screen_direction=screen_dir,
+            shot_scale=shot_scale,
+            cut_type_in=cut_in,
+            line_of_action_deg=axis_deg,
+            axis_side=axis_side,
+            eyeline_angle_deg=eyeline_deg,
+            one_eighty_lock_ok=True,
+            color_temp_kelvin=scene_kelvin,
+            stage_width_meters=float(cfg["stage_width"]),
+            stage_depth_meters=float(cfg["stage_depth"]),
+            camera=cam,
+            entities=entities,
+            blocking_notes=(
+                f"{cfg['notes_label']} ({domain_key}): {axis_side} at {aim_deg:.0f}deg, "
+                f"{shot_scale.value} ({focal_mm}mm), dir={screen_dir.value}."
+            ),
+        )
+        blk.prompt_token = format_continuity_prompt_token(blk)
+        blockings.append(blk)
+
+    cut_checks: List[InterSceneCutCheckSpec] = []
+    for i in range(len(blockings) - 1):
+        chk = evaluate_180_axis_and_30_rule(
+            blockings[i],
+            blockings[i + 1],
+            prev_kelvin=blockings[i].color_temp_kelvin,
+            next_kelvin=blockings[i + 1].color_temp_kelvin,
+        )
+        cut_checks.append(chk)
+
+    axis_violations_count = sum(len(c.violations) for c in cut_checks)
+    warnings_count = sum(len(c.warnings) for c in cut_checks)
+    all_180 = all(b.one_eighty_lock_ok for b in blockings) and all(c.axis_preserved for c in cut_checks)
+    all_30 = all(c.thirty_degree_rule_ok for c in cut_checks)
+    all_kelvin = all(c.kelvin_continuity_ok for c in cut_checks)
+    continuity_passed = all_180 and all_30 and all_kelvin and axis_violations_count == 0
+    overall_continuity_score = round(
+        max(0.0, 100.0 - (15.0 * axis_violations_count) - (2.0 * warnings_count)),
+        2,
+    )
+
+    manifest = MasterContinuityBlockingSpec(
+        project_title=eff_title,
+        dominant_screen_direction=screen_dir,
+        master_axis_deg=axis_deg,
+        master_axis_side=axis_side,
+        scene_blockings=blockings,
+        cut_checks=cut_checks,
+        all_180_axis_locked=all_180,
+        all_30_rule_passed=all_30,
+        all_kelvin_continuous=all_kelvin,
+        continuity_passed=continuity_passed,
+        overall_continuity_score=overall_continuity_score,
+        axis_violations_count=axis_violations_count,
+    )
+    manifest.prompt_token = format_continuity_prompt_token(manifest)
+    return manifest
+
+
+_DOMAIN_CLIENT_REVIEW_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "culinary_asmr": {
+        "signoff_by": "Culinary Director & Brand Producer",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "lighting", 0.50, 0.44, "Warm 3600K tungsten key and tactile steam specular highlights verified for appetite appeal."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "audio", 0.48, 0.52, "Binaural ASMR sizzle, ceramic clink, and room tone floor verified clean."),
+            (ReviewerRole.CLIENT_BRAND, "Brand Creative Lead", "framing", 0.52, 0.46, "Hero dish plating centered in tabletop A-side frame; garnish and packaging legible."),
+            (ReviewerRole.POST_PRODUCER, "Finishing Post Producer", "pacing", 0.50, 0.50, "1.0x real-time pour physics and match-on-action cadence signed off."),
+        ],
+    },
+    "automotive_robotics": {
+        "signoff_by": "Automotive Director & OEM Brand Lead",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "camera", 0.46, 0.50, "Russian Arm lateral left-to-right pursuit velocity and low-angle horizon lock verified."),
+            (ReviewerRole.VFX_SUPERVISOR, "Senior VFX Supervisor", "lighting", 0.54, 0.48, "Raytraced wet tarmac neon reflections and carbon-fiber chassis speculars cleared."),
+            (ReviewerRole.CLIENT_BRAND, "OEM Brand Lead", "framing", 0.50, 0.44, "Hero vehicle badge emblem and aerodynamic silhouette clear of social safe-zone HUD margins."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "audio", 0.50, 0.54, "Electric torque whine and pneumatic servo transient sync approved for broadcast."),
+        ],
+    },
+    "luxury_fashion": {
+        "signoff_by": "Fashion Director & Maison Brand Lead",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "framing", 0.48, 0.40, "Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved."),
+            (ReviewerRole.CLIENT_BRAND, "Maison Brand Director", "wardrobe", 0.52, 0.46, "Hero couture textile sheen and signature brand silhouette verified on talent."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "lighting", 0.50, 0.42, "High-contrast key-to-fill edge separation and skin-tone highlight rolloff cleared."),
+            (ReviewerRole.POST_PRODUCER, "Finishing Post Producer", "pacing", 0.50, 0.50, "Runway stride inertia and freeze-frame hero product lock signed off."),
+        ],
+    },
+    "kinetic_action": {
+        "signoff_by": "Action Director & Global Brand Producer",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "pacing", 0.50, 0.48, "1.0x real-time kinetic contact chain and match-on-action axis continuity verified."),
+            (ReviewerRole.VFX_SUPERVISOR, "Senior VFX Supervisor", "camera", 0.46, 0.46, "90-degree shutter motion clarity and aerodynamic streamline particles cleared."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "audio", 0.52, 0.52, "Transient impact foley punch and percussive score lock verified at -24 LKFS."),
+            (ReviewerRole.CLIENT_BRAND, "Brand Creative Lead", "framing", 0.50, 0.44, "Performance textile tension and hero brand mark legible across all social crops."),
+        ],
+    },
+    "tech_hardware": {
+        "signoff_by": "Hardware Industrial Director & Product Lead",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "lighting", 0.50, 0.46, "Cleanroom 6000K precision rim highlight across chamfered metal edges verified."),
+            (ReviewerRole.CLIENT_BRAND, "Hardware Product Lead", "framing", 0.50, 0.48, "Hero industrial design proportions and display UI sharpness signed off."),
+            (ReviewerRole.VFX_SUPERVISOR, "Senior VFX Supervisor", "camera", 0.48, 0.50, "Orbital motion-control sweep and zero optical distortion on rectilinear lines cleared."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "audio", 0.50, 0.52, "Precision mechanical hinge click and minimalist tonal pulse approved."),
+        ],
+    },
+    "architectural_sanctuary": {
+        "signoff_by": "Architectural Director & Brand Producer",
+        "annotations": [
+            (ReviewerRole.DIRECTOR, "Lead Creative Director", "framing", 0.50, 0.46, "Architectural wide-to-medium axial reveal and plumb vertical perspective verified."),
+            (ReviewerRole.AGENCY_CREATIVE, "Agency Creative Lead", "lighting", 0.44, 0.48, "Daylight shaft balance across pale ash flooring and matte limewashed walls approved."),
+            (ReviewerRole.CLIENT_BRAND, "Brand Creative Lead", "wardrobe", 0.54, 0.50, "Bespoke furniture geometry, textile drape, and brand color palette fidelity signed off."),
+            (ReviewerRole.POST_PRODUCER, "Finishing Post Producer", "audio", 0.50, 0.52, "Acoustic room-tone transition from resonant space to dampened sanctuary cleared."),
+        ],
+    },
+}
+
+
+def get_domain_client_review_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    project_title: str = "Omni Production",
+) -> MasterClientReviewSpec:
+    """Calibrate domain-specific director/agency/client pin annotations and resolved approval signoff gate across all 6 domain archetypes (PM-FEAT-024)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cfg = _DOMAIN_CLIENT_REVIEW_CALIBRATIONS[domain_key]
+    cont_cfg = _DOMAIN_CONTINUITY_CALIBRATIONS[domain_key]
+
+    if isinstance(bible_or_domain, MasterProductionBible):
+        eff_title = bible_or_domain.project_title if project_title == "Omni Production" else project_title
+        eff_scenes: List[Optional[ScenePromptSpec]] = list(scenes if scenes is not None else (bible_or_domain.scenes or []))
+        total_runtime = float(bible_or_domain.total_runtime_seconds or 32)
+    else:
+        eff_title = project_title
+        eff_scenes = list(scenes) if scenes is not None else []
+        total_runtime = 32.0
+
+    if not eff_scenes:
+        eff_scenes = [None] * len(cont_cfg["default_scene_titles"])
+
+    fps = 24
+    total_scenes = max(1, len(eff_scenes))
+    per_scene_sec = max(2.0, total_runtime / total_scenes)
+    scene_reviews: List[SceneReviewSignoffSpec] = []
+
+    for idx, sc in enumerate(eff_scenes, start=1):
+        eff_idx = sc.scene_index if sc is not None else idx
+        eff_scene_title = (
+            (sc.scene_title if sc is not None and sc.scene_title else None)
+            or cont_cfg["default_scene_titles"][(idx - 1) % len(cont_cfg["default_scene_titles"])]
+        )
+
+        start_s = (idx - 1) * per_scene_sec
+        end_s = idx * per_scene_sec
+        if sc is not None and getattr(sc, "timestamp_range", None):
+            m = re.search(r"(\d+):(\d+)\s*[-–—]\s*(\d+):(\d+)", sc.timestamp_range)
+            if m:
+                m1, s1, m2, s2 = map(int, m.groups())
+                cand_s = float(m1 * 60 + s1)
+                cand_e = float(m2 * 60 + s2)
+                if cand_e > cand_s:
+                    start_s, end_s = cand_s, cand_e
+
+        mid_s = round(start_s + max(0.5, (end_s - start_s) * 0.4), 2)
+        frame_num = max(0, int(round(mid_s * fps)))
+        tc_smpte = format_smpte12m_timecode(frame_num, fps=fps)
+
+        role, reviewer_name, param, px, py, comment = cfg["annotations"][(idx - 1) % len(cfg["annotations"])]
+        note = ReviewAnnotationSpec(
+            note_id=f"REV-{domain_key[:4].upper()}-S{eff_idx:02d}-01",
+            scene_index=eff_idx,
+            timecode_smpte=tc_smpte,
+            timecode_sec=mid_s,
+            frame_number=frame_num,
+            reviewer_role=role,
+            reviewer_name=reviewer_name,
+            marker_color=MarkerColorTag.GREEN,
+            comment=comment,
+            target_parameter=param,
+            resolved=True,
+            blocking_gate=False,
+            pin=ReviewPinCoordinate(x_norm=float(px), y_norm=float(py), radius_norm=0.06),
+        )
+        note.compiled_edit_delta = compile_review_note_to_delta(note, sc)
+
+        sr = SceneReviewSignoffSpec(
+            scene_index=eff_idx,
+            scene_title=eff_scene_title,
+            revision=1,
+            approval_status=ReviewApprovalStatus.APPROVED,
+            annotations=[note],
+            open_notes_count=0,
+            resolved_notes_count=1,
+            signoff_by=cfg["signoff_by"],
+        )
+        sr.prompt_token = format_review_prompt_token(sr)
+        scene_reviews.append(sr)
+
+    total_notes = sum(len(sr.annotations) for sr in scene_reviews)
+    manifest = MasterClientReviewSpec(
+        project_title=eff_title,
+        revision=1,
+        overall_status=ReviewApprovalStatus.APPROVED,
+        overall_approval_status=ReviewApprovalStatus.APPROVED,
+        scene_reviews=scene_reviews,
+        total_notes_count=total_notes,
+        open_notes_count=0,
+        blocking_notes_count=0,
+        unresolved_blockers=0,
+        ready_for_live_render=True,
+        signoff_summary=(
+            f"Revision 1 approved across {len(scene_reviews)} scene(s) ({domain_key}); "
+            "all stakeholder pin annotations resolved and live render gate cleared."
+        ),
+    )
+    manifest.prompt_token = format_review_prompt_token(manifest)
+    return manifest
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -3043,6 +3570,14 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
         bible.master_reframe_manifest = get_domain_reframe_manifest(bible, bible.scenes)
     if not getattr(bible, "master_broadcast_qc", None):
         bible.master_broadcast_qc = get_domain_broadcast_qc_spec(bible, bible.scenes)
+    if not getattr(bible, "master_continuity_blocking", None):
+        bible.master_continuity_blocking = get_domain_continuity_blocking_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
+    if not getattr(bible, "master_client_review", None):
+        bible.master_client_review = get_domain_client_review_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -3088,6 +3623,21 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
             else:
                 scene.broadcast_qc = synthesize_default_scene_qc(
                     scene=scene, scene_index=idx, scene_title=scene.scene_title
+                )
+        if not getattr(scene, "blocking_spec", None):
+            if bible.master_continuity_blocking and len(bible.master_continuity_blocking.scene_blockings) >= idx:
+                scene.blocking_spec = bible.master_continuity_blocking.scene_blockings[idx - 1]
+            else:
+                prev_blk = bible.scenes[idx - 2].blocking_spec if idx > 1 else None
+                scene.blocking_spec = synthesize_scene_blocking(
+                    scene=scene, scene_index=idx, domain=arch, prev_blocking=prev_blk
+                )
+        if not getattr(scene, "review_signoff", None):
+            if bible.master_client_review and len(bible.master_client_review.scene_reviews) >= idx:
+                scene.review_signoff = bible.master_client_review.scene_reviews[idx - 1]
+            else:
+                scene.review_signoff = synthesize_scene_review_signoff(
+                    scene=scene, scene_index=idx, domain=arch
                 )
 
     return bible

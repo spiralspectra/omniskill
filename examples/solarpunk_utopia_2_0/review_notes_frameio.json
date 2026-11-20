@@ -1,0 +1,119 @@
+{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "Solarpunk Architectural Sanctuary Featur",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 2,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 2 scene(s) (architectural_sanctuary); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-ARCH-S01-01",
+      "scene_index": 1,
+      "timestamp": 2.0,
+      "timecode_smpte": "00:00:02:00",
+      "frame": 48,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "framing",
+      "text": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+      "annotation_pin": {
+        "x_norm": 0.5,
+        "y_norm": 0.46,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-ARCH-S02-01",
+      "scene_index": 2,
+      "timestamp": 7.0,
+      "timecode_smpte": "00:00:07:00",
+      "frame": 168,
+      "author_role": "agency_creative",
+      "author_name": "Agency Creative Lead",
+      "color": "GREEN",
+      "target_parameter": "lighting",
+      "text": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+      "annotation_pin": {
+        "x_norm": 0.44,
+        "y_norm": 0.48,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:02:00",
+          "timecode_sec": 2.0,
+          "frame_number": 48,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Architectural wide-to-medium axial reveal and plumb vertical perspective verified.",
+          "target_parameter": "framing",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.5,
+            "y_norm": 0.46,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'Solarpunk Architectural Sanctuary Featur - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.50, 0.46): Architectural wide-to-medium axial reveal and plumb vertical perspective verified. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-ARCH-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:07:00",
+          "timecode_sec": 7.0,
+          "frame_number": 168,
+          "reviewer_role": "agency_creative",
+          "reviewer_name": "Agency Creative Lead",
+          "marker_color": "GREEN",
+          "comment": "Daylight shaft balance across pale ash flooring and matte limewashed walls approved.",
+          "target_parameter": "lighting",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.44,
+            "y_norm": 0.48,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'Solarpunk Architectural Sanctuary Featur - Climax' @ 00:00:07:00]: Adjust lighting/color grading centered at frame coordinates (0.44, 0.48): Daylight shaft balance across pale ash flooring and matte limewashed walls approved. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Architectural Director & Brand Producer",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}

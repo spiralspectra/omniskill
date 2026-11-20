@@ -1,0 +1,119 @@
+{
+  "schema_format": "frameio_review_v4_compatible",
+  "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+  "revision": 1,
+  "overall_status": "approved",
+  "ready_for_live_render": true,
+  "total_notes_count": 2,
+  "open_notes_count": 0,
+  "blocking_notes_count": 0,
+  "signoff_summary": "Revision 1 approved across 2 scene(s) (luxury_fashion); all stakeholder pin annotations resolved and live render gate cleared.",
+  "comments": [
+    {
+      "id": "REV-LUXU-S01-01",
+      "scene_index": 1,
+      "timestamp": 2.0,
+      "timecode_smpte": "00:00:02:00",
+      "frame": 48,
+      "author_role": "director",
+      "author_name": "Lead Creative Director",
+      "color": "GREEN",
+      "target_parameter": "framing",
+      "text": "Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved.",
+      "annotation_pin": {
+        "x_norm": 0.48,
+        "y_norm": 0.4,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 1 'Minimalist Luxury Haute Couture Silk Vel - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.48, 0.40): Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved. Preserve <image_1> character identity and <image_2> environment invariants."
+    },
+    {
+      "id": "REV-LUXU-S02-01",
+      "scene_index": 2,
+      "timestamp": 7.0,
+      "timecode_smpte": "00:00:07:00",
+      "frame": 168,
+      "author_role": "client_brand",
+      "author_name": "Maison Brand Director",
+      "color": "GREEN",
+      "target_parameter": "wardrobe",
+      "text": "Hero couture textile sheen and signature brand silhouette verified on talent.",
+      "annotation_pin": {
+        "x_norm": 0.52,
+        "y_norm": 0.46,
+        "radius_norm": 0.06
+      },
+      "resolved": true,
+      "blocking_gate": false,
+      "compiled_edit_delta": "Review Edit Delta [Scene 2 'Minimalist Luxury Haute Couture Silk Vel - Climax' @ 00:00:07:00]: Apply targeted wardrobe refinement centered at frame coordinates (0.52, 0.46): Hero couture textile sheen and signature brand silhouette verified on talent. Preserve <image_1> character identity and <image_2> environment invariants."
+    }
+  ],
+  "scene_signoffs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-LUXU-S01-01",
+          "scene_index": 1,
+          "timecode_smpte": "00:00:02:00",
+          "timecode_sec": 2.0,
+          "frame_number": 48,
+          "reviewer_role": "director",
+          "reviewer_name": "Lead Creative Director",
+          "marker_color": "GREEN",
+          "comment": "Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved.",
+          "target_parameter": "framing",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.48,
+            "y_norm": 0.4,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 1 'Minimalist Luxury Haute Couture Silk Vel - Initiation' @ 00:00:02:00]: Refine camera framing and blocking centered at frame coordinates (0.48, 0.40): Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Fashion Director & Maison Brand Lead",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+      "revision": 1,
+      "approval_status": "approved",
+      "annotations": [
+        {
+          "note_id": "REV-LUXU-S02-01",
+          "scene_index": 2,
+          "timecode_smpte": "00:00:07:00",
+          "timecode_sec": 7.0,
+          "frame_number": 168,
+          "reviewer_role": "client_brand",
+          "reviewer_name": "Maison Brand Director",
+          "marker_color": "GREEN",
+          "comment": "Hero couture textile sheen and signature brand silhouette verified on talent.",
+          "target_parameter": "wardrobe",
+          "resolved": true,
+          "blocking_gate": false,
+          "pin": {
+            "x_norm": 0.52,
+            "y_norm": 0.46,
+            "radius_norm": 0.06
+          },
+          "compiled_edit_delta": "Review Edit Delta [Scene 2 'Minimalist Luxury Haute Couture Silk Vel - Climax' @ 00:00:07:00]: Apply targeted wardrobe refinement centered at frame coordinates (0.52, 0.46): Hero couture textile sheen and signature brand silhouette verified on talent. Preserve <image_1> character identity and <image_2> environment invariants."
+        }
+      ],
+      "open_notes_count": 0,
+      "resolved_notes_count": 1,
+      "signoff_by": "Fashion Director & Maison Brand Lead",
+      "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from omni_director.config import DirectorConfig
 from omni_director.schemas import MasterProductionBible, ScenePromptSpec, StorytellingMode
+from omni_director.tools.prompt_auditor import compile_clean_omni_prompt
 
 
 class GeminiOmniVideoEngine:
@@ -26,6 +27,26 @@ class GeminiOmniVideoEngine:
         reference_plate_paths: Optional[Dict[str, str]] = None
     ) -> List[Dict[str, Any]]:
         """Renders video scenes according to the MasterProductionBible and storytelling mode."""
+        if not self.config.dry_run:
+            client_review = getattr(bible, "master_client_review", None) or getattr(bible, "client_review", None)
+            if client_review is not None and getattr(client_review, "ready_for_live_render", True) is False:
+                scenes = list(getattr(bible, "scenes", None) or [])
+                if not scenes:
+                    return [{
+                        "scene_index": 0,
+                        "status": "blocked_by_client_review",
+                        "reason": "Client review signoff gate not cleared (ready_for_live_render=False).",
+                    }]
+                return [
+                    {
+                        "scene_index": scene.scene_index,
+                        "scene_title": scene.scene_title,
+                        "status": "blocked_by_client_review",
+                        "reason": "Client review signoff gate not cleared (ready_for_live_render=False).",
+                    }
+                    for scene in scenes
+                ]
+
         if self.config.dry_run or not self.config.api_key:
             return self._simulate_dry_run_render(bible, reference_plate_paths)
 
@@ -59,7 +80,7 @@ class GeminiOmniVideoEngine:
                 "fps": 24,
                 "mode": bible.storytelling_mode.value,
                 "bound_references": bound_references[:3],
-                "clean_prose_prompt": scene.omni_prose_prompt,
+                "clean_prose_prompt": compile_clean_omni_prompt(scene.omni_prose_prompt),
                 "diegetic_audio_synced": True,
                 "mock_video_url": f"file:///outputs/rendered_scene_{scene.scene_index}.mp4"
             }
@@ -103,10 +124,11 @@ class GeminiOmniVideoEngine:
                             contents.append(part)
                             bound_references.append({"tag": tag, "source": str(ref_path)})
 
-                contents.append(scene.omni_prose_prompt)
+                clean_prompt = compile_clean_omni_prompt(scene.omni_prose_prompt)
+                contents.append(clean_prompt)
                 kwargs: Dict[str, Any] = {
                     "model": self.config.video_model,
-                    "input": contents if bound_references else scene.omni_prose_prompt,
+                    "input": contents if bound_references else clean_prompt,
                 }
                 if bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN and prev_interaction_id:
                     kwargs["previous_interaction_id"] = prev_interaction_id

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fcpxml version="1.10">
+    <resources>
+        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>
+        <asset id="r2" name="SCENE_01" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r3" name="SCENE_02" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r4" name="SCENE_03" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+        <asset id="r5" name="SCENE_04" start="0s" duration="120/24s" hasVideo="1" hasAudio="1" format="r1"/>
+    </resources>
+    <library>
+        <event name="SEPHORA: London Pulse (Midnight Velvet) Review">
+            <project name="SEPHORA: London Pulse (Midnight Velvet) Review Markers">
+                <sequence format="r1" duration="480/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">
+                    <spine>
+                        <asset-clip name="Scene_01_The Soho Stare &amp; The Night Pan" ref="r2" offset="0/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="77/24s" duration="1/24s" value="[REV-LUXU-S01-01 | GREEN | director] Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved." note="Review Edit Delta [Scene 1 'The Soho Stare &amp; The Night Pan' @ 00:00:03:05]: Refine camera framing and blocking centered at frame coordinates (0.48, 0.40): Symmetrical eyeline MCU-to-CU progression and 2x anamorphic oval bokeh approved. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_02_The Flagship Infiltration: Tactile G" ref="r3" offset="120/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-LUXU-S02-01 | GREEN | client_brand] Hero couture textile sheen and signature brand silhouette verified on talent." note="Review Edit Delta [Scene 2 'The Flagship Infiltration: Tactile Glamour' @ 00:00:11:05]: Apply targeted wardrobe refinement centered at frame coordinates (0.52, 0.46): Hero couture textile sheen and signature brand silhouette verified on talent. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_03_The Soho Runway Strut" ref="r4" offset="240/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-LUXU-S03-01 | GREEN | agency_creative] High-contrast key-to-fill edge separation and skin-tone highlight rolloff cleared." note="Review Edit Delta [Scene 3 'The Soho Runway Strut' @ 00:00:19:05]: Adjust lighting/color grading centered at frame coordinates (0.50, 0.42): High-contrast key-to-fill edge separation and skin-tone highlight rolloff cleared. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                        <asset-clip name="Scene_04_The Bag Lock &amp; The Soho Freeze" ref="r5" offset="360/24s" duration="120/24s" start="0s" format="r1">
+                            <marker start="119/24s" duration="1/24s" value="[REV-LUXU-S04-01 | GREEN | post_producer] Runway stride inertia and freeze-frame hero product lock signed off." note="Review Edit Delta [Scene 4 'The Bag Lock &amp; The Soho Freeze' @ 00:00:27:05]: Refine kinetic beat timing while preserving 1.0x physical inertia: Runway stride inertia and freeze-frame hero product lock signed off. Preserve &lt;image_1&gt; character identity and &lt;image_2&gt; environment invariants." completed="1"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

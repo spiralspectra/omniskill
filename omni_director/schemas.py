@@ -2,9 +2,9 @@ import json
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.11.0"
+__version__ = "2.12.0"
 
 
 class RegimeType(str, Enum):
@@ -2129,6 +2129,305 @@ BroadcastQcManifest = MasterBroadcastQcSpec
 SceneQcSpec = SceneQcProfileSpec
 
 
+# ==============================================================================
+# PM-FEAT-023: 180-Degree Continuity Axis, Eyeline Match & Overhead Blocking Floorplan
+# ==============================================================================
+
+
+class ScreenDirection(str, Enum):
+    """Canonical screen travel & gaze direction along the 180-degree axis (PM-FEAT-023)."""
+    LEFT_TO_RIGHT = "left_to_right"
+    RIGHT_TO_LEFT = "right_to_left"
+    TOWARD_CAMERA = "toward_camera"
+    AWAY_FROM_CAMERA = "away_from_camera"
+    STATIC_CENTERED = "static_centered"
+
+    # Lowercase aliases
+    left_to_right = "left_to_right"
+    right_to_left = "right_to_left"
+    toward_camera = "toward_camera"
+    away_from_camera = "away_from_camera"
+    static_centered = "static_centered"
+
+
+class ShotScaleSize(str, Enum):
+    """Standard cinematic shot scale hierarchy for 30-degree rule validation (PM-FEAT-023)."""
+    EWS = "EWS"
+    WS = "WS"
+    MLS = "MLS"
+    MS = "MS"
+    MCU = "MCU"
+    CU = "CU"
+    ECU = "ECU"
+
+
+class EditorialCutType(str, Enum):
+    """Inter-scene editorial transition classification (PM-FEAT-023)."""
+    HARD_CUT = "hard_cut"
+    MATCH_ON_ACTION = "match_on_action"
+    EYELINE_CUT = "eyeline_cut"
+    CONTINUOUS_EXTENSION = "continuous_extension"
+    L_CUT = "l_cut"
+    J_CUT = "j_cut"
+
+    # Lowercase aliases
+    hard_cut = "hard_cut"
+    match_on_action = "match_on_action"
+    eyeline_cut = "eyeline_cut"
+    continuous_extension = "continuous_extension"
+    l_cut = "l_cut"
+    j_cut = "j_cut"
+
+
+class StageBlockingEntity(BaseModel):
+    """Subject, performer, or hero product marker on the 2D overhead stage floorplan (PM-FEAT-023)."""
+    entity_id: str = Field(default="subject_1")
+    label: str = Field(default="Hero Subject")
+    role: str = Field(default="talent", description="talent, hero_product, prop, or vehicle")
+    x_meters: float = Field(default=0.0, description="Stage X coordinate in meters (-left / +right)")
+    y_meters: float = Field(default=0.0, description="Stage Y coordinate in meters (-upstage / +downstage)")
+    facing_deg: float = Field(default=90.0, ge=-360.0, le=360.0, description="Entity facing azimuth in degrees")
+    eyeline_deg: float = Field(default=15.0, ge=-180.0, le=180.0, description="Eyeline angle relative to camera axis in degrees")
+    motion_dx_meters: float = Field(default=0.0, description="Horizontal displacement across scene in meters")
+    motion_dy_meters: float = Field(default=0.0, description="Depth displacement across scene in meters")
+    screen_direction: ScreenDirection = Field(default=ScreenDirection.LEFT_TO_RIGHT)
+    color_hex: str = Field(default="#38BDF8")
+
+
+class CameraAxisPlacement(BaseModel):
+    """Overhead 2D camera placement, aim azimuth, FOV, and 180-degree axis side (PM-FEAT-023)."""
+    camera_id: str = Field(default="CAM_A")
+    x_meters: float = Field(default=0.0)
+    y_meters: float = Field(default=-3.5)
+    aim_azimuth_deg: float = Field(default=90.0, ge=-360.0, le=360.0)
+    fov_deg: float = Field(default=48.0, ge=5.0, le=160.0)
+    focal_length_mm: int = Field(default=35, ge=8, le=600)
+    axis_side: str = Field(default="A_SIDE", description="Side of 180-degree line of action: A_SIDE or B_SIDE")
+    axis_angle_deg: float = Field(default=0.0, ge=-180.0, le=180.0)
+    height_meters: float = Field(default=1.55, ge=0.0)
+
+
+class InterSceneCutCheckSpec(BaseModel):
+    """Inter-scene continuity verification across 180-degree axis, 30-degree rule, and Kelvin drift (PM-FEAT-023)."""
+    from_scene_index: int = Field(default=1, ge=1)
+    to_scene_index: int = Field(default=2, ge=1)
+    cut_type: EditorialCutType = Field(default=EditorialCutType.MATCH_ON_ACTION)
+    axis_preserved: bool = Field(default=True)
+    axis_side_from: str = Field(default="A_SIDE")
+    axis_side_to: str = Field(default="A_SIDE")
+    camera_angle_delta_deg: float = Field(default=35.0, ge=0.0)
+    thirty_degree_rule_ok: bool = Field(default=True)
+    shot_scale_from: ShotScaleSize = Field(default=ShotScaleSize.WS)
+    shot_scale_to: ShotScaleSize = Field(default=ShotScaleSize.MS)
+    screen_direction_consistent: bool = Field(default=True)
+    eyeline_match_ok: bool = Field(default=True)
+    kelvin_delta_k: float = Field(default=0.0, ge=0.0)
+    kelvin_continuity_ok: bool = Field(default=True)
+    warnings: List[str] = Field(default_factory=list)
+    violations: List[str] = Field(default_factory=list)
+    passed: bool = Field(default=True)
+
+
+class SceneBlockingSpec(BaseModel):
+    """Per-scene 180-degree axis lock, eyeline angle, shot scale, and 2D stage blocking (PM-FEAT-023)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    screen_direction: ScreenDirection = Field(default=ScreenDirection.LEFT_TO_RIGHT)
+    shot_scale: ShotScaleSize = Field(default=ShotScaleSize.MS)
+    cut_type_in: EditorialCutType = Field(default=EditorialCutType.HARD_CUT)
+    line_of_action_deg: float = Field(default=0.0, ge=-180.0, le=180.0)
+    axis_side: str = Field(default="A_SIDE")
+    eyeline_angle_deg: float = Field(default=15.0, ge=-180.0, le=180.0)
+    one_eighty_lock_ok: bool = Field(default=True)
+    color_temp_kelvin: int = Field(default=5600, ge=1500, le=15000)
+    stage_width_meters: float = Field(default=12.0, gt=0.0)
+    stage_depth_meters: float = Field(default=10.0, gt=0.0)
+    camera: CameraAxisPlacement = Field(default_factory=CameraAxisPlacement)
+    entities: List[StageBlockingEntity] = Field(default_factory=list)
+    blocking_notes: str = Field(default="")
+    prompt_token: str = Field(default="")
+
+
+class MasterContinuityBlockingSpec(BaseModel):
+    """Master continuity manifest, inter-scene cut audit, and overhead blocking floorplan (PM-FEAT-023)."""
+    project_title: str = Field(default="Commercial Production")
+    dominant_screen_direction: ScreenDirection = Field(default=ScreenDirection.LEFT_TO_RIGHT)
+    master_axis_deg: float = Field(default=0.0, ge=-180.0, le=180.0)
+    master_axis_side: str = Field(default="A_SIDE")
+    scene_blockings: List[SceneBlockingSpec] = Field(default_factory=list)
+    cut_checks: List[InterSceneCutCheckSpec] = Field(default_factory=list)
+    all_180_axis_locked: bool = Field(default=True)
+    all_30_rule_passed: bool = Field(default=True)
+    all_kelvin_continuous: bool = Field(default=True)
+    continuity_passed: bool = Field(default=True)
+    overall_continuity_score: float = Field(default=100.0, ge=0.0, le=100.0)
+    axis_violations_count: int = Field(default=0, ge=0)
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_continuity_metrics(self) -> "MasterContinuityBlockingSpec":
+        if self.cut_checks and self.axis_violations_count == 0:
+            violations_c = sum(len(c.violations) for c in self.cut_checks)
+            if violations_c > 0:
+                object.__setattr__(self, "axis_violations_count", violations_c)
+        return self
+
+
+# ==============================================================================
+# PM-FEAT-024: Client Review Notes, Frame-Accurate Annotations & Signoff Gate
+# ==============================================================================
+
+
+class ReviewApprovalStatus(str, Enum):
+    """Client/agency creative approval state for a scene or master production (PM-FEAT-024)."""
+    APPROVED = "approved"
+    CHANGES_REQUESTED = "changes_requested"
+    PENDING_REVIEW = "pending_review"
+    LOCKED_FINAL = "locked_final"
+
+    # Lowercase aliases
+    approved = "approved"
+    changes_requested = "changes_requested"
+    pending_review = "pending_review"
+    locked_final = "locked_final"
+
+
+class ReviewerRole(str, Enum):
+    """Stakeholder discipline authoring a timestamped review annotation (PM-FEAT-024)."""
+    DIRECTOR = "director"
+    AGENCY_CREATIVE = "agency_creative"
+    CLIENT_BRAND = "client_brand"
+    POST_PRODUCER = "post_producer"
+    VFX_SUPERVISOR = "vfx_supervisor"
+
+    # Lowercase aliases
+    director = "director"
+    agency_creative = "agency_creative"
+    client_brand = "client_brand"
+    post_producer = "post_producer"
+    vfx_supervisor = "vfx_supervisor"
+
+
+class MarkerColorTag(str, Enum):
+    """NLE / DaVinci Resolve / Frame.io marker color tags (PM-FEAT-024)."""
+    CYAN = "CYAN"
+    AMBER = "AMBER"
+    RED = "RED"
+    GREEN = "GREEN"
+    MAGENTA = "MAGENTA"
+
+    # Lowercase aliases
+    cyan = "CYAN"
+    amber = "AMBER"
+    red = "RED"
+    green = "GREEN"
+    magenta = "MAGENTA"
+
+
+class ReviewPinCoordinate(BaseModel):
+    """Normalized frame spatial pin coordinate for visual review annotations (PM-FEAT-024)."""
+    x_norm: float = Field(default=0.5, ge=0.0, le=1.0)
+    y_norm: float = Field(default=0.5, ge=0.0, le=1.0)
+    radius_norm: float = Field(default=0.06, ge=0.01, le=0.5)
+
+
+class ReviewAnnotationSpec(BaseModel):
+    """Frame-accurate client/agency review note with optional spatial pin and edit delta (PM-FEAT-024)."""
+    note_id: str = Field(default="REV-001")
+    scene_index: int = Field(default=1, ge=1)
+    timecode_smpte: str = Field(default="00:00:01:00")
+    timecode_sec: float = Field(default=1.0, ge=0.0)
+    frame_number: int = Field(default=24, ge=0)
+    reviewer_role: ReviewerRole = Field(default=ReviewerRole.DIRECTOR)
+    reviewer_name: str = Field(default="Lead Creative Director")
+    marker_color: MarkerColorTag = Field(default=MarkerColorTag.CYAN)
+    comment: str = Field(default="Composition, pacing, and brand visual anchor verified.")
+    target_parameter: str = Field(default="lighting")
+    resolved: bool = Field(default=True)
+    blocking_gate: bool = Field(default=False)
+    pin: Optional[ReviewPinCoordinate] = Field(default=None)
+    compiled_edit_delta: str = Field(default="")
+
+
+class SceneReviewSignoffSpec(BaseModel):
+    """Per-scene stakeholder signoff status and timestamped review annotations (PM-FEAT-024)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    revision: int = Field(default=1, ge=1)
+    approval_status: ReviewApprovalStatus = Field(default=ReviewApprovalStatus.APPROVED)
+    annotations: List[ReviewAnnotationSpec] = Field(default_factory=list)
+    open_notes_count: int = Field(default=0, ge=0)
+    resolved_notes_count: int = Field(default=0, ge=0)
+    signoff_by: str = Field(default="Director & Agency Producer")
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_note_counts(self) -> "SceneReviewSignoffSpec":
+        if self.annotations:
+            open_c = sum(1 for a in self.annotations if not a.resolved)
+            res_c = sum(1 for a in self.annotations if a.resolved)
+            object.__setattr__(self, "open_notes_count", open_c)
+            object.__setattr__(self, "resolved_notes_count", res_c)
+        return self
+
+
+class MasterClientReviewSpec(BaseModel):
+    """Master client/agency review manifest and live-render approval gate (PM-FEAT-024)."""
+    project_title: str = Field(default="Commercial Production")
+    revision: int = Field(default=1, ge=1)
+    overall_status: ReviewApprovalStatus = Field(default=ReviewApprovalStatus.APPROVED)
+    overall_approval_status: Optional[ReviewApprovalStatus] = Field(default=None)
+    scene_reviews: List[SceneReviewSignoffSpec] = Field(default_factory=list)
+    total_notes_count: int = Field(default=0, ge=0)
+    open_notes_count: int = Field(default=0, ge=0)
+    blocking_notes_count: int = Field(default=0, ge=0)
+    unresolved_blockers: int = Field(default=0, ge=0)
+    ready_for_live_render: bool = Field(default=True)
+    signoff_summary: str = Field(default="All creative and agency review gates approved for production.")
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_review_gate(self) -> "MasterClientReviewSpec":
+        if "overall_status" not in self.model_fields_set and self.overall_approval_status is not None:
+            object.__setattr__(self, "overall_status", self.overall_approval_status)
+        if "blocking_notes_count" not in self.model_fields_set and self.unresolved_blockers > 0:
+            object.__setattr__(self, "blocking_notes_count", self.unresolved_blockers)
+        if self.scene_reviews:
+            all_notes = [a for sr in self.scene_reviews for a in sr.annotations]
+            if all_notes:
+                open_c = sum(1 for a in all_notes if not a.resolved)
+                block_c = sum(1 for a in all_notes if not a.resolved and a.blocking_gate)
+                object.__setattr__(self, "total_notes_count", len(all_notes))
+                object.__setattr__(self, "open_notes_count", open_c)
+                object.__setattr__(self, "blocking_notes_count", block_c)
+            else:
+                open_c = sum(sr.open_notes_count for sr in self.scene_reviews)
+                if open_c > 0 and self.open_notes_count == 0:
+                    object.__setattr__(self, "open_notes_count", open_c)
+            if any(sr.approval_status == ReviewApprovalStatus.CHANGES_REQUESTED for sr in self.scene_reviews):
+                if self.overall_status in (ReviewApprovalStatus.APPROVED, ReviewApprovalStatus.LOCKED_FINAL):
+                    object.__setattr__(self, "overall_status", ReviewApprovalStatus.CHANGES_REQUESTED)
+        object.__setattr__(self, "overall_approval_status", self.overall_status)
+        object.__setattr__(self, "unresolved_blockers", self.blocking_notes_count)
+        if (
+            self.overall_status in (ReviewApprovalStatus.CHANGES_REQUESTED, ReviewApprovalStatus.PENDING_REVIEW)
+            or self.blocking_notes_count > 0
+        ):
+            object.__setattr__(self, "ready_for_live_render", False)
+        return self
+
+    @property
+    def approval_status(self) -> ReviewApprovalStatus:
+        return self.overall_status
+
+
+# Aliases for PM-FEAT-023 and PM-FEAT-024
+ContinuityManifest = MasterContinuityBlockingSpec
+SceneBlocking = SceneBlockingSpec
+ClientReviewManifest = MasterClientReviewSpec
+SceneReviewSpec = SceneReviewSignoffSpec
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -2269,6 +2568,16 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene-specific Broadcast QC, PSE flash safety, and loudness profile (PM-FEAT-022)"
     )
+    blocking_spec: Optional[SceneBlockingSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("blocking_spec", "continuity_blocking", "blocking"),
+        description="Scene-specific 180-degree continuity axis, eyeline, and overhead blocking specification (PM-FEAT-023)"
+    )
+    review_signoff: Optional[SceneReviewSignoffSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("review_signoff", "review_spec", "client_review"),
+        description="Scene-specific client review signoff, pin annotations, and revision gate (PM-FEAT-024)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -2352,6 +2661,14 @@ class ScenePromptSpec(BaseModel):
                 data["broadcast_qc"] = data["pse_qc"]
             if "trafficking_qc" in data and "broadcast_qc" not in data:
                 data["broadcast_qc"] = data["trafficking_qc"]
+            if "continuity_blocking" in data and "blocking_spec" not in data:
+                data["blocking_spec"] = data["continuity_blocking"]
+            if "blocking" in data and "blocking_spec" not in data and isinstance(data["blocking"], (dict, SceneBlockingSpec)):
+                data["blocking_spec"] = data["blocking"]
+            if "review_spec" in data and "review_signoff" not in data:
+                data["review_signoff"] = data["review_spec"]
+            if "client_review" in data and "review_signoff" not in data and isinstance(data["client_review"], (dict, SceneReviewSignoffSpec)):
+                data["review_signoff"] = data["client_review"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -2490,12 +2807,50 @@ class ScenePromptSpec(BaseModel):
     def trafficking_qc(self, value: Optional[SceneQcProfileSpec]) -> None:
         self.broadcast_qc = value
 
+    @property
+    def continuity_blocking(self) -> Optional[SceneBlockingSpec]:
+        return self.blocking_spec
+
+    @continuity_blocking.setter
+    def continuity_blocking(self, value: Optional[SceneBlockingSpec]) -> None:
+        self.blocking_spec = value
+
+    @property
+    def blocking(self) -> Optional[SceneBlockingSpec]:
+        return self.blocking_spec
+
+    @blocking.setter
+    def blocking(self, value: Optional[SceneBlockingSpec]) -> None:
+        self.blocking_spec = value
+
+    @property
+    def review_spec(self) -> Optional[SceneReviewSignoffSpec]:
+        return self.review_signoff
+
+    @review_spec.setter
+    def review_spec(self, value: Optional[SceneReviewSignoffSpec]) -> None:
+        self.review_signoff = value
+
+    @property
+    def client_review(self) -> Optional[SceneReviewSignoffSpec]:
+        return self.review_signoff
+
+    @client_review.setter
+    def client_review(self, value: Optional[SceneReviewSignoffSpec]) -> None:
+        self.review_signoff = value
+
     def __setattr__(self, name: str, value: Any) -> None:
         if name in ("reframe", "aspect_reframe", "delivery_reframe"):
             super().__setattr__("reframe_spec", value)
             return
         if name in ("qc_spec", "pse_qc", "trafficking_qc"):
             super().__setattr__("broadcast_qc", value)
+            return
+        if name in ("continuity_blocking", "blocking"):
+            super().__setattr__("blocking_spec", value)
+            return
+        if name in ("review_spec", "client_review"):
+            super().__setattr__("review_signoff", value)
             return
         super().__setattr__(name, value)
 
@@ -2682,6 +3037,32 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master broadcast trafficking spec alias (PM-FEAT-022)"
     )
+    master_continuity_blocking: Optional[MasterContinuityBlockingSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_continuity_blocking", "continuity_blocking", "blocking_floorplan"),
+        description="Master 180-degree continuity axis, 30-degree rule, and overhead blocking floorplan manifest (PM-FEAT-023)"
+    )
+    continuity_blocking: Optional[MasterContinuityBlockingSpec] = Field(
+        default=None,
+        description="Master continuity blocking alias (PM-FEAT-023)"
+    )
+    blocking_floorplan: Optional[MasterContinuityBlockingSpec] = Field(
+        default=None,
+        description="Master blocking floorplan alias (PM-FEAT-023)"
+    )
+    master_client_review: Optional[MasterClientReviewSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_client_review", "client_review", "review_manifest"),
+        description="Master client review signoff, timestamped annotations, and live-render gate manifest (PM-FEAT-024)"
+    )
+    client_review: Optional[MasterClientReviewSpec] = Field(
+        default=None,
+        description="Master client review alias (PM-FEAT-024)"
+    )
+    review_manifest: Optional[MasterClientReviewSpec] = Field(
+        default=None,
+        description="Master review manifest alias (PM-FEAT-024)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -2801,6 +3182,25 @@ class MasterProductionBible(BaseModel):
             if self.trafficking_spec is None:
                 object.__setattr__(self, "trafficking_spec", qc_source)
 
+        # Synchronize Continuity Blocking and Client Review aliases (PM-FEAT-023 & PM-FEAT-024)
+        blocking_source = self.master_continuity_blocking or self.continuity_blocking or self.blocking_floorplan
+        if blocking_source is not None:
+            if self.master_continuity_blocking is None:
+                object.__setattr__(self, "master_continuity_blocking", blocking_source)
+            if self.continuity_blocking is None:
+                object.__setattr__(self, "continuity_blocking", blocking_source)
+            if self.blocking_floorplan is None:
+                object.__setattr__(self, "blocking_floorplan", blocking_source)
+
+        review_source = self.master_client_review or self.client_review or self.review_manifest
+        if review_source is not None:
+            if self.master_client_review is None:
+                object.__setattr__(self, "master_client_review", review_source)
+            if self.client_review is None:
+                object.__setattr__(self, "client_review", review_source)
+            if self.review_manifest is None:
+                object.__setattr__(self, "review_manifest", review_source)
+
         return self
 
     def __setattr__(self, name: str, value: Any) -> None:
@@ -2824,6 +3224,14 @@ class MasterProductionBible(BaseModel):
             super().__setattr__("broadcast_qc", value)
             super().__setattr__("qc_manifest", value)
             super().__setattr__("trafficking_spec", value)
+        if name in ("master_continuity_blocking", "continuity_blocking", "blocking_floorplan") and value is not None:
+            super().__setattr__("master_continuity_blocking", value)
+            super().__setattr__("continuity_blocking", value)
+            super().__setattr__("blocking_floorplan", value)
+        if name in ("master_client_review", "client_review", "review_manifest") and value is not None:
+            super().__setattr__("master_client_review", value)
+            super().__setattr__("client_review", value)
+            super().__setattr__("review_manifest", value)
 
 
     @property
@@ -2854,6 +3262,8 @@ class AuditResult(BaseModel):
     drone_flight_compliant: bool = True
     reframe_compliant: bool = True
     broadcast_qc_compliant: bool = True
+    continuity_blocking_compliant: bool = True
+    review_gate_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -2968,7 +3378,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.11.0"
+    version: str = "2.12.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -3202,6 +3612,27 @@ __all__ = [
     "BroadcastQcSpec",
     "BroadcastQcManifest",
     "SceneQcSpec",
+    # PM-FEAT-023: 180-Degree Continuity Axis, Eyeline Match & Overhead Blocking Floorplan
+    "ScreenDirection",
+    "ShotScaleSize",
+    "EditorialCutType",
+    "StageBlockingEntity",
+    "CameraAxisPlacement",
+    "InterSceneCutCheckSpec",
+    "SceneBlockingSpec",
+    "MasterContinuityBlockingSpec",
+    "ContinuityManifest",
+    "SceneBlocking",
+    # PM-FEAT-024: Client Review Notes, Frame-Accurate Annotations & Signoff Gate
+    "ReviewApprovalStatus",
+    "ReviewerRole",
+    "MarkerColorTag",
+    "ReviewPinCoordinate",
+    "ReviewAnnotationSpec",
+    "SceneReviewSignoffSpec",
+    "MasterClientReviewSpec",
+    "ClientReviewManifest",
+    "SceneReviewSpec",
     # Council Schemas
     "CouncilPersona",
     "CouncilFindingSeverity",

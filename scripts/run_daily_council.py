@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.11.0).
+"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.12.0).
 
 Executes the automated daily product management, feature verification, quality assurance, and release routine:
 1. Preflight environment & 2026 Model Matrix health diagnostics (run_doctor).
@@ -136,7 +136,7 @@ CANONICAL_SHOWCASES = [
 
 def bump_project_version(bump_type: str) -> str:
     """Bumps semantic version across pyproject.toml, omni_director/__init__.py, doctor.py, schemas.py, and CHANGELOG.md using targeted regexes."""
-    current = getattr(omni_director, "__version__", "2.11.0")
+    current = getattr(omni_director, "__version__", "2.12.0")
     parts = [int(x) for x in current.split(".")[:3]]
     while len(parts) < 3:
         parts.append(0)
@@ -212,7 +212,7 @@ def run_daily_council(
         active_version = bump_project_version(bump_version)
         print(f"🔖 Bumped project version to v{active_version}")
     else:
-        active_version = getattr(omni_director, "__version__", "2.11.0")
+        active_version = getattr(omni_director, "__version__", "2.12.0")
 
     start_time = datetime.datetime.now(datetime.timezone.utc)
     print("=" * 70)
@@ -257,7 +257,7 @@ def run_daily_council(
                 run_council=True,
             )
 
-            # Export PM-mandated NLE & Subtitle Post-Production Artifacts into each showcase bundle
+            # Export PM-mandated NLE, Post-Production, Continuity & Client Review Artifacts into each showcase bundle
             exported_artifacts: Dict[str, str] = {
                 k: str(v) for k, v in export_all_nle_artifacts(bundle.bible, out_path, fps=24).items()
             }
@@ -268,49 +268,7 @@ def run_daily_council(
             exported_artifacts["srt"] = str(srt_file)
             exported_artifacts["vtt"] = str(vtt_file)
 
-            from omni_director.tools.optical_lens import export_lens_metadata_file
-            from omni_director.tools.virtual_production import export_virtual_production_bundle
-            from omni_director.tools.moco_kinematics import export_moco_bundle
-            from omni_director.tools.lighting_rig import export_lighting_bundle
-            from omni_director.tools.dof_simulator import export_dof_bundle
-            from omni_director.tools.dit_lut import export_dit_bundle
-            from omni_director.tools.spatial_audio import export_spatial_audio_bundle
-            from omni_director.tools.vfx_compositor import export_vfx_compositing_bundle
-            from omni_director.tools.hdr_signal import export_hdr_bundle
-            from omni_director.tools.stripboard_scheduler import export_stripboard_bundle
-            from omni_director.tools.film_emulation import export_film_emulation_bundle, synthesize_default_film_stock
-            from omni_director.tools.clapper_slate import export_slate_bundle, synthesize_default_slate_spec
-            from omni_director.tools.drone_flight import export_drone_flight_bundle
-            from omni_director.tools.aicp_budget import export_aicp_budget_bundle
-            from omni_director.tools.delivery_reframe import export_reframe_bundle
-            from omni_director.tools.broadcast_qc import export_broadcast_qc_bundle
-            from omni_director.presets import get_domain_film_emulation_spec, get_domain_clapper_slate_spec
-
-            lens_csv = export_lens_metadata_file(bundle.bible, out_path / "lens_package.csv")
-            exported_artifacts["lens"] = str(lens_csv)
-            exported_artifacts.update({k: str(v) for k, v in export_virtual_production_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_moco_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_lighting_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_dof_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_dit_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_spatial_audio_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_vfx_compositing_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_hdr_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_stripboard_bundle(bundle.bible, out_path).items()})
-
-            domain = getattr(bundle.bible, "domain_archetype", "kinetic_action")
-            film_spec = getattr(bundle.bible, "master_film_emulation", None) or get_domain_film_emulation_spec(domain) or synthesize_default_film_stock()
-            exported_artifacts.update({k: str(v) for k, v in export_film_emulation_bundle(film_spec, out_path, bible=bundle.bible).items()})
-
-            slate_spec = getattr(bundle.bible, "master_slate_spec", None) or get_domain_clapper_slate_spec(domain, bundle.bible.scenes, project_title=bundle.bible.project_title) or synthesize_default_slate_spec(bundle.bible)
-            exported_artifacts.update({k: str(v) for k, v in export_slate_bundle(slate_spec, out_path, bible=bundle.bible).items()})
-
-            exported_artifacts.update({k: str(v) for k, v in export_drone_flight_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_aicp_budget_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_reframe_bundle(bundle.bible, out_path).items()})
-            exported_artifacts.update({k: str(v) for k, v in export_broadcast_qc_bundle(bundle.bible, out_path).items()})
-
-            # Refresh telemetry manifest so all exported NLE, HDR, Stripboard, Film, Slate, Reframe & Broadcast QC artifacts are SHA-256 verified
+            # Refresh telemetry manifest so all exported NLE, HDR, Stripboard, Film, Slate, Reframe, Broadcast QC, Continuity & Review artifacts are SHA-256 verified
             pipeline.telemetry.write_manifest(out_path)
 
             council_rep = bundle.council_report

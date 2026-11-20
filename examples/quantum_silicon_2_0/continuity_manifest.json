@@ -1,0 +1,146 @@
+{
+  "project_title": "Advanced Quantum Computing Silicon Proce",
+  "dominant_screen_direction": "static_centered",
+  "master_axis_deg": 0.0,
+  "master_axis_side": "A_SIDE",
+  "scene_blockings": [
+    {
+      "scene_index": 1,
+      "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+      "screen_direction": "static_centered",
+      "shot_scale": "MS",
+      "cut_type_in": "hard_cut",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 6.0,
+      "stage_depth_meters": 6.0,
+      "camera": {
+        "camera_id": "CAM_TECH_S1",
+        "x_meters": -1.38,
+        "y_meters": -2.47,
+        "aim_azimuth_deg": 55.0,
+        "fov_deg": 23.9,
+        "focal_length_mm": 85,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.35
+      },
+      "entities": [
+        {
+          "entity_id": "tech_hardware_primary_s1",
+          "label": "Anodized Hardware Flagship",
+          "role": "hero_product",
+          "x_meters": 0.0,
+          "y_meters": 0.3,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "tech_hardware_anchor_s1",
+          "label": "Precision Moco Turntable",
+          "role": "prop",
+          "x_meters": 0.0,
+          "y_meters": -0.4,
+          "facing_deg": 90.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 55deg, MS (85mm), dir=static_centered.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+      "screen_direction": "static_centered",
+      "shot_scale": "MCU",
+      "cut_type_in": "match_on_action",
+      "line_of_action_deg": 0.0,
+      "axis_side": "A_SIDE",
+      "eyeline_angle_deg": 0.0,
+      "one_eighty_lock_ok": true,
+      "color_temp_kelvin": 5600,
+      "stage_width_meters": 6.0,
+      "stage_depth_meters": 6.0,
+      "camera": {
+        "camera_id": "CAM_TECH_S2",
+        "x_meters": -0.03,
+        "y_meters": -2.4,
+        "aim_azimuth_deg": 89.0,
+        "fov_deg": 39.6,
+        "focal_length_mm": 50,
+        "axis_side": "A_SIDE",
+        "axis_angle_deg": 0.0,
+        "height_meters": 1.35
+      },
+      "entities": [
+        {
+          "entity_id": "tech_hardware_primary_s2",
+          "label": "Anodized Hardware Flagship",
+          "role": "hero_product",
+          "x_meters": 0.0,
+          "y_meters": 0.3,
+          "facing_deg": 270.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#38BDF8"
+        },
+        {
+          "entity_id": "tech_hardware_anchor_s2",
+          "label": "Precision Moco Turntable",
+          "role": "prop",
+          "x_meters": 0.0,
+          "y_meters": -0.4,
+          "facing_deg": 90.0,
+          "eyeline_deg": 0.0,
+          "motion_dx_meters": 0.0,
+          "motion_dy_meters": 0.0,
+          "screen_direction": "static_centered",
+          "color_hex": "#F59E0B"
+        }
+      ],
+      "blocking_notes": "Cleanroom precision orbital axis (tech_hardware): A_SIDE at 89deg, MCU (50mm), dir=static_centered.",
+      "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+    }
+  ],
+  "cut_checks": [
+    {
+      "from_scene_index": 1,
+      "to_scene_index": 2,
+      "cut_type": "match_on_action",
+      "axis_preserved": true,
+      "axis_side_from": "A_SIDE",
+      "axis_side_to": "A_SIDE",
+      "camera_angle_delta_deg": 34.0,
+      "thirty_degree_rule_ok": true,
+      "shot_scale_from": "MS",
+      "shot_scale_to": "MCU",
+      "screen_direction_consistent": true,
+      "eyeline_match_ok": true,
+      "kelvin_delta_k": 0.0,
+      "kelvin_continuity_ok": true,
+      "warnings": [],
+      "violations": [],
+      "passed": true
+    }
+  ],
+  "all_180_axis_locked": true,
+  "all_30_rule_passed": true,
+  "all_kelvin_continuous": true,
+  "continuity_passed": true,
+  "overall_continuity_score": 100.0,
+  "axis_violations_count": 0,
+  "prompt_token": "[CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]"
+}
