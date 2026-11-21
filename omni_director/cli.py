@@ -181,8 +181,11 @@ def handle_council(args_list: List[str]) -> int:
     elif args.preset:
         targets.append((args.preset, get_preset_bible(args.preset)))
     else:
-        # Default: audit all 4 golden presets
-        for key in list(CURATED_PRESETS.keys()):
+        # Default: audit canonical golden presets (deduplicate alias unless --all-presets is passed)
+        preset_keys = list(CURATED_PRESETS.keys())
+        if not args.all_presets:
+            preset_keys = [k for k in preset_keys if k != "sephora-london-pulse"]
+        for key in preset_keys:
             targets.append((key, get_preset_bible(key)))
 
     overall_success = True
@@ -340,7 +343,7 @@ def handle_export(args_list: List[str]) -> int:
         generate_review_notes_csv,
     )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, and client review marker/signoff packages")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, and on-set safety JSA / risk manifests")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -348,7 +351,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -391,8 +394,15 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--review-json", action="store_true", help="Export Frame.io-compatible review annotations JSON (review_notes_frameio.json)")
     parser.add_argument("--review-csv", action="store_true", help="Export client review annotations ledger CSV (review_notes.csv)")
     parser.add_argument("--signoff-md", action="store_true", help="Export client review & live-render signoff report Markdown (client_signoff_report.md)")
+    parser.add_argument("--c2pa-json", action="store_true", help="Export C2PA Content Credentials manifest JSON (c2pa_manifest.json)")
+    parser.add_argument("--disclosure-md", action="store_true", help="Export synthetic AI disclosure certificate Markdown (ai_disclosure_certificate.md)")
+    parser.add_argument("--likeness-csv", action="store_true", help="Export talent likeness & voice consent ledger CSV (likeness_consent_ledger.csv)")
+    parser.add_argument("--safety-md", action="store_true", help="Export on-set safety bulletin Markdown (safety_bulletin.md)")
+    parser.add_argument("--safety-csv", action="store_true", help="Export Job Safety Analysis (JSA) matrix CSV (safety_jsa_matrix.csv)")
+    parser.add_argument("--safety-json", action="store_true", help="Export on-set safety risk manifest JSON (safety_risk_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
+    parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
     parser.add_argument("--json", action="store_true", help="Output exported file manifest as JSON")
 
     args = parser.parse_args(args_list)
@@ -424,6 +434,18 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
+        try:
+            from omni_director.tools.c2pa_provenance import export_c2pa_bundle
+        except ImportError:
+            export_c2pa_bundle = None
+        if export_c2pa_bundle is not None:
+            exported_files.update(export_c2pa_bundle(bible, out_dir))
+        try:
+            from omni_director.tools.safety_risk import export_safety_bundle
+        except ImportError:
+            export_safety_bundle = None
+        if export_safety_bundle is not None:
+            exported_files.update(export_safety_bundle(bible, out_dir))
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -515,6 +537,14 @@ def handle_export(args_list: List[str]) -> int:
     elif fmt == "review":
         review_files = export_review_bundle(bible, out_dir, fps=args.fps)
         exported_files.update(review_files)
+    elif fmt == "c2pa":
+        from omni_director.tools.c2pa_provenance import export_c2pa_bundle
+        c2pa_files = export_c2pa_bundle(bible, out_dir)
+        exported_files.update(c2pa_files)
+    elif fmt == "safety":
+        from omni_director.tools.safety_risk import export_safety_bundle
+        safety_files = export_safety_bundle(bible, out_dir)
+        exported_files.update(safety_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -700,8 +730,59 @@ def handle_export(args_list: List[str]) -> int:
         p = out_dir / "client_signoff_report.md"
         p.write_text(generate_client_signoff_md(bible), encoding="utf-8")
         exported_files["signoff_md"] = str(p.resolve())
+    if args.c2pa_json or args.disclosure_md or args.likeness_csv:
+        from omni_director.tools.c2pa_provenance import (
+            generate_ai_disclosure_md,
+            generate_c2pa_manifest_json,
+            generate_likeness_consent_csv,
+        )
+        if args.c2pa_json:
+            p = out_dir / "c2pa_manifest.json"
+            p.write_text(generate_c2pa_manifest_json(bible), encoding="utf-8")
+            exported_files["c2pa_json"] = str(p.resolve())
+        if args.disclosure_md:
+            p = out_dir / "ai_disclosure_certificate.md"
+            p.write_text(generate_ai_disclosure_md(bible), encoding="utf-8")
+            exported_files["disclosure_md"] = str(p.resolve())
+        if args.likeness_csv:
+            p = out_dir / "likeness_consent_ledger.csv"
+            p.write_text(generate_likeness_consent_csv(bible), encoding="utf-8")
+            exported_files["likeness_csv"] = str(p.resolve())
+    if args.safety_md or args.safety_csv or args.safety_json:
+        from omni_director.tools.safety_risk import (
+            generate_safety_bulletin_md,
+            generate_safety_jsa_csv,
+            generate_safety_manifest_json,
+        )
+        if args.safety_md:
+            p = out_dir / "safety_bulletin.md"
+            p.write_text(generate_safety_bulletin_md(bible), encoding="utf-8")
+            exported_files["safety_md"] = str(p.resolve())
+        if args.safety_csv:
+            p = out_dir / "safety_jsa_matrix.csv"
+            p.write_text(generate_safety_jsa_csv(bible), encoding="utf-8")
+            exported_files["safety_csv"] = str(p.resolve())
+        if args.safety_json:
+            p = out_dir / "safety_risk_manifest.json"
+            p.write_text(generate_safety_manifest_json(bible), encoding="utf-8")
+            exported_files["safety_json"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
+
+    telemetry_path = out_dir / "telemetry.json"
+    if telemetry_path.is_file() or args.refresh_telemetry:
+        from omni_director.telemetry import RuntimeTelemetry
+        telemetry_obj: Optional[RuntimeTelemetry] = None
+        if telemetry_path.is_file():
+            try:
+                existing_telemetry = json.loads(telemetry_path.read_text(encoding="utf-8"))
+                if isinstance(existing_telemetry, dict):
+                    telemetry_obj = RuntimeTelemetry(**existing_telemetry)
+            except Exception:
+                telemetry_obj = None
+        if telemetry_obj is None:
+            telemetry_obj = RuntimeTelemetry(project_title=bible.project_title)
+        telemetry_obj.write_manifest(out_dir)
 
     if args.json:
         print(json.dumps({"project_title": bible.project_title, "exported": exported_files}, indent=2))

@@ -33,7 +33,8 @@ from omni_director.schemas import (
     load_bible_from_json,
     __version__,
 )
-from omni_director.telemetry import verify_bundle_checksums
+from omni_director.telemetry import SECRET_PATTERN, verify_bundle_checksums
+from omni_director.tools.c2pa_provenance import verify_model_lineage_2026
 from omni_director.tools.html_compiler import compile_storyboard_html
 from omni_director.tools.prompt_auditor import (
     audit_bible_inter_scene_continuity,
@@ -562,6 +563,68 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-025",
+                title="C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine",
+                problem_statement=(
+                    f"Enterprise broadcasters, legal compliance teams, and agency distributors{project_ctx} require "
+                    "cryptographically verifiable C2PA v2.1 Content Credentials, EU AI Act Article 50 synthetic disclosure "
+                    "tiers, strict 2026 Gemini Model Matrix lineage verification (zero legacy models), and SAG-AFTRA "
+                    "digital replica / talent likeness consent gating before rendering or publishing."
+                ),
+                proposed_solution=(
+                    "Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, "
+                    "C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and "
+                    "MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, "
+                    "compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, "
+                    "likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration "
+                    "via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD "
+                    "[Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/c2pa_provenance.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v213.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-026",
+                title="On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine",
+                problem_statement=(
+                    f"Physical production units, 1st Assistant Directors, Stunt Coordinators, and Unit Safety Officers{project_ctx} "
+                    "require physics-calibrated kinetic exclusion zones (MoCo arm reach + E-stop braking distance, FAA Part 107 "
+                    "UAV standoff perimeters, stunt vehicle braking buffers), 5x5 Job Safety Analysis (JSA) hazard matrices "
+                    "aligned with CSATF Safety Bulletins, and standby medical/fire/E-stop emergency protocols prior to stage call."
+                ),
+                proposed_solution=(
+                    "Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, "
+                    "StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; "
+                    "omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, "
+                    "safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] "
+                    "prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety "
+                    "Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) "
+                    "in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/safety_risk.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v213.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -825,9 +888,38 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 2.0
 
-        # Active Checksum Integrity Verification
+        # Active Checksum Integrity Verification & Zero-Leak Secret Scan
         eval_target = output_dir or bundle_dir
         eval_dir = Path(eval_target) if eval_target else (Path(bundle.bundle_json_path).parent if bundle and bundle.bundle_json_path else None)
+        if eval_dir:
+            scanned_files: List[str] = []
+            secret_leak_files: List[str] = []
+            for sec_fname in ("telemetry.json", "production_bundle.json"):
+                sec_path = eval_dir / sec_fname
+                if sec_path.is_file():
+                    scanned_files.append(sec_fname)
+                    try:
+                        raw_txt = sec_path.read_text(encoding="utf-8")
+                        if SECRET_PATTERN.search(raw_txt):
+                            secret_leak_files.append(sec_fname)
+                    except Exception:
+                        pass
+            if secret_leak_files:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.CRITICAL,
+                    category="telemetry_secret_leak",
+                    message=f"Secret or API credential pattern detected in exported artifact(s): {', '.join(secret_leak_files)}.",
+                    suggested_fix="Sanitize all credentials via RuntimeTelemetry before writing telemetry.json or production_bundle.json.",
+                ))
+                score -= 10.0
+            elif scanned_files:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="telemetry_secret_scan",
+                    message=f"Zero-leak SECRET_PATTERN scan passed cleanly on: {', '.join(scanned_files)}.",
+                    details={"scanned_files": scanned_files},
+                ))
+
         if eval_dir and (eval_dir / "telemetry.json").is_file():
             is_valid, checksum_errors = verify_bundle_checksums(eval_dir)
             if not is_valid:
@@ -1090,6 +1182,36 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"review_artifacts": review_items},
                 ))
 
+            # Verify C2PA Content Credentials & Likeness Provenance deliverables (PM-FEAT-025)
+            c2pa_candidates = [
+                "c2pa_manifest.json",
+                "ai_disclosure_certificate.md",
+                "likeness_consent_ledger.csv",
+            ]
+            c2pa_items = [name for name in c2pa_candidates if (eval_dir / name).is_file()]
+            if c2pa_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="c2pa_provenance_delivery",
+                    message=f"C2PA Content Credentials manifest JSON, AI disclosure certificate MD, and Likeness consent ledger CSV verified on disk: {', '.join(c2pa_items)}.",
+                    details={"c2pa_artifacts": c2pa_items},
+                ))
+
+            # Verify On-Set Safety Risk & JSA deliverables (PM-FEAT-026)
+            safety_candidates = [
+                "safety_bulletin.md",
+                "safety_jsa_matrix.csv",
+                "safety_risk_manifest.json",
+            ]
+            safety_items = [name for name in safety_candidates if (eval_dir / name).is_file()]
+            if safety_items:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="safety_risk_delivery",
+                    message=f"On-set safety bulletin MD, Safety JSA matrix CSV, and Safety risk manifest JSON verified on disk: {', '.join(safety_items)}.",
+                    details={"safety_artifacts": safety_items},
+                ))
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -1114,6 +1236,51 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ),
                 details={"scene_count": len(getattr(review_spec, "scene_reviews", []) or [])},
             ))
+
+        # Verify PM-FEAT-025 & PM-FEAT-026 schema specs when attached to bible/bundle
+        c2pa_spec = getattr(bible, "master_c2pa_provenance", None)
+        if c2pa_spec is not None:
+            if not getattr(c2pa_spec, "manifest_id", "") or not getattr(c2pa_spec, "c2pa_spec_version", ""):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="c2pa_provenance_schema",
+                    message="MasterC2paProvenanceSpec is missing required manifest_id or c2pa_spec_version.",
+                    suggested_fix="Hydrate master_c2pa_provenance via get_domain_c2pa_provenance_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="c2pa_provenance_schema",
+                    message=(
+                        f"MasterC2paProvenanceSpec verified (C2PA v{getattr(c2pa_spec, 'c2pa_spec_version', '2.1')}, "
+                        f"{len(getattr(c2pa_spec, 'scene_provenances', []) or [])} scenes, "
+                        f"manifest_signed={bool(getattr(c2pa_spec, 'manifest_signed', True))})."
+                    ),
+                    details={"scene_count": len(getattr(c2pa_spec, "scene_provenances", []) or [])},
+                ))
+
+        safety_spec = getattr(bible, "master_safety_risk", None)
+        if safety_spec is not None:
+            if not getattr(safety_spec, "jsa_document_id", "") or not getattr(safety_spec, "standby_emergency", None):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="safety_risk_schema",
+                    message="MasterSafetyRiskSpec is missing required jsa_document_id or standby_emergency protocol.",
+                    suggested_fix="Hydrate master_safety_risk via get_domain_safety_risk_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="safety_risk_schema",
+                    message=(
+                        f"MasterSafetyRiskSpec verified ({len(getattr(safety_spec, 'scene_safety_specs', []) or [])} scenes, "
+                        f"hazards={getattr(safety_spec, 'total_hazards_identified', 0)}, "
+                        f"open_holds={getattr(safety_spec, 'open_holds_count', 0)})."
+                    ),
+                    details={"scene_count": len(getattr(safety_spec, "scene_safety_specs", []) or [])},
+                ))
 
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
@@ -1545,7 +1712,100 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"unresolved_blockers": 0, "ready_for_live_render": True, "overall_status": overall_rev_st},
                 ))
 
-        # Check continuity_blocking_compliant and review_gate_compliant on bundle.audit_reports
+        # Check C2PA Content Credentials v2.1 & Talent Likeness Provenance (PM-FEAT-025)
+        c2pa_master = getattr(bible, "master_c2pa_provenance", None)
+        if c2pa_master is not None:
+            c2pa_models: List[str] = [
+                getattr(act, "model_used", "")
+                for act in (getattr(c2pa_master, "actions", None) or [])
+                if getattr(act, "model_used", None)
+            ] + [
+                getattr(ing, "generative_model", "")
+                for ing in (getattr(c2pa_master, "ingredients", None) or [])
+                if getattr(ing, "generative_model", None)
+            ]
+            for sp in (getattr(c2pa_master, "scene_provenances", None) or []):
+                c2pa_models.extend(
+                    getattr(act, "model_used", "")
+                    for act in (getattr(sp, "actions", None) or [])
+                    if getattr(act, "model_used", None)
+                )
+                c2pa_models.extend(
+                    getattr(ing, "generative_model", "")
+                    for ing in (getattr(sp, "ingredients", None) or [])
+                    if getattr(ing, "generative_model", None)
+                )
+            lineage_ok, offending_c2pa = verify_model_lineage_2026(c2pa_models) if c2pa_models else (True, [])
+            consents_ok = bool(getattr(c2pa_master, "all_likeness_consents_verified", True))
+            eu_art50_ok = bool(getattr(c2pa_master, "eu_ai_act_art50_compliant", True))
+            if not lineage_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.CRITICAL,
+                    category="c2pa_model_lineage_violation",
+                    message=f"Unapproved or legacy model reference(s) {offending_c2pa} detected in master_c2pa_provenance actions/ingredients.",
+                    suggested_fix="Replace legacy models with approved 2026 Gemini Model Matrix identifiers in C2PA provenance.",
+                ))
+            elif not consents_ok or not eu_art50_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="c2pa_provenance_compliance_violation",
+                    message=(
+                        f"C2PA provenance compliance gate failed: eu_ai_act_art50_compliant={eu_art50_ok}, "
+                        f"all_likeness_consents_verified={consents_ok}."
+                    ),
+                    suggested_fix="Verify EU AI Act Art. 50 disclosure and all talent likeness consents in master_c2pa_provenance.",
+                ))
+                penalty_points += 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="c2pa_provenance_schema_compliance",
+                    message=(
+                        f"C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, "
+                        f"all_likeness_consents_verified=True, zero legacy models across "
+                        f"{len(getattr(c2pa_master, 'scene_provenances', []) or [])} scene(s)."
+                    ),
+                    details={"scene_provenances_count": len(getattr(c2pa_master, "scene_provenances", []) or [])},
+                ))
+
+        # Check On-Set Safety Risk & JSA Gate (PM-FEAT-026)
+        safety_master = getattr(bible, "master_safety_risk", None)
+        if safety_master is not None:
+            open_holds = int(getattr(safety_master, "open_holds_count", 0) or 0)
+            safety_status = str(
+                getattr(getattr(safety_master, "signoff_status", "cleared"), "value", getattr(safety_master, "signoff_status", "cleared"))
+            ).lower()
+            crit_residual = any(
+                (
+                    getattr(getattr(h, "residual_risk_level", None), "value", getattr(h, "residual_risk_level", ""))
+                    or ""
+                ).lower() == "critical"
+                for ss in (getattr(safety_master, "scene_safety_specs", None) or [])
+                for h in (getattr(ss, "hazards", None) or [])
+            )
+            if open_holds > 0 or safety_status == "hold_required" or crit_residual:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="safety_risk_hold_violation",
+                    message=(
+                        f"On-set Safety JSA gate blocked: open_holds_count={open_holds}, "
+                        f"signoff_status={safety_status}, critical_residual={crit_residual}."
+                    ),
+                    suggested_fix="Mitigate all stage/rig hazards and clear open safety holds in master_safety_risk.",
+                ))
+                penalty_points += 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="safety_risk_schema_compliance",
+                    message=(
+                        f"On-set Safety JSA verified: open_holds_count=0, signoff_status={safety_status}, "
+                        f"{getattr(safety_master, 'total_hazards_identified', 0)} hazard(s) mitigated."
+                    ),
+                    details={"total_hazards": getattr(safety_master, "total_hazards_identified", 0)},
+                ))
+
+        # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, and safety_risk_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
                 getattr(rep, "scene_index", idx)
@@ -1556,6 +1816,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "review_gate_compliant", True)
+            ]
+            non_c2pa_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "c2pa_provenance_compliant", True)
+            ]
+            non_safety_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "safety_risk_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -1573,11 +1843,33 @@ class ProductCouncilOrchestrator(BaseAgent):
                     suggested_fix="Resolve pending client review change requests on flagged scenes.",
                 ))
                 penalty_points += 2.0
+            if non_c2pa_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_c2pa_non_compliant",
+                    message=f"Bundle audit_reports flagged c2pa_provenance_compliant=False on scene(s): {non_c2pa_scenes}.",
+                    suggested_fix="Verify 2026 model lineage, EU AI Act Art. 50 disclosure, and talent likeness consent on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if non_safety_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_safety_non_compliant",
+                    message=f"Bundle audit_reports flagged safety_risk_compliant=False on scene(s): {non_safety_scenes}.",
+                    suggested_fix="Clear JSA safety holds and mitigate residual hazards on flagged scenes.",
+                ))
+                penalty_points += 2.0
             if not non_cont_scenes and not non_rev_scenes:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_continuity_and_review_compliance",
                     message=f"Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if not non_c2pa_scenes and not non_safety_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_c2pa_and_safety_compliance",
+                    message=f"Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -2234,6 +2526,133 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain-calibrated C2PA Content Credentials & Talent Likeness Provenance (PM-FEAT-025)
+        expected_c2pa_tiers = {
+            "automotive_robotics": "hybrid_icvfx_assisted",
+            "culinary_asmr": "full_ai_synthetic",
+            "luxury_fashion": "virtual_digital_replica",
+            "kinetic_action": "hybrid_icvfx_assisted",
+            "tech_hardware": "full_ai_synthetic",
+            "architectural_sanctuary": "full_ai_synthetic",
+        }
+        c2pa_manifest = getattr(bible, "master_c2pa_provenance", None)
+        if c2pa_manifest is not None:
+            tier_val = str(
+                getattr(getattr(c2pa_manifest, "synthetic_tier", ""), "value", getattr(c2pa_manifest, "synthetic_tier", ""))
+            ).lower()
+            likeness_recs = getattr(c2pa_manifest, "talent_likeness_records", None) or []
+            consents_verified = bool(getattr(c2pa_manifest, "all_likeness_consents_verified", True))
+            exp_tier = expected_c2pa_tiers.get(detected_domain)
+            if not consents_verified:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_c2pa_provenance",
+                    message=f"Talent likeness consent unverified for domain '{detected_domain}' in master_c2pa_provenance.",
+                    suggested_fix="Verify SAG-AFTRA & EU AI Act Art. 50 likeness consent records in master_c2pa_provenance.",
+                ))
+                score -= 1.0
+            elif exp_tier and tier_val != exp_tier:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_c2pa_provenance",
+                    message=f"C2PA synthetic_tier '{tier_val}' differs from domain '{detected_domain}' calibration '{exp_tier}'.",
+                    suggested_fix="Calibrate master_c2pa_provenance via get_domain_c2pa_provenance_spec().",
+                ))
+                score -= 0.25
+            elif not likeness_recs:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_c2pa_provenance",
+                    message=f"master_c2pa_provenance has empty talent_likeness_records for domain '{detected_domain}'.",
+                    suggested_fix="Populate talent_likeness_records via get_domain_c2pa_provenance_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_c2pa_provenance",
+                    message=(
+                        f"C2PA v2.1 provenance calibrated for domain '{detected_domain}' "
+                        f"(tier={tier_val}, likeness_records={len(likeness_recs)}, consents_verified=True)."
+                    ),
+                    details={"domain": detected_domain, "synthetic_tier": tier_val, "likeness_records_count": len(likeness_recs)},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_c2pa_provenance",
+                message="Master C2PA provenance spec (master_c2pa_provenance) missing from production bible.",
+                suggested_fix="Assign master_c2pa_provenance via get_domain_c2pa_provenance_spec().",
+            ))
+            score -= 0.25
+
+        # Check domain-calibrated On-Set Safety Risk & JSA Matrix (PM-FEAT-026)
+        expected_safety_calibration = {
+            "automotive_robotics": (18.0, "stunt_vehicle"),
+            "kinetic_action": (10.0, "wire_rigging_height"),
+            "tech_hardware": (6.0, "laser_optical"),
+            "luxury_fashion": (4.5, "electrical_dmx_wet"),
+            "architectural_sanctuary": (4.0, "wire_rigging_height"),
+            "culinary_asmr": (3.0, "food_allergen_thermal"),
+        }
+        safety_manifest = getattr(bible, "master_safety_risk", None)
+        if safety_manifest is not None:
+            scene_safeties = getattr(safety_manifest, "scene_safety_specs", None) or []
+            max_excl_m = max((float(getattr(ss, "max_exclusion_zone_m", 0.0) or 0.0) for ss in scene_safeties), default=0.0)
+            standby = getattr(safety_manifest, "standby_emergency", None)
+            present_cats = {
+                str(getattr(getattr(h, "category", ""), "value", getattr(h, "category", ""))).lower()
+                for ss in scene_safeties
+                for h in (getattr(ss, "hazards", None) or [])
+            }
+            exp_min_m, exp_cat = expected_safety_calibration.get(detected_domain, (3.0, "wire_rigging_height"))
+            open_holds = int(getattr(safety_manifest, "open_holds_count", 0) or 0)
+            if open_holds > 0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_safety_risk",
+                    message=f"On-set Safety JSA has {open_holds} open hold(s) for domain '{detected_domain}'.",
+                    suggested_fix="Clear all safety holds and verify hazard mitigations in master_safety_risk.",
+                ))
+                score -= 1.0
+            elif standby is None or not getattr(standby, "emergency_radio_channel", ""):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_safety_risk",
+                    message=f"Standby emergency protocol incomplete for domain '{detected_domain}'.",
+                    suggested_fix="Populate standby_emergency via get_domain_safety_risk_spec().",
+                ))
+                score -= 0.25
+            elif max_excl_m + 1e-6 < exp_min_m or (exp_cat and present_cats and exp_cat not in present_cats):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_safety_risk",
+                    message=(
+                        f"Safety JSA calibration mismatch for domain '{detected_domain}': "
+                        f"max_exclusion_zone_m={max_excl_m:.1f}m (expected >= {exp_min_m:.1f}m), categories={sorted(present_cats)}."
+                    ),
+                    suggested_fix="Calibrate master_safety_risk via get_domain_safety_risk_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_safety_risk",
+                    message=(
+                        f"On-set Safety JSA calibrated for domain '{detected_domain}' "
+                        f"(max_exclusion={max_excl_m:.1f}m, radio='{standby.emergency_radio_channel}', hazards={sorted(present_cats)})."
+                    ),
+                    details={"domain": detected_domain, "max_exclusion_zone_m": max_excl_m, "hazard_categories": sorted(present_cats)},
+                ))
+        else:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.LOW,
+                category="domain_safety_risk",
+                message="Master On-Set Safety Risk spec (master_safety_risk) missing from production bible.",
+                suggested_fix="Assign master_safety_risk via get_domain_safety_risk_spec().",
+            ))
+            score -= 0.25
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -2679,6 +3098,48 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).",
                         ))
 
+                    # PM-FEAT-025 C2PA Content Credentials & Provenance HUD check
+                    missing_c2pa_ids = [
+                        el_id
+                        for el_id in ("animatic-c2pa-hud", "btn-c2pa-animatic", "c2pa-lineage-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_c2pa_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_c2pa_hud",
+                            message=f"Compiled storyboard preview HTML lacks C2PA Content Credentials HUD element(s): {', '.join('#' + i for i in missing_c2pa_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-c2pa-animatic, #animatic-c2pa-hud, and #c2pa-lineage-svg [Y].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_c2pa_hud",
+                            message="C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).",
+                        ))
+
+                    # PM-FEAT-026 On-Set Safety Risk & Exclusion Perimeter HUD check
+                    missing_safety_ids = [
+                        el_id
+                        for el_id in ("animatic-safety-hud", "btn-safety-animatic", "safety-perimeter-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_safety_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_safety_hud",
+                            message=f"Compiled storyboard preview HTML lacks On-Set Safety JSA HUD element(s): {', '.join('#' + i for i in missing_safety_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-safety-animatic, #animatic-safety-hud, and #safety-perimeter-svg [Z].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_safety_hud",
+                            message="On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -2770,6 +3231,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="Blocking [W] and Client Review [N] keyboard hotkeys verified.",
                             ))
 
+                        has_y_key = bool(re.search(r"e\.key\s*===\s*['\"][yY]['\"]", kd_block))
+                        has_z_key = bool(re.search(r"e\.key\s*===\s*['\"][zZ]['\"]", kd_block))
+                        if not (has_y_key and has_z_key):
+                            missing_yz = []
+                            if not has_y_key:
+                                missing_yz.append("Y")
+                            if not has_z_key:
+                                missing_yz.append("Z")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_yz",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_yz)}.",
+                                suggested_fix="Bind Y (C2PA Provenance HUD) and Z (On-Set Safety HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_yz",
+                                message="C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -2790,12 +3273,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                             missing_esc.append("animatic-blocking-hud")
                         if "animatic-review-hud" in html_content and "ReviewHUD" not in esc_slice and "animatic-review-hud" not in esc_slice:
                             missing_esc.append("animatic-review-hud")
+                        if "animatic-c2pa-hud" in html_content and "C2paHUD" not in esc_slice and "animatic-c2pa-hud" not in esc_slice:
+                            missing_esc.append("animatic-c2pa-hud")
+                        if "animatic-safety-hud" in html_content and "SafetyHUD" not in esc_slice and "animatic-safety-hud" not in esc_slice:
+                            missing_esc.append("animatic-safety-hud")
                         if missing_esc:
                             findings.append(CouncilFinding(
                                 severity=CouncilFindingSeverity.LOW,
                                 category="animatic_escape_dismissal",
                                 message=f"Escape key handler does not dismiss open panels: {', '.join(missing_esc)}.",
-                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, and review HUD.",
+                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, review HUD, C2PA HUD, and safety HUD.",
                             ))
                             score -= 0.5
 

@@ -1,0 +1,211 @@
+{
+  "project_title": "Artisanal Japanese Culinary Ceremonial M",
+  "jsa_document_id": "JSA-CULI-2026-8A887D",
+  "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+  "standby_emergency": {
+    "set_medic_on_standby": true,
+    "medic_qualification": "Certified Set Paramedic / EMT-P",
+    "fire_safety_officer_required": true,
+    "ambulance_on_standby": false,
+    "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+    "emergency_muster_point": "Exterior Stage North Gate Alpha",
+    "emergency_radio_channel": "CH-09 SAFETY",
+    "e_stop_locations": [
+      "Video Village Master Console",
+      "Culinary Induction Cutout",
+      "Class-K Fire Station"
+    ],
+    "sds_sheets_staged": true,
+    "safety_briefing_time": "07:00 Call Time Tailgate"
+  },
+  "scene_safety_specs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+      "hazards": [
+        {
+          "hazard_id": "HAZ-S01-01",
+          "category": "kinetic_moco_arm",
+          "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+          "likelihood_score": 3,
+          "severity_score": 3,
+          "risk_rating": 9,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 10.0,
+          "engineering_controls": [
+            "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+            "Optical LiDAR/laser perimeter safety curtain interlock",
+            "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+          ],
+          "ppe_required": [
+            "Steel-toe stage footwear",
+            "ANSI Z87.1 impact eyewear",
+            "High-visibility floor spotter vest"
+          ],
+          "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S01-02",
+          "category": "food_allergen_thermal",
+          "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 3.0,
+          "engineering_controls": [
+            "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+            "Heat-resistant silicone surface mats & insulated induction zones",
+            "Dedicated allergen-free prep trays & food-safe temperature log"
+          ],
+          "ppe_required": [
+            "Cut-resistant Kevlar food-styling glove (prep)",
+            "Heat-insulated nitrile/silicone mitts",
+            "Closed-toe non-slip kitchen footwear"
+          ],
+          "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+        },
+        {
+          "hazard_id": "HAZ-S01-03",
+          "category": "electrical_dmx_wet",
+          "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 3.0,
+          "engineering_controls": [
+            "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+            "Elevated cable ramps, rubber matting, and bonded stage ground",
+            "IP65 weather-sealed DMX splitters & ballast isolation stands"
+          ],
+          "ppe_required": [
+            "EH-rated insulated rubber-sole footwear",
+            "Insulated electrical handling gloves (Gaffer crew)"
+          ],
+          "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+        }
+      ],
+      "max_risk_rating": 9,
+      "overall_risk_level": "moderate",
+      "max_exclusion_zone_m": 10.0,
+      "signoff_status": "mitigated",
+      "stunt_coordinator_required": false,
+      "pyro_permit_required": false,
+      "rso_laser_clearance_required": false,
+      "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+      "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+      "hazards": [
+        {
+          "hazard_id": "HAZ-S02-01",
+          "category": "kinetic_moco_arm",
+          "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+          "likelihood_score": 3,
+          "severity_score": 3,
+          "risk_rating": 9,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 10.0,
+          "engineering_controls": [
+            "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+            "Optical LiDAR/laser perimeter safety curtain interlock",
+            "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+          ],
+          "ppe_required": [
+            "Steel-toe stage footwear",
+            "ANSI Z87.1 impact eyewear",
+            "High-visibility floor spotter vest"
+          ],
+          "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S02-02",
+          "category": "food_allergen_thermal",
+          "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 3.0,
+          "engineering_controls": [
+            "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+            "Heat-resistant silicone surface mats & insulated induction zones",
+            "Dedicated allergen-free prep trays & food-safe temperature log"
+          ],
+          "ppe_required": [
+            "Cut-resistant Kevlar food-styling glove (prep)",
+            "Heat-insulated nitrile/silicone mitts",
+            "Closed-toe non-slip kitchen footwear"
+          ],
+          "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+        },
+        {
+          "hazard_id": "HAZ-S02-03",
+          "category": "electrical_dmx_wet",
+          "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 3.0,
+          "engineering_controls": [
+            "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+            "Elevated cable ramps, rubber matting, and bonded stage ground",
+            "IP65 weather-sealed DMX splitters & ballast isolation stands"
+          ],
+          "ppe_required": [
+            "EH-rated insulated rubber-sole footwear",
+            "Insulated electrical handling gloves (Gaffer crew)"
+          ],
+          "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+        }
+      ],
+      "max_risk_rating": 9,
+      "overall_risk_level": "moderate",
+      "max_exclusion_zone_m": 10.0,
+      "signoff_status": "mitigated",
+      "stunt_coordinator_required": false,
+      "pyro_permit_required": false,
+      "rso_laser_clearance_required": false,
+      "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+      "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+    }
+  ],
+  "overall_risk_level": "moderate",
+  "highest_risk_rating": 9,
+  "total_hazards_identified": 6,
+  "open_holds_count": 0,
+  "signoff_status": "mitigated",
+  "all_hazards_mitigated": true,
+  "jsa_summary": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Cleared across 2 scene(s).",
+  "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+}

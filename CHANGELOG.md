@@ -2,6 +2,20 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.13.0] - 2026-11-21
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-025: Generative AI Provenance, C2PA Content Credentials (v2.1) & Talent Likeness / Synthetic Disclosure Ledger**:
+  - Module: `omni_director/tools/c2pa_provenance.py` with Pydantic contracts in `omni_director/schemas.py` (`SyntheticDisclosureTier`, `C2paActionType`, `LikenessConsentStatus`, `C2paIngredientSpec`, `C2paAssertionActionSpec`, `TalentLikenessRecordSpec`, `SceneC2paProvenanceSpec`, `MasterC2paProvenanceSpec`) and 6-domain calibrations in `omni_director/presets.py`.
+  - Enforces 2026 Model Matrix lineage verification (`verify_model_lineage_2026`), deterministic prompt lineage SHA-256 digests (`compute_prompt_lineage_digest`), EU AI Act Article 50 & SynthID disclosure compliance, SAG-AFTRA digital replica consent tracking, `[C2PA_PROVENANCE: ...]` CRAFT tokens (`compile_clean_omni_prompt` stripped), CLI export (`omni export --format c2pa`), NLE & `RuntimeTelemetry` checksum registration, and interactive Dark-Room Cinema Animatic C2PA Provenance HUD (`#animatic-c2pa-hud`, `#c2pa-lineage-svg`, hotkey `Y`).
+- **PM-FEAT-026: On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix (JSA & Call-Sheet Safety Bulletin)**:
+  - Module: `omni_director/tools/safety_risk.py` with Pydantic contracts in `omni_director/schemas.py` (`SafetyHazardCategory`, `RiskSeverityLevel`, `SafetySignoffStatus`, `SafetyHazardControlSpec`, `StandbyMedicalAndEmergencySpec`, `SceneSafetyRiskSpec`, `MasterSafetyRiskSpec`) and 6-domain calibrations in `omni_director/presets.py`.
+  - Computes physics-derived kinetic exclusion zones (`calculate_kinetic_exclusion_zone_m`), scene hazard assessments (`assess_scene_hazards`) with CSATF Safety Bulletin references, standby medical/emergency plans, `[SAFETY_JSA: ...]` CRAFT tokens (`compile_clean_omni_prompt` stripped), `call_sheet.md` Section 5 On-Set Safety Summary, CLI export (`omni export --format safety`), NLE & `RuntimeTelemetry` checksum registration, and interactive Dark-Room Cinema Animatic Safety JSA & Perimeter HUD (`#animatic-safety-hud`, `#safety-perimeter-svg`, hotkey `Z`).
+- **Cross-Cutting Council, CLI, Telemetry & UX/WCAG 2.2 AA Fixes**:
+  - Fixed `_buildDynamicReviewFCPXML()` scene duration/relative marker offsets and `_buildDynamicReviewMD()` Markdown pipe escaping in `omni_director/tools/html_hud_v212.py`.
+  - Fixed `.hud-sticky-shell` header/transport-bar overlap, `<g>` Spacebar propagation collision, case-insensitive `</script>` & `html.escape` protection, card `audit_rep.score` display, Rule 7 `.audit-drawer` row, `isContentEditable` guard, and `Tab` modal focus trapping across `omni_director/tools/html_compiler.py` and `omni_director/tools/html_hud_v212.py`.
+  - Wired `omni council --all-presets` alias deduplication and automatic `telemetry.json` refresh in `omni export` (`--refresh-telemetry`) in `omni_director/cli.py`, added `SECRET_PATTERN` zero-leak telemetry/bundle scanning in `ProductCouncilOrchestrator._review_fde()`, and updated `README.md` to `v2.13.0`.
+
 ## [2.12.0] - 2026-11-20
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

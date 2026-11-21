@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.12.0).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.13.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -8,6 +8,7 @@ and Production Bible JSON export without external CDN script dependencies.
 import base64
 import json
 import re
+from html import escape as _html_escape
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -20,6 +21,12 @@ from omni_director.tools.color_grade import (
 )
 from omni_director.tools.coverage import generate_scene_coverage, synthesize_conversational_deltas
 from omni_director.tools.speed_ramp import format_craft_shutter_tokens
+
+
+def _escape_js_template_literal(text: str) -> str:
+    """Escapes backslashes, backticks, template interpolations, and closing script tags for safe JS template literals."""
+    escaped = str(text).replace("\\", "\\\\").replace("`", "\\`").replace("$", "\\$")
+    return re.sub(r"</(script)", r"<\/\1", escaped, flags=re.IGNORECASE)
 
 
 
@@ -196,20 +203,16 @@ def compile_storyboard_html(
 
         # Audit breakdown and score
         audit_rep = next((a for a in bundle.audit_reports if a.scene_index == s_idx), None)
-        if audit_rep and audit_rep.passed:
-            calc_score = max(90, 100 - len(audit_rep.warnings) * 2)
-            audit_badge_class = "badge-pass"
-            audit_badge_text = f"SCORE: {calc_score}/100"
-        elif audit_rep:
-            calc_score = max(0, 100 - len(audit_rep.errors) * 15 - len(audit_rep.warnings) * 5)
-            audit_badge_class = "badge-fail"
+        if audit_rep:
+            calc_score = max(0, min(100, round(audit_rep.score)))
+            audit_badge_class = "badge-pass" if audit_rep.passed else "badge-fail"
             audit_badge_text = f"SCORE: {calc_score}/100"
         else:
             calc_score = 92
             audit_badge_class = "badge-pass"
             audit_badge_text = "SCORE: 92/100"
 
-        # Expandable 6-Category Compliance Checklist inside .audit-drawer
+        # Expandable 7-Point Compliance Checklist inside .audit-drawer
         audit_errors_list = audit_rep.errors if audit_rep else []
         audit_warnings_list = audit_rep.warnings if audit_rep else []
 
@@ -228,19 +231,20 @@ def compile_storyboard_html(
             ("Spatial Audio", "Synchronized Diegetic Audio & Foley", 6),
             ("Continuity Locks", "Max 3 Image References (<image_1-3>)", 5),
             ("Negative Constraints", "Zero Internal Markdown/HTML Headings", 1),
+            ("Mode B Extension Continuity", "Continuous Shot Bridge & Anchor Alignment", 7),
         ]
 
         checklist_html = "".join([
             f'<div class="audit-check-row {status_cls}">'
-            f'<span class="audit-check-title"><strong>{title}</strong> ({desc})</span>'
+            f'<span class="audit-check-title"><strong>{_html_escape(title)}</strong> ({_html_escape(desc)})</span>'
             f'<span class="audit-check-val">{status_txt}</span>'
             f'</div>'
             for title, desc, rule_num in checklist_items
             for status_txt, status_cls in [_check_status(rule_num)]
         ])
 
-        errors_html = "".join([f'<li class="err-msg">❌ {e}</li>' for e in audit_errors_list])
-        warnings_html = "".join([f'<li class="warn-msg">⚠️ {w}</li>' for w in audit_warnings_list])
+        errors_html = "".join([f'<li class="err-msg">❌ {_html_escape(str(e))}</li>' for e in audit_errors_list])
+        warnings_html = "".join([f'<li class="warn-msg">⚠️ {_html_escape(str(w))}</li>' for w in audit_warnings_list])
         diagnostics_section = ""
         if errors_html or warnings_html:
             diagnostics_section = f"""
@@ -252,14 +256,14 @@ def compile_storyboard_html(
         else:
             diagnostics_section = """
             <div class="audit-diagnostics" style="color: #10B981; font-size: 11px;">
-              ✓ All 6 categories fully verified against 2026 Gemini Omni visual standards. Zero hallucinations detected.
+              ✓ All 7 points fully verified against 2026 Gemini Omni visual standards. Zero hallucinations detected.
             </div>
             """
 
         audit_drawer_html = f"""
         <div class="audit-drawer" id="audit-drawer-{s_idx}" role="region" aria-label="Prompt Audit Drawer Scene {s_idx}" style="display: none;">
           <div class="audit-drawer-inner">
-            <div class="col-heading">6-CATEGORY PROMPT COMPLIANCE SCORECARD</div>
+            <div class="col-heading">7-POINT PROMPT COMPLIANCE SCORECARD</div>
             <div class="audit-checklist-grid">{checklist_html}</div>
             {diagnostics_section}
           </div>
@@ -398,8 +402,8 @@ def compile_storyboard_html(
           <div class="scene-header">
             <div class="scene-title-wrap">
               <span class="scene-badge">SCENE {s_idx}</span>
-              <h3 class="scene-title">{scene.scene_title}</h3>
-              <span class="scene-time">{scene.timestamp_range}</span>
+              <h3 class="scene-title">{_html_escape(str(scene.scene_title))}</h3>
+              <span class="scene-time">{_html_escape(str(scene.timestamp_range))}</span>
               {speed_ramp_badge_html}
               {lens_badge_html}
               {vp_badge_html}
@@ -755,12 +759,12 @@ def compile_storyboard_html(
         generate_sound_sync_ale,
     )
 
-    hdr10_json_escaped = export_hdr10_metadata_json(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    hlg_xml_escaped = export_hlg_broadcast_xml(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    resolve_hdr_xml_escaped = export_resolve_hdr_xml_string(master_hdr).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    movie_magic_xml_escaped = export_movie_magic_xml_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    stripboard_csv_escaped = export_stripboard_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    dood_csv_escaped = export_dood_csv_string(master_stripboard).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    hdr10_json_escaped = _escape_js_template_literal(export_hdr10_metadata_json(master_hdr))
+    hlg_xml_escaped = _escape_js_template_literal(export_hlg_broadcast_xml(master_hdr))
+    resolve_hdr_xml_escaped = _escape_js_template_literal(export_resolve_hdr_xml_string(master_hdr))
+    movie_magic_xml_escaped = _escape_js_template_literal(export_movie_magic_xml_string(master_stripboard))
+    stripboard_csv_escaped = _escape_js_template_literal(export_stripboard_csv_string(master_stripboard))
+    dood_csv_escaped = _escape_js_template_literal(export_dood_csv_string(master_stripboard))
 
     # Master Film Emulation Spec (PM-FEAT-017)
     master_film = getattr(bible, "master_film_emulation", None)
@@ -807,8 +811,8 @@ def compile_storyboard_html(
     slate_director = slate_first.director or getattr(master_slate, "director", "Director") or "Director"
     slate_dp = slate_first.dp or getattr(master_slate, "dp", "Cinematographer") or "Cinematographer"
 
-    film_dctl_escaped = generate_davinci_dctl_shader(master_film).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    film_ale_escaped = generate_film_stock_ale(bible).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    film_dctl_escaped = _escape_js_template_literal(generate_davinci_dctl_shader(master_film))
+    film_ale_escaped = _escape_js_template_literal(generate_film_stock_ale(bible))
 
     mhl_manifest = master_slate.asc_mhl
     if not mhl_manifest:
@@ -828,9 +832,9 @@ def compile_storyboard_html(
                 ),
             ],
         )
-    mhl_xml_escaped = generate_asc_mhl_xml(mhl_manifest).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    slate_csv_escaped = generate_clapper_slate_log_csv(bible or master_slate).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    sound_ale_escaped = generate_sound_sync_ale(bible or master_slate).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    mhl_xml_escaped = _escape_js_template_literal(generate_asc_mhl_xml(mhl_manifest))
+    slate_csv_escaped = _escape_js_template_literal(generate_clapper_slate_log_csv(bible or master_slate))
+    sound_ale_escaped = _escape_js_template_literal(generate_sound_sync_ale(bible or master_slate))
 
     if not first_scene_plate_markup:
         first_scene_plate_markup = """<svg viewBox="0 0 640 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -890,9 +894,9 @@ def compile_storyboard_html(
         generate_drone_flight_gpx,
         generate_drone_flight_sheet_csv,
     )
-    drone_kml_escaped = generate_drone_flight_kml(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    drone_gpx_escaped = generate_drone_flight_gpx(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    drone_csv_escaped = generate_drone_flight_sheet_csv(master_drone).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    drone_kml_escaped = _escape_js_template_literal(generate_drone_flight_kml(master_drone))
+    drone_gpx_escaped = _escape_js_template_literal(generate_drone_flight_gpx(master_drone))
+    drone_csv_escaped = _escape_js_template_literal(generate_drone_flight_sheet_csv(master_drone))
 
     drone_waypoints_data = []
     drone_waypoints_rows = []
@@ -918,7 +922,7 @@ def compile_storyboard_html(
         drone_waypoints_rows.append(
             f"<tr><td><strong>{w_id}</strong></td><td>{w_lat:.6f}, {w_lon:.6f}</td><td>{w_alt:.1f} m AGL</td><td>{w_speed:.1f} m/s</td><td>{status_badge}</td></tr>"
         )
-    drone_waypoints_json = json.dumps(drone_waypoints_data)
+    drone_waypoints_json = re.sub(r"</(script)", r"<\/\1", json.dumps(drone_waypoints_data), flags=re.IGNORECASE)
     drone_waypoints_tbody = "".join(drone_waypoints_rows)
 
     # Master AICP Commercial Production Bid Spec (PM-FEAT-020)
@@ -973,9 +977,9 @@ def compile_storyboard_html(
         generate_aicp_topsheet_md,
         AICP_SECTION_NAMES,
     )
-    aicp_csv_escaped = generate_aicp_bid_sheet_csv(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    aicp_json_escaped = generate_aicp_bid_manifest_json(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    aicp_md_escaped = generate_aicp_topsheet_md(master_aicp).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    aicp_csv_escaped = _escape_js_template_literal(generate_aicp_bid_sheet_csv(master_aicp))
+    aicp_json_escaped = _escape_js_template_literal(generate_aicp_bid_manifest_json(master_aicp))
+    aicp_md_escaped = _escape_js_template_literal(generate_aicp_topsheet_md(master_aicp))
 
     from collections import defaultdict
     aicp_sec_map = defaultdict(list)
@@ -1047,7 +1051,6 @@ def compile_storyboard_html(
     })
 
     # Master Multi-Aspect Reframe & Cutdown Delivery Spec (PM-FEAT-021)
-    from html import escape as _html_escape
     from omni_director.tools.delivery_reframe import (
         PLATFORM_SAFE_ZONES,
         generate_cutdown_edl,
@@ -1063,11 +1066,11 @@ def compile_storyboard_html(
     if master_reframe is None:
         master_reframe = synthesize_default_reframe_manifest(bible)
 
-    reframe_csv_escaped = generate_reframe_matrix_csv(master_reframe).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    reframe_json_escaped = generate_reframe_manifest_json(master_reframe).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    reframe_edl_15_escaped = generate_cutdown_edl(master_reframe, "cutdown_15s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    reframe_edl_06_escaped = generate_cutdown_edl(master_reframe, "bumper_06s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    reframe_edl_30_escaped = generate_cutdown_edl(master_reframe, "cutdown_30s").replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    reframe_csv_escaped = _escape_js_template_literal(generate_reframe_matrix_csv(master_reframe))
+    reframe_json_escaped = _escape_js_template_literal(generate_reframe_manifest_json(master_reframe))
+    reframe_edl_15_escaped = _escape_js_template_literal(generate_cutdown_edl(master_reframe, "cutdown_15s"))
+    reframe_edl_06_escaped = _escape_js_template_literal(generate_cutdown_edl(master_reframe, "bumper_06s"))
+    reframe_edl_30_escaped = _escape_js_template_literal(generate_cutdown_edl(master_reframe, "cutdown_30s"))
 
     scene_time_lookup: Dict[int, Tuple[float, float]] = {}
     for idx_sc, sc_obj in enumerate(bible.scenes or [], start=1):
@@ -1173,9 +1176,9 @@ def compile_storyboard_html(
             "notes": str(pv["notes"]),
         }
 
-    reframe_scenes_json = json.dumps(reframe_scenes_payload).replace('</script>', '<\\/script>')
-    reframe_cutdowns_json = json.dumps(reframe_cutdowns_payload).replace('</script>', '<\\/script>')
-    reframe_safe_zones_json = json.dumps(reframe_safe_zones_clean).replace('</script>', '<\\/script>')
+    reframe_scenes_json = re.sub(r"</(script)", r"<\/\1", json.dumps(reframe_scenes_payload), flags=re.IGNORECASE)
+    reframe_cutdowns_json = re.sub(r"</(script)", r"<\/\1", json.dumps(reframe_cutdowns_payload), flags=re.IGNORECASE)
+    reframe_safe_zones_json = re.sub(r"</(script)", r"<\/\1", json.dumps(reframe_safe_zones_clean), flags=re.IGNORECASE)
     reframe_has_30s = "cutdown_30s" in reframe_cutdowns_payload
     reframe_cutdown_30_btn = (
         '<button type="button" role="radio" aria-checked="false" class="btn-cutdown-pill" data-cutdown="cutdown_30s" onclick="setCutdownMode(\'cutdown_30s\', this)">:30s Broadcast</button>'
@@ -1203,9 +1206,9 @@ def compile_storyboard_html(
     if master_qc is None:
         master_qc = synthesize_default_broadcast_qc_spec(bible)
 
-    qc_cert_md_escaped = generate_qc_certificate_md(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    qc_clearance_csv_escaped = generate_clearance_matrix_csv(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
-    qc_json_escaped = generate_qc_manifest_json(master_qc).replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+    qc_cert_md_escaped = _escape_js_template_literal(generate_qc_certificate_md(master_qc))
+    qc_clearance_csv_escaped = _escape_js_template_literal(generate_clearance_matrix_csv(master_qc))
+    qc_json_escaped = _escape_js_template_literal(generate_qc_manifest_json(master_qc))
 
     qc_slate = master_qc.trafficking_slate
     qc_loudness = master_qc.loudness_compliance
@@ -1236,7 +1239,7 @@ def compile_storyboard_html(
             "lra_max_lu": float(sv["lra_max_lu"]),
             "dialogue_gated": bool(sv["dialogue_gated"]),
         }
-    qc_standards_json = json.dumps(qc_standards_clean).replace('</script>', '<\\/script>')
+    qc_standards_json = re.sub(r"</(script)", r"<\/\1", json.dumps(qc_standards_clean), flags=re.IGNORECASE)
 
     qc_pse_payload: List[Dict[str, Any]] = []
     for sp in getattr(master_qc, "scene_qc_profiles", []):
@@ -1251,7 +1254,7 @@ def compile_storyboard_html(
             "red_flash": bool(pse.red_saturation_flash_detected),
             "verdict": str(v_s),
         })
-    qc_pse_json = json.dumps(qc_pse_payload).replace('</script>', '<\\/script>')
+    qc_pse_json = re.sub(r"</(script)", r"<\/\1", json.dumps(qc_pse_payload), flags=re.IGNORECASE)
 
     qc_clearance_rows: List[str] = []
     for rec in getattr(master_qc, "clearance_records", []):
@@ -1279,6 +1282,7 @@ def compile_storyboard_html(
     qc_legal_label = "CLEARED" if qc_legal_ok else "PENDING"
 
     from omni_director.tools.html_hud_v212 import build_v212_hud_bundle
+    from omni_director.tools.html_hud_v213 import build_v213_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1291,15 +1295,27 @@ def compile_storyboard_html(
     v212_modals_html = v212_bundle["modals_html"]
     v212_js = v212_bundle["js"]
 
+    v213_bundle = build_v213_hud_bundle(
+        bible=bible,
+        bundle=bundle,
+        scene_time_lookup=scene_time_lookup,
+        total_runtime_sec=total_runtime_sec,
+    )
+    v213_css = v213_bundle["css"]
+    v213_modals_html = v213_bundle["modals_html"]
+    v213_js = v213_bundle["js"]
+
     # Serialize bible for client-side export
-    bible_json_escaped = json.dumps(bible.model_dump(), indent=2).replace('</script>', '<\\/script>')
+    bible_json_escaped = re.sub(r"</(script)", r"<\/\1", json.dumps(bible.model_dump(), indent=2), flags=re.IGNORECASE)
+    project_title_esc = _html_escape(str(bible.project_title))
+    project_download_slug = re.sub(r"[^a-zA-Z0-9_-]+", "_", str(bible.project_title).lower()).strip("_") or "omni_production"
 
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{bible.project_title} | Omni Movie Director Cinema UI</title>
+  <title>{project_title_esc} | Omni Movie Director Cinema UI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -1362,14 +1378,20 @@ def compile_storyboard_html(
       transform: translateY(0);
     }}
 
-    /* Top Cinema HUD */
+    /* Top Cinema HUD Sticky Shell (prevents transport-bar overlap when toolbar wraps) */
+    .hud-sticky-shell {{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+    }}
     .hud-header {{
       background: rgba(14, 16, 23, 0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-subtle);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: relative;
+      top: auto;
+      z-index: 110;
       padding: 14px 32px;
       display: flex;
       justify-content: space-between;
@@ -1448,8 +1470,8 @@ def compile_storyboard_html(
 
     /* Sticky Cinema Transport Bar & SMPTE Scrubber */
     .transport-bar {{
-      position: sticky;
-      top: 61px;
+      position: relative;
+      top: auto;
       z-index: 90;
       background: #090B10;
       border-bottom: 1px solid var(--border-subtle);
@@ -4035,7 +4057,7 @@ def compile_storyboard_html(
     /* Print Stylesheet */
     @media print {{
       body {{ background: #FFF !important; color: #000 !important; }}
-      .hud-header, .transport-bar, .btn-copy, .btn-export, .btn-play, .btn-loop, .hud-hotkeys, .prompt-drawer-btn, .cinema-toast {{ display: none !important; }}
+      .hud-sticky-shell, .hud-header, .transport-bar, .btn-copy, .btn-export, .btn-play, .btn-loop, .hud-hotkeys, .prompt-drawer-btn, .cinema-toast {{ display: none !important; }}
       .scene-card {{ border: 1px solid #CCC !important; break-inside: avoid; margin-bottom: 20px; }}
       .scene-header {{ background: #EEE !important; color: #000 !important; }}
       .scene-title {{ color: #000 !important; }}
@@ -4830,6 +4852,7 @@ def compile_storyboard_html(
       border: 1px solid rgba(255, 59, 48, 0.4);
     }}
     {v212_css}
+    {v213_css}
   </style>
 </head>
 <body>
@@ -4839,10 +4862,11 @@ def compile_storyboard_html(
   <!-- Non-blocking Cinema Toast Overlay -->
   <div id="cinema-toast" class="cinema-toast" role="status" aria-live="polite"></div>
 
-  <!-- Top Cinema HUD -->
+  <!-- Top Cinema HUD + Transport Shell -->
+  <div class="hud-sticky-shell">
   <header class="hud-header" role="banner">
     <div class="hud-left">
-      <div class="project-title">{bible.project_title}</div>
+      <div class="project-title">{project_title_esc}</div>
       <div class="hud-meta">
         <span class="meta-tag">CANVAS: <strong>{bible.aspect_ratio.value}</strong></span>
         <span class="meta-tag">REGIME: <strong>{bible.creative_regime.value.split(':')[0]}</strong></span>
@@ -4930,6 +4954,7 @@ def compile_storyboard_html(
       <div class="vf-lens-hud"><span id="vf-master-lens-text">{master_lens_text}</span></div>
     </div>
   </aside>
+  </div>
 
   <!-- Dark-Room Cinema Audio Mixing Console Drawer -->
   <aside id="animatic-audio-mixer" class="audio-mixer-drawer" role="region" aria-label="Audio Mixing Console" aria-hidden="true">
@@ -5914,7 +5939,7 @@ def compile_storyboard_html(
 
               <!-- Static Slate Text Labels -->
               <text x="50" y="118" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">PRODUCTION</text>
-              <text x="50" y="138" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#F8FAFC">{bible.project_title}</text>
+              <text x="50" y="138" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#F8FAFC">{project_title_esc}</text>
 
               <text x="50" y="168" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1">SCENE</text>
               <text id="slate-svg-val-scene" x="105" y="208" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="800" fill="#00F0FF">01</text>
@@ -6142,7 +6167,7 @@ def compile_storyboard_html(
       <div class="aicp-modal-body">
         <div class="aicp-toolbar">
           <div class="aicp-badge-group">
-            <span class="aicp-badge">PROJECT: <strong>{bible.project_title}</strong></span>
+            <span class="aicp-badge">PROJECT: <strong>{project_title_esc}</strong></span>
             <span class="aicp-badge">DURATION: <strong>{tot_dur:.1f}s</strong></span>
             <span class="aicp-badge">STANDARD: <strong>AICP Commercial Form 2026</strong></span>
           </div>
@@ -6425,13 +6450,14 @@ def compile_storyboard_html(
     </div>
   </div>
 {v212_modals_html}
+{v213_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
       <section class="overview-card" role="region" aria-label="Director Treatment">
         <div class="col-heading">DIRECTOR'S LOGLINE</div>
-        <div class="logline">{bible.logline}</div>
+        <div class="logline">{_html_escape(str(bible.logline))}</div>
         <div class="col-heading">COLOR SCRIPT PALETTE (CLICK HEX TO COPY)</div>
         <div class="palette-strip">{swatches_html}</div>
       </section>
@@ -6543,7 +6569,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "{bible.project_title.lower().replace(' ', '_')}_bible.json";
+      a.download = "{project_download_slug}_bible.json";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7005,7 +7031,7 @@ def compile_storyboard_html(
     }}
 
     function generateCubeLUT(title, size) {{
-      let out = `# Created by Omni Movie Director v2.12.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
+      let out = `# Created by Omni Movie Director v2.13.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
       const step = 1.0 / (size - 1);
       for (let b = 0; b < size; b++) {{
         const blue = b * step;
@@ -7076,7 +7102,7 @@ def compile_storyboard_html(
       const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
       const admPayload = {{
         format: "ADM_ITU_R_BS_2076",
-        version: "2.12.0",
+        version: "2.13.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {{}},
         audio_objects: spatialData.audio_objects || [],
@@ -7095,16 +7121,16 @@ def compile_storyboard_html(
     }}
 
     function downloadAmbisonicCSV() {{
-      let csv = "channel,spherical_harmonic,polar_pattern,azimuth_deg,elevation_deg,weight\n";
-      csv += "W,Y_0_0,Omnidirectional,0.0,0.0,0.7071\n";
-      csv += "Y,Y_1_neg1,Dipole_Y,90.0,0.0,1.0000\n";
-      csv += "Z,Y_1_0,Dipole_Z,0.0,90.0,1.0000\n";
-      csv += "X,Y_1_1,Dipole_X,0.0,0.0,1.0000\n";
-      csv += "V,Y_2_neg2,Quadrupole_XY,45.0,0.0,1.0000\n";
-      csv += "T,Y_2_neg1,Quadrupole_YZ,90.0,45.0,1.0000\n";
-      csv += "R,Y_2_0,Quadrupole_Z2,0.0,90.0,1.0000\n";
-      csv += "S,Y_2_1,Quadrupole_ZX,0.0,45.0,1.0000\n";
-      csv += "U,Y_2_2,Quadrupole_X2Y2,0.0,0.0,1.0000\n";
+      let csv = "channel,spherical_harmonic,polar_pattern,azimuth_deg,elevation_deg,weight\\n";
+      csv += "W,Y_0_0,Omnidirectional,0.0,0.0,0.7071\\n";
+      csv += "Y,Y_1_neg1,Dipole_Y,90.0,0.0,1.0000\\n";
+      csv += "Z,Y_1_0,Dipole_Z,0.0,90.0,1.0000\\n";
+      csv += "X,Y_1_1,Dipole_X,0.0,0.0,1.0000\\n";
+      csv += "V,Y_2_neg2,Quadrupole_XY,45.0,0.0,1.0000\\n";
+      csv += "T,Y_2_neg1,Quadrupole_YZ,90.0,45.0,1.0000\\n";
+      csv += "R,Y_2_0,Quadrupole_Z2,0.0,90.0,1.0000\\n";
+      csv += "S,Y_2_1,Quadrupole_ZX,0.0,45.0,1.0000\\n";
+      csv += "U,Y_2_2,Quadrupole_X2Y2,0.0,0.0,1.0000\\n";
       const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -7192,7 +7218,7 @@ def compile_storyboard_html(
 
     function downloadNukeScript() {{
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.12.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.13.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
       const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -8037,6 +8063,8 @@ def compile_storyboard_html(
       updateMoCoFromTimeline(currentFrame / (TOTAL_FRAMES || 1));
       if (typeof updateBlockingFromTimeline === 'function') updateBlockingFromTimeline(tSec);
       if (typeof updateReviewFromTimeline === 'function') updateReviewFromTimeline(tSec);
+      if (typeof updateC2paFromTimeline === 'function') updateC2paFromTimeline(tSec);
+      if (typeof updateSafetyFromTimeline === 'function') updateSafetyFromTimeline(tSec);
       if (typeof isReframeHUDOpen !== 'undefined' && isReframeHUDOpen) {{
         drawReframePreview();
       }}
@@ -9050,6 +9078,7 @@ def compile_storyboard_html(
     }}
 
     {v212_js}
+    {v213_js}
 
     function closeSecondaryOpenHUDs() {{
       const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen;
@@ -9069,24 +9098,29 @@ def compile_storyboard_html(
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, Escape)
     window.addEventListener('keydown', (e) => {{
+      if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen;
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen;
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
         if (isReviewHUDOpen) toggleReviewHUD();
+        if (isC2paHUDOpen) toggleC2paHUD();
+        if (isSafetyHUDOpen) toggleSafetyHUD();
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
         return;
       }}
-      const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+      const activeEl = document.activeElement;
+      const tag = activeEl && activeEl.tagName ? activeEl.tagName.toLowerCase() : '';
+      const activeRole = activeEl && activeEl.getAttribute ? (activeEl.getAttribute('role') || '').toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || (activeEl && activeEl.isContentEditable)) return;
       if (e.code === 'Space') {{
-        if (tag === 'button' || tag === 'summary' || (document.activeElement && document.activeElement.getAttribute('role') === 'tab')) return;
+        if (tag === 'button' || tag === 'summary' || activeRole === 'tab' || activeRole === 'button') return;
         e.preventDefault(); togglePlay();
       }} else if (e.code === 'ArrowLeft') {{ e.preventDefault(); renderFrame(currentFrame - FPS); }}
       else if (e.code === 'ArrowRight') {{ e.preventDefault(); renderFrame(currentFrame + FPS); }}
@@ -9119,6 +9153,8 @@ def compile_storyboard_html(
       else if (e.key === 'q' || e.key === 'Q') toggleQcHUD();
       else if (e.key === 'w' || e.key === 'W') toggleBlockingHUD();
       else if (e.key === 'n' || e.key === 'N') toggleReviewHUD();
+      else if (e.key === 'y' || e.key === 'Y') toggleC2paHUD();
+      else if (e.key === 'z' || e.key === 'Z') toggleSafetyHUD();
     }});
 
     // Initialize first frame and default look
@@ -9140,6 +9176,8 @@ def compile_storyboard_html(
       drawQcPseChart();
       initBlockingHUD();
       initReviewHUD();
+      initC2paHUD();
+      initSafetyHUD();
     }});
     renderFrame(0);
   </script>

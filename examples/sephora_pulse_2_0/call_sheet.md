@@ -32,3 +32,12 @@
 - **Tempo & Key**: 138 BPM in F Minor
 - **Instrumentation**: Syncopated 2-step drum groove with punchy kick and crisp rimshots, Deep rolling Moog Reese bassline, Glittering hyper-pop synth arpeggios and vocal chops, Dramatic snare roll risers and white-noise sweeps
 - **Dynamic Arc**: Seconds 00-08: Snappy 2-step rhythm kicks in on the wink. Seconds 08-16: Heavy bassline drops inside flagship. Seconds 16-24: Massive riser sweep building energy. Seconds 24-32: Sudden cut to dead silence on final freeze-frame bag snap, leaving only a sub-bass decay.
+
+## 5. On-Set Safety & Emergency Bulletin Summary
+- **Overall Risk Level**: `MODERATE` (Signoff: `MITIGATED`, Peak Score: `6/25`)
+- **Max Exclusion Zone**: `4.5m`
+- **Standby Medic**: `YES (Certified Set Paramedic / EMT-P)`
+- **Fire Safety Officer**: `STANDARD / EXTINGUISHER STAGED`
+- **Emergency Radio Channel**: `CH-09 SAFETY`
+- **Nearest Trauma Center**: Regional Level-1 Trauma Center (<12 min EMS response)
+- **Emergency Muster Point**: `Exterior Stage North Gate Alpha` (Tailgate: `07:00 Call Time Tailgate`)

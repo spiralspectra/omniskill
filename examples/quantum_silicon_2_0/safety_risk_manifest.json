@@ -1,0 +1,259 @@
+{
+  "project_title": "Advanced Quantum Computing Silicon Proce",
+  "jsa_document_id": "JSA-TECH-2026-77FA6E",
+  "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+  "standby_emergency": {
+    "set_medic_on_standby": true,
+    "medic_qualification": "Certified Set Paramedic / EMT-P",
+    "fire_safety_officer_required": false,
+    "ambulance_on_standby": false,
+    "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+    "emergency_muster_point": "Exterior Stage North Gate Alpha",
+    "emergency_radio_channel": "CH-09 SAFETY",
+    "e_stop_locations": [
+      "Video Village Master Console",
+      "Laser Interlock Shutter",
+      "Bolt Cinebot E-Stop"
+    ],
+    "sds_sheets_staged": true,
+    "safety_briefing_time": "07:00 Call Time Tailgate"
+  },
+  "scene_safety_specs": [
+    {
+      "scene_index": 1,
+      "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
+      "hazards": [
+        {
+          "hazard_id": "HAZ-S01-01",
+          "category": "kinetic_moco_arm",
+          "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+          "likelihood_score": 3,
+          "severity_score": 3,
+          "risk_rating": 9,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 6.0,
+          "engineering_controls": [
+            "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+            "Optical LiDAR/laser perimeter safety curtain interlock",
+            "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+          ],
+          "ppe_required": [
+            "Steel-toe stage footwear",
+            "ANSI Z87.1 impact eyewear",
+            "High-visibility floor spotter vest"
+          ],
+          "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S01-02",
+          "category": "laser_optical",
+          "hazard_description": "Class 3B/4 coherent optical scan & specular beam termination hazard (NOHD perimeter).",
+          "likelihood_score": 2,
+          "severity_score": 4,
+          "risk_rating": 8,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 6.0,
+          "engineering_controls": [
+            "Certified Laser Safety Officer (LSO/RSO) beam-stop termination",
+            "Beam path elevated above/below eye level with matte baffles",
+            "Interlocked beam shutter & wavelength-specific viewing barrier"
+          ],
+          "ppe_required": [
+            "OD 4+ wavelength-rated laser safety eyewear",
+            "Cleanroom lint-free ESD smock & gloves"
+          ],
+          "responsible_supervisor": "Laser Safety Officer (LSO) / Gaffer",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #25 (Laser Safety) & ANSI Z136.1 NOHD clearance."
+        },
+        {
+          "hazard_id": "HAZ-S01-03",
+          "category": "electrical_dmx_wet",
+          "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 5.0,
+          "engineering_controls": [
+            "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+            "Elevated cable ramps, rubber matting, and bonded stage ground",
+            "IP65 weather-sealed DMX splitters & ballast isolation stands"
+          ],
+          "ppe_required": [
+            "EH-rated insulated rubber-sole footwear",
+            "Insulated electrical handling gloves (Gaffer crew)"
+          ],
+          "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S01-04",
+          "category": "wire_rigging_height",
+          "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 4.0,
+          "engineering_controls": [
+            "Secondary rated steel safety cables on all overhead fixtures & truss points",
+            "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+            "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+          ],
+          "ppe_required": [
+            "ANSI Z89.1 climbing/rigging hard hat",
+            "Full-body fall-arrest harness (>1.8m elevation)",
+            "Steel-toe work boots"
+          ],
+          "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+        }
+      ],
+      "max_risk_rating": 9,
+      "overall_risk_level": "moderate",
+      "max_exclusion_zone_m": 6.0,
+      "signoff_status": "mitigated",
+      "stunt_coordinator_required": true,
+      "pyro_permit_required": false,
+      "rso_laser_clearance_required": true,
+      "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+      "jsa_notes": "6.0m Class 3B/4 laser NOHD RSO clearance + cleanroom Bolt Cinebot orbital envelope. Tailgate safety briefing verified.",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=6.0m hazards=4 status=MITIGATED]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
+      "hazards": [
+        {
+          "hazard_id": "HAZ-S02-01",
+          "category": "kinetic_moco_arm",
+          "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+          "likelihood_score": 3,
+          "severity_score": 3,
+          "risk_rating": 9,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 6.0,
+          "engineering_controls": [
+            "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+            "Optical LiDAR/laser perimeter safety curtain interlock",
+            "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+          ],
+          "ppe_required": [
+            "Steel-toe stage footwear",
+            "ANSI Z87.1 impact eyewear",
+            "High-visibility floor spotter vest"
+          ],
+          "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S02-02",
+          "category": "laser_optical",
+          "hazard_description": "Class 3B/4 coherent optical scan & specular beam termination hazard (NOHD perimeter).",
+          "likelihood_score": 2,
+          "severity_score": 4,
+          "risk_rating": 8,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 6.0,
+          "engineering_controls": [
+            "Certified Laser Safety Officer (LSO/RSO) beam-stop termination",
+            "Beam path elevated above/below eye level with matte baffles",
+            "Interlocked beam shutter & wavelength-specific viewing barrier"
+          ],
+          "ppe_required": [
+            "OD 4+ wavelength-rated laser safety eyewear",
+            "Cleanroom lint-free ESD smock & gloves"
+          ],
+          "responsible_supervisor": "Laser Safety Officer (LSO) / Gaffer",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #25 (Laser Safety) & ANSI Z136.1 NOHD clearance."
+        },
+        {
+          "hazard_id": "HAZ-S02-03",
+          "category": "electrical_dmx_wet",
+          "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 5.0,
+          "engineering_controls": [
+            "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+            "Elevated cable ramps, rubber matting, and bonded stage ground",
+            "IP65 weather-sealed DMX splitters & ballast isolation stands"
+          ],
+          "ppe_required": [
+            "EH-rated insulated rubber-sole footwear",
+            "Insulated electrical handling gloves (Gaffer crew)"
+          ],
+          "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+        },
+        {
+          "hazard_id": "HAZ-S02-04",
+          "category": "wire_rigging_height",
+          "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+          "likelihood_score": 2,
+          "severity_score": 3,
+          "risk_rating": 6,
+          "risk_level": "moderate",
+          "residual_risk_level": "low",
+          "exclusion_zone_m": 4.0,
+          "engineering_controls": [
+            "Secondary rated steel safety cables on all overhead fixtures & truss points",
+            "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+            "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+          ],
+          "ppe_required": [
+            "ANSI Z89.1 climbing/rigging hard hat",
+            "Full-body fall-arrest harness (>1.8m elevation)",
+            "Steel-toe work boots"
+          ],
+          "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+          "mitigation_verified": true,
+          "signoff_status": "mitigated",
+          "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+        }
+      ],
+      "max_risk_rating": 9,
+      "overall_risk_level": "moderate",
+      "max_exclusion_zone_m": 6.0,
+      "signoff_status": "mitigated",
+      "stunt_coordinator_required": true,
+      "pyro_permit_required": false,
+      "rso_laser_clearance_required": true,
+      "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+      "jsa_notes": "6.0m Class 3B/4 laser NOHD RSO clearance + cleanroom Bolt Cinebot orbital envelope. Tailgate safety briefing verified.",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=6.0m hazards=4 status=MITIGATED]"
+    }
+  ],
+  "overall_risk_level": "moderate",
+  "highest_risk_rating": 9,
+  "total_hazards_identified": 8,
+  "open_holds_count": 0,
+  "signoff_status": "mitigated",
+  "all_hazards_mitigated": true,
+  "jsa_summary": "6.0m Class 3B/4 laser NOHD RSO clearance + cleanroom Bolt Cinebot orbital envelope. Cleared across 2 scene(s).",
+  "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=6.0m hazards=8 status=MITIGATED]"
+}

@@ -266,6 +266,28 @@ from omni_director.tools.review_notes import (
     synthesize_default_client_review,
     synthesize_scene_review_signoff,
 )
+from omni_director.tools.c2pa_provenance import (
+    APPROVED_CORE_2026_MODELS,
+    compute_prompt_lineage_digest,
+    export_c2pa_bundle,
+    format_c2pa_prompt_token,
+    generate_ai_disclosure_md,
+    generate_c2pa_manifest_json,
+    generate_likeness_consent_csv,
+    synthesize_default_c2pa_provenance,
+    synthesize_scene_c2pa_provenance,
+    verify_model_lineage_2026,
+)
+from omni_director.tools.safety_risk import (
+    assess_scene_hazards,
+    calculate_kinetic_exclusion_zone_m,
+    export_safety_bundle,
+    format_safety_prompt_token,
+    generate_safety_bulletin_md,
+    generate_safety_jsa_csv,
+    generate_safety_manifest_json,
+    synthesize_default_safety_risk_spec,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -503,5 +525,25 @@ __all__ = [
     "generate_review_notes_csv",
     "generate_client_signoff_md",
     "export_review_bundle",
+    # C2PA Content Credentials v2.1 & Talent Likeness Provenance (PM-FEAT-025)
+    "APPROVED_CORE_2026_MODELS",
+    "verify_model_lineage_2026",
+    "compute_prompt_lineage_digest",
+    "synthesize_scene_c2pa_provenance",
+    "synthesize_default_c2pa_provenance",
+    "format_c2pa_prompt_token",
+    "generate_c2pa_manifest_json",
+    "generate_ai_disclosure_md",
+    "generate_likeness_consent_csv",
+    "export_c2pa_bundle",
+    # On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety JSA (PM-FEAT-026)
+    "calculate_kinetic_exclusion_zone_m",
+    "assess_scene_hazards",
+    "synthesize_default_safety_risk_spec",
+    "format_safety_prompt_token",
+    "generate_safety_bulletin_md",
+    "generate_safety_jsa_csv",
+    "generate_safety_manifest_json",
+    "export_safety_bundle",
 ]
 

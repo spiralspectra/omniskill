@@ -5,11 +5,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
     InterSceneCutCheckSpec,
+    LikenessConsentStatus,
     MasterProductionBible,
     PromptAuditResult,
     QcVerdictStatus,
     RegimeType,
     ReviewApprovalStatus,
+    RiskSeverityLevel,
+    SafetySignoffStatus,
     ScenePromptSpec,
     StorytellingMode,
 )
@@ -46,6 +49,15 @@ from omni_director.tools.continuity_blocking import (
     synthesize_scene_blocking,
 )
 from omni_director.tools.review_notes import format_review_prompt_token
+from omni_director.tools.c2pa_provenance import (
+    format_c2pa_prompt_token,
+    synthesize_scene_c2pa_provenance,
+    verify_model_lineage_2026,
+)
+from omni_director.tools.safety_risk import (
+    assess_scene_hazards,
+    format_safety_prompt_token,
+)
 
 
 def audit_omni_scene_prompt(
@@ -418,6 +430,125 @@ def audit_omni_scene_prompt(
         details["review_gate_reward"] = 1.0
         details["review_gate_descriptor"] = review_match.group(0)
 
+    # C2PA Content Credentials v2.1 & Talent Likeness Provenance (PM-FEAT-025)
+    c2pa_obj = (
+        getattr(scene, "c2pa_provenance", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("c2pa_provenance")
+            or kwargs.get("provenance_spec")
+            or kwargs.get("content_credentials")
+        )
+    )
+    c2pa_patterns = r"(?:\[C2PA[ _]PROVENANCE:?|\bc2pa\b|content\s+credentials|\bsynthid\b)"
+    c2pa_match = re.search(c2pa_patterns, prompt, re.IGNORECASE)
+    c2pa_provenance_compliant_val = True
+    if c2pa_obj is not None:
+        c2pa_models = [
+            getattr(act, "model_used", "")
+            for act in (getattr(c2pa_obj, "actions", None) or [])
+            if getattr(act, "model_used", None)
+        ] + [
+            getattr(ing, "generative_model", "")
+            for ing in (getattr(c2pa_obj, "ingredients", None) or [])
+            if getattr(ing, "generative_model", None)
+        ]
+        if c2pa_models:
+            lineage_ok, offending_models = verify_model_lineage_2026(c2pa_models)
+            if not lineage_ok:
+                c2pa_provenance_compliant_val = False
+                details["c2pa_provenance_compliant"] = False
+                errors.append(
+                    f"C2PA Provenance Violation: Unapproved or legacy model reference(s) {offending_models} "
+                    "detected in C2PA lineage actions/ingredients. Only 2026 Gemini Model Matrix identifiers are permitted."
+                )
+
+        if not bool(getattr(c2pa_obj, "eu_ai_act_art50_compliant", True)):
+            c2pa_provenance_compliant_val = False
+            details["c2pa_provenance_compliant"] = False
+            errors.append(
+                "C2PA Provenance Violation: Scene failed EU AI Act Article 50 synthetic disclosure compliance."
+            )
+
+        likeness_records = getattr(c2pa_obj, "talent_likeness_records", None) or []
+        has_revoked = False
+        has_pending = False
+        for rec in likeness_records:
+            cst = getattr(rec, "consent_status", None)
+            cst_str = (cst.value if hasattr(cst, "value") else str(cst)).lower()
+            if cst_str == LikenessConsentStatus.REVOKED.value:
+                has_revoked = True
+            elif cst_str == LikenessConsentStatus.PENDING_CONSENT.value:
+                has_pending = True
+
+        consent_ok = bool(getattr(c2pa_obj, "consent_gate_passed", True))
+        if has_revoked:
+            c2pa_provenance_compliant_val = False
+            details["c2pa_provenance_compliant"] = False
+            errors.append(
+                "C2PA Likeness Consent Violation: Talent likeness consent is REVOKED; scene cannot proceed."
+            )
+        elif has_pending or not consent_ok:
+            c2pa_provenance_compliant_val = False
+            details["c2pa_provenance_compliant"] = False
+            warnings.append(
+                "C2PA Likeness Consent Warning: Talent likeness consent gate is pending or incomplete."
+            )
+
+        if c2pa_provenance_compliant_val:
+            details["c2pa_provenance_compliant"] = True
+            details["c2pa_provenance_reward"] = 1.0
+            details["c2pa_provenance_descriptor"] = format_c2pa_prompt_token(c2pa_obj)
+    elif c2pa_match:
+        details["c2pa_provenance_compliant"] = True
+        details["c2pa_provenance_reward"] = 1.0
+        details["c2pa_provenance_descriptor"] = c2pa_match.group(0)
+
+    # On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety JSA (PM-FEAT-026)
+    safety_risk_obj = (
+        getattr(scene, "safety_risk", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("safety_risk")
+            or kwargs.get("safety_spec")
+            or kwargs.get("jsa_spec")
+        )
+    )
+    safety_patterns = r"(?:\[SAFETY[ _]JSA:?|exclusion\s+zone|safety\s+bulletin|stunt\s+coordinator)"
+    safety_match = re.search(safety_patterns, prompt, re.IGNORECASE)
+    safety_risk_compliant_val = True
+    if safety_risk_obj is not None:
+        s_status = getattr(safety_risk_obj, "signoff_status", SafetySignoffStatus.CLEARED)
+        s_status_str = (s_status.value if hasattr(s_status, "value") else str(s_status)).lower()
+        hazards = getattr(safety_risk_obj, "hazards", None) or []
+        has_critical_residual = any(
+            (
+                getattr(getattr(h, "residual_risk_level", None), "value", getattr(h, "residual_risk_level", ""))
+                or ""
+            ).lower() == RiskSeverityLevel.CRITICAL.value
+            for h in hazards
+        )
+        if has_critical_residual:
+            safety_risk_compliant_val = False
+            details["safety_risk_compliant"] = False
+            errors.append(
+                "On-Set Safety Violation: Scene contains an unmitigated CRITICAL residual safety hazard."
+            )
+        if s_status_str == SafetySignoffStatus.HOLD_REQUIRED.value:
+            safety_risk_compliant_val = False
+            details["safety_risk_compliant"] = False
+            warnings.append(
+                "On-Set Safety Warning: Scene JSA signoff_status is HOLD_REQUIRED pending mitigation verification."
+            )
+        if safety_risk_compliant_val:
+            details["safety_risk_compliant"] = True
+            details["safety_risk_reward"] = 1.0
+            details["safety_risk_descriptor"] = format_safety_prompt_token(safety_risk_obj)
+    elif safety_match:
+        details["safety_risk_compliant"] = True
+        details["safety_risk_reward"] = 1.0
+        details["safety_risk_descriptor"] = safety_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -593,6 +724,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("review_gate_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("c2pa_provenance_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("safety_risk_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -612,6 +747,8 @@ def audit_omni_scene_prompt(
         broadcast_qc_compliant=broadcast_qc_compliant_val,
         continuity_blocking_compliant=continuity_blocking_compliant_val,
         review_gate_compliant=review_gate_compliant_val,
+        c2pa_provenance_compliant=c2pa_provenance_compliant_val,
+        safety_risk_compliant=safety_risk_compliant_val,
     )
 
 
@@ -772,6 +909,26 @@ def heal_omni_scene_prompt(
         )
         and not re.search(r"\[REVIEW[ _]GATE:?", current_prompt, re.IGNORECASE)
     )
+    needs_c2pa_injection = bool(
+        (
+            (getattr(scene, "c2pa_provenance", None) if is_spec else None)
+            or (getattr(spec_context, "c2pa_provenance", None) if spec_context else None)
+            or kwargs.get("c2pa_provenance")
+            or kwargs.get("provenance_spec")
+            or kwargs.get("content_credentials")
+        )
+        and not re.search(r"\[C2PA[ _]PROVENANCE:?", current_prompt, re.IGNORECASE)
+    )
+    needs_safety_injection = bool(
+        (
+            (getattr(scene, "safety_risk", None) if is_spec else None)
+            or (getattr(spec_context, "safety_risk", None) if spec_context else None)
+            or kwargs.get("safety_risk")
+            or kwargs.get("safety_spec")
+            or kwargs.get("jsa_spec")
+        )
+        and not re.search(r"\[SAFETY[ _]JSA:?", current_prompt, re.IGNORECASE)
+    )
 
     if (
         current_audit.passed
@@ -784,6 +941,8 @@ def heal_omni_scene_prompt(
         and not needs_qc_injection
         and not needs_continuity_injection
         and not needs_review_injection
+        and not needs_c2pa_injection
+        and not needs_safety_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -808,6 +967,7 @@ def heal_omni_scene_prompt(
         working_prompt = re.sub(r"</?h[1-6][^>]*>", " ", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bgemini[-_ ]?(?:1\.5|2\.0|2\.5|3\.0|3\.1)[-_a-z0-9]*\b", "gemini-4-argon", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bveo[-_ ]?(?:2\.0|3\.0|3\.1)[-_a-z0-9]*\b", "gemini-omni-1.1-flash-preview", working_prompt, flags=re.IGNORECASE)
+        working_prompt = re.sub(r"\bimagen[-_ ]?3[-_a-z0-9]*\b", "gemini-3-pro-image", working_prompt, flags=re.IGNORECASE)
         working_prompt = re.sub(r"\bmodel[-_ ]?(?:1\.5|2\.0|2\.5|3\.0|3\.1)\b", "model 4.0", working_prompt, flags=re.IGNORECASE)
         if working_prompt != prev and "sanitized_headings" not in applied_patches:
             applied_patches.append("sanitized_headings")
@@ -1114,6 +1274,158 @@ def heal_omni_scene_prompt(
             if "review_signoff" not in applied_patches:
                 applied_patches.append("review_signoff")
 
+        # 3s. Inject / repair C2PA Content Credentials & Likeness Provenance tokens (PM-FEAT-025)
+        c2pa_obj = (
+            (getattr(scene, "c2pa_provenance", None) if is_spec else None)
+            or (getattr(spec_context, "c2pa_provenance", None) if spec_context else None)
+            or kwargs.get("c2pa_provenance")
+            or kwargs.get("provenance_spec")
+            or kwargs.get("content_credentials")
+        )
+        has_revoked_consent = False
+        if c2pa_obj is not None:
+            for rec in (getattr(c2pa_obj, "talent_likeness_records", None) or []):
+                cst = getattr(rec, "consent_status", None)
+                cst_str = (cst.value if hasattr(cst, "value") else str(cst)).lower()
+                if cst_str == LikenessConsentStatus.REVOKED.value:
+                    has_revoked_consent = True
+                    break
+
+        c2pa_repaired = False
+        if not has_revoked_consent:
+            c2pa_needs_repair = False
+            if c2pa_obj is not None:
+                c2pa_models = [
+                    getattr(act, "model_used", "")
+                    for act in (getattr(c2pa_obj, "actions", None) or [])
+                    if getattr(act, "model_used", None)
+                ] + [
+                    getattr(ing, "generative_model", "")
+                    for ing in (getattr(c2pa_obj, "ingredients", None) or [])
+                    if getattr(ing, "generative_model", None)
+                ]
+                lineage_ok = verify_model_lineage_2026(c2pa_models)[0] if c2pa_models else True
+                eu_ok = bool(getattr(c2pa_obj, "eu_ai_act_art50_compliant", True))
+                consent_ok = bool(getattr(c2pa_obj, "consent_gate_passed", True))
+                if not lineage_ok or not eu_ok or not consent_ok:
+                    c2pa_needs_repair = True
+
+            if c2pa_obj is None or c2pa_needs_repair:
+                kw_c2pa = kwargs.get("c2pa_provenance") or kwargs.get("provenance_spec") or kwargs.get("content_credentials")
+                kw_valid = False
+                if kw_c2pa is not None and kw_c2pa is not c2pa_obj:
+                    kw_models = [
+                        getattr(act, "model_used", "")
+                        for act in (getattr(kw_c2pa, "actions", None) or [])
+                        if getattr(act, "model_used", None)
+                    ] + [
+                        getattr(ing, "generative_model", "")
+                        for ing in (getattr(kw_c2pa, "ingredients", None) or [])
+                        if getattr(ing, "generative_model", None)
+                    ]
+                    kw_lineage_ok = verify_model_lineage_2026(kw_models)[0] if kw_models else True
+                    kw_valid = (
+                        kw_lineage_ok
+                        and bool(getattr(kw_c2pa, "eu_ai_act_art50_compliant", True))
+                        and bool(getattr(kw_c2pa, "consent_gate_passed", True))
+                    )
+                if kw_valid:
+                    c2pa_obj = kw_c2pa
+                else:
+                    target_scene_c2pa = (
+                        scene
+                        if is_spec
+                        else ScenePromptSpec(
+                            scene_index=eff_scene_index,
+                            timestamp_range=f"00:00 - 00:{duration_seconds:02d}",
+                            scene_title=f"Scene {eff_scene_index}",
+                            omni_prose_prompt=working_prompt,
+                        )
+                    )
+                    c2pa_obj = synthesize_scene_c2pa_provenance(
+                        scene=target_scene_c2pa,
+                        scene_index=eff_scene_index,
+                        domain=domain_arch_hint,
+                    )
+                c2pa_repaired = True
+                if "c2pa_provenance" not in applied_patches:
+                    applied_patches.append("c2pa_provenance")
+                if not is_spec and "c2pa_provenance" in kwargs:
+                    kwargs["c2pa_provenance"] = c2pa_obj
+
+        if c2pa_obj is not None and not re.search(r"\[C2PA[ _]PROVENANCE:?", working_prompt, re.IGNORECASE):
+            token = format_c2pa_prompt_token(c2pa_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "c2pa_provenance" not in applied_patches:
+                applied_patches.append("c2pa_provenance")
+
+        # 3t. Inject / repair On-Set Safety JSA tokens (PM-FEAT-026)
+        safety_obj = (
+            (getattr(scene, "safety_risk", None) if is_spec else None)
+            or (getattr(spec_context, "safety_risk", None) if spec_context else None)
+            or kwargs.get("safety_risk")
+            or kwargs.get("safety_spec")
+            or kwargs.get("jsa_spec")
+        )
+        safety_needs_repair = False
+        if safety_obj is not None:
+            s_st = getattr(safety_obj, "signoff_status", SafetySignoffStatus.CLEARED)
+            s_st_str = (s_st.value if hasattr(s_st, "value") else str(s_st)).lower()
+            has_crit_res = any(
+                (
+                    getattr(getattr(h, "residual_risk_level", None), "value", getattr(h, "residual_risk_level", ""))
+                    or ""
+                ).lower() == RiskSeverityLevel.CRITICAL.value
+                for h in (getattr(safety_obj, "hazards", None) or [])
+            )
+            if s_st_str == SafetySignoffStatus.HOLD_REQUIRED.value or has_crit_res:
+                safety_needs_repair = True
+
+        safety_repaired = False
+        if safety_obj is None or safety_needs_repair:
+            kw_safety = kwargs.get("safety_risk") or kwargs.get("safety_spec") or kwargs.get("jsa_spec")
+            kw_s_valid = False
+            if kw_safety is not None and kw_safety is not safety_obj:
+                kw_st = getattr(kw_safety, "signoff_status", SafetySignoffStatus.CLEARED)
+                kw_st_str = (kw_st.value if hasattr(kw_st, "value") else str(kw_st)).lower()
+                kw_crit = any(
+                    (
+                        getattr(getattr(h, "residual_risk_level", None), "value", getattr(h, "residual_risk_level", ""))
+                        or ""
+                    ).lower() == RiskSeverityLevel.CRITICAL.value
+                    for h in (getattr(kw_safety, "hazards", None) or [])
+                )
+                kw_s_valid = kw_st_str != SafetySignoffStatus.HOLD_REQUIRED.value and not kw_crit
+            if kw_s_valid:
+                safety_obj = kw_safety
+            else:
+                target_scene_safety = (
+                    scene
+                    if is_spec
+                    else ScenePromptSpec(
+                        scene_index=eff_scene_index,
+                        timestamp_range=f"00:00 - 00:{duration_seconds:02d}",
+                        scene_title=f"Scene {eff_scene_index}",
+                        omni_prose_prompt=working_prompt,
+                    )
+                )
+                safety_obj = assess_scene_hazards(
+                    target_scene_safety,
+                    scene_index=eff_scene_index,
+                    domain=domain_arch_hint,
+                )
+            safety_repaired = True
+            if "safety_risk" not in applied_patches:
+                applied_patches.append("safety_risk")
+            if not is_spec and "safety_risk" in kwargs:
+                kwargs["safety_risk"] = safety_obj
+
+        if safety_obj is not None and not re.search(r"\[SAFETY[ _]JSA:?", working_prompt, re.IGNORECASE):
+            token = format_safety_prompt_token(safety_obj)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "safety_risk" not in applied_patches:
+                applied_patches.append("safety_risk")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -1208,6 +1520,18 @@ def heal_omni_scene_prompt(
                 scene.review_signoff = review_obj
                 if "review_signoff" not in applied_patches:
                     applied_patches.append("review_signoff")
+            if c2pa_obj is not None and not has_revoked_consent and (
+                getattr(scene, "c2pa_provenance", None) is None or c2pa_repaired
+            ):
+                scene.c2pa_provenance = c2pa_obj
+                if "c2pa_provenance" not in applied_patches:
+                    applied_patches.append("c2pa_provenance")
+            if safety_obj is not None and (
+                getattr(scene, "safety_risk", None) is None or safety_repaired
+            ):
+                scene.safety_risk = safety_obj
+                if "safety_risk" not in applied_patches:
+                    applied_patches.append("safety_risk")
             target_to_audit = scene
         else:
             if "action_beats" in kwargs and isinstance(kwargs["action_beats"], list) and len(kwargs["action_beats"]) > 3:
@@ -1232,6 +1556,8 @@ def heal_omni_scene_prompt(
         needs_qc_still = bool(qc_obj is not None and not (current_audit.details and current_audit.details.get("broadcast_qc_compliant")))
         needs_continuity_still = bool(blocking_obj is not None and not (current_audit.details and current_audit.details.get("continuity_blocking_compliant")))
         needs_review_still = bool(review_obj is not None and not (current_audit.details and current_audit.details.get("review_gate_compliant")))
+        needs_c2pa_still = bool(not has_revoked_consent and c2pa_obj is not None and not (current_audit.details and current_audit.details.get("c2pa_provenance_compliant")))
+        needs_safety_still = bool(safety_obj is not None and not (current_audit.details and current_audit.details.get("safety_risk_compliant")))
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -1242,6 +1568,8 @@ def heal_omni_scene_prompt(
             and not needs_qc_still
             and not needs_continuity_still
             and not needs_review_still
+            and not needs_c2pa_still
+            and not needs_safety_still
         ):
             break
 
@@ -1297,6 +1625,7 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"FILM_STOCK|FILM\s+EMULATION|CLAPPER_SLATE|PRODUCTION\s+SLATE|"
     r"DRONE_FLIGHT|DRONE\s+FLIGHT|REFRAME|BROADCAST_QC|BROADCAST\s+QC|"
     r"CONTINUITY_AXIS|CONTINUITY\s+AXIS|REVIEW_GATE|REVIEW\s+GATE|"
+    r"C2PA_PROVENANCE|C2PA\s+PROVENANCE|SAFETY_JSA|SAFETY\s+JSA|"
     r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
     r"VFX_COMPOSITING|VFX\s+COMPOSITING)\s*:[^\]]*\]\.?",
     re.IGNORECASE,

@@ -290,6 +290,56 @@ def export_production_callsheet_md(bible: MasterProductionBible) -> str:
             "",
         ]
     )
+
+    try:
+        from omni_director.tools.safety_risk import synthesize_default_safety_risk_spec
+        safety_spec = (
+            getattr(bible, "master_safety_risk", None)
+            or getattr(bible, "safety_risk", None)
+            or synthesize_default_safety_risk_spec(bible)
+        )
+        em = safety_spec.standby_emergency
+        overall_risk = (
+            safety_spec.overall_risk_level.value
+            if hasattr(safety_spec.overall_risk_level, "value")
+            else str(safety_spec.overall_risk_level)
+        ).upper()
+        signoff_status = (
+            safety_spec.signoff_status.value
+            if hasattr(safety_spec.signoff_status, "value")
+            else str(safety_spec.signoff_status)
+        ).upper()
+        max_excl_m = max(
+            (
+                float(getattr(ss, "max_exclusion_zone_m", 0.0) or 0.0)
+                for ss in (safety_spec.scene_safety_specs or [])
+            ),
+            default=0.0,
+        )
+        medic_status = (
+            f"YES ({em.medic_qualification})" if em.set_medic_on_standby else "NO"
+        )
+        fire_status = (
+            "REQUIRED"
+            if em.fire_safety_officer_required
+            else "STANDARD / EXTINGUISHER STAGED"
+        )
+        lines.extend(
+            [
+                "## 5. On-Set Safety & Emergency Bulletin Summary",
+                f"- **Overall Risk Level**: `{overall_risk}` (Signoff: `{signoff_status}`, Peak Score: `{safety_spec.highest_risk_rating}/25`)",
+                f"- **Max Exclusion Zone**: `{max_excl_m:.1f}m`",
+                f"- **Standby Medic**: `{medic_status}`",
+                f"- **Fire Safety Officer**: `{fire_status}`",
+                f"- **Emergency Radio Channel**: `{em.emergency_radio_channel}`",
+                f"- **Nearest Trauma Center**: {em.nearest_trauma_center}",
+                f"- **Emergency Muster Point**: `{em.emergency_muster_point}` (Tailgate: `{em.safety_briefing_time}`)",
+                "",
+            ]
+        )
+    except Exception as exc:
+        logger.warning("On-set safety bulletin summary skipped in call sheet: %s", exc)
+
     return "\n".join(lines)
 
 
@@ -456,5 +506,17 @@ def export_all_nle_artifacts(
         res.update({k: str(v) for k, v in export_review_bundle(bible, out_path, fps=fps).items()})
     except Exception as exc:
         logger.warning("Client review bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.c2pa_provenance import export_c2pa_bundle
+        res.update({k: str(v) for k, v in export_c2pa_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("C2PA provenance bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.safety_risk import export_safety_bundle
+        res.update({k: str(v) for k, v in export_safety_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("On-set safety risk bundle export skipped: %s", exc)
 
     return res

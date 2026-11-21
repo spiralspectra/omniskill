@@ -448,7 +448,7 @@ from omni_director.tools import (
     export_review_bundle,
 )
 
-__version__ = "2.12.0"
+__version__ = "2.13.0"
 
 __all__ = [
     # Top-Level Runner & Config

@@ -27,6 +27,9 @@ SAFE_KEYS = {
     "lighting_prompt_token",
     "moco_prompt_token",
     "optical_prompt_token",
+    "c2pa_prompt_token",
+    "provenance_prompt_token",
+    "safety_prompt_token",
     "tokens",
     "token_count",
     "token_rate",
@@ -152,6 +155,14 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "review_notes_frameio.json",
     "review_notes.csv",
     "client_signoff_report.md",
+    # PM-FEAT-025: C2PA Content Credentials, AI Disclosure & Talent Likeness Consent
+    "c2pa_manifest.json",
+    "ai_disclosure_certificate.md",
+    "likeness_consent_ledger.csv",
+    # PM-FEAT-026: On-Set Safety Risk Assessment, JSA Matrix & Safety Bulletin
+    "safety_bulletin.md",
+    "safety_jsa_matrix.csv",
+    "safety_risk_manifest.json",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({

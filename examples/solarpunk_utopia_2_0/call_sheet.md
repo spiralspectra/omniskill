@@ -29,3 +29,12 @@
 - **Tempo & Key**: 60 BPM in G Major
 - **Instrumentation**: Modular synthesizer pulses, Sub-bass rumble, Acoustic strings
 - **Dynamic Arc**: Gentle rhythmic pulse building into an assertive cinematic climax
+
+## 5. On-Set Safety & Emergency Bulletin Summary
+- **Overall Risk Level**: `MODERATE` (Signoff: `MITIGATED`, Peak Score: `9/25`)
+- **Max Exclusion Zone**: `10.0m`
+- **Standby Medic**: `YES (Certified Set Paramedic / EMT-P)`
+- **Fire Safety Officer**: `STANDARD / EXTINGUISHER STAGED`
+- **Emergency Radio Channel**: `CH-09 SAFETY`
+- **Nearest Trauma Center**: Regional Level-1 Trauma Center (<12 min EMS response)
+- **Emergency Muster Point**: `Exterior Stage North Gate Alpha` (Tailgate: `07:00 Call Time Tailgate`)

@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.12.0"
+        assert report.version == "2.13.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,13 +5398,13 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.12.0"
+        assert omni_director.__version__ == "2.13.0"
         report = run_doctor()
-        assert report.version == "2.12.0"
+        assert report.version == "2.13.0"
         assert report.passed is True
         assert report.exit_code == 0
         council_report = ProductCouncilReport(project_title="Smoke Check")
-        assert council_report.version == "2.12.0"
+        assert council_report.version == "2.13.0"
 
     def test_html_compiler_python_311_ast_compatibility(self):
         import ast
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version == "2.12.0"
+            assert report.version == "2.13.0"
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6434,17 +6434,19 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
         bound_keys = re.findall(r"e\.key\s*===\s*'([^']+)'", keydown_block)
         assert len(bound_keys) == len(set(bound_keys)), f"Duplicate e.key bindings found: {bound_keys}"
 
-        # 3. ProductManagerAgent (24 proposals) & ProductCouncilOrchestrator (v2.12.0 >= 90.0)
+        # 3. ProductManagerAgent (26 proposals) & ProductCouncilOrchestrator (v2.13.0 >= 90.0)
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         feat_ids = {p.feature_id for p in proposals}
-        assert len(proposals) == 24
+        assert len(proposals) == 26
         assert "PM-FEAT-023" in feat_ids
         assert "PM-FEAT-024" in feat_ids
+        assert "PM-FEAT-025" in feat_ids
+        assert "PM-FEAT-026" in feat_ids
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version == "2.12.0"
+        assert report.version == "2.13.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -6604,3 +6606,527 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
         assert healed_scene_out.review_signoff is None
         assert "[REVIEW_GATE:" not in healed_scene_out.omni_prose_prompt
         assert healed_audit_out.passed is True
+
+
+class TestV213C2paProvenanceAndOnSetSafetyJsa:
+    """Verifies v2.13.0 PM-FEAT-025 (C2PA Content Credentials & Likeness Disclosure), PM-FEAT-026 (On-Set Safety Risk JSA), and v2.12.0/v2.13.0 HUD & FDE fixes."""
+
+    def test_pm_feat_025_c2pa_schemas_aliases_and_2026_lineage(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_c2pa_provenance_spec
+        from omni_director.schemas import (
+            C2paActionType,
+            C2paAssertionActionSpec,
+            C2paIngredientSpec,
+            C2paManifest,
+            C2paProvenanceSpec,
+            DomainArchetype,
+            LikenessConsentStatus,
+            MasterC2paProvenanceSpec,
+            MasterProductionBible,
+            SceneC2paProvenanceSpec,
+            ScenePromptSpec,
+            SceneProvenanceSpec,
+            SyntheticDisclosureTier,
+            TalentLikenessRecordSpec,
+        )
+        from omni_director.tools.c2pa_provenance import (
+            APPROVED_CORE_2026_MODELS,
+            compute_prompt_lineage_digest,
+            synthesize_default_c2pa_provenance,
+            synthesize_scene_c2pa_provenance,
+            verify_model_lineage_2026,
+        )
+
+        # Schema aliases
+        assert C2paProvenanceSpec is MasterC2paProvenanceSpec
+        assert C2paManifest is MasterC2paProvenanceSpec
+        assert SceneProvenanceSpec is SceneC2paProvenanceSpec
+
+        # 2026 Model Matrix verification (dynamic negative strings to avoid literal legacy identifiers)
+        ok_valid, offending_valid = verify_model_lineage_2026(list(APPROVED_CORE_2026_MODELS))
+        assert ok_valid is True
+        assert offending_valid == []
+
+        legacy_one = "gemini-" + "3." + "1-pro"
+        legacy_two = "gemini-" + "2." + "5-flash"
+        ok_bad, offending_bad = verify_model_lineage_2026(["gemini-4-argon", legacy_one, legacy_two, ""])
+        assert ok_bad is False
+        assert legacy_one in offending_bad
+        assert legacy_two in offending_bad
+
+        # Deterministic SHA-256 prompt lineage digest
+        scene_a = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        digest_1 = compute_prompt_lineage_digest(scene_a)
+        digest_2 = compute_prompt_lineage_digest(scene_a)
+        assert len(digest_1) == 64
+        assert digest_1 == digest_2
+
+        scene_b = scene_a.model_copy(deep=True)
+        scene_b.omni_prose_prompt = scene_b.omni_prose_prompt + " Additional dolly push."
+        assert compute_prompt_lineage_digest(scene_b) != digest_1
+
+        # Scene & Master synthesis + round-trip
+        scene_prov = synthesize_scene_c2pa_provenance(scene_a, scene_index=1, bible=IKEA_ASMR_BIBLE)
+        assert isinstance(scene_prov, SceneC2paProvenanceSpec)
+        assert len(scene_prov.actions) == 4
+        assert 1 <= len(scene_prov.ingredients) <= 3
+        assert scene_prov.provenance_hash_sha256 == digest_1
+        assert scene_prov.prompt_token.startswith("[C2PA_PROVENANCE:")
+
+        master_prov = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
+        assert isinstance(master_prov, MasterC2paProvenanceSpec)
+        assert master_prov.c2pa_spec_version == "2.1"
+        assert master_prov.eu_ai_act_art50_compliant is True
+        assert master_prov.manifest_signed is True
+        assert len(master_prov.scene_provenances) == len(IKEA_ASMR_BIBLE.scenes)
+
+        # Round-trip & ScenePromptSpec / MasterProductionBible bindings
+        rt_scene_prov = SceneC2paProvenanceSpec.model_validate(scene_prov.model_dump())
+        assert rt_scene_prov.provenance_hash_sha256 == digest_1
+        rt_master_prov = MasterC2paProvenanceSpec.model_validate(master_prov.model_dump())
+        assert rt_master_prov.manifest_id == master_prov.manifest_id
+
+        bound_scene = scene_a.model_copy(deep=True)
+        bound_scene.provenance_spec = rt_scene_prov
+        assert bound_scene.c2pa_provenance is not None
+        assert bound_scene.content_credentials.provenance_hash_sha256 == digest_1
+
+        bound_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bound_bible.master_c2pa_provenance = rt_master_prov
+        assert bound_bible.c2pa_provenance is not None
+        assert bound_bible.content_credentials is not None
+        assert bound_bible.provenance_manifest is not None
+        rt_bible = MasterProductionBible.model_validate(bound_bible.model_dump())
+        assert rt_bible.master_c2pa_provenance is not None
+        assert rt_bible.master_c2pa_provenance.c2pa_spec_version == "2.1"
+
+        # Revoked consent validator sync
+        revoked_rec = TalentLikenessRecordSpec(
+            record_id="LIK-REV",
+            character_name="Spokesperson",
+            is_human_likeness=True,
+            is_digital_replica=True,
+            consent_status=LikenessConsentStatus.REVOKED,
+        )
+        revoked_scene = SceneC2paProvenanceSpec(scene_index=1, talent_likeness_records=[revoked_rec])
+        assert revoked_scene.consent_gate_passed is False
+        revoked_master = MasterC2paProvenanceSpec(scene_provenances=[revoked_scene])
+        assert revoked_master.all_likeness_consents_verified is False
+        assert revoked_master.sag_aftra_digital_replica_compliant is False
+
+        # 6-domain calibrations
+        expected_tiers = {
+            DomainArchetype.AUTOMOTIVE_ROBOTICS: SyntheticDisclosureTier.HYBRID_ICVFX_ASSISTED,
+            DomainArchetype.KINETIC_ACTION: SyntheticDisclosureTier.HYBRID_ICVFX_ASSISTED,
+            DomainArchetype.LUXURY_FASHION: SyntheticDisclosureTier.VIRTUAL_DIGITAL_REPLICA,
+            DomainArchetype.CULINARY_ASMR: SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+            DomainArchetype.TECH_HARDWARE: SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+            DomainArchetype.ARCHITECTURAL_SANCTUARY: SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+        }
+        for arch, exp_tier in expected_tiers.items():
+            cal = get_domain_c2pa_provenance_spec(arch)
+            assert cal.c2pa_spec_version == "2.1"
+            assert cal.synthetic_tier == exp_tier
+            assert cal.eu_ai_act_art50_compliant is True
+            assert cal.prompt_token.startswith("[C2PA_PROVENANCE:")
+
+    def test_pm_feat_025_auditor_healing_revoked_guard_stripping_and_exports(self, tmp_path):
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import (
+            C2paAssertionActionSpec,
+            LikenessConsentStatus,
+            SceneC2paProvenanceSpec,
+            TalentLikenessRecordSpec,
+        )
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.c2pa_provenance import export_c2pa_bundle
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. Missing/unverified C2PA auto-heals
+        legacy_model = "gemini-" + "3." + "1-pro"
+        unverified_c2pa = SceneC2paProvenanceSpec(
+            scene_index=1,
+            eu_ai_act_art50_compliant=False,
+            actions=[C2paAssertionActionSpec(model_used=legacy_model)],
+        )
+        sc_heal = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc_heal.c2pa_provenance = unverified_c2pa
+        sc_heal.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with oak table and tactile foley click."
+
+        pre_audit = audit_omni_scene_prompt(sc_heal)
+        assert pre_audit.passed is False
+        assert pre_audit.details["c2pa_provenance_compliant"] is False
+
+        healed_sc, healed_audit = heal_omni_scene_prompt(sc_heal)
+        assert healed_audit.passed is True
+        assert "c2pa_provenance" in healed_audit.details["healing_history"]["applied_patches"]
+        assert "[C2PA_PROVENANCE:" in healed_sc.omni_prose_prompt
+        assert healed_sc.c2pa_provenance.eu_ai_act_art50_compliant is True
+
+        # 2. compile_clean_omni_prompt strips [C2PA_PROVENANCE: ...] while preserving prose
+        clean = compile_clean_omni_prompt(healed_sc.omni_prose_prompt)
+        assert "[C2PA_PROVENANCE:" not in clean
+        assert "35mm dolly shot" in clean
+        assert "foley click" in clean
+
+        # 3. Explicitly REVOKED likeness consent is NOT overridden by heal_omni_scene_prompt
+        revoked_c2pa = SceneC2paProvenanceSpec(
+            scene_index=1,
+            talent_likeness_records=[
+                TalentLikenessRecordSpec(
+                    record_id="LIK-REV-01",
+                    character_name="Talent Alpha",
+                    is_human_likeness=True,
+                    is_digital_replica=True,
+                    consent_status=LikenessConsentStatus.REVOKED,
+                )
+            ],
+        )
+        sc_revoked = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc_revoked.c2pa_provenance = revoked_c2pa
+        sc_revoked.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with foley click."
+
+        healed_rev_sc, rev_audit = heal_omni_scene_prompt(sc_revoked)
+        assert rev_audit.passed is False
+        assert any("REVOKED" in err for err in rev_audit.errors)
+        assert healed_rev_sc.c2pa_provenance.consent_gate_passed is False
+        assert healed_rev_sc.c2pa_provenance.talent_likeness_records[0].consent_status == LikenessConsentStatus.REVOKED
+
+        # 4. Exporters, CLI --format c2pa, and checksum verification
+        c2pa_dir = tmp_path / "c2pa_export"
+        bundle_map = export_c2pa_bundle(IKEA_ASMR_BIBLE, c2pa_dir)
+        assert set(bundle_map.keys()) == {"c2pa_json", "disclosure_md", "likeness_csv"}
+        for fname in ("c2pa_manifest.json", "ai_disclosure_certificate.md", "likeness_consent_ledger.csv"):
+            assert (c2pa_dir / fname).is_file()
+
+        cli_dir = tmp_path / "cli_c2pa"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "c2pa", "--output-dir", str(cli_dir)]) == 0
+        for fname in ("c2pa_manifest.json", "ai_disclosure_certificate.md", "likeness_consent_ledger.csv"):
+            assert (cli_dir / fname).is_file()
+
+        from omni_director.agents.agent import DirectorPipeline
+
+        bundle_dir = tmp_path / "c2pa_bundle_chk"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(bundle_dir), dry_run=True, render_video=False)
+        export_c2pa_bundle(IKEA_ASMR_BIBLE, bundle_dir)
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(bundle_dir)
+        is_valid, errors = verify_bundle_checksums(bundle_dir)
+        assert is_valid is True, f"C2PA checksum verification failed: {errors}"
+        assert errors == []
+
+    def test_pm_feat_026_safety_schemas_physics_domains_auditor_and_exports(self, tmp_path):
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_safety_risk_spec
+        from omni_director.schemas import (
+            DomainArchetype,
+            DroneFlightPathSpec,
+            MasterProductionBible,
+            MasterSafetyRiskSpec,
+            MocoRigSpec,
+            MotionControlRigType,
+            RiskSeverityLevel,
+            SafetyHazardCategory,
+            SafetyHazardControlSpec,
+            SafetyJsaManifest,
+            SafetyRiskSpec,
+            SafetySignoffStatus,
+            SceneSafetyRiskSpec,
+            SceneSafetySpec,
+        )
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.nle_export import export_production_callsheet_md
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+        from omni_director.tools.safety_risk import (
+            assess_scene_hazards,
+            calculate_kinetic_exclusion_zone_m,
+            export_safety_bundle,
+            synthesize_default_safety_risk_spec,
+        )
+
+        # Schema aliases
+        assert SafetyRiskSpec is MasterSafetyRiskSpec
+        assert SafetyJsaManifest is MasterSafetyRiskSpec
+        assert SceneSafetySpec is SceneSafetyRiskSpec
+
+        # Physics-based kinetic exclusion zone scaling (standard vs MoCo vs UAV)
+        std_zone = calculate_kinetic_exclusion_zone_m(domain="architectural_sanctuary")
+        assert std_zone == 4.0
+
+        moco_fast = MocoRigSpec(rig_type=MotionControlRigType.RUSSIAN_ARM, max_velocity_mps=6.0)
+        moco_zone = calculate_kinetic_exclusion_zone_m(moco_rig=moco_fast, domain="kinetic_action")
+        assert moco_zone == 12.0
+        assert moco_zone > std_zone
+
+        drone_low = DroneFlightPathSpec(max_altitude_agl_m=15.0)
+        drone_high = DroneFlightPathSpec(max_altitude_agl_m=40.0)
+        uav_zone_low = calculate_kinetic_exclusion_zone_m(drone_flight=drone_low, domain="architectural_sanctuary")
+        uav_zone_high = calculate_kinetic_exclusion_zone_m(drone_flight=drone_high, domain="architectural_sanctuary")
+        assert uav_zone_low == 10.25
+        assert uav_zone_high == 19.0
+        assert uav_zone_high > uav_zone_low > std_zone
+
+        # Scene & Master synthesis + round-trip + bindings
+        scene_0 = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        scene_safety = assess_scene_hazards(scene_0, scene_index=1, domain="kinetic_action", bible=IKEA_ASMR_BIBLE)
+        assert isinstance(scene_safety, SceneSafetyRiskSpec)
+        assert len(scene_safety.hazards) >= 1
+        assert scene_safety.max_exclusion_zone_m >= 10.0
+        assert scene_safety.prompt_token.startswith("[SAFETY_JSA:")
+
+        master_safety = synthesize_default_safety_risk_spec(IKEA_ASMR_BIBLE)
+        assert isinstance(master_safety, MasterSafetyRiskSpec)
+        assert master_safety.all_hazards_mitigated is True
+        assert len(master_safety.scene_safety_specs) == len(IKEA_ASMR_BIBLE.scenes)
+
+        rt_scene_safety = SceneSafetyRiskSpec.model_validate(scene_safety.model_dump())
+        assert rt_scene_safety.max_exclusion_zone_m == scene_safety.max_exclusion_zone_m
+        rt_master_safety = MasterSafetyRiskSpec.model_validate(master_safety.model_dump())
+        assert rt_master_safety.jsa_document_id == master_safety.jsa_document_id
+
+        bound_sc = scene_0.model_copy(deep=True)
+        bound_sc.safety_spec = rt_scene_safety
+        assert bound_sc.safety_risk is not None
+        assert bound_sc.jsa_spec.max_exclusion_zone_m == rt_scene_safety.max_exclusion_zone_m
+
+        bound_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bound_bible.master_safety_risk = rt_master_safety
+        assert bound_bible.safety_risk is not None
+        assert bound_bible.safety_manifest is not None
+        assert bound_bible.jsa_manifest is not None
+        rt_bible = MasterProductionBible.model_validate(bound_bible.model_dump())
+        assert rt_bible.master_safety_risk is not None
+
+        # 6-domain calibrations
+        expected_min_zones = {
+            DomainArchetype.AUTOMOTIVE_ROBOTICS: 18.0,
+            DomainArchetype.KINETIC_ACTION: 10.0,
+            DomainArchetype.TECH_HARDWARE: 6.0,
+            DomainArchetype.LUXURY_FASHION: 4.5,
+            DomainArchetype.ARCHITECTURAL_SANCTUARY: 4.0,
+            DomainArchetype.CULINARY_ASMR: 3.0,
+        }
+        for arch, min_z in expected_min_zones.items():
+            cal = get_domain_safety_risk_spec(arch)
+            assert cal.all_hazards_mitigated is True
+            assert cal.signoff_status in (SafetySignoffStatus.CLEARED, SafetySignoffStatus.MITIGATED)
+            assert cal.prompt_token.startswith("[SAFETY_JSA:")
+            assert max(ss.max_exclusion_zone_m for ss in cal.scene_safety_specs) >= min_z
+
+        # Auditor + heal_omni_scene_prompt on HOLD_REQUIRED / unmitigated critical hazard
+        unmitigated_hazard = SafetyHazardControlSpec(
+            hazard_id="HAZ-CRIT-01",
+            category=SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX,
+            likelihood_score=4,
+            severity_score=5,
+            residual_risk_level=RiskSeverityLevel.CRITICAL,
+            mitigation_verified=False,
+        )
+        assert unmitigated_hazard.risk_rating == 20
+        assert unmitigated_hazard.risk_level == RiskSeverityLevel.CRITICAL
+        assert unmitigated_hazard.signoff_status == SafetySignoffStatus.HOLD_REQUIRED
+
+        hold_safety = SceneSafetyRiskSpec(scene_index=1, hazards=[unmitigated_hazard])
+        assert hold_safety.signoff_status == SafetySignoffStatus.HOLD_REQUIRED
+
+        sc_unsafe = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc_unsafe.safety_risk = hold_safety
+        sc_unsafe.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with oak table and foley click."
+
+        pre_audit = audit_omni_scene_prompt(sc_unsafe)
+        assert pre_audit.passed is False
+        assert pre_audit.details["safety_risk_compliant"] is False
+
+        healed_sc, healed_audit = heal_omni_scene_prompt(sc_unsafe)
+        assert healed_audit.passed is True
+        assert "safety_risk" in healed_audit.details["healing_history"]["applied_patches"]
+        assert "[SAFETY_JSA:" in healed_sc.omni_prose_prompt
+        assert healed_sc.safety_risk.signoff_status != SafetySignoffStatus.HOLD_REQUIRED
+
+        # compile_clean_omni_prompt strips [SAFETY_JSA: ...]
+        clean_prose = compile_clean_omni_prompt(healed_sc.omni_prose_prompt)
+        assert "[SAFETY_JSA:" not in clean_prose
+        assert "35mm dolly shot" in clean_prose
+        assert "foley click" in clean_prose
+
+        # Call sheet Section 5 On-Set Safety Summary
+        callsheet = export_production_callsheet_md(IKEA_ASMR_BIBLE)
+        assert "## 5. On-Set Safety & Emergency Bulletin Summary" in callsheet
+        assert "Max Exclusion Zone" in callsheet
+        assert "Emergency Radio Channel" in callsheet
+
+        # Exporters, CLI --format safety, and verify_bundle_checksums
+        safety_dir = tmp_path / "safety_export"
+        safety_map = export_safety_bundle(IKEA_ASMR_BIBLE, safety_dir)
+        assert set(safety_map.keys()) == {"safety_md", "safety_csv", "safety_json"}
+        for fname in ("safety_bulletin.md", "safety_jsa_matrix.csv", "safety_risk_manifest.json"):
+            assert (safety_dir / fname).is_file()
+
+        cli_dir = tmp_path / "cli_safety"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "safety", "--output-dir", str(cli_dir)]) == 0
+        for fname in ("safety_bulletin.md", "safety_jsa_matrix.csv", "safety_risk_manifest.json"):
+            assert (cli_dir / fname).is_file()
+
+        from omni_director.agents.agent import DirectorPipeline
+
+        bundle_dir = tmp_path / "safety_bundle_chk"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(bundle_dir), dry_run=True, render_video=False)
+        export_safety_bundle(IKEA_ASMR_BIBLE, bundle_dir)
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(bundle_dir)
+        is_valid, errors = verify_bundle_checksums(bundle_dir)
+        assert is_valid is True, f"Safety checksum verification failed: {errors}"
+        assert errors == []
+
+    def test_v213_html_huds_v212_fixes_fde_secret_leak_council_and_refresh_telemetry(self, tmp_path):
+        import json
+        import re
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import (
+            CouncilFindingSeverity,
+            MasterC2paProvenanceSpec,
+            MasterSafetyRiskSpec,
+            ProductionBundle,
+            SceneC2paProvenanceSpec,
+            SceneSafetyRiskSpec,
+        )
+        from omni_director.telemetry import verify_bundle_checksums
+        from omni_director.tools.c2pa_provenance import export_c2pa_bundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.safety_risk import export_safety_bundle
+
+        # 1. Compile HTML animatic with uppercase </SCRIPT> XSS payload to test escaping + HUDs + v2.12.0 fixes
+        xss_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        xss_payload = "Shot </SCRIPT><SCRIPT>x()"
+        xss_bible.master_c2pa_provenance = MasterC2paProvenanceSpec(
+            project_title=xss_payload,
+            scene_provenances=[SceneC2paProvenanceSpec(scene_index=1, scene_title=xss_payload)],
+        )
+        xss_bible.master_safety_risk = MasterSafetyRiskSpec(
+            project_title=xss_payload,
+            scene_safety_specs=[SceneSafetyRiskSpec(scene_index=1, scene_title=xss_payload)],
+        )
+        xss_out = tmp_path / "html_v213"
+        xss_bundle = ProductionBundle(
+            bible=xss_bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        html_path = compile_storyboard_html(xss_bundle, xss_out)
+        html = html_path.read_text(encoding="utf-8")
+
+        # Verify v2.13.0 HUD elements, SVGs, sticky shell, and Rule 7 row in .audit-drawer
+        for selector_id in (
+            "btn-c2pa-animatic",
+            "animatic-c2pa-hud",
+            "c2pa-lineage-svg",
+            "btn-safety-animatic",
+            "animatic-safety-hud",
+            "safety-perimeter-svg",
+        ):
+            assert f'id="{selector_id}"' in html, f"Missing HTML element #{selector_id}"
+
+        assert 'class="hud-sticky-shell"' in html
+        assert "Mode B Extension Continuity" in html
+
+        # Keybindings [Y], [Z], and Escape dismissal
+        assert "e.key === 'y' || e.key === 'Y'" in html
+        assert "e.key === 'z' || e.key === 'Z'" in html
+        assert "if (isC2paHUDOpen) toggleC2paHUD();" in html
+        assert "if (isSafetyHUDOpen) toggleSafetyHUD();" in html
+
+        # Zero blocking dialogs & zero duplicate e.key bindings
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+        keydown_match = re.search(
+            r"window\.addEventListener\('keydown'.*?document\.addEventListener\('DOMContentLoaded'",
+            html,
+            re.DOTALL,
+        )
+        assert keydown_match is not None
+        bound_keys = re.findall(r"e\.key\s*===\s*'([^']+)'", keydown_match.group(0))
+        assert len(bound_keys) == len(set(bound_keys)), f"Duplicate e.key bindings found: {bound_keys}"
+
+        # Case-insensitive </SCRIPT> escaping in C2PA_STATE, SAFETY_STATE, and BIBLE_DATA
+        c2pa_line = next(line for line in html.splitlines() if "const C2PA_STATE =" in line)
+        safety_line = next(line for line in html.splitlines() if "const SAFETY_STATE =" in line)
+        assert not re.search(r"</script>", c2pa_line, re.IGNORECASE)
+        assert r"<\/SCRIPT>" in c2pa_line
+        assert not re.search(r"</script>", safety_line, re.IGNORECASE)
+        assert r"<\/SCRIPT>" in safety_line
+
+        # v2.12.0 fixes present in compiled JS: _buildDynamicReviewFCPXML real duration & _buildDynamicReviewMD pipe escaping
+        assert "const clipDurSec = Math.max(1, Math.round(endSec - startSec));" in html
+        assert "replace(/\\|/g, '\\\\|')" in html
+
+        # 2. FDE SECRET_PATTERN leak detection emits CRITICAL finding on synthetic key in telemetry.json
+        leak_dir = tmp_path / "leak_check"
+        clean_bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(clean_bundle, leak_dir)
+        synthetic_secret = "AIza" + "SyDummyLeakTestKey1234567890abcdef"
+        (leak_dir / "telemetry.json").write_text(
+            json.dumps({"project_title": IKEA_ASMR_BIBLE.project_title, "leaked_token": synthetic_secret}),
+            encoding="utf-8",
+        )
+        orchestrator = ProductCouncilOrchestrator()
+        fde_res = orchestrator._review_fde(bible=IKEA_ASMR_BIBLE, bundle=clean_bundle, output_dir=leak_dir)
+        assert any(
+            f.severity == CouncilFindingSeverity.CRITICAL and f.category == "telemetry_secret_leak"
+            for f in fde_res.findings
+        )
+
+        # 3. CLI `omni export --format all --refresh-telemetry` + verify_bundle_checksums + full Council >= 90.0
+        from omni_director.agents.agent import DirectorPipeline
+
+        refresh_dir = tmp_path / "refresh_all"
+        DirectorPipeline().run(
+            preset_name="ikea-asmr",
+            output_dir=str(refresh_dir),
+            dry_run=True,
+            render_video=False,
+        )
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "all",
+            "--refresh-telemetry",
+            "--output-dir", str(refresh_dir),
+        ]) == 0
+        assert (refresh_dir / "telemetry.json").is_file()
+        assert (refresh_dir / "c2pa_manifest.json").is_file()
+        assert (refresh_dir / "safety_risk_manifest.json").is_file()
+        is_valid, errors = verify_bundle_checksums(refresh_dir)
+        assert is_valid is True, f"Refreshed telemetry checksum failed: {errors}"
+        assert errors == []
+
+        council_dir = tmp_path / "council_v213"
+        council_bundle = ProductionBundle(
+            bible=IKEA_ASMR_BIBLE,
+            storyboard_html_path="",
+            bundle_json_path="",
+            visual_plates={},
+            audit_reports=[],
+        )
+        compile_storyboard_html(council_bundle, council_dir)
+        export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
+        export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
+        report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
+        assert report.version == "2.13.0"
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0

@@ -1,0 +1,468 @@
+{
+  "project_title": "IKEA: The Living Room Unfolds",
+  "c2pa_spec_version": "2.1",
+  "claim_generator": "OmniMovieDirector/2.13.0",
+  "manifest_id": "urn:c2pa:omni-director:2026:681051cbecf6",
+  "synthetic_tier": "full_ai_synthetic",
+  "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+  "actions": [
+    {
+      "action_id": "ACT-MASTER-01",
+      "action": "c2pa.created",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+      "model_used": "gemini-4-argon",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "master_bible_treatment",
+        "scene_index": 1
+      },
+      "description": "Master Production Bible architectural synthesis and creative regime lock."
+    },
+    {
+      "action_id": "ACT-MASTER-02",
+      "action": "c2pa.edited",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+      "model_used": "gemini-3.8-flash",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "craft_prompt_audit",
+        "prompt_digest_prefix": "681051cbecf6"
+      },
+      "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+    },
+    {
+      "action_id": "ACT-MASTER-03",
+      "action": "c2pa.composited",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+      "model_used": "gemini-3-pro-image",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "nano_banana_continuity",
+        "max_ingredients": 3
+      },
+      "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+    },
+    {
+      "action_id": "ACT-MASTER-04",
+      "action": "c2pa.transcoded",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+      "model_used": "gemini-omni-1.1-flash-preview",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "synthid_soft_binding": true,
+        "c2pa_version": "2.1"
+      },
+      "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+    }
+  ],
+  "ingredients": [
+    {
+      "ingredient_id": "ING-S01-01",
+      "title": "<image_1> \u2014 Defines the exact cardboard texture, proportions, blue-printed IKEA logo",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s01-01",
+      "document_id": "xmp:did:omni-2026-6bb27ace189c",
+      "hash_sha256": "6bb27ace189cd8dc0830fcc624ce7b302cf7ff71ef5d0dae9d48b934ad28c87b",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "full_ai_synthetic",
+      "notes": "Exclusion clause: Do not copy the studio background or white seamless floor from <image_1>."
+    },
+    {
+      "ingredient_id": "ING-S01-02",
+      "title": "<image_2> \u2014 Defines the exact Scandinavian living room interior palette, pale ash wo",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s01-02",
+      "document_id": "xmp:did:omni-2026-49896c23be60",
+      "hash_sha256": "49896c23be6086fd2231031b4281a8c57de6ddbcdf85be4475f99d1dd7b2ccae",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "full_ai_synthetic",
+      "notes": "Exclusion clause: Do not copy any people, pets, or outdoor weather conditions from <image_2>."
+    },
+    {
+      "ingredient_id": "ING-S02-01",
+      "title": "<image_3> \u2014 Defines the complete finished furniture suite (grey fabric sofa, oak cof",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s02-01",
+      "document_id": "xmp:did:omni-2026-a32063f81381",
+      "hash_sha256": "a32063f813814474347f3dcafbdbb6da91bd15bdac80dda95d790b7118ff7b74",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "full_ai_synthetic",
+      "notes": "Exclusion clause: Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications."
+    }
+  ],
+  "talent_likeness_records": [
+    {
+      "record_id": "LIK-001",
+      "character_name": "Non-Human Synthetic Product / Environment",
+      "performer_name": null,
+      "is_human_likeness": false,
+      "is_digital_replica": false,
+      "consent_status": "synthetic_non_human",
+      "synthetic_tier": "full_ai_synthetic",
+      "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50 (Non-Biometric)",
+      "consent_reference_id": "CONSENT-2026-NONHUMAN-001",
+      "voice_cloning_used": false,
+      "territory": "Worldwide",
+      "expiration_date": null,
+      "disclosure_label": "Pure non-human product/architectural synthesis \u2014 zero human biometric likeness.",
+      "notes": "No human cast or voice cloning present in production bible."
+    }
+  ],
+  "scene_provenances": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Awakening Box",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S01-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S01-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "c43715e9d60e"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S01-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S01-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> \u2014 Defines the exact cardboard texture, proportions, blue-printed IKEA logo",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-6bb27ace189c",
+          "hash_sha256": "6bb27ace189cd8dc0830fcc624ce7b302cf7ff71ef5d0dae9d48b934ad28c87b",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Do not copy the studio background or white seamless floor from <image_1>."
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> \u2014 Defines the exact Scandinavian living room interior palette, pale ash wo",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-49896c23be60",
+          "hash_sha256": "49896c23be6086fd2231031b4281a8c57de6ddbcdf85be4475f99d1dd7b2ccae",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Do not copy any people, pets, or outdoor weather conditions from <image_2>."
+        }
+      ],
+      "talent_likeness_records": [],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "c43715e9d60eedb7ffa6e1a32a299f58eb21b6ee10511254ee720a0eaac0bd9c",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=c43715e9]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Hyper-Kinetic Self-Assembly",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S02-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 2
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S02-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "a741ec01ee28"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S02-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S02-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> \u2014 Defines the complete finished furniture suite (grey fabric sofa, oak cof",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-a32063f81381",
+          "hash_sha256": "a32063f813814474347f3dcafbdbb6da91bd15bdac80dda95d790b7118ff7b74",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications."
+        }
+      ],
+      "talent_likeness_records": [],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "a741ec01ee28270ef9aaf0d4d4820c0c9fd79b02283cdee7e201d879a1b67046",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=a741ec01]"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "Upholstery & Soft Architecture",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S03-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 3
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S03-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "ef92c1be0793"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S03-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S03-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S03-01",
+          "title": "<image_3> \u2014 Defines the complete finished furniture suite (grey fabric sofa, oak cof",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s03-01",
+          "document_id": "xmp:did:omni-2026-a32063f81381",
+          "hash_sha256": "a32063f813814474347f3dcafbdbb6da91bd15bdac80dda95d790b7118ff7b74",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications."
+        }
+      ],
+      "talent_likeness_records": [],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "ef92c1be07930eadf96f952c8ba2a00673e1f5e5fe22f253758c8899a13ff492",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=ef92c1be]"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Final Flourish & The ASMR Stillness",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S04-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 4
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S04-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "acb1940a0266"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S04-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S04-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S04-01",
+          "title": "<image_3> \u2014 Defines the complete finished furniture suite (grey fabric sofa, oak cof",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s04-01",
+          "document_id": "xmp:did:omni-2026-a32063f81381",
+          "hash_sha256": "a32063f813814474347f3dcafbdbb6da91bd15bdac80dda95d790b7118ff7b74",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Do not copy the room layout from <image_3>; use only the furniture design and fabric specifications."
+        }
+      ],
+      "talent_likeness_records": [],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "acb1940a02667acd50dad7a609538aa28b37a31b944289ce72d449fbaace22e8",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=acb1940a]"
+    }
+  ],
+  "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) \u2022 AI-Generated Architectural Visualization",
+  "eu_ai_act_art50_compliant": true,
+  "sag_aftra_digital_replica_compliant": true,
+  "all_likeness_consents_verified": true,
+  "manifest_signed": true,
+  "signing_algorithm": "ES256 / Ed25519",
+  "provenance_summary": "Architectural spatial plate lineage and interior geometry provenance verified. 4 scene(s) verified under C2PA v2.1.",
+  "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=c43715e9]"
+}

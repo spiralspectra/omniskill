@@ -1,6 +1,6 @@
 # Product Council Audit Report: Solarpunk Architectural Sanctuary Featur
 
-**Version**: 2.12.0 | **Timestamp**: `2026-11-20T09:53:28.998402+00:00`
+**Version**: 2.13.0 | **Timestamp**: `2026-11-21T10:46:06.446274+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,14 +8,15 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 14 | FDE review completed with score 25.0/25.0. 14 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 11 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 22 | Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 22 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 19 | FDE review completed with score 25.0/25.0. 19 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 14 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 24 | Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 25 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
 ### COUNCIL-FDE
+- [INFO] **telemetry_secret_scan**: Zero-leak SECRET_PATTERN scan passed cleanly on: telemetry.json, production_bundle.json.
 - [INFO] **optical_dof_delivery**: Optical Depth-of-Field (DoF) hyperfocal chart and 1st AC cue sheet verified on disk: dof_chart.json, focus_puller_cue_sheet.csv.
 - [INFO] **color_lut_delivery**: DIT 3D Cube Color Grading LUT suite and offload cart manifest verified on disk: production_look.cube, dit_cart_manifest.json.
 - [INFO] **spatial_audio_delivery**: Spatial audio Dolby Atmos ADM manifest and HOA Ambisonics matrix verified on disk: spatial_audio_adm.json, ambisonic_b_format.csv.
@@ -28,8 +29,12 @@
 - [INFO] **aicp_budget_delivery**: AICP commercial bid sheet CSV, Bid manifest JSON, and Production budget topsheet Markdown verified on disk: aicp_bid_sheet.csv, aicp_bid_manifest.json, production_budget_topsheet.md.
 - [INFO] **reframe_delivery**: Multi-aspect reframe crop matrix, cutdown EDLs, 9:16 FCPXML, and Reframe manifest verified on disk: reframe_crop_matrix.csv, cutdown_15s.edl, cutdown_06s.edl, reframe_9x16.fcpxml, delivery_reframe_manifest.json.
 - [INFO] **broadcast_qc_delivery**: Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.
+- [INFO] **continuity_blocking_delivery**: Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.
+- [INFO] **client_review_delivery**: Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).
+- [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).
+- [INFO] **safety_risk_schema**: MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -42,7 +47,10 @@
 - [INFO] **broadcast_qc_schema_compliance**: Broadcast Technical QC verified: verdict=PASS, PSE=PASS (0.80 Hz <= 3.0 Hz), loudness=PASS.
 - [INFO] **continuity_blocking_schema_compliance**: Inter-scene editorial continuity verified across 1 cut(s): continuity_passed=True, axis_violations_count=0.
 - [INFO] **client_review_schema_compliance**: Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.
+- [INFO] **c2pa_provenance_schema_compliance**: C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 2 scene(s).
+- [INFO] **safety_risk_schema_compliance**: On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.
 - [INFO] **audit_report_continuity_and_review_compliance**: Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).
+- [INFO] **audit_report_c2pa_and_safety_compliance**: Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.REC709_NEUTRAL' for domain 'architectural_sanctuary'.
@@ -66,6 +74,8 @@
 - [INFO] **domain_broadcast_qc**: Broadcast QC & trafficking spec verified (PASS, standard=ebu_r128, legal_cleared=True) for domain 'architectural_sanctuary'.
 - [INFO] **domain_continuity_blocking**: Inter-scene continuity & 180-degree blocking aligned for domain 'architectural_sanctuary' (screen_direction=toward_camera, scenes=2, continuity_passed=True).
 - [INFO] **domain_client_review**: Client review & sign-off readiness verified for domain 'architectural_sanctuary' (status=approved, unresolved_blockers=0, ready_for_live_render=True).
+- [INFO] **domain_c2pa_provenance**: C2PA v2.1 provenance calibrated for domain 'architectural_sanctuary' (tier=full_ai_synthetic, likeness_records=1, consents_verified=True).
+- [INFO] **domain_safety_risk**: On-set Safety JSA calibrated for domain 'architectural_sanctuary' (max_exclusion=10.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'kinetic_moco_arm', 'wire_rigging_height']).
 - [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
@@ -86,10 +96,13 @@
 - [INFO] **animatic_qc_hud**: Broadcast Technical QC & Clearance HUD verified (#btn-qc-animatic / #animatic-qc-hud [Q]).
 - [INFO] **animatic_blocking_hud**: 180-Degree Blocking & Continuity Floorplan HUD verified (#btn-blocking-animatic / #animatic-blocking-hud / #blocking-floorplan-svg [W]).
 - [INFO] **animatic_review_hud**: Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).
+- [INFO] **animatic_c2pa_hud**: C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).
+- [INFO] **animatic_safety_hud**: On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 49 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 54 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
+- [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
 - [INFO] **animatic_aicp_real_data**: AICP HUD real-data binding verified ($203,145.74 matches master_aicp_bid).
 
 ## Senior Product Manager Roadmap & Feature Inspection
@@ -122,3 +135,5 @@
 | `PM-FEAT-022` | **P0** | `implemented` | **Broadcast Technical QC, ITU-R BT.1702 PSE Flash-Safety, Loudness & Rights Clearance Suite**: Implement BroadcastLoudnessStandard, ClearanceCategory, ClearanceStatus, QcVerdictStatus, BroadcastTraffickingSlateSpec, LoudnessComplianceSpec, PseFlashCheckSpec, ClearanceRecordSpec, SceneQcProfileSpec, and MasterBroadcastQcSpec schemas; omni_director.tools.broadcast_qc (PSE flash evaluator, loudness validator, rights clearance matrix, QC certificate Markdown/CSV/JSON exporters, [BROADCAST_QC: ...] prompt tokens); 6-domain calibration via get_domain_broadcast_qc_spec(); and an interactive Broadcast QC & Trafficking HUD [Q] in the dark-room animatic. Acceptance criteria: 0 PSE (>3Hz) failures, ATSC A/85 or EBU R128 PASS across all 6 archetypes, and HUD #btn-qc-animatic / #animatic-qc-hud. | `omni_director/schemas.py`, `omni_director/tools/broadcast_qc.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-023` | **P0** | `implemented` | **Inter-Scene Editorial Continuity, 180-Degree Axis & Overhead Blocking Floorplan Engine**: Implement ScreenDirection, ShotScaleSize, EditorialCutType, StageBlockingEntity, CameraAxisPlacement, InterSceneCutCheckSpec, SceneBlockingSpec, and MasterContinuityBlockingSpec schemas; omni_director.tools.continuity_blocking (evaluate_180_axis_and_30_rule, synthesize_scene_blocking, continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json exporters, [CONTINUITY_AXIS: ...] prompt tokens); audit_bible_inter_scene_continuity in prompt_auditor.py; 6-domain calibration via get_domain_continuity_blocking_spec(); and an interactive 180-Degree Blocking & Continuity HUD [W] (#btn-blocking-animatic, #animatic-blocking-hud, #blocking-floorplan-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/continuity_blocking.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-024` | **P0** | `implemented` | **Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine**: Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/review_notes.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-025` | **P0** | `implemented` | **C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine**: Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/c2pa_provenance.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |
+| `PM-FEAT-026` | **P0** | `implemented` | **On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine**: Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/safety_risk.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |

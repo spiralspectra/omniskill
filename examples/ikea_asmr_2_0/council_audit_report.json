@@ -1,7 +1,7 @@
 {
-  "version": "2.12.0",
+  "version": "2.13.0",
   "project_title": "IKEA: The Living Room Unfolds",
-  "timestamp": "2026-11-20T09:53:27.363265+00:00",
+  "timestamp": "2026-11-21T10:46:04.746691+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -13,6 +13,19 @@
       "passed": true,
       "persona_title": "",
       "findings": [
+        {
+          "severity": "info",
+          "category": "telemetry_secret_scan",
+          "message": "Zero-leak SECRET_PATTERN scan passed cleanly on: telemetry.json, production_bundle.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scanned_files": [
+              "telemetry.json",
+              "production_bundle.json"
+            ]
+          }
+        },
         {
           "severity": "info",
           "category": "optical_dof_delivery",
@@ -187,6 +200,36 @@
         },
         {
           "severity": "info",
+          "category": "continuity_blocking_delivery",
+          "message": "Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "continuity_artifacts": [
+              "continuity_log.csv",
+              "blocking_floorplan.svg",
+              "continuity_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "client_review_delivery",
+          "message": "Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "review_artifacts": [
+              "review_markers.edl",
+              "review_markers.fcpxml",
+              "review_notes_frameio.json",
+              "review_notes.csv",
+              "client_signoff_report.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
           "remediation": null,
@@ -204,9 +247,29 @@
           "details": {
             "scene_count": 4
           }
+        },
+        {
+          "severity": "info",
+          "category": "c2pa_provenance_schema",
+          "message": "MasterC2paProvenanceSpec verified (C2PA v2.1, 4 scenes, manifest_signed=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "safety_risk_schema",
+          "message": "MasterSafetyRiskSpec verified (4 scenes, hazards=8, open_holds=0).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 4
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 14 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 19 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -330,8 +393,36 @@
         },
         {
           "severity": "info",
+          "category": "c2pa_provenance_schema_compliance",
+          "message": "C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_provenances_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "safety_risk_schema_compliance",
+          "message": "On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 8 hazard(s) mitigated.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "total_hazards": 8
+          }
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_c2pa_and_safety_compliance",
+          "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -617,6 +708,33 @@
         },
         {
           "severity": "info",
+          "category": "domain_c2pa_provenance",
+          "message": "C2PA v2.1 provenance calibrated for domain 'architectural_sanctuary' (tier=full_ai_synthetic, likeness_records=1, consents_verified=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "architectural_sanctuary",
+            "synthetic_tier": "full_ai_synthetic",
+            "likeness_records_count": 1
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_safety_risk",
+          "message": "On-set Safety JSA calibrated for domain 'architectural_sanctuary' (max_exclusion=4.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'wire_rigging_height']).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "architectural_sanctuary",
+            "max_exclusion_zone_m": 4.0,
+            "hazard_categories": [
+              "electrical_dmx_wet",
+              "wire_rigging_height"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.",
           "remediation": null,
@@ -773,6 +891,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_c2pa_hud",
+          "message": "C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_safety_hud",
+          "message": "On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -790,7 +924,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -799,6 +933,14 @@
           "severity": "info",
           "category": "animatic_hotkeys_wn",
           "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkeys_yz",
+          "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1163,6 +1305,42 @@
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-025",
+      "title": "C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine",
+      "problem_statement": "Enterprise broadcasters, legal compliance teams, and agency distributors for 'IKEA: The Living Room Unfolds' require cryptographically verifiable C2PA v2.1 Content Credentials, EU AI Act Article 50 synthetic disclosure tiers, strict 2026 Gemini Model Matrix lineage verification (zero legacy models), and SAG-AFTRA digital replica / talent likeness consent gating before rendering or publishing.",
+      "proposed_solution": "Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/c2pa_provenance.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v213.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-026",
+      "title": "On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine",
+      "problem_statement": "Physical production units, 1st Assistant Directors, Stunt Coordinators, and Unit Safety Officers for 'IKEA: The Living Room Unfolds' require physics-calibrated kinetic exclusion zones (MoCo arm reach + E-stop braking distance, FAA Part 107 UAV standoff perimeters, stunt vehicle braking buffers), 5x5 Job Safety Analysis (JSA) hazard matrices aligned with CSATF Safety Bulletins, and standby medical/fire/E-stop emergency protocols prior to stage call.",
+      "proposed_solution": "Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/safety_risk.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v213.py",
+        "omni_director/cli.py"
       ],
       "priority": "P0",
       "status": "implemented"

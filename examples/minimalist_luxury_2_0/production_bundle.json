@@ -1075,6 +1075,207 @@
           "resolved_notes_count": 1,
           "signoff_by": "Fashion Director & Maison Brand Lead",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "c2ee3ed4edd1"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "c2ee3ed4edd17c5fe4686e1aaa19ea10b7943de7205a70dc2cd5bfc43b02f5a2",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+        },
+        "safety_risk": {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
         }
       },
       {
@@ -2030,6 +2231,195 @@
           "resolved_notes_count": 1,
           "signoff_by": "Fashion Director & Maison Brand Lead",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "3479da297a51"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "3479da297a51a42cf6acad27f8c5ac8fdbf155a535b69476b4fb66aab4c04e1a",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]"
+        },
+        "safety_risk": {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
         }
       }
     ],
@@ -2878,7 +3268,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-20T09:53:29.140049+00:00",
+        "creation_date": "2026-11-21T10:46:06.565461+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2886,7 +3276,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-20T09:53:29.140036+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.565451+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2894,7 +3284,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-20T09:53:29.140046+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.565458+00:00"
           }
         ]
       }
@@ -2950,7 +3340,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-20T09:53:29.140049+00:00",
+        "creation_date": "2026-11-21T10:46:06.565461+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2958,7 +3348,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-20T09:53:29.140036+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.565451+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2966,7 +3356,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-20T09:53:29.140046+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.565458+00:00"
           }
         ]
       }
@@ -7797,6 +8187,2202 @@
       "ready_for_live_render": true,
       "signoff_summary": "Revision 1 approved across 2 scene(s) (luxury_fashion); all stakeholder pin annotations resolved and live render gate cleared.",
       "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "master_c2pa_provenance": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "24921a3dd6f4"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Haute Couture Runway Model",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "c2ee3ed4edd1"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "c2ee3ed4edd17c5fe4686e1aaa19ea10b7943de7205a70dc2cd5bfc43b02f5a2",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "3479da297a51"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "3479da297a51a42cf6acad27f8c5ac8fdbf155a535b69476b4fb66aab4c04e1a",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI Synthetic Fashion & Talent Likeness Cleared",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+    },
+    "c2pa_provenance": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "24921a3dd6f4"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Haute Couture Runway Model",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "c2ee3ed4edd1"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "c2ee3ed4edd17c5fe4686e1aaa19ea10b7943de7205a70dc2cd5bfc43b02f5a2",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "3479da297a51"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "3479da297a51a42cf6acad27f8c5ac8fdbf155a535b69476b4fb66aab4c04e1a",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI Synthetic Fashion & Talent Likeness Cleared",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+    },
+    "content_credentials": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "24921a3dd6f4"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Haute Couture Runway Model",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "c2ee3ed4edd1"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "c2ee3ed4edd17c5fe4686e1aaa19ea10b7943de7205a70dc2cd5bfc43b02f5a2",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "3479da297a51"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "3479da297a51a42cf6acad27f8c5ac8fdbf155a535b69476b4fb66aab4c04e1a",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI Synthetic Fashion & Talent Likeness Cleared",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+    },
+    "provenance_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "24921a3dd6f4"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Haute Couture Runway Model",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "c2ee3ed4edd1"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "c2ee3ed4edd17c5fe4686e1aaa19ea10b7943de7205a70dc2cd5bfc43b02f5a2",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "synthetic_tier": "virtual_digital_replica",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "3479da297a51"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "virtual_digital_replica",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Haute Couture Runway Model",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "virtual_digital_replica",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Sculptural black velvet evening coat with structured iridescent silk lapels"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "3479da297a51a42cf6acad27f8c5ac8fdbf155a535b69476b4fb66aab4c04e1a",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI Synthetic Fashion & Talent Likeness Cleared",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]"
+    },
+    "master_safety_risk": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "jsa_document_id": "JSA-LUXU-2026-C49443",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Dimmer Rack Main Breaker",
+          "Stage Door Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_risk": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "jsa_document_id": "JSA-LUXU-2026-C49443",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Dimmer Rack Main Breaker",
+          "Stage Door Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "jsa_document_id": "JSA-LUXU-2026-C49443",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Dimmer Rack Main Breaker",
+          "Stage Door Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "jsa_manifest": {
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "jsa_document_id": "JSA-LUXU-2026-C49443",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Dimmer Rack Main Breaker",
+          "Stage Door Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "wire_rigging_height",
+              "hazard_description": "Overhead truss/softbox rigging, tensioned wire/fabric loads, and elevated working-at-height perimeter.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 4.5,
+              "engineering_controls": [
+                "Secondary rated steel safety cables on all overhead fixtures & truss points",
+                "Certified load-cell shackles with 5:1 working load limit (WLL) safety factor",
+                "Tool-tether lanyards and barricaded drop-zone beneath riggers"
+              ],
+              "ppe_required": [
+                "ANSI Z89.1 climbing/rigging hard hat",
+                "Full-body fall-arrest harness (>1.8m elevation)",
+                "Steel-toe work boots"
+              ],
+              "responsible_supervisor": "Key Grip & Lead Stunt Rigger",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Overhead Rigging / Fall Protection) & ANSI E1.6."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
     }
   },
   "storyboard_html_path": "examples/minimalist_luxury_2_0/storyboard_preview.html",
@@ -7876,6 +10462,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=c2ee3ed4]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -7889,7 +10481,9 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     },
     {
       "scene_index": 2,
@@ -7944,6 +10538,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3479da29]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -7956,14 +10556,16 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "b311414e-f793-41c3-86a3-e94d059b7e7f",
+    "session_id": "28df0edd-bb3f-4fe8-b97f-160ba85aa27b",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-20T09:53:29.137281+00:00",
+    "timestamp": "2026-11-21T10:46:06.562828+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -7973,67 +10575,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-20T09:53:29.137302+00:00",
-        "end_time": "2026-11-20T09:53:29.137824+00:00",
-        "duration_ms": 0.52,
+        "start_time": "2026-11-21T10:46:06.562846+00:00",
+        "end_time": "2026-11-21T10:46:06.563375+00:00",
+        "duration_ms": 0.53,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-20T09:53:29.137843+00:00",
-        "end_time": "2026-11-20T09:53:29.142343+00:00",
-        "duration_ms": 4.49,
+        "start_time": "2026-11-21T10:46:06.563389+00:00",
+        "end_time": "2026-11-21T10:46:06.567617+00:00",
+        "duration_ms": 4.23,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-20T09:53:29.142436+00:00",
-        "end_time": "2026-11-20T09:53:29.144624+00:00",
-        "duration_ms": 2.19,
+        "start_time": "2026-11-21T10:46:06.567628+00:00",
+        "end_time": "2026-11-21T10:46:06.568944+00:00",
+        "duration_ms": 1.32,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-20T09:53:29.144660+00:00",
-        "end_time": "2026-11-20T09:53:29.144829+00:00",
-        "duration_ms": 0.17,
+        "start_time": "2026-11-21T10:46:06.568956+00:00",
+        "end_time": "2026-11-21T10:46:06.569081+00:00",
+        "duration_ms": 0.12,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-20T09:53:29.144839+00:00",
-        "end_time": "2026-11-20T09:53:29.146899+00:00",
-        "duration_ms": 2.06,
+        "start_time": "2026-11-21T10:46:06.569089+00:00",
+        "end_time": "2026-11-21T10:46:06.570997+00:00",
+        "duration_ms": 1.91,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-20T09:53:29.146926+00:00",
-        "end_time": "2026-11-20T09:53:29.146931+00:00",
+        "start_time": "2026-11-21T10:46:06.571005+00:00",
+        "end_time": "2026-11-21T10:46:06.571008+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-20T09:53:29.146939+00:00",
-        "end_time": "2026-11-20T09:53:29.160988+00:00",
-        "duration_ms": 14.05,
+        "start_time": "2026-11-21T10:46:06.571014+00:00",
+        "end_time": "2026-11-21T10:46:06.584153+00:00",
+        "duration_ms": 13.14,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-20T09:53:29.192192+00:00",
-        "end_time": "2026-11-20T09:53:29.308777+00:00",
-        "duration_ms": 116.58,
+        "start_time": "2026-11-21T10:46:06.610772+00:00",
+        "end_time": "2026-11-21T10:46:06.673117+00:00",
+        "duration_ms": 62.35,
         "details": {}
       }
     ],
-    "total_duration_ms": 140.06,
+    "total_duration_ms": 83.6,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "47480a63145cbcfeda77adf12bcdd79ee000ca3974f4796f20704d19e670199b",
-      "storyboard_preview.html": "f4b61f117de3ac4033d48e87516e73fa2be57d34b3d6bf58c5a0c8ce759d3505",
+      "production_bundle.json": "1f96b76523b28b9b77d78721f7c4847b2b328c8ce3e6ed5fa222378f10f23894",
+      "storyboard_preview.html": "b9a10997b9ec8b67917b242657e8e268d4dfc5e5f3d1768c75da463216ae5d9f",
       "timeline.edl": "72ba67d55f2b8b2ece89297d8c651d0c3483be4b4f78695f76cfacd64eae4527",
       "sequence.fcpxml": "c3cc20a01c3ef0cb096b8efa6b3e20c6f6736956705775e50b05532cd94187c3",
       "shot_list.csv": "3d2cb0835a542a6a34520e631da55b1073278f3dfead2f6e29aa0f95c901a21a",
@@ -8085,12 +10687,12 @@
       "film_emulation_spec.json": "dacf2f9453598ba9d505ce6ead0fbf426431828c7f23a79563d94e15bf888eda",
       "film_stock_shader.dctl": "5c1af26c9e396cac2a5cdbf95ffc95157ce1d4b3f22c89359945f25febd4c109",
       "film_stock.ale": "722e0ebc63bfb37fef32a7ee619318492f8d8f0bfefabcc614ac4f899529869e",
-      "slate_manifest.json": "8e6d89caf0dd1d8695b34388af53ce54451eb5a0d946c589105943e75fc01e7f",
-      "asc_mhl_manifest.xml": "3ac2390ca85b2bfec13aabb350ac2ab878c7be24c25bc5dc85dda8a92b3fa01b",
+      "slate_manifest.json": "f97ca05b10a31141d0feb8308911264a42ce8cd096952e0724cb4a99e75bf5fa",
+      "asc_mhl_manifest.xml": "c8b418327f2f83a1451cc43b5fb308cafe1a2353fbc661a337dbedfad48c81c4",
       "clapper_slate_log.csv": "9dfbfb862ec8ead4cef7559abdf602c0885967e7eb2935f4ec5d4bd02c50ffe4",
       "sound_sync.ale": "e0bf8ddbf25666c70e6a7a09c099b4891d726f2ce0cb8f07eb20e2676665f713",
       "flight_path.kml": "7f24ba3ffc75fe85f2a2cea52196755858ae8da40f37c78808a9e87beacdedff",
-      "flight_waypoints.gpx": "f0980a71b7e92eae7f92279b56bb1127215537b71c7083a33cdadd6cde363e39",
+      "flight_waypoints.gpx": "e75e1b4e7b7df2d0f87ea224c8634331d5b8082a63992e3d0ba3a542cbf97268",
       "drone_flight_sheet.csv": "9d59f753d04dd2f75f9cb2b119cbdf225692f02e543053210b92fa72d38fedba",
       "drone_flight_sheet.md": "f29853c440d7d6fde53f4013c41bb6dd2eb1816826f78bbb5ad46abc7a6e9a9f",
       "drone_flight_manifest.json": "1cea390b28b42b5361e06f27838395c49fa42117ee36a8758918e946ee435f39",
@@ -8105,9 +10707,17 @@
       "broadcast_qc_certificate.md": "6ce1b8f2e42966992c61755d73f47afd0505a574de1df103eee636c9d03fb1ba",
       "rights_clearance_matrix.csv": "816d546ebb5330e48838c1074faa39ed4c3e27abc0e33bd239b438b294c3d3ef",
       "broadcast_qc_manifest.json": "cf95e26674714e6f3864b12d1b29e424872865c0b2f01457715dd7a7fe19e63d",
-      "council_audit_report.json": "ec80e52128ae9131672722db808cf30f282d559a91d18380ac9187bddebb8342",
-      "council_report.json": "ec80e52128ae9131672722db808cf30f282d559a91d18380ac9187bddebb8342",
-      "council_report.md": "ddadcf757c3e65dca493b86e79630afb18587d782a751e5b5a4d0bd7fc7c8533",
+      "continuity_log.csv": "373e1d52c79cc8008b100ecfca2dc1a6a6559e72c7a20ae131fca5c79d8e8fa2",
+      "blocking_floorplan.svg": "9ff44bdd28e2f15121dbd2761d3718f44a259777fa4b439400496e697c66f7e3",
+      "continuity_manifest.json": "11db370e1d55047628ccc78c4b41588f13e19e31f6b95d9840577860ed329fdb",
+      "review_markers.edl": "f49d9dcfddcc03df5bc0765e268fc9cf402e85fa657a48f9a939b8f7f8bc7536",
+      "review_markers.fcpxml": "fa961d62eb55d398aad09582d6d1411a72393159051ffadd133318ae762cd5d8",
+      "review_notes_frameio.json": "1dc5894d73b48581c60542b06a2483b7c0b2d9683302af670b7cad582b3ebc13",
+      "review_notes.csv": "67f2c9f680db71868c1a42a66e3beec1935176494d9e06239272a46ab9b86660",
+      "client_signoff_report.md": "ca2d58a1addb43dbf0108236e7f2d0f699bdd5cdfec040559a2d84c0d1331038",
+      "council_audit_report.json": "bb7d0e2dafaa13e63fe0e09bdcc6af21811776815b18ae00d57e985da4b03a5e",
+      "council_report.json": "bb7d0e2dafaa13e63fe0e09bdcc6af21811776815b18ae00d57e985da4b03a5e",
+      "council_report.md": "d43db0d55c523915acac4b072a417110f4dd179726c683d109ad1421d0718c73",
       "storyboards/anchor1_character_turnaround.svg": "755b580bc8708343824f964ce4d67d847b7e630be03c1968a9a1f273c6f252f6",
       "storyboards/anchor2_environment_master.svg": "794b41dd0b00f6074ba182b1324d2e6d54d0017ce01591676309d5092cfcd6a4",
       "storyboards/anchor3_scene_1_keyframe.svg": "f9b4ed8913c9d5c06020e0354652363a958ef9cb4caed1b32461c88e9fa3303f",
@@ -8115,9 +10725,9 @@
     }
   },
   "council_report": {
-    "version": "2.12.0",
+    "version": "2.13.0",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-20T09:53:29.305846+00:00",
+    "timestamp": "2026-11-21T10:46:06.670556+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -8129,6 +10739,19 @@
         "passed": true,
         "persona_title": "",
         "findings": [
+          {
+            "severity": "info",
+            "category": "telemetry_secret_scan",
+            "message": "Zero-leak SECRET_PATTERN scan passed cleanly on: telemetry.json, production_bundle.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scanned_files": [
+                "telemetry.json",
+                "production_bundle.json"
+              ]
+            }
+          },
           {
             "severity": "info",
             "category": "optical_dof_delivery",
@@ -8303,6 +10926,36 @@
           },
           {
             "severity": "info",
+            "category": "continuity_blocking_delivery",
+            "message": "Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "continuity_artifacts": [
+                "continuity_log.csv",
+                "blocking_floorplan.svg",
+                "continuity_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_delivery",
+            "message": "Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "review_artifacts": [
+                "review_markers.edl",
+                "review_markers.fcpxml",
+                "review_notes_frameio.json",
+                "review_notes.csv",
+                "client_signoff_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "continuity_blocking_schema",
             "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
             "remediation": null,
@@ -8320,9 +10973,29 @@
             "details": {
               "scene_count": 2
             }
+          },
+          {
+            "severity": "info",
+            "category": "c2pa_provenance_schema",
+            "message": "MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema",
+            "message": "MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 19 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -8446,8 +11119,36 @@
           },
           {
             "severity": "info",
+            "category": "c2pa_provenance_schema_compliance",
+            "message": "C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_provenances_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema_compliance",
+            "message": "On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_hazards": 6
+            }
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_c2pa_and_safety_compliance",
+            "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8733,6 +11434,34 @@
           },
           {
             "severity": "info",
+            "category": "domain_c2pa_provenance",
+            "message": "C2PA v2.1 provenance calibrated for domain 'luxury_fashion' (tier=virtual_digital_replica, likeness_records=1, consents_verified=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "synthetic_tier": "virtual_digital_replica",
+              "likeness_records_count": 1
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_safety_risk",
+            "message": "On-set Safety JSA calibrated for domain 'luxury_fashion' (max_exclusion=10.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'kinetic_moco_arm', 'wire_rigging_height']).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "max_exclusion_zone_m": 10.0,
+              "hazard_categories": [
+                "electrical_dmx_wet",
+                "kinetic_moco_arm",
+                "wire_rigging_height"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
             "remediation": null,
@@ -8889,6 +11618,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_c2pa_hud",
+            "message": "C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_safety_hud",
+            "message": "On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -8906,7 +11651,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8915,6 +11660,14 @@
             "severity": "info",
             "category": "animatic_hotkeys_wn",
             "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_yz",
+            "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9279,6 +12032,42 @@
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-025",
+        "title": "C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine",
+        "problem_statement": "Enterprise broadcasters, legal compliance teams, and agency distributors for 'Minimalist Luxury Haute Couture Silk Vel' require cryptographically verifiable C2PA v2.1 Content Credentials, EU AI Act Article 50 synthetic disclosure tiers, strict 2026 Gemini Model Matrix lineage verification (zero legacy models), and SAG-AFTRA digital replica / talent likeness consent gating before rendering or publishing.",
+        "proposed_solution": "Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/c2pa_provenance.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-026",
+        "title": "On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine",
+        "problem_statement": "Physical production units, 1st Assistant Directors, Stunt Coordinators, and Unit Safety Officers for 'Minimalist Luxury Haute Couture Silk Vel' require physics-calibrated kinetic exclusion zones (MoCo arm reach + E-stop braking distance, FAA Part 107 UAV standoff perimeters, stunt vehicle braking buffers), 5x5 Job Safety Analysis (JSA) hazard matrices aligned with CSATF Safety Bulletins, and standby medical/fire/E-stop emergency protocols prior to stage call.",
+        "proposed_solution": "Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/safety_risk.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
         ],
         "priority": "P0",
         "status": "implemented"

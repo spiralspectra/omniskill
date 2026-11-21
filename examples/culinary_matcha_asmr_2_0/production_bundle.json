@@ -1078,6 +1078,207 @@
           "resolved_notes_count": 1,
           "signoff_by": "Culinary Director & Brand Producer",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "1680353c1f34"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "1680353c1f34fd2f5ad9a365fe8370feefa1bd08ceaf2e4fcb6c5810b345e2ef",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+        },
+        "safety_risk": {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
         }
       },
       {
@@ -2039,6 +2240,195 @@
           "resolved_notes_count": 1,
           "signoff_by": "Culinary Director & Brand Producer",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "04120a3f0b6d"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "04120a3f0b6d1570cec5ba1652e43488ae29ac3fbb901cb10109b46780127525",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]"
+        },
+        "safety_risk": {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
         }
       }
     ],
@@ -2887,7 +3277,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-20T09:53:29.504577+00:00",
+        "creation_date": "2026-11-21T10:46:06.791959+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2895,7 +3285,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.791948+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2903,7 +3293,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.791956+00:00"
           }
         ]
       }
@@ -2959,7 +3349,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-20T09:53:29.504577+00:00",
+        "creation_date": "2026-11-21T10:46:06.791959+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2967,7 +3357,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-20T09:53:29.504561+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.791948+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2975,7 +3365,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-20T09:53:29.504574+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.791956+00:00"
           }
         ]
       }
@@ -7894,6 +8284,2202 @@
       "ready_for_live_render": true,
       "signoff_summary": "Revision 1 approved across 2 scene(s) (culinary_asmr); all stakeholder pin annotations resolved and live render gate cleared.",
       "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "master_c2pa_provenance": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "3ab6a1bed9e9"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Master Artisanal Chef / Tea Master",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "full_ai_synthetic",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "1680353c1f34"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "1680353c1f34fd2f5ad9a365fe8370feefa1bd08ceaf2e4fcb6c5810b345e2ef",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "04120a3f0b6d"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "04120a3f0b6d1570cec5ba1652e43488ae29ac3fbb901cb10109b46780127525",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI-Generated Culinary & ASMR Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Generative culinary tabletop sequence & foley provenance verified under EU AI Act Art. 50. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+    },
+    "c2pa_provenance": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "3ab6a1bed9e9"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Master Artisanal Chef / Tea Master",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "full_ai_synthetic",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "1680353c1f34"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "1680353c1f34fd2f5ad9a365fe8370feefa1bd08ceaf2e4fcb6c5810b345e2ef",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "04120a3f0b6d"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "04120a3f0b6d1570cec5ba1652e43488ae29ac3fbb901cb10109b46780127525",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI-Generated Culinary & ASMR Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Generative culinary tabletop sequence & foley provenance verified under EU AI Act Art. 50. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+    },
+    "content_credentials": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "3ab6a1bed9e9"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Master Artisanal Chef / Tea Master",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "full_ai_synthetic",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "1680353c1f34"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "1680353c1f34fd2f5ad9a365fe8370feefa1bd08ceaf2e4fcb6c5810b345e2ef",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "04120a3f0b6d"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "04120a3f0b6d1570cec5ba1652e43488ae29ac3fbb901cb10109b46780127525",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI-Generated Culinary & ASMR Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Generative culinary tabletop sequence & foley provenance verified under EU AI Act Art. 50. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+    },
+    "provenance_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
+      "synthetic_tier": "full_ai_synthetic",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "3ab6a1bed9e9"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "full_ai_synthetic",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Master Artisanal Chef / Tea Master",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "full_ai_synthetic",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "1680353c1f34"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "1680353c1f34fd2f5ad9a365fe8370feefa1bd08ceaf2e4fcb6c5810b345e2ef",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "synthetic_tier": "full_ai_synthetic",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "04120a3f0b6d"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "full_ai_synthetic",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Master Artisanal Chef / Tea Master",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "full_ai_synthetic",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Unbleached raw natural linen apron over matte charcoal tunic"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "04120a3f0b6d1570cec5ba1652e43488ae29ac3fbb901cb10109b46780127525",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • AI-Generated Culinary & ASMR Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Generative culinary tabletop sequence & foley provenance verified under EU AI Act Art. 50. 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]"
+    },
+    "master_safety_risk": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "jsa_document_id": "JSA-CULI-2026-8A887D",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": true,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Culinary Induction Cutout",
+          "Class-K Fire Station"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_risk": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "jsa_document_id": "JSA-CULI-2026-8A887D",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": true,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Culinary Induction Cutout",
+          "Class-K Fire Station"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "jsa_document_id": "JSA-CULI-2026-8A887D",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": true,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Culinary Induction Cutout",
+          "Class-K Fire Station"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
+    },
+    "jsa_manifest": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "jsa_document_id": "JSA-CULI-2026-8A887D",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": true,
+        "ambulance_on_standby": false,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Culinary Induction Cutout",
+          "Class-K Fire Station"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 10.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "food_allergen_thermal",
+              "hazard_description": "Tabletop thermal cooking surfaces, boiling/searing liquids, sharp cutlery, and food allergen controls.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class K wet-chemical & ABC fire extinguishers staged within 3.0m",
+                "Heat-resistant silicone surface mats & insulated induction zones",
+                "Dedicated allergen-free prep trays & food-safe temperature log"
+              ],
+              "ppe_required": [
+                "Cut-resistant Kevlar food-styling glove (prep)",
+                "Heat-insulated nitrile/silicone mitts",
+                "Closed-toe non-slip kitchen footwear"
+              ],
+              "responsible_supervisor": "Culinary Food Stylist & 1st AD",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #16 (Open Flame / Thermal) & studio food-safety allergen SOP."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 3.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 9,
+          "overall_risk_level": "moderate",
+          "max_exclusion_zone_m": 10.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": false,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "moderate",
+      "highest_risk_rating": 9,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=6 status=MITIGATED]"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -7973,6 +10559,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -7986,7 +10578,9 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     },
     {
       "scene_index": 2,
@@ -8041,6 +10635,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -8053,14 +10653,16 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "8876072f-3806-4e67-ba29-4f938428f37e",
+    "session_id": "a647a9c7-0eb2-4a40-af89-a1ec5aaf581c",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-20T09:53:29.501161+00:00",
+    "timestamp": "2026-11-21T10:46:06.788771+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -8070,67 +10672,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-20T09:53:29.501183+00:00",
-        "end_time": "2026-11-20T09:53:29.502006+00:00",
-        "duration_ms": 0.82,
+        "start_time": "2026-11-21T10:46:06.788789+00:00",
+        "end_time": "2026-11-21T10:46:06.789495+00:00",
+        "duration_ms": 0.71,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-20T09:53:29.502039+00:00",
-        "end_time": "2026-11-20T09:53:29.505785+00:00",
-        "duration_ms": 3.74,
+        "start_time": "2026-11-21T10:46:06.789511+00:00",
+        "end_time": "2026-11-21T10:46:06.794305+00:00",
+        "duration_ms": 4.79,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-20T09:53:29.505808+00:00",
-        "end_time": "2026-11-20T09:53:29.508467+00:00",
-        "duration_ms": 2.66,
+        "start_time": "2026-11-21T10:46:06.794317+00:00",
+        "end_time": "2026-11-21T10:46:06.795735+00:00",
+        "duration_ms": 1.42,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-20T09:53:29.508513+00:00",
-        "end_time": "2026-11-20T09:53:29.508693+00:00",
-        "duration_ms": 0.18,
+        "start_time": "2026-11-21T10:46:06.795748+00:00",
+        "end_time": "2026-11-21T10:46:06.795890+00:00",
+        "duration_ms": 0.14,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-20T09:53:29.508704+00:00",
-        "end_time": "2026-11-20T09:53:29.510946+00:00",
-        "duration_ms": 2.24,
+        "start_time": "2026-11-21T10:46:06.795898+00:00",
+        "end_time": "2026-11-21T10:46:06.798306+00:00",
+        "duration_ms": 2.41,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-20T09:53:29.510965+00:00",
-        "end_time": "2026-11-20T09:53:29.510969+00:00",
+        "start_time": "2026-11-21T10:46:06.798315+00:00",
+        "end_time": "2026-11-21T10:46:06.798319+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-20T09:53:29.510976+00:00",
-        "end_time": "2026-11-20T09:53:29.524054+00:00",
-        "duration_ms": 13.07,
+        "start_time": "2026-11-21T10:46:06.798325+00:00",
+        "end_time": "2026-11-21T10:46:06.812604+00:00",
+        "duration_ms": 14.28,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-20T09:53:29.559776+00:00",
-        "end_time": "2026-11-20T09:53:29.615584+00:00",
-        "duration_ms": 55.81,
+        "start_time": "2026-11-21T10:46:06.838896+00:00",
+        "end_time": "2026-11-21T10:46:06.898915+00:00",
+        "duration_ms": 60.02,
         "details": {}
       }
     ],
-    "total_duration_ms": 78.52,
+    "total_duration_ms": 83.77,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "4de7270db2bb2a063d3906bba8968401db98ca859586689751d898d09f881d92",
-      "storyboard_preview.html": "a41defc6e774ab4ca6db0c57c279b9bab099f40475877f4b1647ff274b465ec2",
+      "production_bundle.json": "6b1ef28bdeb2f2b7d1c53a9e6735faf533a982e70849ae6a78c3786e5cb208c4",
+      "storyboard_preview.html": "1da1dc540e10d578a09b2877a74b2b2016fada63e7624ab34b87298fd72eca01",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "4d6c679600d3dd46fc5f25317619afcd900fe05b241d3c0216e8172af652afed",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -8182,12 +10784,12 @@
       "film_emulation_spec.json": "f3dbcc3ed70f5e39642e358be0238233657b39f909d166045bbcab4d436f2e59",
       "film_stock_shader.dctl": "1ea6862506fc6c86278eaec36ac5ba335b731101ba2c7cddf5c1564f33a2511f",
       "film_stock.ale": "81b997b2dcbf38a121d5170f1d714addea36674da5619acb88acb6f8e2b1e27a",
-      "slate_manifest.json": "a8098e2628e0e2d9b490c85b0c4d1204ceed19e4f673eec6a4c489240a9cb126",
-      "asc_mhl_manifest.xml": "c44758bfbdacc04b00677f9784aa5ce8d7e28ae106f1d322003eca58e7e93ce2",
+      "slate_manifest.json": "7c416635e89da51cf05dfa9c65685765a278cd17ef44bfff89310b9a6cfb3fba",
+      "asc_mhl_manifest.xml": "46b76dd07e2eab99417e9f2aab4a401f045fd1765b00aec704d2ecc72f583055",
       "clapper_slate_log.csv": "ccf028e61e3f77e7c2df55c893ed3baa533fbe651d0d2fd49d50a6317bb615ce",
       "sound_sync.ale": "f4e39639602ec201831c2f3c17bb5c6b9154e5ff3a3efb297fd318416b624127",
       "flight_path.kml": "0b8b4cdb8d1d493e35e74a6a65d0b3e598f9094f4f4ec20ec8ea2c9a2faea55d",
-      "flight_waypoints.gpx": "7739cd22896d02cb033ce2ec7ce6c9ea02aae5cdb0c95abc3cfb7c5a14123668",
+      "flight_waypoints.gpx": "66a8c8bc1d5c5d3aeabefc5e159acfcf80908cdb699b31b40a99f95a3a73c40b",
       "drone_flight_sheet.csv": "968196ff225755371cf8ad691e4e8ddde4ddc537105ba83e88429573c71c880c",
       "drone_flight_sheet.md": "7eba0018960ff4bc0b8e7d38ceba417b38327ffee79a1e6d921133f3fa317389",
       "drone_flight_manifest.json": "67cdc9b335721788910822f45dd532b1e115c89199c0f1d16c502d83517f89a8",
@@ -8202,9 +10804,17 @@
       "broadcast_qc_certificate.md": "49613b363cde31afa208df3fcc00cce4b6f538d6e4b123d649c7bb82b8227118",
       "rights_clearance_matrix.csv": "53befedf7c2943cf25c192b2225ed6899f210f1aab5924399e91f6a7a22ea7d6",
       "broadcast_qc_manifest.json": "5cbf800c9209c8bf47f2d29d8709270acd272a7d9dd3f3ca4b0bb09d940733a6",
-      "council_audit_report.json": "8a3c7c2ca7b3f893e46a0f08c484d692e3cb765077e8af793531c1facf14b4a5",
-      "council_report.json": "8a3c7c2ca7b3f893e46a0f08c484d692e3cb765077e8af793531c1facf14b4a5",
-      "council_report.md": "9cb02706248af3696abf118ba60aecc6414fdf15ed553effbc647989a3b2721c",
+      "continuity_log.csv": "ac093db51c47886b6f9ab7b745de4806828aa2e276c85108deb6ecf9a4ecddf0",
+      "blocking_floorplan.svg": "b051bf737b258a267f159e0298b4f9ad8fac601fe38e485d34dd6756a073d030",
+      "continuity_manifest.json": "ec847b2db9d6fe106d1f180d0332e98b387d29732c70a825d99b58f06de26f8f",
+      "review_markers.edl": "af1595cffc2c69b0777f4369f726e14e8fa70db1ce9d3830a96fc1e9699c3be7",
+      "review_markers.fcpxml": "8f99b53c49259a09be6efcb517d9bb0a989dc83c83c76bce95262f0da8bca3a1",
+      "review_notes_frameio.json": "33de1850a13910ca07d95abd160f18328d7885b599a2ec3f3e9ccefc14bc242d",
+      "review_notes.csv": "5228179e0795a1c6e14ee43d1ec4961bb7e824e111011f910309a209ee228584",
+      "client_signoff_report.md": "6610d5ec40a81e9fe88949d70bebbc332baabd791030f1d08d9b93b83c3e4e18",
+      "council_audit_report.json": "a3943202fc7cfe8a818135252e0cb554845e6398cf0fcada17292c854e9c4a14",
+      "council_report.json": "a3943202fc7cfe8a818135252e0cb554845e6398cf0fcada17292c854e9c4a14",
+      "council_report.md": "ae28eb6745a110f337f24f6dc939460b4b248af9f3de1adc26d7235eb846c9ab",
       "storyboards/anchor1_character_turnaround.svg": "49ac46caa0989d8e794c7b6a3ad955ef0bdac50829f056bffcac8d0d99327318",
       "storyboards/anchor2_environment_master.svg": "5996c07b6c1d1cc8a7ae5b336a2f98054b926655c1e957d2331bd774287c67bc",
       "storyboards/anchor3_scene_1_keyframe.svg": "e59e554ef651f1f3ca069cec3a26f410cff48ac0b8bda32f0454fd83e4e8d775",
@@ -8212,9 +10822,9 @@
     }
   },
   "council_report": {
-    "version": "2.12.0",
+    "version": "2.13.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-20T09:53:29.613176+00:00",
+    "timestamp": "2026-11-21T10:46:06.896829+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -8226,6 +10836,19 @@
         "passed": true,
         "persona_title": "",
         "findings": [
+          {
+            "severity": "info",
+            "category": "telemetry_secret_scan",
+            "message": "Zero-leak SECRET_PATTERN scan passed cleanly on: telemetry.json, production_bundle.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scanned_files": [
+                "telemetry.json",
+                "production_bundle.json"
+              ]
+            }
+          },
           {
             "severity": "info",
             "category": "optical_dof_delivery",
@@ -8400,6 +11023,36 @@
           },
           {
             "severity": "info",
+            "category": "continuity_blocking_delivery",
+            "message": "Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "continuity_artifacts": [
+                "continuity_log.csv",
+                "blocking_floorplan.svg",
+                "continuity_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_delivery",
+            "message": "Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "review_artifacts": [
+                "review_markers.edl",
+                "review_markers.fcpxml",
+                "review_notes_frameio.json",
+                "review_notes.csv",
+                "client_signoff_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "continuity_blocking_schema",
             "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
             "remediation": null,
@@ -8417,9 +11070,29 @@
             "details": {
               "scene_count": 2
             }
+          },
+          {
+            "severity": "info",
+            "category": "c2pa_provenance_schema",
+            "message": "MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema",
+            "message": "MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 19 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -8543,8 +11216,36 @@
           },
           {
             "severity": "info",
+            "category": "c2pa_provenance_schema_compliance",
+            "message": "C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_provenances_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema_compliance",
+            "message": "On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_hazards": 6
+            }
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_c2pa_and_safety_compliance",
+            "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -8830,6 +11531,34 @@
           },
           {
             "severity": "info",
+            "category": "domain_c2pa_provenance",
+            "message": "C2PA v2.1 provenance calibrated for domain 'culinary_asmr' (tier=full_ai_synthetic, likeness_records=1, consents_verified=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "synthetic_tier": "full_ai_synthetic",
+              "likeness_records_count": 1
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_safety_risk",
+            "message": "On-set Safety JSA calibrated for domain 'culinary_asmr' (max_exclusion=10.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'food_allergen_thermal', 'kinetic_moco_arm']).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "max_exclusion_zone_m": 10.0,
+              "hazard_categories": [
+                "electrical_dmx_wet",
+                "food_allergen_thermal",
+                "kinetic_moco_arm"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'culinary_asmr' matches strategic brief classification.",
             "remediation": null,
@@ -8986,6 +11715,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_c2pa_hud",
+            "message": "C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_safety_hud",
+            "message": "On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -9003,7 +11748,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9012,6 +11757,14 @@
             "severity": "info",
             "category": "animatic_hotkeys_wn",
             "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_yz",
+            "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9376,6 +12129,42 @@
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-025",
+        "title": "C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine",
+        "problem_statement": "Enterprise broadcasters, legal compliance teams, and agency distributors for 'Artisanal Japanese Culinary Ceremonial M' require cryptographically verifiable C2PA v2.1 Content Credentials, EU AI Act Article 50 synthetic disclosure tiers, strict 2026 Gemini Model Matrix lineage verification (zero legacy models), and SAG-AFTRA digital replica / talent likeness consent gating before rendering or publishing.",
+        "proposed_solution": "Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/c2pa_provenance.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-026",
+        "title": "On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine",
+        "problem_statement": "Physical production units, 1st Assistant Directors, Stunt Coordinators, and Unit Safety Officers for 'Artisanal Japanese Culinary Ceremonial M' require physics-calibrated kinetic exclusion zones (MoCo arm reach + E-stop braking distance, FAA Part 107 UAV standoff perimeters, stunt vehicle braking buffers), 5x5 Job Safety Analysis (JSA) hazard matrices aligned with CSATF Safety Bulletins, and standby medical/fire/E-stop emergency protocols prior to stage call.",
+        "proposed_solution": "Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/safety_risk.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
         ],
         "priority": "P0",
         "status": "implemented"

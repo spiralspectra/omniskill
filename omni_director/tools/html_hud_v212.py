@@ -104,7 +104,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-prep" onclick="toggleDeptGroup('prep')" aria-expanded="false" aria-controls="dept-tray-prep">
             <span class="dept-pill-icon" aria-hidden="true">📋</span>
             <span>Prep &amp; Budget</span>
-            <span class="dept-count">3</span>
+            <span class="dept-count">4</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-prep" role="group" aria-label="Prep and Budget Tools" hidden>
@@ -117,6 +117,9 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
               💼 AICP [A]
             </button>
+            <button type="button" class="btn-dit-lut" id="btn-safety-animatic" onclick="toggleSafetyHUD()" aria-label="On-Set Safety Risk and Exclusion Zone HUD [Z]" aria-expanded="false" aria-controls="animatic-safety-hud">
+              🦺 Safety JSA [Z]
+            </button>
           </div>
         </div>
 
@@ -124,7 +127,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
             <span class="dept-pill-icon" aria-hidden="true">📡</span>
             <span>Delivery, QC &amp; Review</span>
-            <span class="dept-count">3</span>
+            <span class="dept-count">4</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
@@ -137,6 +140,9 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dof" id="btn-review-animatic" onclick="toggleReviewHUD()" aria-label="Client Review and Frame Pin Annotation HUD [N]" aria-expanded="false" aria-controls="animatic-review-hud">
               📝 Review [N]
             </button>
+            <button type="button" class="btn-dof" id="btn-c2pa-animatic" onclick="toggleC2paHUD()" aria-label="C2PA Content Credentials and Provenance HUD [Y]" aria-expanded="false" aria-controls="animatic-c2pa-hud">
+              🛡️ C2PA [Y]
+            </button>
           </div>
         </div>
 
@@ -145,7 +151,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [R] Reframe · [Q] QC · [N] Review · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 
@@ -227,7 +233,7 @@ def _build_interactive_blocking_svg(manifest: Any) -> str:
             f'  <g class="blocking-cam-node{active_cls}" id="blocking-cam-node-{s_idx}" data-scene-index="{s_idx}" '
             f'role="button" tabindex="0" aria-label="Jump to Scene {s_idx} camera blocking ({scale_s}, {cam.focal_length_mm}mm)" '
             f'onclick="selectBlockingScene({s_idx})" '
-            f'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){{event.preventDefault();selectBlockingScene({s_idx});}}">'
+            f'onkeydown="if(event.key===\'Enter\'||event.key===\' \'||event.code===\'Space\'){{event.preventDefault();event.stopPropagation();selectBlockingScene({s_idx});}}">'
         )
         parts.append(
             f'    <polygon class="blocking-fov-cone" points="{cam_px_x},{cam_px_y} {w1_x},{w1_y} {w2_x},{w2_y}" '
@@ -1034,7 +1040,7 @@ def build_v212_hud_bundle(
 
     v212_modals_html = f"""
   <!-- 180-Degree Blocking & Continuity HUD (PM-FEAT-023) -->
-  <div id="animatic-blocking-hud" class="blocking-hud-modal" role="dialog" aria-modal="true" aria-labelledby="blocking-hud-title" style="display:none;">
+  <div id="animatic-blocking-hud" class="blocking-hud-modal" role="dialog" aria-modal="true" aria-labelledby="blocking-hud-title" tabindex="-1" style="display:none;">
     <div class="blocking-modal-content">
       <div class="blocking-modal-header">
         <div class="blocking-title-wrap">
@@ -1127,7 +1133,7 @@ def build_v212_hud_bundle(
   </div>
 
   <!-- Client Review & Pin Annotation HUD (PM-FEAT-024) -->
-  <div id="animatic-review-hud" class="review-hud-modal" role="dialog" aria-modal="true" aria-labelledby="review-hud-title" style="display:none;">
+  <div id="animatic-review-hud" class="review-hud-modal" role="dialog" aria-modal="true" aria-labelledby="review-hud-title" tabindex="-1" style="display:none;">
     <div class="review-modal-content">
       <div class="review-modal-header">
         <div class="review-title-wrap">
@@ -1271,6 +1277,55 @@ def build_v212_hud_bundle(
         closeAllDeptGroups(false);
       }}
     }});
+
+    function _isEditableElement(el) {{
+      if (!el) return false;
+      const tag = el.tagName ? el.tagName.toLowerCase() : '';
+      return Boolean(el.isContentEditable || tag === 'input' || tag === 'textarea' || tag === 'select');
+    }}
+
+    function _getOpenModalDialog() {{
+      const dialogs = Array.from(document.querySelectorAll('[role="dialog"][aria-modal="true"]')).filter((dlg) => {{
+        if (dlg.hasAttribute('hidden') || dlg.style.display === 'none') return false;
+        return window.getComputedStyle(dlg).display !== 'none';
+      }});
+      return dialogs.length ? dialogs[dialogs.length - 1] : null;
+    }}
+
+    function _getFocusableInDialog(dlg) {{
+      if (!dlg) return [];
+      const selector = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      return Array.from(dlg.querySelectorAll(selector)).filter((el) => {{
+        if (el.hasAttribute('hidden') || el.closest('[hidden]')) return false;
+        const style = window.getComputedStyle(el);
+        return style.display !== 'none' && style.visibility !== 'hidden';
+      }});
+    }}
+
+    function _handleModalTabFocusTrap(e) {{
+      if (!e || e.key !== 'Tab') return false;
+      const activeDialog = _getOpenModalDialog();
+      if (!activeDialog) return false;
+      const focusables = _getFocusableInDialog(activeDialog);
+      if (!focusables.length) {{
+        e.preventDefault();
+        return true;
+      }}
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const curr = document.activeElement;
+      if (!activeDialog.contains(curr)) {{
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      }} else if (e.shiftKey && curr === first) {{
+        e.preventDefault();
+        last.focus();
+      }} else if (!e.shiftKey && curr === last) {{
+        e.preventDefault();
+        first.focus();
+      }}
+      return true;
+    }}
 
     // PM-FEAT-023: 180-Degree Blocking & Continuity HUD Controller
     const BLOCKING_SCENES = {blocking_scenes_json};
@@ -1818,28 +1873,29 @@ def build_v212_hud_bundle(
     function _buildDynamicReviewFCPXML() {{
       if (!reviewDirty) return REVIEW_INITIAL_FCPXML;
       const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      const totalScenes = Math.max(1, REVIEW_STATE.scene_reviews.length);
       const fps = 24;
-      const clipDurSec = 5;
-      const clipFrames = clipDurSec * fps;
       const resources = ['        <format id="r1" name="FFVideoFormat1080p24" frameDuration="1/24s" width="1920" height="1080" colorSpace="1-1-1 (Rec. 709)"/>'];
       const spine = [];
       let offset = 0;
-      let sceneStartSec = 0;
+      let totalFrames = 0;
       REVIEW_STATE.scene_reviews.forEach((sr) => {{
+        const startSec = Number(sr.start_sec || 0);
+        const endSec = Number(sr.end_sec || (startSec + 5));
+        const clipDurSec = Math.max(1, Math.round(endSec - startSec));
+        const clipFrames = clipDurSec * fps;
         const resId = 'r' + (sr.scene_index + 1);
         resources.push('        <asset id="' + resId + '" name="SCENE_' + String(sr.scene_index).padStart(2, '0') + '" start="0s" duration="' + clipFrames + '/24s" hasVideo="1" hasAudio="1" format="r1"/>');
         const markers = sr.annotations.map((n) => {{
           const tcSec = Number(n.timecode_sec || 0);
-          const relSec = tcSec >= sceneStartSec ? (tcSec - sceneStartSec) : tcSec;
+          const relSec = Math.max(0, tcSec - startSec);
           const localFrames = Math.max(0, Math.min(clipFrames - 1, Math.round(relSec * fps)));
           return '                            <marker start="' + localFrames + '/24s" duration="1/24s" value="' + esc('[' + n.note_id + ' | ' + n.marker_color + ' | ' + n.reviewer_role + '] ' + n.comment) + '" note="' + esc(n.compiled_edit_delta || n.comment) + '" completed="' + (n.resolved ? '1' : '0') + '"/>';
         }});
         spine.push('                        <asset-clip name="' + esc('Scene_' + String(sr.scene_index).padStart(2, '0')) + '" ref="' + resId + '" offset="' + offset + '/24s" duration="' + clipFrames + '/24s" start="0s" format="r1">\\n' + markers.join('\\n') + '\\n                        </asset-clip>');
         offset += clipFrames;
-        sceneStartSec += clipDurSec;
+        totalFrames += clipFrames;
       }});
-      return '<?xml version="1.0" encoding="UTF-8"?>\\n<fcpxml version="1.10">\\n    <resources>\\n' + resources.join('\\n') + '\\n    </resources>\\n    <library>\\n        <event name="' + esc(REVIEW_STATE.project_title) + ' Review">\\n            <project name="' + esc(REVIEW_STATE.project_title) + ' Review Markers">\\n                <sequence format="r1" duration="' + (totalScenes * clipFrames) + '/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">\\n                    <spine>\\n' + spine.join('\\n') + '\\n                    </spine>\\n                </sequence>\\n            </project>\\n        </event>\\n    </library>\\n</fcpxml>\\n';
+      return '<?xml version="1.0" encoding="UTF-8"?>\\n<fcpxml version="1.10">\\n    <resources>\\n' + resources.join('\\n') + '\\n    </resources>\\n    <library>\\n        <event name="' + esc(REVIEW_STATE.project_title) + ' Review">\\n            <project name="' + esc(REVIEW_STATE.project_title) + ' Review Markers">\\n                <sequence format="r1" duration="' + Math.max(fps, totalFrames) + '/24s" tcStart="0s" tcFormat="NDF" audioLayout="stereo" audioRate="48k">\\n                    <spine>\\n' + spine.join('\\n') + '\\n                    </spine>\\n                </sequence>\\n            </project>\\n        </event>\\n    </library>\\n</fcpxml>\\n';
     }}
 
     function _buildDynamicReviewJSON() {{
@@ -1902,9 +1958,10 @@ def build_v212_hud_bundle(
 
     function _buildDynamicReviewMD() {{
       if (!reviewDirty) return REVIEW_INITIAL_MD;
+      const escMd = (v) => String(v == null ? '' : v).replace(/\\|/g, '\\\\|').replace(/\\r?\\n/g, ' ');
       const gate = REVIEW_STATE.ready_for_live_render ? 'READY FOR LIVE RENDER' : 'BLOCKED PENDING SIGN-OFF';
       const lines = [
-        '# Client Review & Stakeholder Signoff Report: ' + REVIEW_STATE.project_title,
+        '# Client Review & Stakeholder Signoff Report: ' + escMd(REVIEW_STATE.project_title),
         '',
         '- **Revision**: `v' + REVIEW_STATE.revision + '`',
         '- **Overall Status**: `' + REVIEW_STATE.overall_status.toUpperCase() + '`',
@@ -1915,13 +1972,13 @@ def build_v212_hud_bundle(
         '|---|---|---|---|'
       ];
       REVIEW_STATE.scene_reviews.forEach((sr) => {{
-        lines.push('| ' + sr.scene_index + ' | ' + sr.scene_title + ' | `' + sr.approval_status.toUpperCase() + '` | ' + sr.annotations.length + ' |');
+        lines.push('| ' + sr.scene_index + ' | ' + escMd(sr.scene_title) + ' | `' + sr.approval_status.toUpperCase() + '` | ' + sr.annotations.length + ' |');
       }});
       lines.push('', '## Timestamped Annotation Log', '| Note ID | Scene | Timecode | Pin | Status | Comment |', '|---|---|---|---|---|---|');
       REVIEW_STATE.scene_reviews.forEach((sr) => {{
         sr.annotations.forEach((n) => {{
           const st = n.resolved ? 'RESOLVED' : (n.blocking_gate ? 'BLOCKING' : 'OPEN');
-          lines.push('| `' + n.note_id + '` | ' + n.scene_index + ' | `' + n.timecode_smpte + '` | (' + Math.round((n.x_norm || 0.5) * 100) + '%, ' + Math.round((n.y_norm || 0.48) * 100) + '%) | `' + st + '` | ' + n.comment + ' |');
+          lines.push('| `' + escMd(n.note_id) + '` | ' + n.scene_index + ' | `' + escMd(n.timecode_smpte) + '` | (' + Math.round((n.x_norm || 0.5) * 100) + '%, ' + Math.round((n.y_norm || 0.48) * 100) + '%) | `' + st + '` | ' + escMd(n.comment) + ' |');
         }});
       }});
       return lines.join('\\n') + '\\n';

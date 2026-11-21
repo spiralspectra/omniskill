@@ -1101,6 +1101,207 @@
           "resolved_notes_count": 1,
           "signoff_by": "Automotive Director & OEM Brand Lead",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "d3a065fa7d83"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "d3a065fa7d8326eb9efd7adea272ade8fbba7c612a96168df3658f9a77192083",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+        },
+        "safety_risk": {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
         }
       },
       {
@@ -2085,6 +2286,195 @@
           "resolved_notes_count": 1,
           "signoff_by": "Automotive Director & OEM Brand Lead",
           "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+        },
+        "c2pa_provenance": {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "bd82109b4fc4"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "bd82109b4fc4b6e458d097dc470135c8025e46ca3dd15f3d35f4b1daf00745d0",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]"
+        },
+        "safety_risk": {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
         }
       }
     ],
@@ -2971,7 +3361,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-20T09:53:28.657033+00:00",
+        "creation_date": "2026-11-21T10:46:06.117270+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -2979,7 +3369,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-20T09:53:28.657018+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.117257+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -2987,7 +3377,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-20T09:53:28.657030+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.117267+00:00"
           }
         ]
       }
@@ -3043,7 +3433,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-20T09:53:28.657033+00:00",
+        "creation_date": "2026-11-21T10:46:06.117270+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3051,7 +3441,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-20T09:53:28.657018+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.117257+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3059,7 +3449,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-20T09:53:28.657030+00:00"
+            "hash_timestamp": "2026-11-21T10:46:06.117267+00:00"
           }
         ]
       }
@@ -8418,6 +8808,2202 @@
       "ready_for_live_render": true,
       "signoff_summary": "Revision 1 approved across 2 scene(s) (automotive_robotics); all stakeholder pin annotations resolved and live render gate cleared.",
       "prompt_token": "[REVIEW_GATE: rev=1 status=approved open_notes=0]"
+    },
+    "master_c2pa_provenance": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
+      "synthetic_tier": "hybrid_icvfx_assisted",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "9e5be0b14ed5"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Lead Test Pilot / Telematics Specialist",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "d3a065fa7d83"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "d3a065fa7d8326eb9efd7adea272ade8fbba7c612a96168df3658f9a77192083",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "bd82109b4fc4"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "bd82109b4fc4b6e458d097dc470135c8025e46ca3dd15f3d35f4b1daf00745d0",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • Hybrid ICVFX & AI-Assisted Automotive Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Hybrid LED-volume / Russian Arm telemetry-backed automotive provenance verified (2026 Gemini Matrix). 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+    },
+    "c2pa_provenance": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
+      "synthetic_tier": "hybrid_icvfx_assisted",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "9e5be0b14ed5"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Lead Test Pilot / Telematics Specialist",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "d3a065fa7d83"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "d3a065fa7d8326eb9efd7adea272ade8fbba7c612a96168df3658f9a77192083",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "bd82109b4fc4"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "bd82109b4fc4b6e458d097dc470135c8025e46ca3dd15f3d35f4b1daf00745d0",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • Hybrid ICVFX & AI-Assisted Automotive Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Hybrid LED-volume / Russian Arm telemetry-backed automotive provenance verified (2026 Gemini Matrix). 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+    },
+    "content_credentials": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
+      "synthetic_tier": "hybrid_icvfx_assisted",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "9e5be0b14ed5"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Lead Test Pilot / Telematics Specialist",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "d3a065fa7d83"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "d3a065fa7d8326eb9efd7adea272ade8fbba7c612a96168df3658f9a77192083",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "bd82109b4fc4"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "bd82109b4fc4b6e458d097dc470135c8025e46ca3dd15f3d35f4b1daf00745d0",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • Hybrid ICVFX & AI-Assisted Automotive Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Hybrid LED-volume / Russian Arm telemetry-backed automotive provenance verified (2026 Gemini Matrix). 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+    },
+    "provenance_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "c2pa_spec_version": "2.1",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
+      "synthetic_tier": "hybrid_icvfx_assisted",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+      "actions": [
+        {
+          "action_id": "ACT-MASTER-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-MASTER-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "9e5be0b14ed5"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-MASTER-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-MASTER-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-4eb674d3451e",
+          "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+        },
+        {
+          "ingredient_id": "ING-S01-02",
+          "title": "<image_2> — Master Architectural Environment Anchor",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-02",
+          "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+          "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+        },
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_3> — Scene 1 Composition Keyframe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-567fd6169062",
+          "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-001",
+          "character_name": "Lead Test Pilot / Telematics Specialist",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-001",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+        }
+      ],
+      "scene_provenances": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S01-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 1
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S01-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "d3a065fa7d83"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S01-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S01-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S01-01",
+              "title": "<image_1> — Hero Character Turnaround Reference Sheet",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-01",
+              "document_id": "xmp:did:omni-2026-4eb674d3451e",
+              "hash_sha256": "4eb674d3451ec57ac9aad20b54d80ec48d36cc44b3f22288be092cb9002283c1",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore background clutter and lighting variations"
+            },
+            {
+              "ingredient_id": "ING-S01-02",
+              "title": "<image_2> — Master Architectural Environment Anchor",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s01-02",
+              "document_id": "xmp:did:omni-2026-b5bdf3168b04",
+              "hash_sha256": "b5bdf3168b04d89b08129a59b60dae0ccc1ab78b3ceda3eb18e7d3a4c48a483a",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore transient objects and temporary clutter"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S01-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S01-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "d3a065fa7d8326eb9efd7adea272ade8fbba7c612a96168df3658f9a77192083",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "synthetic_tier": "hybrid_icvfx_assisted",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+          "claim_generator": "OmniMovieDirector/2.13.0",
+          "actions": [
+            {
+              "action_id": "ACT-S02-01",
+              "action": "c2pa.created",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "model_used": "gemini-4-argon",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "master_bible_treatment",
+                "scene_index": 2
+              },
+              "description": "Master Production Bible architectural synthesis and creative regime lock."
+            },
+            {
+              "action_id": "ACT-S02-02",
+              "action": "c2pa.edited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "model_used": "gemini-3.8-flash",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "craft_prompt_audit",
+                "prompt_digest_prefix": "bd82109b4fc4"
+              },
+              "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+            },
+            {
+              "action_id": "ACT-S02-03",
+              "action": "c2pa.composited",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "model_used": "gemini-3-pro-image",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "stage": "nano_banana_continuity",
+                "max_ingredients": 3
+              },
+              "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+            },
+            {
+              "action_id": "ACT-S02-04",
+              "action": "c2pa.transcoded",
+              "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
+              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "model_used": "gemini-omni-1.1-flash-preview",
+              "when_iso8601": "2026-11-21T00:00:00Z",
+              "parameters": {
+                "synthid_soft_binding": true,
+                "c2pa_version": "2.1"
+              },
+              "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+            }
+          ],
+          "ingredients": [
+            {
+              "ingredient_id": "ING-S02-01",
+              "title": "<image_3> — Scene 1 Composition Keyframe",
+              "format": "image/svg+xml",
+              "relationship": "parentOf",
+              "instance_id": "xmp:iid:omni-2026-s02-01",
+              "document_id": "xmp:did:omni-2026-567fd6169062",
+              "hash_sha256": "567fd61690628400776b31d4412b9be2e442bf906aa72d03d8401f3e6116c511",
+              "generative_model": "gemini-3-pro-image",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "notes": "Exclusion clause: Ignore temporary motion blur and camera artifacts"
+            }
+          ],
+          "talent_likeness_records": [
+            {
+              "record_id": "LIK-S02-01",
+              "character_name": "Lead Test Pilot / Telematics Specialist",
+              "performer_name": null,
+              "is_human_likeness": true,
+              "is_digital_replica": false,
+              "consent_status": "original_composite_persona",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+              "consent_reference_id": "CONSENT-2026-S02-01",
+              "voice_cloning_used": false,
+              "territory": "Worldwide",
+              "expiration_date": null,
+              "disclosure_label": "Original composite synthetic persona — no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+              "notes": "Wardrobe polarity: Matte graphite fire-retardant racing suit with reflective telemetry piping"
+            }
+          ],
+          "ai_disclosure_required": true,
+          "eu_ai_act_art50_compliant": true,
+          "watermark_c2pa_soft_binding": true,
+          "consent_gate_passed": true,
+          "provenance_hash_sha256": "bd82109b4fc4b6e458d097dc470135c8025e46ca3dd15f3d35f4b1daf00745d0",
+          "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]"
+        }
+      ],
+      "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) • Hybrid ICVFX & AI-Assisted Automotive Production",
+      "eu_ai_act_art50_compliant": true,
+      "sag_aftra_digital_replica_compliant": true,
+      "all_likeness_consents_verified": true,
+      "manifest_signed": true,
+      "signing_algorithm": "ES256 / Ed25519",
+      "provenance_summary": "Hybrid LED-volume / Russian Arm telemetry-backed automotive provenance verified (2026 Gemini Matrix). 2 scene(s) verified under C2PA v2.1.",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]"
+    },
+    "master_safety_risk": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "jsa_document_id": "JSA-AUTO-2026-4EEEE6",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": true,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Russian Arm Base Controller",
+          "Course Gate Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "high",
+      "highest_risk_rating": 12,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_risk": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "jsa_document_id": "JSA-AUTO-2026-4EEEE6",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": true,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Russian Arm Base Controller",
+          "Course Gate Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "high",
+      "highest_risk_rating": 12,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=6 status=MITIGATED]"
+    },
+    "safety_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "jsa_document_id": "JSA-AUTO-2026-4EEEE6",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": true,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Russian Arm Base Controller",
+          "Course Gate Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "high",
+      "highest_risk_rating": 12,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=6 status=MITIGATED]"
+    },
+    "jsa_manifest": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "jsa_document_id": "JSA-AUTO-2026-4EEEE6",
+      "production_safety_officer": "Certified 1st AD & CSATF Unit Safety Coordinator",
+      "standby_emergency": {
+        "set_medic_on_standby": true,
+        "medic_qualification": "Certified Set Paramedic / EMT-P",
+        "fire_safety_officer_required": false,
+        "ambulance_on_standby": true,
+        "nearest_trauma_center": "Regional Level-1 Trauma Center (<12 min EMS response)",
+        "emergency_muster_point": "Exterior Stage North Gate Alpha",
+        "emergency_radio_channel": "CH-09 SAFETY",
+        "e_stop_locations": [
+          "Video Village Master Console",
+          "Russian Arm Base Controller",
+          "Course Gate Alpha"
+        ],
+        "sds_sheets_staged": true,
+        "safety_briefing_time": "07:00 Call Time Tailgate"
+      },
+      "scene_safety_specs": [
+        {
+          "scene_index": 1,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S01-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S01-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S01-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        },
+        {
+          "scene_index": 2,
+          "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
+          "hazards": [
+            {
+              "hazard_id": "HAZ-S02-01",
+              "category": "stunt_vehicle",
+              "hazard_description": "High-speed tracking vehicle & Russian Arm gyro-stabilized crane pursuit envelope.",
+              "likelihood_score": 3,
+              "severity_score": 4,
+              "risk_rating": 12,
+              "risk_level": "high",
+              "residual_risk_level": "moderate",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "Closed-course perimeter barricades & spotter radio lock",
+                "Dual-channel hydraulic arm E-stop & speed governor",
+                "Tire pressure & brake thermal telemetry pre-check"
+              ],
+              "ppe_required": [
+                "ANSI Class 3 high-visibility vest",
+                "Snell-rated stunt helmet (camera car crew)",
+                "Five-point harness & Hans restraint"
+              ],
+              "responsible_supervisor": "Stunt Coordinator & Precision Driver Lead",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)."
+            },
+            {
+              "hazard_id": "HAZ-S02-02",
+              "category": "kinetic_moco_arm",
+              "hazard_description": "High-acceleration robotic motion-control arm sweep and track pinch-point envelope.",
+              "likelihood_score": 3,
+              "severity_score": 3,
+              "risk_rating": 9,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 21.0,
+              "engineering_controls": [
+                "SIL-3 hardware E-stop lanyard at Video Village & Rig Base",
+                "Optical LiDAR/laser perimeter safety curtain interlock",
+                "Dry-run kinematic envelope sweep at 25% velocity prior to talent entry"
+              ],
+              "ppe_required": [
+                "Steel-toe stage footwear",
+                "ANSI Z87.1 impact eyewear",
+                "High-visibility floor spotter vest"
+              ],
+              "responsible_supervisor": "Lead MoCo Technician & Key Grip",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)."
+            },
+            {
+              "hazard_id": "HAZ-S02-03",
+              "category": "electrical_dmx_wet",
+              "hazard_description": "High-draw DMX/HMI lighting distribution near wet set surfaces, condensation, or metallic truss.",
+              "likelihood_score": 2,
+              "severity_score": 3,
+              "risk_rating": 6,
+              "risk_level": "moderate",
+              "residual_risk_level": "low",
+              "exclusion_zone_m": 5.0,
+              "engineering_controls": [
+                "Class-A 5mA GFCI inline protection on all wet-area distribution drops",
+                "Elevated cable ramps, rubber matting, and bonded stage ground",
+                "IP65 weather-sealed DMX splitters & ballast isolation stands"
+              ],
+              "ppe_required": [
+                "EH-rated insulated rubber-sole footwear",
+                "Insulated electrical handling gloves (Gaffer crew)"
+              ],
+              "responsible_supervisor": "Chief Lighting Technician (Gaffer)",
+              "mitigation_verified": true,
+              "signoff_status": "mitigated",
+              "notes": "CSATF Bulletin #1 (General Safety) & CSATF Bulletin #22 (Electrical / Wet Location Safety)."
+            }
+          ],
+          "max_risk_rating": 12,
+          "overall_risk_level": "high",
+          "max_exclusion_zone_m": 21.0,
+          "signoff_status": "mitigated",
+          "stunt_coordinator_required": true,
+          "pyro_permit_required": false,
+          "rso_laser_clearance_required": false,
+          "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
+          "jsa_notes": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Tailgate safety briefing verified.",
+          "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]"
+        }
+      ],
+      "overall_risk_level": "high",
+      "highest_risk_rating": 12,
+      "total_hazards_identified": 6,
+      "open_holds_count": 0,
+      "signoff_status": "mitigated",
+      "all_hazards_mitigated": true,
+      "jsa_summary": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation. Cleared across 2 scene(s).",
+      "prompt_token": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=6 status=MITIGATED]"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -8497,6 +11083,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=d3a065fa]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -8510,7 +11102,9 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     },
     {
       "scene_index": 2,
@@ -8565,6 +11159,12 @@
         "review_gate_compliant": true,
         "review_gate_reward": 1.0,
         "review_gate_descriptor": "[REVIEW_GATE: rev=1 status=approved open_notes=0]",
+        "c2pa_provenance_compliant": true,
+        "c2pa_provenance_reward": 1.0,
+        "c2pa_provenance_descriptor": "[C2PA_PROVENANCE: c2pa=2.1 tier=hybrid_icvfx_assisted synthid=true eu_art50=PASS likeness=CLEARED digest=bd82109b]",
+        "safety_risk_compliant": true,
+        "safety_risk_reward": 1.0,
+        "safety_risk_descriptor": "[SAFETY_JSA: risk=high exclusion=21.0m hazards=3 status=MITIGATED]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -8577,14 +11177,16 @@
       "reframe_compliant": true,
       "broadcast_qc_compliant": true,
       "continuity_blocking_compliant": true,
-      "review_gate_compliant": true
+      "review_gate_compliant": true,
+      "c2pa_provenance_compliant": true,
+      "safety_risk_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "7ed96c95-ca8a-4fc1-90b8-b2dfb1f8b75d",
+    "session_id": "cd015db1-4f9d-45af-893a-af0e087d7e2d",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-20T09:53:28.651768+00:00",
+    "timestamp": "2026-11-21T10:46:06.112878+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -8594,67 +11196,67 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-20T09:53:28.651790+00:00",
-        "end_time": "2026-11-20T09:53:28.654520+00:00",
-        "duration_ms": 2.73,
+        "start_time": "2026-11-21T10:46:06.112898+00:00",
+        "end_time": "2026-11-21T10:46:06.115003+00:00",
+        "duration_ms": 2.1,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-20T09:53:28.654561+00:00",
-        "end_time": "2026-11-20T09:53:28.658180+00:00",
-        "duration_ms": 3.62,
+        "start_time": "2026-11-21T10:46:06.115028+00:00",
+        "end_time": "2026-11-21T10:46:06.119892+00:00",
+        "duration_ms": 4.86,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-20T09:53:28.658196+00:00",
-        "end_time": "2026-11-20T09:53:28.660476+00:00",
-        "duration_ms": 2.28,
+        "start_time": "2026-11-21T10:46:06.119908+00:00",
+        "end_time": "2026-11-21T10:46:06.121352+00:00",
+        "duration_ms": 1.44,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-20T09:53:28.660496+00:00",
-        "end_time": "2026-11-20T09:53:28.660655+00:00",
+        "start_time": "2026-11-21T10:46:06.121382+00:00",
+        "end_time": "2026-11-21T10:46:06.121544+00:00",
         "duration_ms": 0.16,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-20T09:53:28.660665+00:00",
-        "end_time": "2026-11-20T09:53:28.662470+00:00",
-        "duration_ms": 1.8,
+        "start_time": "2026-11-21T10:46:06.121555+00:00",
+        "end_time": "2026-11-21T10:46:06.123549+00:00",
+        "duration_ms": 1.99,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-20T09:53:28.662484+00:00",
-        "end_time": "2026-11-20T09:53:28.662488+00:00",
+        "start_time": "2026-11-21T10:46:06.123560+00:00",
+        "end_time": "2026-11-21T10:46:06.123564+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-20T09:53:28.662495+00:00",
-        "end_time": "2026-11-20T09:53:28.676010+00:00",
-        "duration_ms": 13.51,
+        "start_time": "2026-11-21T10:46:06.123570+00:00",
+        "end_time": "2026-11-21T10:46:06.139221+00:00",
+        "duration_ms": 15.65,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-20T09:53:28.713698+00:00",
-        "end_time": "2026-11-20T09:53:28.769219+00:00",
-        "duration_ms": 55.52,
+        "start_time": "2026-11-21T10:46:06.167529+00:00",
+        "end_time": "2026-11-21T10:46:06.230364+00:00",
+        "duration_ms": 62.84,
         "details": {}
       }
     ],
-    "total_duration_ms": 79.62,
+    "total_duration_ms": 89.04,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "41bd445ce9036b3b90008d84c1ca203e58f34c423ee6f9cb5c68ded99faf4c5d",
-      "storyboard_preview.html": "1fcd8419ba4b13d17d96d949010e581c4b6b04a5fbdea4cdacbccbb65dc30b8e",
+      "production_bundle.json": "dd9434e483f6f595a180d42a33dd6d3871444fb3f1ca29a8a74ca9c3a8d79e1e",
+      "storyboard_preview.html": "972c4faac6bfcf438d409b366012bd8a770f1e1dec218f716fd529c537d8227d",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "4597bd55340ef5533c9ca46e238845067ce0e034149c64d7b9b086a982230921",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -8706,12 +11308,12 @@
       "film_emulation_spec.json": "d77ba656c3d6020f1286b3763439ae5f36fe2ab8276fd1379f85363fdd71de91",
       "film_stock_shader.dctl": "2c7f9bb93bc4b6d47533a0f92f25890f4b15ab1b9311082fbecd6fa647d87006",
       "film_stock.ale": "21e00aa9db26f0f2b219c4e05f2242e0085e40e47581a015e4da1a117be69ec2",
-      "slate_manifest.json": "d43871a3e789b5d35b85eb79147cd48540c95c2b3ac8013cd0d8dc072ba9f9f3",
-      "asc_mhl_manifest.xml": "6d319e90fe9b0d9fd119189b59876a53c940d8bc6a855c250c9f5c4397ad708f",
+      "slate_manifest.json": "8022b25e6c6fa0da77ea80dbe17bb9399272a9014b92f03559c3ea82814c61e4",
+      "asc_mhl_manifest.xml": "6969d4b8f7f7bdd80253856aacbf7fbfd76872dd0d73c8949d788f766c63608f",
       "clapper_slate_log.csv": "90e20bf01978114171962afc849b52ecbff2d016bd8b8b59428afa3a0fd3993b",
       "sound_sync.ale": "b1ac6d2ac2ca3cb6dd5cf6459497cbfc51e6738499db281ae6d2cf35a472a8ea",
       "flight_path.kml": "129d6d0062ecabf9f72268110e207d222f7d5d33545730d485b6b6d518671151",
-      "flight_waypoints.gpx": "605d37a5be14d1e00eba5cd6dbe417d2462a6af47afb6c3888fa46dba1e54c8b",
+      "flight_waypoints.gpx": "e0ab250eb00227b2cecd476e462b4af344356c73aa80e68742440dd727bf675e",
       "drone_flight_sheet.csv": "79d85da03f21168fd0ebae24941dc17a74a5ca259b506d341f9a301785ba0779",
       "drone_flight_sheet.md": "7aa169bfd6337f4528ee490edc893cd7580b384d5f5ede02fd480596f258b6af",
       "drone_flight_manifest.json": "f5443eaa0ebb682574d65bbe31d4114e81f55d05292a34e5b5dd7ab2b506a413",
@@ -8726,9 +11328,17 @@
       "broadcast_qc_certificate.md": "f7b7be4aba33132c7272c0546bf472a24ef9c70c10deb5e7f1a12f8abfe25154",
       "rights_clearance_matrix.csv": "d2ba1e4ef6e2671839a36923def9dd0b0d29b4b78e4c20e7230a264169734550",
       "broadcast_qc_manifest.json": "6dbcd5303645ab7c6534adb68f564a494ceb47283d16bf20c57e62cd3460a7ab",
-      "council_audit_report.json": "efb770967f646130057619eefff3d11008df48af833dee63ff53c1f3897165e2",
-      "council_report.json": "efb770967f646130057619eefff3d11008df48af833dee63ff53c1f3897165e2",
-      "council_report.md": "bad8e83df554249332a9e10e07e5886cdb9e325a8765ddb0811a82093a3ed1bc",
+      "continuity_log.csv": "0658d44f76c9c99471016b945d68a45d30eda14d611c25f3d587e2f319f79608",
+      "blocking_floorplan.svg": "9e1b712968233726e099ed74053b65e3b93f9a2a3dea0822dc69cae84e9da9ab",
+      "continuity_manifest.json": "9d255066f0be0ddec0a991ecef60c5be89a911ae861cd61b367617a2608ccb6c",
+      "review_markers.edl": "01cddc62d4f2ec7d98588b5369e463909cbfe54601d958abb1c0dbdb97b5c726",
+      "review_markers.fcpxml": "6179b3df67d21ecbf60c5c4f85d0c509c996d8e8759eda730ac3c981f6394f72",
+      "review_notes_frameio.json": "e791b728c3b27f0ae769590d83539fb08a2ba9024e69233b84fad8489c491b66",
+      "review_notes.csv": "9478be1e1c5f502f930a9957ba0122c9572b1259b005549a844bbaa5a892e081",
+      "client_signoff_report.md": "8af9afa41562abc1c6ee6235b4ed8f6888d2034aa85cc6c2e083b0e780c081eb",
+      "council_audit_report.json": "1d3adb7a5cd010b212df439ca256e7d96da31902fcaf561448b941b85084de2d",
+      "council_report.json": "1d3adb7a5cd010b212df439ca256e7d96da31902fcaf561448b941b85084de2d",
+      "council_report.md": "943c0d7487306c47a99fc0fa595965cbbdacf235065995bf537878d0b7985a65",
       "storyboards/anchor1_character_turnaround.svg": "6fe05754a2307303f0026fafee912853eb5678a6122250fbdaa7e4d27a3de121",
       "storyboards/anchor2_environment_master.svg": "280a27068876a5cd81b6be8ada54eb57417fadb13b22ec65b1f9565f7dff8972",
       "storyboards/anchor3_scene_1_keyframe.svg": "0d4958438163583ed492d93a00a88392becc547a0144d874b35853cd85620678",
@@ -8736,9 +11346,9 @@
     }
   },
   "council_report": {
-    "version": "2.12.0",
+    "version": "2.13.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-20T09:53:28.766919+00:00",
+    "timestamp": "2026-11-21T10:46:06.227905+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -8750,6 +11360,19 @@
         "passed": true,
         "persona_title": "",
         "findings": [
+          {
+            "severity": "info",
+            "category": "telemetry_secret_scan",
+            "message": "Zero-leak SECRET_PATTERN scan passed cleanly on: telemetry.json, production_bundle.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scanned_files": [
+                "telemetry.json",
+                "production_bundle.json"
+              ]
+            }
+          },
           {
             "severity": "info",
             "category": "optical_dof_delivery",
@@ -8924,6 +11547,36 @@
           },
           {
             "severity": "info",
+            "category": "continuity_blocking_delivery",
+            "message": "Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "continuity_artifacts": [
+                "continuity_log.csv",
+                "blocking_floorplan.svg",
+                "continuity_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "client_review_delivery",
+            "message": "Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "review_artifacts": [
+                "review_markers.edl",
+                "review_markers.fcpxml",
+                "review_notes_frameio.json",
+                "review_notes.csv",
+                "client_signoff_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "continuity_blocking_schema",
             "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
             "remediation": null,
@@ -8941,9 +11594,29 @@
             "details": {
               "scene_count": 2
             }
+          },
+          {
+            "severity": "info",
+            "category": "c2pa_provenance_schema",
+            "message": "MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema",
+            "message": "MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_count": 2
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 14 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 19 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -9067,8 +11740,36 @@
           },
           {
             "severity": "info",
+            "category": "c2pa_provenance_schema_compliance",
+            "message": "C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "scene_provenances_count": 2
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_schema_compliance",
+            "message": "On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_hazards": 6
+            }
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_c2pa_and_safety_compliance",
+            "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9354,6 +12055,34 @@
           },
           {
             "severity": "info",
+            "category": "domain_c2pa_provenance",
+            "message": "C2PA v2.1 provenance calibrated for domain 'automotive_robotics' (tier=hybrid_icvfx_assisted, likeness_records=1, consents_verified=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "synthetic_tier": "hybrid_icvfx_assisted",
+              "likeness_records_count": 1
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_safety_risk",
+            "message": "On-set Safety JSA calibrated for domain 'automotive_robotics' (max_exclusion=21.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'kinetic_moco_arm', 'stunt_vehicle']).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "max_exclusion_zone_m": 21.0,
+              "hazard_categories": [
+                "electrical_dmx_wet",
+                "kinetic_moco_arm",
+                "stunt_vehicle"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'automotive_robotics' matches strategic brief classification.",
             "remediation": null,
@@ -9510,6 +12239,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_c2pa_hud",
+            "message": "C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_safety_hud",
+            "message": "On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -9527,7 +12272,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 49 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9536,6 +12281,14 @@
             "severity": "info",
             "category": "animatic_hotkeys_wn",
             "message": "Blocking [W] and Client Review [N] keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_yz",
+            "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -9900,6 +12653,42 @@
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/nle_export.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-025",
+        "title": "C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine",
+        "problem_statement": "Enterprise broadcasters, legal compliance teams, and agency distributors for 'Cyberpunk Neon-Lit High-Speed Electric M' require cryptographically verifiable C2PA v2.1 Content Credentials, EU AI Act Article 50 synthetic disclosure tiers, strict 2026 Gemini Model Matrix lineage verification (zero legacy models), and SAG-AFTRA digital replica / talent likeness consent gating before rendering or publishing.",
+        "proposed_solution": "Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/c2pa_provenance.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-026",
+        "title": "On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine",
+        "problem_statement": "Physical production units, 1st Assistant Directors, Stunt Coordinators, and Unit Safety Officers for 'Cyberpunk Neon-Lit High-Speed Electric M' require physics-calibrated kinetic exclusion zones (MoCo arm reach + E-stop braking distance, FAA Part 107 UAV standoff perimeters, stunt vehicle braking buffers), 5x5 Job Safety Analysis (JSA) hazard matrices aligned with CSATF Safety Bulletins, and standby medical/fire/E-stop emergency protocols prior to stage call.",
+        "proposed_solution": "Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/safety_risk.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
         ],
         "priority": "P0",
         "status": "implemented"

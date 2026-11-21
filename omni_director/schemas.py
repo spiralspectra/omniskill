@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.12.0"
+__version__ = "2.13.0"
 
 
 class RegimeType(str, Enum):
@@ -2428,6 +2428,410 @@ ClientReviewManifest = MasterClientReviewSpec
 SceneReviewSpec = SceneReviewSignoffSpec
 
 
+# ==============================================================================
+# PM-FEAT-025: C2PA Content Credentials v2.1 & Talent Likeness Disclosure
+# ==============================================================================
+
+
+class SyntheticDisclosureTier(str, Enum):
+    """C2PA / EU AI Act Article 50 generative disclosure tier (PM-FEAT-025)."""
+    FULL_AI_SYNTHETIC = "full_ai_synthetic"
+    HYBRID_ICVFX_ASSISTED = "hybrid_icvfx_assisted"
+    LIVE_ACTION_WITH_AI_PREVIS = "live_action_with_ai_previs"
+    VIRTUAL_DIGITAL_REPLICA = "virtual_digital_replica"
+
+    # Lowercase aliases
+    full_ai_synthetic = "full_ai_synthetic"
+    hybrid_icvfx_assisted = "hybrid_icvfx_assisted"
+    live_action_with_ai_previs = "live_action_with_ai_previs"
+    virtual_digital_replica = "virtual_digital_replica"
+
+
+class C2paActionType(str, Enum):
+    """C2PA Content Credentials v2.1 action assertion taxonomy (PM-FEAT-025)."""
+    CREATED = "c2pa.created"
+    EDITED = "c2pa.edited"
+    TRANSCODED = "c2pa.transcoded"
+    COMPOSITED = "c2pa.composited"
+    PUBLISHED = "c2pa.published"
+
+    # Lowercase aliases
+    created = "c2pa.created"
+    edited = "c2pa.edited"
+    transcoded = "c2pa.transcoded"
+    composited = "c2pa.composited"
+    published = "c2pa.published"
+
+
+class LikenessConsentStatus(str, Enum):
+    """Talent likeness & digital replica consent compliance state (PM-FEAT-025)."""
+    VERIFIED_CONSENT = "verified_consent"
+    SYNTHETIC_NON_HUMAN = "synthetic_non_human"
+    ORIGINAL_COMPOSITE_PERSONA = "original_composite_persona"
+    PENDING_CONSENT = "pending_consent"
+    REVOKED = "revoked"
+
+    # Lowercase aliases
+    verified_consent = "verified_consent"
+    synthetic_non_human = "synthetic_non_human"
+    original_composite_persona = "original_composite_persona"
+    pending_consent = "pending_consent"
+    revoked = "revoked"
+
+
+class C2paIngredientSpec(BaseModel):
+    """C2PA v2.1 provenance ingredient asset binding (PM-FEAT-025)."""
+    ingredient_id: str = Field(default="ING-001")
+    title: str = Field(default="Nano Banana Visual Anchor")
+    format: str = Field(default="image/svg+xml")
+    relationship: str = Field(default="parentOf", description="parentOf, componentOf, or inputTo")
+    instance_id: str = Field(default="xmp:iid:omni-2026-001")
+    document_id: str = Field(default="xmp:did:omni-2026-001")
+    hash_sha256: str = Field(default="")
+    generative_model: str = Field(default="gemini-3-pro-image")
+    synthetic_tier: SyntheticDisclosureTier = Field(default=SyntheticDisclosureTier.FULL_AI_SYNTHETIC)
+    notes: str = Field(default="")
+
+
+class C2paAssertionActionSpec(BaseModel):
+    """C2PA v2.1 c2pa.actions assertion entry (PM-FEAT-025)."""
+    action_id: str = Field(default="ACT-001")
+    action: C2paActionType = Field(default=C2paActionType.CREATED)
+    digital_source_type: str = Field(
+        default="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
+    )
+    software_agent: str = Field(default="OmniMovieDirector/2.13.0")
+    model_used: str = Field(default="gemini-omni-1.1-flash-preview")
+    when_iso8601: str = Field(default="2026-11-21T00:00:00Z")
+    parameters: Dict[str, Any] = Field(default_factory=dict)
+    description: str = Field(default="Synthesized within the 2026 Gemini Model Matrix provenance pipeline.")
+
+
+class TalentLikenessRecordSpec(BaseModel):
+    """SAG-AFTRA & EU AI Act talent likeness disclosure and digital replica consent record (PM-FEAT-025)."""
+    record_id: str = Field(default="LIKENESS-001")
+    character_name: str = Field(default="Hero Subject")
+    performer_name: Optional[str] = Field(default=None)
+    is_human_likeness: bool = Field(default=False)
+    is_digital_replica: bool = Field(default=False)
+    consent_status: LikenessConsentStatus = Field(default=LikenessConsentStatus.ORIGINAL_COMPOSITE_PERSONA)
+    synthetic_tier: SyntheticDisclosureTier = Field(default=SyntheticDisclosureTier.FULL_AI_SYNTHETIC)
+    union_jurisdiction: str = Field(default="SAG-AFTRA / EU AI Act Art. 50")
+    consent_reference_id: str = Field(default="CONSENT-2026-001")
+    voice_cloning_used: bool = Field(default=False)
+    territory: str = Field(default="Worldwide")
+    expiration_date: Optional[str] = Field(default=None)
+    disclosure_label: str = Field(default="Original composite synthetic persona — no human likeness replica.")
+    notes: str = Field(default="")
+
+
+class SceneC2paProvenanceSpec(BaseModel):
+    """Per-scene C2PA Content Credentials v2.1 & talent likeness disclosure profile (PM-FEAT-025)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    synthetic_tier: SyntheticDisclosureTier = Field(default=SyntheticDisclosureTier.FULL_AI_SYNTHETIC)
+    digital_source_type: str = Field(
+        default="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
+    )
+    claim_generator: str = Field(default="OmniMovieDirector/2.13.0")
+    actions: List[C2paAssertionActionSpec] = Field(default_factory=list)
+    ingredients: List[C2paIngredientSpec] = Field(default_factory=list)
+    talent_likeness_records: List[TalentLikenessRecordSpec] = Field(default_factory=list)
+    ai_disclosure_required: bool = Field(default=True)
+    eu_ai_act_art50_compliant: bool = Field(default=True)
+    watermark_c2pa_soft_binding: bool = Field(default=True)
+    consent_gate_passed: bool = Field(default=True)
+    provenance_hash_sha256: str = Field(default="")
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_scene_provenance(self) -> "SceneC2paProvenanceSpec":
+        if any(
+            rec.consent_status in (LikenessConsentStatus.PENDING_CONSENT, LikenessConsentStatus.REVOKED)
+            for rec in self.talent_likeness_records
+        ):
+            object.__setattr__(self, "consent_gate_passed", False)
+        return self
+
+
+class MasterC2paProvenanceSpec(BaseModel):
+    """Master C2PA Content Credentials v2.1 manifest and talent likeness disclosure (PM-FEAT-025)."""
+    project_title: str = Field(default="Commercial Production")
+    c2pa_spec_version: str = Field(default="2.1")
+    claim_generator: str = Field(default="OmniMovieDirector/2.13.0")
+    manifest_id: str = Field(default="urn:c2pa:omni-director:2026:0001")
+    synthetic_tier: SyntheticDisclosureTier = Field(default=SyntheticDisclosureTier.FULL_AI_SYNTHETIC)
+    digital_source_type: str = Field(
+        default="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
+    )
+    actions: List[C2paAssertionActionSpec] = Field(default_factory=list)
+    ingredients: List[C2paIngredientSpec] = Field(default_factory=list)
+    talent_likeness_records: List[TalentLikenessRecordSpec] = Field(default_factory=list)
+    scene_provenances: List[SceneC2paProvenanceSpec] = Field(default_factory=list)
+    ai_disclosure_badge_text: str = Field(
+        default="Content Credentials (C2PA v2.1) • AI-Assisted Synthetic Production"
+    )
+    eu_ai_act_art50_compliant: bool = Field(default=True)
+    sag_aftra_digital_replica_compliant: bool = Field(default=True)
+    all_likeness_consents_verified: bool = Field(default=True)
+    manifest_signed: bool = Field(default=True)
+    signing_algorithm: str = Field(default="ES256 / Ed25519")
+    provenance_summary: str = Field(
+        default="C2PA v2.1 Content Credentials verified across generative assets and likeness disclosures."
+    )
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_master_provenance(self) -> "MasterC2paProvenanceSpec":
+        all_records = list(self.talent_likeness_records)
+        for sp in self.scene_provenances:
+            all_records.extend(sp.talent_likeness_records)
+        unverified = any(
+            rec.consent_status in (LikenessConsentStatus.PENDING_CONSENT, LikenessConsentStatus.REVOKED)
+            for rec in all_records
+        ) or any(not sp.consent_gate_passed for sp in self.scene_provenances)
+        if unverified:
+            object.__setattr__(self, "all_likeness_consents_verified", False)
+            object.__setattr__(self, "sag_aftra_digital_replica_compliant", False)
+        return self
+
+
+# Aliases for PM-FEAT-025
+C2paProvenanceSpec = MasterC2paProvenanceSpec
+C2paManifest = MasterC2paProvenanceSpec
+SceneProvenanceSpec = SceneC2paProvenanceSpec
+
+
+# ==============================================================================
+# PM-FEAT-026: On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA
+# ==============================================================================
+
+
+class SafetyHazardCategory(str, Enum):
+    """On-set production hazard categories for Job Safety Analysis (PM-FEAT-026)."""
+    KINETIC_MOCO_ARM = "kinetic_moco_arm"
+    STUNT_VEHICLE = "stunt_vehicle"
+    AERIAL_UAV = "aerial_uav"
+    PYRO_ATMOSPHERIC_SFX = "pyro_atmospheric_sfx"
+    WIRE_RIGGING_HEIGHT = "wire_rigging_height"
+    ELECTRICAL_DMX_WET = "electrical_dmx_wet"
+    LASER_OPTICAL = "laser_optical"
+    FOOD_ALLERGEN_THERMAL = "food_allergen_thermal"
+
+    # Lowercase aliases
+    kinetic_moco_arm = "kinetic_moco_arm"
+    stunt_vehicle = "stunt_vehicle"
+    aerial_uav = "aerial_uav"
+    pyro_atmospheric_sfx = "pyro_atmospheric_sfx"
+    wire_rigging_height = "wire_rigging_height"
+    electrical_dmx_wet = "electrical_dmx_wet"
+    laser_optical = "laser_optical"
+    food_allergen_thermal = "food_allergen_thermal"
+
+
+class RiskSeverityLevel(str, Enum):
+    """5x5 JSA risk severity classification tier (PM-FEAT-026)."""
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+    # Lowercase aliases
+    low = "low"
+    moderate = "moderate"
+    high = "high"
+    critical = "critical"
+
+
+class SafetySignoffStatus(str, Enum):
+    """Production safety JSA clearance gate status (PM-FEAT-026)."""
+    CLEARED = "cleared"
+    MITIGATED = "mitigated"
+    HOLD_REQUIRED = "hold_required"
+
+    # Lowercase aliases
+    cleared = "cleared"
+    mitigated = "mitigated"
+    hold_required = "hold_required"
+
+
+class SafetyHazardControlSpec(BaseModel):
+    """Individual on-set hazard assessment, 5x5 risk score, and engineering control (PM-FEAT-026)."""
+    hazard_id: str = Field(default="HAZ-001")
+    category: SafetyHazardCategory = Field(default=SafetyHazardCategory.KINETIC_MOCO_ARM)
+    hazard_description: str = Field(default="Motion control robotic arm sweep and stage perimeter clearance.")
+    likelihood_score: int = Field(default=2, ge=1, le=5)
+    severity_score: int = Field(default=2, ge=1, le=5)
+    risk_rating: int = Field(default=4, ge=1, le=25)
+    risk_level: RiskSeverityLevel = Field(default=RiskSeverityLevel.LOW)
+    residual_risk_level: RiskSeverityLevel = Field(default=RiskSeverityLevel.LOW)
+    exclusion_zone_m: float = Field(default=3.0, ge=0.0)
+    engineering_controls: List[str] = Field(
+        default_factory=lambda: ["Hardware E-stop interlock", "Laser perimeter curtain"]
+    )
+    ppe_required: List[str] = Field(
+        default_factory=lambda: ["High-visibility stage vest", "ANSI Z87.1 safety eyewear"]
+    )
+    responsible_supervisor: str = Field(default="1st AD / Key Grip")
+    mitigation_verified: bool = Field(default=True)
+    signoff_status: SafetySignoffStatus = Field(default=SafetySignoffStatus.CLEARED)
+    notes: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_risk_matrix(self) -> "SafetyHazardControlSpec":
+        computed_rating = self.likelihood_score * self.severity_score
+        if "risk_rating" not in self.model_fields_set:
+            object.__setattr__(self, "risk_rating", computed_rating)
+        active_rating = self.risk_rating
+        if "risk_level" not in self.model_fields_set:
+            if active_rating >= 15:
+                inferred_level = RiskSeverityLevel.CRITICAL
+            elif active_rating >= 10:
+                inferred_level = RiskSeverityLevel.HIGH
+            elif active_rating >= 5:
+                inferred_level = RiskSeverityLevel.MODERATE
+            else:
+                inferred_level = RiskSeverityLevel.LOW
+            object.__setattr__(self, "risk_level", inferred_level)
+        if not self.mitigation_verified:
+            object.__setattr__(self, "signoff_status", SafetySignoffStatus.HOLD_REQUIRED)
+        return self
+
+
+class StandbyMedicalAndEmergencySpec(BaseModel):
+    """On-set standby medical, fire safety, E-stop, and trauma response specification (PM-FEAT-026)."""
+    set_medic_on_standby: bool = Field(default=True)
+    medic_qualification: str = Field(default="Certified Set Paramedic / EMT-P")
+    fire_safety_officer_required: bool = Field(default=False)
+    ambulance_on_standby: bool = Field(default=False)
+    nearest_trauma_center: str = Field(default="Regional Level-1 Trauma Center (<15 min EMS)")
+    emergency_muster_point: str = Field(default="Exterior Stage North Gate Alpha")
+    emergency_radio_channel: str = Field(default="Channel 1 — Priority Safety Net")
+    e_stop_locations: List[str] = Field(
+        default_factory=lambda: ["Video Village", "MoCo / Crane Base", "Stage Door B"]
+    )
+    sds_sheets_staged: bool = Field(default=True)
+    safety_briefing_time: str = Field(default="07:00 Call Time Tailgate")
+
+
+class SceneSafetyRiskSpec(BaseModel):
+    """Per-scene Job Safety Analysis (JSA) hazard matrix and exclusion zone spec (PM-FEAT-026)."""
+    scene_index: int = Field(default=1, ge=1)
+    scene_title: str = Field(default="")
+    hazards: List[SafetyHazardControlSpec] = Field(default_factory=list)
+    max_risk_rating: int = Field(default=4, ge=1, le=25)
+    overall_risk_level: RiskSeverityLevel = Field(default=RiskSeverityLevel.LOW)
+    max_exclusion_zone_m: float = Field(default=3.0, ge=0.0)
+    signoff_status: SafetySignoffStatus = Field(default=SafetySignoffStatus.CLEARED)
+    stunt_coordinator_required: bool = Field(default=False)
+    pyro_permit_required: bool = Field(default=False)
+    rso_laser_clearance_required: bool = Field(default=False)
+    safety_officer_name: str = Field(default="1st AD / Production Safety Officer")
+    jsa_notes: str = Field(default="")
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_scene_safety(self) -> "SceneSafetyRiskSpec":
+        if self.hazards:
+            rank = {
+                RiskSeverityLevel.LOW: 1,
+                RiskSeverityLevel.MODERATE: 2,
+                RiskSeverityLevel.HIGH: 3,
+                RiskSeverityLevel.CRITICAL: 4,
+            }
+            max_rating = max(h.risk_rating for h in self.hazards)
+            max_zone = max(h.exclusion_zone_m for h in self.hazards)
+            object.__setattr__(self, "max_risk_rating", max_rating)
+            object.__setattr__(self, "max_exclusion_zone_m", max_zone)
+            if "overall_risk_level" not in self.model_fields_set:
+                top_hazard = max(self.hazards, key=lambda h: rank.get(h.risk_level, 1))
+                object.__setattr__(self, "overall_risk_level", top_hazard.risk_level)
+            if any(
+                h.signoff_status == SafetySignoffStatus.HOLD_REQUIRED or not h.mitigation_verified
+                for h in self.hazards
+            ):
+                object.__setattr__(self, "signoff_status", SafetySignoffStatus.HOLD_REQUIRED)
+            elif (
+                "signoff_status" not in self.model_fields_set
+                and any(h.signoff_status == SafetySignoffStatus.MITIGATED for h in self.hazards)
+            ):
+                object.__setattr__(self, "signoff_status", SafetySignoffStatus.MITIGATED)
+            if any(
+                h.category in (SafetyHazardCategory.STUNT_VEHICLE, SafetyHazardCategory.WIRE_RIGGING_HEIGHT)
+                for h in self.hazards
+            ):
+                object.__setattr__(self, "stunt_coordinator_required", True)
+            if any(h.category == SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX for h in self.hazards):
+                object.__setattr__(self, "pyro_permit_required", True)
+            if any(h.category == SafetyHazardCategory.LASER_OPTICAL for h in self.hazards):
+                object.__setattr__(self, "rso_laser_clearance_required", True)
+        return self
+
+
+class MasterSafetyRiskSpec(BaseModel):
+    """Master On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety JSA Manifest (PM-FEAT-026)."""
+    project_title: str = Field(default="Commercial Production")
+    jsa_document_id: str = Field(default="JSA-2026-0001")
+    production_safety_officer: str = Field(default="Certified 1st AD & Unit Safety Coordinator")
+    standby_emergency: StandbyMedicalAndEmergencySpec = Field(default_factory=StandbyMedicalAndEmergencySpec)
+    scene_safety_specs: List[SceneSafetyRiskSpec] = Field(default_factory=list)
+    overall_risk_level: RiskSeverityLevel = Field(default=RiskSeverityLevel.LOW)
+    highest_risk_rating: int = Field(default=4, ge=1, le=25)
+    total_hazards_identified: int = Field(default=0, ge=0)
+    open_holds_count: int = Field(default=0, ge=0)
+    signoff_status: SafetySignoffStatus = Field(default=SafetySignoffStatus.CLEARED)
+    all_hazards_mitigated: bool = Field(default=True)
+    jsa_summary: str = Field(
+        default="All stage, kinetic rig, electrical, and environmental hazards assessed and mitigated."
+    )
+    prompt_token: str = Field(default="")
+
+    @model_validator(mode="after")
+    def _sync_master_safety(self) -> "MasterSafetyRiskSpec":
+        if self.scene_safety_specs:
+            rank = {
+                RiskSeverityLevel.LOW: 1,
+                RiskSeverityLevel.MODERATE: 2,
+                RiskSeverityLevel.HIGH: 3,
+                RiskSeverityLevel.CRITICAL: 4,
+            }
+            all_hazards = [h for ss in self.scene_safety_specs for h in ss.hazards]
+            if all_hazards:
+                object.__setattr__(self, "total_hazards_identified", len(all_hazards))
+                object.__setattr__(self, "highest_risk_rating", max(h.risk_rating for h in all_hazards))
+            if "overall_risk_level" not in self.model_fields_set:
+                top_scene = max(self.scene_safety_specs, key=lambda ss: rank.get(ss.overall_risk_level, 1))
+                object.__setattr__(self, "overall_risk_level", top_scene.overall_risk_level)
+            hold_hazards = sum(
+                1 for h in all_hazards
+                if h.signoff_status == SafetySignoffStatus.HOLD_REQUIRED or not h.mitigation_verified
+            )
+            hold_scenes = sum(
+                1 for ss in self.scene_safety_specs
+                if not ss.hazards and ss.signoff_status == SafetySignoffStatus.HOLD_REQUIRED
+            )
+            total_holds = hold_hazards + hold_scenes
+            if total_holds > 0:
+                object.__setattr__(self, "open_holds_count", total_holds)
+                object.__setattr__(self, "all_hazards_mitigated", False)
+                object.__setattr__(self, "signoff_status", SafetySignoffStatus.HOLD_REQUIRED)
+            elif (
+                "signoff_status" not in self.model_fields_set
+                and any(ss.signoff_status == SafetySignoffStatus.MITIGATED for ss in self.scene_safety_specs)
+            ):
+                object.__setattr__(self, "signoff_status", SafetySignoffStatus.MITIGATED)
+        if self.open_holds_count > 0:
+            object.__setattr__(self, "all_hazards_mitigated", False)
+            object.__setattr__(self, "signoff_status", SafetySignoffStatus.HOLD_REQUIRED)
+        return self
+
+
+# Aliases for PM-FEAT-026
+SafetyRiskSpec = MasterSafetyRiskSpec
+SafetyJsaManifest = MasterSafetyRiskSpec
+SceneSafetySpec = SceneSafetyRiskSpec
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -2578,6 +2982,16 @@ class ScenePromptSpec(BaseModel):
         validation_alias=AliasChoices("review_signoff", "review_spec", "client_review"),
         description="Scene-specific client review signoff, pin annotations, and revision gate (PM-FEAT-024)"
     )
+    c2pa_provenance: Optional[SceneC2paProvenanceSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("c2pa_provenance", "provenance_spec", "content_credentials"),
+        description="Scene-specific C2PA Content Credentials v2.1 and talent likeness disclosure (PM-FEAT-025)"
+    )
+    safety_risk: Optional[SceneSafetyRiskSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("safety_risk", "safety_spec", "jsa_spec"),
+        description="Scene-specific on-set stunt, pyro/SFX, rigging, and environmental safety JSA (PM-FEAT-026)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -2669,6 +3083,14 @@ class ScenePromptSpec(BaseModel):
                 data["review_signoff"] = data["review_spec"]
             if "client_review" in data and "review_signoff" not in data and isinstance(data["client_review"], (dict, SceneReviewSignoffSpec)):
                 data["review_signoff"] = data["client_review"]
+            if "provenance_spec" in data and "c2pa_provenance" not in data:
+                data["c2pa_provenance"] = data["provenance_spec"]
+            if "content_credentials" in data and "c2pa_provenance" not in data:
+                data["c2pa_provenance"] = data["content_credentials"]
+            if "safety_spec" in data and "safety_risk" not in data:
+                data["safety_risk"] = data["safety_spec"]
+            if "jsa_spec" in data and "safety_risk" not in data:
+                data["safety_risk"] = data["jsa_spec"]
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -2839,6 +3261,38 @@ class ScenePromptSpec(BaseModel):
     def client_review(self, value: Optional[SceneReviewSignoffSpec]) -> None:
         self.review_signoff = value
 
+    @property
+    def provenance_spec(self) -> Optional[SceneC2paProvenanceSpec]:
+        return self.c2pa_provenance
+
+    @provenance_spec.setter
+    def provenance_spec(self, value: Optional[SceneC2paProvenanceSpec]) -> None:
+        self.c2pa_provenance = value
+
+    @property
+    def content_credentials(self) -> Optional[SceneC2paProvenanceSpec]:
+        return self.c2pa_provenance
+
+    @content_credentials.setter
+    def content_credentials(self, value: Optional[SceneC2paProvenanceSpec]) -> None:
+        self.c2pa_provenance = value
+
+    @property
+    def safety_spec(self) -> Optional[SceneSafetyRiskSpec]:
+        return self.safety_risk
+
+    @safety_spec.setter
+    def safety_spec(self, value: Optional[SceneSafetyRiskSpec]) -> None:
+        self.safety_risk = value
+
+    @property
+    def jsa_spec(self) -> Optional[SceneSafetyRiskSpec]:
+        return self.safety_risk
+
+    @jsa_spec.setter
+    def jsa_spec(self, value: Optional[SceneSafetyRiskSpec]) -> None:
+        self.safety_risk = value
+
     def __setattr__(self, name: str, value: Any) -> None:
         if name in ("reframe", "aspect_reframe", "delivery_reframe"):
             super().__setattr__("reframe_spec", value)
@@ -2851,6 +3305,12 @@ class ScenePromptSpec(BaseModel):
             return
         if name in ("review_spec", "client_review"):
             super().__setattr__("review_signoff", value)
+            return
+        if name in ("provenance_spec", "content_credentials"):
+            super().__setattr__("c2pa_provenance", value)
+            return
+        if name in ("safety_spec", "jsa_spec"):
+            super().__setattr__("safety_risk", value)
             return
         super().__setattr__(name, value)
 
@@ -3063,6 +3523,40 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master review manifest alias (PM-FEAT-024)"
     )
+    master_c2pa_provenance: Optional[MasterC2paProvenanceSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_c2pa_provenance", "c2pa_provenance", "content_credentials", "provenance_manifest"),
+        description="Master C2PA Content Credentials v2.1 manifest and talent likeness disclosure (PM-FEAT-025)"
+    )
+    c2pa_provenance: Optional[MasterC2paProvenanceSpec] = Field(
+        default=None,
+        description="Master C2PA provenance alias (PM-FEAT-025)"
+    )
+    content_credentials: Optional[MasterC2paProvenanceSpec] = Field(
+        default=None,
+        description="Master C2PA content credentials alias (PM-FEAT-025)"
+    )
+    provenance_manifest: Optional[MasterC2paProvenanceSpec] = Field(
+        default=None,
+        description="Master C2PA provenance manifest alias (PM-FEAT-025)"
+    )
+    master_safety_risk: Optional[MasterSafetyRiskSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_safety_risk", "safety_risk", "safety_manifest", "jsa_manifest"),
+        description="Master on-set stunt, pyro/SFX, rigging, and environmental safety JSA manifest (PM-FEAT-026)"
+    )
+    safety_risk: Optional[MasterSafetyRiskSpec] = Field(
+        default=None,
+        description="Master safety risk alias (PM-FEAT-026)"
+    )
+    safety_manifest: Optional[MasterSafetyRiskSpec] = Field(
+        default=None,
+        description="Master safety manifest alias (PM-FEAT-026)"
+    )
+    jsa_manifest: Optional[MasterSafetyRiskSpec] = Field(
+        default=None,
+        description="Master JSA manifest alias (PM-FEAT-026)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -3201,6 +3695,39 @@ class MasterProductionBible(BaseModel):
             if self.review_manifest is None:
                 object.__setattr__(self, "review_manifest", review_source)
 
+        # Synchronize C2PA Content Credentials and On-Set Safety JSA aliases (PM-FEAT-025 & PM-FEAT-026)
+        c2pa_source = (
+            self.master_c2pa_provenance
+            or self.c2pa_provenance
+            or self.content_credentials
+            or self.provenance_manifest
+        )
+        if c2pa_source is not None:
+            if self.master_c2pa_provenance is None:
+                object.__setattr__(self, "master_c2pa_provenance", c2pa_source)
+            if self.c2pa_provenance is None:
+                object.__setattr__(self, "c2pa_provenance", c2pa_source)
+            if self.content_credentials is None:
+                object.__setattr__(self, "content_credentials", c2pa_source)
+            if self.provenance_manifest is None:
+                object.__setattr__(self, "provenance_manifest", c2pa_source)
+
+        safety_source = (
+            self.master_safety_risk
+            or self.safety_risk
+            or self.safety_manifest
+            or self.jsa_manifest
+        )
+        if safety_source is not None:
+            if self.master_safety_risk is None:
+                object.__setattr__(self, "master_safety_risk", safety_source)
+            if self.safety_risk is None:
+                object.__setattr__(self, "safety_risk", safety_source)
+            if self.safety_manifest is None:
+                object.__setattr__(self, "safety_manifest", safety_source)
+            if self.jsa_manifest is None:
+                object.__setattr__(self, "jsa_manifest", safety_source)
+
         return self
 
     def __setattr__(self, name: str, value: Any) -> None:
@@ -3232,6 +3759,16 @@ class MasterProductionBible(BaseModel):
             super().__setattr__("master_client_review", value)
             super().__setattr__("client_review", value)
             super().__setattr__("review_manifest", value)
+        if name in ("master_c2pa_provenance", "c2pa_provenance", "content_credentials", "provenance_manifest") and value is not None:
+            super().__setattr__("master_c2pa_provenance", value)
+            super().__setattr__("c2pa_provenance", value)
+            super().__setattr__("content_credentials", value)
+            super().__setattr__("provenance_manifest", value)
+        if name in ("master_safety_risk", "safety_risk", "safety_manifest", "jsa_manifest") and value is not None:
+            super().__setattr__("master_safety_risk", value)
+            super().__setattr__("safety_risk", value)
+            super().__setattr__("safety_manifest", value)
+            super().__setattr__("jsa_manifest", value)
 
 
     @property
@@ -3264,6 +3801,8 @@ class AuditResult(BaseModel):
     broadcast_qc_compliant: bool = True
     continuity_blocking_compliant: bool = True
     review_gate_compliant: bool = True
+    c2pa_provenance_compliant: bool = True
+    safety_risk_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -3378,7 +3917,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.12.0"
+    version: str = "2.13.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -3633,6 +4172,29 @@ __all__ = [
     "MasterClientReviewSpec",
     "ClientReviewManifest",
     "SceneReviewSpec",
+    # PM-FEAT-025: C2PA Content Credentials v2.1 & Talent Likeness Disclosure
+    "SyntheticDisclosureTier",
+    "C2paActionType",
+    "LikenessConsentStatus",
+    "C2paIngredientSpec",
+    "C2paAssertionActionSpec",
+    "TalentLikenessRecordSpec",
+    "SceneC2paProvenanceSpec",
+    "MasterC2paProvenanceSpec",
+    "C2paProvenanceSpec",
+    "C2paManifest",
+    "SceneProvenanceSpec",
+    # PM-FEAT-026: On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA
+    "SafetyHazardCategory",
+    "RiskSeverityLevel",
+    "SafetySignoffStatus",
+    "SafetyHazardControlSpec",
+    "StandbyMedicalAndEmergencySpec",
+    "SceneSafetyRiskSpec",
+    "MasterSafetyRiskSpec",
+    "SafetyRiskSpec",
+    "SafetyJsaManifest",
+    "SceneSafetySpec",
     # Council Schemas
     "CouncilPersona",
     "CouncilFindingSeverity",

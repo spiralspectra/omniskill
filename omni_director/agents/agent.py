@@ -24,12 +24,14 @@ from omni_director.presets import (
     get_domain_dof_spec,
     get_domain_drone_spec,
     get_domain_aicp_bid_spec,
+    get_domain_c2pa_provenance_spec,
     get_domain_film_emulation_spec,
     get_domain_hdr_spec,
     get_domain_lighting_rig,
     get_domain_lut_spec,
     get_domain_moco_rig,
     get_domain_optical_lens,
+    get_domain_safety_risk_spec,
     get_domain_spatial_audio_spec,
     get_domain_speed_ramp,
     get_domain_stripboard_spec,
@@ -54,6 +56,8 @@ from omni_director.tools.review_notes import (
     synthesize_default_client_review,
     synthesize_scene_review_signoff,
 )
+from omni_director.tools.c2pa_provenance import synthesize_scene_c2pa_provenance
+from omni_director.tools.safety_risk import assess_scene_hazards
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -397,7 +401,7 @@ def synthesize_custom_bible(
 
 
 def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
-    """Backfills missing master & scene production specifications (PM-FEAT-007..022)."""
+    """Backfills missing master & scene production specifications (PM-FEAT-007..026)."""
     if not getattr(bible, "master_color_look", None):
         bible.master_color_look = get_domain_color_look(arch)
     if not getattr(bible, "master_audio_mixer", None):
@@ -463,11 +467,25 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
         else:
             bible.master_client_review = synthesize_default_client_review(bible)
 
+    # PM-FEAT-025: C2PA Content Credentials v2.1 & Talent Likeness Provenance
+    if not getattr(bible, "master_c2pa_provenance", None):
+        bible.master_c2pa_provenance = get_domain_c2pa_provenance_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
+
+    # PM-FEAT-026: On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety JSA
+    if not getattr(bible, "master_safety_risk", None):
+        bible.master_safety_risk = get_domain_safety_risk_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
+
     slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
     reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
     qc_scenes = getattr(bible.master_broadcast_qc, "scene_qc_profiles", []) if bible.master_broadcast_qc else []
     blocking_scenes = getattr(bible.master_continuity_blocking, "scene_blockings", []) if bible.master_continuity_blocking else []
     review_scenes = getattr(bible.master_client_review, "scene_reviews", []) if bible.master_client_review else []
+    c2pa_scenes = getattr(bible.master_c2pa_provenance, "scene_provenances", []) if bible.master_c2pa_provenance else []
+    safety_scenes = getattr(bible.master_safety_risk, "scene_safety_specs", []) if bible.master_safety_risk else []
 
     for idx, scene in enumerate(bible.scenes):
         if not getattr(scene, "speed_ramp", None):
@@ -529,6 +547,26 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
                     scene=scene,
                     scene_index=scene.scene_index,
                     domain=arch,
+                )
+        if not getattr(scene, "c2pa_provenance", None):
+            if idx < len(c2pa_scenes):
+                scene.c2pa_provenance = c2pa_scenes[idx]
+            else:
+                scene.c2pa_provenance = synthesize_scene_c2pa_provenance(
+                    scene=scene,
+                    scene_index=scene.scene_index,
+                    bible=bible,
+                    domain=arch,
+                )
+        if not getattr(scene, "safety_risk", None):
+            if idx < len(safety_scenes):
+                scene.safety_risk = safety_scenes[idx]
+            else:
+                scene.safety_risk = assess_scene_hazards(
+                    scene=scene,
+                    scene_index=scene.scene_index,
+                    domain=arch,
+                    bible=bible,
                 )
 
 

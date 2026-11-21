@@ -30,3 +30,12 @@
 - **Tempo & Key**: 84 BPM in D Major
 - **Instrumentation**: Plucked acoustic cello pizzicato, Felted upright piano playing delicate sparse arpeggios, Subtle wooden xylophone clicks tuned to foley impacts, Warm analog sub-bass drone resolving into absolute stillness
 - **Dynamic Arc**: Seconds 00-08: Tense, playful pizzicato rhythm ticking like a clockwork box. Seconds 08-16: Rapid, polyrhythmic wooden mallet pulses synchronizing with furniture clicks. Seconds 16-24: Swelling warm cello and piano harmony. Seconds 24-32: All music decrescendos instantly on the final blanket drop, leaving only a sustained pure piano chord and serene silence.
+
+## 5. On-Set Safety & Emergency Bulletin Summary
+- **Overall Risk Level**: `MODERATE` (Signoff: `MITIGATED`, Peak Score: `6/25`)
+- **Max Exclusion Zone**: `4.0m`
+- **Standby Medic**: `YES (Certified Set Paramedic / EMT-P)`
+- **Fire Safety Officer**: `STANDARD / EXTINGUISHER STAGED`
+- **Emergency Radio Channel**: `CH-09 SAFETY`
+- **Nearest Trauma Center**: Regional Level-1 Trauma Center (<12 min EMS response)
+- **Emergency Muster Point**: `Exterior Stage North Gate Alpha` (Tailgate: `07:00 Call Time Tailgate`)

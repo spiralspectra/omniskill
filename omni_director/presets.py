@@ -18,6 +18,9 @@ from omni_director.schemas import (
     AudioStemMixerSpec,
     BroadcastLoudnessStandard,
     BroadcastTraffickingSlateSpec,
+    C2paActionType,
+    C2paAssertionActionSpec,
+    C2paIngredientSpec,
     CameraAxisPlacement,
     CharacterTurnaroundSpec,
     ClapperSlateSpec,
@@ -55,16 +58,19 @@ from omni_director.schemas import (
     InterSceneCutCheckSpec,
     LedWallGeometry,
     LightingRigSpec,
+    LikenessConsentStatus,
     LoudnessComplianceSpec,
     MarkerColorTag,
     MasterAicpBidSpec,
     MasterBgmSpec,
     MasterBroadcastQcSpec,
+    MasterC2paProvenanceSpec,
     MasterClientReviewSpec,
     MasterContinuityBlockingSpec,
     MasterEnvironmentSpec,
     MasterProductionBible,
     MasterProductionSlateSpec,
+    MasterSafetyRiskSpec,
     MasterStripboardScheduleSpec,
     MocoRigSpec,
     MotionControlRigType,
@@ -78,11 +84,17 @@ from omni_director.schemas import (
     ReviewApprovalStatus,
     ReviewerRole,
     ReviewPinCoordinate,
+    RiskSeverityLevel,
+    SafetyHazardCategory,
+    SafetyHazardControlSpec,
+    SafetySignoffStatus,
     SceneBlockingSpec,
+    SceneC2paProvenanceSpec,
     ScenePromptSpec,
     SceneQcProfileSpec,
     SceneReframeSpec,
     SceneReviewSignoffSpec,
+    SceneSafetyRiskSpec,
     ScreenDirection,
     ScriptBreakdownSheet,
     SensorFormat,
@@ -96,9 +108,12 @@ from omni_director.schemas import (
     SpeedRampCurveSpec,
     SpeedRampMode,
     StageBlockingEntity,
+    StandbyMedicalAndEmergencySpec,
     StemChannelStrip,
     StemType,
     StorytellingMode,
+    SyntheticDisclosureTier,
+    TalentLikenessRecordSpec,
     ToneMappingOperator,
     VfxCompositingManifestSpec,
     VfxLayerChannelSpec,
@@ -154,6 +169,19 @@ from omni_director.tools.review_notes import (
     format_review_prompt_token,
     synthesize_default_client_review,
     synthesize_scene_review_signoff,
+)
+from omni_director.tools.c2pa_provenance import (
+    IPTC_COMPOSITE_ALGORITHMIC_MEDIA,
+    IPTC_TRAINED_ALGORITHMIC_MEDIA,
+    format_c2pa_prompt_token,
+    synthesize_default_c2pa_provenance,
+    synthesize_scene_c2pa_provenance,
+)
+from omni_director.tools.safety_risk import (
+    assess_scene_hazards,
+    calculate_kinetic_exclusion_zone_m,
+    format_safety_prompt_token,
+    synthesize_default_safety_risk_spec,
 )
 
 DOMAIN_PRIORITY: List[str] = [
@@ -2983,6 +3011,418 @@ def get_domain_client_review_spec(
     return manifest
 
 
+_DOMAIN_C2PA_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "tier": SyntheticDisclosureTier.HYBRID_ICVFX_ASSISTED,
+        "digital_source_type": IPTC_COMPOSITE_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • Hybrid ICVFX & AI-Assisted Automotive Production",
+        "summary": "Hybrid LED-volume / Russian Arm telemetry-backed automotive provenance verified (2026 Gemini Matrix).",
+        "default_character": ("Autonomous Hypercar & Telemetry Rig", False, LikenessConsentStatus.SYNTHETIC_NON_HUMAN),
+    },
+    "culinary_asmr": {
+        "tier": SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+        "digital_source_type": IPTC_TRAINED_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • AI-Generated Culinary & ASMR Production",
+        "summary": "Generative culinary tabletop sequence & foley provenance verified under EU AI Act Art. 50.",
+        "default_character": ("Culinary Artisan Prep Hands", True, LikenessConsentStatus.ORIGINAL_COMPOSITE_PERSONA),
+    },
+    "luxury_fashion": {
+        "tier": SyntheticDisclosureTier.VIRTUAL_DIGITAL_REPLICA,
+        "digital_source_type": IPTC_TRAINED_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • AI Synthetic Fashion & Talent Likeness Cleared",
+        "summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified.",
+        "default_character": ("Lead Runway Fashion Persona", True, LikenessConsentStatus.ORIGINAL_COMPOSITE_PERSONA),
+    },
+    "kinetic_action": {
+        "tier": SyntheticDisclosureTier.HYBRID_ICVFX_ASSISTED,
+        "digital_source_type": IPTC_COMPOSITE_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • Hybrid Kinetic & Motion-Control AI Production",
+        "summary": "High-velocity kinetic action sequence provenance and Bolt Cinebot telemetry verified.",
+        "default_character": ("Kinetic Performance Athlete / Technical Rig", True, LikenessConsentStatus.ORIGINAL_COMPOSITE_PERSONA),
+    },
+    "tech_hardware": {
+        "tier": SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+        "digital_source_type": IPTC_TRAINED_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • AI-Generated Industrial Design & Hardware Showcase",
+        "summary": "Cleanroom synthetic hardware macro renders and optical CAD lineage verified.",
+        "default_character": ("Non-Human Anodized Hardware Flagship", False, LikenessConsentStatus.SYNTHETIC_NON_HUMAN),
+    },
+    "architectural_sanctuary": {
+        "tier": SyntheticDisclosureTier.FULL_AI_SYNTHETIC,
+        "digital_source_type": IPTC_TRAINED_ALGORITHMIC_MEDIA,
+        "badge": "Content Credentials (C2PA v2.1) • AI-Generated Architectural Visualization",
+        "summary": "Architectural spatial plate lineage and interior geometry provenance verified.",
+        "default_character": ("Non-Human Architectural Sanctuary Subject", False, LikenessConsentStatus.SYNTHETIC_NON_HUMAN),
+    },
+}
+
+
+def get_domain_c2pa_provenance_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    project_title: str = "Omni Production",
+) -> MasterC2paProvenanceSpec:
+    """Calibrate C2PA v2.1 Content Credentials, EU AI Act Art. 50 disclosure, and talent likeness across all 6 domain archetypes (PM-FEAT-025)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cal = _DOMAIN_C2PA_CALIBRATIONS[domain_key]
+    cont_cfg = _DOMAIN_CONTINUITY_CALIBRATIONS[domain_key]
+
+    if isinstance(bible_or_domain, MasterProductionBible):
+        eff_bible = bible_or_domain
+        if project_title != "Omni Production" or scenes is not None:
+            eff_bible = bible_or_domain.model_copy(deep=False)
+            if project_title != "Omni Production":
+                eff_bible.project_title = project_title
+            if scenes is not None:
+                eff_bible.scenes = scenes
+        spec = synthesize_default_c2pa_provenance(eff_bible, domain=domain_key)
+    else:
+        eff_scenes = list(scenes) if scenes else [
+            ScenePromptSpec(
+                scene_index=idx,
+                timestamp_range=f"00:{(idx - 1) * 8:02d} - 00:{idx * 8:02d}",
+                scene_title=title,
+                omni_prose_prompt=f"{domain_key.replace('_', ' ').title()} scene {idx}: {title}.",
+            )
+            for idx, title in enumerate(cont_cfg["default_scene_titles"], start=1)
+        ]
+        char_name, is_human, consent_st = cal["default_character"]
+        stub_bible = MasterProductionBible(
+            project_title=project_title,
+            logline=f"Domain-calibrated {domain_key} commercial production.",
+            creative_regime=RegimeType.REGIME_2_KINETIC,
+            storytelling_mode=StorytellingMode.MODE_A_PARALLEL_CUT,
+            aspect_ratio=AspectRatio.RATIO_16_9,
+            total_runtime_seconds=max(8, len(eff_scenes) * 8),
+            characters=[
+                CharacterTurnaroundSpec(
+                    name=char_name,
+                    silhouette=f"{domain_key} hero subject silhouette",
+                    wardrobe_polarity="High-contrast studio calibration" if is_human else "",
+                    movement_signature="Calibrated 1.0x real-time physical trajectory",
+                )
+            ] if is_human else [],
+            environment=MasterEnvironmentSpec(
+                location_name=f"{domain_key.replace('_', ' ').title()} Stage",
+                spatial_architecture="Calibrated soundstage volume",
+                lighting_setup="Calibrated domain key/fill",
+                atmospheric_particles="Clean controlled stage air",
+            ),
+            sonic_blueprint=DiegeticSonicSpec(
+                foley_cues=["Primary tactile contact foley"],
+                room_acoustics="Calibrated acoustic floor",
+            ),
+            master_bgm=MasterBgmSpec(
+                track_title="Domain Reference Score",
+                genre_style="Modern Commercial",
+                tempo_bpm=100,
+                key_signature="C Minor",
+                instrumentation=["Analog synth", "Acoustic percussion"],
+                dynamic_arc="Structured commercial arc",
+                lyria_prompt="Modern commercial underscore matching domain pacing.",
+            ),
+            nano_banana_assets=[
+                NanoBananaReference(
+                    asset_id="<image_1>",
+                    job_description=f"Primary {domain_key} hero subject visual anchor",
+                    exclusion_clause="Do not alter background geometry.",
+                    generation_prompt=f"Studio reference plate for {domain_key} hero subject.",
+                )
+            ],
+            scenes=eff_scenes,
+            domain_archetype=domain_key,
+        )
+        spec = synthesize_default_c2pa_provenance(stub_bible, domain=domain_key)
+
+    spec.synthetic_tier = cal["tier"]
+    spec.digital_source_type = cal["digital_source_type"]
+    spec.ai_disclosure_badge_text = cal["badge"]
+    spec.provenance_summary = (
+        f"{cal['summary']} {len(spec.scene_provenances)} scene(s) verified under C2PA v2.1."
+    )
+    for sp in spec.scene_provenances:
+        sp.synthetic_tier = cal["tier"]
+        sp.digital_source_type = cal["digital_source_type"]
+        sp.prompt_token = format_c2pa_prompt_token(sp)
+    spec.prompt_token = format_c2pa_prompt_token(spec)
+    return spec
+
+
+_DOMAIN_SAFETY_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "exclusion_m": 18.0,
+        "summary_note": "18.0m Russian Arm / stunt vehicle perimeter + wet tarmac GFCI electrical isolation.",
+        "fire_officer": False,
+        "ambulance": True,
+        "e_stops": ["Video Village Master Console", "Russian Arm Base Controller", "Course Gate Alpha"],
+        "hazards": [
+            (
+                SafetyHazardCategory.STUNT_VEHICLE,
+                "High-speed Russian Arm pursuit crane & autonomous hypercar braking envelope on wet tarmac.",
+                3, 4, 18.0,
+                ["Closed-course barricades & spotter radio lock", "Dual-channel hydraulic arm E-stop & speed governor"],
+                ["ANSI Class 3 high-vis vest", "Snell-rated stunt helmet", "5-point harness"],
+                "Stunt Coordinator & Precision Driver",
+                "CSATF Bulletin #1 (Stunt / Vehicle) & CSATF Bulletin #40 (Camera Crane / Arm).",
+            ),
+            (
+                SafetyHazardCategory.ELECTRICAL_DMX_WET,
+                "Wet tarmac high-draw DMX / HMI perimeter isolation and bonded GFCI distribution.",
+                2, 3, 6.0,
+                ["Class-A 5mA GFCI inline protection", "IP65 weather-sealed DMX splitters & rubber cable ramps"],
+                ["EH-rated insulated rubber-sole footwear", "Insulated electrical gloves"],
+                "Chief Lighting Technician (Gaffer)",
+                "CSATF Bulletin #22 (Electrical / Wet Location Safety).",
+            ),
+        ],
+    },
+    "kinetic_action": {
+        "exclusion_m": 10.0,
+        "summary_note": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX.",
+        "fire_officer": True,
+        "ambulance": False,
+        "e_stops": ["Video Village Master Console", "Bolt Cinebot SIL-3 Controller", "Stage Door Alpha"],
+        "hazards": [
+            (
+                SafetyHazardCategory.WIRE_RIGGING_HEIGHT,
+                "Tensioned wire rigging, aerodynamic load rig, and Bolt Cinebot 10.0m sweep perimeter.",
+                3, 3, 10.0,
+                ["SIL-3 hardware E-stop & LiDAR perimeter safety curtain", "5:1 WLL secondary safety cables & load-cell shackles"],
+                ["Steel-toe stage footwear", "ANSI Z87.1 eyewear", "Fall-arrest harness (>1.8m)"],
+                "Lead Stunt Rigger & MoCo Tech",
+                "CSATF Bulletin #1 (Rigging / Fall Protection) & CSATF Bulletin #40 (Motion Control).",
+            ),
+            (
+                SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX,
+                "High-velocity wind-tunnel laminar smoke / atmospheric SFX particulate dispersion.",
+                2, 3, 8.0,
+                ["NFPA 160 atmospheric SFX permit & purge exhaust", "Whip-check cables on high-pressure air manifolds"],
+                ["NIOSH N95 particulate respirator", "NRR 26dB hearing protection"],
+                "Licensed SFX Coordinator",
+                "CSATF Bulletin #16 (Pyrotechnic & Atmospheric Special Effects).",
+            ),
+        ],
+    },
+    "luxury_fashion": {
+        "exclusion_m": 4.5,
+        "summary_note": "4.5m wet cobblestone slip-prevention & Class-A GFCI electrical isolation + overhead truss.",
+        "fire_officer": False,
+        "ambulance": False,
+        "e_stops": ["Video Village Master Console", "Dimmer Rack Main Breaker", "Stage Door Alpha"],
+        "hazards": [
+            (
+                SafetyHazardCategory.ELECTRICAL_DMX_WET,
+                "Wet cobblestone exterior reflections with high-wattage HMI / DMX power drops and GFCI protection.",
+                2, 3, 4.5,
+                ["Class-A 5mA GFCI inline protection on all wet-location drops", "Anti-slip rubber walkways & bonded ground"],
+                ["Non-slip EH-rated footwear", "Insulated gaffer gloves"],
+                "Chief Lighting Technician (Gaffer)",
+                "CSATF Bulletin #1 & CSATF Bulletin #22 (Wet Location Electrical Safety).",
+            ),
+            (
+                SafetyHazardCategory.WIRE_RIGGING_HEIGHT,
+                "Overhead softbox trussing & flagship corridor lighting rigging.",
+                2, 2, 4.0,
+                ["Secondary steel safety cables on all overhead fixtures", "Sandbagged truss bases & barricaded drop zone"],
+                ["ANSI Z89.1 hard hat (rigging)", "Closed-toe stage footwear"],
+                "Key Grip",
+                "CSATF Bulletin #1 (Overhead Rigging Safety).",
+            ),
+        ],
+    },
+    "culinary_asmr": {
+        "exclusion_m": 3.0,
+        "summary_note": "3.0m tabletop thermal induction, sharp culinary cutlery, and Class K fire suppression.",
+        "fire_officer": True,
+        "ambulance": False,
+        "e_stops": ["Video Village Master Console", "Culinary Induction Cutout", "Class-K Fire Station"],
+        "hazards": [
+            (
+                SafetyHazardCategory.FOOD_ALLERGEN_THERMAL,
+                "Tabletop high-temperature searing/steam surfaces, sharp cutlery handling, and allergen cross-contact.",
+                2, 3, 3.0,
+                ["Class K wet-chemical & ABC fire extinguishers within 3.0m", "Insulated induction mats & allergen-segregated prep trays"],
+                ["Cut-resistant Kevlar styling glove", "Heat-insulated silicone mitts", "Non-slip closed-toe footwear"],
+                "Culinary Food Stylist & 1st AD",
+                "CSATF Bulletin #16 (Open Flame / Thermal) & studio culinary SOP.",
+            ),
+        ],
+    },
+    "tech_hardware": {
+        "exclusion_m": 6.0,
+        "summary_note": "6.0m Class 3B/4 laser NOHD RSO clearance + cleanroom Bolt Cinebot orbital envelope.",
+        "fire_officer": False,
+        "ambulance": False,
+        "e_stops": ["Video Village Master Console", "Laser Interlock Shutter", "Bolt Cinebot E-Stop"],
+        "hazards": [
+            (
+                SafetyHazardCategory.LASER_OPTICAL,
+                "Class 3B/4 coherent optical scan / specular aluminum reflection NOHD perimeter.",
+                2, 4, 6.0,
+                ["Certified LSO/RSO beam-stop termination & matte baffles", "Interlocked beam shutter & enclosed viewing barrier"],
+                ["OD 4+ wavelength-rated laser safety eyewear", "Cleanroom ESD smock & gloves"],
+                "Laser Safety Officer (LSO) / Gaffer",
+                "CSATF Bulletin #25 (Laser Safety) & ANSI Z136.1 NOHD.",
+            ),
+            (
+                SafetyHazardCategory.KINETIC_MOCO_ARM,
+                "Cleanroom Bolt Cinebot orbital macro sweep around hardware turntable.",
+                2, 3, 4.5,
+                ["Hardware E-stop lanyard & optical perimeter curtain", "25% velocity dry-run envelope check"],
+                ["Steel-toe cleanroom covers", "ANSI Z87.1 eyewear"],
+                "Lead MoCo Technician",
+                "CSATF Bulletin #40 (Robotic Motion Control Systems).",
+            ),
+        ],
+    },
+    "architectural_sanctuary": {
+        "exclusion_m": 4.0,
+        "summary_note": "4.0m elevated overhead grip rigging & architectural HMI power distribution clearance.",
+        "fire_officer": False,
+        "ambulance": False,
+        "e_stops": ["Video Village Master Console", "Stage Door Alpha"],
+        "hazards": [
+            (
+                SafetyHazardCategory.WIRE_RIGGING_HEIGHT,
+                "Elevated grip rigging, overhead daylight bounce frames, and kinetic assembly prop clearance.",
+                2, 3, 4.0,
+                ["Secondary steel safety cables on overhead frames", "Sandbagged stands & barricaded prop assembly zone"],
+                ["ANSI Z89.1 hard hat (rigging)", "Closed-toe footwear", "Work gloves"],
+                "Key Grip & 1st AD",
+                "CSATF Bulletin #1 (General Stage & Overhead Rigging Safety).",
+            ),
+            (
+                SafetyHazardCategory.ELECTRICAL_DMX_WET,
+                "High-output HMI daylight window array cabling and balanced stage power distribution.",
+                1, 3, 3.5,
+                ["GFCI distribution boxes & ADA cable ramps", "Bonded earth ground & thermal ballast clearance"],
+                ["EH-rated footwear", "Insulated gaffer gloves"],
+                "Chief Lighting Technician (Gaffer)",
+                "CSATF Bulletin #22 (Stage Electrical Safety).",
+            ),
+        ],
+    },
+}
+
+
+def get_domain_safety_risk_spec(
+    bible_or_domain: Union[MasterProductionBible, DomainArchetype, str],
+    scenes: Optional[List[ScenePromptSpec]] = None,
+    project_title: str = "Omni Production",
+) -> MasterSafetyRiskSpec:
+    """Calibrate on-set stunt, pyro/SFX, rigging, laser, and environmental safety JSA across all 6 domain archetypes (PM-FEAT-026)."""
+    domain_key = _normalize_domain_key(bible_or_domain)
+    cal = _DOMAIN_SAFETY_CALIBRATIONS[domain_key]
+    cont_cfg = _DOMAIN_CONTINUITY_CALIBRATIONS[domain_key]
+
+    if isinstance(bible_or_domain, MasterProductionBible):
+        eff_title = bible_or_domain.project_title if project_title == "Omni Production" else project_title
+        eff_scenes = list(scenes if scenes is not None else (bible_or_domain.scenes or []))
+        eff_bible: Optional[MasterProductionBible] = bible_or_domain
+    else:
+        eff_title = project_title
+        eff_scenes = list(scenes) if scenes is not None else [
+            ScenePromptSpec(
+                scene_index=idx,
+                timestamp_range=f"00:{(idx - 1) * 8:02d} - 00:{idx * 8:02d}",
+                scene_title=title,
+                omni_prose_prompt=f"{domain_key.replace('_', ' ').title()} scene {idx}: {title}.",
+            )
+            for idx, title in enumerate(cont_cfg["default_scene_titles"], start=1)
+        ]
+        eff_bible = None
+
+    if not eff_scenes:
+        eff_scenes = [
+            ScenePromptSpec(
+                scene_index=1,
+                timestamp_range="00:00 - 00:08",
+                scene_title=cont_cfg["default_scene_titles"][0],
+                omni_prose_prompt=f"{domain_key.replace('_', ' ').title()} primary production stage.",
+            )
+        ]
+
+    scene_specs: List[SceneSafetyRiskSpec] = []
+    for pos, sc in enumerate(eff_scenes, start=1):
+        s_idx = int(getattr(sc, "scene_index", pos) or pos)
+        assessed = assess_scene_hazards(sc, scene_index=s_idx, domain=domain_key, bible=eff_bible)
+
+        # Ensure domain-calibrated hazards and exact domain exclusion envelope are represented
+        existing_cats = {h.category for h in assessed.hazards}
+        extra_hazards: List[SafetyHazardControlSpec] = list(assessed.hazards)
+        for h_idx, (cat, desc, lik, sev, zone_m, ctrls, ppe, sup, notes) in enumerate(cal["hazards"], start=1):
+            if cat not in existing_cats:
+                rating = lik * sev
+                r_lvl = (
+                    RiskSeverityLevel.CRITICAL if rating >= 15
+                    else RiskSeverityLevel.HIGH if rating >= 10
+                    else RiskSeverityLevel.MODERATE if rating >= 5
+                    else RiskSeverityLevel.LOW
+                )
+                res_lvl = RiskSeverityLevel.MODERATE if r_lvl in (RiskSeverityLevel.HIGH, RiskSeverityLevel.CRITICAL) else RiskSeverityLevel.LOW
+                sig_st = SafetySignoffStatus.CLEARED if r_lvl == RiskSeverityLevel.LOW else SafetySignoffStatus.MITIGATED
+                extra_hazards.append(
+                    SafetyHazardControlSpec(
+                        hazard_id=f"HAZ-S{s_idx:02d}-C{h_idx:02d}",
+                        category=cat,
+                        hazard_description=desc,
+                        likelihood_score=lik,
+                        severity_score=sev,
+                        risk_rating=rating,
+                        risk_level=r_lvl,
+                        residual_risk_level=res_lvl,
+                        exclusion_zone_m=zone_m,
+                        engineering_controls=ctrls,
+                        ppe_required=ppe,
+                        responsible_supervisor=sup,
+                        mitigation_verified=True,
+                        signoff_status=sig_st,
+                        notes=notes,
+                    )
+                )
+
+        # Anchor primary scene exclusion zone to calibrated domain envelope unless higher cue present
+        if extra_hazards and max(h.exclusion_zone_m for h in extra_hazards) < cal["exclusion_m"]:
+            extra_hazards[0].exclusion_zone_m = float(cal["exclusion_m"])
+
+        ss = SceneSafetyRiskSpec(
+            scene_index=s_idx,
+            scene_title=str(getattr(sc, "scene_title", f"Scene {s_idx}")),
+            hazards=extra_hazards,
+            safety_officer_name="Certified 1st AD & CSATF Unit Safety Officer",
+            jsa_notes=f"{cal['summary_note']} Tailgate safety briefing verified.",
+        )
+        ss.prompt_token = format_safety_prompt_token(ss)
+        scene_specs.append(ss)
+
+    standby = StandbyMedicalAndEmergencySpec(
+        set_medic_on_standby=True,
+        medic_qualification="Certified Set Paramedic / EMT-P",
+        fire_safety_officer_required=bool(cal["fire_officer"]),
+        ambulance_on_standby=bool(cal["ambulance"]),
+        nearest_trauma_center="Regional Level-1 Trauma Center (<12 min EMS response)",
+        emergency_muster_point="Exterior Stage North Gate Alpha",
+        emergency_radio_channel="CH-09 SAFETY",
+        e_stop_locations=list(cal["e_stops"]),
+        sds_sheets_staged=True,
+        safety_briefing_time="07:00 Call Time Tailgate",
+    )
+
+    digest = hashlib.sha256(f"{eff_title}|{domain_key}".encode("utf-8")).hexdigest()[:6].upper()
+    master = MasterSafetyRiskSpec(
+        project_title=eff_title,
+        jsa_document_id=f"JSA-{domain_key[:4].upper()}-2026-{digest}",
+        production_safety_officer="Certified 1st AD & CSATF Unit Safety Coordinator",
+        standby_emergency=standby,
+        scene_safety_specs=scene_specs,
+        open_holds_count=0,
+        all_hazards_mitigated=True,
+        jsa_summary=f"{cal['summary_note']} Cleared across {len(scene_specs)} scene(s).",
+    )
+    master.prompt_token = format_safety_prompt_token(master)
+    return master
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -3578,6 +4018,14 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
         bible.master_client_review = get_domain_client_review_spec(
             bible, bible.scenes, project_title=bible.project_title
         )
+    if not getattr(bible, "master_c2pa_provenance", None):
+        bible.master_c2pa_provenance = get_domain_c2pa_provenance_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
+    if not getattr(bible, "master_safety_risk", None):
+        bible.master_safety_risk = get_domain_safety_risk_spec(
+            bible, bible.scenes, project_title=bible.project_title
+        )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -3638,6 +4086,20 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
             else:
                 scene.review_signoff = synthesize_scene_review_signoff(
                     scene=scene, scene_index=idx, domain=arch
+                )
+        if not getattr(scene, "c2pa_provenance", None):
+            if bible.master_c2pa_provenance and len(bible.master_c2pa_provenance.scene_provenances) >= idx:
+                scene.c2pa_provenance = bible.master_c2pa_provenance.scene_provenances[idx - 1]
+            else:
+                scene.c2pa_provenance = synthesize_scene_c2pa_provenance(
+                    scene=scene, scene_index=idx, bible=bible, domain=arch
+                )
+        if not getattr(scene, "safety_risk", None):
+            if bible.master_safety_risk and len(bible.master_safety_risk.scene_safety_specs) >= idx:
+                scene.safety_risk = bible.master_safety_risk.scene_safety_specs[idx - 1]
+            else:
+                scene.safety_risk = assess_scene_hazards(
+                    scene=scene, scene_index=idx, domain=arch, bible=bible
                 )
 
     return bible

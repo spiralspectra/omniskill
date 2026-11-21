@@ -1,0 +1,604 @@
+{
+  "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
+  "c2pa_spec_version": "2.1",
+  "claim_generator": "OmniMovieDirector/2.13.0",
+  "manifest_id": "urn:c2pa:omni-director:2026:4b08f112a042",
+  "synthetic_tier": "virtual_digital_replica",
+  "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+  "actions": [
+    {
+      "action_id": "ACT-MASTER-01",
+      "action": "c2pa.created",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+      "model_used": "gemini-4-argon",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "master_bible_treatment",
+        "scene_index": 1
+      },
+      "description": "Master Production Bible architectural synthesis and creative regime lock."
+    },
+    {
+      "action_id": "ACT-MASTER-02",
+      "action": "c2pa.edited",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+      "model_used": "gemini-3.8-flash",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "craft_prompt_audit",
+        "prompt_digest_prefix": "4b08f112a042"
+      },
+      "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+    },
+    {
+      "action_id": "ACT-MASTER-03",
+      "action": "c2pa.composited",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+      "model_used": "gemini-3-pro-image",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "stage": "nano_banana_continuity",
+        "max_ingredients": 3
+      },
+      "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+    },
+    {
+      "action_id": "ACT-MASTER-04",
+      "action": "c2pa.transcoded",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+      "model_used": "gemini-omni-1.1-flash-preview",
+      "when_iso8601": "2026-11-21T00:00:00Z",
+      "parameters": {
+        "synthid_soft_binding": true,
+        "c2pa_version": "2.1"
+      },
+      "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+    }
+  ],
+  "ingredients": [
+    {
+      "ingredient_id": "ING-S01-01",
+      "title": "<image_1> \u2014 Defines the exact facial structure, avant-garde graphic eyeliner, and sc",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s01-01",
+      "document_id": "xmp:did:omni-2026-c259f335f2dc",
+      "hash_sha256": "c259f335f2dcf6356d012b7e200d663258b4ad2ad0015c7de3906418f22f298a",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "virtual_digital_replica",
+      "notes": "Exclusion clause: Do not copy the studio lighting or plain grey background from <image_1>."
+    },
+    {
+      "ingredient_id": "ING-S02-01",
+      "title": "<image_2> \u2014 Defines the androgynous facial features, bleached platinum hair, and str",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s02-01",
+      "document_id": "xmp:did:omni-2026-a08da3d9404e",
+      "hash_sha256": "a08da3d9404e93aa09660de6b8087796af9d48b12eb60747eea27f2157eba719",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "virtual_digital_replica",
+      "notes": "Exclusion clause: Do not copy the pose or static background from <image_2>."
+    },
+    {
+      "ingredient_id": "ING-S03-01",
+      "title": "<image_3> \u2014 Defines the exact physical construction, black-and-white vertical stripe",
+      "format": "image/svg+xml",
+      "relationship": "parentOf",
+      "instance_id": "xmp:iid:omni-2026-s03-01",
+      "document_id": "xmp:did:omni-2026-9f9cd6fbf98f",
+      "hash_sha256": "9f9cd6fbf98faa4f589037a8fa5a3d05c9272ac5d11d7b262e3265be41c852b0",
+      "generative_model": "gemini-3-pro-image",
+      "synthetic_tier": "virtual_digital_replica",
+      "notes": "Exclusion clause: Do not copy any store background from <image_3>; maintain only the bag's rigid geometry and texture."
+    }
+  ],
+  "talent_likeness_records": [
+    {
+      "record_id": "LIK-001",
+      "character_name": "Model Maya (The Neon Siren)",
+      "performer_name": null,
+      "is_human_likeness": true,
+      "is_digital_replica": false,
+      "consent_status": "original_composite_persona",
+      "synthetic_tier": "virtual_digital_replica",
+      "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+      "consent_reference_id": "CONSENT-2026-001",
+      "voice_cloning_used": false,
+      "territory": "Worldwide",
+      "expiration_date": null,
+      "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+      "notes": "Wardrobe polarity: HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized "
+    },
+    {
+      "record_id": "LIK-002",
+      "character_name": "Model Kaelen (The Shimmer Rebel)",
+      "performer_name": null,
+      "is_human_likeness": true,
+      "is_digital_replica": false,
+      "consent_status": "original_composite_persona",
+      "synthetic_tier": "virtual_digital_replica",
+      "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+      "consent_reference_id": "CONSENT-2026-002",
+      "voice_cloning_used": false,
+      "territory": "Worldwide",
+      "expiration_date": null,
+      "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+      "notes": "Wardrobe polarity: HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinst"
+    }
+  ],
+  "scene_provenances": [
+    {
+      "scene_index": 1,
+      "scene_title": "The Soho Approach",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S01-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 1
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S01-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "e58cd2ad1d1d"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S01-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S01-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S01-01",
+          "title": "<image_1> \u2014 Defines the exact facial structure, avant-garde graphic eyeliner, and sc",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s01-01",
+          "document_id": "xmp:did:omni-2026-c259f335f2dc",
+          "hash_sha256": "c259f335f2dcf6356d012b7e200d663258b4ad2ad0015c7de3906418f22f298a",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Do not copy the studio lighting or plain grey background from <image_1>."
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-S01-01",
+          "character_name": "Model Maya (The Neon Siren)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S01-01",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized "
+        },
+        {
+          "record_id": "LIK-S01-02",
+          "character_name": "Model Kaelen (The Shimmer Rebel)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S01-02",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinst"
+        }
+      ],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "e58cd2ad1d1d32bed516d21b50008438ddd668f7420edc10e759728d2d56308f",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=e58cd2ad]"
+    },
+    {
+      "scene_index": 2,
+      "scene_title": "The Store Transition",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S02-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 2
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S02-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "3162f1c2deec"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S02-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S02-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S02-01",
+          "title": "<image_2> \u2014 Defines the androgynous facial features, bleached platinum hair, and str",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s02-01",
+          "document_id": "xmp:did:omni-2026-a08da3d9404e",
+          "hash_sha256": "a08da3d9404e93aa09660de6b8087796af9d48b12eb60747eea27f2157eba719",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Do not copy the pose or static background from <image_2>."
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-S02-01",
+          "character_name": "Model Maya (The Neon Siren)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S02-01",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized "
+        },
+        {
+          "record_id": "LIK-S02-02",
+          "character_name": "Model Kaelen (The Shimmer Rebel)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S02-02",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinst"
+        }
+      ],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "3162f1c2deec619625821ac9e737ab9a6cabd991c7367c841b57412096b8a45b",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=3162f1c2]"
+    },
+    {
+      "scene_index": 3,
+      "scene_title": "The Product Flourish",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S03-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 3
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S03-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "ac0158c8d90c"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S03-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S03-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S03-01",
+          "title": "<image_3> \u2014 Defines the exact physical construction, black-and-white vertical stripe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s03-01",
+          "document_id": "xmp:did:omni-2026-9f9cd6fbf98f",
+          "hash_sha256": "9f9cd6fbf98faa4f589037a8fa5a3d05c9272ac5d11d7b262e3265be41c852b0",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Do not copy any store background from <image_3>; maintain only the bag's rigid geometry and texture."
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-S03-01",
+          "character_name": "Model Maya (The Neon Siren)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S03-01",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized "
+        },
+        {
+          "record_id": "LIK-S03-02",
+          "character_name": "Model Kaelen (The Shimmer Rebel)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S03-02",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinst"
+        }
+      ],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "ac0158c8d90cf63d767d334e7d309e90be33be8c8fd5b3a9071d1f4602ff413e",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=ac0158c8]"
+    },
+    {
+      "scene_index": 4,
+      "scene_title": "The Climactic Hero Lock",
+      "synthetic_tier": "virtual_digital_replica",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "claim_generator": "OmniMovieDirector/2.13.0",
+      "actions": [
+        {
+          "action_id": "ACT-S04-01",
+          "action": "c2pa.created",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "model_used": "gemini-4-argon",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "master_bible_treatment",
+            "scene_index": 4
+          },
+          "description": "Master Production Bible architectural synthesis and creative regime lock."
+        },
+        {
+          "action_id": "ACT-S04-02",
+          "action": "c2pa.edited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "model_used": "gemini-3.8-flash",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "craft_prompt_audit",
+            "prompt_digest_prefix": "65cd4f223220"
+          },
+          "description": "CRAFT camera grammar synthesis and 7-point Omni prompt compliance audit."
+        },
+        {
+          "action_id": "ACT-S04-03",
+          "action": "c2pa.composited",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "model_used": "gemini-3-pro-image",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "stage": "nano_banana_continuity",
+            "max_ingredients": 3
+          },
+          "description": "Nano Banana <image_1..3> continuity plate binding and SVG storyboard rendering."
+        },
+        {
+          "action_id": "ACT-S04-04",
+          "action": "c2pa.transcoded",
+          "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "model_used": "gemini-omni-1.1-flash-preview",
+          "when_iso8601": "2026-11-21T00:00:00Z",
+          "parameters": {
+            "synthid_soft_binding": true,
+            "c2pa_version": "2.1"
+          },
+          "description": "Multimodal video/audio generation target with SynthID C2PA soft binding."
+        }
+      ],
+      "ingredients": [
+        {
+          "ingredient_id": "ING-S04-01",
+          "title": "<image_3> \u2014 Defines the exact physical construction, black-and-white vertical stripe",
+          "format": "image/svg+xml",
+          "relationship": "parentOf",
+          "instance_id": "xmp:iid:omni-2026-s04-01",
+          "document_id": "xmp:did:omni-2026-9f9cd6fbf98f",
+          "hash_sha256": "9f9cd6fbf98faa4f589037a8fa5a3d05c9272ac5d11d7b262e3265be41c852b0",
+          "generative_model": "gemini-3-pro-image",
+          "synthetic_tier": "virtual_digital_replica",
+          "notes": "Exclusion clause: Do not copy any store background from <image_3>; maintain only the bag's rigid geometry and texture."
+        }
+      ],
+      "talent_likeness_records": [
+        {
+          "record_id": "LIK-S04-01",
+          "character_name": "Model Maya (The Neon Siren)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S04-01",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized "
+        },
+        {
+          "record_id": "LIK-S04-02",
+          "character_name": "Model Kaelen (The Shimmer Rebel)",
+          "performer_name": null,
+          "is_human_likeness": true,
+          "is_digital_replica": false,
+          "consent_status": "original_composite_persona",
+          "synthetic_tier": "virtual_digital_replica",
+          "union_jurisdiction": "SAG-AFTRA / EU AI Act Art. 50",
+          "consent_reference_id": "CONSENT-2026-S04-02",
+          "voice_cloning_used": false,
+          "territory": "Worldwide",
+          "expiration_date": null,
+          "disclosure_label": "Original composite synthetic persona \u2014 no biometric human likeness replica (SAG-AFTRA & EU AI Act Art. 50 compliant).",
+          "notes": "Wardrobe polarity: HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinst"
+        }
+      ],
+      "ai_disclosure_required": true,
+      "eu_ai_act_art50_compliant": true,
+      "watermark_c2pa_soft_binding": true,
+      "consent_gate_passed": true,
+      "provenance_hash_sha256": "65cd4f223220058cec2c8aa5a7d12aef4328debfd830a713c99d17fed4c59272",
+      "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=65cd4f22]"
+    }
+  ],
+  "ai_disclosure_badge_text": "Content Credentials (C2PA v2.1) \u2022 AI Synthetic Fashion & Talent Likeness Cleared",
+  "eu_ai_act_art50_compliant": true,
+  "sag_aftra_digital_replica_compliant": true,
+  "all_likeness_consents_verified": true,
+  "manifest_signed": true,
+  "signing_algorithm": "ES256 / Ed25519",
+  "provenance_summary": "Runway digital persona disclosure, SAG-AFTRA consent gate, and C2PA v2.1 bindings verified. 4 scene(s) verified under C2PA v2.1.",
+  "prompt_token": "[C2PA_PROVENANCE: c2pa=2.1 tier=virtual_digital_replica synthid=true eu_art50=PASS likeness=CLEARED digest=e58cd2ad]"
+}
