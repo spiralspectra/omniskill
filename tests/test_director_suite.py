@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.13.0"
+        assert report.version == "2.14.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,13 +5398,13 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.13.0"
+        assert omni_director.__version__ == "2.14.0"
         report = run_doctor()
-        assert report.version == "2.13.0"
+        assert report.version == "2.14.0"
         assert report.passed is True
         assert report.exit_code == 0
         council_report = ProductCouncilReport(project_title="Smoke Check")
-        assert council_report.version == "2.13.0"
+        assert council_report.version == "2.14.0"
 
     def test_html_compiler_python_311_ast_compatibility(self):
         import ast
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version == "2.13.0"
+            assert report.version == "2.14.0"
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6434,19 +6434,21 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
         bound_keys = re.findall(r"e\.key\s*===\s*'([^']+)'", keydown_block)
         assert len(bound_keys) == len(set(bound_keys)), f"Duplicate e.key bindings found: {bound_keys}"
 
-        # 3. ProductManagerAgent (26 proposals) & ProductCouncilOrchestrator (v2.13.0 >= 90.0)
+        # 3. ProductManagerAgent (28 proposals) & ProductCouncilOrchestrator (v2.14.0 >= 90.0)
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         feat_ids = {p.feature_id for p in proposals}
-        assert len(proposals) == 26
+        assert len(proposals) == 28
         assert "PM-FEAT-023" in feat_ids
         assert "PM-FEAT-024" in feat_ids
         assert "PM-FEAT-025" in feat_ids
         assert "PM-FEAT-026" in feat_ids
+        assert "PM-FEAT-027" in feat_ids
+        assert "PM-FEAT-028" in feat_ids
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version == "2.13.0"
+        assert report.version == "2.14.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7126,7 +7128,716 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version == "2.13.0"
+        assert report.version == "2.14.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
+
+
+class TestV214LocalizationSpottingAndCrossCuttingFixes:
+    """Verifies v2.14.0 PM-FEAT-027 (Localization & ADR), PM-FEAT-028 (Editorial Spotting), and cross-cutting fixes."""
+
+    def test_pm_feat_027_localization_schemas_domains_compile_and_auditor(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_localization_spec
+        from omni_director.schemas import (
+            AdrSpottingCueSpec,
+            DiegeticSonicSpec,
+            DomainArchetype,
+            LocaleAdaptationSpec,
+            LocaleSyncStatus,
+            LocalizationManifestSpec,
+            LocalizedLineSpec,
+            MasterProductionBible,
+            SupersSafeStatus,
+        )
+        from omni_director.tools.localization_adr import (
+            LOCALE_PROFILES,
+            audit_locale_lip_sync_and_supers,
+            compile_localization_manifest,
+            format_localization_prompt_token,
+            synthesize_default_localization_manifest,
+        )
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. All 6 domain calibrations
+        expected_domains = {
+            DomainArchetype.AUTOMOTIVE_ROBOTICS: (2.5, 30, "authoritative"),
+            DomainArchetype.CULINARY_ASMR: (2.0, 26, "intimate_whisper"),
+            DomainArchetype.LUXURY_FASHION: (2.2, 24, "poised_editorial"),
+            DomainArchetype.KINETIC_ACTION: (2.5, 28, "urgent_kinetic"),
+            DomainArchetype.TECH_HARDWARE: (2.5, 32, "crisp_analytical"),
+            DomainArchetype.ARCHITECTURAL_SANCTUARY: (2.1, 26, "serene_contemplative"),
+        }
+        for arch, (exp_wps, exp_budget, exp_emotion) in expected_domains.items():
+            cal = get_domain_localization_spec(arch)
+            assert cal["source_locale"] == "en-US"
+            assert cal["max_allowed_wps"] == exp_wps
+            assert cal["supers_char_budget"] == exp_budget
+            assert cal["emotion_tag"] == exp_emotion
+            assert cal["imsc1_profile"] == "imsc1-text-1.1"
+            assert len(cal["default_locales"]) >= 5
+
+        # 2. Spoken bible across all 11 LOCALE_PROFILES (RTL, German expansion, CJK compaction, sync statuses, 3-beep pre-roll)
+        assert len(LOCALE_PROFILES) == 11
+        spoken_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        spoken_bible.scenes[0].timestamp_range = "00:00 - 00:08"
+        spoken_bible.scenes[0].diegetic_sonic = DiegeticSonicSpec(
+            room_acoustics="Warm Scandinavian apartment room tone",
+            foley_cues=["Cardboard seam rip", "Birch dowel click"],
+            dialogue_lines=[
+                "Narrator: Feel how quiet precision turns flat timber into living architecture today"
+            ],
+        )
+        # Fast dense line in Scene 2 to trigger STRETCH_CAUTION / RESCRIPT_REQUIRED
+        spoken_bible.scenes[1].timestamp_range = "00:08 - 00:12"
+        spoken_bible.scenes[1].diegetic_sonic = DiegeticSonicSpec(
+            room_acoustics="Quiet oak loft",
+            foley_cues=["Brass hinge snap"],
+            dialogue_lines=[
+                "Narrator: Every single interlocking timber panel locks flush into place with effortless balance right now"
+            ],
+        )
+
+        manifest_11 = compile_localization_manifest(spoken_bible, locales=list(LOCALE_PROFILES.keys()))
+        assert isinstance(manifest_11, LocalizationManifestSpec)
+        assert manifest_11.target_locales == list(LOCALE_PROFILES.keys())
+        assert len(manifest_11.territories) == 11
+        assert all(isinstance(c, AdrSpottingCueSpec) and c.pre_roll_beeps == 3 for c in manifest_11.adr_cues)
+
+        terr_by_loc = {t.locale: t for t in manifest_11.territories}
+        assert terr_by_loc["ar-SA"].direction == "rtl"
+        assert terr_by_loc["en-US"].direction == "ltr"
+
+        # de-DE expansion vs en-US source
+        en_s1 = terr_by_loc["en-US"].lines[0]
+        de_s1 = terr_by_loc["de-DE"].lines[0]
+        ja_s1 = terr_by_loc["ja-JP"].lines[0]
+        zh_s1 = terr_by_loc["zh-CN"].lines[0]
+        assert terr_by_loc["de-DE"].supers_expansion_pct == 25.0
+        assert de_s1.word_count > en_s1.word_count
+
+        # ja-JP & zh-CN CJK compaction
+        assert terr_by_loc["ja-JP"].supers_expansion_pct < 0.0
+        assert terr_by_loc["zh-CN"].supers_expansion_pct < 0.0
+        assert ja_s1.word_count < en_s1.word_count
+        assert zh_s1.word_count < en_s1.word_count
+
+        # Verify LOCKED, STRETCH_CAUTION, and RESCRIPT_REQUIRED statuses across the compiled lines
+        observed_statuses = {ln.sync_status for t in manifest_11.territories for ln in t.lines}
+        assert LocaleSyncStatus.LOCKED in observed_statuses
+        assert LocaleSyncStatus.RESCRIPT_REQUIRED in observed_statuses
+
+        # Explicit STRETCH_CAUTION check (1.15 < ratio <= 1.25) via calibrated 6-second spoken scene
+        stretch_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        stretch_bible.scenes = [stretch_bible.scenes[0].model_copy(deep=True)]
+        stretch_bible.scenes[0].timestamp_range = "00:00 - 00:06"
+        stretch_bible.scenes[0].diegetic_sonic = DiegeticSonicSpec(
+            room_acoustics="Clean studio",
+            foley_cues=["Click"],
+            dialogue_lines=["Narrator: Crafted Scandinavian oak joinery settles quietly into warm sunlit Nordic space now"],
+        )
+        stretch_manifest = compile_localization_manifest(stretch_bible, locales=["en-US", "de-DE"])
+        de_stretch_line = stretch_manifest.territories[1].lines[0]
+        assert 1.15 < de_stretch_line.lip_sync_ratio <= 1.25
+        assert de_stretch_line.sync_status == LocaleSyncStatus.STRETCH_CAUTION
+
+        # Schema round-trip & MasterProductionBible / ScenePromptSpec bindings
+        synth = synthesize_default_localization_manifest(spoken_bible)
+        rt_manifest = LocalizationManifestSpec.model_validate(synth.model_dump())
+        assert rt_manifest.target_locales == synth.target_locales
+
+        bound_bible = spoken_bible.model_copy(deep=True)
+        bound_bible.localization_manifest = rt_manifest
+        rt_bible = MasterProductionBible.model_validate(bound_bible.model_dump())
+        assert rt_bible.localization_manifest is not None
+        assert len(rt_bible.localization_manifest.territories) >= 5
+
+        audit_summary = audit_locale_lip_sync_and_supers(bound_bible)
+        assert audit_summary["passed"] is False
+        assert audit_summary["rescript_required_count"] >= 1
+
+        # 3. Prompt token [LOCALIZATION_ADR: ...], audit_omni_scene_prompt, heal_omni_scene_prompt, compile_clean_omni_prompt
+        token = format_localization_prompt_token(bound_bible, scene=bound_bible.scenes[0])
+        assert token.startswith("[LOCALIZATION_ADR:")
+
+        sc_ok = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc_ok.locale_tracks = [
+            LocalizedLineSpec(
+                locale="de-DE",
+                bcp47_tag="de-DE",
+                translated_text="[DE] Ruhige Präzision",
+                word_count=3,
+                target_wps=1.5,
+                lip_sync_ratio=1.08,
+                sync_status=LocaleSyncStatus.LOCKED,
+            )
+        ]
+        sc_ok.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with oak table and foley click."
+        healed_ok, audit_ok = heal_omni_scene_prompt(sc_ok)
+        assert audit_ok.passed is True
+        assert audit_ok.details["localization_adr_compliant"] is True
+        assert "[LOCALIZATION_ADR:" in healed_ok.omni_prose_prompt
+
+        clean_prose = compile_clean_omni_prompt(healed_ok.omni_prose_prompt)
+        assert "[LOCALIZATION_ADR:" not in clean_prose
+        assert "35mm dolly shot" in clean_prose
+        assert "foley click" in clean_prose
+
+        sc_bad = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc_bad.locale_tracks = [
+            LocalizedLineSpec(
+                locale="de-DE",
+                bcp47_tag="de-DE",
+                translated_text="[DE] Overlong line",
+                word_count=18,
+                target_wps=3.0,
+                lip_sync_ratio=1.35,
+                sync_status=LocaleSyncStatus.RESCRIPT_REQUIRED,
+                requires_viseme_retime=True,
+            )
+        ]
+        sc_bad.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with foley click."
+        audit_bad = audit_omni_scene_prompt(sc_bad)
+        assert audit_bad.details["localization_adr_compliant"] is False
+        assert any("Localization ADR Warning" in w for w in audit_bad.warnings)
+
+        # Ensure SupersSafeStatus enum members are valid
+        assert SupersSafeStatus.CLEAR.value == "clear"
+        assert LocaleAdaptationSpec.model_validate(terr_by_loc["ar-SA"].model_dump()).direction == "rtl"
+
+    def test_pm_feat_027_localization_exports_cli_telemetry_and_html_hud(self, tmp_path):
+        import csv
+        import json
+        import re
+        import xml.etree.ElementTree as ET
+        from omni_director.agents.agent import DirectorPipeline
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import LocalizationManifestSpec, ProductionBundle
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.localization_adr import (
+            compile_localization_manifest,
+            export_adr_cue_sheet_csv,
+            export_imsc1_ttml,
+            export_localization_bundle,
+            export_localization_manifest_json,
+            export_localized_subtitles,
+        )
+
+        # 1. Direct exporters: IMSC1 TTML XML (SMPTE 24fps + RTL), CSV, JSON, SRT/VTT, full bundle
+        ar_bible = IKEA_ASMR_BIBLE.model_copy(
+            update={"localization_manifest": compile_localization_manifest(IKEA_ASMR_BIBLE, locales=["en-US", "ar-SA"])}
+        )
+        ttml_ar = export_imsc1_ttml(ar_bible, tmp_path / "ar.ttml", locale="ar-SA")
+        ttml_xml = ttml_ar.read_text(encoding="utf-8")
+        root = ET.fromstring(ttml_xml)
+        assert root.tag.endswith("}tt") or root.tag == "tt"
+        assert root.attrib.get("{http://www.w3.org/XML/1998/namespace}lang") == "ar-SA"
+        assert root.attrib.get("{http://www.w3.org/ns/ttml#parameter}timeBase") == "smpte"
+        assert root.attrib.get("{http://www.w3.org/ns/ttml#parameter}frameRate") == "24"
+        assert root.attrib.get("{http://www.w3.org/ns/ttml#parameter}dropMode") == "nonDrop"
+        assert 'tts:direction="rtl"' in ttml_xml
+
+        csv_p = export_adr_cue_sheet_csv(IKEA_ASMR_BIBLE, tmp_path / "adr_cue_sheet.csv")
+        with csv_p.open(encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+        assert len(rows) >= 1
+        assert all(r["pre_roll_beeps"] == "3" for r in rows)
+
+        json_p = export_localization_manifest_json(IKEA_ASMR_BIBLE, tmp_path / "localization_manifest.json")
+        parsed_manifest = LocalizationManifestSpec.model_validate(json.loads(json_p.read_text(encoding="utf-8")))
+        assert len(parsed_manifest.territories) >= 5
+
+        sub_paths = export_localized_subtitles(IKEA_ASMR_BIBLE, tmp_path / "subs")
+        assert any(p.suffix == ".srt" for p in sub_paths)
+        assert any(p.suffix == ".vtt" for p in sub_paths)
+
+        bundle_out = tmp_path / "loc_bundle"
+        loc_map = export_localization_bundle(IKEA_ASMR_BIBLE, bundle_out)
+        for key in ("localization_manifest_json", "adr_cue_sheet_csv", "subtitles_localized_ttml"):
+            assert key in loc_map
+            assert loc_map[key].is_file()
+
+        # 2. CLI `omni export --format i18n --locales en-US,de-DE,ar-SA` & granular flags
+        cli_i18n = tmp_path / "cli_i18n"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "i18n",
+            "--locales", "en-US,de-DE,ar-SA",
+            "--output-dir", str(cli_i18n),
+        ]) == 0
+        cli_manifest = json.loads((cli_i18n / "localization_manifest.json").read_text(encoding="utf-8"))
+        assert cli_manifest["target_locales"] == ["en-US", "de-DE", "ar-SA"]
+        assert (cli_i18n / "adr_cue_sheet.csv").is_file()
+        assert (cli_i18n / "subtitles_localized.ttml").is_file()
+        assert (cli_i18n / "subtitles_ar-SA.srt").is_file()
+        assert (cli_i18n / "subtitles_ar-SA.vtt").is_file()
+
+        cli_gran = tmp_path / "cli_i18n_gran"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "edl",
+            "--i18n-json",
+            "--adr-csv",
+            "--ttml",
+            "--locales", "ar-SA,en-US",
+            "--output-dir", str(cli_gran),
+        ]) == 0
+        assert (cli_gran / "localization_manifest.json").is_file()
+        assert (cli_gran / "adr_cue_sheet.csv").is_file()
+        assert (cli_gran / "subtitles_localized.ttml").is_file()
+        assert 'xml:lang="ar-SA"' in (cli_gran / "subtitles_localized.ttml").read_text(encoding="utf-8")
+
+        # 3. Telemetry SHA-256 verification
+        tel_dir = tmp_path / "loc_telemetry"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(tel_dir), dry_run=True, render_video=False)
+        export_localization_bundle(IKEA_ASMR_BIBLE, tel_dir)
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(tel_dir)
+        is_valid, errors = verify_bundle_checksums(tel_dir)
+        assert is_valid is True, f"Localization checksum verification failed: {errors}"
+        assert errors == []
+        tel_data = json.loads((tel_dir / "telemetry.json").read_text(encoding="utf-8"))
+        for artifact_name in ("localization_manifest.json", "adr_cue_sheet.csv", "subtitles_localized.ttml"):
+            assert artifact_name in tel_data["artifact_checksums"]
+
+        # 4. HTML5 Animatic HUD (elements, RTL, hotkey I, filenames, zero blocking alerts, XSS escaping)
+        xss_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        loc_m = compile_localization_manifest(xss_bible, locales=["en-US", "de-DE", "ar-SA"])
+        loc_m.summary_notes.append("XSS </SCRIPT><SCRIPT>x()</SCRIPT>")
+        loc_m.territories[0].localized_supers_text = "SUPERS </SCRIPT>"
+        xss_bible.localization_manifest = loc_m
+
+        html_out = tmp_path / "loc_html"
+        html_path = compile_storyboard_html(
+            ProductionBundle(bible=xss_bible, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
+            html_out,
+        )
+        html = html_path.read_text(encoding="utf-8")
+        for selector_id in ("btn-localization-animatic", "animatic-localization-hud", "localization-lipsync-svg"):
+            assert f'id="{selector_id}"' in html
+        assert 'dir="rtl"' in html
+        assert "e.key === 'i' || e.key === 'I'" in html
+        assert "toggleLocalizationHUD();" in html
+        for fname in ("localization_manifest.json", "adr_cue_sheet.csv", "subtitles_localized.ttml"):
+            assert fname in html
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+        loc_state_line = next(line for line in html.splitlines() if "const LOCALIZATION_STATE =" in line)
+        assert not re.search(r"</script>", loc_state_line, re.IGNORECASE)
+        assert r"<\/SCRIPT>" in loc_state_line
+
+    def test_pm_feat_028_spotting_schemas_domains_beat_grid_and_auditor(self):
+        from omni_director.presets import IKEA_ASMR_BIBLE, get_domain_spotting_spec
+        from omni_director.schemas import (
+            AudioBridgeType,
+            DomainArchetype,
+            EditBridgeSpec,
+            MasterProductionBible,
+            SpottingCueEntry,
+            SpottingManifestSpec,
+        )
+        from omni_director.tools.editorial_spotting import (
+            build_spotting_manifest,
+            compute_bpm_beat_grid,
+            format_spotting_prompt_token,
+            synthesize_default_spotting_manifest,
+        )
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. All 6 domain calibrations
+        expected_domains = {
+            DomainArchetype.CULINARY_ASMR: (AudioBridgeType.JL_OVERLAP, 20, 12, 84.0),
+            DomainArchetype.KINETIC_ACTION: (AudioBridgeType.J_CUT, 8, 0, 136.0),
+            DomainArchetype.LUXURY_FASHION: (AudioBridgeType.L_CUT, 0, 20, 116.0),
+            DomainArchetype.AUTOMOTIVE_ROBOTICS: (AudioBridgeType.J_CUT, 15, 6, 130.0),
+            DomainArchetype.TECH_HARDWARE: (AudioBridgeType.J_CUT, 8, 0, 118.0),
+            DomainArchetype.ARCHITECTURAL_SANCTUARY: (AudioBridgeType.L_CUT, 0, 30, 72.0),
+        }
+        for arch, (exp_bridge, exp_j, exp_l, exp_bpm) in expected_domains.items():
+            cal = get_domain_spotting_spec(arch)
+            assert cal["default_bridge_type"] == exp_bridge
+            assert cal["j_prelap_frames"] == exp_j
+            assert cal["l_overhang_frames"] == exp_l
+            assert cal["default_bpm"] == exp_bpm
+            assert cal["recommended_nle_track_count"] >= 6
+
+        # 2. Exact 24fps BPM beat-grid math & SMPTE timecodes
+        grid_120 = compute_bpm_beat_grid(tempo_bpm=120.0, total_duration_sec=4.0, fps=24)
+        assert len(grid_120) == 9  # beats 0..8 inclusive across 4.0s
+        assert grid_120[0]["frame"] == 0 and grid_120[0]["smpte_tc"] == "00:00:00:00"
+        assert grid_120[0]["bar"] == 1 and grid_120[0]["beat_in_bar"] == 1 and grid_120[0]["is_downbeat"] is True
+        assert grid_120[1]["frame"] == 12 and grid_120[1]["smpte_tc"] == "00:00:00:12" and grid_120[1]["is_downbeat"] is False
+        assert grid_120[2]["frame"] == 24 and grid_120[2]["smpte_tc"] == "00:00:01:00"
+        assert grid_120[4]["frame"] == 48 and grid_120[4]["smpte_tc"] == "00:00:02:00"
+        assert grid_120[4]["bar"] == 2 and grid_120[4]["beat_in_bar"] == 1 and grid_120[4]["is_downbeat"] is True
+        assert grid_120[8]["frame"] == 96 and grid_120[8]["smpte_tc"] == "00:00:04:00"
+
+        grid_90 = compute_bpm_beat_grid(tempo_bpm=90.0, total_duration_sec=4.0, fps=24)
+        assert grid_90[1]["frame"] == 16 and grid_90[1]["smpte_tc"] == "00:00:00:16"
+        assert grid_90[3]["frame"] == 48 and grid_90[3]["smpte_tc"] == "00:00:02:00"
+
+        # 3. build_spotting_manifest & schema round-trip
+        manifest = build_spotting_manifest(IKEA_ASMR_BIBLE, fps=24)
+        assert isinstance(manifest, SpottingManifestSpec)
+        assert manifest.fps == 24
+        assert len(manifest.bridges) == len(IKEA_ASMR_BIBLE.scenes) - 1
+        assert all(isinstance(b, EditBridgeSpec) for b in manifest.bridges)
+        assert len(manifest.spotting_cues) >= len(IKEA_ASMR_BIBLE.scenes) * 3
+        assert all(isinstance(c, SpottingCueEntry) for c in manifest.spotting_cues)
+        assert 0.0 <= manifest.beat_alignment_score <= 100.0
+        assert manifest.total_split_edits == sum(
+            1 for b in manifest.bridges if b.bridge_type != AudioBridgeType.HARD_BUTT_CUT
+        )
+        assert manifest.frames_per_beat == round((60.0 / manifest.tempo_bpm) * 24, 4)
+
+        synth = synthesize_default_spotting_manifest(IKEA_ASMR_BIBLE)
+        rt_manifest = SpottingManifestSpec.model_validate(synth.model_dump())
+        bound_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bound_bible.spotting_manifest = rt_manifest
+        rt_bible = MasterProductionBible.model_validate(bound_bible.model_dump())
+        assert rt_bible.spotting_manifest is not None
+        assert rt_bible.spotting_manifest.total_split_edits == manifest.total_split_edits
+
+        # 4. Prompt token [SPOTTING_SYNC: ...], audit, heal, clean prose stripping
+        token = format_spotting_prompt_token(bound_bible, scene=bound_bible.scenes[1])
+        assert token.startswith("[SPOTTING_SYNC:")
+
+        sc_locked = IKEA_ASMR_BIBLE.scenes[1].model_copy(deep=True)
+        sc_locked.edit_bridge_in = EditBridgeSpec(
+            from_scene=1,
+            to_scene=2,
+            cut_tc="00:00:08:00",
+            bridge_type=AudioBridgeType.J_CUT,
+            j_prelap_frames=12,
+            l_overhang_frames=0,
+            nearest_beat_index=16,
+            beat_offset_frames=1,
+            beat_locked=True,
+            sonic_anchor_cue="Birch dowel snap J-cut",
+        )
+        sc_locked.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with oak table and foley click."
+        healed_ok, audit_ok = heal_omni_scene_prompt(sc_locked)
+        assert audit_ok.passed is True
+        assert audit_ok.details["spotting_sync_compliant"] is True
+        assert "[SPOTTING_SYNC:" in healed_ok.omni_prose_prompt
+
+        clean_prose = compile_clean_omni_prompt(healed_ok.omni_prose_prompt)
+        assert "[SPOTTING_SYNC:" not in clean_prose
+        assert "35mm dolly shot" in clean_prose
+        assert "foley click" in clean_prose
+
+        sc_drifted = IKEA_ASMR_BIBLE.scenes[1].model_copy(deep=True)
+        sc_drifted.edit_bridge_in = EditBridgeSpec(
+            from_scene=1,
+            to_scene=2,
+            cut_tc="00:00:08:00",
+            bridge_type=AudioBridgeType.J_CUT,
+            j_prelap_frames=12,
+            l_overhang_frames=0,
+            nearest_beat_index=16,
+            beat_offset_frames=10,
+            beat_locked=False,
+            sonic_anchor_cue="Unlocked drifted bridge",
+        )
+        sc_drifted.omni_prose_prompt = "Wide 35mm dolly shot at 1.0x real-time speed with foley click."
+        audit_drift = audit_omni_scene_prompt(sc_drifted)
+        assert audit_drift.details["spotting_sync_compliant"] is False
+        assert any("Editorial Spotting Warning" in w for w in audit_drift.warnings)
+
+    def test_pm_feat_028_spotting_exports_fcpxml_cli_telemetry_and_html_hud(self, tmp_path):
+        import csv
+        import json
+        import re
+        import xml.etree.ElementTree as ET
+        from omni_director.agents.agent import DirectorPipeline
+        from omni_director.cli import handle_export
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import ProductionBundle, SpottingManifestSpec
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.editorial_spotting import (
+            build_spotting_manifest,
+            export_split_edit_edl,
+            export_spotting_bundle,
+            export_spotting_cue_sheet_csv,
+            export_spotting_manifest_json,
+            export_spotting_sheet_md,
+        )
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.nle_export import export_fcpxml
+
+        # 1. Direct exporters: split-edit EDL, CSV, MD, JSON, full bundle
+        edl_p = export_split_edit_edl(IKEA_ASMR_BIBLE, tmp_path / "timeline_split_edits.edl", fps=24)
+        edl_txt = edl_p.read_text(encoding="utf-8")
+        assert "FCM: NON-DROP FRAME" in edl_txt
+        assert "AX       V     C" in edl_txt
+        assert "AX       A     C" in edl_txt
+        assert "AX       A2    C" in edl_txt
+        assert "* AUDIO BRIDGE:" in edl_txt
+
+        csv_p = export_spotting_cue_sheet_csv(IKEA_ASMR_BIBLE, tmp_path / "spotting_cue_sheet.csv", fps=24)
+        with csv_p.open(encoding="utf-8") as fh:
+            csv_rows = list(csv.DictReader(fh))
+        assert len(csv_rows) >= len(IKEA_ASMR_BIBLE.scenes) * 3
+
+        md_p = export_spotting_sheet_md(IKEA_ASMR_BIBLE, tmp_path / "spotting_sheet.md", fps=24)
+        md_txt = md_p.read_text(encoding="utf-8")
+        assert "## 1. J-Cut / L-Cut Scene Transitions" in md_txt
+        assert "## 2. Music, Foley & Room-Tone Spotting Cues" in md_txt
+
+        json_p = export_spotting_manifest_json(IKEA_ASMR_BIBLE, tmp_path / "spotting_manifest.json", fps=24)
+        parsed_spot = SpottingManifestSpec.model_validate(json.loads(json_p.read_text(encoding="utf-8")))
+        assert len(parsed_spot.bridges) == len(IKEA_ASMR_BIBLE.scenes) - 1
+
+        spot_bundle_dir = tmp_path / "spot_bundle"
+        spot_map = export_spotting_bundle(IKEA_ASMR_BIBLE, spot_bundle_dir, fps=24)
+        assert set(spot_map.keys()) == {
+            "spotting_manifest_json",
+            "spotting_cue_sheet_csv",
+            "spotting_sheet_md",
+            "timeline_split_edits_edl",
+        }
+        for p in spot_map.values():
+            assert p.is_file()
+
+        # 2. export_fcpxml valid XML containing beat-grid <marker> nodes
+        fcpxml_str = export_fcpxml(IKEA_ASMR_BIBLE, fps=24)
+        fcpxml_root = ET.fromstring(fcpxml_str)
+        markers = fcpxml_root.findall(".//asset-clip/marker")
+        assert len(markers) >= 4
+        assert any("Downbeat Bar" in (m.attrib.get("value") or "") for m in markers)
+        assert any("BPM" in (m.attrib.get("note") or "") for m in markers)
+
+        # 3. CLI `omni export --format spotting` & granular flags
+        cli_spot = tmp_path / "cli_spot"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "spotting", "--output-dir", str(cli_spot)]) == 0
+        for fname in ("spotting_manifest.json", "spotting_cue_sheet.csv", "spotting_sheet.md", "timeline_split_edits.edl"):
+            assert (cli_spot / fname).is_file()
+
+        cli_spot_gran = tmp_path / "cli_spot_gran"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "edl",
+            "--spotting-json",
+            "--spotting-csv",
+            "--spotting-md",
+            "--split-edl",
+            "--output-dir", str(cli_spot_gran),
+        ]) == 0
+        for fname in ("spotting_manifest.json", "spotting_cue_sheet.csv", "spotting_sheet.md", "timeline_split_edits.edl"):
+            assert (cli_spot_gran / fname).is_file()
+
+        # 4. Telemetry SHA-256 verification
+        tel_dir = tmp_path / "spot_telemetry"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(tel_dir), dry_run=True, render_video=False)
+        export_spotting_bundle(IKEA_ASMR_BIBLE, tel_dir, fps=24)
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(tel_dir)
+        is_valid, errors = verify_bundle_checksums(tel_dir)
+        assert is_valid is True, f"Spotting checksum verification failed: {errors}"
+        assert errors == []
+        tel_data = json.loads((tel_dir / "telemetry.json").read_text(encoding="utf-8"))
+        for fname in ("spotting_manifest.json", "spotting_cue_sheet.csv", "spotting_sheet.md", "timeline_split_edits.edl"):
+            assert fname in tel_data["artifact_checksums"]
+
+        # 5. HTML5 Animatic HUD (elements, hotkey J, filenames, zero blocking alerts, XSS escaping)
+        xss_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        spot_m = build_spotting_manifest(xss_bible, fps=24)
+        spot_m.bridges[0].sonic_anchor_cue = "Bridge </SCRIPT><SCRIPT>x()</SCRIPT>"
+        xss_bible.spotting_manifest = spot_m
+
+        html_out = tmp_path / "spot_html"
+        html_path = compile_storyboard_html(
+            ProductionBundle(bible=xss_bible, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
+            html_out,
+        )
+        html = html_path.read_text(encoding="utf-8")
+        for selector_id in (
+            "btn-spotting-animatic",
+            "animatic-spotting-hud",
+            "spotting-timeline-svg",
+            "btn-spotting-next-bridge",
+        ):
+            assert f'id="{selector_id}"' in html
+        assert "e.key === 'j' || e.key === 'J'" in html
+        assert "toggleSpottingHUD();" in html
+        for fname in ("spotting_manifest.json", "spotting_cue_sheet.csv", "spotting_sheet.md", "timeline_split_edits.edl"):
+            assert fname in html
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+        spot_state_line = next(line for line in html.splitlines() if "const SPOTTING_STATE =" in line)
+        assert not re.search(r"</script>", spot_state_line, re.IGNORECASE)
+        assert r"<\/SCRIPT>" in spot_state_line
+
+    def test_v214_cross_cutting_fixes_and_council_parity(self, tmp_path, monkeypatch):
+        import json
+        import re
+        from pathlib import Path
+        import omni_director
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.cli import handle_council, handle_export
+        from omni_director.config import DirectorConfig
+        from omni_director.doctor import CheckStatus, run_doctor
+        from omni_director.presets import IKEA_ASMR_BIBLE
+        from omni_director.schemas import MocoRigSpec, MotionControlRigType, ProductionBundle
+        from omni_director.telemetry import KNOWN_PRODUCTION_ARTIFACTS, verify_bundle_checksums
+        from omni_director.tools import c2pa_provenance, safety_risk
+        from omni_director.tools.c2pa_provenance import synthesize_default_c2pa_provenance
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.html_hud_v213 import _normalize_safety_state
+        from omni_director.tools.safety_risk import CSATF_SHORT_BULLETINS, SafetyHazardCategory
+
+        # Fix 1: refreshLutSplitFrames queries .scene-visual-frame
+        html_out = tmp_path / "cross_html"
+        html_path = compile_storyboard_html(
+            ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
+            html_out,
+        )
+        html = html_path.read_text(encoding="utf-8")
+        assert "function refreshLutSplitFrames()" in html
+        assert "activeCard.querySelector('.scene-visual-frame')" in html
+
+        # Fix 2: All HUD _triggerBlobDownload filenames match KNOWN_PRODUCTION_ARTIFACTS
+        hud_filenames = re.findall(
+            r"_triggerBlobDownload\((?:`[^`]*`|[^,]+),\s*'[^']+',\s*'([^']+)'",
+            html,
+        )
+        assert len(hud_filenames) >= 18
+        for fname in hud_filenames:
+            assert fname in KNOWN_PRODUCTION_ARTIFACTS, f"HUD filename '{fname}' missing from KNOWN_PRODUCTION_ARTIFACTS"
+
+        # Fix 3: c2pa_provenance.py and html_compiler.py report 2.14.0 dynamically (zero stale 2.13.0)
+        c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
+        assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
+        assert omni_director.__version__ == "2.14.0"
+        assert all("2.14.0" in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
+        assert f'version: "{omni_director.__version__}"' in html
+        assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
+        c2pa_src = Path("omni_director/tools/c2pa_provenance.py").read_text(encoding="utf-8")
+        compiler_src = Path("omni_director/tools/html_compiler.py").read_text(encoding="utf-8")
+        stale_prev = "2." + "13." + "0"
+        assert stale_prev not in c2pa_src
+        assert stale_prev not in compiler_src
+
+        # Fix 4: cli.py handle_council persists council_report in production_bundle.json & valid telemetry.json
+        council_cli_dir = tmp_path / "cli_council"
+        assert handle_council(["--preset", "ikea-asmr", "--output-dir", str(council_cli_dir)]) == 0
+        persisted_bundle = json.loads((council_cli_dir / "production_bundle.json").read_text(encoding="utf-8"))
+        assert persisted_bundle["council_report"] is not None
+        assert persisted_bundle["council_report"]["version"] == "2.14.0"
+        assert persisted_bundle["council_report"]["overall_score"] >= 90.0
+        is_valid, errors = verify_bundle_checksums(council_cli_dir)
+        assert is_valid is True, f"Council CLI checksum verification failed: {errors}"
+
+        # Fix 4b: handle_export --format all doesn't duplicate C2PA/Safety bundle writes
+        c2pa_calls = 0
+        safety_calls = 0
+        orig_c2pa_export = c2pa_provenance.export_c2pa_bundle
+        orig_safety_export = safety_risk.export_safety_bundle
+
+        def tracked_c2pa_export(*args, **kwargs):
+            nonlocal c2pa_calls
+            c2pa_calls += 1
+            return orig_c2pa_export(*args, **kwargs)
+
+        def tracked_safety_export(*args, **kwargs):
+            nonlocal safety_calls
+            safety_calls += 1
+            return orig_safety_export(*args, **kwargs)
+
+        monkeypatch.setattr(c2pa_provenance, "export_c2pa_bundle", tracked_c2pa_export)
+        monkeypatch.setattr(safety_risk, "export_safety_bundle", tracked_safety_export)
+
+        all_export_dir = tmp_path / "all_no_dup"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "all", "--output-dir", str(all_export_dir)]) == 0
+        assert c2pa_calls == 1
+        assert safety_calls == 1
+
+        # Fix 5: omni_director.__init__ exposes PM-FEAT-025..028 symbols cleanly
+        expected_symbols = (
+            # PM-FEAT-025
+            "MasterC2paProvenanceSpec",
+            "SceneC2paProvenanceSpec",
+            "synthesize_default_c2pa_provenance",
+            "export_c2pa_bundle",
+            "get_domain_c2pa_provenance_spec",
+            # PM-FEAT-026
+            "MasterSafetyRiskSpec",
+            "SceneSafetyRiskSpec",
+            "calculate_kinetic_exclusion_zone_m",
+            "export_safety_bundle",
+            "get_domain_safety_risk_spec",
+            # PM-FEAT-027
+            "LocaleSyncStatus",
+            "SupersSafeStatus",
+            "LocalizationManifestSpec",
+            "LOCALE_PROFILES",
+            "compile_localization_manifest",
+            "audit_locale_lip_sync_and_supers",
+            "export_imsc1_ttml",
+            "export_localization_bundle",
+            "get_domain_localization_spec",
+            # PM-FEAT-028
+            "AudioBridgeType",
+            "EditBridgeSpec",
+            "SpottingCueEntry",
+            "SpottingManifestSpec",
+            "compute_bpm_beat_grid",
+            "build_spotting_manifest",
+            "export_split_edit_edl",
+            "export_spotting_bundle",
+            "get_domain_spotting_spec",
+        )
+        for sym in expected_symbols:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} from omni_director.__all__"
+
+        # Fix 6: html_hud_v213.py uses moco_rig and CSATF_SHORT_BULLETINS from safety_risk.py
+        moco_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        moco_bible.master_safety_risk = None
+        moco_bible.scenes = [moco_bible.scenes[0].model_copy(deep=True)]
+        moco_bible.scenes[0].drone_flight = None
+        moco_bible.scenes[0].omni_prose_prompt = "Clean studio static tabletop frame."
+        moco_bible.scenes[0].moco_rig = MocoRigSpec(rig_type=MotionControlRigType.BOLT_CINEBOT, max_velocity_mps=4.5)
+        safety_state = _normalize_safety_state(moco_bible, {1: (0.0, 8.0)})
+        assert safety_state["scene_exclusion_zones"][0]["hazard_category"] == "Motion Control / Robotics"
+        assert safety_state["scene_exclusion_zones"][0]["csatf_bulletin"] == CSATF_SHORT_BULLETINS[SafetyHazardCategory.KINETIC_MOCO_ARM.value]
+
+        # Fix 7: run_doctor() catches non-whitelist model gpt-4o via _validate_model_identifier
+        bad_cfg = DirectorConfig()
+        bad_cfg.director_model = "gpt-4o"
+        doc_report = run_doctor(bad_cfg)
+        assert doc_report.passed is False
+        assert doc_report.exit_code == 1
+        assert any(
+            c.name == "model_matrix_compliance"
+            and c.status == CheckStatus.FAIL
+            and "gpt-4o" in c.message
+            for c in doc_report.checks
+        )
+
+        # Fix 8: ProductManagerAgent.inspect_product() includes PM-FEAT-027 and PM-FEAT-028 (P0, implemented)
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
+        prop_by_id = {p.feature_id: p for p in proposals}
+        assert len(proposals) == 28
+        for fid in ("PM-FEAT-027", "PM-FEAT-028"):
+            assert fid in prop_by_id
+            assert prop_by_id[fid].priority == "P0"
+            assert prop_by_id[fid].status == "implemented"
+
+        orchestrator = ProductCouncilOrchestrator()
+        council_report = orchestrator.convene_council(
+            bible=IKEA_ASMR_BIBLE,
+            bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
+            output_dir=html_out,
+        )
+        assert council_report.version == "2.14.0"
+        assert council_report.passed is True
+        assert council_report.critical_findings_count == 0
+        assert council_report.overall_score >= 90.0

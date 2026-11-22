@@ -15,6 +15,7 @@ from omni_director.schemas import (
     AscMhlHashEntry,
     AscMhlManifestSpec,
     AspectRatio,
+    AudioBridgeType,
     AudioStemMixerSpec,
     BroadcastLoudnessStandard,
     BroadcastTraffickingSlateSpec,
@@ -3423,6 +3424,177 @@ def get_domain_safety_risk_spec(
     return master
 
 
+# ==============================================================================
+# PM-FEAT-027: Domain Localization & ADR Dubbing Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_LOCALIZATION_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "de-DE", "ja-JP", "zh-CN", "es-419"],
+        "max_allowed_wps": 2.5,
+        "max_allowed_drift_ratio": 1.15,
+        "supers_char_budget": 30,
+        "default_supers_template": "0-100 KM/H IN 2.1S · CARBON",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "authoritative",
+        "adr_environment_note": "Close-mic dry booth ADR matched to cockpit/telematics acoustics.",
+    },
+    "culinary_asmr": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "fr-FR", "it-IT", "ja-JP", "es-419", "da-DK"],
+        "max_allowed_wps": 2.0,
+        "max_allowed_drift_ratio": 1.15,
+        "supers_char_budget": 26,
+        "default_supers_template": "CRAFTED FOR THE SENSES",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "intimate_whisper",
+        "adr_environment_note": "Ultra-quiet -60dBFS ASMR vocal booth preserving tactile foley breathing room.",
+    },
+    "luxury_fashion": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "fr-FR", "it-IT", "zh-CN", "ar-SA", "ko-KR"],
+        "max_allowed_wps": 2.2,
+        "max_allowed_drift_ratio": 1.12,
+        "supers_char_budget": 24,
+        "default_supers_template": "L'ATELIER · LONDON PULSE",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "poised_editorial",
+        "adr_environment_note": "Warm large-diaphragm condenser ADR with prestige couture room bloom.",
+    },
+    "kinetic_action": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "es-419", "pt-BR", "ja-JP", "ko-KR", "de-DE"],
+        "max_allowed_wps": 2.5,
+        "max_allowed_drift_ratio": 1.15,
+        "supers_char_budget": 28,
+        "default_supers_template": "ZERO DRAG · PURE VELOCITY",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "urgent_kinetic",
+        "adr_environment_note": "High-SPL dynamic ADR projection with wind-shear match EQ.",
+    },
+    "tech_hardware": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "ja-JP", "zh-CN", "ko-KR", "de-DE", "fr-FR"],
+        "max_allowed_wps": 2.5,
+        "max_allowed_drift_ratio": 1.15,
+        "supers_char_budget": 32,
+        "default_supers_template": "PRECISION SILICON ENGINE",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "crisp_analytical",
+        "adr_environment_note": "Transparent broadcast VO booth with controlled sibilance for spec callouts.",
+    },
+    "architectural_sanctuary": {
+        "source_locale": "en-US",
+        "default_locales": ["en-US", "da-DK", "fr-FR", "de-DE", "ja-JP"],
+        "max_allowed_wps": 2.1,
+        "max_allowed_drift_ratio": 1.15,
+        "supers_char_budget": 26,
+        "default_supers_template": "SANCTUARY OF NATURAL LIGHT",
+        "imsc1_profile": "imsc1-text-1.1",
+        "emotion_tag": "serene_contemplative",
+        "adr_environment_note": "Naturalistic open-room ADR matched to timber and limestone RT60 decay.",
+    },
+}
+
+
+def get_domain_localization_spec(
+    domain_key: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Dict[str, Any]:
+    """Retrieve calibrated multi-territory localization and ADR parameters for a commercial domain (PM-FEAT-027)."""
+    resolved = _normalize_domain_key(domain_key if domain_key is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_LOCALIZATION_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["default_locales"] = list(cfg["default_locales"])
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-028: Editorial J-Cut / L-Cut & BPM Spotting Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_SPOTTING_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "default_bridge_type": AudioBridgeType.J_CUT,
+        "j_prelap_frames": 15,
+        "l_overhang_frames": 6,
+        "beat_snap_tolerance_frames": 2,
+        "bar_length_beats": 4,
+        "default_bpm": 130.0,
+        "sonic_anchor_cue": "Servo actuator & exhaust turbine spool 15f J-Cut",
+        "rationale": "12-18f servo/exhaust J-Cut pre-lap builds mechanical torque ahead of chassis cuts.",
+        "recommended_nle_track_count": 8,
+    },
+    "culinary_asmr": {
+        "default_bridge_type": AudioBridgeType.JL_OVERLAP,
+        "j_prelap_frames": 20,
+        "l_overhang_frames": 12,
+        "beat_snap_tolerance_frames": 3,
+        "bar_length_beats": 4,
+        "default_bpm": 84.0,
+        "sonic_anchor_cue": "Macro Foley knife/sizzle 20f J-Cut + 12f soft L-Cut decay",
+        "rationale": "Macro Foley J-Cuts (16-24f) pull tactile kitchen transients ahead of picture with a soft 12f L-Cut tail.",
+        "recommended_nle_track_count": 6,
+    },
+    "luxury_fashion": {
+        "default_bridge_type": AudioBridgeType.L_CUT,
+        "j_prelap_frames": 0,
+        "l_overhang_frames": 20,
+        "beat_snap_tolerance_frames": 2,
+        "bar_length_beats": 4,
+        "default_bpm": 116.0,
+        "sonic_anchor_cue": "Silk movement & harmonic reverb 20f L-Cut tail",
+        "rationale": "18-24f L-Cut tails glide vocal poise and harmonic decay across editorial picture transitions.",
+        "recommended_nle_track_count": 6,
+    },
+    "kinetic_action": {
+        "default_bridge_type": AudioBridgeType.J_CUT,
+        "j_prelap_frames": 8,
+        "l_overhang_frames": 0,
+        "beat_snap_tolerance_frames": 1,
+        "bar_length_beats": 4,
+        "default_bpm": 136.0,
+        "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+        "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap.",
+        "recommended_nle_track_count": 8,
+    },
+    "tech_hardware": {
+        "default_bridge_type": AudioBridgeType.J_CUT,
+        "j_prelap_frames": 8,
+        "l_overhang_frames": 0,
+        "beat_snap_tolerance_frames": 1,
+        "bar_length_beats": 4,
+        "default_bpm": 118.0,
+        "sonic_anchor_cue": "Tactile 8f UI click & anodized latch J-Cut",
+        "rationale": "Crisp 8f UI click J-Cut anticipates industrial hardware interaction cleanly on the cut.",
+        "recommended_nle_track_count": 6,
+    },
+    "architectural_sanctuary": {
+        "default_bridge_type": AudioBridgeType.L_CUT,
+        "j_prelap_frames": 0,
+        "l_overhang_frames": 30,
+        "beat_snap_tolerance_frames": 4,
+        "bar_length_beats": 4,
+        "default_bpm": 72.0,
+        "sonic_anchor_cue": "Timber & stone room-tone 30f ambience L-Cut",
+        "rationale": "24-36f ambience L-Cut preserves serene spatial RT60 continuity across architectural transitions.",
+        "recommended_nle_track_count": 6,
+    },
+}
+
+
+def get_domain_spotting_spec(
+    domain_key: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Dict[str, Any]:
+    """Retrieve calibrated J-Cut/L-Cut audio bridge and BPM spotting parameters for a commercial domain (PM-FEAT-028)."""
+    resolved = _normalize_domain_key(domain_key if domain_key is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_SPOTTING_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["domain_archetype"] = resolved
+    return out
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -4026,6 +4198,12 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
         bible.master_safety_risk = get_domain_safety_risk_spec(
             bible, bible.scenes, project_title=bible.project_title
         )
+    if not getattr(bible, "localization_manifest", None):
+        from omni_director.tools.localization_adr import compile_localization_manifest
+        bible.localization_manifest = compile_localization_manifest(bible)
+    if not getattr(bible, "spotting_manifest", None):
+        from omni_director.tools.editorial_spotting import build_spotting_manifest
+        bible.spotting_manifest = build_spotting_manifest(bible)
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -4101,6 +4279,20 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
                 scene.safety_risk = assess_scene_hazards(
                     scene=scene, scene_index=idx, domain=arch, bible=bible
                 )
+        if not getattr(scene, "locale_tracks", None) and getattr(bible, "localization_manifest", None):
+            loc_manifest = bible.localization_manifest
+            tracks = []
+            for terr in loc_manifest.territories:
+                terr_cues = [c for c in loc_manifest.adr_cues if c.locale == terr.bcp47_tag]
+                for cue, line_spec in zip(terr_cues, terr.lines):
+                    if cue.scene_number == scene.scene_index:
+                        tracks.append(line_spec)
+            scene.locale_tracks = tracks
+        if not getattr(scene, "edit_bridge_in", None) and getattr(bible, "spotting_manifest", None):
+            for br in bible.spotting_manifest.bridges:
+                if br.to_scene == scene.scene_index:
+                    scene.edit_bridge_in = br
+                    break
 
     return bible
 
@@ -4176,6 +4368,11 @@ def create_bible(
         bible.project_title = resolved_title
         bible.logline = brief
         bible.domain_archetype = domain_key
+        bible.localization_manifest = None
+        bible.spotting_manifest = None
+        for sc in bible.scenes:
+            sc.locale_tracks = []
+            sc.edit_bridge_in = None
     else:
         bible = MasterProductionBible(
             project_title=resolved_title,

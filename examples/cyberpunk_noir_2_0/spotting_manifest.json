@@ -1,0 +1,123 @@
+{
+  "fps": 24,
+  "tempo_bpm": 130.0,
+  "frames_per_beat": 11.0769,
+  "bar_length_beats": 4,
+  "beat_grid_tc": [
+    "00:00:00:00",
+    "00:00:00:11",
+    "00:00:00:22",
+    "00:00:01:09",
+    "00:00:01:20",
+    "00:00:02:07",
+    "00:00:02:18",
+    "00:00:03:06",
+    "00:00:03:17",
+    "00:00:04:04",
+    "00:00:04:15",
+    "00:00:05:02",
+    "00:00:05:13",
+    "00:00:06:00",
+    "00:00:06:11",
+    "00:00:06:22",
+    "00:00:07:09",
+    "00:00:07:20",
+    "00:00:08:07",
+    "00:00:08:18",
+    "00:00:09:06",
+    "00:00:09:17"
+  ],
+  "bridges": [
+    {
+      "from_scene": 1,
+      "to_scene": 2,
+      "cut_tc": "00:00:05:00",
+      "bridge_type": "j_cut",
+      "j_prelap_frames": 15,
+      "l_overhang_frames": 6,
+      "bridge_duration_sec": 0.875,
+      "nearest_beat_index": 11,
+      "beat_offset_frames": -2,
+      "beat_locked": true,
+      "sonic_anchor_cue": "High-torque electric motor whine (Servo actuator & exhaust turbine spool 15f J-Cut)",
+      "rationale": "12-18f servo/exhaust J-Cut pre-lap builds mechanical torque ahead of chassis cuts."
+    }
+  ],
+  "spotting_cues": [
+    {
+      "cue_id": "SPOT-MUS-S01",
+      "scene_number": 1,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:03",
+      "duration_frames": 123,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 1,
+      "lufs_target": -18.0,
+      "description": "Cyberpunk Neon-Lit High-Speed Electric M Theme @ 130 BPM | Bar 1"
+    },
+    {
+      "cue_id": "SPOT-SFX-S01",
+      "scene_number": 1,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 1,
+      "lufs_target": -18.0,
+      "description": "High-torque electric motor whine; Tire friction on slick asphalt (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S01",
+      "scene_number": 1,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:06",
+      "duration_frames": 126,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 1,
+      "lufs_target": -24.0,
+      "description": "Controlled cinematic soundstage with damp low-end reverb (L-overhang 6f)"
+    },
+    {
+      "cue_id": "SPOT-MUS-S02",
+      "scene_number": 2,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:04:17",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 127,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 3,
+      "lufs_target": -18.0,
+      "description": "Cyberpunk Neon-Lit High-Speed Electric M Theme @ 130 BPM | Bar 3"
+    },
+    {
+      "cue_id": "SPOT-SFX-S02",
+      "scene_number": 2,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:04:09",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 135,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 3,
+      "lufs_target": -18.0,
+      "description": "High-torque electric motor whine; Tire friction on slick asphalt (J-prelap 15f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S02",
+      "scene_number": 2,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 3,
+      "lufs_target": -24.0,
+      "description": "Reflective dynamic spatial acoustics with crisp decay (L-overhang 0f)"
+    }
+  ],
+  "beat_alignment_score": 93.0,
+  "total_split_edits": 1,
+  "recommended_nle_track_count": 8
+}

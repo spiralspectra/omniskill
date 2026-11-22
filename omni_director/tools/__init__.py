@@ -288,6 +288,29 @@ from omni_director.tools.safety_risk import (
     generate_safety_manifest_json,
     synthesize_default_safety_risk_spec,
 )
+from omni_director.tools.localization_adr import (
+    LOCALE_PROFILES,
+    audit_locale_lip_sync_and_supers,
+    compile_localization_manifest,
+    export_adr_cue_sheet_csv,
+    export_imsc1_ttml,
+    export_localization_bundle,
+    export_localization_manifest_json,
+    export_localized_subtitles,
+    format_localization_prompt_token,
+    synthesize_default_localization_manifest,
+)
+from omni_director.tools.editorial_spotting import (
+    build_spotting_manifest,
+    compute_bpm_beat_grid,
+    export_split_edit_edl,
+    export_spotting_bundle,
+    export_spotting_cue_sheet_csv,
+    export_spotting_manifest_json,
+    export_spotting_sheet_md,
+    format_spotting_prompt_token,
+    synthesize_default_spotting_manifest,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -545,5 +568,26 @@ __all__ = [
     "generate_safety_jsa_csv",
     "generate_safety_manifest_json",
     "export_safety_bundle",
+    # Multi-Territory Localization, ADR Dubbing Studio & Safe-Supers (PM-FEAT-027)
+    "LOCALE_PROFILES",
+    "compile_localization_manifest",
+    "synthesize_default_localization_manifest",
+    "audit_locale_lip_sync_and_supers",
+    "format_localization_prompt_token",
+    "export_imsc1_ttml",
+    "export_adr_cue_sheet_csv",
+    "export_localization_manifest_json",
+    "export_localized_subtitles",
+    "export_localization_bundle",
+    # Editorial J-Cut/L-Cut Audio Bridge, BPM Beat-Grid & Spotting Engine (PM-FEAT-028)
+    "compute_bpm_beat_grid",
+    "build_spotting_manifest",
+    "synthesize_default_spotting_manifest",
+    "format_spotting_prompt_token",
+    "export_split_edit_edl",
+    "export_spotting_cue_sheet_csv",
+    "export_spotting_sheet_md",
+    "export_spotting_manifest_json",
+    "export_spotting_bundle",
 ]
 

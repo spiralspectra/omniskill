@@ -87,12 +87,15 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-audio" onclick="toggleDeptGroup('audio')" aria-expanded="false" aria-controls="dept-tray-audio">
             <span class="dept-pill-icon" aria-hidden="true">🔊</span>
             <span>Audio</span>
-            <span class="dept-count">2</span>
+            <span class="dept-count">3</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-audio" role="group" aria-label="Audio Tools" hidden>
             <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
               🔊 Spatial Audio [S]
+            </button>
+            <button type="button" class="btn-dof" id="btn-spotting-animatic" onclick="toggleSpottingHUD()" aria-label="Editorial J-Cut / L-Cut Spotting and Beat-Grid HUD [J]" aria-expanded="false" aria-controls="animatic-spotting-hud">
+              🎚️ J/L Spotting [J]
             </button>
             <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
               🎚️ AUDIO [M]
@@ -127,7 +130,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
             <span class="dept-pill-icon" aria-hidden="true">📡</span>
             <span>Delivery, QC &amp; Review</span>
-            <span class="dept-count">4</span>
+            <span class="dept-count">5</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
@@ -143,6 +146,9 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dof" id="btn-c2pa-animatic" onclick="toggleC2paHUD()" aria-label="C2PA Content Credentials and Provenance HUD [Y]" aria-expanded="false" aria-controls="animatic-c2pa-hud">
               🛡️ C2PA [Y]
             </button>
+            <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
+              🌐 i18n / ADR [I]
+            </button>
           </div>
         </div>
 
@@ -151,7 +157,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

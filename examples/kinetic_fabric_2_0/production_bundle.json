@@ -110,7 +110,7 @@
         "kinetic_contact_chain": "Relaxed fibers -> Tensile load applied -> Yarn elongation under force -> Surface micro-flattening -> Stable high-tension lock.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing while maintaining continuous kinetic momentum conservation and tensile inertia under physical load. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum.",
+        "omni_prose_prompt": "An extreme macro 100mm camera shot frames the intricate technical fabric weave from <image_1> resting on the titanium stage of <image_2>. Filmed at 1.0x real-time speed with rigid physics, the intertwined matte-black carbon yarns and luminous cyan microfibers sit in sharp stillness for the first three seconds under deep blue lab lighting. At second 03, mechanical tension applies from the edges, causing the interlocking threads to pull taut with realistic elasticity, elongating slightly without tearing or morphing while maintaining continuous kinetic momentum conservation and tensile inertia under physical load. A crisp emerald laser scan line sweeps smoothly across the surface at second 06, catching the micro-ridges of each fiber in tack-sharp focus. Synchronized diegetic audio layers a deep, tactile microfiber stretch sound, a soft pneumatic pressure release, and high-precision electronic equipment hum. [LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=120 bridge=j_cut jcut=8f lcut=0f beat_offset=0f].",
         "conversational_edit_deltas": [
           "Turn 2: Add visible micro-dust particle displacement upon tension snap."
         ],
@@ -1017,13 +1017,13 @@
           "scene_title": "The Microscopic Weave",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1036,7 +1036,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1049,7 +1049,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1062,7 +1062,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1218,7 +1218,82 @@
           "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
           "jsa_notes": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX. Tailgate safety briefing verified.",
           "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]"
-        }
+        },
+        "locale_tracks": [
+          {
+            "locale": "en-US",
+            "bcp47_tag": "en-US",
+            "translated_text": "[SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "es-419",
+            "bcp47_tag": "es-419",
+            "translated_text": "[ES] [SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "pt-BR",
+            "bcp47_tag": "pt-BR",
+            "translated_text": "[PT] [SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ja-JP",
+            "bcp47_tag": "ja-JP",
+            "translated_text": "[JA] [SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ko-KR",
+            "bcp47_tag": "ko-KR",
+            "translated_text": "[KO] [SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "de-DE",
+            "bcp47_tag": "de-DE",
+            "translated_text": "[DE] [SFX: The Microscopic Weave]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          }
+        ],
+        "edit_bridge_in": null
       },
       {
         "scene_index": 2,
@@ -1233,7 +1308,7 @@
         "kinetic_contact_chain": "Nozzle airflow discharge -> Air pressure boundary layer forms -> Fluid-structure interaction on fabric -> Aerodynamic ripple wave propagation -> Stable laminar wave state.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation while maintaining continuous kinetic momentum conservation and aerodynamic inertia across the high-speed flow. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air.",
+        "omni_prose_prompt": "The camera executes a smooth backward robotic dolly move at 1.0x real-time playback speed, transitioning from macro into a medium-wide shot of the aerodynamic wind tunnel test bench from <image_2>. At second 09, high-velocity laminar airflow surges from the circular intake nozzle: smooth, parallel ribbons of white condensation smoke glide over the taut cyan-and-black fabric sheet matching <image_1>, adhering perfectly to its surface without turbulent separation while maintaining continuous kinetic momentum conservation and aerodynamic inertia across the high-speed flow. The fabric vibrates with ultra-precise, high-frequency aerodynamic micro-ripples, displaying authentic mass and aerodynamic resistance. The robotic camera holds a perfectly stabilized low-angle tracking position. Synchronized diegetic audio captures the rising pneumatic whoosh of high-speed laminar wind, deep acoustic turbine hum, and the rapid, crisp fluttering friction of synthetic fabric in air. [LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=120 bridge=j_cut jcut=8f lcut=0f beat_offset=0f].",
         "conversational_edit_deltas": [
           "Turn 2: Enhance the brightness of the smoke streamlines under the blue laser light."
         ],
@@ -2143,13 +2218,13 @@
           "scene_title": "The Airflow Ignition",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2162,7 +2237,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2175,7 +2250,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2188,7 +2263,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2322,6 +2397,94 @@
           "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
           "jsa_notes": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX. Tailgate safety briefing verified.",
           "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]"
+        },
+        "locale_tracks": [
+          {
+            "locale": "en-US",
+            "bcp47_tag": "en-US",
+            "translated_text": "[SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "es-419",
+            "bcp47_tag": "es-419",
+            "translated_text": "[ES] [SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "pt-BR",
+            "bcp47_tag": "pt-BR",
+            "translated_text": "[PT] [SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ja-JP",
+            "bcp47_tag": "ja-JP",
+            "translated_text": "[JA] [SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ko-KR",
+            "bcp47_tag": "ko-KR",
+            "translated_text": "[KO] [SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "de-DE",
+            "bcp47_tag": "de-DE",
+            "translated_text": "[DE] [SFX: The Airflow Ignition]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          }
+        ],
+        "edit_bridge_in": {
+          "from_scene": 1,
+          "to_scene": 2,
+          "cut_tc": "00:00:08:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 16,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
         }
       },
       {
@@ -2337,7 +2500,7 @@
         "kinetic_contact_chain": "Peak wind velocity -> Aerodynamic lift force generates deflection -> Flexible composite arm reaches planned bend angle -> Trailing edge sheds micro-vortex -> Dynamic equilibrium under load.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. Dynamic tracking preserves continuous kinetic momentum conservation and steady aerodynamic inertia as the winglet flexes under aerodynamic load. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses.",
+        "omni_prose_prompt": "A dynamic lateral tracking arc shot sweeps 90 degrees around the testing rig at natural 1.0x speed. Dynamic tracking preserves continuous kinetic momentum conservation and steady aerodynamic inertia as the winglet flexes under aerodynamic load. The technical fabric sheet, mounted on a sleek carbon-fiber arm like <image_3>, flexes smoothly under extreme aerodynamic pressure into a graceful, low-drag winglet profile. Twin violet laser sheets slice across the trailing edge, illuminating micro-vortices of smoke that curl gracefully off the fabric lip without fluttering into chaotic turbulence. Maintain exact thread pattern geometry and pristine lighting reflections on the dark titanium floor. Synchronized diegetic audio features a powerful, resonant wind tunnel roar, the high-pitch harmonic whistle of shedding vortices, and heavy sub-bass air compression pulses. [LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=120 bridge=j_cut jcut=8f lcut=0f beat_offset=0f].",
         "conversational_edit_deltas": [
           "Turn 2: Increase the camber of the fabric winglet curve."
         ],
@@ -3244,13 +3407,13 @@
           "scene_title": "The Aerodynamic Deflection",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3263,7 +3426,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3276,7 +3439,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3289,7 +3452,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3435,6 +3598,94 @@
           "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
           "jsa_notes": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX. Tailgate safety briefing verified.",
           "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]"
+        },
+        "locale_tracks": [
+          {
+            "locale": "en-US",
+            "bcp47_tag": "en-US",
+            "translated_text": "[SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "es-419",
+            "bcp47_tag": "es-419",
+            "translated_text": "[ES] [SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "pt-BR",
+            "bcp47_tag": "pt-BR",
+            "translated_text": "[PT] [SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ja-JP",
+            "bcp47_tag": "ja-JP",
+            "translated_text": "[JA] [SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ko-KR",
+            "bcp47_tag": "ko-KR",
+            "translated_text": "[KO] [SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "de-DE",
+            "bcp47_tag": "de-DE",
+            "translated_text": "[DE] [SFX: The Aerodynamic Deflection]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          }
+        ],
+        "edit_bridge_in": {
+          "from_scene": 2,
+          "to_scene": 3,
+          "cut_tc": "00:00:16:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 32,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
         }
       },
       {
@@ -3450,7 +3701,7 @@
         "kinetic_contact_chain": "Airflow cutoff -> Pressure drop -> Elastic restoring force snaps fabric -> Momentum damping oscillation -> Absolute static resting state.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed, tracking continuous kinetic momentum conservation and physical inertia until the turbines power down and elastic restoring forces bring the textile into static rest. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone.",
+        "omni_prose_prompt": "The camera punches in smoothly on the fabric center from the front at 1.0x real-time speed, tracking continuous kinetic momentum conservation and physical inertia until the turbines power down and elastic restoring forces bring the textile into static rest. At second 27, the wind tunnel turbines instantly power down with a solid acoustic drop: the high-speed smoke ribbons dissipate into thin air, and the flexed fabric springs crisply back to its initial flat resting plane with a singular, satisfying physical SNAP. The material settles instantly into flawless, motionless stillness, its black-and-cyan weave catching the steady ambient blue glow of the lab with razor-sharp macro clarity. Zero camera drift and zero digital artifacting. Synchronized diegetic audio captures the heavy pneumatic clunk of the wind valves closing, the crisp, singular SNAP of the taut textile rebounding, and the smooth decay of turbine whine into dead-silent lab room tone. [LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=120 bridge=j_cut jcut=8f lcut=0f beat_offset=0f].",
         "conversational_edit_deltas": [
           "Turn 2: Rack focus to the central carbon fiber thread in the final second."
         ],
@@ -4360,13 +4611,13 @@
           "scene_title": "The Deceleration & The Form Lock",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4379,7 +4630,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4392,7 +4643,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4405,7 +4656,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4575,6 +4826,94 @@
           "safety_officer_name": "Certified 1st AD & CSATF Unit Safety Officer",
           "jsa_notes": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX. Tailgate safety briefing verified.",
           "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]"
+        },
+        "locale_tracks": [
+          {
+            "locale": "en-US",
+            "bcp47_tag": "en-US",
+            "translated_text": "[SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "es-419",
+            "bcp47_tag": "es-419",
+            "translated_text": "[ES] [SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "pt-BR",
+            "bcp47_tag": "pt-BR",
+            "translated_text": "[PT] [SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ja-JP",
+            "bcp47_tag": "ja-JP",
+            "translated_text": "[JA] [SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "ko-KR",
+            "bcp47_tag": "ko-KR",
+            "translated_text": "[KO] [SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          },
+          {
+            "locale": "de-DE",
+            "bcp47_tag": "de-DE",
+            "translated_text": "[DE] [SFX: The Deceleration & The Form Lock]",
+            "syllable_count": 0,
+            "word_count": 0,
+            "target_wps": 0.0,
+            "duration_sec": 8.0,
+            "lip_sync_ratio": 1.0,
+            "sync_status": "locked",
+            "requires_viseme_retime": false
+          }
+        ],
+        "edit_bridge_in": {
+          "from_scene": 3,
+          "to_scene": 4,
+          "cut_tc": "00:00:24:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 48,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
         }
       }
     ],
@@ -5495,7 +5834,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "The Kinetic Fabric: Grounded Innovation",
-        "creation_date": "2026-11-21T10:46:04.045200+00:00",
+        "creation_date": "2026-11-22T10:19:35.835692+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -5503,7 +5842,7 @@
             "xxhash64": "6d6982250c77c4d4",
             "sha1": "f765223c7504d6251ac0d444bc866d933ed76cd2",
             "md5": "435dfd2c731b5e8985bd975f1c3988e0",
-            "hash_timestamp": "2026-11-21T10:46:04.045182+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835676+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -5511,7 +5850,7 @@
             "xxhash64": "ca317695850ce119",
             "sha1": "d3d54facd5f6501afb33efcf6035066c688a103c",
             "md5": "d5fbd6c0cb65a0a7d2e7a8871347263c",
-            "hash_timestamp": "2026-11-21T10:46:04.045189+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835682+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -5519,7 +5858,7 @@
             "xxhash64": "72c3cb9fd5e2d8c5",
             "sha1": "6075e65b2dc06da5e5552b34dd1f27b89f77beb1",
             "md5": "03c3154c9a3cd705b90998d894a25ec7",
-            "hash_timestamp": "2026-11-21T10:46:04.045194+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835686+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -5527,7 +5866,7 @@
             "xxhash64": "26ac7c2498e48cc3",
             "sha1": "85be479e72c6d0d6ff3624d4bba038e6337abcd1",
             "md5": "95b000b18f0ff77d3739730fe789d512",
-            "hash_timestamp": "2026-11-21T10:46:04.045198+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835690+00:00"
           }
         ]
       }
@@ -5625,7 +5964,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "The Kinetic Fabric: Grounded Innovation",
-        "creation_date": "2026-11-21T10:46:04.045200+00:00",
+        "creation_date": "2026-11-22T10:19:35.835692+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -5633,7 +5972,7 @@
             "xxhash64": "6d6982250c77c4d4",
             "sha1": "f765223c7504d6251ac0d444bc866d933ed76cd2",
             "md5": "435dfd2c731b5e8985bd975f1c3988e0",
-            "hash_timestamp": "2026-11-21T10:46:04.045182+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835676+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -5641,7 +5980,7 @@
             "xxhash64": "ca317695850ce119",
             "sha1": "d3d54facd5f6501afb33efcf6035066c688a103c",
             "md5": "d5fbd6c0cb65a0a7d2e7a8871347263c",
-            "hash_timestamp": "2026-11-21T10:46:04.045189+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835682+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -5649,7 +5988,7 @@
             "xxhash64": "72c3cb9fd5e2d8c5",
             "sha1": "6075e65b2dc06da5e5552b34dd1f27b89f77beb1",
             "md5": "03c3154c9a3cd705b90998d894a25ec7",
-            "hash_timestamp": "2026-11-21T10:46:04.045194+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835686+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -5657,7 +5996,7 @@
             "xxhash64": "26ac7c2498e48cc3",
             "sha1": "85be479e72c6d0d6ff3624d4bba038e6337abcd1",
             "md5": "95b000b18f0ff77d3739730fe789d512",
-            "hash_timestamp": "2026-11-21T10:46:04.045198+00:00"
+            "hash_timestamp": "2026-11-22T10:19:35.835690+00:00"
           }
         ]
       }
@@ -12320,7 +12659,7 @@
     "master_c2pa_provenance": {
       "project_title": "The Kinetic Fabric: Grounded Innovation",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.13.0",
+      "claim_generator": "OmniMovieDirector/2.14.0",
       "manifest_id": "urn:c2pa:omni-director:2026:dc5e5118d2af",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -12329,7 +12668,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12342,7 +12681,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12355,7 +12694,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12368,7 +12707,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12440,13 +12779,13 @@
           "scene_title": "The Microscopic Weave",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12459,7 +12798,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12472,7 +12811,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12485,7 +12824,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12534,13 +12873,13 @@
           "scene_title": "The Airflow Ignition",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12553,7 +12892,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12566,7 +12905,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12579,7 +12918,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12628,13 +12967,13 @@
           "scene_title": "The Aerodynamic Deflection",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12647,7 +12986,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12660,7 +12999,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12673,7 +13012,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12710,13 +13049,13 @@
           "scene_title": "The Deceleration & The Form Lock",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12729,7 +13068,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12742,7 +13081,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12755,7 +13094,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12824,7 +13163,7 @@
     "c2pa_provenance": {
       "project_title": "The Kinetic Fabric: Grounded Innovation",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.13.0",
+      "claim_generator": "OmniMovieDirector/2.14.0",
       "manifest_id": "urn:c2pa:omni-director:2026:dc5e5118d2af",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -12833,7 +13172,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12846,7 +13185,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12859,7 +13198,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12872,7 +13211,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -12944,13 +13283,13 @@
           "scene_title": "The Microscopic Weave",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12963,7 +13302,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12976,7 +13315,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12989,7 +13328,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13038,13 +13377,13 @@
           "scene_title": "The Airflow Ignition",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13057,7 +13396,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13070,7 +13409,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13083,7 +13422,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13132,13 +13471,13 @@
           "scene_title": "The Aerodynamic Deflection",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13151,7 +13490,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13164,7 +13503,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13177,7 +13516,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13214,13 +13553,13 @@
           "scene_title": "The Deceleration & The Form Lock",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13233,7 +13572,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13246,7 +13585,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13259,7 +13598,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13328,7 +13667,7 @@
     "content_credentials": {
       "project_title": "The Kinetic Fabric: Grounded Innovation",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.13.0",
+      "claim_generator": "OmniMovieDirector/2.14.0",
       "manifest_id": "urn:c2pa:omni-director:2026:dc5e5118d2af",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -13337,7 +13676,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13350,7 +13689,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13363,7 +13702,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13376,7 +13715,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13448,13 +13787,13 @@
           "scene_title": "The Microscopic Weave",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13467,7 +13806,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13480,7 +13819,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13493,7 +13832,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13542,13 +13881,13 @@
           "scene_title": "The Airflow Ignition",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13561,7 +13900,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13574,7 +13913,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13587,7 +13926,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13636,13 +13975,13 @@
           "scene_title": "The Aerodynamic Deflection",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13655,7 +13994,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13668,7 +14007,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13681,7 +14020,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13718,13 +14057,13 @@
           "scene_title": "The Deceleration & The Form Lock",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13737,7 +14076,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13750,7 +14089,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13763,7 +14102,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13832,7 +14171,7 @@
     "provenance_manifest": {
       "project_title": "The Kinetic Fabric: Grounded Innovation",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.13.0",
+      "claim_generator": "OmniMovieDirector/2.14.0",
       "manifest_id": "urn:c2pa:omni-director:2026:dc5e5118d2af",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -13841,7 +14180,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13854,7 +14193,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13867,7 +14206,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13880,7 +14219,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13952,13 +14291,13 @@
           "scene_title": "The Microscopic Weave",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13971,7 +14310,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13984,7 +14323,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13997,7 +14336,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14046,13 +14385,13 @@
           "scene_title": "The Airflow Ignition",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14065,7 +14404,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14078,7 +14417,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14091,7 +14430,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14140,13 +14479,13 @@
           "scene_title": "The Aerodynamic Deflection",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14159,7 +14498,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14172,7 +14511,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14185,7 +14524,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14222,13 +14561,13 @@
           "scene_title": "The Deceleration & The Form Lock",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.13.0",
+          "claim_generator": "OmniMovieDirector/2.14.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14241,7 +14580,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14254,7 +14593,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14267,7 +14606,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.13.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.14.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -16192,6 +16531,1025 @@
       "all_hazards_mitigated": true,
       "jsa_summary": "10.0m wire rigging & Bolt Cinebot high-speed kinetic sweep envelope + atmospheric SFX. Cleared across 4 scene(s).",
       "prompt_token": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=15 status=MITIGATED]"
+    },
+    "localization_manifest": {
+      "source_locale": "en-US",
+      "target_locales": [
+        "en-US",
+        "es-419",
+        "pt-BR",
+        "ja-JP",
+        "ko-KR",
+        "de-DE"
+      ],
+      "territories": [
+        {
+          "locale": "en-US",
+          "bcp47_tag": "en-US",
+          "territory_label": "United States (Source Master)",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "en-US",
+              "bcp47_tag": "en-US",
+              "translated_text": "[SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "en-US",
+              "bcp47_tag": "en-US",
+              "translated_text": "[SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "en-US",
+              "bcp47_tag": "en-US",
+              "translated_text": "[SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "en-US",
+              "bcp47_tag": "en-US",
+              "translated_text": "[SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "ZERO DRAG · PURE VELOCITY",
+          "supers_expansion_pct": 0.0,
+          "supers_status": "clear",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 1.00x (+0.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ."
+          ]
+        },
+        {
+          "locale": "es-419",
+          "bcp47_tag": "es-419",
+          "territory_label": "Latin America (Neutral Spanish)",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "es-419",
+              "bcp47_tag": "es-419",
+              "translated_text": "[ES] [SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "es-419",
+              "bcp47_tag": "es-419",
+              "translated_text": "[ES] [SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "es-419",
+              "bcp47_tag": "es-419",
+              "translated_text": "[ES] [SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "es-419",
+              "bcp47_tag": "es-419",
+              "translated_text": "[ES] [SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "ES · ZERO DRAG · PURE VELOCITY",
+          "supers_expansion_pct": 18.0,
+          "supers_status": "tight_wrap",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 1.18x (+18.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ.",
+            "Supers 'ES · ZERO DRAG · PURE VELOCITY' (30 chars) vs safe budget 28 chars -> tight_wrap."
+          ]
+        },
+        {
+          "locale": "pt-BR",
+          "bcp47_tag": "pt-BR",
+          "territory_label": "Brazil",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "pt-BR",
+              "bcp47_tag": "pt-BR",
+              "translated_text": "[PT] [SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "pt-BR",
+              "bcp47_tag": "pt-BR",
+              "translated_text": "[PT] [SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "pt-BR",
+              "bcp47_tag": "pt-BR",
+              "translated_text": "[PT] [SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "pt-BR",
+              "bcp47_tag": "pt-BR",
+              "translated_text": "[PT] [SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "BR · ZERO DRAG · PURE VELOCITY",
+          "supers_expansion_pct": 17.0,
+          "supers_status": "tight_wrap",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 1.17x (+17.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ.",
+            "Supers 'BR · ZERO DRAG · PURE VELOCITY' (30 chars) vs safe budget 28 chars -> tight_wrap."
+          ]
+        },
+        {
+          "locale": "ja-JP",
+          "bcp47_tag": "ja-JP",
+          "territory_label": "Japan",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "ja-JP",
+              "bcp47_tag": "ja-JP",
+              "translated_text": "[JA] [SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ja-JP",
+              "bcp47_tag": "ja-JP",
+              "translated_text": "[JA] [SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ja-JP",
+              "bcp47_tag": "ja-JP",
+              "translated_text": "[JA] [SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ja-JP",
+              "bcp47_tag": "ja-JP",
+              "translated_text": "[JA] [SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "JP・今響き美学今響き美学今響き美学",
+          "supers_expansion_pct": -28.0,
+          "supers_status": "clear",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 0.72x (-28.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ."
+          ]
+        },
+        {
+          "locale": "ko-KR",
+          "bcp47_tag": "ko-KR",
+          "territory_label": "South Korea",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "ko-KR",
+              "bcp47_tag": "ko-KR",
+              "translated_text": "[KO] [SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ko-KR",
+              "bcp47_tag": "ko-KR",
+              "translated_text": "[KO] [SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ko-KR",
+              "bcp47_tag": "ko-KR",
+              "translated_text": "[KO] [SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "ko-KR",
+              "bcp47_tag": "ko-KR",
+              "translated_text": "[KO] [SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "KR·지금순수리듬지금순수리듬지금순수리",
+          "supers_expansion_pct": -20.0,
+          "supers_status": "clear",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 0.80x (-20.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ."
+          ]
+        },
+        {
+          "locale": "de-DE",
+          "bcp47_tag": "de-DE",
+          "territory_label": "Germany / DACH",
+          "direction": "ltr",
+          "adr_required": false,
+          "lines": [
+            {
+              "locale": "de-DE",
+              "bcp47_tag": "de-DE",
+              "translated_text": "[DE] [SFX: The Microscopic Weave]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "de-DE",
+              "bcp47_tag": "de-DE",
+              "translated_text": "[DE] [SFX: The Airflow Ignition]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "de-DE",
+              "bcp47_tag": "de-DE",
+              "translated_text": "[DE] [SFX: The Aerodynamic Deflection]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            },
+            {
+              "locale": "de-DE",
+              "bcp47_tag": "de-DE",
+              "translated_text": "[DE] [SFX: The Deceleration & The Form Lock]",
+              "syllable_count": 0,
+              "word_count": 0,
+              "target_wps": 0.0,
+              "duration_sec": 8.0,
+              "lip_sync_ratio": 1.0,
+              "sync_status": "locked",
+              "requires_viseme_retime": false
+            }
+          ],
+          "localized_supers_text": "DE · ZERO DRAG · PURE VELOCITY",
+          "supers_expansion_pct": 25.0,
+          "supers_status": "tight_wrap",
+          "max_lip_sync_ratio": 1.0,
+          "compliance_notes": [
+            "Expansion factor 1.25x (+25.0%) | direction=LTR.",
+            "High-SPL dynamic ADR projection with wind-shear match EQ.",
+            "Supers 'DE · ZERO DRAG · PURE VELOCITY' (30 chars) vs safe budget 28 chars -> tight_wrap."
+          ]
+        }
+      ],
+      "adr_cues": [
+        {
+          "cue_id": "ADR-ENUS-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "en-US",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ENUS-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "en-US",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ENUS-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "en-US",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ENUS-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "en-US",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ES419-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "es-419",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[ES] [SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ES419-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "es-419",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[ES] [SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ES419-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "es-419",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[ES] [SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-ES419-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "es-419",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[ES] [SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-PTBR-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "pt-BR",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[PT] [SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-PTBR-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "pt-BR",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[PT] [SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-PTBR-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "pt-BR",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[PT] [SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-PTBR-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "pt-BR",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[PT] [SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-JAJP-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ja-JP",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[JA] [SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-JAJP-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ja-JP",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[JA] [SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-JAJP-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ja-JP",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[JA] [SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-JAJP-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ja-JP",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[JA] [SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-KOKR-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ko-KR",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[KO] [SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-KOKR-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ko-KR",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[KO] [SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-KOKR-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ko-KR",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[KO] [SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-KOKR-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "ko-KR",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[KO] [SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-DEDE-S01-01",
+          "scene_number": 1,
+          "character_name": "M&E / Foley Cue",
+          "locale": "de-DE",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Microscopic Weave]",
+          "adapted_line": "[DE] [SFX: The Microscopic Weave]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-DEDE-S02-01",
+          "scene_number": 2,
+          "character_name": "M&E / Foley Cue",
+          "locale": "de-DE",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Airflow Ignition]",
+          "adapted_line": "[DE] [SFX: The Airflow Ignition]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-DEDE-S03-01",
+          "scene_number": 3,
+          "character_name": "M&E / Foley Cue",
+          "locale": "de-DE",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Aerodynamic Deflection]",
+          "adapted_line": "[DE] [SFX: The Aerodynamic Deflection]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        },
+        {
+          "cue_id": "ADR-DEDE-S04-01",
+          "scene_number": 4,
+          "character_name": "M&E / Foley Cue",
+          "locale": "de-DE",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "pre_roll_beeps": 3,
+          "source_line": "[SFX: The Deceleration & The Form Lock]",
+          "adapted_line": "[DE] [SFX: The Deceleration & The Form Lock]",
+          "emotion_tag": "urgent_kinetic",
+          "lip_sync_ratio": 1.0,
+          "loop_group_flag": false
+        }
+      ],
+      "imsc1_profile": "imsc1-text-1.1",
+      "max_allowed_wps": 2.5,
+      "max_allowed_drift_ratio": 1.15,
+      "broadcast_ready": true,
+      "summary_notes": [
+        "Domain 'kinetic_action' calibrated at max_wps=2.50, drift_ceiling=1.15x, supers_budget=28ch.",
+        "Compiled 6 territories (en-US, es-419, pt-BR, ja-JP, ko-KR, de-DE) and 24 ADR spotting cues (3-beep pre-roll).",
+        "Broadcast localization gate: READY."
+      ]
+    },
+    "spotting_manifest": {
+      "fps": 24,
+      "tempo_bpm": 120.0,
+      "frames_per_beat": 12.0,
+      "bar_length_beats": 4,
+      "beat_grid_tc": [
+        "00:00:00:00",
+        "00:00:00:12",
+        "00:00:01:00",
+        "00:00:01:12",
+        "00:00:02:00",
+        "00:00:02:12",
+        "00:00:03:00",
+        "00:00:03:12",
+        "00:00:04:00",
+        "00:00:04:12",
+        "00:00:05:00",
+        "00:00:05:12",
+        "00:00:06:00",
+        "00:00:06:12",
+        "00:00:07:00",
+        "00:00:07:12",
+        "00:00:08:00",
+        "00:00:08:12",
+        "00:00:09:00",
+        "00:00:09:12",
+        "00:00:10:00",
+        "00:00:10:12",
+        "00:00:11:00",
+        "00:00:11:12",
+        "00:00:12:00",
+        "00:00:12:12",
+        "00:00:13:00",
+        "00:00:13:12",
+        "00:00:14:00",
+        "00:00:14:12",
+        "00:00:15:00",
+        "00:00:15:12",
+        "00:00:16:00",
+        "00:00:16:12",
+        "00:00:17:00",
+        "00:00:17:12",
+        "00:00:18:00",
+        "00:00:18:12",
+        "00:00:19:00",
+        "00:00:19:12",
+        "00:00:20:00",
+        "00:00:20:12",
+        "00:00:21:00",
+        "00:00:21:12",
+        "00:00:22:00",
+        "00:00:22:12",
+        "00:00:23:00",
+        "00:00:23:12",
+        "00:00:24:00",
+        "00:00:24:12",
+        "00:00:25:00",
+        "00:00:25:12",
+        "00:00:26:00",
+        "00:00:26:12",
+        "00:00:27:00",
+        "00:00:27:12",
+        "00:00:28:00",
+        "00:00:28:12",
+        "00:00:29:00",
+        "00:00:29:12",
+        "00:00:30:00",
+        "00:00:30:12",
+        "00:00:31:00",
+        "00:00:31:12",
+        "00:00:32:00"
+      ],
+      "bridges": [
+        {
+          "from_scene": 1,
+          "to_scene": 2,
+          "cut_tc": "00:00:08:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 16,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
+        },
+        {
+          "from_scene": 2,
+          "to_scene": 3,
+          "cut_tc": "00:00:16:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 32,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
+        },
+        {
+          "from_scene": 3,
+          "to_scene": 4,
+          "cut_tc": "00:00:24:00",
+          "bridge_type": "j_cut",
+          "j_prelap_frames": 8,
+          "l_overhang_frames": 0,
+          "bridge_duration_sec": 0.333,
+          "nearest_beat_index": 48,
+          "beat_offset_frames": 0,
+          "beat_locked": true,
+          "sonic_anchor_cue": "Tight <=1f beat slam & 8f kinetic whoosh J-Cut",
+          "rationale": "Tight <=1f beat-locked transient slam paired with 6-10f kinetic J-Cut pre-lap."
+        }
+      ],
+      "spotting_cues": [
+        {
+          "cue_id": "SPOT-MUS-S01",
+          "scene_number": 1,
+          "cue_category": "music_stem",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "duration_frames": 192,
+          "stem_target": "A4 (BGM Score)",
+          "downbeat_bar": 1,
+          "lufs_target": -16.0,
+          "description": "Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 1"
+        },
+        {
+          "cue_id": "SPOT-SFX-S01",
+          "scene_number": 1,
+          "cue_category": "foley_hard",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "duration_frames": 192,
+          "stem_target": "A2 (Foley / SFX)",
+          "downbeat_bar": 1,
+          "lufs_target": -18.0,
+          "description": "The Microscopic Weave tactile Foley (J-prelap 0f)"
+        },
+        {
+          "cue_id": "SPOT-AMB-S01",
+          "scene_number": 1,
+          "cue_category": "room_tone",
+          "in_tc": "00:00:00:00",
+          "out_tc": "00:00:08:00",
+          "duration_frames": 192,
+          "stem_target": "A3 (Room Ambience)",
+          "downbeat_bar": 1,
+          "lufs_target": -24.0,
+          "description": "Calibrated production room tone (L-overhang 0f)"
+        },
+        {
+          "cue_id": "SPOT-MUS-S02",
+          "scene_number": 2,
+          "cue_category": "music_stem",
+          "in_tc": "00:00:07:20",
+          "out_tc": "00:00:16:00",
+          "duration_frames": 196,
+          "stem_target": "A4 (BGM Score)",
+          "downbeat_bar": 5,
+          "lufs_target": -16.0,
+          "description": "Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 5"
+        },
+        {
+          "cue_id": "SPOT-SFX-S02",
+          "scene_number": 2,
+          "cue_category": "foley_hard",
+          "in_tc": "00:00:07:16",
+          "out_tc": "00:00:16:00",
+          "duration_frames": 200,
+          "stem_target": "A2 (Foley / SFX)",
+          "downbeat_bar": 5,
+          "lufs_target": -18.0,
+          "description": "The Airflow Ignition tactile Foley (J-prelap 8f)"
+        },
+        {
+          "cue_id": "SPOT-AMB-S02",
+          "scene_number": 2,
+          "cue_category": "room_tone",
+          "in_tc": "00:00:08:00",
+          "out_tc": "00:00:16:00",
+          "duration_frames": 192,
+          "stem_target": "A3 (Room Ambience)",
+          "downbeat_bar": 5,
+          "lufs_target": -24.0,
+          "description": "Calibrated production room tone (L-overhang 0f)"
+        },
+        {
+          "cue_id": "SPOT-MUS-S03",
+          "scene_number": 3,
+          "cue_category": "music_stem",
+          "in_tc": "00:00:15:20",
+          "out_tc": "00:00:24:00",
+          "duration_frames": 196,
+          "stem_target": "A4 (BGM Score)",
+          "downbeat_bar": 9,
+          "lufs_target": -16.0,
+          "description": "Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 9"
+        },
+        {
+          "cue_id": "SPOT-SFX-S03",
+          "scene_number": 3,
+          "cue_category": "foley_hard",
+          "in_tc": "00:00:15:16",
+          "out_tc": "00:00:24:00",
+          "duration_frames": 200,
+          "stem_target": "A2 (Foley / SFX)",
+          "downbeat_bar": 9,
+          "lufs_target": -18.0,
+          "description": "The Aerodynamic Deflection tactile Foley (J-prelap 8f)"
+        },
+        {
+          "cue_id": "SPOT-AMB-S03",
+          "scene_number": 3,
+          "cue_category": "room_tone",
+          "in_tc": "00:00:16:00",
+          "out_tc": "00:00:24:00",
+          "duration_frames": 192,
+          "stem_target": "A3 (Room Ambience)",
+          "downbeat_bar": 9,
+          "lufs_target": -24.0,
+          "description": "Calibrated production room tone (L-overhang 0f)"
+        },
+        {
+          "cue_id": "SPOT-MUS-S04",
+          "scene_number": 4,
+          "cue_category": "music_stem",
+          "in_tc": "00:00:23:20",
+          "out_tc": "00:00:32:00",
+          "duration_frames": 196,
+          "stem_target": "A4 (BGM Score)",
+          "downbeat_bar": 13,
+          "lufs_target": -16.0,
+          "description": "Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 13"
+        },
+        {
+          "cue_id": "SPOT-SFX-S04",
+          "scene_number": 4,
+          "cue_category": "foley_hard",
+          "in_tc": "00:00:23:16",
+          "out_tc": "00:00:32:00",
+          "duration_frames": 200,
+          "stem_target": "A2 (Foley / SFX)",
+          "downbeat_bar": 13,
+          "lufs_target": -18.0,
+          "description": "The Deceleration & The Form Lock tactile Foley (J-prelap 8f)"
+        },
+        {
+          "cue_id": "SPOT-AMB-S04",
+          "scene_number": 4,
+          "cue_category": "room_tone",
+          "in_tc": "00:00:24:00",
+          "out_tc": "00:00:32:00",
+          "duration_frames": 192,
+          "stem_target": "A3 (Room Ambience)",
+          "downbeat_bar": 13,
+          "lufs_target": -24.0,
+          "description": "Calibrated production room tone (L-overhang 0f)"
+        }
+      ],
+      "beat_alignment_score": 100.0,
+      "total_split_edits": 3,
+      "recommended_nle_track_count": 8
     }
   },
   "storyboard_html_path": "examples/kinetic_fabric_2_0/storyboard_preview.html",
@@ -16291,6 +17649,12 @@
         "safety_risk_compliant": true,
         "safety_risk_reward": 1.0,
         "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]",
+        "localization_adr_compliant": true,
+        "localization_adr_reward": 1.0,
+        "localization_adr_descriptor": "[LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE max_ratio=1.00 status=locked profile=imsc1-text-1.1]",
+        "spotting_sync_compliant": true,
+        "spotting_sync_reward": 1.0,
+        "spotting_sync_descriptor": "[SPOTTING_SYNC: bpm=120 fpb=12.0 split_edits=3 score=100.0]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>",
@@ -16303,7 +17667,9 @@
       "continuity_blocking_compliant": true,
       "review_gate_compliant": true,
       "c2pa_provenance_compliant": true,
-      "safety_risk_compliant": true
+      "safety_risk_compliant": true,
+      "localization_adr_compliant": true,
+      "spotting_sync_compliant": true
     },
     {
       "scene_index": 2,
@@ -16364,6 +17730,12 @@
         "safety_risk_compliant": true,
         "safety_risk_reward": 1.0,
         "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]",
+        "localization_adr_compliant": true,
+        "localization_adr_reward": 1.0,
+        "localization_adr_descriptor": "[LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE max_ratio=1.00 status=locked profile=imsc1-text-1.1]",
+        "spotting_sync_compliant": true,
+        "spotting_sync_reward": 1.0,
+        "spotting_sync_descriptor": "[SPOTTING_SYNC: bridge=j_cut j_pre=8f l_over=0f beat=16 locked=true bpm=120]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>",
@@ -16376,7 +17748,9 @@
       "continuity_blocking_compliant": true,
       "review_gate_compliant": true,
       "c2pa_provenance_compliant": true,
-      "safety_risk_compliant": true
+      "safety_risk_compliant": true,
+      "localization_adr_compliant": true,
+      "spotting_sync_compliant": true
     },
     {
       "scene_index": 3,
@@ -16437,6 +17811,12 @@
         "safety_risk_compliant": true,
         "safety_risk_reward": 1.0,
         "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]",
+        "localization_adr_compliant": true,
+        "localization_adr_reward": 1.0,
+        "localization_adr_descriptor": "[LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE max_ratio=1.00 status=locked profile=imsc1-text-1.1]",
+        "spotting_sync_compliant": true,
+        "spotting_sync_reward": 1.0,
+        "spotting_sync_descriptor": "[SPOTTING_SYNC: bridge=j_cut j_pre=8f l_over=0f beat=32 locked=true bpm=120]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -16448,7 +17828,9 @@
       "continuity_blocking_compliant": true,
       "review_gate_compliant": true,
       "c2pa_provenance_compliant": true,
-      "safety_risk_compliant": true
+      "safety_risk_compliant": true,
+      "localization_adr_compliant": true,
+      "spotting_sync_compliant": true
     },
     {
       "scene_index": 4,
@@ -16509,6 +17891,12 @@
         "safety_risk_compliant": true,
         "safety_risk_reward": 1.0,
         "safety_risk_descriptor": "[SAFETY_JSA: risk=moderate exclusion=10.0m hazards=4 status=MITIGATED]",
+        "localization_adr_compliant": true,
+        "localization_adr_reward": 1.0,
+        "localization_adr_descriptor": "[LOCALIZATION_ADR: locales=en-US,es-419,pt-BR,ja-JP,ko-KR,de-DE max_ratio=1.00 status=locked profile=imsc1-text-1.1]",
+        "spotting_sync_compliant": true,
+        "spotting_sync_reward": 1.0,
+        "spotting_sync_descriptor": "[SPOTTING_SYNC: bridge=j_cut j_pre=8f l_over=0f beat=48 locked=true bpm=120]",
         "craft_camera_inferred": true
       },
       "drone_flight_compliant": false,
@@ -16517,14 +17905,16 @@
       "continuity_blocking_compliant": true,
       "review_gate_compliant": true,
       "c2pa_provenance_compliant": true,
-      "safety_risk_compliant": true
+      "safety_risk_compliant": true,
+      "localization_adr_compliant": true,
+      "spotting_sync_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "4d6dacb5-4404-4e6c-9836-4d4f1f1e9766",
+    "session_id": "57e466e0-e12c-4e78-974e-f306bf4230e8",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-21T10:46:05.484791+00:00",
+    "timestamp": "2026-11-22T10:19:37.221269+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -16534,71 +17924,71 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-21T10:46:05.484812+00:00",
-        "end_time": "2026-11-21T10:46:05.484819+00:00",
+        "start_time": "2026-11-22T10:19:37.221288+00:00",
+        "end_time": "2026-11-22T10:19:37.221294+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-21T10:46:05.484834+00:00",
-        "end_time": "2026-11-21T10:46:05.486821+00:00",
-        "duration_ms": 1.99,
+        "start_time": "2026-11-22T10:19:37.221308+00:00",
+        "end_time": "2026-11-22T10:19:37.223591+00:00",
+        "duration_ms": 2.28,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-21T10:46:05.486853+00:00",
-        "end_time": "2026-11-21T10:46:05.489231+00:00",
-        "duration_ms": 2.38,
+        "start_time": "2026-11-22T10:19:37.223604+00:00",
+        "end_time": "2026-11-22T10:19:37.225540+00:00",
+        "duration_ms": 1.94,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-21T10:46:05.489260+00:00",
-        "end_time": "2026-11-21T10:46:05.489487+00:00",
-        "duration_ms": 0.23,
+        "start_time": "2026-11-22T10:19:37.225552+00:00",
+        "end_time": "2026-11-22T10:19:37.225741+00:00",
+        "duration_ms": 0.19,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-21T10:46:05.489502+00:00",
-        "end_time": "2026-11-21T10:46:05.495004+00:00",
-        "duration_ms": 5.5,
+        "start_time": "2026-11-22T10:19:37.225750+00:00",
+        "end_time": "2026-11-22T10:19:37.232154+00:00",
+        "duration_ms": 6.4,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-21T10:46:05.495023+00:00",
-        "end_time": "2026-11-21T10:46:05.495029+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-22T10:19:37.232163+00:00",
+        "end_time": "2026-11-22T10:19:37.232167+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-21T10:46:05.495037+00:00",
-        "end_time": "2026-11-21T10:46:05.520042+00:00",
-        "duration_ms": 25.0,
+        "start_time": "2026-11-22T10:19:37.232173+00:00",
+        "end_time": "2026-11-22T10:19:37.256522+00:00",
+        "duration_ms": 24.35,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-21T10:46:05.603079+00:00",
-        "end_time": "2026-11-21T10:46:05.699682+00:00",
-        "duration_ms": 96.6,
+        "start_time": "2026-11-22T10:19:37.287748+00:00",
+        "end_time": "2026-11-22T10:19:37.383061+00:00",
+        "duration_ms": 95.31,
         "details": {}
       }
     ],
-    "total_duration_ms": 131.72,
+    "total_duration_ms": 130.48,
     "audit_summary": {},
     "metadata": {},
     "artifact_checksums": {
-      "production_bundle.json": "89704645e1a9a6cccc01c3c7f4ccc3af272c011a8e5b0d88ef77f03e48da1b4f",
-      "storyboard_preview.html": "aae6641a76a31ea5d13a982dcd7e233dbf2388897092b5758ca56219731aa8c4",
+      "production_bundle.json": "4633e20e4eef64093c94d09f908f577e24292df6038f97c7dc1e3db29c62f6db",
+      "storyboard_preview.html": "9bee8b8b377a8a28327ad616b3757752ec7d23af53dca5aec75512ba5d3c6e61",
       "timeline.edl": "e79ddc3a84f0f2d6205f9351fa47294452c91083df9d529a410c2ea026a3d5b9",
       "sequence.fcpxml": "2e6afc80961829133dec0b64b90c567b62616223f693c2274c7c1a410c27ba21",
       "shot_list.csv": "b527a29558dba59ecb373d146e8b3b9dcdf8df5d9229010882ead595e1bb560d",
-      "call_sheet.md": "af26e1c391e52336b6151f21baff9fad54129db61b3ae5afae3b434031fd51ad",
+      "call_sheet.md": "45f0c6ec8a8b48b9bcb287f642197caba4a8d54becc5a90d321fbca94089e846",
       "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
       "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
       "production_grade.cdl": "d3152921967e873745bf85417a4220c5a2f640b589fddba52c92f3d6bee3caa1",
@@ -16646,12 +18036,12 @@
       "film_emulation_spec.json": "b476e0ca806fde9fa859fa104d721214c5155441365d7159a7233b9843a1fc30",
       "film_stock_shader.dctl": "957bea397af35374b9fb142a82853591791519fce9898d7957e803b1115a28ec",
       "film_stock.ale": "e44e53c3492050c48047933b518b5d828934c5200345f381939818611bf1ecd5",
-      "slate_manifest.json": "d988abf7584360c905410a62c4572764776b560bce024e67a8e6ee51c5559ff5",
-      "asc_mhl_manifest.xml": "31db662b7fbdab2e319f74c4420813c6f519da375f20716dc77c9bfaa960e1cb",
+      "slate_manifest.json": "ee43ffcaf1c93b4ad3abfbf89564b8095618b9ac048c32c08bc9537768413bcf",
+      "asc_mhl_manifest.xml": "8a5e404e13f8c638aea59a088379a19d93a4a8ee2a443d904c3ed9c89e390fc1",
       "clapper_slate_log.csv": "3141900b29c5160c09d5abf577c8be9a35eff8bfc0206644867a24894bf35bb9",
       "sound_sync.ale": "66250e4c087aead4b318667a519d0a9ec4e60f1782c988259756401d2935f3e6",
       "flight_path.kml": "4549b83dbc809d3a3a19ca748a461153a6cbb4d920348f884f18606857f75c56",
-      "flight_waypoints.gpx": "adfdd4a38b8d441d3f669ab5bf5676a1af99d3feb2983b20c877df13e072c7f1",
+      "flight_waypoints.gpx": "acc63ff442c20377097bb9d88c441783eea7d24aef4d9ce8fe486f2fa574271c",
       "drone_flight_sheet.csv": "856d75077523efd3004e713fed64775cbb2a287336bd92dc134b2bc0dc894c55",
       "drone_flight_sheet.md": "a5beeb31053cf8896a5e4c9d76741c08d76d478870c89cff8de72075a9355709",
       "drone_flight_manifest.json": "6cd61ed5ce7cb15d860bdd1d53bed9917adbea5b36513009891a2faa87aee732",
@@ -16675,9 +18065,15 @@
       "review_notes_frameio.json": "6a134bc5e8cf0ff6ad4fc534acb373191cfa1ab6ff0c430c0553fea5b20c39c2",
       "review_notes.csv": "bc388584465ded9405ed31ff3f1d548072a7892873dee7c1c6ec179131680c3e",
       "client_signoff_report.md": "383742cbdb07c9496c8339e781ef7cacb329a899bf1cee4c1f1b61668ab1f326",
-      "council_audit_report.json": "5a3ba77d2d9278c520e1ca8be48e7b1ba6b8ed5b194377223d8b114f6bb57e58",
-      "council_report.json": "5a3ba77d2d9278c520e1ca8be48e7b1ba6b8ed5b194377223d8b114f6bb57e58",
-      "council_report.md": "bf3a1075b6433b56b3f1889f0c105403c86629445e187bec722ee168b4a5b3a9",
+      "c2pa_manifest.json": "fa457a7350480ec6b5a0c51917630f51459a68b4475e002917d9aa4af1c84d83",
+      "ai_disclosure_certificate.md": "d9cdd1fd5c9d4592e4a91da7a6bc357df41819ffe2b2e9395262d09c4e9f96db",
+      "likeness_consent_ledger.csv": "61b6862e52bda7e85fc56aea7b85428322de077e3cd27a69af1a1517d6d15637",
+      "safety_bulletin.md": "6188018acbd8a2364ec74f67e195e0f7f601d4211d1018cb88258c31bee35424",
+      "safety_jsa_matrix.csv": "b40624de107f14bba7b296b642d9a875305fa650b2433a49e94b2c5ffb2fbe7f",
+      "safety_risk_manifest.json": "ea0e5e464a1dee4976c3f3a0548367688bb02651f6da4d51171148aefa175850",
+      "council_audit_report.json": "268ca082339040ff43991ed00c4bd7de4a6861358814f8b60fbae6cbc41fe7a1",
+      "council_report.json": "268ca082339040ff43991ed00c4bd7de4a6861358814f8b60fbae6cbc41fe7a1",
+      "council_report.md": "34122861294cd1f4db9975aa6e53bf4e6912f0f2e0785c3b88708e8e1d5962f1",
       "storyboards/anchor1_character_turnaround.svg": "05706815bdc1181349cc711fa3f72c3a59e95fdf94f0fa44c5eb67c31e395121",
       "storyboards/anchor2_environment_master.svg": "6e154ec59cc638c7e5be5464114645663d4ba06ba84be94046b4155299044420",
       "storyboards/anchor3_scene_1_keyframe.svg": "0a99c197f89e53c7fb37a7fbe7052a126d4fea4acda11ad5d44782021a8c202d",
@@ -16687,9 +18083,9 @@
     }
   },
   "council_report": {
-    "version": "2.13.0",
+    "version": "2.14.0",
     "project_title": "The Kinetic Fabric: Grounded Innovation",
-    "timestamp": "2026-11-21T10:46:05.696543+00:00",
+    "timestamp": "2026-11-22T10:19:37.380240+00:00",
     "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -16918,6 +18314,34 @@
           },
           {
             "severity": "info",
+            "category": "c2pa_provenance_delivery",
+            "message": "C2PA Content Credentials manifest JSON, AI disclosure certificate MD, and Likeness consent ledger CSV verified on disk: c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "c2pa_artifacts": [
+                "c2pa_manifest.json",
+                "ai_disclosure_certificate.md",
+                "likeness_consent_ledger.csv"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "safety_risk_delivery",
+            "message": "On-set safety bulletin MD, Safety JSA matrix CSV, and Safety risk manifest JSON verified on disk: safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "safety_artifacts": [
+                "safety_bulletin.md",
+                "safety_jsa_matrix.csv",
+                "safety_risk_manifest.json"
+              ]
+            }
+          },
+          {
+            "severity": "info",
             "category": "continuity_blocking_schema",
             "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
             "remediation": null,
@@ -16955,9 +18379,39 @@
             "details": {
               "scene_count": 4
             }
+          },
+          {
+            "severity": "info",
+            "category": "localization_adr_schema",
+            "message": "LocalizationManifestSpec verified (6 territories, 24 ADR cues, broadcast_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "territory_count": 6,
+              "target_locales": [
+                "en-US",
+                "es-419",
+                "pt-BR",
+                "ja-JP",
+                "ko-KR",
+                "de-DE"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "spotting_manifest_schema",
+            "message": "SpottingManifestSpec verified (120.0 BPM, 3 bridges, 12 cues).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "tempo_bpm": 120.0,
+              "bridge_count": 3,
+              "cue_count": 12
+            }
           }
         ],
-        "summary": "FDE review completed with score 25.0/25.0. 19 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 23 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -17101,6 +18555,36 @@
           },
           {
             "severity": "info",
+            "category": "localization_adr_schema_compliance",
+            "message": "Localization & ADR Dubbing verified: 6 territory track(s) (en-US, es-419, pt-BR, ja-JP), profile=imsc1-text-1.1, broadcast_ready=True.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "target_locales": [
+                "en-US",
+                "es-419",
+                "pt-BR",
+                "ja-JP",
+                "ko-KR",
+                "de-DE"
+              ],
+              "territories_count": 6
+            }
+          },
+          {
+            "severity": "info",
+            "category": "spotting_sync_schema_compliance",
+            "message": "Editorial Spotting & Beat-Grid verified: 120.0 BPM, 3 split-edit bridge(s), beat_alignment_score=100.0%.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "tempo_bpm": 120.0,
+              "bridges_count": 3,
+              "beat_alignment_score": 100.0
+            }
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
             "remediation": null,
@@ -17111,6 +18595,14 @@
             "severity": "info",
             "category": "audit_report_c2pa_and_safety_compliance",
             "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 4 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_localization_and_spotting_compliance",
+            "message": "Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 4 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -17425,6 +18917,37 @@
           },
           {
             "severity": "info",
+            "category": "domain_localization_adr",
+            "message": "Multi-Territory Localization & ADR calibrated for domain 'kinetic_action' (locales=en-US, es-419, pt-BR, ja-JP, max_wps=2.50, broadcast_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "target_locales": [
+                "en-US",
+                "es-419",
+                "pt-BR",
+                "ja-JP",
+                "ko-KR",
+                "de-DE"
+              ],
+              "max_allowed_wps": 2.5
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_spotting_sync",
+            "message": "Editorial Spotting & Beat-Grid calibrated for domain 'kinetic_action' (120.0 BPM, bridges=['j_cut'], beat_score=100.0%).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "kinetic_action",
+              "tempo_bpm": 120.0,
+              "beat_alignment_score": 100.0
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'kinetic_action' matches strategic brief classification.",
             "remediation": null,
@@ -17597,6 +19120,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_localization_hud",
+            "message": "Localization & ADR Dubbing HUD verified (#btn-localization-animatic / #animatic-localization-hud / #localization-lipsync-svg [I]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_spotting_hud",
+            "message": "Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -17614,7 +19153,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 58 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -17631,6 +19170,14 @@
             "severity": "info",
             "category": "animatic_hotkeys_yz",
             "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_hotkeys_ij",
+            "message": "Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -18030,6 +19577,46 @@
           "omni_director/tools/html_compiler.py",
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/html_hud_v213.py",
+          "omni_director/cli.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-027",
+        "title": "Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine",
+        "problem_statement": "Global brand campaigns and multi-territory broadcast distributors for 'The Kinetic Fabric: Grounded Innovation' require deterministic ADR dubbing cue sheets with pre-roll beeps, syllable/WPS lip-sync drift gating, RTL/CJK text-expansion modeling, on-screen graphic supers safe-zone enforcement, and W3C IMSC1 TTML / SRT / VTT timed-text packages prior to international trafficking.",
+        "proposed_solution": "Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr (LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/localization_adr.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v214.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/cli.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-028",
+        "title": "Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine",
+        "problem_statement": "Commercial editors, music supervisors, and re-recording mixers for 'The Kinetic Fabric: Grounded Innovation' require frame-accurate split-edit audio bridges (J-Cut pre-lap, L-Cut overhang, and JL overlap), 24fps BPM beat-grid locking across picture cuts, downbeat-aligned music/foley spotting sheets, and CMX 3600 split-edit EDL deliverables.",
+        "proposed_solution": "Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] (#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic.",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/editorial_spotting.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v214.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
           "omni_director/cli.py"
         ],
         "priority": "P0",

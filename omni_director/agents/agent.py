@@ -58,6 +58,14 @@ from omni_director.tools.review_notes import (
 )
 from omni_director.tools.c2pa_provenance import synthesize_scene_c2pa_provenance
 from omni_director.tools.safety_risk import assess_scene_hazards
+from omni_director.tools.localization_adr import (
+    compile_localization_manifest,
+    format_localization_prompt_token,
+)
+from omni_director.tools.editorial_spotting import (
+    build_spotting_manifest,
+    format_spotting_prompt_token,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -401,7 +409,7 @@ def synthesize_custom_bible(
 
 
 def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
-    """Backfills missing master & scene production specifications (PM-FEAT-007..026)."""
+    """Backfills missing master & scene production specifications (PM-FEAT-007..028)."""
     if not getattr(bible, "master_color_look", None):
         bible.master_color_look = get_domain_color_look(arch)
     if not getattr(bible, "master_audio_mixer", None):
@@ -478,6 +486,14 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
         bible.master_safety_risk = get_domain_safety_risk_spec(
             bible, bible.scenes, project_title=bible.project_title
         )
+
+    # PM-FEAT-027: Multi-Territory Localization, ADR Dubbing & Safe-Supers Manifest
+    if not getattr(bible, "localization_manifest", None):
+        bible.localization_manifest = compile_localization_manifest(bible)
+
+    # PM-FEAT-028: Editorial J-Cut / L-Cut Audio Bridge & BPM Beat-Grid Spotting Manifest
+    if not getattr(bible, "spotting_manifest", None):
+        bible.spotting_manifest = build_spotting_manifest(bible, fps=24)
 
     slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
     reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
@@ -568,6 +584,23 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
                     domain=arch,
                     bible=bible,
                 )
+        if not getattr(scene, "locale_tracks", None) and getattr(bible, "localization_manifest", None):
+            loc_manifest = bible.localization_manifest
+            tracks = []
+            for terr in (getattr(loc_manifest, "territories", None) or []):
+                terr_cues = [
+                    c for c in (getattr(loc_manifest, "adr_cues", None) or [])
+                    if c.locale == terr.bcp47_tag
+                ]
+                for cue, line_spec in zip(terr_cues, (getattr(terr, "lines", None) or [])):
+                    if cue.scene_number == scene.scene_index:
+                        tracks.append(line_spec)
+            scene.locale_tracks = tracks
+        if not getattr(scene, "edit_bridge_in", None) and getattr(bible, "spotting_manifest", None):
+            for br in (getattr(bible.spotting_manifest, "bridges", None) or []):
+                if br.to_scene == scene.scene_index:
+                    scene.edit_bridge_in = br
+                    break
 
 
 class IntakeAndResearchAgent(BaseAgent):
@@ -825,6 +858,18 @@ class ScenePromptAgent(BaseAgent):
             # Ensure speed lock is in prompt if Regime 2
             if scene.regime == RegimeType.REGIME_2_KINETIC and not re.search(r"\b1\.0x\b|real-time|natural speed", scene.omni_prose_prompt, re.IGNORECASE):
                 scene.omni_prose_prompt += " Rendered at natural 1.0x real-time speed."
+
+            # Ensure PM-FEAT-027 [LOCALIZATION_ADR: ...] and PM-FEAT-028 [SPOTTING_SYNC: ...] tokens are cleanly attached
+            if (getattr(bible, "localization_manifest", None) is not None or getattr(scene, "locale_tracks", None)) and not re.search(
+                r"\[LOCALIZATION[ _]ADR:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                loc_token = format_localization_prompt_token(bible, scene)
+                scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {loc_token}."
+            if (getattr(bible, "spotting_manifest", None) is not None or getattr(scene, "edit_bridge_in", None)) and not re.search(
+                r"\[SPOTTING[ _]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                spot_token = format_spotting_prompt_token(bible, scene)
+                scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {spot_token}."
         return context
 
 
@@ -901,6 +946,10 @@ class ParallelScenePromptAgent(ParallelAgent):
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Execute all sub-agents over the shared context."""
+        if not self.sub_agents and isinstance(context.get("bible"), MasterProductionBible):
+            for s in context["bible"].scenes:
+                context = ScenePromptAgent(s.scene_index, self.config).run(context)
+            return context
         for agent in self.sub_agents:
             context = agent.run(context)
         return context
@@ -946,14 +995,24 @@ class PromptAuditorAgent(BaseAgent):
                 scene,
                 regime=bible.creative_regime,
                 storytelling_mode=getattr(bible, "storytelling_mode", None),
+                bible=bible,
             )
-            if not result.passed or result.score < 100.0 or result.warnings:
+            needs_loc_token = bool(
+                (getattr(bible, "localization_manifest", None) is not None or getattr(scene, "locale_tracks", None))
+                and not re.search(r"\[LOCALIZATION[ _]ADR:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            needs_spot_token = bool(
+                (getattr(bible, "spotting_manifest", None) is not None or getattr(scene, "edit_bridge_in", None))
+                and not re.search(r"\[SPOTTING[ _]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            if not result.passed or result.score < 100.0 or result.warnings or needs_loc_token or needs_spot_token:
                 logger.info(f"[{self.name}] Attempting self-healing for scene {scene.scene_index}...")
                 healed_target, result = heal_omni_scene_prompt(
                     scene,
                     audit_result=result,
                     regime=bible.creative_regime,
                     storytelling_mode=getattr(bible, "storytelling_mode", None),
+                    bible=bible,
                 )
             audit_results.append(result)
             if not result.passed or result.score < 90.0:

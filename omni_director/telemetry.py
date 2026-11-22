@@ -30,6 +30,8 @@ SAFE_KEYS = {
     "c2pa_prompt_token",
     "provenance_prompt_token",
     "safety_prompt_token",
+    "localization_prompt_token",
+    "spotting_prompt_token",
     "tokens",
     "token_count",
     "token_rate",
@@ -163,6 +165,15 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "safety_bulletin.md",
     "safety_jsa_matrix.csv",
     "safety_risk_manifest.json",
+    # PM-FEAT-027: Multi-Language Localization, ADR Dubbing & Broadcast TTML Subtitles
+    "localization_manifest.json",
+    "adr_cue_sheet.csv",
+    "subtitles_localized.ttml",
+    # PM-FEAT-028: Music Spotting Sheet, Sync Licensing & Split-Edit Audio Timing
+    "spotting_manifest.json",
+    "spotting_cue_sheet.csv",
+    "spotting_sheet.md",
+    "timeline_split_edits.edl",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
@@ -177,6 +188,7 @@ DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
     ".md",
     ".srt",
     ".vtt",
+    ".ttml",
     ".cdl",
     ".fbx",
     ".nk",

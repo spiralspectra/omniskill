@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.13.0).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.14.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -12,7 +12,7 @@ from html import escape as _html_escape
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-from omni_director.schemas import AuditResult, MasterProductionBible, ProductionBundle, ScenePromptSpec
+from omni_director.schemas import AuditResult, MasterProductionBible, ProductionBundle, ScenePromptSpec, __version__
 from omni_director.tools.audio_mixer import synthesize_default_stem_mixer
 from omni_director.tools.color_grade import (
     LOOK_PRESET_REGISTRY,
@@ -1283,6 +1283,7 @@ def compile_storyboard_html(
 
     from omni_director.tools.html_hud_v212 import build_v212_hud_bundle
     from omni_director.tools.html_hud_v213 import build_v213_hud_bundle
+    from omni_director.tools.html_hud_v214 import build_v214_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1304,6 +1305,16 @@ def compile_storyboard_html(
     v213_css = v213_bundle["css"]
     v213_modals_html = v213_bundle["modals_html"]
     v213_js = v213_bundle["js"]
+
+    v214_bundle = build_v214_hud_bundle(
+        bible=bible,
+        bundle=bundle,
+        scene_time_lookup=scene_time_lookup,
+        total_runtime_sec=total_runtime_sec,
+    )
+    v214_css = v214_bundle["css"]
+    v214_modals_html = v214_bundle["modals_html"]
+    v214_js = v214_bundle["js"]
 
     # Serialize bible for client-side export
     bible_json_escaped = re.sub(r"</(script)", r"<\/\1", json.dumps(bible.model_dump(), indent=2), flags=re.IGNORECASE)
@@ -4853,6 +4864,7 @@ def compile_storyboard_html(
     }}
     {v212_css}
     {v213_css}
+    {v214_css}
   </style>
 </head>
 <body>
@@ -6451,6 +6463,7 @@ def compile_storyboard_html(
   </div>
 {v212_modals_html}
 {v213_modals_html}
+{v214_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -7010,13 +7023,15 @@ def compile_storyboard_html(
     function refreshLutSplitFrames() {{
       const activeCard = document.querySelector('.scene-card.active-scene') || document.querySelector('.scene-card');
       if (activeCard) {{
-        const keyframeContainer = activeCard.querySelector('.keyframe-container');
+        const keyframeContainer = activeCard.querySelector('.scene-visual-frame') || activeCard.querySelector('.keyframe-container');
         if (keyframeContainer) {{
           const rawPlate = document.getElementById('lut-plate-raw');
           const gradedPlate = document.getElementById('lut-plate-graded');
           if (rawPlate && gradedPlate) {{
-            rawPlate.innerHTML = keyframeContainer.innerHTML;
-            gradedPlate.innerHTML = keyframeContainer.innerHTML;
+            const plateNode = keyframeContainer.querySelector('svg:not(.scene-reframe-overlay)') || keyframeContainer.querySelector('img');
+            const plateMarkup = plateNode ? plateNode.outerHTML : keyframeContainer.innerHTML;
+            rawPlate.innerHTML = plateMarkup;
+            gradedPlate.innerHTML = plateMarkup;
           }}
         }}
       }}
@@ -7031,7 +7046,7 @@ def compile_storyboard_html(
     }}
 
     function generateCubeLUT(title, size) {{
-      let out = `# Created by Omni Movie Director v2.13.0\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
+      let out = `# Created by Omni Movie Director v{__version__}\n# Gamut Transform: ACEScg -> Rec.709 Gamma 2.4\nTITLE "${{title}}"\nLUT_3D_SIZE ${{size}}\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n\n`;
       const step = 1.0 / (size - 1);
       for (let b = 0; b < size; b++) {{
         const blue = b * step;
@@ -7056,7 +7071,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "OMNI_DIRECTOR_MASTER_33.cube";
+      a.download = "production_look.cube";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7102,7 +7117,7 @@ def compile_storyboard_html(
       const spatialData = MASTER_BIBLE.master_spatial_audio || {{}};
       const admPayload = {{
         format: "ADM_ITU_R_BS_2076",
-        version: "2.13.0",
+        version: "{__version__}",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {{}},
         audio_objects: spatialData.audio_objects || [],
@@ -7161,7 +7176,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "webaudio_spatial_panner.json";
+      a.download = "webaudio_spatial_config.json";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7218,7 +7233,7 @@ def compile_storyboard_html(
 
     function downloadNukeScript() {{
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v2.13.0 - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\\n# Created by Omni Movie Director v{__version__} - Multi-Pass Compositing Engine\\nversion 15.0 v1\\nRoot {{\\n inputs 0\\n name "${{title}}_Composite.nk"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n fps 24\\n colorManagement OCIO\\n OCIO_config aces_1.2\\n defaultColorSpace ACEScg\\n}}\\nBackdropNode {{\\n inputs 0\\n name Backdrop_MultiPass\\n tile_color 0x223344ff\\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\\n note_font_size 24\\n xpos -120\\n ypos -120\\n bdwidth 720\\n bdheight 480\\n}}\\nRead {{\\n inputs 0\\n file "[file dirname [value root.name]]/renders/${{title}}_master.exr"\\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\\n origcolorspace ACEScg\\n name Read_MultiPass_EXR\\n xpos 0\\n ypos 0\\n}}\\n`;
       const blob = new Blob([nkScript], {{ type: 'text/plain;charset=utf-8' }});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -7342,7 +7357,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "resolve_hdr_cst.xml";
+      a.download = "resolve_hdr_rcm.xml";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7399,7 +7414,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "dood_report.csv";
+      a.download = "dood_matrix.csv";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7850,7 +7865,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "ascmhl_manifest.xml";
+      a.download = "asc_mhl_manifest.xml";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -7863,7 +7878,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "sound_sync_log.ale";
+      a.download = "sound_sync.ale";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -8065,6 +8080,8 @@ def compile_storyboard_html(
       if (typeof updateReviewFromTimeline === 'function') updateReviewFromTimeline(tSec);
       if (typeof updateC2paFromTimeline === 'function') updateC2paFromTimeline(tSec);
       if (typeof updateSafetyFromTimeline === 'function') updateSafetyFromTimeline(tSec);
+      if (typeof updateLocalizationFromTimeline === 'function') updateLocalizationFromTimeline(tSec);
+      if (typeof updateSpottingFromTimeline === 'function') updateSpottingFromTimeline(tSec);
       if (typeof isReframeHUDOpen !== 'undefined' && isReframeHUDOpen) {{
         drawReframePreview();
       }}
@@ -9079,9 +9096,12 @@ def compile_storyboard_html(
 
     {v212_js}
     {v213_js}
+    {v214_js}
 
     function closeSecondaryOpenHUDs() {{
-      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen;
+      const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
+      const spotOpen = (typeof isSpottingHUDOpen !== 'undefined') && isSpottingHUDOpen;
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen;
       if (isMoCoHUDOpen) toggleMoCoHUD();
       if (isGafferHUDOpen) toggleGafferHUD();
       if (isVPStageModalOpen) toggleVPStageModal();
@@ -9095,10 +9115,12 @@ def compile_storyboard_html(
       if (isSlateHUDOpen) toggleSlateHUD();
       if (isDroneHUDOpen) toggleDroneHUD();
       if (isAicpHUDOpen) toggleAicpHUD();
+      if (locOpen && typeof toggleLocalizationHUD === 'function') toggleLocalizationHUD();
+      if (spotOpen && typeof toggleSpottingHUD === 'function') toggleSpottingHUD();
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -9155,6 +9177,8 @@ def compile_storyboard_html(
       else if (e.key === 'n' || e.key === 'N') toggleReviewHUD();
       else if (e.key === 'y' || e.key === 'Y') toggleC2paHUD();
       else if (e.key === 'z' || e.key === 'Z') toggleSafetyHUD();
+      else if (e.key === 'i' || e.key === 'I') toggleLocalizationHUD();
+      else if (e.key === 'j' || e.key === 'J') toggleSpottingHUD();
     }});
 
     // Initialize first frame and default look
@@ -9178,6 +9202,8 @@ def compile_storyboard_html(
       initReviewHUD();
       initC2paHUD();
       initSafetyHUD();
+      initLocalizationHUD();
+      initSpottingHUD();
     }});
     renderFrame(0);
   </script>

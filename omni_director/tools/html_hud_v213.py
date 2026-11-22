@@ -15,7 +15,8 @@ import re
 from html import escape as html_escape
 from typing import Any, Dict, List, Optional, Tuple
 
-from omni_director.schemas import MasterProductionBible, ProductionBundle
+from omni_director.schemas import MasterProductionBible, ProductionBundle, SafetyHazardCategory
+from omni_director.tools.safety_risk import CSATF_SHORT_BULLETINS, get_csatf_bulletin_for_category
 
 
 def _escape_js_template_literal(text: str) -> str:
@@ -314,22 +315,14 @@ def _normalize_safety_state(
     raw = _to_plain(getattr(bible, "master_safety_risk", None)) or {}
     scenes = getattr(bible, "scenes", []) or []
 
-    _CAT_BULLETIN_MAP = {
-        "kinetic_moco_arm": "CSATF #39 (MoCo)",
-        "stunt_vehicle": "CSATF #36 (Stunt Vehicle)",
-        "aerial_uav": "CSATF #23 (UAV)",
-        "pyro_atmospheric_sfx": "CSATF #16 (Pyro)",
-        "wire_rigging_height": "CSATF #14 (Rigging)",
-        "electrical_dmx_wet": "CSATF #06 (Electrical)",
-        "laser_optical": "CSATF #25 (Laser)",
-        "food_allergen_thermal": "CSATF #01 (Thermal/Culinary)",
-    }
-
     def _extract_bulletin(cat_raw: str, notes: str) -> str:
         m = re.search(r"CSATF[^.;)]*", notes or "", re.IGNORECASE)
         if m:
             return m.group(0).strip()
-        return _CAT_BULLETIN_MAP.get(cat_raw.lower(), "CSATF #14 (Rigging)")
+        key = (cat_raw or "").strip().lower()
+        if key in CSATF_SHORT_BULLETINS:
+            return CSATF_SHORT_BULLETINS[key]
+        return get_csatf_bulletin_for_category(key, short=True)
 
     # Primary path: Wave 2 MasterSafetyRiskSpec (`scene_safety_specs` + `standby_emergency`)
     raw_scene_specs = raw.get("scene_safety_specs") or []
@@ -370,7 +363,7 @@ def _normalize_safety_state(
             else:
                 primary_cat = "Stage Perimeter"
                 ppe_str = "High-visibility stage vest, ANSI Z87.1 eyewear"
-                bulletin = "CSATF #14 (Rigging)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.WIRE_RIGGING_HEIGHT, short=True)
                 notes_str = str(ss.get("jsa_notes") or f"Enforce {inner_r:.1f}m exclusion zone.")
 
             scene_zones.append({
@@ -411,7 +404,7 @@ def _normalize_safety_state(
             st_s, en_s = scene_time_lookup.get(s_idx, ((s_idx - 1) * 5.0, s_idx * 5.0))
             prose = (str(getattr(scene, "omni_prose_prompt", "")) + " " + str(getattr(scene, "scene_title", ""))).lower()
             has_drone = bool(getattr(scene, "drone_flight", None)) or any(k in prose for k in ("drone", "uav", "aerial", "fpv"))
-            has_moco = bool(getattr(scene, "moco_keyframes", None)) or any(k in prose for k in ("moco", "robotic", "arm", "bolt", "high-speed"))
+            has_moco = bool(getattr(scene, "moco_rig", None)) or any(k in prose for k in ("moco", "robotic", "arm", "bolt", "high-speed"))
             has_pyro = any(k in prose for k in ("fire", "flame", "spark", "pyro", "smoke", "laser", "torch"))
             has_water = any(k in prose for k in ("water", "rain", "ocean", "pool", "wet", "steam"))
 
@@ -419,27 +412,27 @@ def _normalize_safety_state(
                 inner_r, buffer_r, safe_r = 12.0, 22.0, 32.0
                 primary_cat = "UAV / Aerial Flight"
                 ppe = "Hardhat, Hi-Vis Vest, Eye Protection"
-                bulletin = "CSATF #23 (UAV)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.AERIAL_UAV, short=True)
             elif has_pyro:
                 inner_r, buffer_r, safe_r = 10.0, 18.0, 26.0
                 primary_cat = "Pyrotechnics & Thermal"
                 ppe = "Nomex FR Suit, Face Shield, CO2 Extinguisher"
-                bulletin = "CSATF #16 (Pyro)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX, short=True)
             elif has_moco:
                 inner_r, buffer_r, safe_r = 5.0, 9.0, 14.0
                 primary_cat = "Motion Control / Robotics"
                 ppe = "Steel-Toe Boots, E-Stop Tether, Eye Protection"
-                bulletin = "CSATF #39 (MoCo)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.KINETIC_MOCO_ARM, short=True)
             elif has_water:
                 inner_r, buffer_r, safe_r = 4.0, 8.0, 12.0
                 primary_cat = "Wet Set & GFCI Electrical"
                 ppe = "Insulated Footwear, GFCI Drops, Non-Slip Mats"
-                bulletin = "CSATF #06 (Electrical)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.ELECTRICAL_DMX_WET, short=True)
             else:
                 inner_r, buffer_r, safe_r = 3.0, 6.0, 10.0
                 primary_cat = "Rigging & Grip Perimeter"
                 ppe = "Closed-Toe Footwear, Work Gloves, Safety Glasses"
-                bulletin = "CSATF #14 (Rigging)"
+                bulletin = get_csatf_bulletin_for_category(SafetyHazardCategory.WIRE_RIGGING_HEIGHT, short=True)
 
             z_over = zone_by_idx.get(s_idx, {})
             inner_r = float(z_over.get("inner_keepout_m", inner_r))
@@ -1015,10 +1008,10 @@ def build_v213_hud_bundle(
           </div>
           <div class="c2pa-actions">
             <button type="button" class="btn-v213-action" id="btn-download-c2pa-json" onclick="downloadC2paJSON()" aria-label="Download C2PA Content Credentials JSON">
-              ⤓ c2pa_content_credentials.json
+              ⤓ c2pa_manifest.json
             </button>
             <button type="button" class="btn-v213-action" id="btn-download-disclosure-md" onclick="downloadDisclosureMD()" aria-label="Download EU AI Act Article 50 Disclosure Markdown">
-              ⤓ eu_ai_act_art50_disclosure.md
+              ⤓ ai_disclosure_certificate.md
             </button>
             <button type="button" class="btn-v213-action" id="btn-download-likeness-csv" onclick="downloadLikenessCSV()" aria-label="Download Likeness Consent Ledger CSV">
               ⤓ likeness_consent_ledger.csv
@@ -1112,10 +1105,10 @@ def build_v213_hud_bundle(
           </div>
           <div class="safety-actions">
             <button type="button" class="btn-v213-action" id="btn-download-safety-md" onclick="downloadSafetyMD()" aria-label="Download On-Set Safety JSA Markdown Report">
-              ⤓ on_set_safety_jsa.md
+              ⤓ safety_bulletin.md
             </button>
             <button type="button" class="btn-v213-action" id="btn-download-safety-csv" onclick="downloadSafetyCSV()" aria-label="Download Safety Hazard Matrix CSV">
-              ⤓ safety_hazard_matrix.csv
+              ⤓ safety_jsa_matrix.csv
             </button>
             <button type="button" class="btn-v213-action" id="btn-download-safety-json" onclick="downloadSafetyJSON()" aria-label="Download Safety Risk Manifest JSON">
               ⤓ safety_risk_manifest.json
@@ -1280,11 +1273,11 @@ def build_v213_hud_bundle(
     }}
 
     function downloadC2paJSON() {{
-      _triggerBlobDownload(`{c2pa_json_escaped}`, 'application/json;charset=utf-8;', 'c2pa_content_credentials.json', 'Downloaded C2PA Credentials (c2pa_content_credentials.json)');
+      _triggerBlobDownload(`{c2pa_json_escaped}`, 'application/json;charset=utf-8;', 'c2pa_manifest.json', 'Downloaded C2PA Credentials (c2pa_manifest.json)');
     }}
 
     function downloadDisclosureMD() {{
-      _triggerBlobDownload(`{c2pa_md_escaped}`, 'text/markdown;charset=utf-8;', 'eu_ai_act_art50_disclosure.md', 'Downloaded EU AI Act Art. 50 Disclosure (eu_ai_act_art50_disclosure.md)');
+      _triggerBlobDownload(`{c2pa_md_escaped}`, 'text/markdown;charset=utf-8;', 'ai_disclosure_certificate.md', 'Downloaded EU AI Act Art. 50 Disclosure (ai_disclosure_certificate.md)');
     }}
 
     function downloadLikenessCSV() {{
@@ -1399,11 +1392,11 @@ def build_v213_hud_bundle(
     }}
 
     function downloadSafetyMD() {{
-      _triggerBlobDownload(`{safety_md_escaped}`, 'text/markdown;charset=utf-8;', 'on_set_safety_jsa.md', 'Downloaded On-Set Safety JSA (on_set_safety_jsa.md)');
+      _triggerBlobDownload(`{safety_md_escaped}`, 'text/markdown;charset=utf-8;', 'safety_bulletin.md', 'Downloaded On-Set Safety JSA (safety_bulletin.md)');
     }}
 
     function downloadSafetyCSV() {{
-      _triggerBlobDownload(`{safety_csv_escaped}`, 'text/csv;charset=utf-8;', 'safety_hazard_matrix.csv', 'Downloaded Safety Hazard Matrix (safety_hazard_matrix.csv)');
+      _triggerBlobDownload(`{safety_csv_escaped}`, 'text/csv;charset=utf-8;', 'safety_jsa_matrix.csv', 'Downloaded Safety Hazard Matrix (safety_jsa_matrix.csv)');
     }}
 
     function downloadSafetyJSON() {{

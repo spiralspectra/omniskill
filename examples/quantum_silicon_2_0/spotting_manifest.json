@@ -1,0 +1,120 @@
+{
+  "fps": 24,
+  "tempo_bpm": 110.0,
+  "frames_per_beat": 13.0909,
+  "bar_length_beats": 4,
+  "beat_grid_tc": [
+    "00:00:00:00",
+    "00:00:00:13",
+    "00:00:01:02",
+    "00:00:01:15",
+    "00:00:02:04",
+    "00:00:02:17",
+    "00:00:03:07",
+    "00:00:03:20",
+    "00:00:04:09",
+    "00:00:04:22",
+    "00:00:05:11",
+    "00:00:06:00",
+    "00:00:06:13",
+    "00:00:07:02",
+    "00:00:07:15",
+    "00:00:08:04",
+    "00:00:08:17",
+    "00:00:09:07",
+    "00:00:09:20"
+  ],
+  "bridges": [
+    {
+      "from_scene": 1,
+      "to_scene": 2,
+      "cut_tc": "00:00:05:00",
+      "bridge_type": "j_cut",
+      "j_prelap_frames": 8,
+      "l_overhang_frames": 0,
+      "bridge_duration_sec": 0.333,
+      "nearest_beat_index": 9,
+      "beat_offset_frames": 2,
+      "beat_locked": false,
+      "sonic_anchor_cue": "Precision magnetic latch click (Tactile 8f UI click & anodized latch J-Cut)",
+      "rationale": "Crisp 8f UI click J-Cut anticipates industrial hardware interaction cleanly on the cut."
+    }
+  ],
+  "spotting_cues": [
+    {
+      "cue_id": "SPOT-MUS-S01",
+      "scene_number": 1,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 1,
+      "lufs_target": -18.0,
+      "description": "Advanced Quantum Computing Silicon Proce Theme @ 110 BPM | Bar 1"
+    },
+    {
+      "cue_id": "SPOT-SFX-S01",
+      "scene_number": 1,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 1,
+      "lufs_target": -20.0,
+      "description": "Precision magnetic latch click; Anodized aluminum bevel contact (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S01",
+      "scene_number": 1,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 1,
+      "lufs_target": -26.0,
+      "description": "Controlled cinematic soundstage with damp low-end reverb (L-overhang 0f)"
+    },
+    {
+      "cue_id": "SPOT-MUS-S02",
+      "scene_number": 2,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:04:20",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 124,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 3,
+      "lufs_target": -18.0,
+      "description": "Advanced Quantum Computing Silicon Proce Theme @ 110 BPM | Bar 3"
+    },
+    {
+      "cue_id": "SPOT-SFX-S02",
+      "scene_number": 2,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:04:16",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 128,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 3,
+      "lufs_target": -20.0,
+      "description": "Precision magnetic latch click; Anodized aluminum bevel contact (J-prelap 8f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S02",
+      "scene_number": 2,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 3,
+      "lufs_target": -26.0,
+      "description": "Reflective dynamic spatial acoustics with crisp decay (L-overhang 0f)"
+    }
+  ],
+  "beat_alignment_score": 93.0,
+  "total_split_edits": 1,
+  "recommended_nle_track_count": 6
+}

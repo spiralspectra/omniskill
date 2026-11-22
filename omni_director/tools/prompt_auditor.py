@@ -4,8 +4,12 @@ import re
 from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
+    EditBridgeSpec,
     InterSceneCutCheckSpec,
     LikenessConsentStatus,
+    LocaleSyncStatus,
+    LocalizationManifestSpec,
+    LocalizedLineSpec,
     MasterProductionBible,
     PromptAuditResult,
     QcVerdictStatus,
@@ -14,6 +18,7 @@ from omni_director.schemas import (
     RiskSeverityLevel,
     SafetySignoffStatus,
     ScenePromptSpec,
+    SpottingManifestSpec,
     StorytellingMode,
 )
 from omni_director.tools.optical_lens import format_optical_prompt_token
@@ -58,6 +63,72 @@ from omni_director.tools.safety_risk import (
     assess_scene_hazards,
     format_safety_prompt_token,
 )
+
+
+def _format_localization_prompt_token(
+    locale_tracks: Optional[List[Any]] = None,
+    localization_manifest: Optional[LocalizationManifestSpec] = None,
+) -> str:
+    """Formats a compact machine telemetry token for PM-FEAT-027 localization & ADR timing."""
+    tracks = list(locale_tracks or [])
+    tags: List[str] = []
+    max_ratio = 1.0
+    worst_status = LocaleSyncStatus.LOCKED.value
+    rank = {
+        LocaleSyncStatus.LOCKED.value: 0,
+        LocaleSyncStatus.STRETCH_CAUTION.value: 1,
+        LocaleSyncStatus.RESCRIPT_REQUIRED.value: 2,
+    }
+    for tr in tracks:
+        tag = getattr(tr, "bcp47_tag", None) or (tr.get("bcp47_tag") if isinstance(tr, dict) else None)
+        loc = getattr(tr, "locale", None) or (tr.get("locale") if isinstance(tr, dict) else None)
+        label = str(tag or loc or "").strip()
+        if label and label not in tags:
+            tags.append(label)
+        ratio = getattr(tr, "lip_sync_ratio", None) if not isinstance(tr, dict) else tr.get("lip_sync_ratio")
+        if isinstance(ratio, (int, float)) and float(ratio) > max_ratio:
+            max_ratio = float(ratio)
+        st = getattr(tr, "sync_status", None) if not isinstance(tr, dict) else tr.get("sync_status")
+        st_str = (st.value if hasattr(st, "value") else str(st or LocaleSyncStatus.LOCKED.value)).lower()
+        if rank.get(st_str, 0) > rank.get(worst_status, 0):
+            worst_status = st_str
+
+    if not tags and localization_manifest is not None:
+        tags = list(getattr(localization_manifest, "target_locales", None) or [])
+        if not tags and getattr(localization_manifest, "territories", None):
+            tags = [
+                str(getattr(t, "bcp47_tag", "") or getattr(t, "locale", ""))
+                for t in localization_manifest.territories
+                if getattr(t, "bcp47_tag", "") or getattr(t, "locale", "")
+            ]
+    if not tags and localization_manifest is not None:
+        tags = [str(getattr(localization_manifest, "source_locale", "en-US") or "en-US")]
+
+    imsc1 = getattr(localization_manifest, "imsc1_profile", "imsc1-text-1.1") if localization_manifest is not None else "imsc1-text-1.1"
+    return f"[LOCALIZATION_ADR: locales={','.join(tags)} max_ratio={max_ratio:.2f} status={worst_status} profile={imsc1}]"
+
+
+def _format_spotting_prompt_token(
+    edit_bridge: Optional[EditBridgeSpec] = None,
+    spotting_manifest: Optional[SpottingManifestSpec] = None,
+) -> str:
+    """Formats a compact machine telemetry token for PM-FEAT-028 editorial J/L-cut & BPM spotting sync."""
+    bpm = float(getattr(spotting_manifest, "tempo_bpm", 120.0)) if spotting_manifest is not None else 120.0
+    if edit_bridge is not None:
+        btype = getattr(edit_bridge, "bridge_type", "j_cut")
+        btype_str = btype.value if hasattr(btype, "value") else str(btype)
+        j_pre = int(getattr(edit_bridge, "j_prelap_frames", 12))
+        l_over = int(getattr(edit_bridge, "l_overhang_frames", 0))
+        beat_idx = int(getattr(edit_bridge, "nearest_beat_index", 0))
+        locked = bool(getattr(edit_bridge, "beat_locked", True))
+        return (
+            f"[SPOTTING_SYNC: bridge={btype_str} j_pre={j_pre}f l_over={l_over}f "
+            f"beat={beat_idx} locked={str(locked).lower()} bpm={bpm:.0f}]"
+        )
+    fpb = float(getattr(spotting_manifest, "frames_per_beat", 12.0)) if spotting_manifest is not None else 12.0
+    splits = int(getattr(spotting_manifest, "total_split_edits", 0)) if spotting_manifest is not None else 0
+    score = float(getattr(spotting_manifest, "beat_alignment_score", 95.0)) if spotting_manifest is not None else 95.0
+    return f"[SPOTTING_SYNC: bpm={bpm:.0f} fpb={fpb:.1f} split_edits={splits} score={score:.1f}]"
 
 
 def audit_omni_scene_prompt(
@@ -549,6 +620,79 @@ def audit_omni_scene_prompt(
         details["safety_risk_reward"] = 1.0
         details["safety_risk_descriptor"] = safety_match.group(0)
 
+    # Multi-Territory Localization, ADR Dubbing & Lip-Sync Timing (PM-FEAT-027)
+    bible_ctx = kwargs.get("bible")
+    locale_tracks_obj = (
+        getattr(scene, "locale_tracks", None)
+        if isinstance(scene, ScenePromptSpec)
+        else kwargs.get("locale_tracks")
+    )
+    loc_manifest_obj = (
+        kwargs.get("localization_manifest")
+        or kwargs.get("localization")
+        or (getattr(bible_ctx, "localization_manifest", None) if bible_ctx is not None else None)
+    )
+    loc_patterns = r"(?:\[LOCALIZATION[ _]ADR:?|localization_adr|lip_sync_ratio|bcp47|imsc1)"
+    loc_match = re.search(loc_patterns, prompt, re.IGNORECASE)
+    localization_adr_compliant_val = True
+    has_locale_tracks = bool(locale_tracks_obj)
+    if has_locale_tracks or loc_manifest_obj is not None:
+        max_drift = float(getattr(loc_manifest_obj, "max_allowed_drift_ratio", 1.15)) if loc_manifest_obj is not None else 1.15
+        has_rescript = False
+        for tr in (locale_tracks_obj or []):
+            st = getattr(tr, "sync_status", None) if not isinstance(tr, dict) else tr.get("sync_status")
+            st_str = (st.value if hasattr(st, "value") else str(st or "")).lower()
+            ratio = getattr(tr, "lip_sync_ratio", 1.0) if not isinstance(tr, dict) else tr.get("lip_sync_ratio", 1.0)
+            if st_str == LocaleSyncStatus.RESCRIPT_REQUIRED.value or float(ratio) > max_drift:
+                has_rescript = True
+                break
+        if has_rescript or (loc_manifest_obj is not None and getattr(loc_manifest_obj, "broadcast_ready", True) is False):
+            localization_adr_compliant_val = False
+            details["localization_adr_compliant"] = False
+            warnings.append(
+                "Localization ADR Warning: Localized dialogue track exceeds lip-sync drift ceiling and requires rescript/viseme retiming."
+            )
+        else:
+            details["localization_adr_compliant"] = True
+            details["localization_adr_reward"] = 1.0
+            details["localization_adr_descriptor"] = _format_localization_prompt_token(locale_tracks_obj, loc_manifest_obj)
+    elif loc_match:
+        details["localization_adr_compliant"] = True
+        details["localization_adr_reward"] = 1.0
+        details["localization_adr_descriptor"] = loc_match.group(0)
+
+    # Editorial J-Cut / L-Cut Audio Bridge & BPM Beat-Grid Spotting Sync (PM-FEAT-028)
+    edit_bridge_obj = (
+        getattr(scene, "edit_bridge_in", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (kwargs.get("edit_bridge_in") or kwargs.get("audio_bridge_in") or kwargs.get("j_l_bridge"))
+    )
+    spotting_manifest_obj = (
+        kwargs.get("spotting_manifest")
+        or kwargs.get("editorial_spotting")
+        or (getattr(bible_ctx, "spotting_manifest", None) if bible_ctx is not None else None)
+    )
+    spotting_patterns = r"(?:\[SPOTTING[ _]SYNC:?|spotting_sync|j_cut|l_cut|jl_overlap|beat_locked)"
+    spotting_match = re.search(spotting_patterns, prompt, re.IGNORECASE)
+    spotting_sync_compliant_val = True
+    if edit_bridge_obj is not None or spotting_manifest_obj is not None:
+        bridge_locked = bool(getattr(edit_bridge_obj, "beat_locked", True)) if edit_bridge_obj is not None else True
+        offset_frames = abs(int(getattr(edit_bridge_obj, "beat_offset_frames", 0))) if edit_bridge_obj is not None else 0
+        if edit_bridge_obj is not None and not bridge_locked and offset_frames > 6:
+            spotting_sync_compliant_val = False
+            details["spotting_sync_compliant"] = False
+            warnings.append(
+                "Editorial Spotting Warning: Incoming J-Cut/L-Cut audio bridge is unlocked from the BPM beat grid."
+            )
+        else:
+            details["spotting_sync_compliant"] = True
+            details["spotting_sync_reward"] = 1.0
+            details["spotting_sync_descriptor"] = _format_spotting_prompt_token(edit_bridge_obj, spotting_manifest_obj)
+    elif spotting_match:
+        details["spotting_sync_compliant"] = True
+        details["spotting_sync_reward"] = 1.0
+        details["spotting_sync_descriptor"] = spotting_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -616,23 +760,13 @@ def audit_omni_scene_prompt(
         "[production slate:", "[clapper_slate:", "[drone_flight:", "[drone flight:",
         "[reframe:", "[broadcast_qc:", "[broadcast qc:",
         "[continuity_axis:", "[continuity axis:",
+        "[review_gate:", "[review gate:",
+        "[c2pa_provenance:", "[c2pa provenance:",
+        "[safety_jsa:", "[safety jsa:",
+        "[localization_adr:", "[localization adr:",
+        "[spotting_sync:", "[spotting sync:",
     ]
-    has_camera = (
-        any(term in prompt.lower() for term in camera_terms)
-        or "[hdr signal:" in prompt.lower()
-        or "[1st ad breakdown:" in prompt.lower()
-        or "[film emulation:" in prompt.lower()
-        or "[film_stock:" in prompt.lower()
-        or "[production slate:" in prompt.lower()
-        or "[clapper_slate:" in prompt.lower()
-        or "[drone_flight:" in prompt.lower()
-        or "[drone flight:" in prompt.lower()
-        or "[reframe:" in prompt.lower()
-        or "[broadcast_qc:" in prompt.lower()
-        or "[broadcast qc:" in prompt.lower()
-        or "[continuity_axis:" in prompt.lower()
-        or "[continuity axis:" in prompt.lower()
-    )
+    has_camera = any(term in prompt.lower() for term in camera_terms)
     if craft_camera is not None:
         details["craft_camera_configured"] = True
     elif has_camera:
@@ -728,6 +862,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("safety_risk_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("localization_adr_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("spotting_sync_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -749,6 +887,8 @@ def audit_omni_scene_prompt(
         review_gate_compliant=review_gate_compliant_val,
         c2pa_provenance_compliant=c2pa_provenance_compliant_val,
         safety_risk_compliant=safety_risk_compliant_val,
+        localization_adr_compliant=localization_adr_compliant_val,
+        spotting_sync_compliant=spotting_sync_compliant_val,
     )
 
 
@@ -929,6 +1069,37 @@ def heal_omni_scene_prompt(
         )
         and not re.search(r"\[SAFETY[ _]JSA:?", current_prompt, re.IGNORECASE)
     )
+    bible_ctx_heal = kwargs.get("bible")
+    loc_tracks_heal = (
+        (getattr(scene, "locale_tracks", None) if is_spec else None)
+        or (getattr(spec_context, "locale_tracks", None) if spec_context else None)
+        or kwargs.get("locale_tracks")
+    )
+    loc_manifest_heal = (
+        kwargs.get("localization_manifest")
+        or kwargs.get("localization")
+        or (getattr(bible_ctx_heal, "localization_manifest", None) if bible_ctx_heal is not None else None)
+    )
+    needs_localization_injection = bool(
+        (loc_tracks_heal or loc_manifest_heal is not None)
+        and not re.search(r"\[LOCALIZATION[ _]ADR:?", current_prompt, re.IGNORECASE)
+    )
+    edit_bridge_heal = (
+        (getattr(scene, "edit_bridge_in", None) if is_spec else None)
+        or (getattr(spec_context, "edit_bridge_in", None) if spec_context else None)
+        or kwargs.get("edit_bridge_in")
+        or kwargs.get("audio_bridge_in")
+        or kwargs.get("j_l_bridge")
+    )
+    spotting_manifest_heal = (
+        kwargs.get("spotting_manifest")
+        or kwargs.get("editorial_spotting")
+        or (getattr(bible_ctx_heal, "spotting_manifest", None) if bible_ctx_heal is not None else None)
+    )
+    needs_spotting_injection = bool(
+        (edit_bridge_heal is not None or spotting_manifest_heal is not None)
+        and not re.search(r"\[SPOTTING[ _]SYNC:?", current_prompt, re.IGNORECASE)
+    )
 
     if (
         current_audit.passed
@@ -943,6 +1114,8 @@ def heal_omni_scene_prompt(
         and not needs_review_injection
         and not needs_c2pa_injection
         and not needs_safety_injection
+        and not needs_localization_injection
+        and not needs_spotting_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -1426,6 +1599,20 @@ def heal_omni_scene_prompt(
             if "safety_risk" not in applied_patches:
                 applied_patches.append("safety_risk")
 
+        # 3u. Inject Localization & ADR Lip-Sync tokens if configured (PM-FEAT-027)
+        if (loc_tracks_heal or loc_manifest_heal is not None) and not re.search(r"\[LOCALIZATION[ _]ADR:?", working_prompt, re.IGNORECASE):
+            token = _format_localization_prompt_token(loc_tracks_heal, loc_manifest_heal)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "localization_adr" not in applied_patches:
+                applied_patches.append("localization_adr")
+
+        # 3v. Inject Editorial J-Cut/L-Cut & BPM Spotting Sync tokens if configured (PM-FEAT-028)
+        if (edit_bridge_heal is not None or spotting_manifest_heal is not None) and not re.search(r"\[SPOTTING[ _]SYNC:?", working_prompt, re.IGNORECASE):
+            token = _format_spotting_prompt_token(edit_bridge_heal, spotting_manifest_heal)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "spotting_sync" not in applied_patches:
+                applied_patches.append("spotting_sync")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -1558,6 +1745,8 @@ def heal_omni_scene_prompt(
         needs_review_still = bool(review_obj is not None and not (current_audit.details and current_audit.details.get("review_gate_compliant")))
         needs_c2pa_still = bool(not has_revoked_consent and c2pa_obj is not None and not (current_audit.details and current_audit.details.get("c2pa_provenance_compliant")))
         needs_safety_still = bool(safety_obj is not None and not (current_audit.details and current_audit.details.get("safety_risk_compliant")))
+        needs_localization_still = bool((loc_tracks_heal or loc_manifest_heal is not None) and not re.search(r"\[LOCALIZATION[ _]ADR:?", working_prompt, re.IGNORECASE))
+        needs_spotting_still = bool((edit_bridge_heal is not None or spotting_manifest_heal is not None) and not re.search(r"\[SPOTTING[ _]SYNC:?", working_prompt, re.IGNORECASE))
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -1570,6 +1759,8 @@ def heal_omni_scene_prompt(
             and not needs_review_still
             and not needs_c2pa_still
             and not needs_safety_still
+            and not needs_localization_still
+            and not needs_spotting_still
         ):
             break
 
@@ -1626,6 +1817,7 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"DRONE_FLIGHT|DRONE\s+FLIGHT|REFRAME|BROADCAST_QC|BROADCAST\s+QC|"
     r"CONTINUITY_AXIS|CONTINUITY\s+AXIS|REVIEW_GATE|REVIEW\s+GATE|"
     r"C2PA_PROVENANCE|C2PA\s+PROVENANCE|SAFETY_JSA|SAFETY\s+JSA|"
+    r"LOCALIZATION_ADR|LOCALIZATION\s+ADR|SPOTTING_SYNC|SPOTTING\s+SYNC|"
     r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
     r"VFX_COMPOSITING|VFX\s+COMPOSITING)\s*:[^\]]*\]\.?",
     re.IGNORECASE,

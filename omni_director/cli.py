@@ -206,6 +206,16 @@ def handle_council(args_list: List[str]) -> int:
             auto_heal=not args.no_heal,
             output_dir=output_path,
         )
+        bundle.council_report = report
+        telemetry_obj = getattr(pipeline, "telemetry", None)
+        if telemetry_obj is None:
+            from omni_director.telemetry import RuntimeTelemetry
+            telemetry_obj = RuntimeTelemetry(project_title=bundle.bible.project_title)
+        bundle.telemetry = telemetry_obj.to_dict()
+        bundle_json_file = Path(bundle.bundle_json_path) if bundle.bundle_json_path else (output_path / "production_bundle.json")
+        bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+        telemetry_obj.write_manifest(output_path)
+        bundle.telemetry = telemetry_obj.to_dict()
         reports.append(report)
 
         if not report.passed or report.overall_score < 88.0 or report.critical_findings_count > 0:
@@ -343,7 +353,7 @@ def handle_export(args_list: List[str]) -> int:
         generate_review_notes_csv,
     )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, and on-set safety JSA / risk manifests")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, and editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -351,7 +361,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -400,6 +410,14 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--safety-md", action="store_true", help="Export on-set safety bulletin Markdown (safety_bulletin.md)")
     parser.add_argument("--safety-csv", action="store_true", help="Export Job Safety Analysis (JSA) matrix CSV (safety_jsa_matrix.csv)")
     parser.add_argument("--safety-json", action="store_true", help="Export on-set safety risk manifest JSON (safety_risk_manifest.json)")
+    parser.add_argument("--i18n-json", action="store_true", help="Export multi-territory localization manifest JSON (localization_manifest.json)")
+    parser.add_argument("--adr-csv", action="store_true", help="Export ADR dubbing cue sheet CSV (adr_cue_sheet.csv)")
+    parser.add_argument("--ttml", action="store_true", help="Export IMSC1 TTML timed-text subtitles (subtitles_localized.ttml)")
+    parser.add_argument("--locales", type=str, default=None, help="Comma-separated BCP-47 locale list for localization/ADR export (e.g. en-US,de-DE,fr-FR,ja-JP)")
+    parser.add_argument("--spotting-json", action="store_true", help="Export editorial spotting & beat-grid manifest JSON (spotting_manifest.json)")
+    parser.add_argument("--spotting-csv", action="store_true", help="Export music & foley spotting cue sheet CSV (spotting_cue_sheet.csv)")
+    parser.add_argument("--spotting-md", action="store_true", help="Export editorial J-Cut / L-Cut spotting sheet Markdown (spotting_sheet.md)")
+    parser.add_argument("--split-edl", action="store_true", help="Export CMX 3600 split-edit EDL with staggered V/A/A2 J/L-Cut events (timeline_split_edits.edl)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -423,6 +441,15 @@ def handle_export(args_list: List[str]) -> int:
         preset_key = args.preset or "ikea-asmr"
         bible = get_preset_bible(preset_key)
 
+    target_locales: Optional[List[str]] = None
+    if args.locales:
+        target_locales = [loc.strip() for loc in args.locales.split(",") if loc.strip()]
+        if target_locales:
+            from omni_director.tools.localization_adr import compile_localization_manifest
+            bible = bible.model_copy(
+                update={"localization_manifest": compile_localization_manifest(bible, locales=target_locales)}
+            )
+
     exported_files: Dict[str, str] = {}
     fmt = args.format.lower()
 
@@ -434,18 +461,6 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
-        try:
-            from omni_director.tools.c2pa_provenance import export_c2pa_bundle
-        except ImportError:
-            export_c2pa_bundle = None
-        if export_c2pa_bundle is not None:
-            exported_files.update(export_c2pa_bundle(bible, out_dir))
-        try:
-            from omni_director.tools.safety_risk import export_safety_bundle
-        except ImportError:
-            export_safety_bundle = None
-        if export_safety_bundle is not None:
-            exported_files.update(export_safety_bundle(bible, out_dir))
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -545,6 +560,14 @@ def handle_export(args_list: List[str]) -> int:
         from omni_director.tools.safety_risk import export_safety_bundle
         safety_files = export_safety_bundle(bible, out_dir)
         exported_files.update(safety_files)
+    elif fmt == "i18n":
+        from omni_director.tools.localization_adr import export_localization_bundle
+        i18n_files = export_localization_bundle(bible, out_dir)
+        exported_files.update(i18n_files)
+    elif fmt == "spotting":
+        from omni_director.tools.editorial_spotting import export_spotting_bundle
+        spotting_files = export_spotting_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update(spotting_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -766,6 +789,47 @@ def handle_export(args_list: List[str]) -> int:
             p = out_dir / "safety_risk_manifest.json"
             p.write_text(generate_safety_manifest_json(bible), encoding="utf-8")
             exported_files["safety_json"] = str(p.resolve())
+    if args.i18n_json or args.adr_csv or args.ttml:
+        from omni_director.tools.localization_adr import (
+            export_adr_cue_sheet_csv,
+            export_imsc1_ttml,
+            export_localization_manifest_json,
+        )
+        if args.i18n_json:
+            p = out_dir / "localization_manifest.json"
+            export_localization_manifest_json(bible, p)
+            exported_files["localization_manifest_json"] = str(p.resolve())
+        if args.adr_csv:
+            p = out_dir / "adr_cue_sheet.csv"
+            export_adr_cue_sheet_csv(bible, p)
+            exported_files["adr_cue_sheet_csv"] = str(p.resolve())
+        if args.ttml:
+            p = out_dir / "subtitles_localized.ttml"
+            export_imsc1_ttml(bible, p, locale=target_locales[0] if target_locales else None)
+            exported_files["subtitles_localized_ttml"] = str(p.resolve())
+    if args.spotting_json or args.spotting_csv or args.spotting_md or args.split_edl:
+        from omni_director.tools.editorial_spotting import (
+            export_split_edit_edl,
+            export_spotting_cue_sheet_csv,
+            export_spotting_manifest_json,
+            export_spotting_sheet_md,
+        )
+        if args.spotting_json:
+            p = out_dir / "spotting_manifest.json"
+            export_spotting_manifest_json(bible, p, fps=args.fps)
+            exported_files["spotting_manifest_json"] = str(p.resolve())
+        if args.spotting_csv:
+            p = out_dir / "spotting_cue_sheet.csv"
+            export_spotting_cue_sheet_csv(bible, p, fps=args.fps)
+            exported_files["spotting_cue_sheet_csv"] = str(p.resolve())
+        if args.spotting_md:
+            p = out_dir / "spotting_sheet.md"
+            export_spotting_sheet_md(bible, p, fps=args.fps)
+            exported_files["spotting_sheet_md"] = str(p.resolve())
+        if args.split_edl:
+            p = out_dir / "timeline_split_edits.edl"
+            export_split_edit_edl(bible, p, fps=args.fps)
+            exported_files["timeline_split_edits_edl"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

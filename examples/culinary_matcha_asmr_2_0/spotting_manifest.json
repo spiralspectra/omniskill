@@ -1,0 +1,113 @@
+{
+  "fps": 24,
+  "tempo_bpm": 68.0,
+  "frames_per_beat": 21.1765,
+  "bar_length_beats": 4,
+  "beat_grid_tc": [
+    "00:00:00:00",
+    "00:00:00:21",
+    "00:00:01:18",
+    "00:00:02:16",
+    "00:00:03:13",
+    "00:00:04:10",
+    "00:00:05:07",
+    "00:00:06:04",
+    "00:00:07:01",
+    "00:00:07:23",
+    "00:00:08:20",
+    "00:00:09:17"
+  ],
+  "bridges": [
+    {
+      "from_scene": 1,
+      "to_scene": 2,
+      "cut_tc": "00:00:05:00",
+      "bridge_type": "jl_overlap",
+      "j_prelap_frames": 20,
+      "l_overhang_frames": 12,
+      "bridge_duration_sec": 1.333,
+      "nearest_beat_index": 6,
+      "beat_offset_frames": -7,
+      "beat_locked": false,
+      "sonic_anchor_cue": "Crisp blade cutting through textured crust (Macro Foley knife/sizzle 20f J-Cut + 12f soft L-Cut decay)",
+      "rationale": "Macro Foley J-Cuts (16-24f) pull tactile kitchen transients ahead of picture with a soft 12f L-Cut tail."
+    }
+  ],
+  "spotting_cues": [
+    {
+      "cue_id": "SPOT-MUS-S01",
+      "scene_number": 1,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:06",
+      "duration_frames": 126,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 1,
+      "lufs_target": -22.0,
+      "description": "Artisanal Japanese Culinary Ceremonial M Theme @ 68 BPM | Bar 1"
+    },
+    {
+      "cue_id": "SPOT-SFX-S01",
+      "scene_number": 1,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 1,
+      "lufs_target": -20.0,
+      "description": "Crisp blade cutting through textured crust; Gentle butter sizzle in cast iron (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S01",
+      "scene_number": 1,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:12",
+      "duration_frames": 132,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 1,
+      "lufs_target": -26.0,
+      "description": "Controlled cinematic soundstage with damp low-end reverb (L-overhang 12f)"
+    },
+    {
+      "cue_id": "SPOT-MUS-S02",
+      "scene_number": 2,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:04:14",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 130,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 2,
+      "lufs_target": -22.0,
+      "description": "Artisanal Japanese Culinary Ceremonial M Theme @ 68 BPM | Bar 2"
+    },
+    {
+      "cue_id": "SPOT-SFX-S02",
+      "scene_number": 2,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:04:04",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 140,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 2,
+      "lufs_target": -20.0,
+      "description": "Crisp blade cutting through textured crust; Gentle butter sizzle in cast iron (J-prelap 20f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S02",
+      "scene_number": 2,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 2,
+      "lufs_target": -26.0,
+      "description": "Reflective dynamic spatial acoustics with crisp decay (L-overhang 0f)"
+    }
+  ],
+  "beat_alignment_score": 75.5,
+  "total_split_edits": 1,
+  "recommended_nle_track_count": 6
+}

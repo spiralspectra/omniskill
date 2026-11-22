@@ -19,7 +19,12 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import ConfigDict
 
 from omni_director.config import FORBIDDEN_LEGACY_PATTERNS, DirectorConfig, cfg
-from omni_director.presets import DOMAIN_ARCHETYPES, classify_brief_domain
+from omni_director.presets import (
+    DOMAIN_ARCHETYPES,
+    classify_brief_domain,
+    get_domain_localization_spec,
+    get_domain_spotting_spec,
+)
 from omni_director.schemas import (
     CouncilFinding,
     CouncilFindingSeverity,
@@ -625,6 +630,74 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-027",
+                title="Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine",
+                problem_statement=(
+                    f"Global brand campaigns and multi-territory broadcast distributors{project_ctx} require "
+                    "deterministic ADR dubbing cue sheets with pre-roll beeps, syllable/WPS lip-sync drift gating, "
+                    "RTL/CJK text-expansion modeling, on-screen graphic supers safe-zone enforcement, and W3C "
+                    "IMSC1 TTML / SRT / VTT timed-text packages prior to international trafficking."
+                ),
+                proposed_solution=(
+                    "Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, "
+                    "AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr "
+                    "(LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, "
+                    "audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, "
+                    "export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, "
+                    "export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via "
+                    "get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing "
+                    "Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) "
+                    "in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/localization_adr.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v214.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-028",
+                title="Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine",
+                problem_statement=(
+                    f"Commercial editors, music supervisors, and re-recording mixers{project_ctx} require "
+                    "frame-accurate split-edit audio bridges (J-Cut pre-lap, L-Cut overhang, and JL overlap), "
+                    "24fps BPM beat-grid locking across picture cuts, downbeat-aligned music/foley spotting sheets, "
+                    "and CMX 3600 split-edit EDL deliverables."
+                ),
+                proposed_solution=(
+                    "Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; "
+                    "omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, "
+                    "synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, "
+                    "export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, "
+                    "export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via "
+                    "get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] "
+                    "(#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/editorial_spotting.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v214.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -1212,6 +1285,88 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"safety_artifacts": safety_items},
                 ))
 
+            has_full_nle_exports = (
+                (eval_dir / "timeline.edl").is_file()
+                and (eval_dir / "timeline.fcpxml").is_file()
+            )
+
+            # Verify Multi-Territory Localization, ADR Dubbing & IMSC1 TTML deliverables (PM-FEAT-027)
+            loc_candidates = [
+                "localization_manifest.json",
+                "adr_cue_sheet.csv",
+                "subtitles_localized.ttml",
+            ]
+            loc_items = [name for name in loc_candidates if (eval_dir / name).is_file()]
+            if loc_items:
+                missing_loc = [name for name in loc_candidates if name not in loc_items]
+                if missing_loc and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="localization_adr_delivery",
+                        message=(
+                            f"Partial localization ADR deliverables on disk ({', '.join(loc_items)}); "
+                            f"missing: {', '.join(missing_loc)}."
+                        ),
+                        suggested_fix="Run export_localization_bundle() or export_all_nle_artifacts() to export all PM-FEAT-027 artifacts.",
+                        details={"localization_artifacts": loc_items, "missing_artifacts": missing_loc},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="localization_adr_delivery",
+                        message=f"Localization manifest JSON, ADR cue sheet CSV, and IMSC1 TTML verified on disk: {', '.join(loc_items)}.",
+                        details={"localization_artifacts": loc_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="localization_adr_delivery",
+                    message="NLE exports present on disk without PM-FEAT-027 localization deliverables (localization_manifest.json, adr_cue_sheet.csv, subtitles_localized.ttml).",
+                    suggested_fix="Run export_localization_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": loc_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Editorial Spotting & Split-Edit EDL deliverables (PM-FEAT-028)
+            spotting_candidates = [
+                "spotting_manifest.json",
+                "spotting_cue_sheet.csv",
+                "spotting_sheet.md",
+                "timeline_split_edits.edl",
+            ]
+            spotting_items = [name for name in spotting_candidates if (eval_dir / name).is_file()]
+            if spotting_items:
+                missing_spot = [name for name in spotting_candidates if name not in spotting_items]
+                if missing_spot and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="spotting_delivery",
+                        message=(
+                            f"Partial editorial spotting deliverables on disk ({', '.join(spotting_items)}); "
+                            f"missing: {', '.join(missing_spot)}."
+                        ),
+                        suggested_fix="Run export_spotting_bundle() or export_all_nle_artifacts() to export all PM-FEAT-028 artifacts.",
+                        details={"spotting_artifacts": spotting_items, "missing_artifacts": missing_spot},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="spotting_delivery",
+                        message=f"Editorial spotting manifest JSON, cue sheet CSV, spotting sheet MD, and split-edit EDL verified on disk: {', '.join(spotting_items)}.",
+                        details={"spotting_artifacts": spotting_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="spotting_delivery",
+                    message="NLE exports present on disk without PM-FEAT-028 spotting deliverables (spotting_manifest.json, spotting_cue_sheet.csv, spotting_sheet.md, timeline_split_edits.edl).",
+                    suggested_fix="Run export_spotting_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": spotting_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -1282,6 +1437,59 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"scene_count": len(getattr(safety_spec, "scene_safety_specs", []) or [])},
                 ))
 
+        # Verify PM-FEAT-027 & PM-FEAT-028 schema specs when attached to bible/bundle
+        loc_spec = getattr(bible, "localization_manifest", None)
+        if loc_spec is not None:
+            loc_locales = getattr(loc_spec, "target_locales", None) or []
+            loc_territories = getattr(loc_spec, "territories", None) or []
+            if not loc_locales or not loc_territories:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="localization_adr_schema",
+                    message="LocalizationManifestSpec is missing required target_locales or territories.",
+                    suggested_fix="Hydrate localization_manifest via compile_localization_manifest(bible).",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="localization_adr_schema",
+                    message=(
+                        f"LocalizationManifestSpec verified ({len(loc_territories)} territories, "
+                        f"{len(getattr(loc_spec, 'adr_cues', []) or [])} ADR cues, "
+                        f"broadcast_ready={bool(getattr(loc_spec, 'broadcast_ready', True))})."
+                    ),
+                    details={"territory_count": len(loc_territories), "target_locales": list(loc_locales)},
+                ))
+
+        spot_spec = getattr(bible, "spotting_manifest", None)
+        if spot_spec is not None:
+            spot_bpm = float(getattr(spot_spec, "tempo_bpm", 0.0) or 0.0)
+            spot_grid = getattr(spot_spec, "beat_grid_tc", None) or []
+            if spot_bpm <= 0.0 or not spot_grid:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="spotting_manifest_schema",
+                    message="SpottingManifestSpec is missing valid tempo_bpm or beat_grid_tc.",
+                    suggested_fix="Hydrate spotting_manifest via build_spotting_manifest(bible, fps=24).",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="spotting_manifest_schema",
+                    message=(
+                        f"SpottingManifestSpec verified ({spot_bpm:.1f} BPM, "
+                        f"{len(getattr(spot_spec, 'bridges', []) or [])} bridges, "
+                        f"{len(getattr(spot_spec, 'spotting_cues', []) or [])} cues)."
+                    ),
+                    details={
+                        "tempo_bpm": spot_bpm,
+                        "bridge_count": len(getattr(spot_spec, "bridges", []) or []),
+                        "cue_count": len(getattr(spot_spec, "spotting_cues", []) or []),
+                    },
+                ))
+
         score = max(0.0, min(25.0, round(score, 2)))
         summary = f"FDE review completed with score {score}/25.0. {len(findings)} findings."
         return PersonaReviewResult(
@@ -1333,6 +1541,7 @@ class ProductCouncilOrchestrator(BaseAgent):
                 scene,
                 regime=bible.creative_regime,
                 storytelling_mode=getattr(bible, "storytelling_mode", None),
+                bible=bible,
             )
             if (not res.passed or res.score < 90.0) and auto_heal:
                 logger.info(f"Self-healing prompt for Scene {scene.scene_index}...")
@@ -1341,6 +1550,7 @@ class ProductCouncilOrchestrator(BaseAgent):
                     audit_result=res,
                     regime=bible.creative_regime,
                     storytelling_mode=getattr(bible, "storytelling_mode", None),
+                    bible=bible,
                 )
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
@@ -1805,7 +2015,137 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"total_hazards": getattr(safety_master, "total_hazards_identified", 0)},
                 ))
 
-        # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, and safety_risk_compliant on bundle.audit_reports
+        # Check Multi-Territory Localization, ADR Dubbing & Safe-Supers (PM-FEAT-027)
+        loc_manifest = getattr(bible, "localization_manifest", None)
+        if loc_manifest is not None:
+            target_locales = getattr(loc_manifest, "target_locales", None) or []
+            territories = getattr(loc_manifest, "territories", None) or []
+            max_drift = float(getattr(loc_manifest, "max_allowed_drift_ratio", 1.15) or 1.15)
+            broadcast_ready = bool(getattr(loc_manifest, "broadcast_ready", True))
+            rescript_locales = []
+            overflow_locales = []
+            for terr in territories:
+                tag = getattr(terr, "bcp47_tag", getattr(terr, "locale", ""))
+                s_st = str(getattr(getattr(terr, "supers_status", "clear"), "value", getattr(terr, "supers_status", "clear"))).lower()
+                if s_st == "safe_zone_overflow":
+                    overflow_locales.append(tag)
+                for ln in (getattr(terr, "lines", None) or []):
+                    ln_st = str(getattr(getattr(ln, "sync_status", "locked"), "value", getattr(ln, "sync_status", "locked"))).lower()
+                    ratio = float(getattr(ln, "lip_sync_ratio", 1.0) or 1.0)
+                    if ln_st == "rescript_required" or ratio > max_drift:
+                        if tag not in rescript_locales:
+                            rescript_locales.append(tag)
+            if not target_locales or not territories:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="localization_schema_defect",
+                    message="LocalizationManifestSpec has empty target_locales or territories.",
+                    suggested_fix="Hydrate localization_manifest via compile_localization_manifest(bible).",
+                ))
+                penalty_points += 3.0
+            elif not broadcast_ready or rescript_locales or overflow_locales:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="localization_adr_compliance_violation",
+                    message=(
+                        f"Localization ADR gate failed: broadcast_ready={broadcast_ready}, "
+                        f"rescript_locales={rescript_locales}, supers_overflow={overflow_locales}."
+                    ),
+                    suggested_fix="Retime/rescript flagged ADR dialogue lines within drift ceiling and tighten supers within safe-zone.",
+                ))
+                penalty_points += 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="localization_adr_schema_compliance",
+                    message=(
+                        f"Localization & ADR Dubbing verified: {len(territories)} territory track(s) "
+                        f"({', '.join(target_locales[:4])}), profile={getattr(loc_manifest, 'imsc1_profile', 'imsc1-text-1.1')}, broadcast_ready=True."
+                    ),
+                    details={"target_locales": list(target_locales), "territories_count": len(territories)},
+                ))
+
+        # Per-scene locale_tracks compliance check (PM-FEAT-027)
+        max_loc_drift = float(getattr(loc_manifest, "max_allowed_drift_ratio", 1.15) or 1.15) if loc_manifest is not None else 1.15
+        bad_locale_scenes: List[int] = []
+        for sc in bible.scenes:
+            for tr in (getattr(sc, "locale_tracks", None) or []):
+                st = str(getattr(getattr(tr, "sync_status", "locked"), "value", getattr(tr, "sync_status", "locked"))).lower()
+                ratio = float(getattr(tr, "lip_sync_ratio", 1.0) or 1.0)
+                if st == "rescript_required" or ratio > max_loc_drift:
+                    if sc.scene_index not in bad_locale_scenes:
+                        bad_locale_scenes.append(sc.scene_index)
+        if bad_locale_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="scene_locale_tracks_violation",
+                message=f"Scene locale_tracks exceed lip-sync drift ceiling or require rescript on scene(s): {bad_locale_scenes}.",
+                suggested_fix="Shorten adapted ADR lines or retime visemes within max_allowed_drift_ratio.",
+            ))
+            penalty_points += 2.0
+
+        # Check Editorial J-Cut / L-Cut Audio Bridge & BPM Beat-Grid Spotting (PM-FEAT-028)
+        spot_manifest = getattr(bible, "spotting_manifest", None)
+        fpb_val = float(getattr(spot_manifest, "frames_per_beat", 12.0) or 12.0) if spot_manifest is not None else 12.0
+        bridge_unlock_ceiling = max(4, int(round(fpb_val * 0.5)))
+        unlocked_bridges: List[str] = []
+        if spot_manifest is not None:
+            tempo_bpm = float(getattr(spot_manifest, "tempo_bpm", 0.0) or 0.0)
+            beat_grid_tc = getattr(spot_manifest, "beat_grid_tc", None) or []
+            beat_score = float(getattr(spot_manifest, "beat_alignment_score", 0.0) or 0.0)
+            bridges = getattr(spot_manifest, "bridges", None) or []
+            unlocked_bridges = [
+                f"{getattr(br, 'from_scene', '?')}->{getattr(br, 'to_scene', '?')}"
+                for br in bridges
+                if not getattr(br, "beat_locked", True) and abs(int(getattr(br, "beat_offset_frames", 0) or 0)) > bridge_unlock_ceiling
+            ]
+            if tempo_bpm <= 0.0 or not beat_grid_tc:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="spotting_schema_defect",
+                    message=f"SpottingManifestSpec has invalid tempo_bpm={tempo_bpm} or empty beat_grid_tc.",
+                    suggested_fix="Hydrate spotting_manifest via build_spotting_manifest(bible, fps=24).",
+                ))
+                penalty_points += 3.0
+            elif beat_score < 60.0 or unlocked_bridges:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="spotting_beat_sync_violation",
+                    message=(
+                        f"Editorial spotting beat-sync defect: beat_alignment_score={beat_score:.1f}%, "
+                        f"unlocked_bridges={unlocked_bridges}."
+                    ),
+                    suggested_fix="Snap J-Cut/L-Cut split-edit bridges to nearest BPM downbeat within frame tolerance.",
+                ))
+                penalty_points += 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="spotting_sync_schema_compliance",
+                    message=(
+                        f"Editorial Spotting & Beat-Grid verified: {tempo_bpm:.1f} BPM, "
+                        f"{len(bridges)} split-edit bridge(s), beat_alignment_score={beat_score:.1f}%."
+                    ),
+                    details={"tempo_bpm": tempo_bpm, "bridges_count": len(bridges), "beat_alignment_score": beat_score},
+                ))
+
+        # Per-scene edit_bridge_in compliance check (PM-FEAT-028)
+        bad_bridge_scenes: List[int] = []
+        for sc in bible.scenes:
+            br = getattr(sc, "edit_bridge_in", None)
+            if br is not None:
+                if not getattr(br, "beat_locked", True) and abs(int(getattr(br, "beat_offset_frames", 0) or 0)) > bridge_unlock_ceiling:
+                    bad_bridge_scenes.append(sc.scene_index)
+        if bad_bridge_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="scene_edit_bridge_violation",
+                message=f"Scene edit_bridge_in unlocked from BPM beat grid (>{bridge_unlock_ceiling}f offset) on scene(s): {bad_bridge_scenes}.",
+                suggested_fix="Re-lock J-Cut/L-Cut audio bridge to nearest beat in build_spotting_manifest().",
+            ))
+            penalty_points += 2.0
+
+        # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
                 getattr(rep, "scene_index", idx)
@@ -1826,6 +2166,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "safety_risk_compliant", True)
+            ]
+            non_loc_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "localization_adr_compliant", True)
+            ]
+            non_spot_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "spotting_sync_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -1859,6 +2209,48 @@ class ProductCouncilOrchestrator(BaseAgent):
                     suggested_fix="Clear JSA safety holds and mitigate residual hazards on flagged scenes.",
                 ))
                 penalty_points += 2.0
+            if non_loc_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_localization_non_compliant",
+                    message=f"Bundle audit_reports flagged localization_adr_compliant=False on scene(s): {non_loc_scenes}.",
+                    suggested_fix="Retime/rescript flagged localized dialogue tracks within drift ceiling.",
+                ))
+                penalty_points += 2.0
+            if non_spot_scenes:
+                bridge_map = {
+                    int(getattr(br, "to_scene", 0)): br
+                    for br in (getattr(spot_manifest, "bridges", None) or [])
+                } if spot_manifest is not None else {}
+                scene_map = {int(sc.scene_index): sc for sc in bible.scenes}
+                all_non_spot_within_half_beat = all(
+                    (
+                        (br := getattr(scene_map.get(sc_idx), "edit_bridge_in", None) or bridge_map.get(sc_idx)) is not None
+                        and abs(int(getattr(br, "beat_offset_frames", 0) or 0)) <= bridge_unlock_ceiling
+                    )
+                    for sc_idx in non_spot_scenes
+                )
+                spot_beat_ok = (
+                    spot_manifest is not None
+                    and float(getattr(spot_manifest, "beat_alignment_score", 0.0) or 0.0) >= 70.0
+                    and not unlocked_bridges
+                    and not bad_bridge_scenes
+                    and all_non_spot_within_half_beat
+                )
+                if spot_beat_ok:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="audit_report_spotting_advisory",
+                        message=f"Scene(s) {non_spot_scenes} within half-beat BPM tolerance (beat_alignment_score >= 70%).",
+                    ))
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="audit_report_spotting_non_compliant",
+                        message=f"Bundle audit_reports flagged spotting_sync_compliant=False on scene(s): {non_spot_scenes}.",
+                        suggested_fix="Lock incoming J-Cut/L-Cut audio bridge to BPM beat grid on flagged scenes.",
+                    ))
+                    penalty_points += 2.0
             if not non_cont_scenes and not non_rev_scenes:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.INFO,
@@ -1870,6 +2262,12 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_c2pa_and_safety_compliance",
                     message=f"Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if not non_loc_scenes and not non_spot_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_localization_and_spotting_compliance",
+                    message=f"Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -2653,6 +3051,104 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             score -= 0.25
 
+        # Check domain-calibrated Multi-Territory Localization & ADR Dubbing (PM-FEAT-027) when manifest is present
+        loc_manifest = getattr(bible, "localization_manifest", None)
+        if loc_manifest is not None:
+            expected_loc = get_domain_localization_spec(detected_domain)
+            target_locales = list(getattr(loc_manifest, "target_locales", None) or [])
+            territories = list(getattr(loc_manifest, "territories", None) or [])
+            max_wps = float(getattr(loc_manifest, "max_allowed_wps", 2.5) or 2.5)
+            exp_wps = float(expected_loc.get("max_allowed_wps", 2.5))
+            broadcast_ready = bool(getattr(loc_manifest, "broadcast_ready", True))
+            if not broadcast_ready:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_localization_adr",
+                    message=f"Localization manifest not broadcast_ready for domain '{detected_domain}'.",
+                    suggested_fix="Resolve lip-sync drift and safe-supers overflow in localization_manifest.",
+                ))
+                score -= 1.0
+            elif not target_locales or not territories:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_localization_adr",
+                    message=f"Localization manifest has empty target_locales/territories for domain '{detected_domain}'.",
+                    suggested_fix="Populate localization_manifest via compile_localization_manifest(bible).",
+                ))
+                score -= 0.25
+            elif max_wps > exp_wps + 0.6:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_localization_adr",
+                    message=(
+                        f"Localization max_allowed_wps={max_wps:.2f} exceeds domain '{detected_domain}' "
+                        f"calibration ceiling ({exp_wps:.2f} WPS)."
+                    ),
+                    suggested_fix="Calibrate localization_manifest via get_domain_localization_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_localization_adr",
+                    message=(
+                        f"Multi-Territory Localization & ADR calibrated for domain '{detected_domain}' "
+                        f"(locales={', '.join(target_locales[:4])}, max_wps={max_wps:.2f}, broadcast_ready=True)."
+                    ),
+                    details={"domain": detected_domain, "target_locales": target_locales, "max_allowed_wps": max_wps},
+                ))
+
+        # Check domain-calibrated Editorial J-Cut/L-Cut & BPM Spotting (PM-FEAT-028) when manifest is present
+        spot_manifest = getattr(bible, "spotting_manifest", None)
+        if spot_manifest is not None:
+            expected_spot = get_domain_spotting_spec(detected_domain)
+            tempo_bpm = float(getattr(spot_manifest, "tempo_bpm", 0.0) or 0.0)
+            bridges = list(getattr(spot_manifest, "bridges", None) or [])
+            beat_score = float(getattr(spot_manifest, "beat_alignment_score", 0.0) or 0.0)
+            exp_bridge_obj = expected_spot.get("default_bridge_type")
+            exp_bridge_str = str(getattr(exp_bridge_obj, "value", exp_bridge_obj or "j_cut")).lower()
+            bridge_types = {
+                str(getattr(getattr(br, "bridge_type", ""), "value", getattr(br, "bridge_type", ""))).lower()
+                for br in bridges
+            }
+            if tempo_bpm <= 0.0 or (len(bible.scenes) > 1 and not bridges):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_spotting_sync",
+                    message=f"Spotting manifest incomplete for domain '{detected_domain}' (tempo_bpm={tempo_bpm}, bridges={len(bridges)}).",
+                    suggested_fix="Build spotting_manifest via build_spotting_manifest(bible, fps=24).",
+                ))
+                score -= 0.25
+            elif beat_score < 60.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_spotting_sync",
+                    message=f"Editorial spotting beat_alignment_score={beat_score:.1f}% below threshold for domain '{detected_domain}'.",
+                    suggested_fix="Align scene cut boundaries and J-Cut/L-Cut bridges with BPM beat grid.",
+                ))
+                score -= 1.0
+            elif bridges and exp_bridge_str not in bridge_types and "jl_overlap" not in bridge_types:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_spotting_sync",
+                    message=(
+                        f"Editorial bridge types {sorted(bridge_types)} differ from domain '{detected_domain}' "
+                        f"calibrated default '{exp_bridge_str}'."
+                    ),
+                    suggested_fix="Calibrate spotting_manifest via get_domain_spotting_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_spotting_sync",
+                    message=(
+                        f"Editorial Spotting & Beat-Grid calibrated for domain '{detected_domain}' "
+                        f"({tempo_bpm:.1f} BPM, bridges={sorted(bridge_types) or [exp_bridge_str]}, beat_score={beat_score:.1f}%)."
+                    ),
+                    details={"domain": detected_domain, "tempo_bpm": tempo_bpm, "beat_alignment_score": beat_score},
+                ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -3140,6 +3636,48 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).",
                         ))
 
+                    # PM-FEAT-027 Multi-Territory Localization & ADR Dubbing HUD check
+                    missing_loc_ids = [
+                        el_id
+                        for el_id in ("animatic-localization-hud", "btn-localization-animatic", "localization-lipsync-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_loc_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_localization_hud",
+                            message=f"Compiled storyboard preview HTML lacks Localization & ADR HUD element(s): {', '.join('#' + i for i in missing_loc_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-localization-animatic, #animatic-localization-hud, and #localization-lipsync-svg [I].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_localization_hud",
+                            message="Localization & ADR Dubbing HUD verified (#btn-localization-animatic / #animatic-localization-hud / #localization-lipsync-svg [I]).",
+                        ))
+
+                    # PM-FEAT-028 Editorial J-Cut/L-Cut Spotting & Beat-Grid HUD check
+                    missing_spot_ids = [
+                        el_id
+                        for el_id in ("animatic-spotting-hud", "btn-spotting-animatic", "spotting-timeline-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_spot_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_spotting_hud",
+                            message=f"Compiled storyboard preview HTML lacks Editorial Spotting & Beat-Grid HUD element(s): {', '.join('#' + i for i in missing_spot_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #btn-spotting-animatic, #animatic-spotting-hud, and #spotting-timeline-svg [J].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_spotting_hud",
+                            message="Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -3184,7 +3722,7 @@ class ProductCouncilOrchestrator(BaseAgent):
                         ))
 
                     # Verify zero duplicate JS keydown hotkey bindings, W & N hotkeys, & Escape handler cleanup
-                    kd_match = re.search(r"addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html_content, re.DOTALL | re.MULTILINE)
+                    kd_match = re.search(r"window\.addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html_content, re.DOTALL | re.MULTILINE)
                     if kd_match:
                         kd_block = kd_match.group(0)
                         bound_literals = re.findall(r"e\.key\s*===\s*['\"]([^'\"]+)['\"]", kd_block)
@@ -3253,6 +3791,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
                             ))
 
+                        has_i_key = bool(re.search(r"e\.key\s*===\s*['\"][iI]['\"]", kd_block))
+                        has_j_key = bool(re.search(r"e\.key\s*===\s*['\"][jJ]['\"]", kd_block))
+                        if not (has_i_key and has_j_key):
+                            missing_ij = []
+                            if not has_i_key:
+                                missing_ij.append("I")
+                            if not has_j_key:
+                                missing_ij.append("J")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_ij",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_ij)}.",
+                                suggested_fix="Bind I (Localization HUD) and J (Editorial Spotting HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_ij",
+                                message="Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -3262,27 +3822,33 @@ class ProductCouncilOrchestrator(BaseAgent):
                             if (esc_idx != -1 and esc_end != -1)
                             else (kd_block[esc_idx:] if esc_idx != -1 else "")
                         )
+                        sec_match = re.search(r"function\s+closeSecondaryOpenHUDs\s*\(\)\s*\{(.*?)\}", html_content, re.DOTALL)
+                        esc_combined = esc_slice + ("\n" + sec_match.group(1) if (sec_match and "closeSecondaryOpenHUDs" in esc_slice) else "")
                         missing_esc: list[str] = []
-                        if "animatic-audio-mixer" in html_content and "animatic-audio-mixer" not in esc_slice and "toggleMixer" not in esc_slice:
+                        if "animatic-audio-mixer" in html_content and "animatic-audio-mixer" not in esc_combined and "toggleMixer" not in esc_combined:
                             missing_esc.append("animatic-audio-mixer")
-                        if "animatic-reframe-hud" in html_content and "ReframeHUD" not in esc_slice and "animatic-reframe-hud" not in esc_slice:
+                        if "animatic-reframe-hud" in html_content and "ReframeHUD" not in esc_combined and "animatic-reframe-hud" not in esc_combined:
                             missing_esc.append("animatic-reframe-hud")
-                        if "animatic-qc-hud" in html_content and "QcHUD" not in esc_slice and "QCHUD" not in esc_slice and "animatic-qc-hud" not in esc_slice:
+                        if "animatic-qc-hud" in html_content and "QcHUD" not in esc_combined and "QCHUD" not in esc_combined and "animatic-qc-hud" not in esc_combined:
                             missing_esc.append("animatic-qc-hud")
-                        if "animatic-blocking-hud" in html_content and "BlockingHUD" not in esc_slice and "animatic-blocking-hud" not in esc_slice:
+                        if "animatic-blocking-hud" in html_content and "BlockingHUD" not in esc_combined and "animatic-blocking-hud" not in esc_combined:
                             missing_esc.append("animatic-blocking-hud")
-                        if "animatic-review-hud" in html_content and "ReviewHUD" not in esc_slice and "animatic-review-hud" not in esc_slice:
+                        if "animatic-review-hud" in html_content and "ReviewHUD" not in esc_combined and "animatic-review-hud" not in esc_combined:
                             missing_esc.append("animatic-review-hud")
-                        if "animatic-c2pa-hud" in html_content and "C2paHUD" not in esc_slice and "animatic-c2pa-hud" not in esc_slice:
+                        if "animatic-c2pa-hud" in html_content and "C2paHUD" not in esc_combined and "animatic-c2pa-hud" not in esc_combined:
                             missing_esc.append("animatic-c2pa-hud")
-                        if "animatic-safety-hud" in html_content and "SafetyHUD" not in esc_slice and "animatic-safety-hud" not in esc_slice:
+                        if "animatic-safety-hud" in html_content and "SafetyHUD" not in esc_combined and "animatic-safety-hud" not in esc_combined:
                             missing_esc.append("animatic-safety-hud")
+                        if "animatic-localization-hud" in html_content and "LocalizationHUD" not in esc_combined and "animatic-localization-hud" not in esc_combined:
+                            missing_esc.append("animatic-localization-hud")
+                        if "animatic-spotting-hud" in html_content and "SpottingHUD" not in esc_combined and "animatic-spotting-hud" not in esc_combined:
+                            missing_esc.append("animatic-spotting-hud")
                         if missing_esc:
                             findings.append(CouncilFinding(
                                 severity=CouncilFindingSeverity.LOW,
                                 category="animatic_escape_dismissal",
                                 message=f"Escape key handler does not dismiss open panels: {', '.join(missing_esc)}.",
-                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, review HUD, C2PA HUD, and safety HUD.",
+                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, review HUD, C2PA HUD, safety HUD, localization HUD, and spotting HUD.",
                             ))
                             score -= 0.5
 

@@ -102,6 +102,35 @@ def export_fcpxml(bible: MasterProductionBible, fps: int = 24) -> str:
     total_runtime = float(getattr(bible, "total_runtime_seconds", 32) or 32)
     title_escaped = xml_escape(bible.project_title)
 
+    spotting_manifest = getattr(bible, "spotting_manifest", None)
+    if spotting_manifest is None:
+        try:
+            from omni_director.tools.editorial_spotting import build_spotting_manifest
+            spotting_manifest = build_spotting_manifest(bible, fps=fps)
+        except Exception as exc:
+            logger.warning("Spotting manifest synthesis skipped in FCPXML: %s", exc)
+            spotting_manifest = None
+
+    beat_markers: list[Tuple[int, int, int, int, str]] = []
+    tempo_bpm = 120.0
+    if spotting_manifest is not None:
+        tempo_bpm = float(getattr(spotting_manifest, "tempo_bpm", 120.0) or 120.0)
+        bar_len = max(1, int(getattr(spotting_manifest, "bar_length_beats", 4) or 4))
+        manifest_fps = max(1, int(getattr(spotting_manifest, "fps", fps) or fps))
+        for beat_idx, tc_str in enumerate(getattr(spotting_manifest, "beat_grid_tc", []) or []):
+            tc_parts = str(tc_str).strip().split(":")
+            if len(tc_parts) != 4:
+                continue
+            try:
+                hh, mm, ss, ff = map(int, tc_parts)
+            except ValueError:
+                continue
+            total_sec = (hh * 3600 + mm * 60 + ss) + (ff / float(manifest_fps))
+            seq_frame = max(0, int(round(total_sec * fps)))
+            bar = (beat_idx // bar_len) + 1
+            beat_in_bar = (beat_idx % bar_len) + 1
+            beat_markers.append((beat_idx, bar, beat_in_bar, seq_frame, str(tc_str)))
+
     resources_xml = [
         f'        <format id="r1" name="FFVideoFormat1080p{fps}" '
         f'frameDuration="1/{fps}s" width="1920" height="1080" '
@@ -135,11 +164,25 @@ def export_fcpxml(bible: MasterProductionBible, fps: int = 24) -> str:
             from omni_director.tools.speed_ramp import export_fcpxml_timemap
             timemap_block = "\n" + export_fcpxml_timemap(scene, sequence_fps=float(fps))
 
+        clip_end_frame = offset_frames + clip_frames
+        beat_marker_lines = []
+        for beat_idx, bar, beat_in_bar, seq_frame, tc_str in beat_markers:
+            if offset_frames <= seq_frame < clip_end_frame:
+                local_frame = seq_frame - offset_frames
+                beat_label = f"Downbeat Bar {bar}" if beat_in_bar == 1 else f"Beat {bar}.{beat_in_bar}"
+                val_esc = xml_escape(f"{beat_label} ({tc_str})")
+                note_esc = xml_escape(f"{tempo_bpm:.1f} BPM | Bar {bar} Beat {beat_in_bar} | Beat #{beat_idx}")
+                beat_marker_lines.append(
+                    f'                            <marker start="{local_frame}/{fps}s" '
+                    f'duration="1/{fps}s" value="{val_esc}" note="{note_esc}"/>'
+                )
+        beat_markers_block = ("\n" + "\n".join(beat_marker_lines)) if beat_marker_lines else ""
+
         spine_xml.append(
             f'                        <asset-clip name="{clip_name}" ref="{res_id}" '
             f'offset="{offset_frames}/{fps}s" duration="{clip_frames}/{fps}s" '
             f'start="0s" format="r1">\n'
-            f'                            <note>{cam_note}</note>{timemap_block}\n'
+            f'                            <note>{cam_note}</note>{timemap_block}{beat_markers_block}\n'
             f'                        </asset-clip>'
         )
         offset_frames += clip_frames
@@ -518,5 +561,17 @@ def export_all_nle_artifacts(
         res.update({k: str(v) for k, v in export_safety_bundle(bible, out_path).items()})
     except Exception as exc:
         logger.warning("On-set safety risk bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.localization_adr import export_localization_bundle
+        res.update({k: str(v) for k, v in export_localization_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Localization ADR bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.editorial_spotting import export_spotting_bundle
+        res.update({k: str(v) for k, v in export_spotting_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("Editorial spotting bundle export skipped: %s", exc)
 
     return res

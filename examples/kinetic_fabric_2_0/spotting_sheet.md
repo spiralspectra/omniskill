@@ -1,0 +1,31 @@
+# Editorial Spotting & Audio Bridge Sheet: The Kinetic Fabric: Grounded Innovation
+
+- **FPS**: `24 fps` (Non-Drop Frame)
+- **Tempo**: `120.0 BPM` (`12.00` frames/beat, `4/4` meter)
+- **Beat Alignment Score**: `100.0 / 100.0`
+- **Total Split Edits**: `3` | **Recommended NLE Audio Tracks**: `8`
+
+## 1. J-Cut / L-Cut Scene Transitions
+
+| Cut | Timecode | Bridge Type | J-Prelap (f) | L-Overhang (f) | Beat Offset (f) | Locked | Sonic Anchor |
+|---|---|---|---:|---:|---:|---|---|
+| S01->S02 | `00:00:08:00` | `j_cut` | 8 | 0 | +0 | YES | Tight <=1f beat slam & 8f kinetic whoosh J-Cut |
+| S02->S03 | `00:00:16:00` | `j_cut` | 8 | 0 | +0 | YES | Tight <=1f beat slam & 8f kinetic whoosh J-Cut |
+| S03->S04 | `00:00:24:00` | `j_cut` | 8 | 0 | +0 | YES | Tight <=1f beat slam & 8f kinetic whoosh J-Cut |
+
+## 2. Music, Foley & Room-Tone Spotting Cues
+
+| Cue ID | Scene | Category | In TC | Out TC | Dur (f) | Stem Target | Bar | LUFS | Description |
+|---|---:|---|---|---|---:|---|---:|---:|---|
+| `SPOT-MUS-S01` | 1 | `music_stem` | `00:00:00:00` | `00:00:08:00` | 192 | A4 (BGM Score) | 1 | -16.0 | Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 1 |
+| `SPOT-SFX-S01` | 1 | `foley_hard` | `00:00:00:00` | `00:00:08:00` | 192 | A2 (Foley / SFX) | 1 | -18.0 | The Microscopic Weave tactile Foley (J-prelap 0f) |
+| `SPOT-AMB-S01` | 1 | `room_tone` | `00:00:00:00` | `00:00:08:00` | 192 | A3 (Room Ambience) | 1 | -24.0 | Calibrated production room tone (L-overhang 0f) |
+| `SPOT-MUS-S02` | 2 | `music_stem` | `00:00:07:20` | `00:00:16:00` | 196 | A4 (BGM Score) | 5 | -16.0 | Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 5 |
+| `SPOT-SFX-S02` | 2 | `foley_hard` | `00:00:07:16` | `00:00:16:00` | 200 | A2 (Foley / SFX) | 5 | -18.0 | The Airflow Ignition tactile Foley (J-prelap 8f) |
+| `SPOT-AMB-S02` | 2 | `room_tone` | `00:00:08:00` | `00:00:16:00` | 192 | A3 (Room Ambience) | 5 | -24.0 | Calibrated production room tone (L-overhang 0f) |
+| `SPOT-MUS-S03` | 3 | `music_stem` | `00:00:15:20` | `00:00:24:00` | 196 | A4 (BGM Score) | 9 | -16.0 | Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 9 |
+| `SPOT-SFX-S03` | 3 | `foley_hard` | `00:00:15:16` | `00:00:24:00` | 200 | A2 (Foley / SFX) | 9 | -18.0 | The Aerodynamic Deflection tactile Foley (J-prelap 8f) |
+| `SPOT-AMB-S03` | 3 | `room_tone` | `00:00:16:00` | `00:00:24:00` | 192 | A3 (Room Ambience) | 9 | -24.0 | Calibrated production room tone (L-overhang 0f) |
+| `SPOT-MUS-S04` | 4 | `music_stem` | `00:00:23:20` | `00:00:32:00` | 196 | A4 (BGM Score) | 13 | -16.0 | Tensile Dynamics: Kinetic Pulse @ 120 BPM | Bar 13 |
+| `SPOT-SFX-S04` | 4 | `foley_hard` | `00:00:23:16` | `00:00:32:00` | 200 | A2 (Foley / SFX) | 13 | -18.0 | The Deceleration & The Form Lock tactile Foley (J-prelap 8f) |
+| `SPOT-AMB-S04` | 4 | `room_tone` | `00:00:24:00` | `00:00:32:00` | 192 | A3 (Room Ambience) | 13 | -24.0 | Calibrated production room tone (L-overhang 0f) |

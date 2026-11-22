@@ -36,7 +36,7 @@ try:
     from omni_director import __version__
     DEFAULT_DOCTOR_VERSION = __version__
 except Exception:
-    DEFAULT_DOCTOR_VERSION = "2.13.0"
+    DEFAULT_DOCTOR_VERSION = "2.14.0"
 
 
 class CheckStatus(str, Enum):
@@ -180,7 +180,7 @@ def run_doctor(
                 legacy_hits.append(f"{field_name}='{model_name}' (matched {pat.pattern})")
                 break
         try:
-            validate_model_identifier(model_name, field_name)
+            _validate_model_identifier(model_name, field_name)
         except ValueError as exc:
             whitelist_hits.append(str(exc))
 

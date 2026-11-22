@@ -1,7 +1,7 @@
 {
-  "version": "2.13.0",
+  "version": "2.14.0",
   "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-  "timestamp": "2026-11-21T10:46:05.355697+00:00",
+  "timestamp": "2026-11-22T10:19:37.092084+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -230,6 +230,34 @@
         },
         {
           "severity": "info",
+          "category": "c2pa_provenance_delivery",
+          "message": "C2PA Content Credentials manifest JSON, AI disclosure certificate MD, and Likeness consent ledger CSV verified on disk: c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "c2pa_artifacts": [
+              "c2pa_manifest.json",
+              "ai_disclosure_certificate.md",
+              "likeness_consent_ledger.csv"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "safety_risk_delivery",
+          "message": "On-set safety bulletin MD, Safety JSA matrix CSV, and Safety risk manifest JSON verified on disk: safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "safety_artifacts": [
+              "safety_bulletin.md",
+              "safety_jsa_matrix.csv",
+              "safety_risk_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
           "remediation": null,
@@ -267,9 +295,39 @@
           "details": {
             "scene_count": 4
           }
+        },
+        {
+          "severity": "info",
+          "category": "localization_adr_schema",
+          "message": "LocalizationManifestSpec verified (6 territories, 24 ADR cues, broadcast_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "territory_count": 6,
+            "target_locales": [
+              "en-US",
+              "fr-FR",
+              "it-IT",
+              "zh-CN",
+              "ar-SA",
+              "ko-KR"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "spotting_manifest_schema",
+          "message": "SpottingManifestSpec verified (138.0 BPM, 3 bridges, 12 cues).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "tempo_bpm": 138.0,
+            "bridge_count": 3,
+            "cue_count": 12
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 19 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 23 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -413,6 +471,36 @@
         },
         {
           "severity": "info",
+          "category": "localization_adr_schema_compliance",
+          "message": "Localization & ADR Dubbing verified: 6 territory track(s) (en-US, fr-FR, it-IT, zh-CN), profile=imsc1-text-1.1, broadcast_ready=True.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "target_locales": [
+              "en-US",
+              "fr-FR",
+              "it-IT",
+              "zh-CN",
+              "ar-SA",
+              "ko-KR"
+            ],
+            "territories_count": 6
+          }
+        },
+        {
+          "severity": "info",
+          "category": "spotting_sync_schema_compliance",
+          "message": "Editorial Spotting & Beat-Grid verified: 138.0 BPM, 3 split-edit bridge(s), beat_alignment_score=100.0%.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "tempo_bpm": 138.0,
+            "bridges_count": 3,
+            "beat_alignment_score": 100.0
+          }
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
           "remediation": null,
@@ -423,6 +511,14 @@
           "severity": "info",
           "category": "audit_report_c2pa_and_safety_compliance",
           "message": "Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_localization_and_spotting_compliance",
+          "message": "Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -735,6 +831,37 @@
         },
         {
           "severity": "info",
+          "category": "domain_localization_adr",
+          "message": "Multi-Territory Localization & ADR calibrated for domain 'luxury_fashion' (locales=en-US, fr-FR, it-IT, zh-CN, max_wps=2.20, broadcast_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "target_locales": [
+              "en-US",
+              "fr-FR",
+              "it-IT",
+              "zh-CN",
+              "ar-SA",
+              "ko-KR"
+            ],
+            "max_allowed_wps": 2.2
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_spotting_sync",
+          "message": "Editorial Spotting & Beat-Grid calibrated for domain 'luxury_fashion' (138.0 BPM, bridges=['l_cut'], beat_score=100.0%).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "tempo_bpm": 138.0,
+            "beat_alignment_score": 100.0
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
           "remediation": null,
@@ -907,6 +1034,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_localization_hud",
+          "message": "Localization & ADR Dubbing HUD verified (#btn-localization-animatic / #animatic-localization-hud / #localization-lipsync-svg [I]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_spotting_hud",
+          "message": "Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -924,7 +1067,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 54 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 58 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -941,6 +1084,14 @@
           "severity": "info",
           "category": "animatic_hotkeys_yz",
           "message": "C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkeys_ij",
+          "message": "Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1340,6 +1491,46 @@
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/html_hud_v213.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-027",
+      "title": "Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine",
+      "problem_statement": "Global brand campaigns and multi-territory broadcast distributors for 'SEPHORA: London Pulse (Continuous 40s Oner)' require deterministic ADR dubbing cue sheets with pre-roll beeps, syllable/WPS lip-sync drift gating, RTL/CJK text-expansion modeling, on-screen graphic supers safe-zone enforcement, and W3C IMSC1 TTML / SRT / VTT timed-text packages prior to international trafficking.",
+      "proposed_solution": "Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr (LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/localization_adr.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v214.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-028",
+      "title": "Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine",
+      "problem_statement": "Commercial editors, music supervisors, and re-recording mixers for 'SEPHORA: London Pulse (Continuous 40s Oner)' require frame-accurate split-edit audio bridges (J-Cut pre-lap, L-Cut overhang, and JL overlap), 24fps BPM beat-grid locking across picture cuts, downbeat-aligned music/foley spotting sheets, and CMX 3600 split-edit EDL deliverables.",
+      "proposed_solution": "Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] (#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/editorial_spotting.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v214.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
         "omni_director/cli.py"
       ],
       "priority": "P0",

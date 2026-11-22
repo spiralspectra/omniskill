@@ -1,6 +1,6 @@
 # Product Council Audit Report: Cyberpunk Neon-Lit High-Speed Electric M
 
-**Version**: 2.13.0 | **Timestamp**: `2026-11-21T10:46:06.227905+00:00`
+**Version**: 2.14.0 | **Timestamp**: `2026-11-22T10:19:37.917392+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 19 | FDE review completed with score 25.0/25.0. 19 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 14 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 24 | Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 25 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 23 | FDE review completed with score 25.0/25.0. 23 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 17 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 26 | Strategist review completed with score 25.0/25.0 (Domain: automotive_robotics). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 28 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -31,10 +31,14 @@
 - [INFO] **broadcast_qc_delivery**: Broadcast QC certificate, Rights clearance matrix CSV, and Broadcast QC manifest JSON verified on disk: broadcast_qc_certificate.md, rights_clearance_matrix.csv, broadcast_qc_manifest.json.
 - [INFO] **continuity_blocking_delivery**: Inter-scene continuity log CSV, 180-degree blocking floorplan SVG, and Continuity manifest JSON verified on disk: continuity_log.csv, blocking_floorplan.svg, continuity_manifest.json.
 - [INFO] **client_review_delivery**: Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.
+- [INFO] **c2pa_provenance_delivery**: C2PA Content Credentials manifest JSON, AI disclosure certificate MD, and Likeness consent ledger CSV verified on disk: c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv.
+- [INFO] **safety_risk_delivery**: On-set safety bulletin MD, Safety JSA matrix CSV, and Safety risk manifest JSON verified on disk: safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json.
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).
 - [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).
 - [INFO] **safety_risk_schema**: MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).
+- [INFO] **localization_adr_schema**: LocalizationManifestSpec verified (5 territories, 10 ADR cues, broadcast_ready=True).
+- [INFO] **spotting_manifest_schema**: SpottingManifestSpec verified (130.0 BPM, 1 bridges, 6 cues).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -49,8 +53,11 @@
 - [INFO] **client_review_schema_compliance**: Client review sign-off gate verified: unresolved_blockers=0, ready_for_live_render=True, status=approved.
 - [INFO] **c2pa_provenance_schema_compliance**: C2PA v2.1 provenance verified: EU AI Act Art. 50 compliant, all_likeness_consents_verified=True, zero legacy models across 2 scene(s).
 - [INFO] **safety_risk_schema_compliance**: On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.
+- [INFO] **localization_adr_schema_compliance**: Localization & ADR Dubbing verified: 5 territory track(s) (en-US, de-DE, ja-JP, zh-CN), profile=imsc1-text-1.1, broadcast_ready=True.
+- [INFO] **spotting_sync_schema_compliance**: Editorial Spotting & Beat-Grid verified: 130.0 BPM, 1 split-edit bridge(s), beat_alignment_score=93.0%.
 - [INFO] **audit_report_continuity_and_review_compliance**: Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).
 - [INFO] **audit_report_c2pa_and_safety_compliance**: Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).
+- [INFO] **audit_report_localization_and_spotting_compliance**: Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 2 scene(s).
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.BLEACH_BYPASS_SILVER' for domain 'automotive_robotics'.
@@ -76,6 +83,8 @@
 - [INFO] **domain_client_review**: Client review & sign-off readiness verified for domain 'automotive_robotics' (status=approved, unresolved_blockers=0, ready_for_live_render=True).
 - [INFO] **domain_c2pa_provenance**: C2PA v2.1 provenance calibrated for domain 'automotive_robotics' (tier=hybrid_icvfx_assisted, likeness_records=1, consents_verified=True).
 - [INFO] **domain_safety_risk**: On-set Safety JSA calibrated for domain 'automotive_robotics' (max_exclusion=21.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'kinetic_moco_arm', 'stunt_vehicle']).
+- [INFO] **domain_localization_adr**: Multi-Territory Localization & ADR calibrated for domain 'automotive_robotics' (locales=en-US, de-DE, ja-JP, zh-CN, max_wps=2.50, broadcast_ready=True).
+- [INFO] **domain_spotting_sync**: Editorial Spotting & Beat-Grid calibrated for domain 'automotive_robotics' (130.0 BPM, bridges=['j_cut'], beat_score=93.0%).
 - [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'automotive_robotics' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
@@ -98,11 +107,14 @@
 - [INFO] **animatic_review_hud**: Client Review & Frame Pin Annotation HUD verified (#btn-review-animatic / #animatic-review-hud / #review-pin-stage [N]).
 - [INFO] **animatic_c2pa_hud**: C2PA Content Credentials & Provenance Lineage HUD verified (#btn-c2pa-animatic / #animatic-c2pa-hud / #c2pa-lineage-svg [Y]).
 - [INFO] **animatic_safety_hud**: On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).
+- [INFO] **animatic_localization_hud**: Localization & ADR Dubbing HUD verified (#btn-localization-animatic / #animatic-localization-hud / #localization-lipsync-svg [I]).
+- [INFO] **animatic_spotting_hud**: Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 54 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 58 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
+- [INFO] **animatic_hotkeys_ij**: Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.
 - [INFO] **animatic_aicp_real_data**: AICP HUD real-data binding verified ($390,007.59 matches master_aicp_bid).
 
 ## Senior Product Manager Roadmap & Feature Inspection
@@ -137,3 +149,5 @@
 | `PM-FEAT-024` | **P0** | `implemented` | **Client Review, Frame-Accurate Pin Annotation, NLE Markers & Revision Sign-Off Engine**: Implement ReviewApprovalStatus, ReviewerRole, MarkerColorTag, ReviewPinCoordinate, ReviewAnnotationSpec, SceneReviewSignoffSpec, and MasterClientReviewSpec schemas; omni_director.tools.review_notes (compile_review_note_to_delta, review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md exporters, [REVIEW_GATE: ...] prompt tokens); 6-domain calibration via get_domain_client_review_spec(); and an interactive Client Review & Frame Pin Annotation HUD [N] (#btn-review-animatic, #animatic-review-hud, #review-pin-stage) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/review_notes.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/nle_export.py` |
 | `PM-FEAT-025` | **P0** | `implemented` | **C2PA Content Credentials v2.1, EU AI Act Art. 50 & Talent Likeness Provenance Engine**: Implement SyntheticDisclosureTier, C2paActionType, LikenessConsentStatus, C2paIngredientSpec, C2paAssertionActionSpec, TalentLikenessRecordSpec, SceneC2paProvenanceSpec, and MasterC2paProvenanceSpec schemas; omni_director.tools.c2pa_provenance (verify_model_lineage_2026, compute_prompt_lineage_digest, c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv exporters, [C2PA_PROVENANCE: ...] prompt tokens); 6-domain calibration via get_domain_c2pa_provenance_spec(); and an interactive C2PA Provenance & Content Credentials HUD [Y] (#btn-c2pa-animatic, #animatic-c2pa-hud, #c2pa-lineage-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/c2pa_provenance.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |
 | `PM-FEAT-026` | **P0** | `implemented` | **On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine**: Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/safety_risk.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |
+| `PM-FEAT-027` | **P0** | `implemented` | **Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine**: Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr (LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/localization_adr.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |
+| `PM-FEAT-028` | **P0** | `implemented` | **Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine**: Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] (#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/editorial_spotting.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |

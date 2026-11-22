@@ -1,0 +1,112 @@
+{
+  "fps": 24,
+  "tempo_bpm": 60.0,
+  "frames_per_beat": 24.0,
+  "bar_length_beats": 4,
+  "beat_grid_tc": [
+    "00:00:00:00",
+    "00:00:01:00",
+    "00:00:02:00",
+    "00:00:03:00",
+    "00:00:04:00",
+    "00:00:05:00",
+    "00:00:06:00",
+    "00:00:07:00",
+    "00:00:08:00",
+    "00:00:09:00",
+    "00:00:10:00"
+  ],
+  "bridges": [
+    {
+      "from_scene": 1,
+      "to_scene": 2,
+      "cut_tc": "00:00:05:00",
+      "bridge_type": "l_cut",
+      "j_prelap_frames": 0,
+      "l_overhang_frames": 30,
+      "bridge_duration_sec": 1.25,
+      "nearest_beat_index": 5,
+      "beat_offset_frames": 0,
+      "beat_locked": true,
+      "sonic_anchor_cue": "Gentle water fountain trickle (Timber & stone room-tone 30f ambience L-Cut)",
+      "rationale": "24-36f ambience L-Cut preserves serene spatial RT60 continuity across architectural transitions."
+    }
+  ],
+  "spotting_cues": [
+    {
+      "cue_id": "SPOT-MUS-S01",
+      "scene_number": 1,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:15",
+      "duration_frames": 135,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 1,
+      "lufs_target": -18.0,
+      "description": "Solarpunk Architectural Sanctuary Featur Theme @ 60 BPM | Bar 1"
+    },
+    {
+      "cue_id": "SPOT-SFX-S01",
+      "scene_number": 1,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 1,
+      "lufs_target": -24.0,
+      "description": "Acoustic reverberation in tall stone hall; Subtle distant wind through bamboo atrium (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S01",
+      "scene_number": 1,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:06:06",
+      "duration_frames": 150,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 1,
+      "lufs_target": -22.0,
+      "description": "Controlled cinematic soundstage with damp low-end reverb (L-overhang 30f)"
+    },
+    {
+      "cue_id": "SPOT-MUS-S02",
+      "scene_number": 2,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 2,
+      "lufs_target": -18.0,
+      "description": "Solarpunk Architectural Sanctuary Featur Theme @ 60 BPM | Bar 2"
+    },
+    {
+      "cue_id": "SPOT-SFX-S02",
+      "scene_number": 2,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 2,
+      "lufs_target": -24.0,
+      "description": "Acoustic reverberation in tall stone hall; Subtle distant wind through bamboo atrium (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S02",
+      "scene_number": 2,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 2,
+      "lufs_target": -22.0,
+      "description": "Reflective dynamic spatial acoustics with crisp decay (L-overhang 0f)"
+    }
+  ],
+  "beat_alignment_score": 100.0,
+  "total_split_edits": 1,
+  "recommended_nle_track_count": 6
+}

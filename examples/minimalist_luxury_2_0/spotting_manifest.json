@@ -1,0 +1,121 @@
+{
+  "fps": 24,
+  "tempo_bpm": 118.0,
+  "frames_per_beat": 12.2034,
+  "bar_length_beats": 4,
+  "beat_grid_tc": [
+    "00:00:00:00",
+    "00:00:00:12",
+    "00:00:01:00",
+    "00:00:01:13",
+    "00:00:02:01",
+    "00:00:02:13",
+    "00:00:03:01",
+    "00:00:03:13",
+    "00:00:04:02",
+    "00:00:04:14",
+    "00:00:05:02",
+    "00:00:05:14",
+    "00:00:06:02",
+    "00:00:06:15",
+    "00:00:07:03",
+    "00:00:07:15",
+    "00:00:08:03",
+    "00:00:08:15",
+    "00:00:09:04",
+    "00:00:09:16"
+  ],
+  "bridges": [
+    {
+      "from_scene": 1,
+      "to_scene": 2,
+      "cut_tc": "00:00:05:00",
+      "bridge_type": "l_cut",
+      "j_prelap_frames": 0,
+      "l_overhang_frames": 20,
+      "bridge_duration_sec": 0.833,
+      "nearest_beat_index": 10,
+      "beat_offset_frames": -2,
+      "beat_locked": true,
+      "sonic_anchor_cue": "Subtle perfume atomizer mist spray (Silk movement & harmonic reverb 20f L-Cut tail)",
+      "rationale": "18-24f L-Cut tails glide vocal poise and harmonic decay across editorial picture transitions."
+    }
+  ],
+  "spotting_cues": [
+    {
+      "cue_id": "SPOT-MUS-S01",
+      "scene_number": 1,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:10",
+      "duration_frames": 130,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 1,
+      "lufs_target": -16.0,
+      "description": "Minimalist Luxury Haute Couture Silk Vel Theme @ 118 BPM | Bar 1"
+    },
+    {
+      "cue_id": "SPOT-SFX-S01",
+      "scene_number": 1,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 1,
+      "lufs_target": -20.0,
+      "description": "Rhythmic stiletto heel clicks on polished marble; Crisp textile rustle of silk taffeta (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S01",
+      "scene_number": 1,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:00:00",
+      "out_tc": "00:00:05:20",
+      "duration_frames": 140,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 1,
+      "lufs_target": -24.0,
+      "description": "Controlled cinematic soundstage with damp low-end reverb (L-overhang 20f)"
+    },
+    {
+      "cue_id": "SPOT-MUS-S02",
+      "scene_number": 2,
+      "cue_category": "music_stem",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A4 (BGM Score)",
+      "downbeat_bar": 3,
+      "lufs_target": -16.0,
+      "description": "Minimalist Luxury Haute Couture Silk Vel Theme @ 118 BPM | Bar 3"
+    },
+    {
+      "cue_id": "SPOT-SFX-S02",
+      "scene_number": 2,
+      "cue_category": "foley_hard",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A2 (Foley / SFX)",
+      "downbeat_bar": 3,
+      "lufs_target": -20.0,
+      "description": "Rhythmic stiletto heel clicks on polished marble; Crisp textile rustle of silk taffeta (J-prelap 0f)"
+    },
+    {
+      "cue_id": "SPOT-AMB-S02",
+      "scene_number": 2,
+      "cue_category": "room_tone",
+      "in_tc": "00:00:05:00",
+      "out_tc": "00:00:10:00",
+      "duration_frames": 120,
+      "stem_target": "A3 (Room Ambience)",
+      "downbeat_bar": 3,
+      "lufs_target": -24.0,
+      "description": "Reflective dynamic spatial acoustics with crisp decay (L-overhang 0f)"
+    }
+  ],
+  "beat_alignment_score": 93.0,
+  "total_split_edits": 1,
+  "recommended_nle_track_count": 6
+}

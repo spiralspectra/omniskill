@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.13.0"
+__version__ = "2.14.0"
 
 
 class RegimeType(str, Enum):
@@ -2500,7 +2500,7 @@ class C2paAssertionActionSpec(BaseModel):
     digital_source_type: str = Field(
         default="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
     )
-    software_agent: str = Field(default="OmniMovieDirector/2.13.0")
+    software_agent: str = Field(default=f"OmniMovieDirector/{__version__}")
     model_used: str = Field(default="gemini-omni-1.1-flash-preview")
     when_iso8601: str = Field(default="2026-11-21T00:00:00Z")
     parameters: Dict[str, Any] = Field(default_factory=dict)
@@ -2533,7 +2533,7 @@ class SceneC2paProvenanceSpec(BaseModel):
     digital_source_type: str = Field(
         default="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
     )
-    claim_generator: str = Field(default="OmniMovieDirector/2.13.0")
+    claim_generator: str = Field(default=f"OmniMovieDirector/{__version__}")
     actions: List[C2paAssertionActionSpec] = Field(default_factory=list)
     ingredients: List[C2paIngredientSpec] = Field(default_factory=list)
     talent_likeness_records: List[TalentLikenessRecordSpec] = Field(default_factory=list)
@@ -2558,7 +2558,7 @@ class MasterC2paProvenanceSpec(BaseModel):
     """Master C2PA Content Credentials v2.1 manifest and talent likeness disclosure (PM-FEAT-025)."""
     project_title: str = Field(default="Commercial Production")
     c2pa_spec_version: str = Field(default="2.1")
-    claim_generator: str = Field(default="OmniMovieDirector/2.13.0")
+    claim_generator: str = Field(default=f"OmniMovieDirector/{__version__}")
     manifest_id: str = Field(default="urn:c2pa:omni-director:2026:0001")
     synthetic_tier: SyntheticDisclosureTier = Field(default=SyntheticDisclosureTier.FULL_AI_SYNTHETIC)
     digital_source_type: str = Field(
@@ -2832,6 +2832,156 @@ SafetyJsaManifest = MasterSafetyRiskSpec
 SceneSafetySpec = SceneSafetyRiskSpec
 
 
+# ==============================================================================
+# PM-FEAT-027: Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine
+# ==============================================================================
+
+
+class LocaleSyncStatus(str, Enum):
+    """Lip-sync timing drift status for localized ADR dialogue lines (PM-FEAT-027)."""
+    LOCKED = "locked"
+    STRETCH_CAUTION = "stretch_caution"
+    RESCRIPT_REQUIRED = "rescript_required"
+
+    # Lowercase aliases
+    locked = "locked"
+    stretch_caution = "stretch_caution"
+    rescript_required = "rescript_required"
+
+
+class SupersSafeStatus(str, Enum):
+    """On-screen graphic supers and title safe-zone fit classification (PM-FEAT-027)."""
+    CLEAR = "clear"
+    TIGHT_WRAP = "tight_wrap"
+    SAFE_ZONE_OVERFLOW = "safe_zone_overflow"
+
+    # Lowercase aliases
+    clear = "clear"
+    tight_wrap = "tight_wrap"
+    safe_zone_overflow = "safe_zone_overflow"
+
+
+class LocalizedLineSpec(BaseModel):
+    """Per-locale translated dialogue/VO line with syllable/WPS lip-sync telemetry (PM-FEAT-027)."""
+    locale: str
+    bcp47_tag: str = ""
+    translated_text: str = ""
+    syllable_count: int = Field(default=0, ge=0)
+    word_count: int = Field(default=0, ge=0)
+    target_wps: float = Field(default=2.0, ge=0.0)
+    duration_sec: float = Field(default=8.0, ge=0.0)
+    lip_sync_ratio: float = Field(default=1.0, ge=0.0)
+    sync_status: LocaleSyncStatus = LocaleSyncStatus.LOCKED
+    requires_viseme_retime: bool = False
+
+
+class LocaleAdaptationSpec(BaseModel):
+    """Territory-level localization, ADR, and safe-supers compliance profile (PM-FEAT-027)."""
+    locale: str
+    bcp47_tag: str
+    territory_label: str
+    direction: str = "ltr"
+    adr_required: bool = True
+    lines: List[LocalizedLineSpec] = Field(default_factory=list)
+    localized_supers_text: str = ""
+    supers_expansion_pct: float = 0.0
+    supers_status: SupersSafeStatus = SupersSafeStatus.CLEAR
+    max_lip_sync_ratio: float = Field(default=1.0, ge=0.0)
+    compliance_notes: List[str] = Field(default_factory=list)
+
+
+class AdrSpottingCueSpec(BaseModel):
+    """Frame-accurate ADR dubbing spotting sheet cue with pre-roll beeps (PM-FEAT-027)."""
+    cue_id: str
+    scene_number: int = Field(..., ge=1)
+    character_name: str
+    locale: str
+    in_tc: str
+    out_tc: str
+    pre_roll_beeps: int = Field(default=3, ge=0)
+    source_line: str = ""
+    adapted_line: str = ""
+    emotion_tag: str = "neutral"
+    lip_sync_ratio: float = Field(default=1.0, ge=0.0)
+    loop_group_flag: bool = False
+
+
+class LocalizationManifestSpec(BaseModel):
+    """Master multi-territory localization, ADR dubbing, and IMSC1 timed-text manifest (PM-FEAT-027)."""
+    source_locale: str = "en-US"
+    target_locales: List[str] = Field(default_factory=list)
+    territories: List[LocaleAdaptationSpec] = Field(default_factory=list)
+    adr_cues: List[AdrSpottingCueSpec] = Field(default_factory=list)
+    imsc1_profile: str = "imsc1-text-1.1"
+    max_allowed_wps: float = Field(default=2.5, ge=0.0)
+    max_allowed_drift_ratio: float = Field(default=1.15, ge=0.0)
+    broadcast_ready: bool = True
+    summary_notes: List[str] = Field(default_factory=list)
+
+
+# ==============================================================================
+# PM-FEAT-028: Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine
+# ==============================================================================
+
+
+class AudioBridgeType(str, Enum):
+    """Split-edit editorial audio bridge taxonomy across scene cuts (PM-FEAT-028)."""
+    J_CUT = "j_cut"
+    L_CUT = "l_cut"
+    JL_OVERLAP = "jl_overlap"
+    HARD_BUTT_CUT = "hard_butt_cut"
+
+    # Lowercase aliases
+    j_cut = "j_cut"
+    l_cut = "l_cut"
+    jl_overlap = "jl_overlap"
+    hard_butt_cut = "hard_butt_cut"
+
+
+class EditBridgeSpec(BaseModel):
+    """Beat-locked J-Cut / L-Cut audio bridge specification between consecutive scenes (PM-FEAT-028)."""
+    from_scene: int = Field(..., ge=1)
+    to_scene: int = Field(..., ge=1)
+    cut_tc: str
+    bridge_type: AudioBridgeType = AudioBridgeType.J_CUT
+    j_prelap_frames: int = Field(default=12, ge=0)
+    l_overhang_frames: int = Field(default=0, ge=0)
+    bridge_duration_sec: float = Field(default=0.5, ge=0.0)
+    nearest_beat_index: int = Field(default=0, ge=0)
+    beat_offset_frames: int = 0
+    beat_locked: bool = True
+    sonic_anchor_cue: str = ""
+    rationale: str = ""
+
+
+class SpottingCueEntry(BaseModel):
+    """Frame-accurate music and foley spotting sheet cue bound to NLE stem and downbeat (PM-FEAT-028)."""
+    cue_id: str
+    scene_number: int = Field(..., ge=1)
+    cue_category: str
+    in_tc: str
+    out_tc: str
+    duration_frames: int = Field(..., ge=0)
+    stem_target: str
+    downbeat_bar: int = Field(default=1, ge=1)
+    lufs_target: float = -24.0
+    description: str = ""
+
+
+class SpottingManifestSpec(BaseModel):
+    """Master editorial J-Cut/L-Cut audio bridge, BPM beat-grid, and spotting manifest (PM-FEAT-028)."""
+    fps: int = Field(default=24, ge=1)
+    tempo_bpm: float = Field(default=120.0, gt=0.0)
+    frames_per_beat: float = Field(default=12.0, gt=0.0)
+    bar_length_beats: int = Field(default=4, ge=1)
+    beat_grid_tc: List[str] = Field(default_factory=list)
+    bridges: List[EditBridgeSpec] = Field(default_factory=list)
+    spotting_cues: List[SpottingCueEntry] = Field(default_factory=list)
+    beat_alignment_score: float = Field(default=95.0, ge=0.0, le=100.0)
+    total_split_edits: int = Field(default=0, ge=0)
+    recommended_nle_track_count: int = Field(default=6, ge=1)
+
+
 class NanoBananaReference(BaseModel):
     """Single reference image specification honoring the 3-image ceiling and 'One Job' contract."""
     asset_id: str = Field(..., description="e.g. <image_1>, <image_2>, <image_3>")
@@ -2992,6 +3142,15 @@ class ScenePromptSpec(BaseModel):
         validation_alias=AliasChoices("safety_risk", "safety_spec", "jsa_spec"),
         description="Scene-specific on-set stunt, pyro/SFX, rigging, and environmental safety JSA (PM-FEAT-026)"
     )
+    locale_tracks: List[LocalizedLineSpec] = Field(
+        default_factory=list,
+        description="Per-locale translated ADR/VO dialogue lines and lip-sync telemetry for this scene (PM-FEAT-027)"
+    )
+    edit_bridge_in: Optional[EditBridgeSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("edit_bridge_in", "audio_bridge_in", "j_l_bridge"),
+        description="Incoming editorial J-Cut/L-Cut audio bridge entering this scene (PM-FEAT-028)"
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -3091,6 +3250,8 @@ class ScenePromptSpec(BaseModel):
                 data["safety_risk"] = data["safety_spec"]
             if "jsa_spec" in data and "safety_risk" not in data:
                 data["safety_risk"] = data["jsa_spec"]
+            if "locale_tracks" in data and data["locale_tracks"] is None:
+                data["locale_tracks"] = []
             if "kinetic_contact_chain" in data and isinstance(data["kinetic_contact_chain"], KineticContactChain):
                 data["kinetic_contact_chain"] = data["kinetic_contact_chain"].to_prompt_string()
             if "action_beats" in data and isinstance(data["action_beats"], list):
@@ -3557,6 +3718,16 @@ class MasterProductionBible(BaseModel):
         default=None,
         description="Master JSA manifest alias (PM-FEAT-026)"
     )
+    localization_manifest: Optional[LocalizationManifestSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("localization_manifest", "master_localization_manifest", "adr_manifest"),
+        description="Master multi-territory localization, ADR dubbing, lip-sync timing, and safe-supers manifest (PM-FEAT-027)"
+    )
+    spotting_manifest: Optional[SpottingManifestSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("spotting_manifest", "master_spotting_manifest", "editorial_spotting"),
+        description="Master editorial J-Cut/L-Cut audio bridge, BPM beat-grid sync, and music/foley spotting manifest (PM-FEAT-028)"
+    )
 
     @field_validator("nano_banana_assets")
     @classmethod
@@ -3803,6 +3974,8 @@ class AuditResult(BaseModel):
     review_gate_compliant: bool = True
     c2pa_provenance_compliant: bool = True
     safety_risk_compliant: bool = True
+    localization_adr_compliant: bool = True
+    spotting_sync_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -3917,7 +4090,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.13.0"
+    version: str = "2.14.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -4195,6 +4368,18 @@ __all__ = [
     "SafetyRiskSpec",
     "SafetyJsaManifest",
     "SceneSafetySpec",
+    # PM-FEAT-027: Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine
+    "LocaleSyncStatus",
+    "SupersSafeStatus",
+    "LocalizedLineSpec",
+    "LocaleAdaptationSpec",
+    "AdrSpottingCueSpec",
+    "LocalizationManifestSpec",
+    # PM-FEAT-028: Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine
+    "AudioBridgeType",
+    "EditBridgeSpec",
+    "SpottingCueEntry",
+    "SpottingManifestSpec",
     # Council Schemas
     "CouncilPersona",
     "CouncilFindingSeverity",

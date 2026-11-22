@@ -4,7 +4,7 @@ Pure-Python on-set production safety & Job Safety Analysis (JSA) suite implement
 - Physics-based kinetic exclusion zone calculation (MoCo arm reach + E-stop braking distance,
   FAA Part 107 UAV standoff perimeter, and stunt vehicle stopping buffers)
 - 5x5 Job Safety Analysis (JSA) hazard scoring with engineering controls, PPE, and CSATF
-  Safety Bulletins (#1, #16, #25, #36, #40)
+  Safety Bulletins (#1, #16, #22, #25, #36, #40)
 - Standby medical, fire safety officer, E-stop, and trauma response coordination (`CH-09 SAFETY`)
 - 6-domain archetype safety calibrations across all commercial formats
 - Safety Bulletin Markdown, JSA Matrix CSV, and Safety Risk JSON manifest export bundle
@@ -51,6 +51,41 @@ _MOCO_ARM_REACH_M: Dict[str, float] = {
     "bolt_cinebot": 3.0,
     "motorized_dolly": 2.0,
 }
+
+# Canonical Single Source of Truth (SSOT) for CSATF Safety Bulletins per SafetyHazardCategory
+CSATF_SAFETY_BULLETINS: Dict[str, str] = {
+    SafetyHazardCategory.KINETIC_MOCO_ARM.value: "CSATF Bulletin #40 (Robotic Camera & Motion Control Safety)",
+    SafetyHazardCategory.STUNT_VEHICLE.value: "CSATF Bulletin #1 (Stunt / Vehicle Safety) & CSATF Bulletin #40 (Camera Crane / Arm)",
+    SafetyHazardCategory.AERIAL_UAV.value: "CSATF Bulletin #36 (Unmanned Aircraft Systems / Aerial Filming)",
+    SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX.value: "CSATF Bulletin #16 (Pyrotechnic Special Effects & Atmospheric Haze)",
+    SafetyHazardCategory.WIRE_RIGGING_HEIGHT.value: "CSATF Bulletin #1 (Overhead Rigging / Fall Protection)",
+    SafetyHazardCategory.ELECTRICAL_DMX_WET.value: "CSATF Bulletin #22 (Electrical / Wet Location Safety)",
+    SafetyHazardCategory.LASER_OPTICAL.value: "CSATF Bulletin #25 (Laser Safety & ANSI Z136.1 NOHD)",
+    SafetyHazardCategory.FOOD_ALLERGEN_THERMAL.value: "CSATF Bulletin #16 (Open Flame / Thermal & Culinary SOP)",
+}
+
+CSATF_SHORT_BULLETINS: Dict[str, str] = {
+    SafetyHazardCategory.KINETIC_MOCO_ARM.value: "CSATF #40 (MoCo)",
+    SafetyHazardCategory.STUNT_VEHICLE.value: "CSATF #1 / #40 (Stunt Vehicle)",
+    SafetyHazardCategory.AERIAL_UAV.value: "CSATF #36 (UAV)",
+    SafetyHazardCategory.PYRO_ATMOSPHERIC_SFX.value: "CSATF #16 (Pyro)",
+    SafetyHazardCategory.WIRE_RIGGING_HEIGHT.value: "CSATF #1 (Rigging)",
+    SafetyHazardCategory.ELECTRICAL_DMX_WET.value: "CSATF #22 (Electrical)",
+    SafetyHazardCategory.LASER_OPTICAL.value: "CSATF #25 (Laser)",
+    SafetyHazardCategory.FOOD_ALLERGEN_THERMAL.value: "CSATF #16 (Thermal/Culinary)",
+}
+
+
+def get_csatf_bulletin_for_category(
+    category: Union[SafetyHazardCategory, str],
+    short: bool = False,
+) -> str:
+    """Return the canonical CSATF Safety Bulletin string for a SafetyHazardCategory."""
+    raw = category.value if hasattr(category, "value") else str(category or "")
+    key = raw.strip().lower()
+    if short:
+        return CSATF_SHORT_BULLETINS.get(key, "CSATF #1 (General Stage)")
+    return CSATF_SAFETY_BULLETINS.get(key, "CSATF Bulletin #1 (General Stage & Set Safety)")
 
 _AERIAL_CUE_RE = re.compile(r"\b(?:drone|uav|aerial|fpv|flyover|quadcopter|helicopter)\b", re.IGNORECASE)
 _MOCO_CUE_RE = re.compile(
@@ -784,6 +819,9 @@ def export_safety_bundle(
 
 
 __all__ = [
+    "CSATF_SAFETY_BULLETINS",
+    "CSATF_SHORT_BULLETINS",
+    "get_csatf_bulletin_for_category",
     "calculate_kinetic_exclusion_zone_m",
     "assess_scene_hazards",
     "synthesize_default_safety_risk_spec",
