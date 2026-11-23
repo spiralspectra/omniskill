@@ -574,4 +574,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("Editorial spotting bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.stereoscopic_3d import export_s3d_bundle
+        res.update(export_s3d_bundle(bible, out_path))
+    except Exception as exc:
+        logger.warning("S3D bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.accessibility_ad import export_accessibility_bundle
+        res.update(export_accessibility_bundle(bible, out_path))
+    except Exception as exc:
+        logger.warning("Accessibility bundle export skipped: %s", exc)
+
     return res

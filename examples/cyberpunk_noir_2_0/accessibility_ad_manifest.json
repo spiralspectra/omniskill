@@ -1,0 +1,57 @@
+{
+  "standard": "WCAG 2.2 AA / 21st Century CVAA",
+  "target_audience": "standard",
+  "ad_track_language": "en-US",
+  "total_ad_cues": 2,
+  "collision_count": 0,
+  "min_wcag_contrast_ratio": 18.462,
+  "all_scenes_cvaa_compliant": true,
+  "scene_profiles": [
+    {
+      "scene_number": 1,
+      "target_audience": "standard",
+      "dialogue_collision_detected": false,
+      "available_gap_sec": 5.0,
+      "ad_cues": [
+        {
+          "cue_id": "AD-S01-01",
+          "scene_number": 1,
+          "start_time_sec": 0.1,
+          "end_time_sec": 3.3,
+          "descriptive_prose": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation: Engine.",
+          "word_count": 8,
+          "wps": 2.5,
+          "overlaps_dialogue": false,
+          "wcag_contrast_minimum": 4.5,
+          "contrast_ratio_measured": 18.462,
+          "cvaa_compliant": true
+        }
+      ],
+      "wcag_aa_passed": true,
+      "cvaa_compliant": true
+    },
+    {
+      "scene_number": 2,
+      "target_audience": "standard",
+      "dialogue_collision_detected": false,
+      "available_gap_sec": 5.0,
+      "ad_cues": [
+        {
+          "cue_id": "AD-S02-01",
+          "scene_number": 2,
+          "start_time_sec": 5.1,
+          "end_time_sec": 8.3,
+          "descriptive_prose": "Cyberpunk Neon-Lit High-Speed Electric M - Climax: Metallic.",
+          "word_count": 8,
+          "wps": 2.5,
+          "overlaps_dialogue": false,
+          "wcag_contrast_minimum": 4.5,
+          "contrast_ratio_measured": 18.462,
+          "cvaa_compliant": true
+        }
+      ],
+      "wcag_aa_passed": true,
+      "cvaa_compliant": true
+    }
+  ]
+}

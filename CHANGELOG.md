@@ -2,6 +2,21 @@
 
 All notable changes to **Omni Movie Director** are documented in this file.
 
+## [2.15.0] - 2026-11-23
+
+### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)
+- **PM-FEAT-029: Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video**:
+  - Module: `omni_director/tools/stereoscopic_3d.py` with Pydantic contracts in `omni_director/schemas.py` (`StereoscopicRigType`, `SpatialVideoFormat`, `S3DCameraSpec`, `SceneStereoscopicSpec`, `MasterSpatialVideoSpec`) and 6-domain calibrations in `omni_director/presets.py` (`get_domain_s3d_spec`).
+  - Implements retinal/screen horizontal parallax budget math (`calculate_parallax_budget`, enforcing `< 3.0%` positive parallax comfort limit), Apple Vision Pro MV-HEVC multiplexing metadata (`compute_mv_hevc_metadata`), per-scene convergence pull auto-clamping (`compile_s3d_manifest`), `[S3D-RIG: ...]` CRAFT tokens (`compile_clean_omni_prompt` stripped), CLI export (`omni export --format s3d`, `--s3d-csv`, `--spatial-manifest`), NLE & `RuntimeTelemetry` SHA-256 registration (`s3d_parallax_log.csv`, `spatial_video_manifest.json`), and Dark-Room Cinema Animatic S3D Stereoscopy HUD (`#modal-s3d-stereography`, `#btn-s3d-animatic`, `#s3d-anaglyph-canvas`, `#s3d-depth-svg`, hotkey `]`).
+- **PM-FEAT-030: Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)**:
+  - Module: `omni_director/tools/accessibility_ad.py` with Pydantic contracts in `omni_director/schemas.py` (`AdTargetAudience`, `AudioDescriptionCueSpec`, `SceneAccessibilityProfileSpec`, `MasterAccessibilitySpec`) and 6-domain calibrations in `omni_director/presets.py` (`get_domain_accessibility_spec`).
+  - Implements open dialogue gap detection (`detect_dialogue_gaps`), WCAG 2.2 AA/AAA relative luminance & hex contrast ratio verification (`verify_wcag_color_contrast`), collision-free CVAA Audio Description synthesis (`compile_accessibility_manifest`), `[AD-CUE: ...]` CRAFT tokens (`compile_clean_omni_prompt` stripped), WebVTT (`subtitles_ad.vtt`), CSV (`ad_script_cue_sheet.csv`), and JSON (`accessibility_ad_manifest.json`) exports, CLI export (`omni export --format ad`, `--format ad-vtt`, `--ad-vtt`, `--ad-csv`, `--ad-manifest`), NLE & `RuntimeTelemetry` SHA-256 registration, and Dark-Room Cinema Animatic Accessibility & AD HUD (`#modal-accessibility-ad`, `#btn-ad-animatic`, `#ad-scrubber-ribbon`, hotkey `[`).
+- **Cross-Cutting Council, Pipeline, CLI & UX Fixes**:
+  - **Audio Cue Categorization (`omni_director/tools/html_compiler.py`)**: Replaced blind substring checks in `_categorize_audio_cue` with word-boundary `\b...\b` regexes and schema-driven classification from `scene.diegetic_sonic` (preventing false positives such as `"living room"` triggering `"Ambience"`).
+  - **Mode B Continuity Check (`omni_director/agents/council.py`)**: Fixed `_review_strategist` to inspect `StorytellingMode.MODE_B_CONTINUOUS_CHAIN` instead of the deprecated `is_mode_b_continuous` attribute, and integrated PM-FEAT-029 / PM-FEAT-030 evaluations across all 4 Council personas.
+  - **Telemetry Ordering & CLI Flag Grouping (`omni_director/cli.py`)**: Fixed `handle_council` so `write_manifest()` seals artifact checksums before writing `bundle.telemetry` to `production_bundle.json`, and organized export flags cleanly while retaining full backward compatibility.
+  - **Tests (`tests/test_director_suite.py`)**: Added `TestV215S3DAndAccessibilityFeatures` covering PM-FEAT-029, PM-FEAT-030, prompt auditor self-healing, `compile_clean_omni_prompt` token stripping, HTML5 HUD/WCAG/hotkeys, `_categorize_audio_cue`, and CLI exports.
+
 ## [2.14.0] - 2026-11-22
 
 ### Added (Senior Product Manager Roadmap & Autonomous Product Council Release)

@@ -39,6 +39,13 @@ SAFE_KEYS = {
     "lut",
     "cue_sheet",
     "dit_manifest",
+    "s3d_prompt_token",
+    "s3d_parallax_log",
+    "spatial_video_manifest",
+    "ad_prompt_token",
+    "subtitles_ad",
+    "ad_script_cue_sheet",
+    "accessibility_ad_manifest",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -174,6 +181,13 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "spotting_cue_sheet.csv",
     "spotting_sheet.md",
     "timeline_split_edits.edl",
+    # PM-FEAT-029: S3D Parallax & Spatial Video
+    "s3d_parallax_log.csv",
+    "spatial_video_manifest.json",
+    # PM-FEAT-030: Audio Description & Accessibility
+    "subtitles_ad.vtt",
+    "ad_script_cue_sheet.csv",
+    "accessibility_ad_manifest.json",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({

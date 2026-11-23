@@ -211,6 +211,7 @@ def handle_council(args_list: List[str]) -> int:
         if telemetry_obj is None:
             from omni_director.telemetry import RuntimeTelemetry
             telemetry_obj = RuntimeTelemetry(project_title=bundle.bible.project_title)
+        telemetry_obj.write_manifest(output_path)
         bundle.telemetry = telemetry_obj.to_dict()
         bundle_json_file = Path(bundle.bundle_json_path) if bundle.bundle_json_path else (output_path / "production_bundle.json")
         bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
@@ -361,7 +362,7 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting"],
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt"],
         help="Artifact format to export (default: all)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
@@ -418,6 +419,13 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--spotting-csv", action="store_true", help="Export music & foley spotting cue sheet CSV (spotting_cue_sheet.csv)")
     parser.add_argument("--spotting-md", action="store_true", help="Export editorial J-Cut / L-Cut spotting sheet Markdown (spotting_sheet.md)")
     parser.add_argument("--split-edl", action="store_true", help="Export CMX 3600 split-edit EDL with staggered V/A/A2 J/L-Cut events (timeline_split_edits.edl)")
+    s3d_group = parser.add_argument_group("Export Subsystem: Stereoscopic 3D & Spatial Video (PM-FEAT-029)")
+    s3d_group.add_argument("--s3d-csv", action="store_true", help="Export S3D IO/Convergence parallax log CSV (s3d_parallax_log.csv)")
+    s3d_group.add_argument("--spatial-manifest", action="store_true", help="Export MV-HEVC spatial video manifest JSON (spatial_video_manifest.json)")
+    ad_group = parser.add_argument_group("Export Subsystem: Accessibility & Audio Description (PM-FEAT-030)")
+    ad_group.add_argument("--ad-vtt", action="store_true", help="Export Audio Description WebVTT track (subtitles_ad.vtt)")
+    ad_group.add_argument("--ad-csv", action="store_true", help="Export Audio Description cue sheet CSV (ad_script_cue_sheet.csv)")
+    ad_group.add_argument("--ad-manifest", action="store_true", help="Export WCAG/CVAA accessibility manifest JSON (accessibility_ad_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -568,6 +576,14 @@ def handle_export(args_list: List[str]) -> int:
         from omni_director.tools.editorial_spotting import export_spotting_bundle
         spotting_files = export_spotting_bundle(bible, out_dir, fps=args.fps)
         exported_files.update(spotting_files)
+    elif fmt == "s3d":
+        from omni_director.tools.stereoscopic_3d import export_s3d_bundle
+        s3d_files = export_s3d_bundle(bible, out_dir)
+        exported_files.update(s3d_files)
+    elif fmt in ("ad", "ad-vtt"):
+        from omni_director.tools.accessibility_ad import export_accessibility_bundle
+        ad_files = export_accessibility_bundle(bible, out_dir)
+        exported_files.update(ad_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -830,6 +846,34 @@ def handle_export(args_list: List[str]) -> int:
             p = out_dir / "timeline_split_edits.edl"
             export_split_edit_edl(bible, p, fps=args.fps)
             exported_files["timeline_split_edits_edl"] = str(p.resolve())
+    if args.s3d_csv or args.spatial_manifest:
+        from omni_director.tools.stereoscopic_3d import export_s3d_csv, export_spatial_manifest_json
+        if args.s3d_csv:
+            p = out_dir / "s3d_parallax_log.csv"
+            export_s3d_csv(bible, p)
+            exported_files["s3d_csv"] = str(p.resolve())
+        if args.spatial_manifest:
+            p = out_dir / "spatial_video_manifest.json"
+            export_spatial_manifest_json(bible, p)
+            exported_files["spatial_manifest"] = str(p.resolve())
+    if args.ad_vtt or args.ad_csv or args.ad_manifest:
+        from omni_director.tools.accessibility_ad import (
+            export_accessibility_manifest_json,
+            export_ad_script_csv,
+            export_ad_vtt,
+        )
+        if args.ad_vtt:
+            p = out_dir / "subtitles_ad.vtt"
+            export_ad_vtt(bible, p)
+            exported_files["ad_vtt"] = str(p.resolve())
+        if args.ad_csv:
+            p = out_dir / "ad_script_cue_sheet.csv"
+            export_ad_script_csv(bible, p)
+            exported_files["ad_csv"] = str(p.resolve())
+        if args.ad_manifest:
+            p = out_dir / "accessibility_ad_manifest.json"
+            export_accessibility_manifest_json(bible, p)
+            exported_files["ad_json"] = str(p.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.14.0).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.15.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -81,14 +81,26 @@ def _parse_scene_times(scene: ScenePromptSpec, scene_idx: int, total_scenes: int
     return start_sec, end_sec
 
 
-def _categorize_audio_cue(text: str) -> str:
+import re
+from typing import Optional, Any
+
+def _categorize_audio_cue(text: str, scene: Optional[Any] = None) -> str:
     """Categorizes diegetic audio into [Dialogue], [SFX], [Ambience], or [Music]."""
-    lower = text.lower()
-    if any(k in lower for k in ("dialogue", "says", "speaks", "whisper", "voice", "line:", '"')):
+    if scene is not None:
+        if hasattr(scene, "diegetic_sonic") and scene.diegetic_sonic is not None:
+            if hasattr(scene.diegetic_sonic, "dialogue_lines") and scene.diegetic_sonic.dialogue_lines:
+                if any(text in line or line in text for line in scene.diegetic_sonic.dialogue_lines):
+                    return "Dialogue"
+            if hasattr(scene.diegetic_sonic, "foley_cues") and scene.diegetic_sonic.foley_cues:
+                if any(text in cue or cue in text for cue in scene.diegetic_sonic.foley_cues):
+                    return "SFX"
+    
+    # Word-boundary regexes
+    if re.search(r'\b(dialogue|says|speaks|whisper|voice|line:)\b|"', text, re.IGNORECASE):
         return "Dialogue"
-    if any(k in lower for k in ("music", "score", "bgm", "synth", "strings", "tempo", "beat", "melody")):
+    if re.search(r'\b(music|score|bgm|synth|strings|tempo|beat|melody)\b', text, re.IGNORECASE):
         return "Music"
-    if any(k in lower for k in ("ambience", "room", "hum", "wind", "acoustics", "reverb", "resonance", "atmosphere")):
+    if re.search(r'\b(ambience|room tone|hum|wind|acoustics|reverb|resonance|atmosphere)\b', text, re.IGNORECASE):
         return "Ambience"
     return "SFX"
 
@@ -282,7 +294,7 @@ def compile_storyboard_html(
             time_range_str = f"[{b_start:.1f}s - {b_end:.1f}s]"
 
             beat_desc = str(beat_raw)
-            badge_type = _categorize_audio_cue(beat_desc)
+            badge_type = _categorize_audio_cue(beat_desc, scene)
 
             # Camera movement & lighting shift tags
             cam_str = scene.craft_camera.route if scene.craft_camera else "Static Tripod"
@@ -1284,6 +1296,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v212 import build_v212_hud_bundle
     from omni_director.tools.html_hud_v213 import build_v213_hud_bundle
     from omni_director.tools.html_hud_v214 import build_v214_hud_bundle
+    from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1312,9 +1325,11 @@ def compile_storyboard_html(
         scene_time_lookup=scene_time_lookup,
         total_runtime_sec=total_runtime_sec,
     )
-    v214_css = v214_bundle["css"]
-    v214_modals_html = v214_bundle["modals_html"]
-    v214_js = v214_bundle["js"]
+    v215_bundle = build_v215_hud_bundle(bible=bible, bundle=bundle, scene_time_lookup=scene_time_lookup, total_runtime_sec=total_runtime_sec)
+    v214_css = v214_bundle["css"] + "\n" + v215_bundle["css"]
+    v214_modals_html = v214_bundle["modals_html"] + "\n" + v215_bundle["modals_html"]
+    v214_js = v214_bundle["js"] + "\n" + v215_bundle["js"]
+    
 
     # Serialize bible for client-side export
     bible_json_escaped = re.sub(r"</(script)", r"<\/\1", json.dumps(bible.model_dump(), indent=2), flags=re.IGNORECASE)
@@ -9125,13 +9140,15 @@ def compile_storyboard_html(
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen;
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
         if (isReviewHUDOpen) toggleReviewHUD();
         if (isC2paHUDOpen) toggleC2paHUD();
         if (isSafetyHUDOpen) toggleSafetyHUD();
+        if (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) toggleS3dHUD();
+        if (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) toggleAccessibilityAdHUD();
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9179,12 +9196,16 @@ def compile_storyboard_html(
       else if (e.key === 'z' || e.key === 'Z') toggleSafetyHUD();
       else if (e.key === 'i' || e.key === 'I') toggleLocalizationHUD();
       else if (e.key === 'j' || e.key === 'J') toggleSpottingHUD();
+      else if (e.key === ']') {{ if (typeof toggleS3dHUD === 'function') toggleS3dHUD(); }}
+      else if (e.key === '[') {{ if (typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(); }}
     }});
 
     // Initialize first frame and default look
     document.addEventListener('DOMContentLoaded', () => {{
       renderFrame(0);
       setLook('rec709_neutral');
+      if (typeof initS3dHUD === 'function') initS3dHUD();
+      if (typeof initAccessibilityAdHUD === 'function') initAccessibilityAdHUD();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

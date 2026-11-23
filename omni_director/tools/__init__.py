@@ -311,6 +311,35 @@ from omni_director.tools.editorial_spotting import (
     format_spotting_prompt_token,
     synthesize_default_spotting_manifest,
 )
+from omni_director.tools.stereoscopic_3d import (
+    StereoscopicRigType,
+    SpatialVideoFormat,
+    S3DCameraSpec,
+    SceneStereoscopicSpec,
+    MasterSpatialVideoSpec,
+    calculate_parallax_budget,
+    compute_mv_hevc_metadata,
+    compile_s3d_manifest,
+    format_s3d_prompt_token,
+    export_s3d_csv,
+    export_spatial_manifest_json,
+    export_s3d_bundle,
+)
+from omni_director.tools.accessibility_ad import (
+    AdTargetAudience,
+    AudioDescriptionCueSpec,
+    SceneAccessibilityProfileSpec,
+    MasterAccessibilitySpec,
+    detect_dialogue_gaps,
+    verify_wcag_color_contrast,
+    compile_accessibility_manifest,
+    format_ad_prompt_token,
+    export_ad_vtt,
+    export_ad_script_csv,
+    export_accessibility_manifest_json,
+    export_accessibility_bundle,
+)
+from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -589,5 +618,32 @@ __all__ = [
     "export_spotting_sheet_md",
     "export_spotting_manifest_json",
     "export_spotting_bundle",
+    # Stereoscopic 3D Spatial Video Suite (PM-FEAT-029)
+    "StereoscopicRigType",
+    "SpatialVideoFormat",
+    "S3DCameraSpec",
+    "SceneStereoscopicSpec",
+    "MasterSpatialVideoSpec",
+    "calculate_parallax_budget",
+    "compute_mv_hevc_metadata",
+    "compile_s3d_manifest",
+    "format_s3d_prompt_token",
+    "export_s3d_csv",
+    "export_spatial_manifest_json",
+    "export_s3d_bundle",
+    # Accessibility & Audio Description Suite (PM-FEAT-030)
+    "AdTargetAudience",
+    "AudioDescriptionCueSpec",
+    "SceneAccessibilityProfileSpec",
+    "MasterAccessibilitySpec",
+    "detect_dialogue_gaps",
+    "verify_wcag_color_contrast",
+    "compile_accessibility_manifest",
+    "format_ad_prompt_token",
+    "export_ad_vtt",
+    "export_ad_script_csv",
+    "export_accessibility_manifest_json",
+    "export_accessibility_bundle",
+    "build_v215_hud_bundle",
 ]
 

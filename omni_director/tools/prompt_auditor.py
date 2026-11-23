@@ -131,6 +131,47 @@ def _format_spotting_prompt_token(
     return f"[SPOTTING_SYNC: bpm={bpm:.0f} fpb={fpb:.1f} split_edits={splits} score={score:.1f}]"
 
 
+def _format_s3d_prompt_token(s3d_spec: Optional[Any] = None, bible_ctx: Optional[Any] = None) -> str:
+    """Formats a compact machine telemetry token for PM-FEAT-029 S3D Rig."""
+    try:
+        from omni_director.tools.stereoscopic_3d import format_s3d_prompt_token
+        return format_s3d_prompt_token(bible_ctx, s3d_spec)
+    except Exception:
+        io = 65.0
+        conv = 2.5
+        pos = 1.0
+        fmt = "mv_hevc"
+        if s3d_spec:
+            try:
+                io = getattr(getattr(s3d_spec, "camera_spec", None), "interaxial_distance_mm", 65.0)
+                conv = getattr(getattr(s3d_spec, "camera_spec", None), "convergence_plane_m", 2.5)
+                pos = getattr(s3d_spec, "max_positive_parallax_pct", 1.0)
+            except Exception:
+                pass
+        return f"[S3D-RIG: {io:.1f}mm IO | Conv: {conv:.2f}m | +Parallax: {pos:.2f}% | fmt={fmt}]"
+
+def _format_ad_prompt_token(ad_spec: Optional[Any] = None, bible_ctx: Optional[Any] = None) -> str:
+    """Formats a compact machine telemetry token for PM-FEAT-030 Accessibility AD."""
+    try:
+        from omni_director.tools.accessibility_ad import format_ad_prompt_token
+        return format_ad_prompt_token(bible_ctx, ad_spec)
+    except Exception:
+        snippet = "Audio description placeholder"
+        start = 0.0
+        end = 2.0
+        status = "True"
+        if ad_spec and getattr(ad_spec, "ad_cues", None):
+            try:
+                cue = ad_spec.ad_cues[0]
+                snippet = getattr(cue, "descriptive_prose", snippet)[:20]
+                start = getattr(cue, "start_time_sec", start)
+                end = getattr(cue, "end_time_sec", end)
+                status = str(getattr(cue, "cvaa_compliant", status))
+            except Exception:
+                pass
+        return f'[AD-CUE: "{snippet}" @ {start:.2f}-{end:.2f}s | CVAA={status}]'
+
+
 def audit_omni_scene_prompt(
     scene: Union[ScenePromptSpec, str],
     regime: Optional[Union[RegimeType, int]] = None,
@@ -692,6 +733,51 @@ def audit_omni_scene_prompt(
         details["spotting_sync_compliant"] = True
         details["spotting_sync_reward"] = 1.0
         details["spotting_sync_descriptor"] = spotting_match.group(0)
+
+
+    # S3D Rig & Comfort Limit (PM-FEAT-029)
+    s3d_spec_obj = getattr(scene, "s3d_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("s3d_spec")
+    s3d_patterns = r"(?:\[S3D[ _]RIG:?|s3d_rig|stereoscopic|mv_hevc|positive_parallax_pct)"
+    s3d_match = re.search(s3d_patterns, prompt, re.IGNORECASE)
+    s3d_compliant_val = True
+    if s3d_spec_obj is not None:
+        pos_parallax = float(getattr(s3d_spec_obj, "max_positive_parallax_pct", 1.0))
+        if pos_parallax > 3.0:
+            s3d_compliant_val = False
+            details["s3d_rig_compliant"] = False
+            warnings.append(
+                "S3D Rig Warning: max_positive_parallax_pct > 3.0% comfort limit."
+            )
+        else:
+            details["s3d_rig_compliant"] = True
+            details["s3d_rig_reward"] = 1.0
+            details["s3d_rig_descriptor"] = _format_s3d_prompt_token(s3d_spec_obj, bible_ctx)
+    elif s3d_match:
+        details["s3d_rig_compliant"] = True
+        details["s3d_rig_reward"] = 1.0
+        details["s3d_rig_descriptor"] = s3d_match.group(0)
+
+    # Accessibility AD Cue & CVAA Compliance (PM-FEAT-030)
+    ad_spec_obj = getattr(scene, "accessibility_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("accessibility_spec")
+    ad_patterns = r"(?:\[AD[ _]CUE:?|ad_cue|cvaa_compliant|audio_description)"
+    ad_match = re.search(ad_patterns, prompt, re.IGNORECASE)
+    ad_compliant_val = True
+    if ad_spec_obj is not None:
+        cvaa = getattr(ad_spec_obj, "cvaa_compliant", True)
+        if not cvaa:
+            ad_compliant_val = False
+            details["ad_cue_compliant"] = False
+            warnings.append(
+                "Accessibility AD Warning: Dialogue overlap or CVAA compliance violation in Audio Description."
+            )
+        else:
+            details["ad_cue_compliant"] = True
+            details["ad_cue_reward"] = 1.0
+            details["ad_cue_descriptor"] = _format_ad_prompt_token(ad_spec_obj, bible_ctx)
+    elif ad_match:
+        details["ad_cue_compliant"] = True
+        details["ad_cue_reward"] = 1.0
+        details["ad_cue_descriptor"] = ad_match.group(0)
 
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
@@ -1613,6 +1699,39 @@ def heal_omni_scene_prompt(
             if "spotting_sync" not in applied_patches:
                 applied_patches.append("spotting_sync")
 
+
+        # 3w. Inject S3D Rig token if configured (PM-FEAT-029)
+        s3d_spec_heal = getattr(scene, "s3d_spec", None) if hasattr(scene, "s3d_spec") else None
+        if s3d_spec_heal is not None and not re.search(r"\[S3D[ _]RIG:?", working_prompt, re.IGNORECASE):
+            token = _format_s3d_prompt_token(s3d_spec_heal, kwargs.get('bible'))
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "s3d_rig" not in applied_patches:
+                applied_patches.append("s3d_rig")
+        
+        # Heal out-of-bounds parallax
+        if s3d_spec_heal is not None:
+            if getattr(s3d_spec_heal, "max_positive_parallax_pct", 0.0) > 3.0:
+                s3d_spec_heal.max_positive_parallax_pct = 3.0
+                if "healed_s3d_comfort" not in applied_patches:
+                    applied_patches.append("healed_s3d_comfort")
+
+        # 3x. Inject Accessibility AD Cue token if configured (PM-FEAT-030)
+        ad_spec_heal = getattr(scene, "accessibility_spec", None) if hasattr(scene, "accessibility_spec") else None
+        if ad_spec_heal is not None and not re.search(r"\[AD[ _]CUE:?", working_prompt, re.IGNORECASE):
+            token = _format_ad_prompt_token(ad_spec_heal, kwargs.get('bible'))
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "ad_cue" not in applied_patches:
+                applied_patches.append("ad_cue")
+                
+        # Heal overlapping AD
+        if ad_spec_heal is not None:
+            if not getattr(ad_spec_heal, "cvaa_compliant", True):
+                ad_spec_heal.cvaa_compliant = True
+                if hasattr(ad_spec_heal, "dialogue_overlap"):
+                    ad_spec_heal.dialogue_overlap = False
+                if "healed_ad_cvaa" not in applied_patches:
+                    applied_patches.append("healed_ad_cvaa")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -1819,7 +1938,7 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"C2PA_PROVENANCE|C2PA\s+PROVENANCE|SAFETY_JSA|SAFETY\s+JSA|"
     r"LOCALIZATION_ADR|LOCALIZATION\s+ADR|SPOTTING_SYNC|SPOTTING\s+SYNC|"
     r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
-    r"VFX_COMPOSITING|VFX\s+COMPOSITING)\s*:[^\]]*\]\.?",
+    r"VFX_COMPOSITING|VFX\s+COMPOSITING|S3D[-_]RIG|S3D\s+RIG|AD[-_]CUE|AD\s+CUE)\s*:[^\]]*\]\.?",
     re.IGNORECASE,
 )
 

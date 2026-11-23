@@ -1,6 +1,6 @@
 # Product Council Audit Report: Solarpunk Architectural Sanctuary Featur
 
-**Version**: 2.14.0 | **Timestamp**: `2026-11-22T10:19:38.148102+00:00`
+**Version**: 2.15.0 | **Timestamp**: `2026-11-23T09:37:44.350980+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 23 | FDE review completed with score 25.0/25.0. 23 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 17 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 29 | FDE review completed with score 25.0/25.0. 29 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 19 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
 | `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 26 | Strategist review completed with score 25.0/25.0 (Domain: architectural_sanctuary). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 28 | UX Designer review completed with score 25.0/25.0. |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 30 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -33,15 +33,23 @@
 - [INFO] **client_review_delivery**: Client review Resolve EDL, FCPXML markers, Frame.io JSON, Review notes CSV, and Sign-off report verified on disk: review_markers.edl, review_markers.fcpxml, review_notes_frameio.json, review_notes.csv, client_signoff_report.md.
 - [INFO] **c2pa_provenance_delivery**: C2PA Content Credentials manifest JSON, AI disclosure certificate MD, and Likeness consent ledger CSV verified on disk: c2pa_manifest.json, ai_disclosure_certificate.md, likeness_consent_ledger.csv.
 - [INFO] **safety_risk_delivery**: On-set safety bulletin MD, Safety JSA matrix CSV, and Safety risk manifest JSON verified on disk: safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json.
+- [INFO] **localization_adr_delivery**: Localization manifest JSON, ADR cue sheet CSV, and IMSC1 TTML verified on disk: localization_manifest.json, adr_cue_sheet.csv, subtitles_localized.ttml.
+- [INFO] **spotting_delivery**: Editorial spotting manifest JSON, cue sheet CSV, spotting sheet MD, and split-edit EDL verified on disk: spotting_manifest.json, spotting_cue_sheet.csv, spotting_sheet.md, timeline_split_edits.edl.
+- [INFO] **s3d_delivery**: S3D parallax log and spatial manifest JSON verified on disk: s3d_parallax_log.csv, spatial_video_manifest.json.
+- [INFO] **accessibility_ad_delivery**: Accessibility AD manifest JSON, cue sheet CSV, and VTT verified on disk: subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json.
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).
 - [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).
 - [INFO] **safety_risk_schema**: MasterSafetyRiskSpec verified (2 scenes, hazards=6, open_holds=0).
 - [INFO] **localization_adr_schema**: LocalizationManifestSpec verified (5 territories, 10 ADR cues, broadcast_ready=True).
 - [INFO] **spotting_manifest_schema**: SpottingManifestSpec verified (60.0 BPM, 1 bridges, 6 cues).
+- [INFO] **s3d_spec_schema**: MasterSpatialVideoSpec verified (2 scenes, comfort_audit_passed=True).
+- [INFO] **accessibility_ad_schema**: MasterAccessibilitySpec verified (2 scenes, all_scenes_cvaa_compliant=True).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
+- [INFO] **hdr_prompt_token_compliance**: HDR broadcast color volume prompt tokens verified across 2/2 scene prompts.
+- [INFO] **stripboard_prompt_token_compliance**: 1st AD script breakdown prompt tokens verified across 2/2 scene prompts.
 - [INFO] **film_emulation_prompt_token_compliance**: Physical film stock emulation CRAFT tokens or master spec verified across 2/2 scene prompts.
 - [INFO] **clapper_slate_prompt_token_compliance**: SMPTE 12M clapper slate CRAFT tokens or master spec verified across 2/2 scene prompts.
 - [INFO] **drone_flight_schema_compliance**: Drone flight path specification verified: rig 'DroneRigType.COMPACT_CINEMA_INSPIRE3', profile 'monolithic_orbital_reveal', max altitude 45.0m AGL (FAA Part 107 compliant).
@@ -109,9 +117,11 @@
 - [INFO] **animatic_safety_hud**: On-Set Safety Risk & Exclusion Perimeter HUD verified (#btn-safety-animatic / #animatic-safety-hud / #safety-perimeter-svg [Z]).
 - [INFO] **animatic_localization_hud**: Localization & ADR Dubbing HUD verified (#btn-localization-animatic / #animatic-localization-hud / #localization-lipsync-svg [I]).
 - [INFO] **animatic_spotting_hud**: Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).
+- [INFO] **animatic_s3d_hud**: S3D & Spatial Video HUD verified (#btn-s3d-animatic / #modal-s3d-stereography / hotkey ']').
+- [INFO] **animatic_accessibility_ad_hud**: Accessibility AD HUD verified (#btn-ad-animatic / #modal-accessibility-ad / #ad-scrubber-ribbon / hotkey '[').
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 58 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 60 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_ij**: Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.
@@ -151,3 +161,5 @@
 | `PM-FEAT-026` | **P0** | `implemented` | **On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine**: Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/safety_risk.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |
 | `PM-FEAT-027` | **P0** | `implemented` | **Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine**: Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr (LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/localization_adr.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |
 | `PM-FEAT-028` | **P0** | `implemented` | **Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine**: Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] (#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/editorial_spotting.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |
+| `PM-FEAT-029` | **P0** | `implemented` | **Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video**: Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video | `omni_director/schemas.py`, `omni_director/tools/stereoscopic_3d.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-030` | **P0** | `implemented` | **Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)**: Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA) | `omni_director/schemas.py`, `omni_director/tools/accessibility_ad.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |

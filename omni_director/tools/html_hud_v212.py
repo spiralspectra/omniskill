@@ -44,7 +44,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-camera" onclick="toggleDeptGroup('camera')" aria-expanded="false" aria-controls="dept-tray-camera">
             <span class="dept-pill-icon" aria-hidden="true">🎥</span>
             <span>Camera &amp; Blocking</span>
-            <span class="dept-count">3</span>
+            <span class="dept-count">4</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-camera" role="group" aria-label="Camera and Blocking Tools" hidden>
@@ -56,6 +56,9 @@ def _build_departmental_toolbar_html() -> str:
             </button>
             <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
               📐 Blocking [W]
+            </button>
+            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="animatic-s3d-hud" title="S3D Stereoscopy []]">
+              👓 S3D Stereoscopy []]
             </button>
           </div>
         </div>
@@ -130,7 +133,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
             <span class="dept-pill-icon" aria-hidden="true">📡</span>
             <span>Delivery, QC &amp; Review</span>
-            <span class="dept-count">5</span>
+            <span class="dept-count">6</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
@@ -149,6 +152,9 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
               🌐 i18n / ADR [I]
             </button>
+            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD & CVAA [[]" aria-expanded="false" aria-controls="animatic-accessibility-ad-hud" title="AD & CVAA [[]">
+              🗣️ AD & CVAA [[]
+            </button>
           </div>
         </div>
 
@@ -157,7 +163,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

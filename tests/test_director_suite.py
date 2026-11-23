@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.14.0"
+        assert report.version == "2.15.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,13 +5398,13 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.14.0"
+        assert omni_director.__version__ == "2.15.0"
         report = run_doctor()
-        assert report.version == "2.14.0"
+        assert report.version == "2.15.0"
         assert report.passed is True
         assert report.exit_code == 0
         council_report = ProductCouncilReport(project_title="Smoke Check")
-        assert council_report.version == "2.14.0"
+        assert council_report.version == "2.15.0"
 
     def test_html_compiler_python_311_ast_compatibility(self):
         import ast
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version == "2.14.0"
+            assert report.version == "2.15.0"
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6438,7 +6438,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         feat_ids = {p.feature_id for p in proposals}
-        assert len(proposals) == 28
+        assert len(proposals) == 30
         assert "PM-FEAT-023" in feat_ids
         assert "PM-FEAT-024" in feat_ids
         assert "PM-FEAT-025" in feat_ids
@@ -6448,7 +6448,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version == "2.14.0"
+        assert report.version == "2.15.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7128,7 +7128,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version == "2.14.0"
+        assert report.version == "2.15.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7714,8 +7714,8 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         # Fix 3: c2pa_provenance.py and html_compiler.py report 2.14.0 dynamically (zero stale 2.13.0)
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.14.0"
-        assert all("2.14.0" in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
+        assert omni_director.__version__ == "2.15.0"
+        assert all("2.15.0" in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
         c2pa_src = Path("omni_director/tools/c2pa_provenance.py").read_text(encoding="utf-8")
@@ -7729,7 +7729,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         assert handle_council(["--preset", "ikea-asmr", "--output-dir", str(council_cli_dir)]) == 0
         persisted_bundle = json.loads((council_cli_dir / "production_bundle.json").read_text(encoding="utf-8"))
         assert persisted_bundle["council_report"] is not None
-        assert persisted_bundle["council_report"]["version"] == "2.14.0"
+        assert persisted_bundle["council_report"]["version"] == "2.15.0"
         assert persisted_bundle["council_report"]["overall_score"] >= 90.0
         is_valid, errors = verify_bundle_checksums(council_cli_dir)
         assert is_valid is True, f"Council CLI checksum verification failed: {errors}"
@@ -7825,7 +7825,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         prop_by_id = {p.feature_id: p for p in proposals}
-        assert len(proposals) == 28
+        assert len(proposals) == 30
         for fid in ("PM-FEAT-027", "PM-FEAT-028"):
             assert fid in prop_by_id
             assert prop_by_id[fid].priority == "P0"
@@ -7837,7 +7837,218 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version == "2.14.0"
+        assert council_report.version == "2.15.0"
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
+
+class TestV215S3DAndAccessibilityFeatures:
+    """Verifies v2.15.0 PM-FEAT-029 (S3D) and PM-FEAT-030 (Accessibility AD)."""
+
+    def test_v215_s3d_and_accessibility_ad_features(self, tmp_path):
+        import re
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.cli import handle_export
+        from omni_director.presets import (
+            IKEA_ASMR_BIBLE,
+            SEPHORA_EXTENSION_40S_BIBLE,
+            get_domain_accessibility_spec,
+            get_domain_s3d_spec,
+        )
+        from omni_director.schemas import (
+            ProductionBundle,
+            S3DCameraSpec,
+            SceneAccessibilityProfileSpec,
+            SceneStereoscopicSpec,
+            StorytellingMode,
+        )
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.accessibility_ad import (
+            compile_accessibility_manifest,
+            detect_dialogue_gaps,
+            export_accessibility_bundle,
+            format_ad_prompt_token,
+            verify_wcag_color_contrast,
+        )
+        from omni_director.tools.html_compiler import _categorize_audio_cue, compile_storyboard_html
+        from omni_director.tools.prompt_auditor import compile_clean_omni_prompt, heal_omni_scene_prompt
+        from omni_director.tools.stereoscopic_3d import (
+            calculate_parallax_budget,
+            compile_s3d_manifest,
+            compute_mv_hevc_metadata,
+            export_s3d_bundle,
+            format_s3d_prompt_token,
+        )
+
+        # PM-FEAT-029 (S3D Stereoscopy)
+        parallax = calculate_parallax_budget(io_mm=65.0, conv_m=2.0, focal_mm=35.0, object_dist_m=2.0, sensor_width_mm=36.0)
+        assert parallax["comfort_compliant"] is True
+        assert parallax["positive_parallax_pct"] <= 3.0
+
+        excess_parallax = calculate_parallax_budget(io_mm=120.0, conv_m=1.0, focal_mm=50.0, object_dist_m=10.0, sensor_width_mm=36.0)
+        assert excess_parallax["positive_parallax_pct"] > 3.0
+        assert excess_parallax["comfort_compliant"] is False
+
+        metadata = compute_mv_hevc_metadata(IKEA_ASMR_BIBLE)
+        assert "hvc1" in metadata["mv_hevc_codec_tag"]
+        assert "horizontal_fov_rad" in metadata
+        assert "baseline_interaxial_mm" in metadata
+
+        s3d_manifest = compile_s3d_manifest(IKEA_ASMR_BIBLE)
+        assert len(s3d_manifest.scene_specs) == len(IKEA_ASMR_BIBLE.scenes)
+        assert s3d_manifest.comfort_audit_passed is True
+
+        for domain in ["tech_hardware", "culinary_asmr", "luxury_fashion", "kinetic_action", "automotive_robotics", "architectural_sanctuary"]:
+            spec = get_domain_s3d_spec(domain)
+            if domain == "tech_hardware":
+                assert float(spec["interaxial_distance_mm"]) == 65.0
+                assert float(spec["convergence_plane_m"]) == 2.0
+            elif domain == "culinary_asmr":
+                assert float(spec["interaxial_distance_mm"]) == 15.0
+
+        s3d_out = tmp_path / "s3d_bundle"
+        export_s3d_bundle(IKEA_ASMR_BIBLE, s3d_out)
+        assert (s3d_out / "s3d_parallax_log.csv").is_file()
+        assert len((s3d_out / "s3d_parallax_log.csv").read_text(encoding="utf-8")) > 0
+        assert (s3d_out / "spatial_video_manifest.json").is_file()
+
+        token = format_s3d_prompt_token(IKEA_ASMR_BIBLE)
+        assert token.startswith("[S3D-RIG:")
+        clean = compile_clean_omni_prompt(f"{token} A shot")
+        assert "[S3D-RIG:" not in clean
+
+        bad_scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        bad_scene.s3d_spec = SceneStereoscopicSpec(
+            scene_number=1,
+            camera_spec=S3DCameraSpec(rig_type="parallel", interaxial_distance_mm=65.0, convergence_plane_m=2.0),
+            max_positive_parallax_pct=4.5,
+            comfort_zone_passed=False,
+        )
+        healed_res = heal_omni_scene_prompt(bad_scene, bible=IKEA_ASMR_BIBLE)
+        assert healed_res.s3d_spec.max_positive_parallax_pct <= 3.0
+        assert "[S3D-RIG:" in healed_res.omni_prose_prompt
+
+        # PM-FEAT-030 (Accessibility & Audio Description)
+        gaps = detect_dialogue_gaps(scene_runtime=10.0, dialogue_cues=[{"start": 2.0, "end": 4.0}], min_gap_sec=1.0)
+        assert gaps == [(0.0, 2.0), (4.0, 10.0)]
+
+        contrast = verify_wcag_color_contrast("#FFFFFF", "#000000")
+        assert contrast["passes_aa"] is True
+        assert contrast["passes_aaa"] is True
+
+        ad_manifest = compile_accessibility_manifest(IKEA_ASMR_BIBLE)
+        assert ad_manifest.all_scenes_cvaa_compliant is True
+        assert ad_manifest.collision_count == 0
+        assert len(ad_manifest.scene_profiles) == len(IKEA_ASMR_BIBLE.scenes)
+        for p in ad_manifest.scene_profiles:
+            assert p.dialogue_collision_detected is False
+
+        for domain in ["tech_hardware", "culinary_asmr", "luxury_fashion", "kinetic_action", "automotive_robotics", "architectural_sanctuary"]:
+            spec = get_domain_accessibility_spec(domain)
+            assert spec is not None
+            assert len(spec["tactile_descriptive_cues"]) >= 2
+
+        ad_out = tmp_path / "ad_bundle"
+        export_accessibility_bundle(IKEA_ASMR_BIBLE, ad_out)
+        assert (ad_out / "subtitles_ad.vtt").is_file()
+        assert "WEBVTT" in (ad_out / "subtitles_ad.vtt").read_text(encoding="utf-8")
+        assert (ad_out / "ad_script_cue_sheet.csv").is_file()
+        assert (ad_out / "accessibility_ad_manifest.json").is_file()
+
+        ad_token = format_ad_prompt_token(IKEA_ASMR_BIBLE)
+        assert ad_token.startswith("[AD-CUE:")
+        clean_ad = compile_clean_omni_prompt(f"{ad_token} Test shot")
+        assert "[AD-CUE:" not in clean_ad
+
+        bad_ad_scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        bad_ad_scene.accessibility_spec = SceneAccessibilityProfileSpec(
+            scene_number=1,
+            dialogue_collision_detected=True,
+            cvaa_compliant=False,
+        )
+        healed_ad_res = heal_omni_scene_prompt(bad_ad_scene, bible=IKEA_ASMR_BIBLE)
+        assert healed_ad_res.accessibility_spec.cvaa_compliant is True
+        assert "[AD-CUE:" in healed_ad_res.omni_prose_prompt
+
+        # Dark-Room Cinema HTML5 Animatic v2.15 HUD
+        html_dir = tmp_path / "html_v215"
+        bundle = ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html_path = compile_storyboard_html(bundle, html_dir)
+        html = html_path.read_text(encoding="utf-8")
+        for selector_id in (
+            "modal-s3d-stereography",
+            "btn-s3d-animatic",
+            "s3d-anaglyph-canvas",
+            "modal-accessibility-ad",
+            "btn-ad-animatic",
+            "ad-scrubber-ribbon",
+        ):
+            assert f'id="{selector_id}"' in html
+        assert "toggleS3dHUD" in html
+        assert "toggleAccessibilityAdHUD" in html
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+
+        # Cross-Cutting Fixes
+        assert _categorize_audio_cue("Characters walk into a living room.") != "Ambience"
+        assert SEPHORA_EXTENSION_40S_BIBLE.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
+        prop_by_id = {p.feature_id: p for p in proposals}
+        assert len(proposals) == 30
+        for fid in ("PM-FEAT-029", "PM-FEAT-030"):
+            assert fid in prop_by_id
+            assert prop_by_id[fid].priority == "P0"
+            assert prop_by_id[fid].status == "implemented"
+
+        # CLI export (format + granular flags) + Telemetry SHA-256 verification
+        import json as _json
+        from omni_director import DirectorPipeline
+
+        cli_s3d = tmp_path / "cli_s3d"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "s3d", "--output-dir", str(cli_s3d)]) == 0
+        assert (cli_s3d / "s3d_parallax_log.csv").is_file()
+        assert (cli_s3d / "spatial_video_manifest.json").is_file()
+
+        cli_ad = tmp_path / "cli_ad"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "ad-vtt", "--output-dir", str(cli_ad)]) == 0
+        assert (cli_ad / "subtitles_ad.vtt").is_file()
+        assert (cli_ad / "ad_script_cue_sheet.csv").is_file()
+        assert (cli_ad / "accessibility_ad_manifest.json").is_file()
+
+        cli_gran = tmp_path / "cli_gran"
+        assert handle_export([
+            "--preset", "ikea-asmr", "--format", "edl",
+            "--s3d-csv", "--spatial-manifest", "--ad-vtt", "--ad-csv", "--ad-manifest",
+            "--output-dir", str(cli_gran),
+        ]) == 0
+        for fname in (
+            "s3d_parallax_log.csv",
+            "spatial_video_manifest.json",
+            "subtitles_ad.vtt",
+            "ad_script_cue_sheet.csv",
+            "accessibility_ad_manifest.json",
+        ):
+            assert (cli_gran / fname).is_file()
+
+        tel_dir = tmp_path / "v215_telemetry"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(tel_dir), dry_run=True, render_video=False)
+        export_s3d_bundle(IKEA_ASMR_BIBLE, tel_dir)
+        export_accessibility_bundle(IKEA_ASMR_BIBLE, tel_dir)
+        RuntimeTelemetry(project_title=IKEA_ASMR_BIBLE.project_title).write_manifest(tel_dir)
+        ok_tel, errs_tel = verify_bundle_checksums(tel_dir)
+        assert ok_tel is True and errs_tel == [], f"Checksum verification failed: {errs_tel}"
+        tel_data = _json.loads((tel_dir / "telemetry.json").read_text(encoding="utf-8"))
+        for fname in (
+            "s3d_parallax_log.csv",
+            "spatial_video_manifest.json",
+            "subtitles_ad.vtt",
+            "ad_script_cue_sheet.csv",
+            "accessibility_ad_manifest.json",
+        ):
+            assert fname in tel_data["artifact_checksums"]
+
+        # Council audit on Mode B showcase verifies >= 90.0
+        mode_b_rep = ProductCouncilOrchestrator().audit(SEPHORA_EXTENSION_40S_BIBLE)
+        assert mode_b_rep.passed is True
+        assert mode_b_rep.overall_score >= 90.0

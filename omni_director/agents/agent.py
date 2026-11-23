@@ -495,6 +495,22 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
     if not getattr(bible, "spotting_manifest", None):
         bible.spotting_manifest = build_spotting_manifest(bible, fps=24)
 
+    # PM-FEAT-029: S3D Rig Manifest
+    if not getattr(bible, "master_s3d_spec", None):
+        try:
+            from omni_director.tools.stereoscopic_3d import compile_s3d_manifest
+            bible.master_s3d_spec = compile_s3d_manifest(bible)
+        except Exception:
+            pass
+
+    # PM-FEAT-030: Accessibility AD Manifest
+    if not getattr(bible, "master_accessibility_spec", None):
+        try:
+            from omni_director.tools.accessibility_ad import compile_accessibility_manifest
+            bible.master_accessibility_spec = compile_accessibility_manifest(bible)
+        except Exception:
+            pass
+
     slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
     reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
     qc_scenes = getattr(bible.master_broadcast_qc, "scene_qc_profiles", []) if bible.master_broadcast_qc else []
@@ -600,6 +616,20 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
             for br in (getattr(bible.spotting_manifest, "bridges", None) or []):
                 if br.to_scene == scene.scene_index:
                     scene.edit_bridge_in = br
+                    break
+
+        if not getattr(scene, "s3d_spec", None) and getattr(bible, "master_s3d_spec", None):
+            for s_spec in (getattr(bible.master_s3d_spec, "scene_specs", None) or []):
+                if getattr(s_spec, "scene_number", None) == scene.scene_index:
+                    scene.s3d_spec = s_spec
+                    break
+                    
+        if not getattr(scene, "accessibility_spec", None) and getattr(bible, "master_accessibility_spec", None):
+            for p_spec in (getattr(bible.master_accessibility_spec, "scene_profiles", None) or []):
+                # The profile typically has ad_cues; wait, does it have scene_number? Let's check matching logic or just attach the profile that has ad_cues for this scene
+                # Actually, accessibility_spec on the scene might just be a SceneAccessibilityProfileSpec
+                if getattr(p_spec, "scene_number", None) == scene.scene_index:
+                    scene.accessibility_spec = p_spec
                     break
 
 
@@ -716,7 +746,7 @@ class CreativeDirectorAgent(BaseAgent):
         )
         bible = None
         if "bible" in context and isinstance(context["bible"], MasterProductionBible):
-            bible = context["bible"]
+            bible = context["bible"].model_copy(deep=True)
         elif context.get("preset_name"):
             bible = get_preset_bible(context["preset_name"])
         else:
@@ -870,6 +900,18 @@ class ScenePromptAgent(BaseAgent):
             ):
                 spot_token = format_spotting_prompt_token(bible, scene)
                 scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {spot_token}."
+            if (getattr(bible, "master_s3d_spec", None) is not None or getattr(scene, "s3d_spec", None) is not None) and not re.search(
+                r"\[S3D[-_ ]RIG:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                from omni_director.tools.stereoscopic_3d import format_s3d_prompt_token
+                s3d_token = format_s3d_prompt_token(bible, scene)
+                scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {s3d_token}."
+            if (getattr(bible, "master_accessibility_spec", None) is not None or getattr(scene, "accessibility_spec", None) is not None) and not re.search(
+                r"\[AD[-_ ]CUE:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                from omni_director.tools.accessibility_ad import format_ad_prompt_token
+                ad_token = format_ad_prompt_token(bible, scene)
+                scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {ad_token}."
         return context
 
 
@@ -1005,7 +1047,27 @@ class PromptAuditorAgent(BaseAgent):
                 (getattr(bible, "spotting_manifest", None) is not None or getattr(scene, "edit_bridge_in", None))
                 and not re.search(r"\[SPOTTING[ _]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
-            if not result.passed or result.score < 100.0 or result.warnings or needs_loc_token or needs_spot_token:
+
+            needs_s3d_token = bool(
+                getattr(scene, "s3d_spec", None) is not None
+                and not re.search(r"\[S3D[ _]RIG:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            needs_ad_token = bool(
+                getattr(scene, "accessibility_spec", None) is not None
+                and not re.search(r"\[AD[ _]CUE:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            
+            s3d_compliance_fail = False
+            s3d_spec = getattr(scene, "s3d_spec", None)
+            if s3d_spec and getattr(s3d_spec, "max_positive_parallax_pct", 0.0) > 3.0:
+                s3d_compliance_fail = True
+                
+            ad_compliance_fail = False
+            ad_spec = getattr(scene, "accessibility_spec", None)
+            if ad_spec and not getattr(ad_spec, "cvaa_compliant", True):
+                ad_compliance_fail = True
+
+            if not result.passed or result.score < 100.0 or result.warnings or needs_loc_token or needs_spot_token or needs_s3d_token or needs_ad_token or s3d_compliance_fail or ad_compliance_fail:
                 logger.info(f"[{self.name}] Attempting self-healing for scene {scene.scene_index}...")
                 healed_target, result = heal_omni_scene_prompt(
                     scene,

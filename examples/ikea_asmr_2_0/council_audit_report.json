@@ -1,7 +1,7 @@
 {
-  "version": "2.14.0",
+  "version": "2.15.0",
   "project_title": "IKEA: The Living Room Unfolds",
-  "timestamp": "2026-11-22T10:19:36.510355+00:00",
+  "timestamp": "2026-11-23T09:37:42.502214+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -258,6 +258,62 @@
         },
         {
           "severity": "info",
+          "category": "localization_adr_delivery",
+          "message": "Localization manifest JSON, ADR cue sheet CSV, and IMSC1 TTML verified on disk: localization_manifest.json, adr_cue_sheet.csv, subtitles_localized.ttml.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "localization_artifacts": [
+              "localization_manifest.json",
+              "adr_cue_sheet.csv",
+              "subtitles_localized.ttml"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "spotting_delivery",
+          "message": "Editorial spotting manifest JSON, cue sheet CSV, spotting sheet MD, and split-edit EDL verified on disk: spotting_manifest.json, spotting_cue_sheet.csv, spotting_sheet.md, timeline_split_edits.edl.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "spotting_artifacts": [
+              "spotting_manifest.json",
+              "spotting_cue_sheet.csv",
+              "spotting_sheet.md",
+              "timeline_split_edits.edl"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "s3d_delivery",
+          "message": "S3D parallax log and spatial manifest JSON verified on disk: s3d_parallax_log.csv, spatial_video_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "s3d_artifacts": [
+              "s3d_parallax_log.csv",
+              "spatial_video_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "accessibility_ad_delivery",
+          "message": "Accessibility AD manifest JSON, cue sheet CSV, and VTT verified on disk: subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "ad_artifacts": [
+              "subtitles_ad.vtt",
+              "ad_script_cue_sheet.csv",
+              "accessibility_ad_manifest.json"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
           "remediation": null,
@@ -324,9 +380,29 @@
             "bridge_count": 3,
             "cue_count": 12
           }
+        },
+        {
+          "severity": "info",
+          "category": "s3d_spec_schema",
+          "message": "MasterSpatialVideoSpec verified (4 scenes, comfort_audit_passed=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "accessibility_ad_schema",
+          "message": "MasterAccessibilitySpec verified (4 scenes, all_scenes_cvaa_compliant=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 4
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 23 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 29 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -346,21 +422,21 @@
         {
           "severity": "info",
           "category": "hdr_prompt_token_compliance",
-          "message": "HDR broadcast color volume prompt tokens verified across 2/4 scene prompts.",
+          "message": "HDR broadcast color volume prompt tokens verified across 4/4 scene prompts.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "hdr_scenes_count": 2
+            "hdr_scenes_count": 4
           }
         },
         {
           "severity": "info",
           "category": "stripboard_prompt_token_compliance",
-          "message": "1st AD script breakdown prompt tokens verified across 2/4 scene prompts.",
+          "message": "1st AD script breakdown prompt tokens verified across 4/4 scene prompts.",
           "remediation": null,
           "suggested_fix": null,
           "details": {
-            "breakdown_scenes_count": 2
+            "breakdown_scenes_count": 4
           }
         },
         {
@@ -1067,6 +1143,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_s3d_hud",
+          "message": "S3D & Spatial Video HUD verified (#btn-s3d-animatic / #modal-s3d-stereography / hotkey ']').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_accessibility_ad_hud",
+          "message": "Accessibility AD HUD verified (#btn-ad-animatic / #modal-accessibility-ad / #ad-scrubber-ribbon / hotkey '[').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1084,7 +1176,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 58 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 60 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1549,6 +1641,48 @@
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
         "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-029",
+      "title": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "problem_statement": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "proposed_solution": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/stereoscopic_3d.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v215.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/cli.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-030",
+      "title": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "problem_statement": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "proposed_solution": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/accessibility_ad.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v215.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/cli.py",
+        "omni_director/tools/nle_export.py"
       ],
       "priority": "P0",
       "status": "implemented"

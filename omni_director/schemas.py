@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.14.0"
+__version__ = "2.15.0"
 
 
 class RegimeType(str, Enum):
@@ -3004,6 +3004,109 @@ class SceneKeyframeSpec(BaseModel):
     svg_markup: Optional[str] = None
 
 
+
+# ==============================================================================
+# PM-FEAT-029: Spatial Video & Stereoscopic 3D Pipeline
+# ==============================================================================
+
+class StereoscopicRigType(str, Enum):
+    PARALLEL = "parallel"
+    TOED_IN = "toed_in"
+    BEAM_SPLITTER = "beam_splitter"
+    
+    # Aliases
+    parallel = "parallel"
+    toed_in = "toed_in"
+    beam_splitter = "beam_splitter"
+
+class SpatialVideoFormat(str, Enum):
+    MV_HEVC = "mv_hevc"
+    SIDE_BY_SIDE = "side_by_side"
+    OVER_UNDER = "over_under"
+    
+    # Aliases
+    mv_hevc = "mv_hevc"
+    side_by_side = "side_by_side"
+    over_under = "over_under"
+
+class S3DCameraSpec(BaseModel):
+    rig_type: StereoscopicRigType = StereoscopicRigType.PARALLEL
+    interaxial_distance_mm: float = Field(default=65.0, gt=0.0)
+    convergence_plane_m: float = Field(default=2.5, gt=0.0)
+    focal_length_mm: float = Field(default=35.0, gt=0.0)
+    sensor_width_mm: float = Field(default=36.0, gt=0.0)
+    positive_parallax_pct: float = Field(default=0.0)
+    negative_parallax_pct: float = Field(default=0.0)
+    z_space_budget_pct: float = Field(default=0.0)
+    comfort_compliant: bool = True
+
+class SceneStereoscopicSpec(BaseModel):
+    scene_number: int = Field(..., ge=1)
+    camera_spec: S3DCameraSpec
+    subject_distance_m: float = Field(default=2.5, gt=0.0)
+    max_positive_parallax_pct: float = Field(default=0.0)
+    max_negative_parallax_pct: float = Field(default=0.0)
+    convergence_pull_target_m: Optional[float] = None
+    comfort_zone_passed: bool = True
+    mv_hevc_profile: str = "Main10"
+    stereographer_notes: str = ""
+
+class MasterSpatialVideoSpec(BaseModel):
+    target_platform: str = "Apple Vision Pro"
+    spatial_format: SpatialVideoFormat = SpatialVideoFormat.MV_HEVC
+    field_of_view_deg: float = Field(default=100.0, gt=0.0)
+    baseline_interaxial_mm: float = Field(default=65.0, gt=0.0)
+    max_parallax_budget_pct: float = Field(default=3.0)
+    mv_hevc_codec_tag: str = "hvc1"
+    horizontal_fov_rad: float = Field(default=1.745, gt=0.0)
+    disparity_adjustment_metric: float = 0.0
+    comfort_audit_passed: bool = True
+    scene_specs: List[SceneStereoscopicSpec] = Field(default_factory=list)
+
+# ==============================================================================
+# PM-FEAT-030: Accessibility & Audio Description (CVAA/WCAG) Compliance
+# ==============================================================================
+
+class AdTargetAudience(str, Enum):
+    STANDARD = "standard"
+    EXTENDED_CVAA = "extended_cvaa"
+    
+    # Aliases
+    standard = "standard"
+    extended_cvaa = "extended_cvaa"
+
+class AudioDescriptionCueSpec(BaseModel):
+    cue_id: str
+    scene_number: int = Field(..., ge=1)
+    start_time_sec: float = Field(..., ge=0.0)
+    end_time_sec: float = Field(..., ge=0.0)
+    descriptive_prose: str
+    word_count: int = Field(default=0, ge=0)
+    wps: float = Field(default=0.0, ge=0.0)
+    overlaps_dialogue: bool = False
+    wcag_contrast_minimum: float = 4.5
+    contrast_ratio_measured: float = 0.0
+    cvaa_compliant: bool = True
+
+class SceneAccessibilityProfileSpec(BaseModel):
+    scene_number: int = Field(..., ge=1)
+    target_audience: AdTargetAudience = AdTargetAudience.EXTENDED_CVAA
+    dialogue_collision_detected: bool = False
+    available_gap_sec: float = 0.0
+    ad_cues: List[AudioDescriptionCueSpec] = Field(default_factory=list)
+    wcag_aa_passed: bool = True
+    cvaa_compliant: bool = True
+
+class MasterAccessibilitySpec(BaseModel):
+    standard: str = "CVAA & WCAG 2.2 AA"
+    target_audience: AdTargetAudience = AdTargetAudience.EXTENDED_CVAA
+    ad_track_language: str = "en-US"
+    total_ad_cues: int = Field(default=0, ge=0)
+    collision_count: int = Field(default=0, ge=0)
+    min_wcag_contrast_ratio: float = 0.0
+    all_scenes_cvaa_compliant: bool = True
+    scene_profiles: List[SceneAccessibilityProfileSpec] = Field(default_factory=list)
+
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
     scene_index: int = Field(..., description="1-indexed scene number")
@@ -3032,6 +3135,15 @@ class ScenePromptSpec(BaseModel):
         description="The clean natural-language prose prompt ready to feed into Gemini Omni (NO markdown headers inside!)"
     )
 
+
+    s3d_spec: Optional[SceneStereoscopicSpec] = Field(
+        default=None,
+        description="Scene Stereoscopic 3D metadata (PM-FEAT-029)"
+    )
+    accessibility_spec: Optional[SceneAccessibilityProfileSpec] = Field(
+        default=None,
+        description="Scene Accessibility & Audio Description profile (PM-FEAT-030)"
+    )
     @model_validator(mode="before")
     @classmethod
     def _validate_scene_prompt_aliases(cls, values: Any) -> Any:
@@ -3729,6 +3841,17 @@ class MasterProductionBible(BaseModel):
         description="Master editorial J-Cut/L-Cut audio bridge, BPM beat-grid sync, and music/foley spotting manifest (PM-FEAT-028)"
     )
 
+
+    master_s3d_spec: Optional[MasterSpatialVideoSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_s3d", "s3d_manifest"),
+        description="Master Spatial Video & Stereoscopic 3D spec (PM-FEAT-029)"
+    )
+    master_accessibility_spec: Optional[MasterAccessibilitySpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_accessibility", "accessibility_manifest"),
+        description="Master Accessibility & Audio Description spec (PM-FEAT-030)"
+    )
     @field_validator("nano_banana_assets")
     @classmethod
     def validate_reference_ceiling(cls, assets: List[NanoBananaReference]) -> List[NanoBananaReference]:
@@ -4090,7 +4213,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.14.0"
+    version: str = "2.15.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -4388,6 +4511,17 @@ __all__ = [
     "ProductCouncilReport",
     "ProductFeatureProposal",
     "SENIOR_PM_PERSONA_PROMPT",
+    # PM-FEAT-029: Spatial Video & Stereoscopic 3D Pipeline
+    "StereoscopicRigType",
+    "SpatialVideoFormat",
+    "S3DCameraSpec",
+    "SceneStereoscopicSpec",
+    "MasterSpatialVideoSpec",
+    # PM-FEAT-030: Accessibility & Audio Description (CVAA/WCAG) Compliance
+    "AdTargetAudience",
+    "AudioDescriptionCueSpec",
+    "SceneAccessibilityProfileSpec",
+    "MasterAccessibilitySpec",
     "load_bible_from_json",
 ]
 

@@ -1,6 +1,6 @@
 {
-  "version": "2.14.0",
-  "timestamp": "2026-11-22T10:19:36.330182+00:00",
+  "version": "2.15.0",
+  "timestamp": "2026-11-23T09:37:42.291016+00:00",
   "persona": "council-product-manager",
   "persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "recommendations": [
@@ -425,6 +425,48 @@
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
         "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-029",
+      "title": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "problem_statement": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "proposed_solution": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/stereoscopic_3d.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v215.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/cli.py",
+        "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-030",
+      "title": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "problem_statement": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "proposed_solution": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/accessibility_ad.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v215.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/cli.py",
+        "omni_director/tools/nle_export.py"
       ],
       "priority": "P0",
       "status": "implemented"

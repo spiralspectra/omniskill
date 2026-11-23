@@ -3595,6 +3595,133 @@ def get_domain_spotting_spec(
     return out
 
 
+
+# ==============================================================================
+# PM-FEAT-029: S3D Stereoscopy Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_S3D_CALIBRATIONS = {
+    "automotive_robotics": {
+        "rig_type": "parallel",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 65.0,
+        "convergence_plane_m": 12.0,
+        "max_parallax_budget_pct": 2.5,
+        "domain_rationale": "High-speed parallel tracking rig to maintain comfortable depth budget at infinity focus while car moves.",
+    },
+    "culinary_asmr": {
+        "rig_type": "beam_splitter",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 15.0,
+        "convergence_plane_m": 0.5,
+        "max_parallax_budget_pct": 1.5,
+        "domain_rationale": "Micro beam-splitter needed for extreme macro food shots to avoid retinal rivalry.",
+    },
+    "luxury_fashion": {
+        "rig_type": "toed_in",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 35.0,
+        "convergence_plane_m": 3.0,
+        "max_parallax_budget_pct": 2.0,
+        "domain_rationale": "Portraits and fabric textures pushed just behind the stereo window.",
+    },
+    "kinetic_action": {
+        "rig_type": "parallel",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 50.0,
+        "convergence_plane_m": 5.0,
+        "max_parallax_budget_pct": 2.8,
+        "domain_rationale": "Dynamic 3D volumes prioritizing pop-out for particles and debris.",
+    },
+    "tech_hardware": {
+        "rig_type": "parallel",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 65.0,
+        "convergence_plane_m": 2.0,
+        "max_parallax_budget_pct": 1.8,
+        "domain_rationale": "Optimized exactly for Apple Vision Pro MV-HEVC 65mm IPD presentation of clean hardware edges.",
+    },
+    "architectural_sanctuary": {
+        "rig_type": "parallel",
+        "spatial_format": "mv_hevc",
+        "interaxial_distance_mm": 100.0,
+        "convergence_plane_m": 15.0,
+        "max_parallax_budget_pct": 1.2,
+        "domain_rationale": "Hyper-stereo base to accentuate volume and deep spatial architecture.",
+    },
+}
+
+def get_domain_s3d_spec(
+    domain_key: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Dict[str, Any]:
+    """Retrieve calibrated S3D Stereoscopy parameters for a commercial domain (PM-FEAT-029)."""
+    resolved = _normalize_domain_key(domain_key if domain_key is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_S3D_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-030: Accessibility & Audio Description Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_ACCESSIBILITY_CALIBRATIONS = {
+    "automotive_robotics": {
+        "ad_profile": "High-kinetic tracking description of mechanical motion.",
+        "target_audience": "standard",
+        "wcag_contrast_target": "AA",
+        "min_wcag_contrast_ratio": 4.5,
+        "tactile_descriptive_cues": ["Engine roar vibrating the frame", "Metallic glint of the chassis"],
+    },
+    "culinary_asmr": {
+        "ad_profile": "Sensory-focused description of temperature, texture, and state changes.",
+        "target_audience": "extended_cvaa",
+        "wcag_contrast_target": "AAA",
+        "min_wcag_contrast_ratio": 7.0,
+        "tactile_descriptive_cues": ["Sizzling oil popping", "Crisp crunch of crust"],
+    },
+    "luxury_fashion": {
+        "ad_profile": "Detailed tactile material and textile flow descriptions.",
+        "target_audience": "standard",
+        "wcag_contrast_target": "AA",
+        "min_wcag_contrast_ratio": 4.5,
+        "tactile_descriptive_cues": ["Smooth glide of silk", "Heavy drape of cashmere", "Catching the light on beadwork"],
+    },
+    "kinetic_action": {
+        "ad_profile": "Paced rhythmic description of continuous chain movements.",
+        "target_audience": "standard",
+        "wcag_contrast_target": "AA",
+        "min_wcag_contrast_ratio": 4.5,
+        "tactile_descriptive_cues": ["Sudden camera whip", "Impact tremor", "Debris flying through space"],
+    },
+    "tech_hardware": {
+        "ad_profile": "Geometric and UI-focused clear descriptions.",
+        "target_audience": "extended_cvaa",
+        "wcag_contrast_target": "AAA",
+        "min_wcag_contrast_ratio": 7.0,
+        "tactile_descriptive_cues": ["Soft glow of the LED indicator", "Beveled glass curve catching light"],
+    },
+    "architectural_sanctuary": {
+        "ad_profile": "Spatial and atmospheric volume descriptions for blind spatial awareness.",
+        "target_audience": "extended_cvaa",
+        "wcag_contrast_target": "AAA",
+        "min_wcag_contrast_ratio": 7.0,
+        "tactile_descriptive_cues": ["Cool concrete echoing footsteps", "Warm light pooling on timber", "Expansive vaulted ceiling distance"],
+    },
+}
+
+def get_domain_accessibility_spec(
+    domain_key: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Dict[str, Any]:
+    """Retrieve calibrated Accessibility & Audio Description parameters for a commercial domain (PM-FEAT-030)."""
+    resolved = _normalize_domain_key(domain_key if domain_key is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_ACCESSIBILITY_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["default_cues"] = list(cfg["tactile_descriptive_cues"])
+    out["domain_archetype"] = resolved
+    return out
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 

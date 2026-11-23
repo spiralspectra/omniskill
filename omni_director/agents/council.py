@@ -24,8 +24,11 @@ from omni_director.presets import (
     classify_brief_domain,
     get_domain_localization_spec,
     get_domain_spotting_spec,
+    get_domain_s3d_spec,
+    get_domain_accessibility_spec,
 )
 from omni_director.schemas import (
+    StorytellingMode,
     CouncilFinding,
     CouncilFindingSeverity,
     CouncilPersona,
@@ -45,6 +48,7 @@ from omni_director.tools.prompt_auditor import (
     audit_bible_inter_scene_continuity,
     audit_omni_scene_prompt,
     heal_omni_scene_prompt,
+    compile_clean_omni_prompt,
 )
 
 logger = logging.getLogger("omni_director.council")
@@ -694,6 +698,48 @@ class ProductManagerAgent(BaseAgent):
                     "omni_director/agents/agent.py",
                     "omni_director/agents/council.py",
                     "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-029",
+                title="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+                problem_statement="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+                proposed_solution="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/stereoscopic_3d.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v215.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/cli.py",
+                    "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-030",
+                title="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+                problem_statement="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+                proposed_solution="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/accessibility_ad.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v215.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/cli.py",
+                    "omni_director/tools/nle_export.py",
                 ],
                 priority="P0",
                 status="implemented",
@@ -1367,6 +1413,81 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 1.0
 
+            # Verify Stereoscopic 3D deliverables (PM-FEAT-029)
+            s3d_candidates = [
+                "s3d_parallax_log.csv",
+                "spatial_video_manifest.json",
+            ]
+            s3d_items = [name for name in s3d_candidates if (eval_dir / name).is_file()]
+            if s3d_items:
+                missing_s3d = [name for name in s3d_candidates if name not in s3d_items]
+                if missing_s3d and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="s3d_delivery",
+                        message=(
+                            f"Partial S3D deliverables on disk ({', '.join(s3d_items)}); "
+                            f"missing: {', '.join(missing_s3d)}."
+                        ),
+                        suggested_fix="Run export_s3d_bundle() or export_all_nle_artifacts() to export all PM-FEAT-029 artifacts.",
+                        details={"s3d_artifacts": s3d_items, "missing_artifacts": missing_s3d},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="s3d_delivery",
+                        message=f"S3D parallax log and spatial manifest JSON verified on disk: {', '.join(s3d_items)}.",
+                        details={"s3d_artifacts": s3d_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="s3d_delivery",
+                    message="NLE exports present on disk without PM-FEAT-029 S3D deliverables (s3d_parallax_log.csv, spatial_video_manifest.json).",
+                    suggested_fix="Run export_s3d_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": s3d_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Accessibility AD deliverables (PM-FEAT-030)
+            ad_candidates = [
+                "subtitles_ad.vtt",
+                "ad_script_cue_sheet.csv",
+                "accessibility_ad_manifest.json",
+            ]
+            ad_items = [name for name in ad_candidates if (eval_dir / name).is_file()]
+            if ad_items:
+                missing_ad = [name for name in ad_candidates if name not in ad_items]
+                if missing_ad and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="accessibility_ad_delivery",
+                        message=(
+                            f"Partial Accessibility AD deliverables on disk ({', '.join(ad_items)}); "
+                            f"missing: {', '.join(missing_ad)}."
+                        ),
+                        suggested_fix="Run export_accessibility_ad_bundle() or export_all_nle_artifacts() to export all PM-FEAT-030 artifacts.",
+                        details={"ad_artifacts": ad_items, "missing_artifacts": missing_ad},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="accessibility_ad_delivery",
+                        message=f"Accessibility AD manifest JSON, cue sheet CSV, and VTT verified on disk: {', '.join(ad_items)}.",
+                        details={"ad_artifacts": ad_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="accessibility_ad_delivery",
+                    message="NLE exports present on disk without PM-FEAT-030 Accessibility AD deliverables (subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json).",
+                    suggested_fix="Run export_accessibility_ad_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": ad_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -1488,6 +1609,49 @@ class ProductCouncilOrchestrator(BaseAgent):
                         "bridge_count": len(getattr(spot_spec, "bridges", []) or []),
                         "cue_count": len(getattr(spot_spec, "spotting_cues", []) or []),
                     },
+                ))
+
+        # Verify PM-FEAT-029 & PM-FEAT-030 schema specs when attached to bible/bundle
+        s3d_spec = getattr(bible, "master_s3d_spec", None)
+        if s3d_spec is not None:
+            if not getattr(s3d_spec, "baseline_interaxial_mm", 0.0) or not getattr(s3d_spec, "max_parallax_budget_pct", 0.0):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="s3d_spec_schema",
+                    message="MasterSpatialVideoSpec is missing required properties.",
+                    suggested_fix="Hydrate master_s3d_spec via get_domain_s3d_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="s3d_spec_schema",
+                    message=(
+                        f"MasterSpatialVideoSpec verified ({len(getattr(s3d_spec, 'scene_specs', []) or [])} scenes, "
+                        f"comfort_audit_passed={bool(getattr(s3d_spec, 'comfort_audit_passed', True))})."
+                    ),
+                    details={"scene_count": len(getattr(s3d_spec, "scene_specs", []) or [])},
+                ))
+
+        ad_spec = getattr(bible, "master_accessibility_spec", None)
+        if ad_spec is not None:
+            if not getattr(ad_spec, "target_audience", "") or not getattr(ad_spec, "standard", ""):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="accessibility_ad_schema",
+                    message="MasterAccessibilitySpec is missing required target_audience or standard.",
+                    suggested_fix="Hydrate master_accessibility_spec via get_domain_accessibility_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="accessibility_ad_schema",
+                    message=(
+                        f"MasterAccessibilitySpec verified ({len(getattr(ad_spec, 'scene_profiles', []) or [])} scenes, "
+                        f"all_scenes_cvaa_compliant={bool(getattr(ad_spec, 'all_scenes_cvaa_compliant', True))})."
+                    ),
+                    details={"scene_count": len(getattr(ad_spec, "scene_profiles", []) or [])},
                 ))
 
         score = max(0.0, min(25.0, round(score, 2)))
@@ -2145,6 +2309,89 @@ class ProductCouncilOrchestrator(BaseAgent):
             ))
             penalty_points += 2.0
 
+        # Verify PM-FEAT-029 (Stereoscopic 3D) constraints on all scenes
+        s3d_spec = getattr(bible, "master_s3d_spec", None)
+        if s3d_spec is not None:
+            if not getattr(s3d_spec, "comfort_audit_passed", True):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="s3d_comfort_audit_failed",
+                    message="MasterS3DSpec failed comfort audit.",
+                    suggested_fix="Re-evaluate convergence distance and interaxial baselines.",
+                ))
+                penalty_points += 2.0
+            
+            s3d_violation_scenes = []
+            s3d_strip_failed_scenes = []
+            for sc in bible.scenes:
+                sc_s3d = getattr(sc, "s3d_spec", None)
+                if sc_s3d and float(getattr(sc_s3d, "max_positive_parallax_pct", 0.0) or 0.0) >= 3.0:
+                    s3d_violation_scenes.append(sc.scene_index)
+                prompt = getattr(sc, "omni_prose_prompt", "")
+                if prompt and "[S3D-RIG:" in prompt:
+                    clean_prompt = compile_clean_omni_prompt(prompt)
+                    if "[S3D-RIG:" in clean_prompt:
+                        s3d_strip_failed_scenes.append(sc.scene_index)
+                        
+            if s3d_violation_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="s3d_parallax_violation",
+                    message=f"Scene(s) {s3d_violation_scenes} exceeded 3.0% max_positive_parallax_pct budget.",
+                    suggested_fix="Reduce subject distance or adjust convergence pull target.",
+                ))
+                penalty_points += 2.0
+            if s3d_strip_failed_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="s3d_prompt_strip_failed",
+                    message=f"Scene(s) {s3d_strip_failed_scenes} failed to cleanly strip [S3D-RIG: ...] tokens in compile_clean_omni_prompt.",
+                    suggested_fix="Ensure S3D-RIG tokens follow the standard format.",
+                ))
+                penalty_points += 2.0
+
+        # Verify PM-FEAT-030 (Accessibility AD) constraints on all scenes
+        ad_spec = getattr(bible, "master_accessibility_spec", None)
+        if ad_spec is not None:
+            if not getattr(ad_spec, "all_scenes_cvaa_compliant", True):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="accessibility_ad_cvaa_failed",
+                    message="MasterAccessibilitySpec failed CVAA compliance.",
+                    suggested_fix="Ensure AD track fits within available dialogue gaps.",
+                ))
+                penalty_points += 2.0
+            
+            ad_collision_scenes = []
+            ad_strip_failed_scenes = []
+            for sc in bible.scenes:
+                sc_ad = getattr(sc, "accessibility_spec", None)
+                if sc_ad and int(getattr(sc_ad, "collision_count", 0) or 0) > 0:
+                    ad_collision_scenes.append(sc.scene_index)
+                prompt = getattr(sc, "omni_prose_prompt", "")
+                if prompt and "[AD-CUE:" in prompt:
+                    clean_prompt = compile_clean_omni_prompt(prompt)
+                    if "[AD-CUE:" in clean_prompt:
+                        ad_strip_failed_scenes.append(sc.scene_index)
+                        
+            if int(getattr(ad_spec, "collision_count", 0) or 0) > 0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="accessibility_ad_collision",
+                    message=f"MasterAccessibilitySpec has {getattr(ad_spec, 'collision_count', 0)} AD dialogue collisions.",
+                    suggested_fix="Ensure zero dialogue overlap.",
+                ))
+                penalty_points += 2.0
+                
+            if ad_strip_failed_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="accessibility_ad_prompt_strip_failed",
+                    message=f"Scene(s) {ad_strip_failed_scenes} failed to cleanly strip [AD-CUE: ...] tokens in compile_clean_omni_prompt.",
+                    suggested_fix="Ensure AD-CUE tokens follow the standard format.",
+                ))
+                penalty_points += 2.0
+
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
@@ -2322,7 +2569,7 @@ class ProductCouncilOrchestrator(BaseAgent):
                     score -= 1.0
 
         # Mode B Continuous Narrative Verification
-        if getattr(bible, "is_mode_b_continuous", False) and len(bible.scenes) > 1:
+        if getattr(bible, "storytelling_mode", None) == StorytellingMode.MODE_B_CONTINUOUS_CHAIN and len(bible.scenes) > 1:
             for scene in bible.scenes[1:]:
                 prompt_str = getattr(scene, "scene_prompt", getattr(scene, "omni_prose_prompt", "")).lower()
                 has_continuity_anchor = any(
@@ -3149,6 +3396,36 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={"domain": detected_domain, "tempo_bpm": tempo_bpm, "beat_alignment_score": beat_score},
                 ))
 
+        # Verify Stereoscopic 3D & Spatial Video constraints (PM-FEAT-029)
+        s3d_spec = getattr(bible, "master_s3d_spec", None)
+        if s3d_spec is not None:
+            expected_s3d = get_domain_s3d_spec(detected_domain)
+            exp_fov = expected_s3d.get("field_of_view_deg", 100.0)
+            actual_fov = float(getattr(s3d_spec, "field_of_view_deg", 0.0) or 0.0)
+            if abs(actual_fov - exp_fov) > 0.1:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_s3d_calibration",
+                    message=f"S3D field_of_view_deg={actual_fov} differs from domain '{detected_domain}' baseline {exp_fov}.",
+                    suggested_fix="Calibrate master_s3d_spec via get_domain_s3d_spec()."
+                ))
+                score -= 0.25
+
+        # Verify Accessibility AD CVAA compliance (PM-FEAT-030)
+        ad_spec = getattr(bible, "master_accessibility_spec", None)
+        if ad_spec is not None:
+            expected_ad = get_domain_accessibility_spec(detected_domain)
+            exp_audience = str(getattr(expected_ad.get("target_audience", ""), "value", expected_ad.get("target_audience", "")))
+            actual_audience = str(getattr(getattr(ad_spec, "target_audience", ""), "value", getattr(ad_spec, "target_audience", "")))
+            if actual_audience and exp_audience and actual_audience != exp_audience:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_accessibility_ad_calibration",
+                    message=f"AD target_audience '{actual_audience}' differs from domain '{detected_domain}' baseline '{exp_audience}'.",
+                    suggested_fix="Calibrate master_accessibility_spec via get_domain_accessibility_spec()."
+                ))
+                score -= 0.25
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -3676,6 +3953,48 @@ class ProductCouncilOrchestrator(BaseAgent):
                             severity=CouncilFindingSeverity.INFO,
                             category="animatic_spotting_hud",
                             message="Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).",
+                        ))
+
+                    # PM-FEAT-029 S3D & Spatial Video HUD check
+                    missing_s3d_ids = [
+                        el_id
+                        for el_id in ("modal-s3d-stereography", "btn-s3d-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_s3d_ids or "]" not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_s3d_hud",
+                            message=f"Compiled storyboard HTML lacks S3D/Spatial Video HUD element(s): {', '.join('#' + i for i in missing_s3d_ids)} or hotkey ']'.",
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-s3d-stereography, #btn-s3d-animatic, and hotkey ']'.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_s3d_hud",
+                            message="S3D & Spatial Video HUD verified (#btn-s3d-animatic / #modal-s3d-stereography / hotkey ']').",
+                        ))
+
+                    # PM-FEAT-030 Accessibility AD HUD check
+                    missing_ad_ids = [
+                        el_id
+                        for el_id in ("modal-accessibility-ad", "btn-ad-animatic", "ad-scrubber-ribbon")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_ad_ids or "[" not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_accessibility_ad_hud",
+                            message=f"Compiled storyboard HTML lacks Accessibility AD HUD element(s): {', '.join('#' + i for i in missing_ad_ids)} or hotkey '['.",
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-accessibility-ad, #btn-ad-animatic, #ad-scrubber-ribbon, and hotkey '['.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_accessibility_ad_hud",
+                            message="Accessibility AD HUD verified (#btn-ad-animatic / #modal-accessibility-ad / #ad-scrubber-ribbon / hotkey '[').",
                         ))
 
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)

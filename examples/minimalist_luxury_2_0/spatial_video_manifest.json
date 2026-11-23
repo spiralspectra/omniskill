@@ -1,0 +1,55 @@
+{
+  "target_platform": "Apple Vision Pro",
+  "spatial_format": "mv_hevc",
+  "field_of_view_deg": 100.0,
+  "baseline_interaxial_mm": 35.0,
+  "max_parallax_budget_pct": 2.0,
+  "mv_hevc_codec_tag": "hvc1",
+  "horizontal_fov_rad": 1.74533,
+  "disparity_adjustment_metric": 0.0,
+  "comfort_audit_passed": true,
+  "scene_specs": [
+    {
+      "scene_number": 1,
+      "camera_spec": {
+        "rig_type": "toed_in",
+        "interaxial_distance_mm": 35.0,
+        "convergence_plane_m": 3.31,
+        "focal_length_mm": 50.0,
+        "sensor_width_mm": 36.0,
+        "positive_parallax_pct": 2.0,
+        "negative_parallax_pct": 0.0,
+        "z_space_budget_pct": 59.5959,
+        "comfort_compliant": true
+      },
+      "subject_distance_m": 3.45,
+      "max_positive_parallax_pct": 2.0,
+      "max_negative_parallax_pct": 0.0,
+      "convergence_pull_target_m": 3.31,
+      "comfort_zone_passed": true,
+      "mv_hevc_profile": "APPL_MV_HEVC_L51",
+      "stereographer_notes": "Portraits and fabric textures pushed just behind the stereo window."
+    },
+    {
+      "scene_number": 2,
+      "camera_spec": {
+        "rig_type": "toed_in",
+        "interaxial_distance_mm": 35.0,
+        "convergence_plane_m": 3.31,
+        "focal_length_mm": 85.0,
+        "sensor_width_mm": 36.0,
+        "positive_parallax_pct": 2.0,
+        "negative_parallax_pct": 0.0,
+        "z_space_budget_pct": 101.3131,
+        "comfort_compliant": true
+      },
+      "subject_distance_m": 3.45,
+      "max_positive_parallax_pct": 2.0,
+      "max_negative_parallax_pct": 0.0,
+      "convergence_pull_target_m": 3.31,
+      "comfort_zone_passed": true,
+      "mv_hevc_profile": "APPL_MV_HEVC_L51",
+      "stereographer_notes": "Portraits and fabric textures pushed just behind the stereo window."
+    }
+  ]
+}
