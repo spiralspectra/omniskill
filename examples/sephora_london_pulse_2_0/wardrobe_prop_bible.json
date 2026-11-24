@@ -1,0 +1,247 @@
+{
+  "bible_id": "ART-BIBLE-4758B973",
+  "archetype": "luxury_fashion",
+  "total_looks": 2,
+  "total_hero_props": 1,
+  "continuity_breaks_detected": 0,
+  "slot_contention_scenes": [],
+  "wardrobe_looks_summary": [
+    {
+      "character_id": "Model Maya (The Neon Siren)",
+      "look_id": "LOOK_A",
+      "garment_summary": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+      "weathering_stage": "runway_pressed",
+      "accessory_lock": [
+        "brushed_gold_cuff",
+        "silk_scarf"
+      ]
+    },
+    {
+      "character_id": "Model Kaelen (The Shimmer Rebel)",
+      "look_id": "LOOK_B",
+      "garment_summary": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+      "weathering_stage": "runway_pressed",
+      "accessory_lock": [
+        "brushed_gold_cuff",
+        "silk_scarf"
+      ]
+    }
+  ],
+  "hero_prop_registry": [
+    {
+      "prop_id": "PROP_CLUTCH_01",
+      "prop_name": "Sculpted Calfskin Atelier Clutch",
+      "action_state": "activated",
+      "hand_or_anchor": "travertine_pedestal",
+      "surface_condition": "active_energized",
+      "continuity_critical": true
+    }
+  ],
+  "scene_art_specs": [
+    {
+      "scene_index": 1,
+      "wardrobe_states": [
+        {
+          "character_id": "Model Maya (The Neon Siren)",
+          "look_id": "LOOK_A",
+          "garment_summary": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        },
+        {
+          "character_id": "Model Kaelen (The Shimmer Rebel)",
+          "look_id": "LOOK_B",
+          "garment_summary": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_CLUTCH_01",
+          "prop_name": "Sculpted Calfskin Atelier Clutch",
+          "action_state": "damaged",
+          "hand_or_anchor": "travertine_pedestal",
+          "surface_condition": "impact_scuffed",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S01_01",
+          "zone_label": "Midnight Soho to SEPHORA Flagship",
+          "hero_material_finish": "The black-and-white SEPHORA shopping bag retains exact vertical stripe geometry and clean typography., Maya's scarlet trench coat remains high-gloss patent leather without texture drift.",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:wardrobe_2",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=damaged@travertine_pedestal | slots=3/3]"
+    },
+    {
+      "scene_index": 2,
+      "wardrobe_states": [
+        {
+          "character_id": "Model Maya (The Neon Siren)",
+          "look_id": "LOOK_A",
+          "garment_summary": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        },
+        {
+          "character_id": "Model Kaelen (The Shimmer Rebel)",
+          "look_id": "LOOK_B",
+          "garment_summary": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_CLUTCH_01",
+          "prop_name": "Sculpted Calfskin Atelier Clutch",
+          "action_state": "weathered",
+          "hand_or_anchor": "travertine_pedestal",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S02_01",
+          "zone_label": "Midnight Soho to SEPHORA Flagship",
+          "hero_material_finish": "The black-and-white SEPHORA shopping bag retains exact vertical stripe geometry and clean typography., Maya's scarlet trench coat remains high-gloss patent leather without texture drift.",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:wardrobe_2",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]"
+    },
+    {
+      "scene_index": 3,
+      "wardrobe_states": [
+        {
+          "character_id": "Model Maya (The Neon Siren)",
+          "look_id": "LOOK_A",
+          "garment_summary": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        },
+        {
+          "character_id": "Model Kaelen (The Shimmer Rebel)",
+          "look_id": "LOOK_B",
+          "garment_summary": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_CLUTCH_01",
+          "prop_name": "Sculpted Calfskin Atelier Clutch",
+          "action_state": "weathered",
+          "hand_or_anchor": "travertine_pedestal",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S03_01",
+          "zone_label": "Midnight Soho to SEPHORA Flagship",
+          "hero_material_finish": "The black-and-white SEPHORA shopping bag retains exact vertical stripe geometry and clean typography., Maya's scarlet trench coat remains high-gloss patent leather without texture drift.",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:wardrobe_2",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]"
+    },
+    {
+      "scene_index": 4,
+      "wardrobe_states": [
+        {
+          "character_id": "Model Maya (The Neon Siren)",
+          "look_id": "LOOK_A",
+          "garment_summary": "HIGH POLARITY A: Vivid high-gloss scarlet-red patent trench coat with oversized structured lapels, sheer black mesh collar, and metallic silver pointed-toe stiletto boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        },
+        {
+          "character_id": "Model Kaelen (The Shimmer Rebel)",
+          "look_id": "LOOK_B",
+          "garment_summary": "HIGH POLARITY B: Matte charcoal-grey tailored wool blazer with chalk-white pinstripes on sleeves, jet-black silk camisole, and heavy distressed combat boots.",
+          "weathering_stage": "runway_pressed",
+          "accessory_lock": [
+            "brushed_gold_cuff",
+            "silk_scarf"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_CLUTCH_01",
+          "prop_name": "Sculpted Calfskin Atelier Clutch",
+          "action_state": "activated",
+          "hand_or_anchor": "travertine_pedestal",
+          "surface_condition": "active_energized",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S04_01",
+          "zone_label": "Midnight Soho to SEPHORA Flagship",
+          "hero_material_finish": "The black-and-white SEPHORA shopping bag retains exact vertical stripe geometry and clean typography., Maya's scarlet trench coat remains high-gloss patent leather without texture drift.",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:wardrobe_2",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=activated@travertine_pedestal | slots=3/3]"
+    }
+  ],
+  "pull_list_ready": true
+}

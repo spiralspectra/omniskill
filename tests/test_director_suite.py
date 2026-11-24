@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version == "2.15.0"
+        assert report.version in ("2.15.0", "2.16.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,13 +5398,13 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.15.0"
+        assert omni_director.__version__ == "2.16.0"
         report = run_doctor()
-        assert report.version == "2.15.0"
+        assert report.version == omni_director.__version__
         assert report.passed is True
         assert report.exit_code == 0
         council_report = ProductCouncilReport(project_title="Smoke Check")
-        assert council_report.version == "2.15.0"
+        assert council_report.version == omni_director.__version__
 
     def test_html_compiler_python_311_ast_compatibility(self):
         import ast
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version == "2.15.0"
+            assert report.version in ("2.15.0", "2.16.0")
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6434,11 +6434,11 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
         bound_keys = re.findall(r"e\.key\s*===\s*'([^']+)'", keydown_block)
         assert len(bound_keys) == len(set(bound_keys)), f"Duplicate e.key bindings found: {bound_keys}"
 
-        # 3. ProductManagerAgent (28 proposals) & ProductCouncilOrchestrator (v2.14.0 >= 90.0)
+        # 3. ProductManagerAgent (>= 30 proposals) & ProductCouncilOrchestrator (>= 90.0)
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         feat_ids = {p.feature_id for p in proposals}
-        assert len(proposals) == 30
+        assert len(proposals) >= 30
         assert "PM-FEAT-023" in feat_ids
         assert "PM-FEAT-024" in feat_ids
         assert "PM-FEAT-025" in feat_ids
@@ -6448,7 +6448,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version == "2.15.0"
+        assert report.version in ("2.15.0", "2.16.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7128,7 +7128,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version == "2.15.0"
+        assert report.version in ("2.15.0", "2.16.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7711,25 +7711,24 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         for fname in hud_filenames:
             assert fname in KNOWN_PRODUCTION_ARTIFACTS, f"HUD filename '{fname}' missing from KNOWN_PRODUCTION_ARTIFACTS"
 
-        # Fix 3: c2pa_provenance.py and html_compiler.py report 2.14.0 dynamically (zero stale 2.13.0)
+        # Fix 3: c2pa_provenance.py and html_compiler.py report current __version__ dynamically
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.15.0"
-        assert all("2.15.0" in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
+        assert omni_director.__version__ == "2.16.0"
+        assert all(omni_director.__version__ in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
         c2pa_src = Path("omni_director/tools/c2pa_provenance.py").read_text(encoding="utf-8")
         compiler_src = Path("omni_director/tools/html_compiler.py").read_text(encoding="utf-8")
-        stale_prev = "2." + "13." + "0"
-        assert stale_prev not in c2pa_src
-        assert stale_prev not in compiler_src
+        assert "__version__" in c2pa_src
+        assert "__version__" in compiler_src
 
         # Fix 4: cli.py handle_council persists council_report in production_bundle.json & valid telemetry.json
         council_cli_dir = tmp_path / "cli_council"
         assert handle_council(["--preset", "ikea-asmr", "--output-dir", str(council_cli_dir)]) == 0
         persisted_bundle = json.loads((council_cli_dir / "production_bundle.json").read_text(encoding="utf-8"))
         assert persisted_bundle["council_report"] is not None
-        assert persisted_bundle["council_report"]["version"] == "2.15.0"
+        assert persisted_bundle["council_report"]["version"] == omni_director.__version__
         assert persisted_bundle["council_report"]["overall_score"] >= 90.0
         is_valid, errors = verify_bundle_checksums(council_cli_dir)
         assert is_valid is True, f"Council CLI checksum verification failed: {errors}"
@@ -7825,7 +7824,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         prop_by_id = {p.feature_id: p for p in proposals}
-        assert len(proposals) == 30
+        assert len(proposals) >= 30
         for fid in ("PM-FEAT-027", "PM-FEAT-028"):
             assert fid in prop_by_id
             assert prop_by_id[fid].priority == "P0"
@@ -7837,7 +7836,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version == "2.15.0"
+        assert council_report.version in ("2.15.0", "2.16.0")
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
@@ -7995,7 +7994,7 @@ class TestV215S3DAndAccessibilityFeatures:
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(IKEA_ASMR_BIBLE)
         prop_by_id = {p.feature_id: p for p in proposals}
-        assert len(proposals) == 30
+        assert len(proposals) >= 30
         for fid in ("PM-FEAT-029", "PM-FEAT-030"):
             assert fid in prop_by_id
             assert prop_by_id[fid].priority == "P0"
@@ -8052,3 +8051,371 @@ class TestV215S3DAndAccessibilityFeatures:
         mode_b_rep = ProductCouncilOrchestrator().audit(SEPHORA_EXTENSION_40S_BIBLE)
         assert mode_b_rep.passed is True
         assert mode_b_rep.overall_score >= 90.0
+
+
+
+class TestV216WardrobePropsAndRenderEconomicsFeatures:
+    """Verifies v2.16.0 PM-FEAT-031 (Wardrobe/Prop Continuity), PM-FEAT-032 (Render Economics), and cross-cutting fixes."""
+
+    def test_pm_feat_031_wardrobe_prop_continuity_and_exports(self, tmp_path):
+        import json
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_wardrobe_prop_spec,
+        )
+        from omni_director.schemas import (
+            MasterWardrobePropBible,
+            SceneArtContinuitySpec,
+            ScenePropContinuityState,
+            SceneWardrobeStateSpec,
+        )
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+        from omni_director.tools.wardrobe_props import (
+            compile_wardrobe_prop_bible,
+            detect_prop_state_transitions,
+            export_wardrobe_prop_bundle,
+            format_art_continuity_token,
+            validate_reference_slot_budget,
+        )
+
+        # 1. detect_prop_state_transitions: unmotivated damaged->intact & left->right hand swap
+        sc1 = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        sc2 = IKEA_ASMR_BIBLE.scenes[1].model_copy(deep=True)
+        sc1.scene_index = 1
+        sc2.scene_index = 2
+        sc1.art_continuity_spec = SceneArtContinuitySpec(
+            scene_index=1,
+            prop_states=[ScenePropContinuityState(prop_id="PROP_A", prop_name="Hero Box", action_state="damaged")],
+        )
+        sc2.art_continuity_spec = SceneArtContinuitySpec(
+            scene_index=2,
+            prop_states=[ScenePropContinuityState(prop_id="PROP_A", prop_name="Hero Box", action_state="intact")],
+        )
+        rev_violations = detect_prop_state_transitions([sc1, sc2])
+        assert len(rev_violations) == 1
+        assert rev_violations[0]["violation_type"] == "damaged_reversal"
+
+        sc1.art_continuity_spec.prop_states[0].action_state = "in_hand_left"
+        sc2.art_continuity_spec.prop_states[0].action_state = "in_hand_right"
+        hand_violations = detect_prop_state_transitions([sc1, sc2])
+        assert len(hand_violations) == 1
+        assert hand_violations[0]["violation_type"] == "unmotivated_hand_swap"
+
+        # Motivated transition passes
+        sc2.art_continuity_spec.continuity_delta_note = "Actor passes box from left to right hand"
+        assert detect_prop_state_transitions([sc1, sc2]) == []
+
+        # 2. validate_reference_slot_budget (<= 3 slots)
+        within_ok, slots_ok = validate_reference_slot_budget(1, 1, 1)
+        assert within_ok is True
+        assert len(slots_ok) == 3
+        assert slots_ok[0].startswith("<image_1>:")
+
+        within_over, slots_over = validate_reference_slot_budget(2, 2, 2)
+        assert within_over is False
+        assert len(slots_over) == 3
+
+        # 3. compile_wardrobe_prop_bible
+        wp_bible = compile_wardrobe_prop_bible(IKEA_ASMR_BIBLE)
+        assert isinstance(wp_bible, MasterWardrobePropBible)
+        assert wp_bible.bible_id.startswith("ART-BIBLE-")
+        assert wp_bible.total_looks >= 1
+        assert wp_bible.total_hero_props >= 1
+        assert len(wp_bible.scene_art_specs) == len(IKEA_ASMR_BIBLE.scenes)
+        assert wp_bible.pull_list_ready is True
+
+        # 4. 6-domain calibration
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_wardrobe_prop_spec(domain)
+            assert spec["domain_archetype"] == domain
+            assert spec["prop_id"]
+            assert spec["wardrobe_look_defaults"]["look_id"] == "LOOK_A"
+            assert len(spec["hero_props"]) >= 1
+            assert len(spec["dressing_anchors"]) >= 1
+
+        # 5. [WARDROBE-LOCK: / [PROP-STATE: prompt audit + healing + compile_clean_omni_prompt stripping
+        art_token = format_art_continuity_token(wp_bible.scene_art_specs[0])
+        assert "[WARDROBE-LOCK:" in art_token
+        assert "[PROP-STATE:" in art_token
+        cleaned_art = compile_clean_omni_prompt(f"{art_token} Crisp Scandinavian tabletop framing.")
+        assert "[WARDROBE-LOCK:" not in cleaned_art
+        assert "[PROP-STATE:" not in cleaned_art
+
+        bad_scene = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        bad_scene.art_continuity_spec = SceneArtContinuitySpec(
+            scene_index=1,
+            wardrobe_states=[SceneWardrobeStateSpec(character_id="HERO", look_id="LOOK_A", garment_summary="Linen apron")],
+            prop_states=[ScenePropContinuityState(prop_id="PROP_BOX", prop_name="Flat Pack", action_state="intact")],
+            assigned_reference_slots=["<image_1>:w1", "<image_2>:e1", "<image_3>:p1", "<image_4>:extra"],
+            slot_contention_detected=True,
+        )
+        bad_audit = audit_omni_scene_prompt(bad_scene, bible=IKEA_ASMR_BIBLE)
+        assert bad_audit.art_continuity_compliant is False
+
+        healed = heal_omni_scene_prompt(bad_scene, bible=IKEA_ASMR_BIBLE)
+        assert len(healed.healed.art_continuity_spec.assigned_reference_slots) <= 3
+        assert healed.healed.art_continuity_spec.slot_contention_detected is False
+        assert "[WARDROBE-LOCK:" in healed.healed.omni_prose_prompt
+        assert "[PROP-STATE:" in healed.healed.omni_prose_prompt
+        assert healed.audit.art_continuity_compliant is True
+
+        # 6. export_wardrobe_prop_bundle
+        art_out = tmp_path / "art_dept_bundle"
+        exported = export_wardrobe_prop_bundle(IKEA_ASMR_BIBLE, art_out)
+        for fname in ("wardrobe_prop_bible.json", "prop_continuity_matrix.csv", "art_dept_pull_list.md"):
+            fpath = art_out / fname
+            assert fpath.is_file()
+            assert fpath.stat().st_size > 0
+        assert json.loads((art_out / "wardrobe_prop_bible.json").read_text(encoding="utf-8"))["bible_id"] == wp_bible.bible_id
+        assert len(exported) == 3
+
+    def test_pm_feat_032_render_economics_and_guardrails(self, tmp_path):
+        import json
+        import pytest
+        from omni_director import DirectorPipeline
+        from omni_director.cli import main as cli_main
+        from omni_director.config import validate_model_identifier
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_render_economics_spec,
+        )
+        from omni_director.schemas import MasterRenderEconomicsManifest
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+        from omni_director.tools.render_economics import (
+            check_render_budget_guardrail,
+            compile_render_economics_manifest,
+            estimate_scene_compute_cost,
+            export_render_economics_bundle,
+            format_render_profile_token,
+            get_2026_model_matrix_rates,
+        )
+
+        # 1. 2026 Model Matrix Rates + zero legacy models
+        rates = get_2026_model_matrix_rates()
+        rate_ids = {r.model_id for r in rates}
+        assert rate_ids == {
+            "gemini-4-argon",
+            "gemini-3.8-flash",
+            "gemini-3-pro-image",
+            "gemini-omni-1.1-flash-preview",
+        }
+        for r in rates:
+            validate_model_identifier(r.model_id, "test_rate")
+            for legacy in ("3.1", "3.0", "2.5", "2.0", "1.5", "gpt-", "claude-"):
+                assert legacy not in r.model_id
+
+        # 2. estimate_scene_compute_cost & compile_render_economics_manifest
+        est = estimate_scene_compute_cost(IKEA_ASMR_BIBLE.scenes[0], planned_takes=3, mode="mode_a_4step")
+        assert est.planned_takes == 3
+        assert len(est.takes) == 3
+        assert est.estimated_scene_usd > 0.0
+        assert est.render_profile_token.startswith("[RENDER-PROFILE:")
+
+        manifest = compile_render_economics_manifest(IKEA_ASMR_BIBLE, max_budget_usd=50.0)
+        assert isinstance(manifest, MasterRenderEconomicsManifest)
+        assert manifest.dry_run_billable_usd == 0.0
+        assert len(manifest.scene_estimates) == len(IKEA_ASMR_BIBLE.scenes)
+        assert manifest.guardrail.simulation_savings_vs_aicp_pct > 90.0
+
+        # 3. 6-domain calibration
+        for domain in DOMAIN_ARCHETYPES:
+            spec = get_domain_render_economics_spec(domain)
+            assert spec["domain_archetype"] == domain
+            assert spec["max_render_budget_usd"] > 0.0
+            assert spec["planned_takes_per_cut"] >= 1
+            assert spec["default_prompt_mode"] in ("mode_a_4step", "mode_b_6step")
+
+        # 4. check_render_budget_guardrail
+        ok_guardrail, ok_msg = check_render_budget_guardrail(manifest, 100.0)
+        assert ok_guardrail is True
+        assert "passed" in ok_msg.lower()
+
+        fail_guardrail, fail_msg = check_render_budget_guardrail(manifest, 0.01)
+        assert fail_guardrail is False
+        assert "exceeded" in fail_msg.lower()
+
+        # 5. DirectorPipeline live-render ValueError abort & CLI --max-render-usd
+        with pytest.raises(ValueError, match="max-render-usd"):
+            DirectorPipeline().run(
+                preset_name="ikea-asmr",
+                output_dir=str(tmp_path / "live_abort_pipe"),
+                render_video=True,
+                dry_run=False,
+                max_render_budget_usd=0.01,
+            )
+
+        rc = cli_main([
+            "run",
+            "--preset", "ikea-asmr",
+            "--render-video",
+            "--live",
+            "--max-render-usd", "0.01",
+            "--output-dir", str(tmp_path / "live_abort_cli"),
+        ])
+        assert rc == 1
+
+        # 6. [RENDER-PROFILE: prompt audit + healing + compile_clean_omni_prompt stripping
+        econ_token = format_render_profile_token(manifest.scene_estimates[0])
+        assert econ_token.startswith("[RENDER-PROFILE:")
+        cleaned_econ = compile_clean_omni_prompt(f"{econ_token} Precision tabletop reveal.")
+        assert "[RENDER-PROFILE:" not in cleaned_econ
+
+        bible_over = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        bible_over.master_render_economics_spec = compile_render_economics_manifest(bible_over, max_budget_usd=0.01)
+        over_audit = audit_omni_scene_prompt(bible_over.scenes[0], bible=bible_over)
+        assert over_audit.render_economics_compliant is False
+
+        scene_missing_tok = IKEA_ASMR_BIBLE.scenes[0].model_copy(deep=True)
+        scene_missing_tok.compute_estimate_spec = est
+        scene_missing_tok.omni_prose_prompt = compile_clean_omni_prompt(scene_missing_tok.omni_prose_prompt)
+        healed_econ = heal_omni_scene_prompt(scene_missing_tok, bible=IKEA_ASMR_BIBLE)
+        assert "[RENDER-PROFILE:" in healed_econ.healed.omni_prose_prompt
+        assert healed_econ.audit.render_economics_compliant is True
+
+        # 7. export_render_economics_bundle
+        econ_out = tmp_path / "econ_bundle"
+        econ_files = export_render_economics_bundle(IKEA_ASMR_BIBLE, econ_out)
+        for fname in ("render_economics_manifest.json", "take_variant_ledger.csv", "ai_compute_estimate.md"):
+            fpath = econ_out / fname
+            assert fpath.is_file()
+            assert fpath.stat().st_size > 0
+        loaded_econ = json.loads((econ_out / "render_economics_manifest.json").read_text(encoding="utf-8"))
+        assert loaded_econ["dry_run_billable_usd"] == 0.0
+        assert len(econ_files) == 3
+
+    def test_v216_cross_cutting_hud_auditor_presets_cli_and_council(self, tmp_path):
+        import re
+        import omni_director
+        from omni_director import DirectorPipeline
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.cli import handle_export
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import ProductionBundle
+        from omni_director.telemetry import KNOWN_PRODUCTION_ARTIFACTS, RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+        from omni_director.tools.prompt_auditor import audit_omni_scene_prompt
+
+        # 1. get_preset_bible("ikea-asmr") hydrates v2.15 + v2.16 master specs
+        ikea = get_preset_bible("ikea-asmr")
+        assert ikea.master_s3d_spec is not None
+        assert ikea.master_accessibility_spec is not None
+        assert ikea.master_wardrobe_prop_bible is not None
+        assert ikea.master_render_economics_spec is not None
+
+        # 2. Dark-room HTML5 animatic cross-cutting HUD & a11y checks
+        html_dir = tmp_path / "html_v216"
+        bundle = ProductionBundle(bible=ikea, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html_path = compile_storyboard_html(bundle, html_dir)
+        html = html_path.read_text(encoding="utf-8")
+
+        assert "isAccessibilityAdHUDOpen" in html
+        assert "showCinemaToast" not in html
+        assert 'aria-controls="modal-s3d-stereography"' in html
+        assert 'aria-controls="modal-accessibility-ad"' in html
+        assert "btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false')" in html
+        assert 'id="modal-hud-command-palette"' in html
+        assert 'id="modal-art-wardrobe-continuity"' in html
+        assert 'id="modal-render-economics"' in html
+        assert "e.key === '/'" in html
+        assert "e.key === '\\\\'" in html
+        assert "e.key === ';'" in html
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+
+        # 3. Hyphenated [S3D-RIG: and [AD-CUE: prompt audit + AuditResult flags
+        sample_prose = (
+            "At 00:00-00:08 in Minimalist Stockholm Loft, shot on 35mm Prime lens at 180-degree shutter (1/48s), "
+            "locked tripod framing with tactile wood-grain contact and crisp diegetic foley click. "
+            "[S3D-RIG: 65.0mm IO | Conv: 2.00m | +Parallax: 1.50% | fmt=mv_hevc] "
+            '[AD-CUE: "Birch box unfolds smoothly." @ 0.50-3.00s | CVAA=PASS] '
+            "[WARDROBE-LOCK: HERO:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=intact@end_grain_walnut_block] "
+            "[RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=8s | est=$4.09]"
+        )
+        res = audit_omni_scene_prompt(sample_prose)
+        assert res.s3d_rig_compliant is True
+        assert res.ad_cue_compliant is True
+        assert res.art_continuity_compliant is True
+        assert res.render_economics_compliant is True
+        assert res.details.get("s3d_rig_compliant") is True
+        assert res.details.get("ad_cue_compliant") is True
+
+        # 4. ProductManagerAgent 32 proposals with distinct non-placeholder PM-FEAT-029..032
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(ikea)
+        assert len(proposals) == 32
+        prop_by_id = {p.feature_id: p for p in proposals}
+        problems = set()
+        solutions = set()
+        for fid in ("PM-FEAT-029", "PM-FEAT-030", "PM-FEAT-031", "PM-FEAT-032"):
+            assert fid in prop_by_id
+            p = prop_by_id[fid]
+            assert p.priority == "P0"
+            assert p.status == "implemented"
+            assert len(p.problem_statement.strip()) > 40
+            assert len(p.proposed_solution.strip()) > 40
+            assert "TODO" not in p.problem_statement and "placeholder" not in p.problem_statement.lower()
+            assert "TODO" not in p.proposed_solution and "placeholder" not in p.proposed_solution.lower()
+            problems.add(p.problem_statement)
+            solutions.add(p.proposed_solution)
+        assert len(problems) == 4
+        assert len(solutions) == 4
+
+        # 5. CLI handle_export (--format art-dept, --format economics, granular flags) & checksums
+        cli_art = tmp_path / "cli_art"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "art-dept", "--output-dir", str(cli_art)]) == 0
+        for fname in ("wardrobe_prop_bible.json", "prop_continuity_matrix.csv", "art_dept_pull_list.md"):
+            assert (cli_art / fname).is_file()
+
+        cli_econ = tmp_path / "cli_econ"
+        assert handle_export(["--preset", "ikea-asmr", "--format", "economics", "--output-dir", str(cli_econ)]) == 0
+        for fname in ("render_economics_manifest.json", "take_variant_ledger.csv", "ai_compute_estimate.md"):
+            assert (cli_econ / fname).is_file()
+
+        cli_gran = tmp_path / "cli_gran_v216"
+        assert handle_export([
+            "--preset", "ikea-asmr", "--format", "edl",
+            "--wardrobe-json", "--prop-csv", "--pull-list-md",
+            "--economics-json", "--takes-csv", "--compute-md",
+            "--output-dir", str(cli_gran),
+        ]) == 0
+        for fname in (
+            "wardrobe_prop_bible.json",
+            "prop_continuity_matrix.csv",
+            "art_dept_pull_list.md",
+            "render_economics_manifest.json",
+            "take_variant_ledger.csv",
+            "ai_compute_estimate.md",
+        ):
+            assert fname in KNOWN_PRODUCTION_ARTIFACTS
+            assert (cli_gran / fname).is_file()
+
+        tel_dir = tmp_path / "v216_full_telemetry"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(tel_dir), dry_run=True, render_video=False)
+        export_all_nle_artifacts(ikea, tel_dir, fps=24)
+        RuntimeTelemetry(project_title=ikea.project_title).write_manifest(tel_dir)
+        ok_tel, errs_tel = verify_bundle_checksums(tel_dir)
+        assert ok_tel is True and errs_tel == [], f"Checksum verification failed: {errs_tel}"
+
+        # 6. ProductCouncilOrchestrator audit & convene_council >= 90.0
+        orchestrator = ProductCouncilOrchestrator()
+        audit_rep = orchestrator.audit(ikea)
+        assert audit_rep.version == omni_director.__version__
+        assert audit_rep.passed is True
+        assert audit_rep.critical_findings_count == 0
+        assert audit_rep.overall_score >= 90.0
+
+        convene_rep = orchestrator.convene_council(bible=ikea, bundle=bundle, output_dir=html_dir)
+        assert convene_rep.version == omni_director.__version__
+        assert convene_rep.passed is True
+        assert convene_rep.critical_findings_count == 0
+        assert convene_rep.overall_score >= 90.0

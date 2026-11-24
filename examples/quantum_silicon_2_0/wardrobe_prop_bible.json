@@ -1,0 +1,112 @@
+{
+  "bible_id": "ART-BIBLE-E8B919D3",
+  "archetype": "tech_hardware",
+  "total_looks": 1,
+  "total_hero_props": 1,
+  "continuity_breaks_detected": 0,
+  "slot_contention_scenes": [],
+  "wardrobe_looks_summary": [
+    {
+      "character_id": "Cleanroom Nanotech Systems Engineer",
+      "look_id": "LOOK_A",
+      "garment_summary": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
+      "weathering_stage": "studio_immaculate",
+      "accessory_lock": [
+        "anti_static_wristband"
+      ]
+    }
+  ],
+  "hero_prop_registry": [
+    {
+      "prop_id": "PROP_DEVICE_01",
+      "prop_name": "Precision Machined Silicon Unibody Device",
+      "action_state": "in_hand_right",
+      "hand_or_anchor": "optical_calibration_plinth",
+      "surface_condition": "held_clean",
+      "continuity_critical": true
+    }
+  ],
+  "scene_art_specs": [
+    {
+      "scene_index": 1,
+      "wardrobe_states": [
+        {
+          "character_id": "Cleanroom Nanotech Systems Engineer",
+          "look_id": "LOOK_A",
+          "garment_summary": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
+          "weathering_stage": "studio_immaculate",
+          "accessory_lock": [
+            "anti_static_wristband"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_DEVICE_01",
+          "prop_name": "Precision Machined Silicon Unibody Device",
+          "action_state": "weathered",
+          "hand_or_anchor": "optical_calibration_plinth",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S01_01",
+          "zone_label": "Tech Hardware Sanctuary",
+          "hero_material_finish": "Silicon wafer mirror finish reflects sterile yellow lithography lighting, CNC unibody chamfered edges retain micron-level geometric tolerance",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=weathered@optical_calibration_plinth | slots=3/3]"
+    },
+    {
+      "scene_index": 2,
+      "wardrobe_states": [
+        {
+          "character_id": "Cleanroom Nanotech Systems Engineer",
+          "look_id": "LOOK_A",
+          "garment_summary": "Cleanroom white Gore-Tex antistatic suit with matte sapphire visor",
+          "weathering_stage": "studio_immaculate",
+          "accessory_lock": [
+            "anti_static_wristband"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_DEVICE_01",
+          "prop_name": "Precision Machined Silicon Unibody Device",
+          "action_state": "in_hand_right",
+          "hand_or_anchor": "optical_calibration_plinth",
+          "surface_condition": "held_clean",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S02_01",
+          "zone_label": "Tech Hardware Sanctuary",
+          "hero_material_finish": "Silicon wafer mirror finish reflects sterile yellow lithography lighting, CNC unibody chamfered edges retain micron-level geometric tolerance",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=in_hand_right@optical_calibration_plinth | slots=3/3]"
+    }
+  ],
+  "pull_list_ready": true
+}

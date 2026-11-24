@@ -24,6 +24,11 @@ from omni_director.schemas import (
     WindDriftVectorSpec,
 )
 
+try:
+    from omni_director.schemas import __version__ as _OMNI_VERSION
+except ImportError:
+    _OMNI_VERSION = "2.16.0"
+
 
 def calculate_solar_ephemeris(
     hour_utc: float = 17.5,
@@ -258,7 +263,7 @@ def generate_drone_flight_gpx(spec: DroneFlightPathSpec, title: str = "Flight Wa
     """Generates a standard GPX 1.1 XML file for GPS flight controllers and GIS tools."""
     gpx = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<gpx version="1.1" creator="OmniDirector-v2.13.0" xmlns="http://www.topografix.com/GPX/1/1">',
+        f'<gpx version="1.1" creator="OmniDirector-v{_OMNI_VERSION}" xmlns="http://www.topografix.com/GPX/1/1">',
         '  <metadata>',
         f'    <name>{title}</name>',
         f'    <desc>Flight Plan {spec.flight_id} ({spec.flight_profile})</desc>',

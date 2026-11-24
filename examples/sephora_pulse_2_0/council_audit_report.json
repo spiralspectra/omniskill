@@ -1,14 +1,14 @@
 {
-  "version": "2.15.0",
+  "version": "2.16.0",
   "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-  "timestamp": "2026-11-23T09:37:42.845242+00:00",
-  "overall_score": 100.0,
+  "timestamp": "2026-11-24T09:40:08.396775+00:00",
+  "overall_score": 98.0,
   "passed": true,
   "critical_findings_count": 0,
   "reviews": [
     {
       "persona": "council-fde",
-      "score": 25.0,
+      "score": 23.0,
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
@@ -313,6 +313,34 @@
           }
         },
         {
+          "severity": "warning",
+          "category": "wardrobe_prop_delivery",
+          "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
+          "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+          "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+          "details": {
+            "missing_artifacts": [
+              "wardrobe_prop_bible.json",
+              "prop_continuity_matrix.csv",
+              "art_dept_pull_list.md"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "category": "render_economics_delivery",
+          "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
+          "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+          "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+          "details": {
+            "missing_artifacts": [
+              "render_economics_manifest.json",
+              "take_variant_ledger.csv",
+              "ai_compute_estimate.md"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
@@ -401,9 +429,35 @@
           "details": {
             "scene_count": 4
           }
+        },
+        {
+          "severity": "info",
+          "category": "wardrobe_prop_schema",
+          "message": "MasterWardrobePropBible verified (4 scenes, looks=2, hero_props=1, pull_list_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "scene_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "render_economics_schema",
+          "message": "MasterRenderEconomicsManifest verified (4 2026 model rates, dry_run_billable_usd=$0.00, takes=8).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "model_rate_ids": [
+              "gemini-4-argon",
+              "gemini-3.8-flash",
+              "gemini-3-pro-image",
+              "gemini-omni-1.1-flash-preview"
+            ],
+            "dry_run_billable_usd": 0.0
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 29 findings."
+      "summary": "FDE review completed with score 23.0/25.0. 33 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -419,26 +473,6 @@
           "remediation": null,
           "suggested_fix": null,
           "details": null
-        },
-        {
-          "severity": "info",
-          "category": "hdr_prompt_token_compliance",
-          "message": "HDR broadcast color volume prompt tokens verified across 4/4 scene prompts.",
-          "remediation": null,
-          "suggested_fix": null,
-          "details": {
-            "hdr_scenes_count": 4
-          }
-        },
-        {
-          "severity": "info",
-          "category": "stripboard_prompt_token_compliance",
-          "message": "1st AD script breakdown prompt tokens verified across 4/4 scene prompts.",
-          "remediation": null,
-          "suggested_fix": null,
-          "details": {
-            "breakdown_scenes_count": 4
-          }
         },
         {
           "severity": "info",
@@ -597,6 +631,22 @@
         },
         {
           "severity": "info",
+          "category": "art_continuity_schema_compliance",
+          "message": "Wardrobe/Prop Continuity & <image_1..3> slot budget verified across 4 scene(s) (continuity_breaks=0).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "render_economics_schema_compliance",
+          "message": "Render Economics Guardrail verified across 4 scene(s) (within_budget=True, total_takes=8).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
           "remediation": null,
@@ -615,6 +665,14 @@
           "severity": "info",
           "category": "audit_report_localization_and_spotting_compliance",
           "message": "Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_art_and_economics_compliance",
+          "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -958,6 +1016,31 @@
         },
         {
           "severity": "info",
+          "category": "domain_wardrobe_prop_continuity",
+          "message": "Wardrobe & Prop Continuity verified for domain 'luxury_fashion' (looks=2, hero_props=1, continuity_breaks=0, pull_list_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "continuity_breaks_detected": 0,
+            "expected_prop_id": "PROP_CLUTCH_01"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_render_economics",
+          "message": "Render economics calibrated for domain 'luxury_fashion' (est=$16.59/$50.00 cap, domain_cap=$25.00, AI-vs-AICP savings=100.00%).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "estimated_total_usd": 16.586,
+            "max_render_budget_usd": 50.0,
+            "simulation_savings_vs_aicp_pct": 99.9956
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
           "remediation": null,
@@ -1162,6 +1245,30 @@
         },
         {
           "severity": "info",
+          "category": "animatic_command_palette_hud",
+          "message": "Unified HUD Command Palette verified (#btn-command-palette-animatic / #modal-hud-command-palette / hotkey '/').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_art_wardrobe_hud",
+          "message": "Art & Wardrobe Continuity Locker HUD verified (#btn-art-dept-animatic / #modal-art-wardrobe-continuity / hotkey '\\').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_render_economics_hud",
+          "message": "Compute Economics & Take-Variant Inspector HUD verified (#btn-economics-animatic / #modal-render-economics / hotkey ';').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1179,7 +1286,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 60 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1220,7 +1327,10 @@
       "summary": "UX Designer review completed with score 25.0/25.0."
     }
   ],
-  "recommendations": [],
+  "recommendations": [
+    "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+    "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+  ],
   "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "pm_recommendations": [
     {
@@ -1651,8 +1761,8 @@
     {
       "feature_id": "PM-FEAT-029",
       "title": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-      "problem_statement": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-      "proposed_solution": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "problem_statement": "Spatial computing platforms and immersive theater campaigns for 'SEPHORA: London Pulse (Midnight Velvet)' require physically calibrated stereoscopic interaxial baselines, convergence plane tracking, <=3.0% positive retinal parallax comfort gating, and Apple Vision Pro MV-HEVC (hvc1) metadata packages across every scene.",
+      "proposed_solution": "Implement StereoscopicRigType, SpatialVideoFormat, S3DCameraSpec, SceneStereoscopicSpec, and MasterSpatialVideoSpec schemas; omni_director.tools.stereoscopic_3d (calculate_parallax_budget, compute_mv_hevc_metadata, compile_s3d_manifest, format_s3d_prompt_token, export_s3d_csv, export_spatial_manifest_json, export_s3d_bundle, [S3D-RIG: ...] prompt tokens); 6-domain calibration via get_domain_s3d_spec(); and an interactive S3D Stereoscopy & MV-HEVC Spatial HUD []] (#btn-s3d-animatic, #modal-s3d-stereography, #s3d-anaglyph-canvas, #s3d-depth-svg) in the dark-room animatic.",
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/stereoscopic_3d.py",
@@ -1672,8 +1782,8 @@
     {
       "feature_id": "PM-FEAT-030",
       "title": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-      "problem_statement": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-      "proposed_solution": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "problem_statement": "Broadcast networks, streaming distributors, and public-sector brand spots for 'SEPHORA: London Pulse (Midnight Velvet)' require 21st Century CVAA Audio Description cue sheets fitted strictly into open dialogue gaps (zero collision), speech-rate pacing checks, WCAG 2.2 AA/AAA contrast verification, and WebVTT AD subtitle deliverables.",
+      "proposed_solution": "Implement AdTargetAudience, AudioDescriptionCueSpec, SceneAccessibilityProfileSpec, and MasterAccessibilitySpec schemas; omni_director.tools.accessibility_ad (detect_dialogue_gaps, verify_wcag_color_contrast, compile_accessibility_manifest, format_ad_prompt_token, export_ad_vtt, export_ad_script_csv, export_accessibility_manifest_json, export_accessibility_bundle, [AD-CUE: ...] prompt tokens); 6-domain calibration via get_domain_accessibility_spec(); and an interactive Accessibility & AD Compliance HUD [[] (#btn-ad-animatic, #modal-accessibility-ad, #ad-scrubber-ribbon) in the dark-room animatic.",
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/accessibility_ad.py",
@@ -1686,6 +1796,46 @@
         "omni_director/agents/council.py",
         "omni_director/cli.py",
         "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-031",
+      "title": "Wardrobe, Prop Action-State Continuity & Art Department Dressing Bible",
+      "problem_statement": "Multi-scene commercial productions for 'SEPHORA: London Pulse (Midnight Velvet)' suffer from unmotivated prop state reversals (e.g. damaged->intact or left/right hand swaps), costume weathering drift, and <image_1..3> Nano Banana reference slot contention when wardrobe, environment, and hero prop plates exceed the 3-slot architectural ceiling.",
+      "proposed_solution": "Implement ScenePropContinuityState, SceneWardrobeStateSpec, ArtDressingAnchorSpec, SceneArtContinuitySpec, and MasterWardrobePropBible schemas; omni_director.tools.wardrobe_props (detect_prop_state_transitions, validate_reference_slot_budget, format_art_continuity_token, compile_wardrobe_prop_bible, export_wardrobe_prop_bundle, [WARDROBE-LOCK:]/[PROP-STATE:] tokens); 6-domain calibration via get_domain_wardrobe_prop_spec(); and the Art & Wardrobe Continuity Locker HUD [\\] (#btn-art-dept-animatic, #modal-art-wardrobe-continuity) plus Unified HUD Command Palette [/] (#btn-command-palette-animatic, #modal-hud-command-palette).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/wardrobe_props.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-032",
+      "title": "Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger",
+      "problem_statement": "Executive producers and virtual production supervisors for 'SEPHORA: London Pulse (Midnight Velvet)' need deterministic per-scene token, Nano Banana plate, and Omni video compute cost estimates strictly priced on the 2026 Gemini Model Matrix, with hard live-render budget caps, AI-vs-AICP savings telemetry, and reproducible seed/take variant ledgers.",
+      "proposed_solution": "Implement ModelTierRateSpec, TakeVariantRecord, SceneComputeEstimateSpec, RenderBudgetGuardrailSpec, and MasterRenderEconomicsManifest schemas; omni_director.tools.render_economics (get_2026_model_matrix_rates, estimate_scene_compute_cost, check_render_budget_guardrail, compile_render_economics_manifest, format_render_profile_token, export_render_economics_bundle, [RENDER-PROFILE: ...] tokens); 6-domain calibration via get_domain_render_economics_spec(); and the Compute Economics & Take-Variant Inspector HUD [;] (#btn-economics-animatic, #modal-render-economics) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/render_economics.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/telemetry.py"
       ],
       "priority": "P0",
       "status": "implemented"

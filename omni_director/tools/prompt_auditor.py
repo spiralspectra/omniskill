@@ -63,6 +63,8 @@ from omni_director.tools.safety_risk import (
     assess_scene_hazards,
     format_safety_prompt_token,
 )
+from omni_director.tools.wardrobe_props import format_art_continuity_token
+from omni_director.tools.render_economics import format_render_profile_token
 
 
 def _format_localization_prompt_token(
@@ -737,7 +739,7 @@ def audit_omni_scene_prompt(
 
     # S3D Rig & Comfort Limit (PM-FEAT-029)
     s3d_spec_obj = getattr(scene, "s3d_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("s3d_spec")
-    s3d_patterns = r"(?:\[S3D[ _]RIG:?|s3d_rig|stereoscopic|mv_hevc|positive_parallax_pct)"
+    s3d_patterns = r"(?:\[S3D[-_ ]RIG:?|s3d_rig|stereoscopic|mv_hevc|positive_parallax_pct)"
     s3d_match = re.search(s3d_patterns, prompt, re.IGNORECASE)
     s3d_compliant_val = True
     if s3d_spec_obj is not None:
@@ -759,7 +761,7 @@ def audit_omni_scene_prompt(
 
     # Accessibility AD Cue & CVAA Compliance (PM-FEAT-030)
     ad_spec_obj = getattr(scene, "accessibility_spec", None) if isinstance(scene, ScenePromptSpec) else kwargs.get("accessibility_spec")
-    ad_patterns = r"(?:\[AD[ _]CUE:?|ad_cue|cvaa_compliant|audio_description)"
+    ad_patterns = r"(?:\[AD[-_ ]CUE:?|ad_cue|cvaa_compliant|audio_description)"
     ad_match = re.search(ad_patterns, prompt, re.IGNORECASE)
     ad_compliant_val = True
     if ad_spec_obj is not None:
@@ -778,6 +780,74 @@ def audit_omni_scene_prompt(
         details["ad_cue_compliant"] = True
         details["ad_cue_reward"] = 1.0
         details["ad_cue_descriptor"] = ad_match.group(0)
+
+    # Wardrobe, Prop & Art Dressing Continuity (PM-FEAT-031)
+    art_spec_obj = (
+        getattr(scene, "art_continuity_spec", None)
+        if isinstance(scene, ScenePromptSpec)
+        else kwargs.get("art_continuity_spec")
+    )
+    art_patterns = r"(?:\[WARDROBE[-_ ]LOCK:?|\[PROP[-_ ]STATE:?|wardrobe_lock|prop_state|art_continuity)"
+    art_match = re.search(art_patterns, prompt, re.IGNORECASE)
+    art_continuity_compliant_val = True
+    if art_spec_obj is not None:
+        assigned_slots = list(getattr(art_spec_obj, "assigned_reference_slots", None) or [])
+        slot_contention = bool(getattr(art_spec_obj, "slot_contention_detected", False))
+        if len(assigned_slots) > 3:
+            art_continuity_compliant_val = False
+            details["art_continuity_compliant"] = False
+            errors.append(
+                "Art Continuity Violation: assigned_reference_slots exceeds the 3-slot <image_1..3> ceiling."
+            )
+        elif slot_contention:
+            art_continuity_compliant_val = False
+            details["art_continuity_compliant"] = False
+            warnings.append(
+                "Art Continuity Warning: Reference slot contention detected (>3 wardrobe/env/prop plates)."
+            )
+        else:
+            details["art_continuity_compliant"] = True
+            details["art_continuity_reward"] = 1.0
+            details["art_continuity_descriptor"] = format_art_continuity_token(art_spec_obj)
+    elif art_match:
+        details["art_continuity_compliant"] = True
+        details["art_continuity_reward"] = 1.0
+        details["art_continuity_descriptor"] = art_match.group(0)
+
+    # AI Compute, Take-Budget & Render Economics (PM-FEAT-032)
+    compute_spec_obj = (
+        getattr(scene, "compute_estimate_spec", None)
+        if isinstance(scene, ScenePromptSpec)
+        else kwargs.get("compute_estimate_spec")
+    )
+    econ_patterns = r"(?:\[RENDER[-_ ]PROFILE:?|render_profile|compute_estimate|planned_takes)"
+    econ_match = re.search(econ_patterns, prompt, re.IGNORECASE)
+    render_economics_compliant_val = True
+    if compute_spec_obj is not None:
+        planned_takes_val = int(getattr(compute_spec_obj, "planned_takes", 1) or 0)
+        est_scene_usd = float(getattr(compute_spec_obj, "estimated_scene_usd", 0.0) or 0.0)
+        econ_manifest = (
+            getattr(bible_ctx, "master_render_economics_spec", None)
+            if bible_ctx is not None
+            else None
+        )
+        guardrail_ok = True
+        if econ_manifest is not None and getattr(econ_manifest, "guardrail", None) is not None:
+            guardrail_ok = bool(getattr(econ_manifest.guardrail, "within_budget", True))
+        if planned_takes_val < 1 or est_scene_usd < 0.0 or not guardrail_ok:
+            render_economics_compliant_val = False
+            details["render_economics_compliant"] = False
+            warnings.append(
+                "Render Economics Warning: Invalid take budget or render budget guardrail exceeded."
+            )
+        else:
+            details["render_economics_compliant"] = True
+            details["render_economics_reward"] = 1.0
+            details["render_economics_descriptor"] = format_render_profile_token(compute_spec_obj)
+    elif econ_match:
+        details["render_economics_compliant"] = True
+        details["render_economics_reward"] = 1.0
+        details["render_economics_descriptor"] = econ_match.group(0)
 
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
@@ -851,6 +921,11 @@ def audit_omni_scene_prompt(
         "[safety_jsa:", "[safety jsa:",
         "[localization_adr:", "[localization adr:",
         "[spotting_sync:", "[spotting sync:",
+        "[s3d-rig:", "[s3d_rig:", "[s3d rig:",
+        "[ad-cue:", "[ad_cue:", "[ad cue:",
+        "[wardrobe-lock:", "[wardrobe_lock:",
+        "[prop-state:", "[prop_state:",
+        "[render-profile:", "[render_profile:",
     ]
     has_camera = any(term in prompt.lower() for term in camera_terms)
     if craft_camera is not None:
@@ -952,6 +1027,14 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("spotting_sync_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("s3d_rig_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("ad_cue_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("art_continuity_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("render_economics_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -975,6 +1058,10 @@ def audit_omni_scene_prompt(
         safety_risk_compliant=safety_risk_compliant_val,
         localization_adr_compliant=localization_adr_compliant_val,
         spotting_sync_compliant=spotting_sync_compliant_val,
+        s3d_rig_compliant=s3d_compliant_val,
+        ad_cue_compliant=ad_compliant_val,
+        art_continuity_compliant=art_continuity_compliant_val,
+        render_economics_compliant=render_economics_compliant_val,
     )
 
 
@@ -1186,6 +1273,45 @@ def heal_omni_scene_prompt(
         (edit_bridge_heal is not None or spotting_manifest_heal is not None)
         and not re.search(r"\[SPOTTING[ _]SYNC:?", current_prompt, re.IGNORECASE)
     )
+    s3d_spec_heal = (
+        (getattr(scene, "s3d_spec", None) if is_spec else None)
+        or (getattr(spec_context, "s3d_spec", None) if spec_context else None)
+        or kwargs.get("s3d_spec")
+    )
+    needs_s3d_injection = bool(
+        s3d_spec_heal is not None
+        and not re.search(r"\[S3D[-_ ]RIG:?", current_prompt, re.IGNORECASE)
+    )
+    ad_spec_heal = (
+        (getattr(scene, "accessibility_spec", None) if is_spec else None)
+        or (getattr(spec_context, "accessibility_spec", None) if spec_context else None)
+        or kwargs.get("accessibility_spec")
+    )
+    needs_ad_injection = bool(
+        ad_spec_heal is not None
+        and not re.search(r"\[AD[-_ ]CUE:?", current_prompt, re.IGNORECASE)
+    )
+    art_spec_heal = (
+        (getattr(scene, "art_continuity_spec", None) if is_spec else None)
+        or (getattr(spec_context, "art_continuity_spec", None) if spec_context else None)
+        or kwargs.get("art_continuity_spec")
+    )
+    needs_art_injection = bool(
+        art_spec_heal is not None
+        and not (
+            re.search(r"\[WARDROBE[-_ ]LOCK:?", current_prompt, re.IGNORECASE)
+            and re.search(r"\[PROP[-_ ]STATE:?", current_prompt, re.IGNORECASE)
+        )
+    )
+    econ_spec_heal = (
+        (getattr(scene, "compute_estimate_spec", None) if is_spec else None)
+        or (getattr(spec_context, "compute_estimate_spec", None) if spec_context else None)
+        or kwargs.get("compute_estimate_spec")
+    )
+    needs_economics_injection = bool(
+        econ_spec_heal is not None
+        and not re.search(r"\[RENDER[-_ ]PROFILE:?", current_prompt, re.IGNORECASE)
+    )
 
     if (
         current_audit.passed
@@ -1202,6 +1328,10 @@ def heal_omni_scene_prompt(
         and not needs_safety_injection
         and not needs_localization_injection
         and not needs_spotting_injection
+        and not needs_s3d_injection
+        and not needs_ad_injection
+        and not needs_art_injection
+        and not needs_economics_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -1701,13 +1831,16 @@ def heal_omni_scene_prompt(
 
 
         # 3w. Inject S3D Rig token if configured (PM-FEAT-029)
-        s3d_spec_heal = getattr(scene, "s3d_spec", None) if hasattr(scene, "s3d_spec") else None
-        if s3d_spec_heal is not None and not re.search(r"\[S3D[ _]RIG:?", working_prompt, re.IGNORECASE):
-            token = _format_s3d_prompt_token(s3d_spec_heal, kwargs.get('bible'))
+        s3d_spec_heal = (
+            (getattr(scene, "s3d_spec", None) if hasattr(scene, "s3d_spec") else None)
+            or kwargs.get("s3d_spec")
+        )
+        if s3d_spec_heal is not None and not re.search(r"\[S3D[-_ ]RIG:?", working_prompt, re.IGNORECASE):
+            token = _format_s3d_prompt_token(s3d_spec_heal, kwargs.get("bible"))
             working_prompt = working_prompt.rstrip() + f" {token}."
             if "s3d_rig" not in applied_patches:
                 applied_patches.append("s3d_rig")
-        
+
         # Heal out-of-bounds parallax
         if s3d_spec_heal is not None:
             if getattr(s3d_spec_heal, "max_positive_parallax_pct", 0.0) > 3.0:
@@ -1716,13 +1849,16 @@ def heal_omni_scene_prompt(
                     applied_patches.append("healed_s3d_comfort")
 
         # 3x. Inject Accessibility AD Cue token if configured (PM-FEAT-030)
-        ad_spec_heal = getattr(scene, "accessibility_spec", None) if hasattr(scene, "accessibility_spec") else None
-        if ad_spec_heal is not None and not re.search(r"\[AD[ _]CUE:?", working_prompt, re.IGNORECASE):
-            token = _format_ad_prompt_token(ad_spec_heal, kwargs.get('bible'))
+        ad_spec_heal = (
+            (getattr(scene, "accessibility_spec", None) if hasattr(scene, "accessibility_spec") else None)
+            or kwargs.get("accessibility_spec")
+        )
+        if ad_spec_heal is not None and not re.search(r"\[AD[-_ ]CUE:?", working_prompt, re.IGNORECASE):
+            token = _format_ad_prompt_token(ad_spec_heal, kwargs.get("bible"))
             working_prompt = working_prompt.rstrip() + f" {token}."
             if "ad_cue" not in applied_patches:
                 applied_patches.append("ad_cue")
-                
+
         # Heal overlapping AD
         if ad_spec_heal is not None:
             if not getattr(ad_spec_heal, "cvaa_compliant", True):
@@ -1731,6 +1867,42 @@ def heal_omni_scene_prompt(
                     ad_spec_heal.dialogue_overlap = False
                 if "healed_ad_cvaa" not in applied_patches:
                     applied_patches.append("healed_ad_cvaa")
+
+        # 3y. Inject Wardrobe, Prop & Art Continuity token if configured (PM-FEAT-031)
+        art_spec_heal = (
+            (getattr(scene, "art_continuity_spec", None) if hasattr(scene, "art_continuity_spec") else None)
+            or kwargs.get("art_continuity_spec")
+        )
+        if art_spec_heal is not None:
+            if len(getattr(art_spec_heal, "assigned_reference_slots", None) or []) > 3:
+                art_spec_heal.assigned_reference_slots = art_spec_heal.assigned_reference_slots[:3]
+                art_spec_heal.slot_contention_detected = False
+                if "healed_art_slot_budget" not in applied_patches:
+                    applied_patches.append("healed_art_slot_budget")
+            elif getattr(art_spec_heal, "slot_contention_detected", False):
+                art_spec_heal.slot_contention_detected = False
+                if "healed_art_slot_budget" not in applied_patches:
+                    applied_patches.append("healed_art_slot_budget")
+
+            if not (
+                re.search(r"\[WARDROBE[-_ ]LOCK:?", working_prompt, re.IGNORECASE)
+                and re.search(r"\[PROP[-_ ]STATE:?", working_prompt, re.IGNORECASE)
+            ):
+                token = format_art_continuity_token(art_spec_heal)
+                working_prompt = working_prompt.rstrip() + f" {token}."
+                if "art_continuity" not in applied_patches:
+                    applied_patches.append("art_continuity")
+
+        # 3z. Inject Render Economics Profile token if configured (PM-FEAT-032)
+        econ_spec_heal = (
+            (getattr(scene, "compute_estimate_spec", None) if hasattr(scene, "compute_estimate_spec") else None)
+            or kwargs.get("compute_estimate_spec")
+        )
+        if econ_spec_heal is not None and not re.search(r"\[RENDER[-_ ]PROFILE:?", working_prompt, re.IGNORECASE):
+            token = format_render_profile_token(econ_spec_heal)
+            working_prompt = working_prompt.rstrip() + f" {token}."
+            if "render_economics" not in applied_patches:
+                applied_patches.append("render_economics")
 
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
@@ -1866,6 +2038,16 @@ def heal_omni_scene_prompt(
         needs_safety_still = bool(safety_obj is not None and not (current_audit.details and current_audit.details.get("safety_risk_compliant")))
         needs_localization_still = bool((loc_tracks_heal or loc_manifest_heal is not None) and not re.search(r"\[LOCALIZATION[ _]ADR:?", working_prompt, re.IGNORECASE))
         needs_spotting_still = bool((edit_bridge_heal is not None or spotting_manifest_heal is not None) and not re.search(r"\[SPOTTING[ _]SYNC:?", working_prompt, re.IGNORECASE))
+        needs_s3d_still = bool(s3d_spec_heal is not None and not re.search(r"\[S3D[-_ ]RIG:?", working_prompt, re.IGNORECASE))
+        needs_ad_still = bool(ad_spec_heal is not None and not re.search(r"\[AD[-_ ]CUE:?", working_prompt, re.IGNORECASE))
+        needs_art_still = bool(
+            art_spec_heal is not None
+            and not (
+                re.search(r"\[WARDROBE[-_ ]LOCK:?", working_prompt, re.IGNORECASE)
+                and re.search(r"\[PROP[-_ ]STATE:?", working_prompt, re.IGNORECASE)
+            )
+        )
+        needs_economics_still = bool(econ_spec_heal is not None and not re.search(r"\[RENDER[-_ ]PROFILE:?", working_prompt, re.IGNORECASE))
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -1880,6 +2062,10 @@ def heal_omni_scene_prompt(
             and not needs_safety_still
             and not needs_localization_still
             and not needs_spotting_still
+            and not needs_s3d_still
+            and not needs_ad_still
+            and not needs_art_still
+            and not needs_economics_still
         ):
             break
 
@@ -1938,7 +2124,8 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"C2PA_PROVENANCE|C2PA\s+PROVENANCE|SAFETY_JSA|SAFETY\s+JSA|"
     r"LOCALIZATION_ADR|LOCALIZATION\s+ADR|SPOTTING_SYNC|SPOTTING\s+SYNC|"
     r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
-    r"VFX_COMPOSITING|VFX\s+COMPOSITING|S3D[-_]RIG|S3D\s+RIG|AD[-_]CUE|AD\s+CUE)\s*:[^\]]*\]\.?",
+    r"VFX_COMPOSITING|VFX\s+COMPOSITING|S3D[-_]RIG|S3D\s+RIG|AD[-_]CUE|AD\s+CUE|"
+    r"WARDROBE[-_]LOCK|WARDROBE\s+LOCK|PROP[-_]STATE|PROP\s+STATE|RENDER[-_]PROFILE|RENDER\s+PROFILE)\s*:[^\]]*\]\.?",
     re.IGNORECASE,
 )
 

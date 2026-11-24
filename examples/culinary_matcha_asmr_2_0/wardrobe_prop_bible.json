@@ -1,0 +1,112 @@
+{
+  "bible_id": "ART-BIBLE-CC8875B6",
+  "archetype": "culinary_asmr",
+  "total_looks": 1,
+  "total_hero_props": 1,
+  "continuity_breaks_detected": 0,
+  "slot_contention_scenes": [],
+  "wardrobe_looks_summary": [
+    {
+      "character_id": "Master Artisanal Chef / Tea Master",
+      "look_id": "LOOK_A",
+      "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+      "weathering_stage": "crisp_starched",
+      "accessory_lock": [
+        "linen_side_towel"
+      ]
+    }
+  ],
+  "hero_prop_registry": [
+    {
+      "prop_id": "PROP_KNIFE_01",
+      "prop_name": "Hand-Forged Gyuto Chef Knife",
+      "action_state": "weathered",
+      "hand_or_anchor": "end_grain_walnut_block",
+      "surface_condition": "moisture_dusted",
+      "continuity_critical": true
+    }
+  ],
+  "scene_art_specs": [
+    {
+      "scene_index": 1,
+      "wardrobe_states": [
+        {
+          "character_id": "Master Artisanal Chef / Tea Master",
+          "look_id": "LOOK_A",
+          "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+          "weathering_stage": "crisp_starched",
+          "accessory_lock": [
+            "linen_side_towel"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_KNIFE_01",
+          "prop_name": "Hand-Forged Gyuto Chef Knife",
+          "action_state": "weathered",
+          "hand_or_anchor": "end_grain_walnut_block",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S01_01",
+          "zone_label": "Culinary Asmr Sanctuary",
+          "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+    },
+    {
+      "scene_index": 2,
+      "wardrobe_states": [
+        {
+          "character_id": "Master Artisanal Chef / Tea Master",
+          "look_id": "LOOK_A",
+          "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+          "weathering_stage": "crisp_starched",
+          "accessory_lock": [
+            "linen_side_towel"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_KNIFE_01",
+          "prop_name": "Hand-Forged Gyuto Chef Knife",
+          "action_state": "weathered",
+          "hand_or_anchor": "end_grain_walnut_block",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S02_01",
+          "zone_label": "Culinary Asmr Sanctuary",
+          "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+    }
+  ],
+  "pull_list_ready": true
+}

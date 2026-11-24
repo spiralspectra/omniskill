@@ -57,7 +57,7 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
               📐 Blocking [W]
             </button>
-            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="animatic-s3d-hud" title="S3D Stereoscopy []]">
+            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="modal-s3d-stereography" title="S3D Stereoscopy []]">
               👓 S3D Stereoscopy []]
             </button>
           </div>
@@ -110,7 +110,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-prep" onclick="toggleDeptGroup('prep')" aria-expanded="false" aria-controls="dept-tray-prep">
             <span class="dept-pill-icon" aria-hidden="true">📋</span>
             <span>Prep &amp; Budget</span>
-            <span class="dept-count">4</span>
+            <span class="dept-count">6</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-prep" role="group" aria-label="Prep and Budget Tools" hidden>
@@ -125,6 +125,12 @@ def _build_departmental_toolbar_html() -> str:
             </button>
             <button type="button" class="btn-dit-lut" id="btn-safety-animatic" onclick="toggleSafetyHUD()" aria-label="On-Set Safety Risk and Exclusion Zone HUD [Z]" aria-expanded="false" aria-controls="animatic-safety-hud">
               🦺 Safety JSA [Z]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-art-dept-animatic" onclick="toggleArtWardrobeHUD()" aria-label="Art &amp; Wardrobe Continuity Locker [\\]" aria-expanded="false" aria-controls="modal-art-wardrobe-continuity" title="Art &amp; Wardrobe [\\]">
+              👗 Art &amp; Wardrobe [\\]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-economics-animatic" onclick="toggleRenderEconomicsHUD()" aria-label="Compute &amp; Takes Economics Inspector [;]" aria-expanded="false" aria-controls="modal-render-economics" title="Compute &amp; Takes [;]">
+              💎 Compute &amp; Takes [;]
             </button>
           </div>
         </div>
@@ -152,18 +158,22 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
               🌐 i18n / ADR [I]
             </button>
-            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD & CVAA [[]" aria-expanded="false" aria-controls="animatic-accessibility-ad-hud" title="AD & CVAA [[]">
-              🗣️ AD & CVAA [[]
+            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD &amp; CVAA [[]]" aria-expanded="false" aria-controls="modal-accessibility-ad" title="AD &amp; CVAA [[]">
+              🗣️ AD &amp; CVAA [[]
             </button>
           </div>
         </div>
+
+        <button type="button" class="btn-dof" id="btn-command-palette-animatic" onclick="toggleHudCommandPalette()" aria-label="HUD Palette [/]" aria-expanded="false" aria-controls="modal-hud-command-palette" title="Unified HUD Command Palette [/]">
+          ⌘ HUD Palette [/]
+        </button>
 
         <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
           ⤓ Export Production Bible (.json)
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

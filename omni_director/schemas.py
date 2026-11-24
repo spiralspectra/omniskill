@@ -1,10 +1,10 @@
 import json
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.15.0"
+__version__ = "2.16.0"
 
 
 class RegimeType(str, Enum):
@@ -3107,6 +3107,135 @@ class MasterAccessibilitySpec(BaseModel):
     all_scenes_cvaa_compliant: bool = True
     scene_profiles: List[SceneAccessibilityProfileSpec] = Field(default_factory=list)
 
+
+# ==============================================================================
+# PM-FEAT-031: Wardrobe, Prop & Art Dressing Continuity Engine
+# ==============================================================================
+
+PropActionStateEnum = Literal[
+    "intact",
+    "in_hand_left",
+    "in_hand_right",
+    "activated",
+    "weathered",
+    "damaged",
+    "stowed",
+    "exited_frame",
+]
+
+
+class ScenePropContinuityState(BaseModel):
+    """Tracks continuity state of a single hero prop within a scene."""
+    prop_id: str
+    prop_name: str
+    action_state: PropActionStateEnum = "intact"
+    hand_or_anchor: str = "center_table"
+    surface_condition: str = "dry_clean"
+    continuity_critical: bool = True
+
+
+class SceneWardrobeStateSpec(BaseModel):
+    """Tracks character wardrobe look, weathering, and accessory locks within a scene."""
+    character_id: str
+    look_id: str = "LOOK_A"
+    garment_summary: str
+    weathering_stage: str = "dry_tailored"
+    accessory_lock: List[str] = Field(default_factory=list)
+
+
+class ArtDressingAnchorSpec(BaseModel):
+    """Tracks persistent set dressing and material anchor across cuts."""
+    anchor_id: str
+    zone_label: str
+    hero_material_finish: str
+    must_persist_across_cuts: bool = True
+
+
+class SceneArtContinuitySpec(BaseModel):
+    """Scene-level Wardrobe, Prop & Art Dressing continuity contract (PM-FEAT-031)."""
+    scene_index: int
+    wardrobe_states: List[SceneWardrobeStateSpec] = Field(default_factory=list)
+    prop_states: List[ScenePropContinuityState] = Field(default_factory=list)
+    dressing_anchors: List[ArtDressingAnchorSpec] = Field(default_factory=list)
+    assigned_reference_slots: List[str] = Field(default_factory=list)
+    slot_contention_detected: bool = False
+    continuity_delta_note: str = ""
+    art_prompt_token: str = ""
+
+
+class MasterWardrobePropBible(BaseModel):
+    """Master Wardrobe, Prop & Art Department Pull-List Bible (PM-FEAT-031)."""
+    bible_id: str
+    archetype: str
+    total_looks: int = 1
+    total_hero_props: int = 0
+    continuity_breaks_detected: int = 0
+    slot_contention_scenes: List[int] = Field(default_factory=list)
+    wardrobe_looks_summary: List[SceneWardrobeStateSpec] = Field(default_factory=list)
+    hero_prop_registry: List[ScenePropContinuityState] = Field(default_factory=list)
+    scene_art_specs: List[SceneArtContinuitySpec] = Field(default_factory=list)
+    pull_list_ready: bool = True
+
+
+# ==============================================================================
+# PM-FEAT-032: AI Compute, Take-Budget & Render Economics Estimator
+# ==============================================================================
+
+class ModelTierRateSpec(BaseModel):
+    """2026 Model Matrix unit pricing rate card."""
+    model_id: str
+    role_label: str
+    input_per_1m_usd: float
+    output_per_1m_usd: float
+    unit_render_usd: float = 0.0
+
+
+class TakeVariantRecord(BaseModel):
+    """Single deterministic seed / prompt take variant record."""
+    take_id: str
+    seed: int
+    prompt_sha256_prefix: str
+    audit_score: int = 95
+    estimated_cost_usd: float = 0.0
+    selected: bool = False
+    director_note: str = ""
+
+
+class SceneComputeEstimateSpec(BaseModel):
+    """Per-scene AI compute, plate render, and take-budget estimate (PM-FEAT-032)."""
+    scene_index: int
+    duration_seconds: int = 8
+    prompt_mode: Literal["mode_a_4step", "mode_b_6step"] = "mode_a_4step"
+    planned_takes: int = 2
+    plate_renders: int = 1
+    reasoning_tokens_est: int = 3500
+    estimated_scene_usd: float = 0.0
+    takes: List[TakeVariantRecord] = Field(default_factory=list)
+    render_profile_token: str = ""
+
+
+class RenderBudgetGuardrailSpec(BaseModel):
+    """Budget guardrail and live-render abort policy (PM-FEAT-032)."""
+    max_render_budget_usd: float = 50.0
+    estimated_total_usd: float = 0.0
+    utilization_pct: float = 0.0
+    within_budget: bool = True
+    hard_abort_on_live_exceed: bool = True
+    simulation_savings_vs_aicp_pct: float = 0.0
+
+
+class MasterRenderEconomicsManifest(BaseModel):
+    """Master AI Compute, Take-Budget & Render Economics Manifest (PM-FEAT-032)."""
+    manifest_id: str
+    archetype: str
+    model_rates: List[ModelTierRateSpec] = Field(default_factory=list)
+    scene_estimates: List[SceneComputeEstimateSpec] = Field(default_factory=list)
+    guardrail: RenderBudgetGuardrailSpec
+    total_planned_takes: int = 0
+    total_video_seconds_planned: int = 0
+    dry_run_billable_usd: float = 0.0
+
+
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
     scene_index: int = Field(..., description="1-indexed scene number")
@@ -3144,20 +3273,6 @@ class ScenePromptSpec(BaseModel):
         default=None,
         description="Scene Accessibility & Audio Description profile (PM-FEAT-030)"
     )
-    @model_validator(mode="before")
-    @classmethod
-    def _validate_scene_prompt_aliases(cls, values: Any) -> Any:
-        if isinstance(values, dict):
-            if "omni_prose_prompt" not in values or not values.get("omni_prose_prompt"):
-                if "visual_prompt_text" in values:
-                    values["omni_prose_prompt"] = values["visual_prompt_text"]
-                elif "prompt" in values:
-                    values["omni_prose_prompt"] = values["prompt"]
-            if "regime" not in values:
-                values["regime"] = RegimeType.REGIME_1_ATMOSPHERIC
-            if "action_beats" not in values:
-                values["action_beats"] = []
-        return values
     conversational_edit_deltas: List[str] = Field(
         default_factory=list,
         description="Curated single-turn edit variations (e.g. Turn 2 lighting adjustment)"
@@ -3263,6 +3378,29 @@ class ScenePromptSpec(BaseModel):
         validation_alias=AliasChoices("edit_bridge_in", "audio_bridge_in", "j_l_bridge"),
         description="Incoming editorial J-Cut/L-Cut audio bridge entering this scene (PM-FEAT-028)"
     )
+    art_continuity_spec: Optional[SceneArtContinuitySpec] = Field(
+        default=None,
+        description="Scene Wardrobe, Prop & Art Dressing continuity spec (PM-FEAT-031)"
+    )
+    compute_estimate_spec: Optional[SceneComputeEstimateSpec] = Field(
+        default=None,
+        description="Scene AI Compute, Take-Budget & Render Economics spec (PM-FEAT-032)"
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def _validate_scene_prompt_aliases(cls, values: Any) -> Any:
+        if isinstance(values, dict):
+            if "omni_prose_prompt" not in values or not values.get("omni_prose_prompt"):
+                if "visual_prompt_text" in values:
+                    values["omni_prose_prompt"] = values["visual_prompt_text"]
+                elif "prompt" in values:
+                    values["omni_prose_prompt"] = values["prompt"]
+            if "regime" not in values:
+                values["regime"] = RegimeType.REGIME_1_ATMOSPHERIC
+            if "action_beats" not in values:
+                values["action_beats"] = []
+        return values
 
     @model_validator(mode="before")
     @classmethod
@@ -3852,6 +3990,16 @@ class MasterProductionBible(BaseModel):
         validation_alias=AliasChoices("master_accessibility", "accessibility_manifest"),
         description="Master Accessibility & Audio Description spec (PM-FEAT-030)"
     )
+    master_wardrobe_prop_bible: Optional[MasterWardrobePropBible] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_wardrobe_prop_bible", "wardrobe_prop_bible", "art_continuity_bible"),
+        description="Master Wardrobe, Prop & Art Continuity Bible (PM-FEAT-031)"
+    )
+    master_render_economics_spec: Optional[MasterRenderEconomicsManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_render_economics_spec", "render_economics_manifest", "render_economics_spec"),
+        description="Master AI Compute, Take-Budget & Render Economics Manifest (PM-FEAT-032)"
+    )
     @field_validator("nano_banana_assets")
     @classmethod
     def validate_reference_ceiling(cls, assets: List[NanoBananaReference]) -> List[NanoBananaReference]:
@@ -4099,6 +4247,10 @@ class AuditResult(BaseModel):
     safety_risk_compliant: bool = True
     localization_adr_compliant: bool = True
     spotting_sync_compliant: bool = True
+    s3d_rig_compliant: bool = True
+    ad_cue_compliant: bool = True
+    art_continuity_compliant: bool = True
+    render_economics_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -4213,7 +4365,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.15.0"
+    version: str = "2.16.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)

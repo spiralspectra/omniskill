@@ -105,6 +105,9 @@ class DirectorConfig(BaseModel):
     dry_run: bool = Field(
         default_factory=lambda: os.getenv("OMNI_DRY_RUN", "true").lower() in ("true", "1", "yes")
     )
+    max_render_budget_usd: float = Field(
+        default_factory=lambda: float(os.getenv("OMNI_MAX_RENDER_USD", "50.0"))
+    )
 
     @property
     def DIRECTOR_MODEL(self) -> str:

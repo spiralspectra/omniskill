@@ -1297,6 +1297,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v213 import build_v213_hud_bundle
     from omni_director.tools.html_hud_v214 import build_v214_hud_bundle
     from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
+    from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1329,6 +1330,11 @@ def compile_storyboard_html(
     v214_css = v214_bundle["css"] + "\n" + v215_bundle["css"]
     v214_modals_html = v214_bundle["modals_html"] + "\n" + v215_bundle["modals_html"]
     v214_js = v214_bundle["js"] + "\n" + v215_bundle["js"]
+
+    v216_bundle = build_v216_hud_bundle(bible)
+    v216_css = v216_bundle["css"]
+    v216_modals_html = v216_bundle["modals_html"]
+    v216_js = v216_bundle["scripts"]
     
 
     # Serialize bible for client-side export
@@ -4880,6 +4886,7 @@ def compile_storyboard_html(
     {v212_css}
     {v213_css}
     {v214_css}
+    {v216_css}
   </style>
 </head>
 <body>
@@ -6479,6 +6486,7 @@ def compile_storyboard_html(
 {v212_modals_html}
 {v213_modals_html}
 {v214_modals_html}
+{v216_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -7483,7 +7491,7 @@ def compile_storyboard_html(
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "{film_stock_code}_emulation.dctl";
+      a.download = "film_stock_shader.dctl";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -9112,6 +9120,7 @@ def compile_storyboard_html(
     {v212_js}
     {v213_js}
     {v214_js}
+    {v216_js}
 
     function closeSecondaryOpenHUDs() {{
       const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
@@ -9135,20 +9144,23 @@ def compile_storyboard_html(
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
         if (isReviewHUDOpen) toggleReviewHUD();
         if (isC2paHUDOpen) toggleC2paHUD();
         if (isSafetyHUDOpen) toggleSafetyHUD();
-        if (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) toggleS3dHUD();
-        if (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) toggleAccessibilityAdHUD();
+        if (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) toggleS3dHUD(false);
+        if (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) toggleAccessibilityAdHUD(false);
+        if (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) toggleHudCommandPalette(false);
+        if (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) toggleArtWardrobeHUD(false);
+        if (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) toggleRenderEconomicsHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9198,6 +9210,9 @@ def compile_storyboard_html(
       else if (e.key === 'j' || e.key === 'J') toggleSpottingHUD();
       else if (e.key === ']') {{ if (typeof toggleS3dHUD === 'function') toggleS3dHUD(); }}
       else if (e.key === '[') {{ if (typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(); }}
+      else if (e.key === '/') {{ e.preventDefault(); if (typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(); }}
+      else if (e.key === '\\\\') {{ if (typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(); }}
+      else if (e.key === ';') {{ if (typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(); }}
     }});
 
     // Initialize first frame and default look
@@ -9206,6 +9221,7 @@ def compile_storyboard_html(
       setLook('rec709_neutral');
       if (typeof initS3dHUD === 'function') initS3dHUD();
       if (typeof initAccessibilityAdHUD === 'function') initAccessibilityAdHUD();
+      if (typeof initV216HUDs === 'function') initV216HUDs();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

@@ -586,4 +586,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("Accessibility bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.wardrobe_props import export_wardrobe_prop_bundle
+        res.update({k: str(v) for k, v in export_wardrobe_prop_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Wardrobe & prop continuity bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.render_economics import export_render_economics_bundle
+        res.update({k: str(v) for k, v in export_render_economics_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Render economics bundle export skipped: %s", exc)
+
     return res

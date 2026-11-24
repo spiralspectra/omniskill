@@ -46,6 +46,11 @@ SAFE_KEYS = {
     "subtitles_ad",
     "ad_script_cue_sheet",
     "accessibility_ad_manifest",
+    "estimated_total_compute_usd",
+    "render_budget_ceiling_usd",
+    "aicp_savings_pct",
+    "total_planned_takes",
+    "continuity_breaks_detected",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -57,6 +62,8 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "production_bundle.json",
     "production_bible.json",
     "storyboard_preview.html",
+    "council_report.json",
+    "council_report.md",
     # PM-FEAT-001..004: NLE timelines, shot lists, call sheets, subtitles, CDL & audio stems
     "timeline.edl",
     "sequence.fcpxml",
@@ -188,6 +195,14 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "subtitles_ad.vtt",
     "ad_script_cue_sheet.csv",
     "accessibility_ad_manifest.json",
+    # PM-FEAT-031: Art Dept, Wardrobe & Prop Continuity
+    "wardrobe_prop_bible.json",
+    "prop_continuity_matrix.csv",
+    "art_dept_pull_list.md",
+    # PM-FEAT-032: AI Render Economics & Compute Take Budget
+    "render_economics_manifest.json",
+    "take_variant_ledger.csv",
+    "ai_compute_estimate.md",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({

@@ -340,6 +340,24 @@ from omni_director.tools.accessibility_ad import (
     export_accessibility_bundle,
 )
 from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
+from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
+from omni_director.tools.wardrobe_props import (
+    compile_wardrobe_prop_bible,
+    detect_prop_state_transitions,
+    export_wardrobe_prop_bundle,
+    format_art_continuity_token,
+    synthesize_default_wardrobe_prop_bible,
+    validate_reference_slot_budget,
+)
+from omni_director.tools.render_economics import (
+    check_render_budget_guardrail,
+    compile_render_economics_manifest,
+    estimate_scene_compute_cost,
+    export_render_economics_bundle,
+    format_render_profile_token,
+    get_2026_model_matrix_rates,
+    synthesize_default_render_economics_manifest,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -645,5 +663,21 @@ __all__ = [
     "export_accessibility_manifest_json",
     "export_accessibility_bundle",
     "build_v215_hud_bundle",
+    # Wardrobe, Prop & Art Dressing Continuity Engine (PM-FEAT-031)
+    "detect_prop_state_transitions",
+    "validate_reference_slot_budget",
+    "format_art_continuity_token",
+    "compile_wardrobe_prop_bible",
+    "synthesize_default_wardrobe_prop_bible",
+    "export_wardrobe_prop_bundle",
+    # AI Compute, Take-Budget & Render Economics Estimator (PM-FEAT-032)
+    "get_2026_model_matrix_rates",
+    "estimate_scene_compute_cost",
+    "check_render_budget_guardrail",
+    "format_render_profile_token",
+    "compile_render_economics_manifest",
+    "synthesize_default_render_economics_manifest",
+    "export_render_economics_bundle",
+    "build_v216_hud_bundle",
 ]
 

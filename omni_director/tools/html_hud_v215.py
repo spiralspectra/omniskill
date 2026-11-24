@@ -426,12 +426,13 @@ def build_v215_hud_bundle(
 
     let isS3dHUDOpen = false;
     let lastS3dOpener = null;
+    let isAccessibilityAdHUDOpen = false;
     let isAccHUDOpen = false;
     let lastAccOpener = null;
 
     function _v215ShowToast(msg) {{
-        if (typeof showCinemaToast === 'function') {{
-            showCinemaToast(msg);
+        if (typeof showToast === 'function') {{
+            showToast(msg);
             return;
         }}
         const toast = document.createElement('div');
@@ -470,36 +471,49 @@ def build_v215_hud_bundle(
 
     window.toggleS3dHUD = function(forceOpen) {{
         const modal = document.getElementById('modal-s3d-stereography');
+        const btn = document.getElementById('btn-s3d-animatic');
         if (!modal) return;
-        const shouldOpen = forceOpen !== undefined ? forceOpen : !isS3dHUDOpen;
+        const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isS3dHUDOpen;
+        isS3dHUDOpen = shouldOpen;
+        if (btn) {{
+            btn.classList.toggle('active', shouldOpen);
+            btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        }}
         if (shouldOpen) {{
             lastS3dOpener = document.activeElement;
             modal.style.display = 'flex';
-            isS3dHUDOpen = true;
             const closeBtn = document.getElementById('btn-s3d-close');
             if (closeBtn) closeBtn.focus();
             renderS3dAnaglyph();
+            _v215ShowToast('👓 S3D Stereoscopy HUD: ACTIVE []]');
         }} else {{
             modal.style.display = 'none';
-            isS3dHUDOpen = false;
             if (lastS3dOpener && typeof lastS3dOpener.focus === 'function') lastS3dOpener.focus();
+            else if (btn && typeof btn.focus === 'function') btn.focus();
         }}
     }};
 
     window.toggleAccessibilityAdHUD = function(forceOpen) {{
         const modal = document.getElementById('modal-accessibility-ad');
+        const btn = document.getElementById('btn-ad-animatic');
         if (!modal) return;
-        const shouldOpen = forceOpen !== undefined ? forceOpen : !isAccHUDOpen;
+        const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isAccessibilityAdHUDOpen;
+        isAccessibilityAdHUDOpen = shouldOpen;
+        isAccHUDOpen = shouldOpen;
+        if (btn) {{
+            btn.classList.toggle('active', shouldOpen);
+            btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        }}
         if (shouldOpen) {{
             lastAccOpener = document.activeElement;
             modal.style.display = 'flex';
-            isAccHUDOpen = true;
             const closeBtn = document.getElementById('btn-acc-close');
             if (closeBtn) closeBtn.focus();
+            _v215ShowToast('🗣️ Accessibility & AD HUD: ACTIVE [[]');
         }} else {{
             modal.style.display = 'none';
-            isAccHUDOpen = false;
             if (lastAccOpener && typeof lastAccOpener.focus === 'function') lastAccOpener.focus();
+            else if (btn && typeof btn.focus === 'function') btn.focus();
         }}
     }};
 
@@ -538,6 +552,7 @@ def build_v215_hud_bundle(
         const lastEl = focusables[focusables.length - 1];
         modal.addEventListener('keydown', function(e) {{
             if (e.key === 'Tab') {{
+                if (typeof _handleModalTabFocusTrap === 'function') return;
                 if (e.shiftKey && document.activeElement === firstEl) {{
                     lastEl.focus();
                     e.preventDefault();

@@ -1,0 +1,239 @@
+{
+  "manifest_id": "ECON-71837623",
+  "archetype": "kinetic_action",
+  "model_rates": [
+    {
+      "model_id": "gemini-4-argon",
+      "role_label": "Lead Creative Director",
+      "input_per_1m_usd": 2.5,
+      "output_per_1m_usd": 10.0,
+      "unit_render_usd": 0.0
+    },
+    {
+      "model_id": "gemini-3.8-flash",
+      "role_label": "Fast Workhorse Fan-Out",
+      "input_per_1m_usd": 0.15,
+      "output_per_1m_usd": 0.6,
+      "unit_render_usd": 0.0
+    },
+    {
+      "model_id": "gemini-3-pro-image",
+      "role_label": "Visual Concept & Continuity",
+      "input_per_1m_usd": 1.25,
+      "output_per_1m_usd": 5.0,
+      "unit_render_usd": 0.08
+    },
+    {
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "role_label": "Video & Multimodal Audio",
+      "input_per_1m_usd": 0.5,
+      "output_per_1m_usd": 2.0,
+      "unit_render_usd": 0.25
+    }
+  ],
+  "scene_estimates": [
+    {
+      "scene_index": 1,
+      "duration_seconds": 8,
+      "prompt_mode": "mode_a_4step",
+      "planned_takes": 4,
+      "plate_renders": 1,
+      "reasoning_tokens_est": 3500,
+      "estimated_scene_usd": 8.1252,
+      "takes": [
+        {
+          "take_id": "SC01_T1",
+          "seed": 1934192900,
+          "prompt_sha256_prefix": "27c3f08cbc9c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": true,
+          "director_note": "Primary hero take"
+        },
+        {
+          "take_id": "SC01_T2",
+          "seed": 625826154,
+          "prompt_sha256_prefix": "27c3f08cbc9c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 2"
+        },
+        {
+          "take_id": "SC01_T3",
+          "seed": 1375819281,
+          "prompt_sha256_prefix": "27c3f08cbc9c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 3"
+        },
+        {
+          "take_id": "SC01_T4",
+          "seed": 1099599073,
+          "prompt_sha256_prefix": "27c3f08cbc9c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 4"
+        }
+      ],
+      "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=4 | dur=8s | est=$8.13]"
+    },
+    {
+      "scene_index": 2,
+      "duration_seconds": 8,
+      "prompt_mode": "mode_a_4step",
+      "planned_takes": 4,
+      "plate_renders": 1,
+      "reasoning_tokens_est": 3500,
+      "estimated_scene_usd": 8.1252,
+      "takes": [
+        {
+          "take_id": "SC02_T1",
+          "seed": 218213902,
+          "prompt_sha256_prefix": "f9dc2c7648b2",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": true,
+          "director_note": "Primary hero take"
+        },
+        {
+          "take_id": "SC02_T2",
+          "seed": 2118189609,
+          "prompt_sha256_prefix": "f9dc2c7648b2",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 2"
+        },
+        {
+          "take_id": "SC02_T3",
+          "seed": 1191401499,
+          "prompt_sha256_prefix": "f9dc2c7648b2",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 3"
+        },
+        {
+          "take_id": "SC02_T4",
+          "seed": 1392674521,
+          "prompt_sha256_prefix": "f9dc2c7648b2",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 4"
+        }
+      ],
+      "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=4 | dur=8s | est=$8.13]"
+    },
+    {
+      "scene_index": 3,
+      "duration_seconds": 8,
+      "prompt_mode": "mode_a_4step",
+      "planned_takes": 4,
+      "plate_renders": 1,
+      "reasoning_tokens_est": 3500,
+      "estimated_scene_usd": 8.1252,
+      "takes": [
+        {
+          "take_id": "SC03_T1",
+          "seed": 685720716,
+          "prompt_sha256_prefix": "281d629d0b9d",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": true,
+          "director_note": "Primary hero take"
+        },
+        {
+          "take_id": "SC03_T2",
+          "seed": 2109618080,
+          "prompt_sha256_prefix": "281d629d0b9d",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 2"
+        },
+        {
+          "take_id": "SC03_T3",
+          "seed": 1521205094,
+          "prompt_sha256_prefix": "281d629d0b9d",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 3"
+        },
+        {
+          "take_id": "SC03_T4",
+          "seed": 1429902845,
+          "prompt_sha256_prefix": "281d629d0b9d",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 4"
+        }
+      ],
+      "render_profile_token": "[RENDER-PROFILE: SC03 | mode_a_4step | takes=4 | dur=8s | est=$8.13]"
+    },
+    {
+      "scene_index": 4,
+      "duration_seconds": 8,
+      "prompt_mode": "mode_a_4step",
+      "planned_takes": 4,
+      "plate_renders": 1,
+      "reasoning_tokens_est": 3500,
+      "estimated_scene_usd": 8.1252,
+      "takes": [
+        {
+          "take_id": "SC04_T1",
+          "seed": 1640478343,
+          "prompt_sha256_prefix": "17bae0fc8d7c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": true,
+          "director_note": "Primary hero take"
+        },
+        {
+          "take_id": "SC04_T2",
+          "seed": 911478123,
+          "prompt_sha256_prefix": "17bae0fc8d7c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 2"
+        },
+        {
+          "take_id": "SC04_T3",
+          "seed": 902670176,
+          "prompt_sha256_prefix": "17bae0fc8d7c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 3"
+        },
+        {
+          "take_id": "SC04_T4",
+          "seed": 1282101487,
+          "prompt_sha256_prefix": "17bae0fc8d7c",
+          "audit_score": 95,
+          "estimated_cost_usd": 2.0,
+          "selected": false,
+          "director_note": "Coverage safety take 4"
+        }
+      ],
+      "render_profile_token": "[RENDER-PROFILE: SC04 | mode_a_4step | takes=4 | dur=8s | est=$8.13]"
+    }
+  ],
+  "guardrail": {
+    "max_render_budget_usd": 50.0,
+    "estimated_total_usd": 32.5008,
+    "utilization_pct": 65.0,
+    "within_budget": true,
+    "hard_abort_on_live_exceed": true,
+    "simulation_savings_vs_aicp_pct": 99.9911
+  },
+  "total_planned_takes": 16,
+  "total_video_seconds_planned": 128,
+  "dry_run_billable_usd": 0.0
+}

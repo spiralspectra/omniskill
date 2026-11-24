@@ -18,7 +18,12 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from pydantic import ConfigDict
 
-from omni_director.config import FORBIDDEN_LEGACY_PATTERNS, DirectorConfig, cfg
+from omni_director.config import (
+    FORBIDDEN_LEGACY_PATTERNS,
+    DirectorConfig,
+    cfg,
+    validate_model_identifier,
+)
 from omni_director.presets import (
     DOMAIN_ARCHETYPES,
     classify_brief_domain,
@@ -26,6 +31,8 @@ from omni_director.presets import (
     get_domain_spotting_spec,
     get_domain_s3d_spec,
     get_domain_accessibility_spec,
+    get_domain_wardrobe_prop_spec,
+    get_domain_render_economics_spec,
 )
 from omni_director.schemas import (
     StorytellingMode,
@@ -705,8 +712,21 @@ class ProductManagerAgent(BaseAgent):
             ProductFeatureProposal(
                 feature_id="PM-FEAT-029",
                 title="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-                problem_statement="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-                proposed_solution="Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+                problem_statement=(
+                    f"Spatial computing platforms and immersive theater campaigns{project_ctx} require "
+                    "physically calibrated stereoscopic interaxial baselines, convergence plane tracking, "
+                    "<=3.0% positive retinal parallax comfort gating, and Apple Vision Pro MV-HEVC (hvc1) "
+                    "metadata packages across every scene."
+                ),
+                proposed_solution=(
+                    "Implement StereoscopicRigType, SpatialVideoFormat, S3DCameraSpec, SceneStereoscopicSpec, "
+                    "and MasterSpatialVideoSpec schemas; omni_director.tools.stereoscopic_3d "
+                    "(calculate_parallax_budget, compute_mv_hevc_metadata, compile_s3d_manifest, "
+                    "format_s3d_prompt_token, export_s3d_csv, export_spatial_manifest_json, export_s3d_bundle, "
+                    "[S3D-RIG: ...] prompt tokens); 6-domain calibration via get_domain_s3d_spec(); and an "
+                    "interactive S3D Stereoscopy & MV-HEVC Spatial HUD []] (#btn-s3d-animatic, "
+                    "#modal-s3d-stereography, #s3d-anaglyph-canvas, #s3d-depth-svg) in the dark-room animatic."
+                ),
                 target_modules=[
                     "omni_director/schemas.py",
                     "omni_director/tools/stereoscopic_3d.py",
@@ -726,8 +746,22 @@ class ProductManagerAgent(BaseAgent):
             ProductFeatureProposal(
                 feature_id="PM-FEAT-030",
                 title="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-                problem_statement="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-                proposed_solution="Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+                problem_statement=(
+                    f"Broadcast networks, streaming distributors, and public-sector brand spots{project_ctx} "
+                    "require 21st Century CVAA Audio Description cue sheets fitted strictly into open "
+                    "dialogue gaps (zero collision), speech-rate pacing checks, WCAG 2.2 AA/AAA contrast "
+                    "verification, and WebVTT AD subtitle deliverables."
+                ),
+                proposed_solution=(
+                    "Implement AdTargetAudience, AudioDescriptionCueSpec, SceneAccessibilityProfileSpec, and "
+                    "MasterAccessibilitySpec schemas; omni_director.tools.accessibility_ad "
+                    "(detect_dialogue_gaps, verify_wcag_color_contrast, compile_accessibility_manifest, "
+                    "format_ad_prompt_token, export_ad_vtt, export_ad_script_csv, "
+                    "export_accessibility_manifest_json, export_accessibility_bundle, [AD-CUE: ...] prompt tokens); "
+                    "6-domain calibration via get_domain_accessibility_spec(); and an interactive Accessibility & "
+                    "AD Compliance HUD [[] (#btn-ad-animatic, #modal-accessibility-ad, #ad-scrubber-ribbon) "
+                    "in the dark-room animatic."
+                ),
                 target_modules=[
                     "omni_director/schemas.py",
                     "omni_director/tools/accessibility_ad.py",
@@ -740,6 +774,72 @@ class ProductManagerAgent(BaseAgent):
                     "omni_director/agents/council.py",
                     "omni_director/cli.py",
                     "omni_director/tools/nle_export.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-031",
+                title="Wardrobe, Prop Action-State Continuity & Art Department Dressing Bible",
+                problem_statement=(
+                    f"Multi-scene commercial productions{project_ctx} suffer from unmotivated prop state "
+                    "reversals (e.g. damaged->intact or left/right hand swaps), costume weathering drift, "
+                    "and <image_1..3> Nano Banana reference slot contention when wardrobe, environment, and "
+                    "hero prop plates exceed the 3-slot architectural ceiling."
+                ),
+                proposed_solution=(
+                    "Implement ScenePropContinuityState, SceneWardrobeStateSpec, ArtDressingAnchorSpec, "
+                    "SceneArtContinuitySpec, and MasterWardrobePropBible schemas; omni_director.tools.wardrobe_props "
+                    "(detect_prop_state_transitions, validate_reference_slot_budget, format_art_continuity_token, "
+                    "compile_wardrobe_prop_bible, export_wardrobe_prop_bundle, [WARDROBE-LOCK:]/[PROP-STATE:] tokens); "
+                    "6-domain calibration via get_domain_wardrobe_prop_spec(); and the Art & Wardrobe Continuity "
+                    "Locker HUD [\\] (#btn-art-dept-animatic, #modal-art-wardrobe-continuity) plus Unified HUD "
+                    "Command Palette [/] (#btn-command-palette-animatic, #modal-hud-command-palette)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/wardrobe_props.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/telemetry.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-032",
+                title="Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger",
+                problem_statement=(
+                    f"Executive producers and virtual production supervisors{project_ctx} need deterministic "
+                    "per-scene token, Nano Banana plate, and Omni video compute cost estimates strictly "
+                    "priced on the 2026 Gemini Model Matrix, with hard live-render budget caps, AI-vs-AICP "
+                    "savings telemetry, and reproducible seed/take variant ledgers."
+                ),
+                proposed_solution=(
+                    "Implement ModelTierRateSpec, TakeVariantRecord, SceneComputeEstimateSpec, "
+                    "RenderBudgetGuardrailSpec, and MasterRenderEconomicsManifest schemas; "
+                    "omni_director.tools.render_economics (get_2026_model_matrix_rates, estimate_scene_compute_cost, "
+                    "check_render_budget_guardrail, compile_render_economics_manifest, format_render_profile_token, "
+                    "export_render_economics_bundle, [RENDER-PROFILE: ...] tokens); 6-domain calibration via "
+                    "get_domain_render_economics_spec(); and the Compute Economics & Take-Variant Inspector HUD [;] "
+                    "(#btn-economics-animatic, #modal-render-economics) in the dark-room animatic."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/render_economics.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/telemetry.py",
                 ],
                 priority="P0",
                 status="implemented",
@@ -1333,7 +1433,7 @@ class ProductCouncilOrchestrator(BaseAgent):
 
             has_full_nle_exports = (
                 (eval_dir / "timeline.edl").is_file()
-                and (eval_dir / "timeline.fcpxml").is_file()
+                and (eval_dir / "sequence.fcpxml").is_file()
             )
 
             # Verify Multi-Territory Localization, ADR Dubbing & IMSC1 TTML deliverables (PM-FEAT-027)
@@ -1467,7 +1567,7 @@ class ProductCouncilOrchestrator(BaseAgent):
                             f"Partial Accessibility AD deliverables on disk ({', '.join(ad_items)}); "
                             f"missing: {', '.join(missing_ad)}."
                         ),
-                        suggested_fix="Run export_accessibility_ad_bundle() or export_all_nle_artifacts() to export all PM-FEAT-030 artifacts.",
+                        suggested_fix="Run export_accessibility_bundle() or export_all_nle_artifacts() to export all PM-FEAT-030 artifacts.",
                         details={"ad_artifacts": ad_items, "missing_artifacts": missing_ad},
                     ))
                     score -= 1.0
@@ -1483,8 +1583,84 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.MEDIUM,
                     category="accessibility_ad_delivery",
                     message="NLE exports present on disk without PM-FEAT-030 Accessibility AD deliverables (subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json).",
-                    suggested_fix="Run export_accessibility_ad_bundle() or export_all_nle_artifacts().",
+                    suggested_fix="Run export_accessibility_bundle() or export_all_nle_artifacts().",
                     details={"missing_artifacts": ad_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Wardrobe, Prop & Art Dept deliverables (PM-FEAT-031)
+            wardrobe_candidates = [
+                "wardrobe_prop_bible.json",
+                "prop_continuity_matrix.csv",
+                "art_dept_pull_list.md",
+            ]
+            wardrobe_items = [name for name in wardrobe_candidates if (eval_dir / name).is_file()]
+            if wardrobe_items:
+                missing_wardrobe = [name for name in wardrobe_candidates if name not in wardrobe_items]
+                if missing_wardrobe and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="wardrobe_prop_delivery",
+                        message=(
+                            f"Partial Wardrobe & Prop deliverables on disk ({', '.join(wardrobe_items)}); "
+                            f"missing: {', '.join(missing_wardrobe)}."
+                        ),
+                        suggested_fix="Run export_wardrobe_prop_bundle() or export_all_nle_artifacts() to export all PM-FEAT-031 artifacts.",
+                        details={"wardrobe_artifacts": wardrobe_items, "missing_artifacts": missing_wardrobe},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="wardrobe_prop_delivery",
+                        message=f"Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: {', '.join(wardrobe_items)}.",
+                        details={"wardrobe_artifacts": wardrobe_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="wardrobe_prop_delivery",
+                    message="NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
+                    suggested_fix="Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": wardrobe_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Render Economics & Compute Ledger deliverables (PM-FEAT-032)
+            econ_candidates = [
+                "render_economics_manifest.json",
+                "take_variant_ledger.csv",
+                "ai_compute_estimate.md",
+            ]
+            econ_items = [name for name in econ_candidates if (eval_dir / name).is_file()]
+            if econ_items:
+                missing_econ = [name for name in econ_candidates if name not in econ_items]
+                if missing_econ and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="render_economics_delivery",
+                        message=(
+                            f"Partial Render Economics deliverables on disk ({', '.join(econ_items)}); "
+                            f"missing: {', '.join(missing_econ)}."
+                        ),
+                        suggested_fix="Run export_render_economics_bundle() or export_all_nle_artifacts() to export all PM-FEAT-032 artifacts.",
+                        details={"economics_artifacts": econ_items, "missing_artifacts": missing_econ},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="render_economics_delivery",
+                        message=f"Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: {', '.join(econ_items)}.",
+                        details={"economics_artifacts": econ_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="render_economics_delivery",
+                    message="NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
+                    suggested_fix="Run export_render_economics_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": econ_candidates},
                 ))
                 score -= 1.0
 
@@ -1652,6 +1828,83 @@ class ProductCouncilOrchestrator(BaseAgent):
                         f"all_scenes_cvaa_compliant={bool(getattr(ad_spec, 'all_scenes_cvaa_compliant', True))})."
                     ),
                     details={"scene_count": len(getattr(ad_spec, "scene_profiles", []) or [])},
+                ))
+
+        # Verify PM-FEAT-031 & PM-FEAT-032 schema specs when attached to bible/bundle
+        wp_bible = getattr(bible, "master_wardrobe_prop_bible", None)
+        if wp_bible is not None:
+            if not getattr(wp_bible, "bible_id", ""):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="wardrobe_prop_schema",
+                    message="MasterWardrobePropBible is missing required bible_id.",
+                    suggested_fix="Hydrate master_wardrobe_prop_bible via compile_wardrobe_prop_bible() or get_domain_wardrobe_prop_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="wardrobe_prop_schema",
+                    message=(
+                        f"MasterWardrobePropBible verified ({len(getattr(wp_bible, 'scene_art_specs', []) or [])} scenes, "
+                        f"looks={getattr(wp_bible, 'total_looks', 1)}, hero_props={getattr(wp_bible, 'total_hero_props', 0)}, "
+                        f"pull_list_ready={bool(getattr(wp_bible, 'pull_list_ready', True))})."
+                    ),
+                    details={"scene_count": len(getattr(wp_bible, "scene_art_specs", []) or [])},
+                ))
+
+        econ_spec = getattr(bible, "master_render_economics_spec", None)
+        if econ_spec is not None:
+            is_dry_run = bundle is None or str(getattr(bundle, "mode", "dry-run") or "dry-run").lower() == "dry-run"
+            dry_run_billable = float(getattr(econ_spec, "dry_run_billable_usd", 0.0) or 0.0)
+            model_rates = list(getattr(econ_spec, "model_rates", None) or [])
+            invalid_rate_models: List[str] = []
+            for rate in model_rates:
+                m_id = str(getattr(rate, "model_id", "") or "")
+                try:
+                    validate_model_identifier(m_id, "master_render_economics_spec.model_rates.model_id")
+                except Exception:
+                    invalid_rate_models.append(m_id or "<empty>")
+            if invalid_rate_models:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.CRITICAL,
+                    category="render_economics_model_matrix",
+                    message=(
+                        f"Forbidden or unapproved model ID(s) in master_render_economics_spec.model_rates: "
+                        f"{', '.join(invalid_rate_models)}."
+                    ),
+                    suggested_fix="Use strictly approved 2026 Gemini Model Matrix IDs via get_2026_model_matrix_rates().",
+                ))
+                score -= 5.0
+            elif not model_rates:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="render_economics_schema",
+                    message="MasterRenderEconomicsManifest has empty model_rates table.",
+                    suggested_fix="Populate model_rates via get_2026_model_matrix_rates().",
+                ))
+                score -= 2.0
+            elif is_dry_run and dry_run_billable != 0.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="render_economics_dry_run_billing",
+                    message=f"Dry-run MasterRenderEconomicsManifest reports non-zero dry_run_billable_usd=${dry_run_billable:.2f} (must be $0.00).",
+                    suggested_fix="Enforce dry_run_billable_usd == 0.0 in dry-run simulation mode.",
+                ))
+                score -= 3.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="render_economics_schema",
+                    message=(
+                        f"MasterRenderEconomicsManifest verified ({len(model_rates)} 2026 model rates, "
+                        f"dry_run_billable_usd=${dry_run_billable:.2f}, "
+                        f"takes={getattr(econ_spec, 'total_planned_takes', 0)})."
+                    ),
+                    details={
+                        "model_rate_ids": [getattr(r, "model_id", "") for r in model_rates],
+                        "dry_run_billable_usd": dry_run_billable,
+                    },
                 ))
 
         score = max(0.0, min(25.0, round(score, 2)))
@@ -2366,14 +2619,23 @@ class ProductCouncilOrchestrator(BaseAgent):
             ad_strip_failed_scenes = []
             for sc in bible.scenes:
                 sc_ad = getattr(sc, "accessibility_spec", None)
-                if sc_ad and int(getattr(sc_ad, "collision_count", 0) or 0) > 0:
+                if sc_ad and bool(getattr(sc_ad, "dialogue_collision_detected", False)):
                     ad_collision_scenes.append(sc.scene_index)
                 prompt = getattr(sc, "omni_prose_prompt", "")
                 if prompt and "[AD-CUE:" in prompt:
                     clean_prompt = compile_clean_omni_prompt(prompt)
                     if "[AD-CUE:" in clean_prompt:
                         ad_strip_failed_scenes.append(sc.scene_index)
-                        
+
+            if ad_collision_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="accessibility_scene_ad_collision",
+                    message=f"Scene(s) {ad_collision_scenes} detected AD dialogue collision (dialogue_collision_detected=True).",
+                    suggested_fix="Shift Audio Description cue into an open dialogue gap so dialogue_collision_detected=False.",
+                ))
+                penalty_points += 2.0
+
             if int(getattr(ad_spec, "collision_count", 0) or 0) > 0:
                 findings.append(CouncilFinding(
                     severity=CouncilFindingSeverity.HIGH,
@@ -2391,6 +2653,111 @@ class ProductCouncilOrchestrator(BaseAgent):
                     suggested_fix="Ensure AD-CUE tokens follow the standard format.",
                 ))
                 penalty_points += 2.0
+
+        # Verify PM-FEAT-031 (Wardrobe, Prop & Art Continuity) and <image_1..3> slot budget
+        wp_bible = getattr(bible, "master_wardrobe_prop_bible", None)
+        slot_budget_violations: List[int] = []
+        slot_contention_scenes: List[int] = []
+        art_strip_failed_scenes: List[int] = []
+        for sc in bible.scenes:
+            sc_art = getattr(sc, "art_continuity_spec", None)
+            if sc_art is not None:
+                assigned_slots = list(getattr(sc_art, "assigned_reference_slots", None) or [])
+                if len(assigned_slots) > 3:
+                    slot_budget_violations.append(sc.scene_index)
+                if bool(getattr(sc_art, "slot_contention_detected", False)):
+                    slot_contention_scenes.append(sc.scene_index)
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and ("[WARDROBE-LOCK:" in prompt or "[PROP-STATE:" in prompt):
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if "[WARDROBE-LOCK:" in clean_prompt or "[PROP-STATE:" in clean_prompt:
+                    art_strip_failed_scenes.append(sc.scene_index)
+        if slot_budget_violations:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="art_reference_slot_budget_exceeded",
+                message=f"Scene(s) {slot_budget_violations} exceeded the 3-slot <image_1..3> ceiling in assigned_reference_slots.",
+                suggested_fix="Prioritize wardrobe, env, and prop plates to at most 3 <image_1..3> slots via validate_reference_slot_budget().",
+            ))
+            penalty_points += 3.0
+        if slot_contention_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="art_reference_slot_contention",
+                message=f"Scene(s) {slot_contention_scenes} flagged slot_contention_detected=True (>3 plates).",
+                suggested_fix="Consolidate reference plates to <= 3 total <image_1..3> slots.",
+            ))
+            penalty_points += 2.0
+        if art_strip_failed_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="art_continuity_prompt_strip_failed",
+                message=f"Scene(s) {art_strip_failed_scenes} failed to cleanly strip [WARDROBE-LOCK:]/[PROP-STATE:] tokens in compile_clean_omni_prompt.",
+                suggested_fix="Ensure art continuity tokens match standard bracket syntax.",
+            ))
+            penalty_points += 2.0
+        if wp_bible is not None and not slot_budget_violations and not slot_contention_scenes and not art_strip_failed_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.INFO,
+                category="art_continuity_schema_compliance",
+                message=(
+                    f"Wardrobe/Prop Continuity & <image_1..3> slot budget verified across {len(bible.scenes)} scene(s) "
+                    f"(continuity_breaks={getattr(wp_bible, 'continuity_breaks_detected', 0)})."
+                ),
+            ))
+
+        # Verify PM-FEAT-032 (Render Economics & Compute Take Budget) constraints on all scenes
+        econ_spec = getattr(bible, "master_render_economics_spec", None)
+        econ_strip_failed_scenes: List[int] = []
+        invalid_take_scenes: List[int] = []
+        for sc in bible.scenes:
+            sc_econ = getattr(sc, "compute_estimate_spec", None)
+            if sc_econ is not None and int(getattr(sc_econ, "planned_takes", 1) or 0) < 1:
+                invalid_take_scenes.append(sc.scene_index)
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and "[RENDER-PROFILE:" in prompt:
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if "[RENDER-PROFILE:" in clean_prompt:
+                    econ_strip_failed_scenes.append(sc.scene_index)
+        if invalid_take_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="render_economics_invalid_takes",
+                message=f"Scene(s) {invalid_take_scenes} specify planned_takes < 1 in compute_estimate_spec.",
+                suggested_fix="Set planned_takes >= 1 via estimate_scene_compute_cost().",
+            ))
+            penalty_points += 2.0
+        if econ_strip_failed_scenes:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="render_economics_prompt_strip_failed",
+                message=f"Scene(s) {econ_strip_failed_scenes} failed to cleanly strip [RENDER-PROFILE: ...] tokens in compile_clean_omni_prompt.",
+                suggested_fix="Ensure RENDER-PROFILE tokens follow the standard bracket format.",
+            ))
+            penalty_points += 2.0
+        if econ_spec is not None:
+            guardrail = getattr(econ_spec, "guardrail", None)
+            if guardrail is not None and not bool(getattr(guardrail, "within_budget", True)):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="render_economics_budget_exceeded",
+                    message=(
+                        f"MasterRenderEconomicsManifest guardrail exceeded: "
+                        f"${getattr(guardrail, 'estimated_total_usd', 0.0):.2f} > "
+                        f"${getattr(guardrail, 'max_render_budget_usd', 0.0):.2f}."
+                    ),
+                    suggested_fix="Reduce planned_takes or raise max_render_budget_usd within domain policy.",
+                ))
+                penalty_points += 2.0
+            elif not invalid_take_scenes and not econ_strip_failed_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="render_economics_schema_compliance",
+                    message=(
+                        f"Render Economics Guardrail verified across {len(bible.scenes)} scene(s) "
+                        f"(within_budget=True, total_takes={getattr(econ_spec, 'total_planned_takes', 0)})."
+                    ),
+                ))
 
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
@@ -2423,6 +2790,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "spotting_sync_compliant", True)
+            ]
+            non_art_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "art_continuity_compliant", True)
+            ]
+            non_econ_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "render_economics_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -2515,6 +2892,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_localization_and_spotting_compliance",
                     message=f"Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if non_art_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_art_continuity_non_compliant",
+                    message=f"Bundle audit_reports flagged art_continuity_compliant=False on scene(s): {non_art_scenes}.",
+                    suggested_fix="Resolve <image_1..3> slot contention and hydrate art_continuity_spec on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if non_econ_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_render_economics_non_compliant",
+                    message=f"Bundle audit_reports flagged render_economics_compliant=False on scene(s): {non_econ_scenes}.",
+                    suggested_fix="Ensure compute_estimate_spec planned_takes >= 1 and within_budget=True on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_art_scenes and not non_econ_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_art_and_economics_compliance",
+                    message=f"Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -3426,6 +3825,96 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 0.25
 
+        # Verify Wardrobe, Prop Continuity & Art Dressing Bible (PM-FEAT-031)
+        wp_bible = getattr(bible, "master_wardrobe_prop_bible", None)
+        if wp_bible is not None:
+            expected_wp = get_domain_wardrobe_prop_spec(detected_domain)
+            breaks = int(getattr(wp_bible, "continuity_breaks_detected", 0) or 0)
+            pull_ready = bool(getattr(wp_bible, "pull_list_ready", True))
+            if breaks > 0 or not pull_ready:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_wardrobe_prop_continuity",
+                    message=(
+                        f"MasterWardrobePropBible detected {breaks} prop continuity break(s) "
+                        f"(pull_list_ready={pull_ready}) for domain '{detected_domain}'."
+                    ),
+                    suggested_fix="Resolve prop state reversals/hand swaps via continuity_delta_note and recompile wardrobe_prop_bible.",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_wardrobe_prop_continuity",
+                    message=(
+                        f"Wardrobe & Prop Continuity verified for domain '{detected_domain}' "
+                        f"(looks={getattr(wp_bible, 'total_looks', 1)}, hero_props={getattr(wp_bible, 'total_hero_props', 0)}, "
+                        f"continuity_breaks=0, pull_list_ready=True)."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "continuity_breaks_detected": 0,
+                        "expected_prop_id": expected_wp.get("prop_id"),
+                    },
+                ))
+
+        # Verify AI Compute Economics & AICP Savings Guardrail (PM-FEAT-032)
+        econ_spec = getattr(bible, "master_render_economics_spec", None)
+        if econ_spec is not None:
+            expected_econ = get_domain_render_economics_spec(detected_domain)
+            guardrail = getattr(econ_spec, "guardrail", None)
+            if guardrail is None:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_render_economics",
+                    message=f"MasterRenderEconomicsManifest missing guardrail summary for domain '{detected_domain}'.",
+                    suggested_fix="Compile master_render_economics_spec via compile_render_economics_manifest().",
+                ))
+                score -= 0.25
+            else:
+                within_budget = bool(getattr(guardrail, "within_budget", True))
+                savings_pct = float(getattr(guardrail, "simulation_savings_vs_aicp_pct", 0.0) or 0.0)
+                est_usd = float(getattr(guardrail, "estimated_total_usd", 0.0) or 0.0)
+                cap_usd = float(getattr(guardrail, "max_render_budget_usd", 0.0) or 0.0)
+                if not within_budget:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="domain_render_economics",
+                        message=(
+                            f"Render economics estimated spend (${est_usd:.2f}) exceeds budget ceiling "
+                            f"(${cap_usd:.2f}) for domain '{detected_domain}'."
+                        ),
+                        suggested_fix="Calibrate take budget or cap via get_domain_render_economics_spec().",
+                    ))
+                    score -= 2.0
+                elif savings_pct < 90.0:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="domain_render_economics",
+                        message=(
+                            f"AI-vs-AICP simulation savings ({savings_pct:.2f}%) below 90% commercial benchmark "
+                            f"for domain '{detected_domain}'."
+                        ),
+                        suggested_fix="Re-evaluate planned takes and AICP bid baseline in compile_render_economics_manifest().",
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="domain_render_economics",
+                        message=(
+                            f"Render economics calibrated for domain '{detected_domain}' "
+                            f"(est=${est_usd:.2f}/${cap_usd:.2f} cap, domain_cap=${expected_econ.get('max_render_budget_usd', cap_usd):.2f}, "
+                            f"AI-vs-AICP savings={savings_pct:.2f}%)."
+                        ),
+                        details={
+                            "domain": detected_domain,
+                            "estimated_total_usd": est_usd,
+                            "max_render_budget_usd": cap_usd,
+                            "simulation_savings_vs_aicp_pct": savings_pct,
+                        },
+                    ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -3995,6 +4484,69 @@ class ProductCouncilOrchestrator(BaseAgent):
                             severity=CouncilFindingSeverity.INFO,
                             category="animatic_accessibility_ad_hud",
                             message="Accessibility AD HUD verified (#btn-ad-animatic / #modal-accessibility-ad / #ad-scrubber-ribbon / hotkey '[').",
+                        ))
+
+                    # v2.16.0 Unified HUD Command Palette [/] check
+                    missing_palette_ids = [
+                        el_id
+                        for el_id in ("modal-hud-command-palette", "btn-command-palette-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_palette_ids or "/" not in html_content:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_command_palette_hud",
+                            message=f"Compiled storyboard HTML lacks Unified HUD Command Palette element(s): {', '.join('#' + i for i in missing_palette_ids)} or hotkey '/'.",
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-hud-command-palette, #btn-command-palette-animatic, and hotkey '/'.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_command_palette_hud",
+                            message="Unified HUD Command Palette verified (#btn-command-palette-animatic / #modal-hud-command-palette / hotkey '/').",
+                        ))
+
+                    # PM-FEAT-031 Art & Wardrobe Continuity Locker [\] HUD check
+                    missing_art_ids = [
+                        el_id
+                        for el_id in ("modal-art-wardrobe-continuity", "btn-art-dept-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_art_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_art_wardrobe_hud",
+                            message=f"Compiled storyboard HTML lacks Art & Wardrobe Continuity Locker HUD element(s): {', '.join('#' + i for i in missing_art_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-art-wardrobe-continuity and #btn-art-dept-animatic [\\].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_art_wardrobe_hud",
+                            message="Art & Wardrobe Continuity Locker HUD verified (#btn-art-dept-animatic / #modal-art-wardrobe-continuity / hotkey '\\').",
+                        ))
+
+                    # PM-FEAT-032 Render Economics & Take-Variant Inspector [;] HUD check
+                    missing_econ_ids = [
+                        el_id
+                        for el_id in ("modal-render-economics", "btn-economics-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    if missing_econ_ids:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_render_economics_hud",
+                            message=f"Compiled storyboard HTML lacks Compute Economics & Take-Variant HUD element(s): {', '.join('#' + i for i in missing_econ_ids)}.",
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-render-economics and #btn-economics-animatic [;].",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_render_economics_hud",
+                            message="Compute Economics & Take-Variant Inspector HUD verified (#btn-economics-animatic / #modal-render-economics / hotkey ';').",
                         ))
 
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)

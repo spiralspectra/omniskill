@@ -20,8 +20,8 @@
 
 | Scene | Timestamp | Camera & Lens | Action Anchor | Key Foley / Audio |
 |---|---|---|---|---|
-| Scene 01 (The Awakening Box) | `00:00 - 00:08` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
-| Scene 02 (The Hyper-Kinetic Self-Assembly) | `00:08 - 00:16` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
+| Scene 01 (The Awakening Box) | `00:00 - 00:08` | 35mm `Locked-off Tripod` | The Awakening Box | Tactile foley |
+| Scene 02 (The Hyper-Kinetic Self-Assembly) | `00:08 - 00:16` | 35mm `Locked-off Tripod` | The Hyper-Kinetic Self-Assembly | Tactile foley |
 | Scene 03 (Upholstery & Soft Architecture) | `00:16 - 00:24` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
 | Scene 04 (The Final Flourish & The ASMR Stillness) | `00:24 - 00:32` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
 

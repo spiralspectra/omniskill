@@ -3722,6 +3722,285 @@ def get_domain_accessibility_spec(
     out["domain_archetype"] = resolved
     return out
 
+
+# ==============================================================================
+# PM-FEAT-031: Wardrobe, Prop Action-State & Art Dressing Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_WARDROBE_PROP_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "prop_id": "PROP_KEYFOB_01",
+        "prop_name": "Carbon-Fiber Telemetry Keyfob",
+        "anchor": "cockpit_console",
+        "surface": "matte_carbon_clean",
+        "surface_conditions": ["matte_carbon_clean", "wet_tarmac_misted", "track_dusted"],
+        "garment": "Tailored charcoal tech-knit racing jacket with matte titanium zipper",
+        "weathering": "dry_tailored",
+        "accessories": ["titanium_chronograph", "driving_gloves"],
+        "dressing_zone": "Garage Wind-Tunnel Bay",
+        "material_finish": "Brushed anodized aluminum & wet-look epoxy floor",
+        "default_action_state": "intact",
+    },
+    "culinary_asmr": {
+        "prop_id": "PROP_KNIFE_01",
+        "prop_name": "Hand-Forged Gyuto Chef Knife",
+        "anchor": "end_grain_walnut_block",
+        "surface": "honed_damascus_clean",
+        "surface_conditions": ["honed_damascus_clean", "light_herb_oil_sheen", "steamed_warm"],
+        "garment": "Indigo Japanese canvas chef apron over crisp linen shirt",
+        "weathering": "crisp_starched",
+        "accessories": ["linen_side_towel"],
+        "dressing_zone": "Hero Prep Counter",
+        "material_finish": "Oiled walnut butcher block & hand-thrown stoneware",
+        "default_action_state": "intact",
+    },
+    "luxury_fashion": {
+        "prop_id": "PROP_CLUTCH_01",
+        "prop_name": "Sculpted Calfskin Atelier Clutch",
+        "anchor": "travertine_pedestal",
+        "surface": "supple_gloss_clean",
+        "surface_conditions": ["supple_gloss_clean", "runway_specular_highlight", "dewy_mist_sheen"],
+        "garment": "Architectural ivory silk trench coat with structured lapels",
+        "weathering": "runway_pressed",
+        "accessories": ["brushed_gold_cuff", "silk_scarf"],
+        "dressing_zone": "Travertine Salon Gallery",
+        "material_finish": "Honed Roman travertine & warm brass architectural trim",
+        "default_action_state": "intact",
+    },
+    "kinetic_action": {
+        "prop_id": "PROP_BEACON_01",
+        "prop_name": "Reinforced Tactical Relay Beacon",
+        "anchor": "utility_belt_holster",
+        "surface": "scuffed_anodized_clean",
+        "surface_conditions": ["scuffed_anodized_clean", "moisture_dusted", "impact_scuffed"],
+        "garment": "Weather-resistant slate ripstop field shell with articulated elbows",
+        "weathering": "field_dusted",
+        "accessories": ["ballistic_watch", "carabiner_rig"],
+        "dressing_zone": "Concrete Rooftop Corridor",
+        "material_finish": "Raw poured concrete & galvanized steel conduit",
+        "default_action_state": "activated",
+    },
+    "tech_hardware": {
+        "prop_id": "PROP_DEVICE_01",
+        "prop_name": "Precision Machined Silicon Unibody Device",
+        "anchor": "optical_calibration_plinth",
+        "surface": "oleophobic_glass_spotless",
+        "surface_conditions": ["oleophobic_glass_spotless", "anti_glare_anodized", "laser_calibrated"],
+        "garment": "Minimalist obsidian merino mock-neck with tailored wool trousers",
+        "weathering": "studio_immaculate",
+        "accessories": ["anti_static_wristband"],
+        "dressing_zone": "Cleanroom Acoustic Stage",
+        "material_finish": "Bead-blasted aluminum & optical-grade acoustic glass",
+        "default_action_state": "intact",
+    },
+    "architectural_sanctuary": {
+        "prop_id": "PROP_VESSEL_01",
+        "prop_name": "Hand-Cast Bronze Tea Vessel",
+        "anchor": "cedar_low_table",
+        "surface": "warm_patina_dry",
+        "surface_conditions": ["warm_patina_dry", "sunlit_matte_ash", "dewy_condensation"],
+        "garment": "Oatmeal raw-silk kimono wrap over wide-leg linen trousers",
+        "weathering": "soft_draped",
+        "accessories": ["wooden_hairpin"],
+        "dressing_zone": "Timber Courtyard Pavilion",
+        "material_finish": "Charred cedar Shou Sugi Ban & honed basalt water basin",
+        "default_action_state": "intact",
+    },
+}
+
+
+def _reconcile_three_slot_nano_banana_budget(
+    bible: MasterProductionBible,
+    master_wp: Any,
+) -> Any:
+    """Reconciles 3-slot <image_1..3> budget when a bible uses <=3 Nano Banana assets without a separate env plate."""
+    assets = list(getattr(bible, "nano_banana_assets", None) or [])
+    if len(assets) > 3:
+        return master_wp
+
+    from omni_director.tools.wardrobe_props import format_art_continuity_token
+
+    reconciled_contention: List[int] = []
+    for art_spec in getattr(master_wp, "scene_art_specs", None) or []:
+        w_count = len(getattr(art_spec, "wardrobe_states", None) or [])
+        p_count = len(getattr(art_spec, "prop_states", None) or [])
+        if getattr(art_spec, "slot_contention_detected", False) and (w_count + p_count) <= 3:
+            slots: List[str] = []
+            for w_idx in range(1, w_count + 1):
+                slots.append(f"<image_{len(slots) + 1}>:wardrobe_{w_idx}")
+            for p_idx in range(1, p_count + 1):
+                if len(slots) < 3:
+                    slots.append(f"<image_{len(slots) + 1}>:prop_{p_idx}")
+            art_spec.assigned_reference_slots = slots
+            art_spec.slot_contention_detected = False
+            art_spec.art_prompt_token = format_art_continuity_token(art_spec)
+        if getattr(art_spec, "slot_contention_detected", False):
+            reconciled_contention.append(int(getattr(art_spec, "scene_index", 0) or 0))
+
+    master_wp.slot_contention_scenes = reconciled_contention
+    scene_map = {
+        int(getattr(a, "scene_index", 0) or 0): a
+        for a in (getattr(master_wp, "scene_art_specs", None) or [])
+    }
+    for sc in getattr(bible, "scenes", None) or []:
+        if sc.scene_index in scene_map:
+            sc.art_continuity_spec = scene_map[sc.scene_index]
+    return master_wp
+
+
+def get_domain_wardrobe_prop_spec(
+    archetype: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Any:
+    """Retrieve calibrated Wardrobe, Prop & Art Dressing parameters for a commercial domain (PM-FEAT-031)."""
+    if isinstance(archetype, MasterProductionBible):
+        from omni_director.tools.wardrobe_props import compile_wardrobe_prop_bible
+
+        master_wp = compile_wardrobe_prop_bible(archetype)
+        return _reconcile_three_slot_nano_banana_budget(archetype, master_wp)
+
+    resolved = _normalize_domain_key(archetype if archetype is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_WARDROBE_PROP_CALIBRATIONS[resolved]
+    return {
+        "domain_archetype": resolved,
+        "prop_id": cfg["prop_id"],
+        "prop_name": cfg["prop_name"],
+        "anchor": cfg["anchor"],
+        "surface": cfg["surface"],
+        "surface_conditions": list(cfg["surface_conditions"]),
+        "garment": cfg["garment"],
+        "weathering": cfg["weathering"],
+        "accessories": list(cfg["accessories"]),
+        "dressing_zone": cfg["dressing_zone"],
+        "material_finish": cfg["material_finish"],
+        "wardrobe_look_defaults": {
+            "look_id": "LOOK_A",
+            "garment_summary": cfg["garment"],
+            "weathering_stage": cfg["weathering"],
+            "accessory_lock": list(cfg["accessories"]),
+        },
+        "hero_props": [
+            {
+                "prop_id": cfg["prop_id"],
+                "prop_name": cfg["prop_name"],
+                "action_state": cfg["default_action_state"],
+                "hand_or_anchor": cfg["anchor"],
+                "surface_condition": cfg["surface"],
+                "continuity_critical": True,
+            }
+        ],
+        "dressing_anchors": [
+            {
+                "anchor_id": f"ANCHOR_{resolved.upper()}_01",
+                "zone_label": cfg["dressing_zone"],
+                "hero_material_finish": cfg["material_finish"],
+                "must_persist_across_cuts": True,
+            }
+        ],
+    }
+
+
+# ==============================================================================
+# PM-FEAT-032: AI Compute, Take-Budget & Render Economics Calibrations (6 Archetypes)
+# ==============================================================================
+
+_DOMAIN_RENDER_ECONOMICS_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "default_storytelling_mode": StorytellingMode.MODE_A_PARALLEL_CUT.value,
+        "default_prompt_mode": "mode_a_4step",
+        "planned_takes_per_cut": 3,
+        "max_render_budget_usd": 45.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "High-speed pursuit & hydraulic rig coverage calibrated at 3 takes/cut within a $45.00 live-render ceiling.",
+    },
+    "culinary_asmr": {
+        "default_storytelling_mode": StorytellingMode.MODE_A_PARALLEL_CUT.value,
+        "default_prompt_mode": "mode_a_4step",
+        "planned_takes_per_cut": 3,
+        "max_render_budget_usd": 35.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "Macro fluidic texture & ASMR culinary transitions calibrated at 3 takes/cut within a $35.00 live-render ceiling.",
+    },
+    "luxury_fashion": {
+        "default_storytelling_mode": StorytellingMode.MODE_B_CONTINUOUS_CHAIN.value,
+        "default_prompt_mode": "mode_b_6step",
+        "planned_takes_per_cut": 2,
+        "max_render_budget_usd": 25.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "Continuous Mode B Steadicam editorial extensions calibrated at 2 takes/cut within a $25.00 live-render ceiling.",
+    },
+    "kinetic_action": {
+        "default_storytelling_mode": StorytellingMode.MODE_A_PARALLEL_CUT.value,
+        "default_prompt_mode": "mode_a_4step",
+        "planned_takes_per_cut": 4,
+        "max_render_budget_usd": 55.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "High-velocity stunt & aerodynamic physics coverage calibrated at 4 takes/cut within a $55.00 live-render ceiling.",
+    },
+    "tech_hardware": {
+        "default_storytelling_mode": StorytellingMode.MODE_A_PARALLEL_CUT.value,
+        "default_prompt_mode": "mode_a_4step",
+        "planned_takes_per_cut": 2,
+        "max_render_budget_usd": 22.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "Precision MoCo cleanroom macro framing calibrated at 2 takes/cut within a $22.00 live-render ceiling.",
+    },
+    "architectural_sanctuary": {
+        "default_storytelling_mode": StorytellingMode.MODE_A_PARALLEL_CUT.value,
+        "default_prompt_mode": "mode_a_4step",
+        "planned_takes_per_cut": 2,
+        "max_render_budget_usd": 20.0,
+        "hard_abort_on_live_exceed": True,
+        "rationale": "Serene locked-off architectural cinematography calibrated at 2 takes/cut within a $20.00 live-render ceiling.",
+    },
+}
+
+
+def get_domain_render_economics_spec(
+    archetype: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+    max_budget_usd: Optional[float] = None,
+) -> Any:
+    """Retrieve calibrated AI Compute, Take-Budget & Render Economics parameters for a commercial domain (PM-FEAT-032)."""
+    if isinstance(archetype, MasterProductionBible):
+        from omni_director.tools.render_economics import (
+            compile_render_economics_manifest,
+            estimate_scene_compute_cost,
+        )
+
+        resolved = _normalize_domain_key(archetype)
+        cal = _DOMAIN_RENDER_ECONOMICS_CALIBRATIONS[resolved]
+        cap = float(max_budget_usd) if max_budget_usd is not None else float(cal["max_render_budget_usd"])
+        planned_takes = int(cal["planned_takes_per_cut"])
+        story_mode = getattr(archetype, "storytelling_mode", StorytellingMode.MODE_A_PARALLEL_CUT)
+        scene_mode = (
+            "mode_b_6step"
+            if story_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            else str(cal["default_prompt_mode"])
+        )
+        scenes_list = list(getattr(archetype, "scenes", None) or [])
+        if scenes_list and planned_takes > 1:
+            approx_total = sum(
+                max(4, min(15, int(getattr(archetype, "total_runtime_seconds", 32) or 32) // max(1, len(scenes_list))))
+                * 0.25 * planned_takes + 0.15
+                for _ in scenes_list
+            )
+            if approx_total > cap:
+                planned_takes = max(1, min(planned_takes, int(cap // max(1.0, len(scenes_list) * 2.5))))
+        for sc in scenes_list:
+            if not getattr(sc, "compute_estimate_spec", None):
+                sc.compute_estimate_spec = estimate_scene_compute_cost(
+                    sc,
+                    planned_takes=planned_takes,
+                    mode=scene_mode,
+                )
+        return compile_render_economics_manifest(archetype, max_budget_usd=cap)
+
+    resolved = _normalize_domain_key(archetype if archetype is not None else "architectural_sanctuary")
+    out = dict(_DOMAIN_RENDER_ECONOMICS_CALIBRATIONS[resolved])
+    if max_budget_usd is not None:
+        out["max_render_budget_usd"] = float(max_budget_usd)
+    out["domain_archetype"] = resolved
+    return out
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -4331,6 +4610,66 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
     if not getattr(bible, "spotting_manifest", None):
         from omni_director.tools.editorial_spotting import build_spotting_manifest
         bible.spotting_manifest = build_spotting_manifest(bible)
+    if not getattr(bible, "master_s3d_spec", None):
+        from omni_director.tools.stereoscopic_3d import compile_s3d_manifest
+        s3d_cal = get_domain_s3d_spec(arch)
+        s3d_manifest = compile_s3d_manifest(bible)
+        if s3d_cal.get("interaxial_distance_mm"):
+            s3d_manifest.baseline_interaxial_mm = float(s3d_cal["interaxial_distance_mm"])
+        if s3d_cal.get("max_parallax_budget_pct"):
+            s3d_manifest.max_parallax_budget_pct = min(2.95, float(s3d_cal["max_parallax_budget_pct"]))
+        bible.master_s3d_spec = s3d_manifest
+    if not getattr(bible, "master_accessibility_spec", None):
+        from omni_director.schemas import AdTargetAudience
+        from omni_director.tools.accessibility_ad import compile_accessibility_manifest
+        ad_cal = get_domain_accessibility_spec(arch)
+        ad_manifest = compile_accessibility_manifest(bible)
+        if ad_cal.get("target_audience"):
+            try:
+                ad_manifest.target_audience = AdTargetAudience(str(ad_cal["target_audience"]).lower())
+            except ValueError:
+                pass
+        bible.master_accessibility_spec = ad_manifest
+    if not getattr(bible, "master_wardrobe_prop_bible", None):
+        from omni_director.tools.wardrobe_props import compile_wardrobe_prop_bible
+        bible.master_wardrobe_prop_bible = _reconcile_three_slot_nano_banana_budget(
+            bible,
+            compile_wardrobe_prop_bible(bible),
+        )
+    if not getattr(bible, "master_render_economics_spec", None):
+        from omni_director.tools.render_economics import (
+            compile_render_economics_manifest,
+            estimate_scene_compute_cost,
+        )
+        econ_cal = get_domain_render_economics_spec(arch)
+        max_budget = float(econ_cal.get("max_render_budget_usd", 50.0))
+        planned_takes = int(econ_cal.get("planned_takes_per_cut", 2))
+        story_mode = getattr(bible, "storytelling_mode", StorytellingMode.MODE_A_PARALLEL_CUT)
+        scene_mode = (
+            "mode_b_6step"
+            if story_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            else str(econ_cal.get("default_prompt_mode", "mode_a_4step"))
+        )
+        scenes_list = list(getattr(bible, "scenes", None) or [])
+        if scenes_list and planned_takes > 1:
+            approx_total = sum(
+                max(4, min(15, int(getattr(bible, "total_runtime_seconds", 32) or 32) // max(1, len(scenes_list))))
+                * 0.25 * planned_takes + 0.15
+                for _ in scenes_list
+            )
+            if approx_total > max_budget:
+                planned_takes = max(1, min(planned_takes, int(max_budget // max(1.0, len(scenes_list) * 2.5))))
+        for sc in scenes_list:
+            if not getattr(sc, "compute_estimate_spec", None):
+                sc.compute_estimate_spec = estimate_scene_compute_cost(
+                    sc,
+                    planned_takes=planned_takes,
+                    mode=scene_mode,
+                )
+        bible.master_render_economics_spec = compile_render_economics_manifest(
+            bible,
+            max_budget_usd=max_budget,
+        )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -4420,6 +4759,46 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
                 if br.to_scene == scene.scene_index:
                     scene.edit_bridge_in = br
                     break
+        if not getattr(scene, "s3d_spec", None) and getattr(bible, "master_s3d_spec", None):
+            s3d_scenes = getattr(bible.master_s3d_spec, "scene_specs", None) or []
+            matched_s3d = next(
+                (sp for sp in s3d_scenes if getattr(sp, "scene_number", None) == scene.scene_index),
+                None,
+            )
+            if matched_s3d is None and len(s3d_scenes) >= idx:
+                matched_s3d = s3d_scenes[idx - 1]
+            if matched_s3d is not None:
+                scene.s3d_spec = matched_s3d
+        if not getattr(scene, "accessibility_spec", None) and getattr(bible, "master_accessibility_spec", None):
+            ad_profiles = getattr(bible.master_accessibility_spec, "scene_profiles", None) or []
+            matched_ad = next(
+                (ap for ap in ad_profiles if getattr(ap, "scene_number", None) == scene.scene_index),
+                None,
+            )
+            if matched_ad is None and len(ad_profiles) >= idx:
+                matched_ad = ad_profiles[idx - 1]
+            if matched_ad is not None:
+                scene.accessibility_spec = matched_ad
+        if not getattr(scene, "art_continuity_spec", None) and getattr(bible, "master_wardrobe_prop_bible", None):
+            art_specs = getattr(bible.master_wardrobe_prop_bible, "scene_art_specs", None) or []
+            matched_art = next(
+                (a for a in art_specs if getattr(a, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_art is None and len(art_specs) >= idx:
+                matched_art = art_specs[idx - 1]
+            if matched_art is not None:
+                scene.art_continuity_spec = matched_art
+        if not getattr(scene, "compute_estimate_spec", None) and getattr(bible, "master_render_economics_spec", None):
+            econ_scenes = getattr(bible.master_render_economics_spec, "scene_estimates", None) or []
+            matched_econ = next(
+                (e for e in econ_scenes if getattr(e, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_econ is None and len(econ_scenes) >= idx:
+                matched_econ = econ_scenes[idx - 1]
+            if matched_econ is not None:
+                scene.compute_estimate_spec = matched_econ
 
     return bible
 
@@ -4497,9 +4876,17 @@ def create_bible(
         bible.domain_archetype = domain_key
         bible.localization_manifest = None
         bible.spotting_manifest = None
+        bible.master_s3d_spec = None
+        bible.master_accessibility_spec = None
+        bible.master_wardrobe_prop_bible = None
+        bible.master_render_economics_spec = None
         for sc in bible.scenes:
             sc.locale_tracks = []
             sc.edit_bridge_in = None
+            sc.s3d_spec = None
+            sc.accessibility_spec = None
+            sc.art_continuity_spec = None
+            sc.compute_estimate_spec = None
     else:
         bible = MasterProductionBible(
             project_title=resolved_title,

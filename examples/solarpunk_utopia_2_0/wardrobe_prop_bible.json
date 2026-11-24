@@ -1,0 +1,112 @@
+{
+  "bible_id": "ART-BIBLE-1D05BB60",
+  "archetype": "architectural_sanctuary",
+  "total_looks": 1,
+  "total_hero_props": 1,
+  "continuity_breaks_detected": 0,
+  "slot_contention_scenes": [],
+  "wardrobe_looks_summary": [
+    {
+      "character_id": "Resident Spatial Architect / Meditator",
+      "look_id": "LOOK_A",
+      "garment_summary": "Monochrome architectural linen tunic in warm ecru and charcoal",
+      "weathering_stage": "soft_draped",
+      "accessory_lock": [
+        "wooden_hairpin"
+      ]
+    }
+  ],
+  "hero_prop_registry": [
+    {
+      "prop_id": "PROP_VESSEL_01",
+      "prop_name": "Hand-Cast Bronze Tea Vessel",
+      "action_state": "weathered",
+      "hand_or_anchor": "cedar_low_table",
+      "surface_condition": "moisture_dusted",
+      "continuity_critical": true
+    }
+  ],
+  "scene_art_specs": [
+    {
+      "scene_index": 1,
+      "wardrobe_states": [
+        {
+          "character_id": "Resident Spatial Architect / Meditator",
+          "look_id": "LOOK_A",
+          "garment_summary": "Monochrome architectural linen tunic in warm ecru and charcoal",
+          "weathering_stage": "soft_draped",
+          "accessory_lock": [
+            "wooden_hairpin"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_VESSEL_01",
+          "prop_name": "Hand-Cast Bronze Tea Vessel",
+          "action_state": "weathered",
+          "hand_or_anchor": "cedar_low_table",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S01_01",
+          "zone_label": "Architectural Sanctuary Sanctuary",
+          "hero_material_finish": "Monolithic board-formed concrete walls remain immovable and textured, Travertine stone floor slabs maintain continuous geometric perspective",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]"
+    },
+    {
+      "scene_index": 2,
+      "wardrobe_states": [
+        {
+          "character_id": "Resident Spatial Architect / Meditator",
+          "look_id": "LOOK_A",
+          "garment_summary": "Monochrome architectural linen tunic in warm ecru and charcoal",
+          "weathering_stage": "soft_draped",
+          "accessory_lock": [
+            "wooden_hairpin"
+          ]
+        }
+      ],
+      "prop_states": [
+        {
+          "prop_id": "PROP_VESSEL_01",
+          "prop_name": "Hand-Cast Bronze Tea Vessel",
+          "action_state": "weathered",
+          "hand_or_anchor": "cedar_low_table",
+          "surface_condition": "moisture_dusted",
+          "continuity_critical": true
+        }
+      ],
+      "dressing_anchors": [
+        {
+          "anchor_id": "ANCHOR_S02_01",
+          "zone_label": "Architectural Sanctuary Sanctuary",
+          "hero_material_finish": "Monolithic board-formed concrete walls remain immovable and textured, Travertine stone floor slabs maintain continuous geometric perspective",
+          "must_persist_across_cuts": true
+        }
+      ],
+      "assigned_reference_slots": [
+        "<image_1>:wardrobe_1",
+        "<image_2>:env_1",
+        "<image_3>:prop_1"
+      ],
+      "slot_contention_detected": false,
+      "continuity_delta_note": "",
+      "art_prompt_token": "[WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]"
+    }
+  ],
+  "pull_list_ready": true
+}

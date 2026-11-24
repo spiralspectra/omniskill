@@ -1,6 +1,6 @@
 {
-  "version": "2.15.0",
-  "timestamp": "2026-11-23T09:37:42.291016+00:00",
+  "version": "2.16.0",
+  "timestamp": "2026-11-24T09:40:07.700295+00:00",
   "persona": "council-product-manager",
   "persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "recommendations": [
@@ -432,8 +432,8 @@
     {
       "feature_id": "PM-FEAT-029",
       "title": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-      "problem_statement": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
-      "proposed_solution": "Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video",
+      "problem_statement": "Spatial computing platforms and immersive theater campaigns require physically calibrated stereoscopic interaxial baselines, convergence plane tracking, <=3.0% positive retinal parallax comfort gating, and Apple Vision Pro MV-HEVC (hvc1) metadata packages across every scene.",
+      "proposed_solution": "Implement StereoscopicRigType, SpatialVideoFormat, S3DCameraSpec, SceneStereoscopicSpec, and MasterSpatialVideoSpec schemas; omni_director.tools.stereoscopic_3d (calculate_parallax_budget, compute_mv_hevc_metadata, compile_s3d_manifest, format_s3d_prompt_token, export_s3d_csv, export_spatial_manifest_json, export_s3d_bundle, [S3D-RIG: ...] prompt tokens); 6-domain calibration via get_domain_s3d_spec(); and an interactive S3D Stereoscopy & MV-HEVC Spatial HUD []] (#btn-s3d-animatic, #modal-s3d-stereography, #s3d-anaglyph-canvas, #s3d-depth-svg) in the dark-room animatic.",
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/stereoscopic_3d.py",
@@ -453,8 +453,8 @@
     {
       "feature_id": "PM-FEAT-030",
       "title": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-      "problem_statement": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
-      "proposed_solution": "Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)",
+      "problem_statement": "Broadcast networks, streaming distributors, and public-sector brand spots require 21st Century CVAA Audio Description cue sheets fitted strictly into open dialogue gaps (zero collision), speech-rate pacing checks, WCAG 2.2 AA/AAA contrast verification, and WebVTT AD subtitle deliverables.",
+      "proposed_solution": "Implement AdTargetAudience, AudioDescriptionCueSpec, SceneAccessibilityProfileSpec, and MasterAccessibilitySpec schemas; omni_director.tools.accessibility_ad (detect_dialogue_gaps, verify_wcag_color_contrast, compile_accessibility_manifest, format_ad_prompt_token, export_ad_vtt, export_ad_script_csv, export_accessibility_manifest_json, export_accessibility_bundle, [AD-CUE: ...] prompt tokens); 6-domain calibration via get_domain_accessibility_spec(); and an interactive Accessibility & AD Compliance HUD [[] (#btn-ad-animatic, #modal-accessibility-ad, #ad-scrubber-ribbon) in the dark-room animatic.",
       "target_modules": [
         "omni_director/schemas.py",
         "omni_director/tools/accessibility_ad.py",
@@ -467,6 +467,46 @@
         "omni_director/agents/council.py",
         "omni_director/cli.py",
         "omni_director/tools/nle_export.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-031",
+      "title": "Wardrobe, Prop Action-State Continuity & Art Department Dressing Bible",
+      "problem_statement": "Multi-scene commercial productions suffer from unmotivated prop state reversals (e.g. damaged->intact or left/right hand swaps), costume weathering drift, and <image_1..3> Nano Banana reference slot contention when wardrobe, environment, and hero prop plates exceed the 3-slot architectural ceiling.",
+      "proposed_solution": "Implement ScenePropContinuityState, SceneWardrobeStateSpec, ArtDressingAnchorSpec, SceneArtContinuitySpec, and MasterWardrobePropBible schemas; omni_director.tools.wardrobe_props (detect_prop_state_transitions, validate_reference_slot_budget, format_art_continuity_token, compile_wardrobe_prop_bible, export_wardrobe_prop_bundle, [WARDROBE-LOCK:]/[PROP-STATE:] tokens); 6-domain calibration via get_domain_wardrobe_prop_spec(); and the Art & Wardrobe Continuity Locker HUD [\\] (#btn-art-dept-animatic, #modal-art-wardrobe-continuity) plus Unified HUD Command Palette [/] (#btn-command-palette-animatic, #modal-hud-command-palette).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/wardrobe_props.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-032",
+      "title": "Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger",
+      "problem_statement": "Executive producers and virtual production supervisors need deterministic per-scene token, Nano Banana plate, and Omni video compute cost estimates strictly priced on the 2026 Gemini Model Matrix, with hard live-render budget caps, AI-vs-AICP savings telemetry, and reproducible seed/take variant ledgers.",
+      "proposed_solution": "Implement ModelTierRateSpec, TakeVariantRecord, SceneComputeEstimateSpec, RenderBudgetGuardrailSpec, and MasterRenderEconomicsManifest schemas; omni_director.tools.render_economics (get_2026_model_matrix_rates, estimate_scene_compute_cost, check_render_budget_guardrail, compile_render_economics_manifest, format_render_profile_token, export_render_economics_bundle, [RENDER-PROFILE: ...] tokens); 6-domain calibration via get_domain_render_economics_spec(); and the Compute Economics & Take-Variant Inspector HUD [;] (#btn-economics-animatic, #modal-render-economics) in the dark-room animatic.",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/render_economics.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/telemetry.py"
       ],
       "priority": "P0",
       "status": "implemented"

@@ -20,10 +20,10 @@
 
 | Scene | Timestamp | Camera & Lens | Action Anchor | Key Foley / Audio |
 |---|---|---|---|---|
-| Scene 01 (The Microscopic Weave) | `00:00 - 00:08` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
-| Scene 02 (The Airflow Ignition) | `00:08 - 00:16` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
-| Scene 03 (The Aerodynamic Deflection) | `00:16 - 00:24` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
-| Scene 04 (The Deceleration & The Form Lock) | `00:24 - 00:32` | 35mm `35mm Prime` | Hero subject movement | Tactile surface contact rustle, Resonant low-frequency impact |
+| Scene 01 (The Microscopic Weave) | `00:00 - 00:08` | 35mm `Locked-off Tripod` | The Microscopic Weave | Tactile foley |
+| Scene 02 (The Airflow Ignition) | `00:08 - 00:16` | 35mm `Locked-off Tripod` | The Airflow Ignition | Tactile foley |
+| Scene 03 (The Aerodynamic Deflection) | `00:16 - 00:24` | 35mm `Locked-off Tripod` | The Aerodynamic Deflection | Tactile foley |
+| Scene 04 (The Deceleration & The Form Lock) | `00:24 - 00:32` | 35mm `Locked-off Tripod` | The Deceleration & The Form Lock | Tactile foley |
 
 ## 4. Musical Score & Acoustic Direction
 - **Track Title**: Tensile Dynamics: Kinetic Pulse (Futuristic Minimalist Glitch & Cinematic Sub-Bass)

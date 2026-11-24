@@ -4740,6 +4740,290 @@
     cursor: pointer;
 }
 
+    
+    /* v2.16.0 Unified HUD Command Palette, Art & Wardrobe Locker, Compute Economics Inspector */
+    #modal-hud-command-palette,
+    #modal-art-wardrobe-continuity,
+    #modal-render-economics {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 8, 11, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10050;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .v216-modal-card {
+      background: #0E1017;
+      color: #F8FAFC;
+      border: 1px solid #38BDF8;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 1040px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.88);
+    }
+    .v216-palette-card {
+      max-width: 760px;
+    }
+    .v216-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      background: #141722;
+      border-bottom: 1px solid #334155;
+    }
+    .v216-modal-title {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+    .v216-modal-sub {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #38BDF8;
+      margin-top: 2px;
+    }
+    .v216-close-btn {
+      background: #B91C1C;
+      color: #FFFFFF;
+      border: 1px solid #F87171;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .v216-close-btn:hover,
+    .v216-close-btn:focus-visible {
+      background: #DC2626;
+      outline: 2px solid #FFFFFF;
+      outline-offset: 2px;
+    }
+    .v216-modal-body {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .v216-palette-search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #38BDF8;
+      background: #07080B;
+      color: #F8FAFC;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+    .v216-palette-search:focus-visible {
+      outline: 2px solid #FACC15;
+      outline-offset: 2px;
+    }
+    .v216-palette-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+    .v216-palette-item {
+      width: 100%;
+      text-align: left;
+      background: #141722;
+      color: #F8FAFC;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+    }
+    .v216-palette-item:hover,
+    .v216-palette-item:focus-visible,
+    .v216-palette-item.selected {
+      background: #1E293B;
+      border-color: #38BDF8;
+      outline: 2px solid #38BDF8;
+      outline-offset: 1px;
+    }
+    .v216-palette-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .v216-kbd {
+      background: #07080B;
+      color: #FACC15;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .v216-dept-tag {
+      background: #0F172A;
+      color: #93C5FD;
+      border: 1px solid #334155;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }
+    .v216-kpi-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      background: #141722;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .v216-gauge-wrap {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .v216-gauge-bar {
+      width: 100%;
+      height: 12px;
+      background: #07080B;
+      border: 1px solid #475569;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .v216-gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0284C7, #22D3EE);
+      transition: width 0.2s ease;
+    }
+    .v216-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .v216-badge-pass {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34D399;
+      border: 1px solid #10B981;
+    }
+    .v216-badge-warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #FBBF24;
+      border: 1px solid #F59E0B;
+    }
+    .v216-pill {
+      display: inline-block;
+      background: #1E293B;
+      color: #38BDF8;
+      border: 1px solid #38BDF8;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .v216-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #FDE047;
+    }
+    .v216-sub {
+      font-size: 11px;
+      color: #CBD5E1;
+    }
+    .v216-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .v216-table th,
+    .v216-table td {
+      border: 1px solid #334155;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .v216-table th {
+      background: #1E293B;
+      color: #F8FAFC;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .v216-take-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .v216-take-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #07080B;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #F8FAFC;
+    }
+    .v216-take-option:has(input:checked) {
+      border-color: #38BDF8;
+      background: rgba(56, 189, 248, 0.14);
+    }
+    .v216-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .v216-dl-btn {
+      background: #0369A1;
+      color: #FFFFFF;
+      border: 1px solid #38BDF8;
+      border-radius: 5px;
+      padding: 7px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .v216-dl-btn:hover,
+    .v216-dl-btn:focus-visible {
+      background: #0284C7;
+      outline: 2px solid #FACC15;
+      outline-offset: 2px;
+    }
+    
   </style>
 </head>
 <body>
@@ -4882,7 +5166,7 @@
             <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
               📐 Blocking [W]
             </button>
-            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="animatic-s3d-hud" title="S3D Stereoscopy []]">
+            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="modal-s3d-stereography" title="S3D Stereoscopy []]">
               👓 S3D Stereoscopy []]
             </button>
           </div>
@@ -4935,7 +5219,7 @@
           <button type="button" class="dept-pill-toggle" id="dept-toggle-prep" onclick="toggleDeptGroup('prep')" aria-expanded="false" aria-controls="dept-tray-prep">
             <span class="dept-pill-icon" aria-hidden="true">📋</span>
             <span>Prep &amp; Budget</span>
-            <span class="dept-count">4</span>
+            <span class="dept-count">6</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-prep" role="group" aria-label="Prep and Budget Tools" hidden>
@@ -4950,6 +5234,12 @@
             </button>
             <button type="button" class="btn-dit-lut" id="btn-safety-animatic" onclick="toggleSafetyHUD()" aria-label="On-Set Safety Risk and Exclusion Zone HUD [Z]" aria-expanded="false" aria-controls="animatic-safety-hud">
               🦺 Safety JSA [Z]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-art-dept-animatic" onclick="toggleArtWardrobeHUD()" aria-label="Art &amp; Wardrobe Continuity Locker [\]" aria-expanded="false" aria-controls="modal-art-wardrobe-continuity" title="Art &amp; Wardrobe [\]">
+              👗 Art &amp; Wardrobe [\]
+            </button>
+            <button type="button" class="btn-dit-lut" id="btn-economics-animatic" onclick="toggleRenderEconomicsHUD()" aria-label="Compute &amp; Takes Economics Inspector [;]" aria-expanded="false" aria-controls="modal-render-economics" title="Compute &amp; Takes [;]">
+              💎 Compute &amp; Takes [;]
             </button>
           </div>
         </div>
@@ -4977,18 +5267,22 @@
             <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
               🌐 i18n / ADR [I]
             </button>
-            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD & CVAA [[]" aria-expanded="false" aria-controls="animatic-accessibility-ad-hud" title="AD & CVAA [[]">
-              🗣️ AD & CVAA [[]
+            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD &amp; CVAA [[]]" aria-expanded="false" aria-controls="modal-accessibility-ad" title="AD &amp; CVAA [[]">
+              🗣️ AD &amp; CVAA [[]
             </button>
           </div>
         </div>
+
+        <button type="button" class="btn-dof" id="btn-command-palette-animatic" onclick="toggleHudCommandPalette()" aria-label="HUD Palette [/]" aria-expanded="false" aria-controls="modal-hud-command-palette" title="Unified HUD Command Palette [/]">
+          ⌘ HUD Palette [/]
+        </button>
 
         <button type="button" class="btn-export" id="btn-export-bible" onclick="exportProductionBible()" aria-label="Export Production Bible JSON">
           ⤓ Export Production Bible (.json)
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>
   </header>
@@ -7588,6 +7882,139 @@
 </div>
 
 
+<!-- v2.16.0 Unified HUD Command Palette -->
+<div id="modal-hud-command-palette" role="dialog" aria-modal="true" aria-labelledby="cmd-palette-title" tabindex="-1">
+  <div class="v216-modal-card v216-palette-card">
+    <div class="v216-modal-header">
+      <div>
+        <h2 id="cmd-palette-title" class="v216-modal-title">Unified HUD Command Palette</h2>
+        <span class="v216-modal-sub">Type to filter departmental HUDs · Enter to launch · Esc to close [/]</span>
+      </div>
+      <button type="button" class="v216-close-btn" id="btn-cmd-palette-close" onclick="toggleHudCommandPalette(false)" aria-label="Close HUD Command Palette">Close [Esc]</button>
+    </div>
+    <div class="v216-modal-body">
+      <input type="search" id="cmd-palette-search" class="v216-palette-search" placeholder="Search HUDs (e.g. Gaffer, LUT, Wardrobe, Compute, S3D, QC)..." aria-label="Search departmental HUDs" autocomplete="off">
+      <div id="cmd-palette-count" class="v216-sub" aria-live="polite"></div>
+      <ul id="cmd-palette-list" class="v216-palette-list" role="listbox" aria-label="Departmental HUD Launchers"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- v2.16.0 Art & Wardrobe Continuity Locker -->
+<div id="modal-art-wardrobe-continuity" role="dialog" aria-modal="true" aria-labelledby="art-wardrobe-title" tabindex="-1">
+  <div class="v216-modal-card">
+    <div class="v216-modal-header">
+      <div>
+        <h2 id="art-wardrobe-title" class="v216-modal-title">Art &amp; Wardrobe Continuity Locker</h2>
+        <span class="v216-modal-sub">Per-Scene Look IDs, Prop Action-State Matrix &amp; Omni &lt;image_1..3&gt; Slot Contention [\]</span>
+      </div>
+      <button type="button" class="v216-close-btn" id="btn-art-wardrobe-close" onclick="toggleArtWardrobeHUD(false)" aria-label="Close Art &amp; Wardrobe Continuity Locker">Close [Esc]</button>
+    </div>
+    <div class="v216-modal-body">
+      <div class="v216-kpi-row">
+        <div class="v216-gauge-wrap">
+          <div class="v216-sub">Omni &lt;image_1..3&gt; Reference Slot Contention: <strong>3 / 3</strong> (100%)</div>
+          <div class="v216-gauge-bar" role="progressbar" aria-label="Reference slot contention" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3">
+            <div class="v216-gauge-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+        <div>
+          <span class="v216-badge v216-badge-pass">VERIFIED</span>
+        </div>
+      </div>
+
+      <table class="v216-table" aria-label="Per-Scene Wardrobe and Prop Action-State Matrix">
+        <thead>
+          <tr>
+            <th>Scene</th>
+            <th>Wardrobe Look ID &amp; Talent</th>
+            <th>Hero Prop &amp; Action State</th>
+            <th>Continuity Gate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S01</strong> · Artisanal Japanese Culinary Ceremonial M - Initiation</td><td><span class="v216-pill">LOOK-01</span> Master Artisanal Chef / Tea Master<br><span class="v216-sub">Unbleached raw natural linen apron over matte charcoal tunic</span></td><td>Hero Prop S01<br><code class="v216-code">intact</code></td><td><span class="v216-badge v216-badge-pass">CONTINUITY OK</span><br><span class="v216-sub">Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)</span></td></tr>
+<tr><td><strong>S02</strong> · Artisanal Japanese Culinary Ceremonial M - Climax</td><td><span class="v216-pill">LOOK-01</span> Master Artisanal Chef / Tea Master<br><span class="v216-sub">Unbleached raw natural linen apron over matte charcoal tunic</span></td><td>Hero Prop S02<br><code class="v216-code">in_hand_left</code></td><td><span class="v216-badge v216-badge-pass">CONTINUITY OK</span><br><span class="v216-sub">Beat 1: Peak acceleration and directional transition (00:05 - 00</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="v216-actions-row">
+        <button type="button" class="v216-dl-btn" id="btn-dl-prop-csv" onclick="downloadPropContinuityCSV()">⤓ prop_continuity_matrix.csv</button>
+        <button type="button" class="v216-dl-btn" id="btn-dl-art-pull-md" onclick="downloadArtPullListMD()">⤓ art_dept_pull_list.md</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- v2.16.0 Compute Economics & Take-Variant Inspector -->
+<div id="modal-render-economics" role="dialog" aria-modal="true" aria-labelledby="render-economics-title" tabindex="-1">
+  <div class="v216-modal-card">
+    <div class="v216-modal-header">
+      <div>
+        <h2 id="render-economics-title" class="v216-modal-title">Compute Economics &amp; Take-Variant Inspector</h2>
+        <span class="v216-modal-sub">2026 Gemini Model Matrix Spend, AI-vs-AICP Savings &amp; Take A/B/C Selector [;]</span>
+      </div>
+      <button type="button" class="v216-close-btn" id="btn-render-economics-close" onclick="toggleRenderEconomicsHUD(false)" aria-label="Close Compute Economics Inspector">Close [Esc]</button>
+    </div>
+    <div class="v216-modal-body">
+      <div class="v216-kpi-row">
+        <div class="v216-gauge-wrap">
+          <div class="v216-sub">
+            Estimated Spend: <strong id="v216-econ-spend">$3.80</strong> / Ceiling <strong id="v216-econ-ceiling">$25.00</strong>
+            (<span id="v216-econ-pct">15.2%</span>)
+          </div>
+          <div class="v216-gauge-bar" id="v216-econ-progressbar" role="progressbar" aria-label="Estimated compute spend vs budget ceiling" aria-valuenow="15.2" aria-valuemin="0" aria-valuemax="100">
+            <div class="v216-gauge-fill" id="v216-econ-progress-fill" style="width: 15.2%;"></div>
+          </div>
+        </div>
+        <div>
+          <span class="v216-badge v216-badge-pass" id="v216-aicp-savings-badge">
+            AI vs AICP ($48,500): 99.99% Saved
+          </span>
+        </div>
+      </div>
+
+      <table class="v216-table" aria-label="2026 Gemini Model Matrix Cost Breakdown">
+        <thead>
+          <tr>
+            <th>2026 Model ID</th>
+            <th>Pipeline Role</th>
+            <th>Calls</th>
+            <th>Unit Cost</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="v216-model-cost-tbody">
+          <tr data-model-id="gemini-4-argon"><td><code class="v216-code">gemini-4-argon</code></td><td>Lead Creative Director (Master Bible)</td><td>1</td><td>$0.42</td><td class="v216-model-subtotal">$0.42</td></tr>
+<tr data-model-id="gemini-3.8-flash"><td><code class="v216-code">gemini-3.8-flash</code></td><td>Fast Workhorse Fan-Out (Prompts &amp; Audit)</td><td>4</td><td>$0.04</td><td class="v216-model-subtotal">$0.16</td></tr>
+<tr data-model-id="gemini-3-pro-image"><td><code class="v216-code">gemini-3-pro-image</code></td><td>Visual Concept &amp; Continuity Plates</td><td>4</td><td>$0.18</td><td class="v216-model-subtotal">$0.72</td></tr>
+<tr data-model-id="gemini-omni-1.1-flash-preview"><td><code class="v216-code">gemini-omni-1.1-flash-preview</code></td><td>Video &amp; Multimodal Audio Takes</td><td>2</td><td>$1.25</td><td class="v216-model-subtotal">$2.50</td></tr>
+        </tbody>
+      </table>
+
+      <table class="v216-table" aria-label="Per-Scene Take Variant Selector">
+        <thead>
+          <tr>
+            <th>Scene</th>
+            <th>Take A / B / C Variant</th>
+            <th>Seed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S01</strong> · Artisanal Japanese Culinary Ceremonial M - Initiation</td><td><div class="v216-take-group" role="radiogroup" aria-label="Take selector for Scene 1"><label class="v216-take-option"><input type="radio" name="take-scene-1" value="A" checked onchange="selectSceneTakeVariant(1, 'A')" aria-label="Scene 1 Take A ($1.25, Score 94)"><span><strong>Take A</strong> · $1.25 · 94/100</span></label><label class="v216-take-option"><input type="radio" name="take-scene-1" value="B"  onchange="selectSceneTakeVariant(1, 'B')" aria-label="Scene 1 Take B ($1.55, Score 96)"><span><strong>Take B</strong> · $1.55 · 96/100</span></label><label class="v216-take-option"><input type="radio" name="take-scene-1" value="C"  onchange="selectSceneTakeVariant(1, 'C')" aria-label="Scene 1 Take C ($2.40, Score 98)"><span><strong>Take C</strong> · $2.40 · 98/100</span></label></div></td><td><code id="v216-take-seed-1" class="v216-code">#1042</code></td></tr>
+<tr><td><strong>S02</strong> · Artisanal Japanese Culinary Ceremonial M - Climax</td><td><div class="v216-take-group" role="radiogroup" aria-label="Take selector for Scene 2"><label class="v216-take-option"><input type="radio" name="take-scene-2" value="A" checked onchange="selectSceneTakeVariant(2, 'A')" aria-label="Scene 2 Take A ($1.25, Score 94)"><span><strong>Take A</strong> · $1.25 · 94/100</span></label><label class="v216-take-option"><input type="radio" name="take-scene-2" value="B"  onchange="selectSceneTakeVariant(2, 'B')" aria-label="Scene 2 Take B ($1.55, Score 96)"><span><strong>Take B</strong> · $1.55 · 96/100</span></label><label class="v216-take-option"><input type="radio" name="take-scene-2" value="C"  onchange="selectSceneTakeVariant(2, 'C')" aria-label="Scene 2 Take C ($2.40, Score 98)"><span><strong>Take C</strong> · $2.40 · 98/100</span></label></div></td><td><code id="v216-take-seed-2" class="v216-code">#1043</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="v216-actions-row">
+        <button type="button" class="v216-dl-btn" id="btn-dl-take-csv" onclick="downloadTakeVariantLedgerCSV()">⤓ take_variant_ledger.csv</button>
+        <button type="button" class="v216-dl-btn" id="btn-dl-compute-md" onclick="downloadComputeEstimateMD()">⤓ ai_compute_estimate.md</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <main class="container" role="main">
     <!-- Overview & Palette -->
     <div class="overview-grid">
@@ -8001,11 +8428,11 @@
                 <div class="tab-panel active" id="panel-prompt-1" role="tabpanel" aria-labelledby="tab-prompt-1">
                   <div class="coverage-selector" role="group" aria-label="Scene 1 Multi-Cam Coverage">
                     <span class="coverage-label">MULTI-CAM COVERAGE:</span>
-                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, 2, Props: lens]. [CLAPPER_SLATE: Scene 1, Take 1, Roll A01/SR01, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:00:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(1, 'master', this)">[A: Master 24mm]</button>
-                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, 2, Props: lens]. [CLAPPER_SLATE: Scene 1, Take 1, Roll A01/SR01, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:00:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]." data-cam="100mm Macro Probe Lens with micro-fluidic pan and tilt (100mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis" onclick="selectCoverage(1, 'dynamic', this)">[B: Dynamic Hero]</button>
-                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, 2, Props: lens]. [CLAPPER_SLATE: Scene 1, Take 1, Roll A01/SR01, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:00:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(1, 'macro', this)">[C: Macro 100mm]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(1, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]." data-cam="100mm Macro Probe Lens with micro-fluidic pan and tilt (100mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis" onclick="selectCoverage(1, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(1, 'macro', this)">[C: Macro 100mm]</button>
                   </div>
-                  <div class="prompt-text" id="prompt-1">Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 0.10-3.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, 2, Props: lens]. [CLAPPER_SLATE: Scene 1, Take 1, Roll A01/SR01, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:00:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 0.10-3.30s | CVAA=True].</div>
+                  <div class="prompt-text" id="prompt-1">Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88].</div>
                 </div>
 
                 <div class="tab-panel" id="panel-craft-1" role="tabpanel" aria-labelledby="tab-craft-1" style="display: none;">
@@ -8176,11 +8603,11 @@
                 <div class="tab-panel active" id="panel-prompt-2" role="tabpanel" aria-labelledby="tab-prompt-2">
                   <div class="coverage-selector" role="group" aria-label="Scene 2 Multi-Cam Coverage">
                     <span class="coverage-label">MULTI-CAM COVERAGE:</span>
-                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(2, 'master', this)">[A: Master 24mm]</button>
-                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]." data-cam="100mm Macro Probe Lens with micro-fluidic pan and tilt (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject" onclick="selectCoverage(2, 'dynamic', this)">[B: Dynamic Hero]</button>
-                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 0.10-3.30s | CVAA=True]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(2, 'macro', this)">[C: Macro 100mm]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="master" data-prompt="Captured on a 24mm Locked-off Heavy Tripod (Wide Architectural Establishing Frame with deep geometric symmetry, route: Static locked tripod maintaining rigid horizon equilibrium, focus: Deep f/5.6 hyperfocal sharpness preserving foreground and architectural background) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Locked-off Heavy Tripod (24mm) | Wide Architectural Establishing Frame with deep geometric symmetry | Route: Static locked tripod maintaining rigid horizon equilibrium" onclick="selectCoverage(2, 'master', this)">[A: Master 24mm]</button>
+                    <button type="button" class="btn-coverage-pill active" data-coverage="dynamic" data-prompt="Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]." data-cam="100mm Macro Probe Lens with micro-fluidic pan and tilt (50mm) | Medium close-up at eye level with strong rim separation | Route: Arced orbit maneuver sweeping 45 degrees around subject" onclick="selectCoverage(2, 'dynamic', this)">[B: Dynamic Hero]</button>
+                    <button type="button" class="btn-coverage-pill" data-coverage="macro" data-prompt="Captured on a 100mm Motorized Macro Slider (Extreme Close-Up Tactile Insert isolating micro-surface contact, route: Slow 4-centimeter lateral macro push-in across primary contact interface, focus: Razor-thin f/2.0 macro plane isolating surface texture against optical bokeh) at locked 1.0x real-time natural speed with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. Preserving <image_1> character identity and <image_2> architectural environment geometry, Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: &quot;Artisanal Japanese Culinary Cere&quot; @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. Synchronized diegetic audio captures Crisp blade cutting through textured crust, Gentle butter sizzle in cast iron." data-cam="Motorized Macro Slider (100mm) | Extreme Close-Up Tactile Insert isolating micro-surface contact | Route: Slow 4-centimeter lateral macro push-in across primary contact interface" onclick="selectCoverage(2, 'macro', this)">[C: Macro 100mm]</button>
                   </div>
-                  <div class="prompt-text" id="prompt-2">Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 5.10-8.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 0.10-3.30s | CVAA=True].</div>
+                  <div class="prompt-text" id="prompt-2">Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: "Artisanal Japanese Culinary Cere" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED].</div>
                 </div>
 
                 <div class="tab-panel" id="panel-craft-2" role="tabpanel" aria-labelledby="tab-craft-2" style="display: none;">
@@ -8376,7 +8803,7 @@
         "dialogue_lines": [],
         "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
       },
-      "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10\u00b0, el:-5\u00b0, 0.3m); obj_cast_iron_sizzle (az:+20\u00b0, el:-10\u00b0, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, 2, Props: lens]. [CLAPPER_SLATE: Scene 1, Take 1, Roll A01/SR01, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0\u00b0 Shutter, TC 01:00:00:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38\u00b0 SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=1680353c]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True].",
+      "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88].",
       "s3d_spec": {
         "scene_number": 1,
         "camera_spec": {
@@ -9340,13 +9767,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S01-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -9359,7 +9786,7 @@
             "action_id": "ACT-S01-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -9372,7 +9799,7 @@
             "action_id": "ACT-S01-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -9385,7 +9812,7 @@
             "action_id": "ACT-S01-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -9610,7 +10037,86 @@
           "requires_viseme_retime": false
         }
       ],
-      "edit_bridge_in": null
+      "edit_bridge_in": null,
+      "art_continuity_spec": {
+        "scene_index": 1,
+        "wardrobe_states": [
+          {
+            "character_id": "Master Artisanal Chef / Tea Master",
+            "look_id": "LOOK_A",
+            "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "weathering_stage": "crisp_starched",
+            "accessory_lock": [
+              "linen_side_towel"
+            ]
+          }
+        ],
+        "prop_states": [
+          {
+            "prop_id": "PROP_KNIFE_01",
+            "prop_name": "Hand-Forged Gyuto Chef Knife",
+            "action_state": "weathered",
+            "hand_or_anchor": "end_grain_walnut_block",
+            "surface_condition": "moisture_dusted",
+            "continuity_critical": true
+          }
+        ],
+        "dressing_anchors": [
+          {
+            "anchor_id": "ANCHOR_S01_01",
+            "zone_label": "Culinary Asmr Sanctuary",
+            "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+            "must_persist_across_cuts": true
+          }
+        ],
+        "assigned_reference_slots": [
+          "<image_1>:wardrobe_1",
+          "<image_2>:env_1",
+          "<image_3>:prop_1"
+        ],
+        "slot_contention_detected": false,
+        "continuity_delta_note": "",
+        "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+      },
+      "compute_estimate_spec": {
+        "scene_index": 1,
+        "duration_seconds": 5,
+        "prompt_mode": "mode_a_4step",
+        "planned_takes": 3,
+        "plate_renders": 1,
+        "reasoning_tokens_est": 3500,
+        "estimated_scene_usd": 3.8752,
+        "takes": [
+          {
+            "take_id": "SC01_T1",
+            "seed": 1174238941,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": true,
+            "director_note": "Primary hero take"
+          },
+          {
+            "take_id": "SC01_T2",
+            "seed": 1872559319,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 2"
+          },
+          {
+            "take_id": "SC01_T3",
+            "seed": 1992245439,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 3"
+          }
+        ],
+        "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
+      }
     },
     {
       "scene_index": 2,
@@ -9658,7 +10164,7 @@
         "dialogue_lines": [],
         "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
       },
-      "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 5.10-8.30s | CVAA=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10\u00b0, el:-5\u00b0, 0.3m); obj_cast_iron_sizzle (az:+20\u00b0, el:-10\u00b0, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0\u00b0 Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38\u00b0 SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True].",
+      "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10\u00b0, el:-5\u00b0, 0.3m); obj_cast_iron_sizzle (az:+20\u00b0, el:-10\u00b0, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0\u00b0 Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38\u00b0 SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED].",
       "s3d_spec": {
         "scene_number": 2,
         "camera_spec": {
@@ -10621,13 +11127,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S02-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -10640,7 +11146,7 @@
             "action_id": "ACT-S02-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -10653,7 +11159,7 @@
             "action_id": "ACT-S02-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -10666,7 +11172,7 @@
             "action_id": "ACT-S02-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -10892,6 +11398,85 @@
         "beat_locked": false,
         "sonic_anchor_cue": "Crisp blade cutting through textured crust (Macro Foley knife/sizzle 20f J-Cut + 12f soft L-Cut decay)",
         "rationale": "Macro Foley J-Cuts (16-24f) pull tactile kitchen transients ahead of picture with a soft 12f L-Cut tail."
+      },
+      "art_continuity_spec": {
+        "scene_index": 2,
+        "wardrobe_states": [
+          {
+            "character_id": "Master Artisanal Chef / Tea Master",
+            "look_id": "LOOK_A",
+            "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "weathering_stage": "crisp_starched",
+            "accessory_lock": [
+              "linen_side_towel"
+            ]
+          }
+        ],
+        "prop_states": [
+          {
+            "prop_id": "PROP_KNIFE_01",
+            "prop_name": "Hand-Forged Gyuto Chef Knife",
+            "action_state": "weathered",
+            "hand_or_anchor": "end_grain_walnut_block",
+            "surface_condition": "moisture_dusted",
+            "continuity_critical": true
+          }
+        ],
+        "dressing_anchors": [
+          {
+            "anchor_id": "ANCHOR_S02_01",
+            "zone_label": "Culinary Asmr Sanctuary",
+            "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+            "must_persist_across_cuts": true
+          }
+        ],
+        "assigned_reference_slots": [
+          "<image_1>:wardrobe_1",
+          "<image_2>:env_1",
+          "<image_3>:prop_1"
+        ],
+        "slot_contention_detected": false,
+        "continuity_delta_note": "",
+        "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+      },
+      "compute_estimate_spec": {
+        "scene_index": 2,
+        "duration_seconds": 5,
+        "prompt_mode": "mode_a_4step",
+        "planned_takes": 3,
+        "plate_renders": 1,
+        "reasoning_tokens_est": 3500,
+        "estimated_scene_usd": 3.8752,
+        "takes": [
+          {
+            "take_id": "SC02_T1",
+            "seed": 183285123,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": true,
+            "director_note": "Primary hero take"
+          },
+          {
+            "take_id": "SC02_T2",
+            "seed": 2135596501,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 2"
+          },
+          {
+            "take_id": "SC02_T3",
+            "seed": 2028173544,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 3"
+          }
+        ],
+        "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
       }
     }
   ],
@@ -11740,7 +12325,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-23T09:37:44.745750+00:00",
+      "creation_date": "2026-11-24T09:40:11.097557+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -11748,7 +12333,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-23T09:37:44.745738+00:00"
+          "hash_timestamp": "2026-11-24T09:40:11.097541+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -11756,7 +12341,7 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-23T09:37:44.745745+00:00"
+          "hash_timestamp": "2026-11-24T09:40:11.097554+00:00"
         }
       ]
     }
@@ -11812,7 +12397,7 @@
     "asc_mhl": {
       "mhl_version": "2.0",
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
-      "creation_date": "2026-11-23T09:37:44.745750+00:00",
+      "creation_date": "2026-11-24T09:40:11.097557+00:00",
       "hash_entries": [
         {
           "file_path": "A01_01_take01.mov",
@@ -11820,7 +12405,7 @@
           "xxhash64": "9e4da76b3779cac8",
           "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
           "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-          "hash_timestamp": "2026-11-23T09:37:44.745738+00:00"
+          "hash_timestamp": "2026-11-24T09:40:11.097541+00:00"
         },
         {
           "file_path": "A02_02_take01.mov",
@@ -11828,7 +12413,7 @@
           "xxhash64": "878e85010224a769",
           "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
           "md5": "de765bb3eacdf579e0c7116ec82362fe",
-          "hash_timestamp": "2026-11-23T09:37:44.745745+00:00"
+          "hash_timestamp": "2026-11-24T09:40:11.097554+00:00"
         }
       ]
     }
@@ -16751,7 +17336,7 @@
   "master_c2pa_provenance": {
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
     "c2pa_spec_version": "2.1",
-    "claim_generator": "OmniMovieDirector/2.15.0",
+    "claim_generator": "OmniMovieDirector/2.16.0",
     "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
     "synthetic_tier": "full_ai_synthetic",
     "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -16760,7 +17345,7 @@
         "action_id": "ACT-MASTER-01",
         "action": "c2pa.created",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
         "model_used": "gemini-4-argon",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -16773,7 +17358,7 @@
         "action_id": "ACT-MASTER-02",
         "action": "c2pa.edited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
         "model_used": "gemini-3.8-flash",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -16786,7 +17371,7 @@
         "action_id": "ACT-MASTER-03",
         "action": "c2pa.composited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
         "model_used": "gemini-3-pro-image",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -16799,7 +17384,7 @@
         "action_id": "ACT-MASTER-04",
         "action": "c2pa.transcoded",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
         "model_used": "gemini-omni-1.1-flash-preview",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -16871,13 +17456,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S01-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -16890,7 +17475,7 @@
             "action_id": "ACT-S01-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -16903,7 +17488,7 @@
             "action_id": "ACT-S01-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -16916,7 +17501,7 @@
             "action_id": "ACT-S01-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -16982,13 +17567,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S02-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17001,7 +17586,7 @@
             "action_id": "ACT-S02-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17014,7 +17599,7 @@
             "action_id": "ACT-S02-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17027,7 +17612,7 @@
             "action_id": "ACT-S02-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17089,7 +17674,7 @@
   "c2pa_provenance": {
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
     "c2pa_spec_version": "2.1",
-    "claim_generator": "OmniMovieDirector/2.15.0",
+    "claim_generator": "OmniMovieDirector/2.16.0",
     "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
     "synthetic_tier": "full_ai_synthetic",
     "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -17098,7 +17683,7 @@
         "action_id": "ACT-MASTER-01",
         "action": "c2pa.created",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
         "model_used": "gemini-4-argon",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17111,7 +17696,7 @@
         "action_id": "ACT-MASTER-02",
         "action": "c2pa.edited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
         "model_used": "gemini-3.8-flash",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17124,7 +17709,7 @@
         "action_id": "ACT-MASTER-03",
         "action": "c2pa.composited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
         "model_used": "gemini-3-pro-image",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17137,7 +17722,7 @@
         "action_id": "ACT-MASTER-04",
         "action": "c2pa.transcoded",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
         "model_used": "gemini-omni-1.1-flash-preview",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17209,13 +17794,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S01-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17228,7 +17813,7 @@
             "action_id": "ACT-S01-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17241,7 +17826,7 @@
             "action_id": "ACT-S01-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17254,7 +17839,7 @@
             "action_id": "ACT-S01-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17320,13 +17905,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S02-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17339,7 +17924,7 @@
             "action_id": "ACT-S02-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17352,7 +17937,7 @@
             "action_id": "ACT-S02-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17365,7 +17950,7 @@
             "action_id": "ACT-S02-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17427,7 +18012,7 @@
   "content_credentials": {
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
     "c2pa_spec_version": "2.1",
-    "claim_generator": "OmniMovieDirector/2.15.0",
+    "claim_generator": "OmniMovieDirector/2.16.0",
     "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
     "synthetic_tier": "full_ai_synthetic",
     "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -17436,7 +18021,7 @@
         "action_id": "ACT-MASTER-01",
         "action": "c2pa.created",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
         "model_used": "gemini-4-argon",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17449,7 +18034,7 @@
         "action_id": "ACT-MASTER-02",
         "action": "c2pa.edited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
         "model_used": "gemini-3.8-flash",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17462,7 +18047,7 @@
         "action_id": "ACT-MASTER-03",
         "action": "c2pa.composited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
         "model_used": "gemini-3-pro-image",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17475,7 +18060,7 @@
         "action_id": "ACT-MASTER-04",
         "action": "c2pa.transcoded",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
         "model_used": "gemini-omni-1.1-flash-preview",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17547,13 +18132,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S01-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17566,7 +18151,7 @@
             "action_id": "ACT-S01-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17579,7 +18164,7 @@
             "action_id": "ACT-S01-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17592,7 +18177,7 @@
             "action_id": "ACT-S01-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17658,13 +18243,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S02-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17677,7 +18262,7 @@
             "action_id": "ACT-S02-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17690,7 +18275,7 @@
             "action_id": "ACT-S02-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17703,7 +18288,7 @@
             "action_id": "ACT-S02-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17765,7 +18350,7 @@
   "provenance_manifest": {
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
     "c2pa_spec_version": "2.1",
-    "claim_generator": "OmniMovieDirector/2.15.0",
+    "claim_generator": "OmniMovieDirector/2.16.0",
     "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
     "synthetic_tier": "full_ai_synthetic",
     "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -17774,7 +18359,7 @@
         "action_id": "ACT-MASTER-01",
         "action": "c2pa.created",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
         "model_used": "gemini-4-argon",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17787,7 +18372,7 @@
         "action_id": "ACT-MASTER-02",
         "action": "c2pa.edited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
         "model_used": "gemini-3.8-flash",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17800,7 +18385,7 @@
         "action_id": "ACT-MASTER-03",
         "action": "c2pa.composited",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
         "model_used": "gemini-3-pro-image",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17813,7 +18398,7 @@
         "action_id": "ACT-MASTER-04",
         "action": "c2pa.transcoded",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+        "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
         "model_used": "gemini-omni-1.1-flash-preview",
         "when_iso8601": "2026-11-21T00:00:00Z",
         "parameters": {
@@ -17885,13 +18470,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S01-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17904,7 +18489,7 @@
             "action_id": "ACT-S01-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17917,7 +18502,7 @@
             "action_id": "ACT-S01-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17930,7 +18515,7 @@
             "action_id": "ACT-S01-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -17996,13 +18581,13 @@
         "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
         "synthetic_tier": "full_ai_synthetic",
         "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-        "claim_generator": "OmniMovieDirector/2.15.0",
+        "claim_generator": "OmniMovieDirector/2.16.0",
         "actions": [
           {
             "action_id": "ACT-S02-01",
             "action": "c2pa.created",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (CreativeDirectorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
             "model_used": "gemini-4-argon",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -18015,7 +18600,7 @@
             "action_id": "ACT-S02-02",
             "action": "c2pa.edited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (PromptAuditorAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
             "model_used": "gemini-3.8-flash",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -18028,7 +18613,7 @@
             "action_id": "ACT-S02-03",
             "action": "c2pa.composited",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (VisualStoryboardAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
             "model_used": "gemini-3-pro-image",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -18041,7 +18626,7 @@
             "action_id": "ACT-S02-04",
             "action": "c2pa.transcoded",
             "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-            "software_agent": "OmniMovieDirector/2.15.0 (OptionalOmniVideoRenderAgent)",
+            "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
             "model_used": "gemini-omni-1.1-flash-preview",
             "when_iso8601": "2026-11-21T00:00:00Z",
             "parameters": {
@@ -19610,6 +20195,243 @@
         "cvaa_compliant": true
       }
     ]
+  },
+  "master_wardrobe_prop_bible": {
+    "bible_id": "ART-BIBLE-CC8875B6",
+    "archetype": "culinary_asmr",
+    "total_looks": 1,
+    "total_hero_props": 1,
+    "continuity_breaks_detected": 0,
+    "slot_contention_scenes": [],
+    "wardrobe_looks_summary": [
+      {
+        "character_id": "Master Artisanal Chef / Tea Master",
+        "look_id": "LOOK_A",
+        "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+        "weathering_stage": "crisp_starched",
+        "accessory_lock": [
+          "linen_side_towel"
+        ]
+      }
+    ],
+    "hero_prop_registry": [
+      {
+        "prop_id": "PROP_KNIFE_01",
+        "prop_name": "Hand-Forged Gyuto Chef Knife",
+        "action_state": "weathered",
+        "hand_or_anchor": "end_grain_walnut_block",
+        "surface_condition": "moisture_dusted",
+        "continuity_critical": true
+      }
+    ],
+    "scene_art_specs": [
+      {
+        "scene_index": 1,
+        "wardrobe_states": [
+          {
+            "character_id": "Master Artisanal Chef / Tea Master",
+            "look_id": "LOOK_A",
+            "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "weathering_stage": "crisp_starched",
+            "accessory_lock": [
+              "linen_side_towel"
+            ]
+          }
+        ],
+        "prop_states": [
+          {
+            "prop_id": "PROP_KNIFE_01",
+            "prop_name": "Hand-Forged Gyuto Chef Knife",
+            "action_state": "weathered",
+            "hand_or_anchor": "end_grain_walnut_block",
+            "surface_condition": "moisture_dusted",
+            "continuity_critical": true
+          }
+        ],
+        "dressing_anchors": [
+          {
+            "anchor_id": "ANCHOR_S01_01",
+            "zone_label": "Culinary Asmr Sanctuary",
+            "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+            "must_persist_across_cuts": true
+          }
+        ],
+        "assigned_reference_slots": [
+          "<image_1>:wardrobe_1",
+          "<image_2>:env_1",
+          "<image_3>:prop_1"
+        ],
+        "slot_contention_detected": false,
+        "continuity_delta_note": "",
+        "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+      },
+      {
+        "scene_index": 2,
+        "wardrobe_states": [
+          {
+            "character_id": "Master Artisanal Chef / Tea Master",
+            "look_id": "LOOK_A",
+            "garment_summary": "Unbleached raw natural linen apron over matte charcoal tunic",
+            "weathering_stage": "crisp_starched",
+            "accessory_lock": [
+              "linen_side_towel"
+            ]
+          }
+        ],
+        "prop_states": [
+          {
+            "prop_id": "PROP_KNIFE_01",
+            "prop_name": "Hand-Forged Gyuto Chef Knife",
+            "action_state": "weathered",
+            "hand_or_anchor": "end_grain_walnut_block",
+            "surface_condition": "moisture_dusted",
+            "continuity_critical": true
+          }
+        ],
+        "dressing_anchors": [
+          {
+            "anchor_id": "ANCHOR_S02_01",
+            "zone_label": "Culinary Asmr Sanctuary",
+            "hero_material_finish": "Handmade ceramic vessel lip retains exact physical geometry, Natural hinoki cedar countertop surface grain remains mechanically rigid",
+            "must_persist_across_cuts": true
+          }
+        ],
+        "assigned_reference_slots": [
+          "<image_1>:wardrobe_1",
+          "<image_2>:env_1",
+          "<image_3>:prop_1"
+        ],
+        "slot_contention_detected": false,
+        "continuity_delta_note": "",
+        "art_prompt_token": "[WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]"
+      }
+    ],
+    "pull_list_ready": true
+  },
+  "master_render_economics_spec": {
+    "manifest_id": "ECON-C315305D",
+    "archetype": "culinary_asmr",
+    "model_rates": [
+      {
+        "model_id": "gemini-4-argon",
+        "role_label": "Lead Creative Director",
+        "input_per_1m_usd": 2.5,
+        "output_per_1m_usd": 10.0,
+        "unit_render_usd": 0.0
+      },
+      {
+        "model_id": "gemini-3.8-flash",
+        "role_label": "Fast Workhorse Fan-Out",
+        "input_per_1m_usd": 0.15,
+        "output_per_1m_usd": 0.6,
+        "unit_render_usd": 0.0
+      },
+      {
+        "model_id": "gemini-3-pro-image",
+        "role_label": "Visual Concept & Continuity",
+        "input_per_1m_usd": 1.25,
+        "output_per_1m_usd": 5.0,
+        "unit_render_usd": 0.08
+      },
+      {
+        "model_id": "gemini-omni-1.1-flash-preview",
+        "role_label": "Video & Multimodal Audio",
+        "input_per_1m_usd": 0.5,
+        "output_per_1m_usd": 2.0,
+        "unit_render_usd": 0.25
+      }
+    ],
+    "scene_estimates": [
+      {
+        "scene_index": 1,
+        "duration_seconds": 5,
+        "prompt_mode": "mode_a_4step",
+        "planned_takes": 3,
+        "plate_renders": 1,
+        "reasoning_tokens_est": 3500,
+        "estimated_scene_usd": 3.8752,
+        "takes": [
+          {
+            "take_id": "SC01_T1",
+            "seed": 1174238941,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": true,
+            "director_note": "Primary hero take"
+          },
+          {
+            "take_id": "SC01_T2",
+            "seed": 1872559319,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 2"
+          },
+          {
+            "take_id": "SC01_T3",
+            "seed": 1992245439,
+            "prompt_sha256_prefix": "7bda5ef81ff4",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 3"
+          }
+        ],
+        "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
+      },
+      {
+        "scene_index": 2,
+        "duration_seconds": 5,
+        "prompt_mode": "mode_a_4step",
+        "planned_takes": 3,
+        "plate_renders": 1,
+        "reasoning_tokens_est": 3500,
+        "estimated_scene_usd": 3.8752,
+        "takes": [
+          {
+            "take_id": "SC02_T1",
+            "seed": 183285123,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": true,
+            "director_note": "Primary hero take"
+          },
+          {
+            "take_id": "SC02_T2",
+            "seed": 2135596501,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 2"
+          },
+          {
+            "take_id": "SC02_T3",
+            "seed": 2028173544,
+            "prompt_sha256_prefix": "a9f6289d21f9",
+            "audit_score": 95,
+            "estimated_cost_usd": 1.25,
+            "selected": false,
+            "director_note": "Coverage safety take 3"
+          }
+        ],
+        "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
+      }
+    ],
+    "guardrail": {
+      "max_render_budget_usd": 50.0,
+      "estimated_total_usd": 7.7504,
+      "utilization_pct": 15.5,
+      "within_budget": true,
+      "hard_abort_on_live_exceed": true,
+      "simulation_savings_vs_aicp_pct": 99.9951
+    },
+    "total_planned_takes": 6,
+    "total_video_seconds_planned": 30,
+    "dry_run_billable_usd": 0.0
   }
 };
 
@@ -20150,7 +20972,7 @@
     }
 
     function generateCubeLUT(title, size) {
-      let out = `# Created by Omni Movie Director v2.15.0
+      let out = `# Created by Omni Movie Director v2.16.0
 # Gamut Transform: ACEScg -> Rec.709 Gamma 2.4
 TITLE "${title}"
 LUT_3D_SIZE ${size}
@@ -20229,7 +21051,7 @@ DOMAIN_MAX 1.0 1.0 1.0
       const spatialData = MASTER_BIBLE.master_spatial_audio || {};
       const admPayload = {
         format: "ADM_ITU_R_BS_2076",
-        version: "2.15.0",
+        version: "2.16.0",
         bed_format: spatialData.bed_format || "7.1.4",
         acoustic_room: spatialData.acoustic_room || {},
         audio_objects: spatialData.audio_objects || [],
@@ -20345,7 +21167,7 @@ DOMAIN_MAX 1.0 1.0 1.0
 
     function downloadNukeScript() {
       const title = (MASTER_BIBLE.project_title || "OMNI_DIRECTOR").replace(/[^a-zA-Z0-9_]/g, "_");
-      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.15.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
+      const nkScript = `#! /usr/local/Nuke15.0 -nx\n# Created by Omni Movie Director v2.16.0 - Multi-Pass Compositing Engine\nversion 15.0 v1\nRoot {\n inputs 0\n name "${title}_Composite.nk"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n fps 24\n colorManagement OCIO\n OCIO_config aces_1.2\n defaultColorSpace ACEScg\n}\nBackdropNode {\n inputs 0\n name Backdrop_MultiPass\n tile_color 0x223344ff\n label "OMNI DIRECTOR MULTI-PASS REBUILD"\n note_font_size 24\n xpos -120\n ypos -120\n bdwidth 720\n bdheight 480\n}\nRead {\n inputs 0\n file "[file dirname [value root.name]]/renders/${title}_master.exr"\n format "3840 2160 0 0 3840 2160 1 UHD_4K"\n origcolorspace ACEScg\n name Read_MultiPass_EXR\n xpos 0\n ypos 0\n}\n`;
       const blob = new Blob([nkScript], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -20684,7 +21506,7 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "5219_emulation.dctl";
+      a.download = "film_stock_shader.dctl";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -21781,7 +22603,7 @@ Cost-Per-Second (CPS),\$2633.37/sec,,,,,,,,
 
     function downloadMhlXML() {
       const blob = new Blob([`<?xml version="1.0" encoding="UTF-8"?>
-<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-23T09:37:44.745750+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-23T09:37:44.745738+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-23T09:37:44.745745+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
+<hashlist version="2.0" xmlns="urn:ASC:MHL:v2.0"><creatorinfo><creationdate>2026-11-24T09:40:11.097557+00:00</creationdate><project>Artisanal Japanese Culinary Ceremonial M</project><tool>Omni Movie Director v2.8.0</tool></creatorinfo><hashes><hash><file>A01_01_take01.mov</file><size>104857600</size><xxhash64>9e4da76b3779cac8</xxhash64><sha1>797042c271b4e7662ecd473a5e8a003233b60094</sha1><md5>20a6cf1e65a6f0462e8eab05bbfc21d0</md5><hashdate>2026-11-24T09:40:11.097541+00:00</hashdate></hash><hash><file>A02_02_take01.mov</file><size>209715200</size><xxhash64>878e85010224a769</xxhash64><sha1>f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188</sha1><md5>de765bb3eacdf579e0c7116ec82362fe</md5><hashdate>2026-11-24T09:40:11.097554+00:00</hashdate></hash></hashes></hashlist>`], { type: 'application/xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -26546,12 +27368,13 @@ FCM: NON-DROP FRAME
 
     let isS3dHUDOpen = false;
     let lastS3dOpener = null;
+    let isAccessibilityAdHUDOpen = false;
     let isAccHUDOpen = false;
     let lastAccOpener = null;
 
     function _v215ShowToast(msg) {
-        if (typeof showCinemaToast === 'function') {
-            showCinemaToast(msg);
+        if (typeof showToast === 'function') {
+            showToast(msg);
             return;
         }
         const toast = document.createElement('div');
@@ -26659,36 +27482,49 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
 
     window.toggleS3dHUD = function(forceOpen) {
         const modal = document.getElementById('modal-s3d-stereography');
+        const btn = document.getElementById('btn-s3d-animatic');
         if (!modal) return;
-        const shouldOpen = forceOpen !== undefined ? forceOpen : !isS3dHUDOpen;
+        const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isS3dHUDOpen;
+        isS3dHUDOpen = shouldOpen;
+        if (btn) {
+            btn.classList.toggle('active', shouldOpen);
+            btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        }
         if (shouldOpen) {
             lastS3dOpener = document.activeElement;
             modal.style.display = 'flex';
-            isS3dHUDOpen = true;
             const closeBtn = document.getElementById('btn-s3d-close');
             if (closeBtn) closeBtn.focus();
             renderS3dAnaglyph();
+            _v215ShowToast('👓 S3D Stereoscopy HUD: ACTIVE []]');
         } else {
             modal.style.display = 'none';
-            isS3dHUDOpen = false;
             if (lastS3dOpener && typeof lastS3dOpener.focus === 'function') lastS3dOpener.focus();
+            else if (btn && typeof btn.focus === 'function') btn.focus();
         }
     };
 
     window.toggleAccessibilityAdHUD = function(forceOpen) {
         const modal = document.getElementById('modal-accessibility-ad');
+        const btn = document.getElementById('btn-ad-animatic');
         if (!modal) return;
-        const shouldOpen = forceOpen !== undefined ? forceOpen : !isAccHUDOpen;
+        const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isAccessibilityAdHUDOpen;
+        isAccessibilityAdHUDOpen = shouldOpen;
+        isAccHUDOpen = shouldOpen;
+        if (btn) {
+            btn.classList.toggle('active', shouldOpen);
+            btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        }
         if (shouldOpen) {
             lastAccOpener = document.activeElement;
             modal.style.display = 'flex';
-            isAccHUDOpen = true;
             const closeBtn = document.getElementById('btn-acc-close');
             if (closeBtn) closeBtn.focus();
+            _v215ShowToast('🗣️ Accessibility & AD HUD: ACTIVE [[]');
         } else {
             modal.style.display = 'none';
-            isAccHUDOpen = false;
             if (lastAccOpener && typeof lastAccOpener.focus === 'function') lastAccOpener.focus();
+            else if (btn && typeof btn.focus === 'function') btn.focus();
         }
     };
 
@@ -26727,6 +27563,7 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
         const lastEl = focusables[focusables.length - 1];
         modal.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
+                if (typeof _handleModalTabFocusTrap === 'function') return;
                 if (e.shiftKey && document.activeElement === firstEl) {
                     lastEl.focus();
                     e.preventDefault();
@@ -26796,6 +27633,395 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
         }
     };
 
+    
+    // v2.16.0 Unified HUD Command Palette, Art & Wardrobe Locker, Compute Economics Inspector
+    const V216_WARDROBE_STATE = {"project_title": "Artisanal Japanese Culinary Ceremonial M", "reference_slots_max": 3, "reference_slots_used": 3, "continuity_break_count": 0, "continuity_status": "VERIFIED", "wardrobe_looks": [{"character": "Master Artisanal Chef / Tea Master", "look_id": "LOOK-01", "wardrobe_spec": "Unbleached raw natural linen apron over matte charcoal tunic"}], "scene_entries": [{"scene_index": 1, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation", "character": "Master Artisanal Chef / Tea Master", "look_id": "LOOK-01", "wardrobe_spec": "Unbleached raw natural linen apron over matte charcoal tunic", "prop_name": "Hero Prop S01", "prop_state": "intact", "reference_slots_used": 3, "continuity_break": false, "continuity_note": "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02)"}, {"scene_index": 2, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax", "character": "Master Artisanal Chef / Tea Master", "look_id": "LOOK-01", "wardrobe_spec": "Unbleached raw natural linen apron over matte charcoal tunic", "prop_name": "Hero Prop S02", "prop_state": "in_hand_left", "reference_slots_used": 3, "continuity_break": false, "continuity_note": "Beat 1: Peak acceleration and directional transition (00:05 - 00"}]};
+    const V216_ECON_STATE = {"project_title": "Artisanal Japanese Culinary Ceremonial M", "budget_ceiling_usd": 25.0, "fixed_pipeline_overhead_usd": 1.3, "estimated_spend_usd": 3.8, "aicp_traditional_baseline_usd": 48500.0, "ai_vs_aicp_savings_pct": 99.99, "model_breakdown": [{"model_id": "gemini-4-argon", "role": "Lead Creative Director (Master Bible)", "unit_cost_usd": 0.42, "calls": 1, "subtotal_usd": 0.42}, {"model_id": "gemini-3.8-flash", "role": "Fast Workhorse Fan-Out (Prompts & Audit)", "unit_cost_usd": 0.04, "calls": 4, "subtotal_usd": 0.16}, {"model_id": "gemini-3-pro-image", "role": "Visual Concept & Continuity Plates", "unit_cost_usd": 0.18, "calls": 4, "subtotal_usd": 0.72}, {"model_id": "gemini-omni-1.1-flash-preview", "role": "Video & Multimodal Audio Takes", "unit_cost_usd": 1.25, "calls": 2, "subtotal_usd": 2.5}], "scene_takes": [{"scene_index": 1, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation", "selected_take": "A", "takes": {"A": {"label": "Take A (Baseline 1080p24)", "cost_usd": 1.25, "audit_score": 94, "seed": 1042}, "B": {"label": "Take B (Alt Camera Motion)", "cost_usd": 1.55, "audit_score": 96, "seed": 2042}, "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": 2.4, "audit_score": 98, "seed": 3042}}}, {"scene_index": 2, "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax", "selected_take": "A", "takes": {"A": {"label": "Take A (Baseline 1080p24)", "cost_usd": 1.25, "audit_score": 94, "seed": 1043}, "B": {"label": "Take B (Alt Camera Motion)", "cost_usd": 1.55, "audit_score": 96, "seed": 2043}, "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": 2.4, "audit_score": 98, "seed": 3043}}}]};
+
+    let isHudCommandPaletteOpen = false;
+    let lastCmdPaletteOpener = null;
+    let isArtWardrobeHUDOpen = false;
+    let lastArtWardrobeOpener = null;
+    let isRenderEconomicsHUDOpen = false;
+    let lastRenderEconomicsOpener = null;
+    let _cmdPaletteSelectedIdx = 0;
+
+    const V216_HUD_COMMANDS = [
+      { id: 'cc', name: 'Closed Captions (CC)', dept: 'Delivery', key: 'C', fn: 'toggleCC' },
+      { id: 'mixer', name: 'Audio Stem Console Mixer', dept: 'Audio', key: 'M', fn: 'toggleMixer' },
+      { id: 'viewfinder', name: 'Optical Viewfinder & Safe Guides', dept: 'Camera', key: 'V', fn: 'toggleViewfinder' },
+      { id: 'vpstage', name: 'Virtual Production LED Stage', dept: 'Camera', key: 'P', fn: 'toggleVPStageModal' },
+      { id: 'moco', name: 'Motion Control Trajectory', dept: 'Camera', key: 'K', fn: 'toggleMoCoHUD' },
+      { id: 'gaffer', name: 'Studio Gaffer & Lighting Rig', dept: 'Lighting', key: 'G', fn: 'toggleGafferHUD' },
+      { id: 'dof', name: 'Optical Depth of Field (DoF)', dept: 'Camera', key: 'F', fn: 'toggleDoFHUD' },
+      { id: 'lut', name: 'DIT 3D LUT Color Suite', dept: 'Color', key: 'L', fn: 'toggleDitLutHUD' },
+      { id: 'spatial', name: 'Spatial Audio 7.1.4 Soundfield', dept: 'Audio', key: 'S', fn: 'toggleSpatialHUD' },
+      { id: 'vfx', name: 'Multi-Pass VFX Compositing', dept: 'VFX', key: 'X', fn: 'toggleVfxHUD' },
+      { id: 'hdr', name: 'HDR10 / HLG Color Volume', dept: 'Color', key: 'H', fn: 'toggleHdrHUD' },
+      { id: 'stripboard', name: '1st AD Stripboard Schedule', dept: 'Prep', key: 'B', fn: 'toggleStripboardHUD' },
+      { id: 'film', name: 'Physical Film Stock Emulation', dept: 'Color', key: 'E', fn: 'toggleFilmHUD' },
+      { id: 'slate', name: 'SMPTE 12M Clapper Slate', dept: 'Prep', key: 'T', fn: 'toggleSlateHUD' },
+      { id: 'drone', name: 'Aerial Drone Flight Path', dept: 'Camera', key: 'D', fn: 'toggleDroneHUD' },
+      { id: 'aicp', name: 'AICP Commercial Production Bid', dept: 'Budget', key: 'A', fn: 'toggleAicpHUD' },
+      { id: 'reframe', name: 'Multi-Aspect Social Reframe', dept: 'Delivery', key: 'R', fn: 'toggleReframeHUD' },
+      { id: 'qc', name: 'Broadcast QC & Clearances', dept: 'Delivery', key: 'Q', fn: 'toggleQcHUD' },
+      { id: 'blocking', name: '180-Degree Continuity Blocking', dept: 'Camera', key: 'W', fn: 'toggleBlockingHUD' },
+      { id: 'review', name: 'Client Review & Pin Annotations', dept: 'Review', key: 'N', fn: 'toggleReviewHUD' },
+      { id: 'c2pa', name: 'C2PA Content Credentials', dept: 'Delivery', key: 'Y', fn: 'toggleC2paHUD' },
+      { id: 'safety', name: 'On-Set Safety JSA & Exclusion', dept: 'Prep', key: 'Z', fn: 'toggleSafetyHUD' },
+      { id: 'localization', name: 'Localization, ADR & Safe-Supers', dept: 'Delivery', key: 'I', fn: 'toggleLocalizationHUD' },
+      { id: 'spotting', name: 'Editorial J/L-Cut Spotting', dept: 'Audio', key: 'J', fn: 'toggleSpottingHUD' },
+      { id: 's3d', name: 'S3D Stereoscopy & MV-HEVC', dept: 'Camera', key: ']', fn: 'toggleS3dHUD' },
+      { id: 'ad', name: 'Audio Description (AD) & CVAA', dept: 'Delivery', key: '[', fn: 'toggleAccessibilityAdHUD' },
+      { id: 'art', name: 'Art & Wardrobe Continuity Locker', dept: 'Prep', key: '\\', fn: 'toggleArtWardrobeHUD' },
+      { id: 'econ', name: 'Compute Economics & Take-Variant Inspector', dept: 'Budget', key: ';', fn: 'toggleRenderEconomicsHUD' }
+    ];
+
+    function _v216ShowToast(msg) {
+      if (typeof showToast === 'function') {
+        showToast(msg);
+        return;
+      }
+      const toast = document.createElement('div');
+      toast.className = 'cinema-toast show';
+      toast.textContent = msg;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '20px';
+      toast.style.right = '20px';
+      toast.style.background = '#0F172A';
+      toast.style.color = '#F8FAFC';
+      toast.style.padding = '10px 16px';
+      toast.style.borderRadius = '6px';
+      toast.style.border = '1px solid #38BDF8';
+      toast.style.zIndex = '20000';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2600);
+    }
+
+    function _v216DownloadBlob(content, mime, filename, toastMsg) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      _v216ShowToast(toastMsg);
+    }
+
+    function _v216TrapFocus(modal) {
+      if (!modal) return;
+      modal.addEventListener('keydown', function(e) {
+        if (e.key !== 'Tab') return;
+        if (typeof _handleModalTabFocusTrap === 'function') return;
+        const focusables = modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === firstEl) {
+          lastEl.focus();
+          e.preventDefault();
+        } else if (!e.shiftKey && document.activeElement === lastEl) {
+          firstEl.focus();
+          e.preventDefault();
+        }
+      });
+    }
+
+    function _getFilteredPaletteCommands(query) {
+      const q = String(query || '').trim().toLowerCase();
+      if (!q) return V216_HUD_COMMANDS.slice();
+      return V216_HUD_COMMANDS.filter((cmd) => (
+        cmd.name.toLowerCase().includes(q) ||
+        cmd.dept.toLowerCase().includes(q) ||
+        cmd.key.toLowerCase().includes(q)
+      ));
+    }
+
+    function _launchPaletteCommand(cmd) {
+      if (!cmd) return;
+      toggleHudCommandPalette(false);
+      const fn = window[cmd.fn];
+      if (typeof fn === 'function') {
+        fn();
+      } else {
+        _v216ShowToast('HUD unavailable: ' + cmd.name);
+      }
+    }
+
+    function renderHudCommandPalette() {
+      const input = document.getElementById('cmd-palette-search');
+      const list = document.getElementById('cmd-palette-list');
+      const countEl = document.getElementById('cmd-palette-count');
+      if (!list) return;
+      const items = _getFilteredPaletteCommands(input ? input.value : '');
+      if (_cmdPaletteSelectedIdx >= items.length) _cmdPaletteSelectedIdx = 0;
+      if (_cmdPaletteSelectedIdx < 0) _cmdPaletteSelectedIdx = Math.max(0, items.length - 1);
+
+      while (list.firstChild) list.removeChild(list.firstChild);
+      if (countEl) {
+        countEl.textContent = items.length + ' departmental HUD' + (items.length === 1 ? '' : 's') + ' available';
+      }
+
+      if (!items.length) {
+        const emptyLi = document.createElement('li');
+        emptyLi.className = 'v216-sub';
+        emptyLi.textContent = 'No matching HUD commands found.';
+        list.appendChild(emptyLi);
+        return;
+      }
+
+      items.forEach((cmd, idx) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'v216-palette-item' + (idx === _cmdPaletteSelectedIdx ? ' selected' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', idx === _cmdPaletteSelectedIdx ? 'true' : 'false');
+        btn.setAttribute('data-cmd-id', cmd.id);
+
+        const left = document.createElement('span');
+        left.textContent = cmd.name;
+
+        const meta = document.createElement('span');
+        meta.className = 'v216-palette-meta';
+        const dept = document.createElement('span');
+        dept.className = 'v216-dept-tag';
+        dept.textContent = cmd.dept;
+        const kbd = document.createElement('kbd');
+        kbd.className = 'v216-kbd';
+        kbd.textContent = cmd.key;
+        meta.appendChild(dept);
+        meta.appendChild(kbd);
+
+        btn.appendChild(left);
+        btn.appendChild(meta);
+        btn.addEventListener('click', () => _launchPaletteCommand(cmd));
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    }
+
+    window.toggleHudCommandPalette = function(forceOpen) {
+      const modal = document.getElementById('modal-hud-command-palette');
+      const btn = document.getElementById('btn-command-palette-animatic');
+      if (!modal) return;
+      const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isHudCommandPaletteOpen;
+      isHudCommandPaletteOpen = shouldOpen;
+      if (btn) {
+        btn.classList.toggle('active', shouldOpen);
+        btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      }
+      if (shouldOpen) {
+        lastCmdPaletteOpener = document.activeElement;
+        modal.style.display = 'flex';
+        _cmdPaletteSelectedIdx = 0;
+        const searchEl = document.getElementById('cmd-palette-search');
+        if (searchEl) {
+          searchEl.value = '';
+          renderHudCommandPalette();
+          searchEl.focus();
+        } else {
+          renderHudCommandPalette();
+        }
+        _v216ShowToast('⌘ Unified HUD Command Palette: ACTIVE [/]');
+      } else {
+        modal.style.display = 'none';
+        if (lastCmdPaletteOpener && typeof lastCmdPaletteOpener.focus === 'function') lastCmdPaletteOpener.focus();
+        else if (btn && typeof btn.focus === 'function') btn.focus();
+      }
+    };
+
+    window.toggleArtWardrobeHUD = function(forceOpen) {
+      const modal = document.getElementById('modal-art-wardrobe-continuity');
+      const btn = document.getElementById('btn-art-dept-animatic');
+      if (!modal) return;
+      const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isArtWardrobeHUDOpen;
+      isArtWardrobeHUDOpen = shouldOpen;
+      if (btn) {
+        btn.classList.toggle('active', shouldOpen);
+        btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      }
+      if (shouldOpen) {
+        lastArtWardrobeOpener = document.activeElement;
+        modal.style.display = 'flex';
+        const closeBtn = document.getElementById('btn-art-wardrobe-close');
+        if (closeBtn) closeBtn.focus();
+        _v216ShowToast('👗 Art & Wardrobe Continuity Locker: ACTIVE [\\]');
+      } else {
+        modal.style.display = 'none';
+        if (lastArtWardrobeOpener && typeof lastArtWardrobeOpener.focus === 'function') lastArtWardrobeOpener.focus();
+        else if (btn && typeof btn.focus === 'function') btn.focus();
+      }
+    };
+
+    window.toggleRenderEconomicsHUD = function(forceOpen) {
+      const modal = document.getElementById('modal-render-economics');
+      const btn = document.getElementById('btn-economics-animatic');
+      if (!modal) return;
+      const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isRenderEconomicsHUDOpen;
+      isRenderEconomicsHUDOpen = shouldOpen;
+      if (btn) {
+        btn.classList.toggle('active', shouldOpen);
+        btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      }
+      if (shouldOpen) {
+        lastRenderEconomicsOpener = document.activeElement;
+        modal.style.display = 'flex';
+        const closeBtn = document.getElementById('btn-render-economics-close');
+        if (closeBtn) closeBtn.focus();
+        _v216ShowToast('💎 Compute Economics & Take-Variant Inspector: ACTIVE [;]');
+      } else {
+        modal.style.display = 'none';
+        if (lastRenderEconomicsOpener && typeof lastRenderEconomicsOpener.focus === 'function') lastRenderEconomicsOpener.focus();
+        else if (btn && typeof btn.focus === 'function') btn.focus();
+      }
+    };
+
+    window.selectSceneTakeVariant = function(sceneIndex, takeKey) {
+      const sceneRow = (V216_ECON_STATE.scene_takes || []).find((s) => Number(s.scene_index) === Number(sceneIndex));
+      if (!sceneRow || !sceneRow.takes || !sceneRow.takes[takeKey]) return;
+      sceneRow.selected_take = takeKey;
+      const takeInfo = sceneRow.takes[takeKey];
+
+      const seedEl = document.getElementById('v216-take-seed-' + sceneIndex);
+      if (seedEl) seedEl.textContent = '#' + String(takeInfo.seed || 1001);
+
+      let videoSpend = 0;
+      (V216_ECON_STATE.scene_takes || []).forEach((s) => {
+        const k = s.selected_take || 'A';
+        const t = (s.takes && s.takes[k]) ? s.takes[k] : { cost_usd: 1.25 };
+        videoSpend += Number(t.cost_usd || 0);
+      });
+      const totalSpend = Number(V216_ECON_STATE.fixed_pipeline_overhead_usd || 0) + videoSpend;
+      V216_ECON_STATE.estimated_spend_usd = Math.round(totalSpend * 100) / 100;
+
+      const ceiling = Math.max(1, Number(V216_ECON_STATE.budget_ceiling_usd || 25));
+      const pct = Math.min(100, Math.max(0, Math.round((totalSpend / ceiling) * 1000) / 10));
+      const spendEl = document.getElementById('v216-econ-spend');
+      const pctEl = document.getElementById('v216-econ-pct');
+      const barEl = document.getElementById('v216-econ-progressbar');
+      const fillEl = document.getElementById('v216-econ-progress-fill');
+      if (spendEl) spendEl.textContent = '$' + totalSpend.toFixed(2);
+      if (pctEl) pctEl.textContent = pct.toFixed(1) + '%';
+      if (barEl) barEl.setAttribute('aria-valuenow', pct.toFixed(1));
+      if (fillEl) fillEl.style.width = pct.toFixed(1) + '%';
+
+      const videoModelRow = document.querySelector('#v216-model-cost-tbody tr[data-model-id="gemini-omni-1.1-flash-preview"] .v216-model-subtotal');
+      if (videoModelRow) videoModelRow.textContent = '$' + videoSpend.toFixed(2);
+
+      const aicpBase = Math.max(1, Number(V216_ECON_STATE.aicp_traditional_baseline_usd || 48500));
+      const savingsPct = Math.max(0, (1 - (totalSpend / aicpBase)) * 100);
+      V216_ECON_STATE.ai_vs_aicp_savings_pct = Math.round(savingsPct * 100) / 100;
+      const savingsBadge = document.getElementById('v216-aicp-savings-badge');
+      if (savingsBadge) {
+        savingsBadge.textContent = 'AI vs AICP ($' + Math.round(aicpBase).toLocaleString() + '): ' + savingsPct.toFixed(2) + '% Saved';
+      }
+
+      _v216ShowToast('Scene ' + String(sceneIndex).padStart(2, '0') + ' switched to Take ' + takeKey + ' ($' + Number(takeInfo.cost_usd || 0).toFixed(2) + ')');
+    };
+
+    function _csvCell(val) {
+      const s = String(val == null ? '' : val);
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+
+    window.downloadPropContinuityCSV = function() {
+      const rows = [['Scene', 'Title', 'Character', 'Look_ID', 'Wardrobe_Spec', 'Prop', 'Prop_State', 'Ref_Slots_Used', 'Continuity_Break', 'Notes']];
+      (V216_WARDROBE_STATE.scene_entries || []).forEach((r) => {
+        rows.push([
+          r.scene_index, r.scene_title, r.character, r.look_id, r.wardrobe_spec,
+          r.prop_name, r.prop_state, r.reference_slots_used, r.continuity_break, r.continuity_note
+        ]);
+      });
+      const csvStr = rows.map((r) => r.map(_csvCell).join(',')).join('\n') + '\n';
+      _v216DownloadBlob(csvStr, 'text/csv;charset=utf-8;', 'prop_continuity_matrix.csv', 'Downloaded prop_continuity_matrix.csv');
+    };
+
+    window.downloadArtPullListMD = function() {
+      const lines = [
+        '# Art & Wardrobe Department Pull List: ' + (V216_WARDROBE_STATE.project_title || 'Omni Production'),
+        '',
+        '- **Continuity Status**: `' + (V216_WARDROBE_STATE.continuity_status || 'VERIFIED') + '`',
+        '- **Omni Reference Slots Used**: `' + (V216_WARDROBE_STATE.reference_slots_used || 1) + ' / ' + (V216_WARDROBE_STATE.reference_slots_max || 3) + '`',
+        '',
+        '## Wardrobe Looks'
+      ];
+      (V216_WARDROBE_STATE.wardrobe_looks || []).forEach((lk) => {
+        lines.push('- **' + lk.look_id + '** (' + lk.character + '): ' + lk.wardrobe_spec);
+      });
+      lines.push('', '## Per-Scene Prop & Continuity Matrix', '| Scene | Character | Look | Prop | State | Continuity |', '|---|---|---|---|---|---|');
+      (V216_WARDROBE_STATE.scene_entries || []).forEach((r) => {
+        lines.push('| S' + String(r.scene_index).padStart(2, '0') + ' | ' + r.character + ' | ' + r.look_id + ' | ' + r.prop_name + ' | `' + r.prop_state + '` | ' + (r.continuity_break ? 'BREAK RISK' : 'OK') + ' |');
+      });
+      _v216DownloadBlob(lines.join('\n') + '\n', 'text/markdown;charset=utf-8;', 'art_dept_pull_list.md', 'Downloaded art_dept_pull_list.md');
+    };
+
+    window.downloadTakeVariantLedgerCSV = function() {
+      const rows = [['Scene', 'Title', 'Selected_Take', 'Label', 'Video_Cost_USD', 'Audit_Score', 'Seed']];
+      (V216_ECON_STATE.scene_takes || []).forEach((sc) => {
+        const k = sc.selected_take || 'A';
+        const t = (sc.takes && sc.takes[k]) ? sc.takes[k] : {};
+        rows.push([sc.scene_index, sc.scene_title, k, t.label || '', t.cost_usd || 1.25, t.audit_score || 94, t.seed || 1001]);
+      });
+      const csvStr = rows.map((r) => r.map(_csvCell).join(',')).join('\n') + '\n';
+      _v216DownloadBlob(csvStr, 'text/csv;charset=utf-8;', 'take_variant_ledger.csv', 'Downloaded take_variant_ledger.csv');
+    };
+
+    window.downloadComputeEstimateMD = function() {
+      const lines = [
+        '# AI Compute Economics Estimate: ' + (V216_ECON_STATE.project_title || 'Omni Production'),
+        '',
+        '- **Estimated Spend**: `$' + Number(V216_ECON_STATE.estimated_spend_usd || 0).toFixed(2) + '`',
+        '- **Budget Ceiling**: `$' + Number(V216_ECON_STATE.budget_ceiling_usd || 25).toFixed(2) + '`',
+        '- **Traditional AICP Baseline**: `$' + Number(V216_ECON_STATE.aicp_traditional_baseline_usd || 48500).toFixed(2) + '`',
+        '- **AI vs AICP Savings**: `' + Number(V216_ECON_STATE.ai_vs_aicp_savings_pct || 99.9).toFixed(2) + '%`',
+        '',
+        '## 2026 Model Matrix Breakdown',
+        '| Model ID | Pipeline Role | Calls | Unit Cost | Subtotal |',
+        '|---|---|---|---|---|'
+      ];
+      (V216_ECON_STATE.model_breakdown || []).forEach((m) => {
+        lines.push('| `' + m.model_id + '` | ' + m.role + ' | ' + m.calls + ' | $' + Number(m.unit_cost_usd || 0).toFixed(2) + ' | $' + Number(m.subtotal_usd || 0).toFixed(2) + ' |');
+      });
+      _v216DownloadBlob(lines.join('\n') + '\n', 'text/markdown;charset=utf-8;', 'ai_compute_estimate.md', 'Downloaded ai_compute_estimate.md');
+    };
+
+    window.initV216HUDs = function() {
+      const mPalette = document.getElementById('modal-hud-command-palette');
+      const mArt = document.getElementById('modal-art-wardrobe-continuity');
+      const mEcon = document.getElementById('modal-render-economics');
+      _v216TrapFocus(mPalette);
+      _v216TrapFocus(mArt);
+      _v216TrapFocus(mEcon);
+
+      const searchEl = document.getElementById('cmd-palette-search');
+      if (searchEl) {
+        searchEl.addEventListener('input', () => {
+          _cmdPaletteSelectedIdx = 0;
+          renderHudCommandPalette();
+        });
+        searchEl.addEventListener('keydown', (e) => {
+          const items = _getFilteredPaletteCommands(searchEl.value);
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            _cmdPaletteSelectedIdx = items.length ? (_cmdPaletteSelectedIdx + 1) % items.length : 0;
+            renderHudCommandPalette();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            _cmdPaletteSelectedIdx = items.length ? (_cmdPaletteSelectedIdx - 1 + items.length) % items.length : 0;
+            renderHudCommandPalette();
+          } else if (e.key === 'Enter' && items.length) {
+            e.preventDefault();
+            _launchPaletteCommand(items[_cmdPaletteSelectedIdx] || items[0]);
+          }
+        });
+      }
+      renderHudCommandPalette();
+    };
+    
 
     function closeSecondaryOpenHUDs() {
       const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
@@ -26819,20 +28045,23 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
       return hadSecondary;
     }
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \, ;, Escape)
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
         if (isReviewHUDOpen) toggleReviewHUD();
         if (isC2paHUDOpen) toggleC2paHUD();
         if (isSafetyHUDOpen) toggleSafetyHUD();
-        if (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) toggleS3dHUD();
-        if (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) toggleAccessibilityAdHUD();
+        if (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) toggleS3dHUD(false);
+        if (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) toggleAccessibilityAdHUD(false);
+        if (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) toggleHudCommandPalette(false);
+        if (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) toggleArtWardrobeHUD(false);
+        if (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) toggleRenderEconomicsHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -26882,6 +28111,9 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
       else if (e.key === 'j' || e.key === 'J') toggleSpottingHUD();
       else if (e.key === ']') { if (typeof toggleS3dHUD === 'function') toggleS3dHUD(); }
       else if (e.key === '[') { if (typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(); }
+      else if (e.key === '/') { e.preventDefault(); if (typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(); }
+      else if (e.key === '\\') { if (typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(); }
+      else if (e.key === ';') { if (typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(); }
     });
 
     // Initialize first frame and default look
@@ -26890,6 +28122,7 @@ AD-S02-01,2,5.1,8.3,Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.,2.
       setLook('rec709_neutral');
       if (typeof initS3dHUD === 'function') initS3dHUD();
       if (typeof initAccessibilityAdHUD === 'function') initAccessibilityAdHUD();
+      if (typeof initV216HUDs === 'function') initV216HUDs();
       updateGafferLighting();
       updateKelvinCCT(5600);
       updateHazeDensity(15);

@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -354,7 +356,7 @@ def handle_export(args_list: List[str]) -> int:
         generate_review_notes_csv,
     )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, and editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, and Gemini compute render economics (economics) & take-variant ledgers")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -362,8 +364,8 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt"],
-        help="Artifact format to export (default: all)",
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt", "art-dept", "economics"],
+        help="Artifact format to export (default: all; includes s3d, ad, ad-vtt, art-dept, economics)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
@@ -381,7 +383,7 @@ def handle_export(args_list: List[str]) -> int:
     parser.add_argument("--movie-magic-xml", action="store_true", help="Export Movie Magic Scheduling XML (movie_magic_schedule.xml)")
     parser.add_argument("--stripboard-csv", action="store_true", help="Export 1st AD Stripboard schedule CSV (stripboard_schedule.csv)")
     parser.add_argument("--dood-csv", action="store_true", help="Export SAG-AFTRA Day-Out-of-Days matrix CSV (dood_matrix.csv)")
-    parser.add_argument("--film-dctl", action="store_true", help="Export DaVinci Resolve DCTL film emulation shader (film_emulation.dctl)")
+    parser.add_argument("--film-dctl", action="store_true", help="Export DaVinci Resolve DCTL film emulation shader (film_emulation.dctl & film_stock_shader.dctl)")
     parser.add_argument("--film-ale", action="store_true", help="Export film stock Avid Log Exchange (film_stock.ale)")
     parser.add_argument("--mhl-xml", action="store_true", help="Export ASC-MHL media hash list XML (asc_mhl_manifest.xml)")
     parser.add_argument("--sound-ale", action="store_true", help="Export sound sync Avid Log Exchange (sound_sync.ale)")
@@ -426,6 +428,16 @@ def handle_export(args_list: List[str]) -> int:
     ad_group.add_argument("--ad-vtt", action="store_true", help="Export Audio Description WebVTT track (subtitles_ad.vtt)")
     ad_group.add_argument("--ad-csv", action="store_true", help="Export Audio Description cue sheet CSV (ad_script_cue_sheet.csv)")
     ad_group.add_argument("--ad-manifest", action="store_true", help="Export WCAG/CVAA accessibility manifest JSON (accessibility_ad_manifest.json)")
+    art_group = parser.add_argument_group("Export Subsystem: Art Dept, Wardrobe & Prop Continuity (PM-FEAT-031)")
+    art_group.add_argument("--art-dept", action="store_true", help="Export full Art Dept, Wardrobe & Prop continuity bundle (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md)")
+    art_group.add_argument("--wardrobe-json", action="store_true", help="Export Wardrobe & Prop continuity bible JSON (wardrobe_prop_bible.json)")
+    art_group.add_argument("--prop-csv", action="store_true", help="Export Prop action-state continuity matrix CSV (prop_continuity_matrix.csv)")
+    art_group.add_argument("--pull-list-md", action="store_true", help="Export Art Department pull list Markdown (art_dept_pull_list.md)")
+    econ_group = parser.add_argument_group("Export Subsystem: AI Render Economics & Take Budget (PM-FEAT-032)")
+    econ_group.add_argument("--economics", action="store_true", help="Export full AI Render Economics bundle (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md)")
+    econ_group.add_argument("--economics-json", action="store_true", help="Export AI Render Economics manifest JSON (render_economics_manifest.json)")
+    econ_group.add_argument("--takes-csv", action="store_true", help="Export Take Variant & Seed Ledger CSV (take_variant_ledger.csv)")
+    econ_group.add_argument("--compute-md", action="store_true", help="Export AI Compute Estimate summary Markdown (ai_compute_estimate.md)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -584,6 +596,14 @@ def handle_export(args_list: List[str]) -> int:
         from omni_director.tools.accessibility_ad import export_accessibility_bundle
         ad_files = export_accessibility_bundle(bible, out_dir)
         exported_files.update(ad_files)
+    elif fmt == "art-dept":
+        from omni_director.tools.wardrobe_props import export_wardrobe_prop_bundle
+        art_files = export_wardrobe_prop_bundle(bible, out_dir)
+        exported_files.update(art_files)
+    elif fmt == "economics":
+        from omni_director.tools.render_economics import export_render_economics_bundle
+        econ_files = export_render_economics_bundle(bible, out_dir)
+        exported_files.update(econ_files)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -655,9 +675,13 @@ def handle_export(args_list: List[str]) -> int:
             exported_files["dood_csv"] = str(p.resolve())
     if args.film_dctl:
         film_spec = getattr(bible, "master_film_emulation", None) or getattr(bible, "film_emulation", None) or synthesize_default_film_stock()
+        dctl_code = generate_davinci_dctl_shader(film_spec)
         p = out_dir / "film_emulation.dctl"
-        p.write_text(generate_davinci_dctl_shader(film_spec), encoding="utf-8")
+        p_shader = out_dir / "film_stock_shader.dctl"
+        p.write_text(dctl_code, encoding="utf-8")
+        p_shader.write_text(dctl_code, encoding="utf-8")
         exported_files["film_dctl"] = str(p.resolve())
+        exported_files["film_stock_shader_dctl"] = str(p_shader.resolve())
     if args.film_ale:
         p = out_dir / "film_stock.ale"
         export_film_stock_ale(bible, p)
@@ -874,6 +898,44 @@ def handle_export(args_list: List[str]) -> int:
             p = out_dir / "accessibility_ad_manifest.json"
             export_accessibility_manifest_json(bible, p)
             exported_files["ad_json"] = str(p.resolve())
+    if args.art_dept or args.wardrobe_json or args.prop_csv or args.pull_list_md:
+        from omni_director.tools.wardrobe_props import export_wardrobe_prop_bundle
+        if args.art_dept:
+            exported_files.update(
+                {k: str(Path(v).resolve()) for k, v in export_wardrobe_prop_bundle(bible, out_dir).items()}
+            )
+        else:
+            with tempfile.TemporaryDirectory() as tmp_art_dir:
+                bundle_paths = export_wardrobe_prop_bundle(bible, tmp_art_dir)
+                flag_map = [
+                    (args.wardrobe_json, "wardrobe_prop_bible_json", "wardrobe_prop_bible.json"),
+                    (args.prop_csv, "prop_continuity_matrix_csv", "prop_continuity_matrix.csv"),
+                    (args.pull_list_md, "art_dept_pull_list_md", "art_dept_pull_list.md"),
+                ]
+                for enabled, key, filename in flag_map:
+                    if enabled and key in bundle_paths:
+                        dest = out_dir / filename
+                        shutil.copy2(bundle_paths[key], dest)
+                        exported_files[key] = str(dest.resolve())
+    if args.economics or args.economics_json or args.takes_csv or args.compute_md:
+        from omni_director.tools.render_economics import export_render_economics_bundle
+        if args.economics:
+            exported_files.update(
+                {k: str(Path(v).resolve()) for k, v in export_render_economics_bundle(bible, out_dir).items()}
+            )
+        else:
+            with tempfile.TemporaryDirectory() as tmp_econ_dir:
+                bundle_paths = export_render_economics_bundle(bible, tmp_econ_dir)
+                flag_map = [
+                    (args.economics_json, "render_economics_manifest_json", "render_economics_manifest.json"),
+                    (args.takes_csv, "take_variant_ledger_csv", "take_variant_ledger.csv"),
+                    (args.compute_md, "ai_compute_estimate_md", "ai_compute_estimate.md"),
+                ]
+                for enabled, key, filename in flag_map:
+                    if enabled and key in bundle_paths:
+                        dest = out_dir / filename
+                        shutil.copy2(bundle_paths[key], dest)
+                        exported_files[key] = str(dest.resolve())
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 
@@ -1042,6 +1104,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=False,
         help="Export CMX 3600 EDL, FCPXML, CSV shot list, Markdown call sheet, and SRT/VTT subtitles into output-dir.",
     )
+    parser.add_argument(
+        "--max-render-usd",
+        type=float,
+        default=None,
+        help="Override maximum live-render compute budget ceiling in USD (overrides cfg.max_render_budget_usd).",
+    )
 
     args = parser.parse_args(args_list)
 
@@ -1127,7 +1195,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         print_banner()
 
     try:
-        pipeline = DirectorPipeline()
+        if args.max_render_usd is not None:
+            run_config = cfg.model_copy(update={"max_render_budget_usd": float(args.max_render_usd)})
+            pipeline = DirectorPipeline(config=run_config)
+        else:
+            pipeline = DirectorPipeline()
 
         if not args.json:
             if HAS_RICH:

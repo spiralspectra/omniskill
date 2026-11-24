@@ -1,17 +1,17 @@
 # Product Council Audit Report: Minimalist Luxury Haute Couture Silk Vel
 
-**Version**: 2.15.0 | **Timestamp**: `2026-11-23T09:37:44.620605+00:00`
-**Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
+**Version**: 2.16.0 | **Timestamp**: `2026-11-24T09:40:10.924717+00:00`
+**Overall Score**: **`98.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
 ## Persona Scorecard
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 29 | FDE review completed with score 25.0/25.0. 29 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 19 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 26 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 30 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **23.0** | 33 | FDE review completed with score 23.0/25.0. 33 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 20 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 28 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 33 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -37,6 +37,10 @@
 - [INFO] **spotting_delivery**: Editorial spotting manifest JSON, cue sheet CSV, spotting sheet MD, and split-edit EDL verified on disk: spotting_manifest.json, spotting_cue_sheet.csv, spotting_sheet.md, timeline_split_edits.edl.
 - [INFO] **s3d_delivery**: S3D parallax log and spatial manifest JSON verified on disk: s3d_parallax_log.csv, spatial_video_manifest.json.
 - [INFO] **accessibility_ad_delivery**: Accessibility AD manifest JSON, cue sheet CSV, and VTT verified on disk: subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json.
+- [WARNING] **wardrobe_prop_delivery**: NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).
+  - *Suggested Fix*: Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().
+- [WARNING] **render_economics_delivery**: NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).
+  - *Suggested Fix*: Run export_render_economics_bundle() or export_all_nle_artifacts().
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).
 - [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).
@@ -45,11 +49,11 @@
 - [INFO] **spotting_manifest_schema**: SpottingManifestSpec verified (118.0 BPM, 1 bridges, 6 cues).
 - [INFO] **s3d_spec_schema**: MasterSpatialVideoSpec verified (2 scenes, comfort_audit_passed=True).
 - [INFO] **accessibility_ad_schema**: MasterAccessibilitySpec verified (2 scenes, all_scenes_cvaa_compliant=True).
+- [INFO] **wardrobe_prop_schema**: MasterWardrobePropBible verified (2 scenes, looks=1, hero_props=1, pull_list_ready=True).
+- [INFO] **render_economics_schema**: MasterRenderEconomicsManifest verified (4 2026 model rates, dry_run_billable_usd=$0.00, takes=4).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
-- [INFO] **hdr_prompt_token_compliance**: HDR broadcast color volume prompt tokens verified across 2/2 scene prompts.
-- [INFO] **stripboard_prompt_token_compliance**: 1st AD script breakdown prompt tokens verified across 2/2 scene prompts.
 - [INFO] **film_emulation_prompt_token_compliance**: Physical film stock emulation CRAFT tokens or master spec verified across 2/2 scene prompts.
 - [INFO] **clapper_slate_prompt_token_compliance**: SMPTE 12M clapper slate CRAFT tokens or master spec verified across 2/2 scene prompts.
 - [INFO] **drone_flight_schema_compliance**: Drone flight path specification verified: rig 'DroneRigType.COMPACT_CINEMA_INSPIRE3', profile 'architectural_fashion_sweep', max altitude 20.0m AGL (FAA Part 107 compliant).
@@ -63,9 +67,12 @@
 - [INFO] **safety_risk_schema_compliance**: On-set Safety JSA verified: open_holds_count=0, signoff_status=mitigated, 6 hazard(s) mitigated.
 - [INFO] **localization_adr_schema_compliance**: Localization & ADR Dubbing verified: 6 territory track(s) (en-US, fr-FR, it-IT, zh-CN), profile=imsc1-text-1.1, broadcast_ready=True.
 - [INFO] **spotting_sync_schema_compliance**: Editorial Spotting & Beat-Grid verified: 118.0 BPM, 1 split-edit bridge(s), beat_alignment_score=93.0%.
+- [INFO] **art_continuity_schema_compliance**: Wardrobe/Prop Continuity & <image_1..3> slot budget verified across 2 scene(s) (continuity_breaks=0).
+- [INFO] **render_economics_schema_compliance**: Render Economics Guardrail verified across 2 scene(s) (within_budget=True, total_takes=4).
 - [INFO] **audit_report_continuity_and_review_compliance**: Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).
 - [INFO] **audit_report_c2pa_and_safety_compliance**: Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).
 - [INFO] **audit_report_localization_and_spotting_compliance**: Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 2 scene(s).
+- [INFO] **audit_report_art_and_economics_compliance**: Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 2 scene(s).
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -93,6 +100,8 @@
 - [INFO] **domain_safety_risk**: On-set Safety JSA calibrated for domain 'luxury_fashion' (max_exclusion=10.0m, radio='CH-09 SAFETY', hazards=['electrical_dmx_wet', 'kinetic_moco_arm', 'wire_rigging_height']).
 - [INFO] **domain_localization_adr**: Multi-Territory Localization & ADR calibrated for domain 'luxury_fashion' (locales=en-US, fr-FR, it-IT, zh-CN, max_wps=2.20, broadcast_ready=True).
 - [INFO] **domain_spotting_sync**: Editorial Spotting & Beat-Grid calibrated for domain 'luxury_fashion' (118.0 BPM, bridges=['l_cut'], beat_score=93.0%).
+- [INFO] **domain_wardrobe_prop_continuity**: Wardrobe & Prop Continuity verified for domain 'luxury_fashion' (looks=1, hero_props=1, continuity_breaks=0, pull_list_ready=True).
+- [INFO] **domain_render_economics**: Render economics calibrated for domain 'luxury_fashion' (est=$5.29/$50.00 cap, domain_cap=$25.00, AI-vs-AICP savings=100.00%).
 - [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
@@ -119,9 +128,12 @@
 - [INFO] **animatic_spotting_hud**: Editorial Spotting & Beat-Grid HUD verified (#btn-spotting-animatic / #animatic-spotting-hud / #spotting-timeline-svg [J]).
 - [INFO] **animatic_s3d_hud**: S3D & Spatial Video HUD verified (#btn-s3d-animatic / #modal-s3d-stereography / hotkey ']').
 - [INFO] **animatic_accessibility_ad_hud**: Accessibility AD HUD verified (#btn-ad-animatic / #modal-accessibility-ad / #ad-scrubber-ribbon / hotkey '[').
+- [INFO] **animatic_command_palette_hud**: Unified HUD Command Palette verified (#btn-command-palette-animatic / #modal-hud-command-palette / hotkey '/').
+- [INFO] **animatic_art_wardrobe_hud**: Art & Wardrobe Continuity Locker HUD verified (#btn-art-dept-animatic / #modal-art-wardrobe-continuity / hotkey '\').
+- [INFO] **animatic_render_economics_hud**: Compute Economics & Take-Variant Inspector HUD verified (#btn-economics-animatic / #modal-render-economics / hotkey ';').
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 60 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 63 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_ij**: Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.
@@ -161,5 +173,12 @@
 | `PM-FEAT-026` | **P0** | `implemented` | **On-Set Stunt, Pyro/SFX, Rigging & Environmental Safety Risk Assessment Matrix / JSA Engine**: Implement SafetyHazardCategory, RiskSeverityLevel, SafetySignoffStatus, SafetyHazardControlSpec, StandbyMedicalAndEmergencySpec, SceneSafetyRiskSpec, and MasterSafetyRiskSpec schemas; omni_director.tools.safety_risk (calculate_kinetic_exclusion_zone_m, assess_scene_hazards, safety_bulletin.md, safety_jsa_matrix.csv, safety_risk_manifest.json exporters, [SAFETY_JSA: ...] prompt tokens); 6-domain calibration via get_domain_safety_risk_spec(); and an interactive On-Set Safety Risk & Exclusion Perimeter HUD [Z] (#btn-safety-animatic, #animatic-safety-hud, #safety-perimeter-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/safety_risk.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v213.py`, `omni_director/cli.py` |
 | `PM-FEAT-027` | **P0** | `implemented` | **Multi-Territory Localization, ADR Dubbing Studio, Lip-Sync Timing & Safe-Supers Engine**: Implement LocaleSyncStatus, SupersSafeStatus, LocalizedLineSpec, LocaleAdaptationSpec, AdrSpottingCueSpec, and LocalizationManifestSpec schemas; omni_director.tools.localization_adr (LOCALE_PROFILES, compile_localization_manifest, synthesize_default_localization_manifest, audit_locale_lip_sync_and_supers, format_localization_prompt_token, export_imsc1_ttml, export_adr_cue_sheet_csv, export_localization_manifest_json, export_localized_subtitles, export_localization_bundle, [LOCALIZATION_ADR: ...] prompt tokens); 6-domain calibration via get_domain_localization_spec(); and an interactive Multi-Language Localization & ADR Dubbing Studio HUD [I] (#btn-localization-animatic, #animatic-localization-hud, #localization-lipsync-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/localization_adr.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |
 | `PM-FEAT-028` | **P0** | `implemented` | **Editorial J-Cut / L-Cut Audio Bridge, BPM Beat-Grid Sync & Music/Foley Spotting Engine**: Implement AudioBridgeType, EditBridgeSpec, SpottingCueEntry, and SpottingManifestSpec schemas; omni_director.tools.editorial_spotting (compute_bpm_beat_grid, build_spotting_manifest, synthesize_default_spotting_manifest, format_spotting_prompt_token, export_split_edit_edl, export_spotting_cue_sheet_csv, export_spotting_sheet_md, export_spotting_manifest_json, export_spotting_bundle, [SPOTTING_SYNC: ...] prompt tokens); 6-domain calibration via get_domain_spotting_spec(); and an interactive Editorial Spotting & Beat-Grid HUD [J] (#btn-spotting-animatic, #animatic-spotting-hud, #spotting-timeline-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/editorial_spotting.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v214.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py` |
-| `PM-FEAT-029` | **P0** | `implemented` | **Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video**: Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video | `omni_director/schemas.py`, `omni_director/tools/stereoscopic_3d.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |
-| `PM-FEAT-030` | **P0** | `implemented` | **Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)**: Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA) | `omni_director/schemas.py`, `omni_director/tools/accessibility_ad.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-029` | **P0** | `implemented` | **Stereoscopic 3D (S3D) & Apple Vision Pro Immersive Video**: Implement StereoscopicRigType, SpatialVideoFormat, S3DCameraSpec, SceneStereoscopicSpec, and MasterSpatialVideoSpec schemas; omni_director.tools.stereoscopic_3d (calculate_parallax_budget, compute_mv_hevc_metadata, compile_s3d_manifest, format_s3d_prompt_token, export_s3d_csv, export_spatial_manifest_json, export_s3d_bundle, [S3D-RIG: ...] prompt tokens); 6-domain calibration via get_domain_s3d_spec(); and an interactive S3D Stereoscopy & MV-HEVC Spatial HUD []] (#btn-s3d-animatic, #modal-s3d-stereography, #s3d-anaglyph-canvas, #s3d-depth-svg) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/stereoscopic_3d.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-030` | **P0** | `implemented` | **Audio Description (AD) & Streaming Accessibility Compliance (WCAG/CVAA)**: Implement AdTargetAudience, AudioDescriptionCueSpec, SceneAccessibilityProfileSpec, and MasterAccessibilitySpec schemas; omni_director.tools.accessibility_ad (detect_dialogue_gaps, verify_wcag_color_contrast, compile_accessibility_manifest, format_ad_prompt_token, export_ad_vtt, export_ad_script_csv, export_accessibility_manifest_json, export_accessibility_bundle, [AD-CUE: ...] prompt tokens); 6-domain calibration via get_domain_accessibility_spec(); and an interactive Accessibility & AD Compliance HUD [[] (#btn-ad-animatic, #modal-accessibility-ad, #ad-scrubber-ribbon) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/accessibility_ad.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v215.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/cli.py`, `omni_director/tools/nle_export.py` |
+| `PM-FEAT-031` | **P0** | `implemented` | **Wardrobe, Prop Action-State Continuity & Art Department Dressing Bible**: Implement ScenePropContinuityState, SceneWardrobeStateSpec, ArtDressingAnchorSpec, SceneArtContinuitySpec, and MasterWardrobePropBible schemas; omni_director.tools.wardrobe_props (detect_prop_state_transitions, validate_reference_slot_budget, format_art_continuity_token, compile_wardrobe_prop_bible, export_wardrobe_prop_bundle, [WARDROBE-LOCK:]/[PROP-STATE:] tokens); 6-domain calibration via get_domain_wardrobe_prop_spec(); and the Art & Wardrobe Continuity Locker HUD [\] (#btn-art-dept-animatic, #modal-art-wardrobe-continuity) plus Unified HUD Command Palette [/] (#btn-command-palette-animatic, #modal-hud-command-palette). | `omni_director/schemas.py`, `omni_director/tools/wardrobe_props.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/telemetry.py` |
+| `PM-FEAT-032` | **P0** | `implemented` | **Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger**: Implement ModelTierRateSpec, TakeVariantRecord, SceneComputeEstimateSpec, RenderBudgetGuardrailSpec, and MasterRenderEconomicsManifest schemas; omni_director.tools.render_economics (get_2026_model_matrix_rates, estimate_scene_compute_cost, check_render_budget_guardrail, compile_render_economics_manifest, format_render_profile_token, export_render_economics_bundle, [RENDER-PROFILE: ...] tokens); 6-domain calibration via get_domain_render_economics_spec(); and the Compute Economics & Take-Variant Inspector HUD [;] (#btn-economics-animatic, #modal-render-economics) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/render_economics.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/telemetry.py` |
+
+## Recommendations
+
+1. Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().
+1. Run export_render_economics_bundle() or export_all_nle_artifacts().

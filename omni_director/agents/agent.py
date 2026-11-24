@@ -66,6 +66,15 @@ from omni_director.tools.editorial_spotting import (
     build_spotting_manifest,
     format_spotting_prompt_token,
 )
+from omni_director.tools.wardrobe_props import (
+    compile_wardrobe_prop_bible,
+    format_art_continuity_token,
+)
+from omni_director.tools.render_economics import (
+    check_render_budget_guardrail,
+    compile_render_economics_manifest,
+    format_render_profile_token,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -404,12 +413,20 @@ def synthesize_custom_bible(
         master_drone_spec=domain_drone,
         master_aicp_bid=get_domain_aicp_bid_spec(domain, total_runtime_seconds=total_runtime_sec or 10),
     )
-    _backfill_production_specs(bible, domain)
+    _backfill_production_specs(
+        bible,
+        domain,
+        max_render_budget_usd=(config.max_render_budget_usd if config is not None else None),
+    )
     return bible
 
 
-def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
-    """Backfills missing master & scene production specifications (PM-FEAT-007..028)."""
+def _backfill_production_specs(
+    bible: MasterProductionBible,
+    arch: str,
+    max_render_budget_usd: Optional[float] = None,
+) -> None:
+    """Backfills missing master & scene production specifications (PM-FEAT-007..032)."""
     if not getattr(bible, "master_color_look", None):
         bible.master_color_look = get_domain_color_look(arch)
     if not getattr(bible, "master_audio_mixer", None):
@@ -511,6 +528,42 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
         except Exception:
             pass
 
+    # PM-FEAT-031: Wardrobe, Prop & Art Dressing Continuity Bible
+    if not getattr(bible, "master_wardrobe_prop_bible", None):
+        wp_fn = getattr(_presets_mod, "get_domain_wardrobe_prop_spec", None)
+        if callable(wp_fn):
+            bible.master_wardrobe_prop_bible = wp_fn(bible)
+        else:
+            bible.master_wardrobe_prop_bible = compile_wardrobe_prop_bible(bible)
+
+    # PM-FEAT-032: AI Compute, Take-Budget & Render Economics Manifest
+    budget_cap = (
+        float(max_render_budget_usd)
+        if max_render_budget_usd is not None
+        else float(getattr(cfg, "max_render_budget_usd", 50.0))
+    )
+    if not getattr(bible, "master_render_economics_spec", None):
+        econ_fn = getattr(_presets_mod, "get_domain_render_economics_spec", None)
+        if callable(econ_fn):
+            try:
+                bible.master_render_economics_spec = econ_fn(bible, max_budget_usd=budget_cap)
+            except TypeError:
+                bible.master_render_economics_spec = econ_fn(bible)
+        else:
+            bible.master_render_economics_spec = compile_render_economics_manifest(
+                bible, max_budget_usd=budget_cap
+            )
+
+    econ_spec = getattr(bible, "master_render_economics_spec", None)
+    if econ_spec is not None and getattr(econ_spec, "guardrail", None) is not None:
+        if max_render_budget_usd is not None or abs(float(econ_spec.guardrail.max_render_budget_usd) - budget_cap) > 1e-6:
+            est_total = float(getattr(econ_spec.guardrail, "estimated_total_usd", 0.0) or 0.0)
+            econ_spec.guardrail.max_render_budget_usd = budget_cap
+            econ_spec.guardrail.within_budget = est_total <= budget_cap
+            econ_spec.guardrail.utilization_pct = (
+                round((est_total / budget_cap) * 100.0, 2) if budget_cap > 0 else 100.0
+            )
+
     slate_scenes = getattr(bible.master_slate_spec, "scenes", []) if bible.master_slate_spec else []
     reframe_scenes = getattr(bible.master_reframe_manifest, "scene_reframes", []) if bible.master_reframe_manifest else []
     qc_scenes = getattr(bible.master_broadcast_qc, "scene_qc_profiles", []) if bible.master_broadcast_qc else []
@@ -518,6 +571,8 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
     review_scenes = getattr(bible.master_client_review, "scene_reviews", []) if bible.master_client_review else []
     c2pa_scenes = getattr(bible.master_c2pa_provenance, "scene_provenances", []) if bible.master_c2pa_provenance else []
     safety_scenes = getattr(bible.master_safety_risk, "scene_safety_specs", []) if bible.master_safety_risk else []
+    art_scenes = getattr(bible.master_wardrobe_prop_bible, "scene_art_specs", []) if getattr(bible, "master_wardrobe_prop_bible", None) else []
+    econ_scenes = getattr(bible.master_render_economics_spec, "scene_estimates", []) if getattr(bible, "master_render_economics_spec", None) else []
 
     for idx, scene in enumerate(bible.scenes):
         if not getattr(scene, "speed_ramp", None):
@@ -631,6 +686,22 @@ def _backfill_production_specs(bible: MasterProductionBible, arch: str) -> None:
                 if getattr(p_spec, "scene_number", None) == scene.scene_index:
                     scene.accessibility_spec = p_spec
                     break
+
+        if not getattr(scene, "art_continuity_spec", None) and art_scenes:
+            matched_art = next(
+                (a_spec for a_spec in art_scenes if getattr(a_spec, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_art is not None:
+                scene.art_continuity_spec = matched_art
+
+        if not getattr(scene, "compute_estimate_spec", None) and econ_scenes:
+            matched_econ = next(
+                (e_spec for e_spec in econ_scenes if getattr(e_spec, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_econ is not None:
+                scene.compute_estimate_spec = matched_econ
 
 
 class IntakeAndResearchAgent(BaseAgent):
@@ -790,7 +861,11 @@ class CreativeDirectorAgent(BaseAgent):
                 bible.storytelling_mode = StorytellingMode.MODE_B_CONTINUOUS_CHAIN
             if not getattr(bible, "domain_archetype", None):
                 bible.domain_archetype = context.get("domain_archetype") or classify_brief_domain(f"{bible.project_title} {bible.logline}")
-            _backfill_production_specs(bible, bible.domain_archetype)
+            _backfill_production_specs(
+                bible,
+                bible.domain_archetype,
+                max_render_budget_usd=context.get("max_render_budget_usd", self.config.max_render_budget_usd),
+            )
 
         context["bible"] = bible
         logger.info(f"[{self.name}] Sealed Bible: '{bible.project_title}' with {len(bible.scenes)} scenes.")
@@ -912,6 +987,21 @@ class ScenePromptAgent(BaseAgent):
                 from omni_director.tools.accessibility_ad import format_ad_prompt_token
                 ad_token = format_ad_prompt_token(bible, scene)
                 scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {ad_token}."
+            if (getattr(bible, "master_wardrobe_prop_bible", None) is not None or getattr(scene, "art_continuity_spec", None) is not None) and not (
+                re.search(r"\[WARDROBE[-_ ]LOCK:?", scene.omni_prose_prompt, re.IGNORECASE)
+                and re.search(r"\[PROP[-_ ]STATE:?", scene.omni_prose_prompt, re.IGNORECASE)
+            ):
+                art_spec = getattr(scene, "art_continuity_spec", None)
+                if art_spec is not None:
+                    art_token = format_art_continuity_token(art_spec)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {art_token}."
+            if (getattr(bible, "master_render_economics_spec", None) is not None or getattr(scene, "compute_estimate_spec", None) is not None) and not re.search(
+                r"\[RENDER[-_ ]PROFILE:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                compute_spec = getattr(scene, "compute_estimate_spec", None)
+                if compute_spec is not None:
+                    render_token = format_render_profile_token(compute_spec)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {render_token}."
         return context
 
 
@@ -1050,11 +1140,31 @@ class PromptAuditorAgent(BaseAgent):
 
             needs_s3d_token = bool(
                 getattr(scene, "s3d_spec", None) is not None
-                and not re.search(r"\[S3D[ _]RIG:?", scene.omni_prose_prompt, re.IGNORECASE)
+                and not re.search(r"\[S3D[-_ ]RIG:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
             needs_ad_token = bool(
                 getattr(scene, "accessibility_spec", None) is not None
-                and not re.search(r"\[AD[ _]CUE:?", scene.omni_prose_prompt, re.IGNORECASE)
+                and not re.search(r"\[AD[-_ ]CUE:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            art_spec = getattr(scene, "art_continuity_spec", None)
+            needs_art_token = bool(
+                art_spec is not None
+                and not (
+                    re.search(r"\[WARDROBE[-_ ]LOCK:?", scene.omni_prose_prompt, re.IGNORECASE)
+                    and re.search(r"\[PROP[-_ ]STATE:?", scene.omni_prose_prompt, re.IGNORECASE)
+                )
+            )
+            art_compliance_fail = bool(
+                art_spec is not None
+                and (
+                    len(getattr(art_spec, "assigned_reference_slots", None) or []) > 3
+                    or getattr(art_spec, "slot_contention_detected", False)
+                )
+            )
+            compute_spec = getattr(scene, "compute_estimate_spec", None)
+            needs_render_profile_token = bool(
+                compute_spec is not None
+                and not re.search(r"\[RENDER[-_ ]PROFILE:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
             
             s3d_compliance_fail = False
@@ -1067,7 +1177,20 @@ class PromptAuditorAgent(BaseAgent):
             if ad_spec and not getattr(ad_spec, "cvaa_compliant", True):
                 ad_compliance_fail = True
 
-            if not result.passed or result.score < 100.0 or result.warnings or needs_loc_token or needs_spot_token or needs_s3d_token or needs_ad_token or s3d_compliance_fail or ad_compliance_fail:
+            if (
+                not result.passed
+                or result.score < 100.0
+                or result.warnings
+                or needs_loc_token
+                or needs_spot_token
+                or needs_s3d_token
+                or needs_ad_token
+                or needs_art_token
+                or art_compliance_fail
+                or needs_render_profile_token
+                or s3d_compliance_fail
+                or ad_compliance_fail
+            ):
                 logger.info(f"[{self.name}] Attempting self-healing for scene {scene.scene_index}...")
                 healed_target, result = heal_omni_scene_prompt(
                     scene,
@@ -1156,7 +1279,11 @@ class OmniVideoRenderAgent(BaseAgent):
             return context
 
         dry_run = context.get("dry_run", self.config.dry_run)
-        if not dry_run:
+        if dry_run:
+            econ_manifest = getattr(bible, "master_render_economics_spec", None)
+            if econ_manifest is not None:
+                econ_manifest.dry_run_billable_usd = 0.0
+        else:
             client_review = getattr(bible, "master_client_review", None) or getattr(bible, "client_review", None)
             review_ready = getattr(client_review, "ready_for_live_render", True) if client_review is not None else True
             if not review_ready or context.get("ready_for_live_render") is False:
@@ -1167,6 +1294,23 @@ class OmniVideoRenderAgent(BaseAgent):
                 context["video_manifests"] = []
                 context["rendered_videos"] = []
                 return context
+
+            max_budget = float(
+                context.get("max_render_budget_usd")
+                if context.get("max_render_budget_usd") is not None
+                else getattr(self.config, "max_render_budget_usd", 50.0)
+            )
+            econ_manifest = getattr(bible, "master_render_economics_spec", None)
+            if econ_manifest is None:
+                econ_manifest = compile_render_economics_manifest(bible, max_budget_usd=max_budget)
+                bible.master_render_economics_spec = econ_manifest
+            within_budget, guardrail_msg = check_render_budget_guardrail(econ_manifest, max_budget)
+            est_total = float(getattr(econ_manifest.guardrail, "estimated_total_usd", 0.0) or 0.0)
+            if not within_budget or est_total > max_budget:
+                logger.error(f"[{self.name}] Aborting live video render: {guardrail_msg}")
+                raise ValueError(
+                    f"Live video render aborted by --max-render-usd guardrail: {guardrail_msg}"
+                )
 
         visual_plates = context.get("visual_plates", {})
         logger.info(f"[{self.name}] Executing video pipeline for '{bible.project_title}'...")
@@ -1264,6 +1408,50 @@ class DirectorPipeline:
             **kwargs,
         )
 
+    @staticmethod
+    def _record_economics_and_continuity_telemetry(
+        telemetry: RuntimeTelemetry,
+        bible: MasterProductionBible,
+        max_budget_usd: float,
+        dry_run: bool,
+    ) -> None:
+        """Records numeric PM-FEAT-031 and PM-FEAT-032 telemetry metrics safely."""
+        econ_spec = getattr(bible, "master_render_economics_spec", None)
+        wp_bible = getattr(bible, "master_wardrobe_prop_bible", None)
+        if econ_spec is not None:
+            if dry_run:
+                econ_spec.dry_run_billable_usd = 0.0
+            guardrail = getattr(econ_spec, "guardrail", None)
+            est_compute_usd = float(getattr(guardrail, "estimated_total_usd", 0.0) or 0.0)
+            budget_ceiling_usd = float(
+                getattr(guardrail, "max_render_budget_usd", max_budget_usd) or max_budget_usd
+            )
+            aicp_savings_pct = float(
+                getattr(guardrail, "simulation_savings_vs_aicp_pct", 0.0) or 0.0
+            )
+            planned_takes = int(getattr(econ_spec, "total_planned_takes", 0) or 0)
+        else:
+            est_compute_usd = 0.0
+            budget_ceiling_usd = float(max_budget_usd)
+            aicp_savings_pct = 0.0
+            planned_takes = 0
+
+        continuity_breaks = (
+            int(getattr(wp_bible, "continuity_breaks_detected", 0) or 0)
+            if wp_bible is not None
+            else 0
+        )
+
+        metrics = {
+            "estimated_total_compute_usd": est_compute_usd,
+            "render_budget_ceiling_usd": budget_ceiling_usd,
+            "aicp_savings_pct": aicp_savings_pct,
+            "total_planned_takes": planned_takes,
+            "continuity_breaks_detected": continuity_breaks,
+        }
+        telemetry.metadata.update(metrics)
+        telemetry.audit_summary.update(metrics)
+
     def run(
         self,
         preset_name: Optional[str] = None,
@@ -1275,12 +1463,18 @@ class DirectorPipeline:
         dry_run: bool = True,
         continuous_mode: bool = False,
         run_council: bool = False,
+        max_render_budget_usd: Optional[float] = None,
     ) -> ProductionBundle:
         """Executes the end-to-end multi-agent pipeline with telemetry and optional council audit."""
         target_output_dir = output_dir or self.config.output_dir
         out_path = Path(target_output_dir)
         out_path.mkdir(parents=True, exist_ok=True)
         effective_prompt = prompt or raw_prompt
+        effective_max_budget = (
+            float(max_render_budget_usd)
+            if max_render_budget_usd is not None
+            else float(getattr(self.config, "max_render_budget_usd", 50.0))
+        )
 
         # Propagate dry_run across pipeline and engines
         self.config.dry_run = dry_run
@@ -1323,6 +1517,7 @@ class DirectorPipeline:
             "render_video": render_video,
             "dry_run": dry_run,
             "continuous_mode": continuous_mode,
+            "max_render_budget_usd": effective_max_budget,
         }
 
         # Stage 1: Intake & Research
@@ -1335,6 +1530,11 @@ class DirectorPipeline:
 
         active_bible: MasterProductionBible = context["bible"]
         telemetry.project_title = active_bible.project_title
+        arch = getattr(active_bible, "domain_archetype", None) or "architectural_sanctuary"
+        _backfill_production_specs(active_bible, arch, max_render_budget_usd=effective_max_budget)
+        self._record_economics_and_continuity_telemetry(
+            telemetry, active_bible, effective_max_budget, dry_run
+        )
 
         # Stage 3: Visual Concept / Nano Banana Anchor Plates
         with telemetry.record_stage("visual_storyboard"):
@@ -1363,6 +1563,9 @@ class DirectorPipeline:
             context = self.compiler_agent.run(context)
 
         bundle: ProductionBundle = context["bundle"]
+        self._record_economics_and_continuity_telemetry(
+            telemetry, active_bible, effective_max_budget, dry_run
+        )
 
         # Write initial manifest prior to Stage 8 so ProductCouncilOrchestrator evaluates fresh checksums
         telemetry.write_manifest(out_path)
