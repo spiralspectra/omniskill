@@ -213,7 +213,6 @@ def handle_council(args_list: List[str]) -> int:
         if telemetry_obj is None:
             from omni_director.telemetry import RuntimeTelemetry
             telemetry_obj = RuntimeTelemetry(project_title=bundle.bible.project_title)
-        telemetry_obj.write_manifest(output_path)
         bundle.telemetry = telemetry_obj.to_dict()
         bundle_json_file = Path(bundle.bundle_json_path) if bundle.bundle_json_path else (output_path / "production_bundle.json")
         bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
@@ -356,7 +355,7 @@ def handle_export(args_list: List[str]) -> int:
         generate_review_notes_csv,
     )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, and Gemini compute render economics (economics) & take-variant ledgers")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML/OTIO), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, Gemini compute render economics (economics), Motion Graphics MOGRT/ASS/end-card specs (motion-graphics), and OpenTimelineIO 7-track & cross-department coherence matrices (coherence)")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument(
@@ -364,8 +363,8 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt", "art-dept", "economics"],
-        help="Artifact format to export (default: all; includes s3d, ad, ad-vtt, art-dept, economics)",
+        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt", "art-dept", "economics", "motion-graphics", "mogrt-json", "supers-ass", "endcard-md", "coherence", "otio", "coherence-json", "coherence-md"],
+        help="Artifact format to export (default: all; includes motion-graphics, mogrt-json, supers-ass, endcard-md, coherence, otio, coherence-json, coherence-md)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
@@ -438,6 +437,16 @@ def handle_export(args_list: List[str]) -> int:
     econ_group.add_argument("--economics-json", action="store_true", help="Export AI Render Economics manifest JSON (render_economics_manifest.json)")
     econ_group.add_argument("--takes-csv", action="store_true", help="Export Take Variant & Seed Ledger CSV (take_variant_ledger.csv)")
     econ_group.add_argument("--compute-md", action="store_true", help="Export AI Compute Estimate summary Markdown (ai_compute_estimate.md)")
+    gfx_group = parser.add_argument_group("Export Subsystem: Motion Graphics, Supers & Brand End-Card (PM-FEAT-033)")
+    gfx_group.add_argument("--motion-graphics", action="store_true", help="Export full Motion Graphics bundle (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md)")
+    gfx_group.add_argument("--mogrt-json", action="store_true", help="Export Premiere/AE MOGRT JSON cue manifest (motion_graphics_mogrt.json)")
+    gfx_group.add_argument("--supers-ass", action="store_true", help="Export SubStation Alpha v4+ broadcast supers (broadcast_supers.ass)")
+    gfx_group.add_argument("--endcard-md", action="store_true", help="Export Brand End-Card & Legal Super spec Markdown (brand_endcard_spec.md)")
+    otio_group = parser.add_argument_group("Export Subsystem: OpenTimelineIO (.otio) & Cross-Dept Coherence (PM-FEAT-034)")
+    otio_group.add_argument("--coherence", action="store_true", help="Export full OTIO & Cross-Department Coherence bundle (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md)")
+    otio_group.add_argument("--otio", action="store_true", help="Export ASWF OpenTimelineIO 0.16 Timeline.1 (production_timeline.otio)")
+    otio_group.add_argument("--coherence-json", action="store_true", help="Export Cross-Department Coherence Matrix JSON (coherence_matrix.json)")
+    otio_group.add_argument("--coherence-md", action="store_true", help="Export Cross-Department Coherence & Shoot-Day Readiness Report Markdown (coherence_readiness_report.md)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -472,6 +481,49 @@ def handle_export(args_list: List[str]) -> int:
 
     exported_files: Dict[str, str] = {}
     fmt = args.format.lower()
+
+    def _write_motion_graphics_artifact(kind: str) -> None:
+        from omni_director.tools.motion_graphics import (
+            compile_motion_graphics_manifest,
+            export_brand_endcard_md,
+            export_broadcast_supers_ass,
+            export_mogrt_json,
+        )
+        manifest = getattr(bible, "master_motion_graphics", None) or compile_motion_graphics_manifest(bible)
+        if kind == "mogrt-json":
+            p = out_dir / "motion_graphics_mogrt.json"
+            p.write_text(export_mogrt_json(manifest, bible), encoding="utf-8")
+            exported_files["motion_graphics_mogrt_json"] = str(p.resolve())
+        elif kind == "supers-ass":
+            p = out_dir / "broadcast_supers.ass"
+            p.write_text(export_broadcast_supers_ass(manifest, fps=args.fps), encoding="utf-8")
+            exported_files["broadcast_supers_ass"] = str(p.resolve())
+        elif kind == "endcard-md":
+            p = out_dir / "brand_endcard_spec.md"
+            p.write_text(export_brand_endcard_md(manifest), encoding="utf-8")
+            exported_files["brand_endcard_spec_md"] = str(p.resolve())
+
+    def _write_otio_coherence_artifact(kind: str) -> None:
+        from omni_director.tools.otio_coherence import (
+            compile_otio_coherence_manifest,
+            export_coherence_matrix_json,
+            export_coherence_readiness_md,
+            export_otio_file,
+        )
+        if kind == "otio":
+            p = out_dir / "production_timeline.otio"
+            p.write_text(export_otio_file(bible, fps=float(args.fps)), encoding="utf-8")
+            exported_files["production_timeline_otio"] = str(p.resolve())
+            return
+        manifest = getattr(bible, "master_otio_coherence", None) or compile_otio_coherence_manifest(bible)
+        if kind == "coherence-json":
+            p = out_dir / "coherence_matrix.json"
+            p.write_text(export_coherence_matrix_json(manifest), encoding="utf-8")
+            exported_files["coherence_matrix_json"] = str(p.resolve())
+        elif kind == "coherence-md":
+            p = out_dir / "coherence_readiness_report.md"
+            p.write_text(export_coherence_readiness_md(manifest), encoding="utf-8")
+            exported_files["coherence_readiness_report_md"] = str(p.resolve())
 
     if fmt == "all":
         exported_files.update(export_all_nle_artifacts(bible, out_dir, fps=args.fps))
@@ -604,6 +656,18 @@ def handle_export(args_list: List[str]) -> int:
         from omni_director.tools.render_economics import export_render_economics_bundle
         econ_files = export_render_economics_bundle(bible, out_dir)
         exported_files.update(econ_files)
+    elif fmt == "motion-graphics":
+        from omni_director.tools.motion_graphics import export_motion_graphics_bundle
+        gfx_files = export_motion_graphics_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in gfx_files.items()})
+    elif fmt in ("mogrt-json", "supers-ass", "endcard-md"):
+        _write_motion_graphics_artifact(fmt)
+    elif fmt == "coherence":
+        from omni_director.tools.otio_coherence import export_otio_coherence_bundle
+        otio_files = export_otio_coherence_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in otio_files.items()})
+    elif fmt in ("otio", "coherence-json", "coherence-md"):
+        _write_otio_coherence_artifact(fmt)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -936,6 +1000,30 @@ def handle_export(args_list: List[str]) -> int:
                         dest = out_dir / filename
                         shutil.copy2(bundle_paths[key], dest)
                         exported_files[key] = str(dest.resolve())
+    if args.motion_graphics:
+        from omni_director.tools.motion_graphics import export_motion_graphics_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_motion_graphics_bundle(bible, out_dir, fps=args.fps).items()}
+        )
+    else:
+        if args.mogrt_json and fmt != "mogrt-json":
+            _write_motion_graphics_artifact("mogrt-json")
+        if args.supers_ass and fmt != "supers-ass":
+            _write_motion_graphics_artifact("supers-ass")
+        if args.endcard_md and fmt != "endcard-md":
+            _write_motion_graphics_artifact("endcard-md")
+    if args.coherence:
+        from omni_director.tools.otio_coherence import export_otio_coherence_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_otio_coherence_bundle(bible, out_dir, fps=args.fps).items()}
+        )
+    else:
+        if args.otio and fmt != "otio":
+            _write_otio_coherence_artifact("otio")
+        if args.coherence_json and fmt != "coherence-json":
+            _write_otio_coherence_artifact("coherence-json")
+        if args.coherence_md and fmt != "coherence-md":
+            _write_otio_coherence_artifact("coherence-md")
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

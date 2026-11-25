@@ -1,0 +1,150 @@
+{
+  "schema_version": "OTIO_0.16_COMPAT",
+  "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
+  "domain_archetype": "luxury_fashion",
+  "fps": 24.0,
+  "total_frames": 768,
+  "tracks": [
+    {
+      "track_name": "V1_Picture_Master",
+      "kind": "Video",
+      "clip_count": 4,
+      "marker_count": 19,
+      "total_frames_24fps": 768
+    },
+    {
+      "track_name": "V2_VFX_GFX_Overlay",
+      "kind": "Video",
+      "clip_count": 4,
+      "marker_count": 4,
+      "total_frames_24fps": 768
+    },
+    {
+      "track_name": "A1_Dialogue",
+      "kind": "Audio",
+      "clip_count": 0,
+      "marker_count": 0,
+      "total_frames_24fps": 768
+    },
+    {
+      "track_name": "A2_Foley_SFX",
+      "kind": "Audio",
+      "clip_count": 4,
+      "marker_count": 0,
+      "total_frames_24fps": 768
+    },
+    {
+      "track_name": "A3_Ambience",
+      "kind": "Audio",
+      "clip_count": 4,
+      "marker_count": 0,
+      "total_frames_24fps": 768
+    },
+    {
+      "track_name": "A4_Music_Score",
+      "kind": "Audio",
+      "clip_count": 4,
+      "marker_count": 3,
+      "total_frames_24fps": 828
+    },
+    {
+      "track_name": "A5_Audio_Description",
+      "kind": "Audio",
+      "clip_count": 4,
+      "marker_count": 4,
+      "total_frames_24fps": 768
+    }
+  ],
+  "coherence_checks": [
+    {
+      "check_id": "CHK-01-OPTICS-DOF",
+      "pair": "optics_vs_dof",
+      "status": "pass",
+      "source_spec": "master_lens_package / scene.optical_lens",
+      "target_spec": "master_dof_spec / scene.dof_spec",
+      "delta_summary": "Max optical delta: 0.0mm focal, 0.0 T-stop",
+      "measured_value": "0.0mm / 0.0T",
+      "expected_bound": "<= 12.0mm / <= 1.5T",
+      "auto_reconcilable": true,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-02-KELVIN-BLOCKING",
+      "pair": "lighting_kelvin_vs_blocking",
+      "status": "pass",
+      "source_spec": "master_lighting_rig",
+      "target_spec": "master_continuity_blocking",
+      "delta_summary": "Rig=5600K, max Kelvin delta=800K",
+      "measured_value": "800K",
+      "expected_bound": "<= 800K",
+      "auto_reconcilable": true,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-03-AUDIO-SPOTTING",
+      "pair": "audio_stems_vs_spotting",
+      "status": "pass",
+      "source_spec": "master_audio_mixer / master_broadcast_qc",
+      "target_spec": "spotting_manifest / diegetic_sonic",
+      "delta_summary": "LUFS delta=0.0, max_wps=0.00, max_bridge=0.83s",
+      "measured_value": "LUFS 0.0 / 0.00 WPS",
+      "expected_bound": "LUFS <= 2.5 / WPS <= 2.4",
+      "auto_reconcilable": true,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-04-REFRAME-GRAPHICS",
+      "pair": "reframe_vs_graphics_blocking",
+      "status": "pass",
+      "source_spec": "master_reframe_manifest",
+      "target_spec": "master_motion_graphics",
+      "delta_summary": "All motion-graphic supers clear 9:16 TikTok/Reels and 16:9 safe zones",
+      "measured_value": "9:16+16:9 CLEAR",
+      "expected_bound": "y in [0.14, 0.64], x in [0.06, 0.80], 9:16 cleared",
+      "auto_reconcilable": true,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-05-MODEB-ECONOMICS",
+      "pair": "mode_b_vs_runtime_economics",
+      "status": "pass",
+      "source_spec": "storytelling_mode / total_runtime_seconds",
+      "target_spec": "master_render_economics_spec.guardrail",
+      "delta_summary": "Mode=Mode A: Parallel Multi-Scene Cut (Montage), runtime=32s, render_est=$16.59/$25.00",
+      "measured_value": "32s / $16.59",
+      "expected_bound": "Mode B <= 40s & est <= $25.00",
+      "auto_reconcilable": false,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-06-AICP-COMPUTE",
+      "pair": "aicp_post_vs_render_compute",
+      "status": "pass",
+      "source_spec": "master_aicp_bid (Sections J-L)",
+      "target_spec": "master_render_economics_spec",
+      "delta_summary": "AICP post allocation=$24700.00 vs AI compute estimate=$16.59",
+      "measured_value": "$24700.00",
+      "expected_bound": ">= $16.59",
+      "auto_reconcilable": false,
+      "remediation_action": ""
+    },
+    {
+      "check_id": "CHK-07-C2PA-SAFETY",
+      "pair": "c2pa_vs_cast_safety",
+      "status": "pass",
+      "source_spec": "master_c2pa_provenance (2026 Model Matrix)",
+      "target_spec": "master_broadcast_qc / master_safety_risk",
+      "delta_summary": "c2pa_ok=True, legacy_hit=False, qc_legal_ok=True, safety_ok=True",
+      "measured_value": "CLEARED",
+      "expected_bound": "2026 Model Matrix + consents + QC + JSA cleared",
+      "auto_reconcilable": false,
+      "remediation_action": ""
+    }
+  ],
+  "coherence_score": 100.0,
+  "conflicts_count": 0,
+  "warnings_count": 0,
+  "otio_sha256": "7b3dcdb56f7f6ad79c568f9628302fdc659c606cac471c2163b80be5b52caadb",
+  "shoot_day_ready": true,
+  "coherence_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+}

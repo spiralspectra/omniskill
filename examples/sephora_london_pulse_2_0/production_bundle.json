@@ -133,7 +133,7 @@
         "kinetic_contact_chain": "Micro-eye movement -> High-velocity eyelid closure (wink) -> Triggered camera whip-pan acceleration -> Rapid rotational deceleration -> Wet asphalt perspective stabilization.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Preserving continuous kinetic momentum and rotational inertia across the rapid whip-pan. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=4f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Soho Stare & The Night Pan: \" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=damaged@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=8s | est=$4.15].",
+        "omni_prose_prompt": "A 9:16 vertical high-fashion cinematic sequence begins in an extreme macro close-up on Model Maya's face matching <image_1>, focusing on her left eye adorned with shimmering emerald and gold holographic eyeshadow and immaculate winged eyeliner. Raindrops glisten on her cheek under wet Soho neon lighting at real-time 1.0x playback speed with zero slow motion. At second 02, Maya delivers a sharp, confident wink directly into the lens and whispers: 'London, wake up.' Triggered precisely by the eyelid closing, the vertical 50mm camera executes a high-speed horizontal whip-pan to the right, blurring neon lights into electric streaks before snapping to a halt in a medium-wide shot of a rain-slicked Soho cobblestone avenue, where an iconic red London double-decker bus streaks past in the background with wet asphalt tire hiss. Preserving continuous kinetic momentum and rotational inertia across the rapid whip-pan. Maintain crisp focal planes, rich saturated magenta and cyan reflections, and zero digital artifacting. Synchronized diegetic audio starts with the intimate, dry sound of an eyelid blink and whispered vocal close to mic, slamming instantly into a punching 138 BPM UK Garage drum hit, a whooshing whip-pan sound effect, and the wet tire spray of the passing bus. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=4f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Soho Stare & The Night Pan: \" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=damaged@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=8s | est=$4.15]. [GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -454,7 +454,7 @@
         "dof_spec": {
           "focus_style": "Anamorphic shallow portraiture",
           "aperture_t_stop": 1.8,
-          "focal_length_mm": 85,
+          "focal_length_mm": 50,
           "iris_geometry": "2x oval bokeh",
           "depth_character": "rack-focus",
           "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -1089,13 +1089,13 @@
           "scene_title": "The Soho Stare & The Night Pan",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1108,7 +1108,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1121,7 +1121,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1134,7 +1134,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1419,7 +1419,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=8s | est=$4.15]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "SEPHORA: London Pulse (Midnight Velvet)",
+              "word_count": 5,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 100.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 2,
@@ -1434,7 +1476,7 @@
         "kinetic_contact_chain": "Door glide -> Hand grips weighted lipstick tube -> Thumb drives cap removal with magnetic click -> Brush fibers compress against cheek skin -> Shimmer cloud dispersion.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Forward camera glide preserves continuous kinetic momentum conservation and physical inertia as the models enter. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=4f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Flagship Infiltration: Tacti\" @ 8.10-11.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=8s | est=$4.15].",
+        "omni_prose_prompt": "Continuing in 9:16 vertical format at 1.0x real-time speed, the camera glides smoothly forward on a stabilized Steadicam through the automatic sliding glass doors of the SEPHORA flagship, transitioning instantly from wet dark Soho into brilliant, 5600K multi-point beauty lighting. Over seconds 08 to 11, Model Kaelen from <image_2> in his charcoal blazer with white-striped cuffs lifts a heavyweight gold metal lipstick tube with precision thumb flick, sliding the cap off with rigid mechanical alignment. Forward camera glide preserves continuous kinetic momentum conservation and physical inertia as the models enter. Over seconds 11 to 14, in a snappy two-beat montage, Maya turns into frame and a plush black makeup brush sweeps firmly across her cheekbone, releasing a delicate micro-burst of golden cosmetic shimmer that catches the ring light. Over seconds 14 to 16, both models exchange a fierce, synchronized side-profile smile in front of a gleaming black lacquer cosmetic display. Keep cosmetics mechanically rigid and textures true to high-end beauty advertising. Synchronized diegetic audio features the heavy pneumatic whoosh of sliding glass doors, the loud, satisfying metallic CLACK of the lipstick cap disengaging, the soft fibrous swoosh of brush on skin, and high-energy driving UK Garage bassline. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=4f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Flagship Infiltration: Tacti\" @ 8.10-11.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=8s | est=$4.15]. [GFX-SUPER: SC02 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -1755,7 +1797,7 @@
         "dof_spec": {
           "focus_style": "Anamorphic shallow portraiture",
           "aperture_t_stop": 1.8,
-          "focal_length_mm": 85,
+          "focal_length_mm": 50,
           "iris_geometry": "2x oval bokeh",
           "depth_character": "rack-focus",
           "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -2387,13 +2429,13 @@
           "scene_title": "The Flagship Infiltration: Tactile Glamour",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2406,7 +2448,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2419,7 +2461,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2432,7 +2474,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2730,7 +2772,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=8s | est=$4.15]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_CALL",
+              "scene_index": 2,
+              "role": "product_callout",
+              "copy_text": "The Flagship Infiltration: Tactile",
+              "word_count": 4,
+              "display_duration_sec": 2.7,
+              "effective_wpm": 88.89,
+              "in_smpte": "00:00:08:19",
+              "out_smpte": "00:00:11:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.26,
+                "max_width_pct": 58.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 600,
+                "min_font_px_1080p": 44,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 3,
@@ -2745,7 +2829,7 @@
         "kinetic_contact_chain": "Stiletto strike on wet cobblestone -> Ground reaction force pushes hip forward -> Arm swings bag from shoulder -> Centrifugal arc of braided handle -> Forward presentation.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya and Kaelen preserve forward kinetic momentum conservation and continuous physical inertia with rhythmic stride cadence. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Soho Runway Strut: Catching \" @ 16.10-19.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC03 | mode_b_6step | takes=2 | dur=8s | est=$4.15].",
+        "omni_prose_prompt": "A tracking 9:16 vertical Steadicam shot moves backward at a rapid walking pace 2 meters ahead of Maya and Kaelen as they burst through the store exit onto the rainy London pavement in synchronized runway cadence at natural 1.0x speed. Maya and Kaelen preserve forward kinetic momentum conservation and continuous physical inertia with rhythmic stride cadence. Maya wears her glossy scarlet trench coat from <image_1> and Kaelen wears his charcoal blazer from <image_2>, creating stark visual polarity against the night background. Maya's metallic stiletto heels plant firmly onto the wet asphalt with unmistakable physical weight, kicking up micro-droplets of water with each step. At second 21, Maya swings the black-and-white striped SEPHORA shopping bag from <image_3> smoothly forward toward the lens with runway attitude, holding the braided rope handle tight in her leather-gloved fingers. The camera keeps both models centered in vertical profile without crossing the action axis, capturing the glowing neon storefront behind them melting into creamy vertical anamorphic bokeh. Synchronized diegetic audio layers rapid, rhythmic stiletto clicks reverberating off brick walls, wet street splash foley, the crisp cardstock rustle of the shopping bag, and a soaring synth-pop riser sweep peaking in intensity. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Soho Runway Strut: Catching \" @ 16.10-19.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC03 | mode_b_6step | takes=2 | dur=8s | est=$4.15]. [GFX-SUPER: SC03 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 3,
           "camera_spec": {
@@ -3066,7 +3150,7 @@
         "dof_spec": {
           "focus_style": "Anamorphic shallow portraiture",
           "aperture_t_stop": 1.8,
-          "focal_length_mm": 85,
+          "focal_length_mm": 50,
           "iris_geometry": "2x oval bokeh",
           "depth_character": "rack-focus",
           "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -3701,13 +3785,13 @@
           "scene_title": "The Soho Runway Strut",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3720,7 +3804,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3733,7 +3817,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3746,7 +3830,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4068,7 +4152,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC03 | mode_b_6step | takes=2 | dur=8s | est=$4.15]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 3,
+          "cues": [
+            {
+              "cue_id": "GFX_SC03_CALL",
+              "scene_index": 3,
+              "role": "product_callout",
+              "copy_text": "The Soho Runway Strut",
+              "word_count": 4,
+              "display_duration_sec": 2.7,
+              "effective_wpm": 88.89,
+              "in_smpte": "00:00:16:19",
+              "out_smpte": "00:00:19:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.26,
+                "max_width_pct": 58.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 600,
+                "min_font_px_1080p": 44,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC03 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 4,
@@ -4083,7 +4209,7 @@
         "kinetic_contact_chain": "Punch-in camera motion -> Arm locks bag at chest height -> Rope handles tension under gravity -> Abrupt momentum cessation -> Total frozen frame.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the punch-in camera preserves kinetic momentum conservation before locking into the static freeze. The bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Bag Lock & The Soho Freeze: \" @ 24.10-27.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=activated@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC04 | mode_b_6step | takes=2 | dur=8s | est=$4.15].",
+        "omni_prose_prompt": "The vertical 9:16 camera executes a rapid, stabilized punch-in push of 60 centimeters directly toward the iconic black-and-white striped SEPHORA bag held firmly in Maya's gloved hand at chest height. Filmed at real-time 1.0x speed, the punch-in camera preserves kinetic momentum conservation before locking into the static freeze. The bag from <image_3> swings into the exact center of the vertical frame: its braided black rope handles are taut, its folded paper gussets are crisp and unwrinkled, and the embossed black SEPHORA typography is rendered in tack-sharp macro clarity. In the background, the glowing store portal and the wet London night street dissolve into beautiful out-of-focus bokeh circles. At exactly second 30, all motion abruptly halts into a pristine, high-resolution editorial freeze-frame on the bag, holding dead-still for the final two seconds with zero text distortion and zero geometric warping. Synchronized audio reaches its climax as the UK Garage track hits a massive final snare and bass drop, instantly cutting to absolute dead silence punctuated only by a single, crisp, mechanical SNAP sound effect as the frame freezes, with a faint, luxurious reverb tail decaying into the silence. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=138 bridge=l_cut jcut=0f lcut=20f beat_offset=2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"The Bag Lock & The Soho Freeze: \" @ 24.10-27.30s | CVAA=True]. [WARDROBE-LOCK: Model Maya (The Neon Siren):LOOK_A(runway_pressed), Model Kaelen (The Shimmer Rebel):LOOK_B(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=activated@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC04 | mode_b_6step | takes=2 | dur=8s | est=$4.15]. [GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=SEPHORA: London Pulse (Midnight]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 4,
           "camera_spec": {
@@ -4404,7 +4530,7 @@
         "dof_spec": {
           "focus_style": "Anamorphic shallow portraiture",
           "aperture_t_stop": 1.8,
-          "focal_length_mm": 85,
+          "focal_length_mm": 50,
           "iris_geometry": "2x oval bokeh",
           "depth_character": "rack-focus",
           "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -5038,13 +5164,13 @@
           "scene_title": "The Bag Lock & The Soho Freeze",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -5057,7 +5183,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -5070,7 +5196,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -5083,7 +5209,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -5381,7 +5507,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC04 | mode_b_6step | takes=2 | dur=8s | est=$4.15]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 4,
+          "cues": [
+            {
+              "cue_id": "GFX_SC04_ENDCARD",
+              "scene_index": 4,
+              "role": "cta_endcard",
+              "copy_text": "SEPHORA: London Pulse (Midnight · omni.studio/sephoralondonpulse",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:29:05",
+              "out_smpte": "00:00:32:00",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=SEPHORA: London Pulse (Midnight]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       }
     ],
     "domain_archetype": "luxury_fashion",
@@ -5669,7 +5837,7 @@
     "master_dof_spec": {
       "focus_style": "Anamorphic shallow portraiture",
       "aperture_t_stop": 1.8,
-      "focal_length_mm": 85,
+      "focal_length_mm": 50,
       "iris_geometry": "2x oval bokeh",
       "depth_character": "rack-focus",
       "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -5677,7 +5845,7 @@
     "dof_spec": {
       "focus_style": "Anamorphic shallow portraiture",
       "aperture_t_stop": 1.8,
-      "focal_length_mm": 85,
+      "focal_length_mm": 50,
       "iris_geometry": "2x oval bokeh",
       "depth_character": "rack-focus",
       "description": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)"
@@ -6301,7 +6469,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-        "creation_date": "2026-11-24T09:40:06.861222+00:00",
+        "creation_date": "2026-11-25T10:03:44.572966+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -6309,7 +6477,7 @@
             "xxhash64": "e04940a1a416aa25",
             "sha1": "1678973a166b6f508b8e737d61452f42a2217a6a",
             "md5": "4782f0306fe4daadf01148e2e0553a56",
-            "hash_timestamp": "2026-11-24T09:40:06.861192+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572940+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -6317,7 +6485,7 @@
             "xxhash64": "43817543e6faadaf",
             "sha1": "c85cb88c1befd300fe13d37248d831655e788ff6",
             "md5": "47a7d2661a1492cae89d42818b694dfa",
-            "hash_timestamp": "2026-11-24T09:40:06.861206+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572954+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -6325,7 +6493,7 @@
             "xxhash64": "ee3c69b0068465f6",
             "sha1": "d268b53ffddcfd6b2d362710aacb6151124d82cb",
             "md5": "1f0120e80336ebad1e4ba94934288e20",
-            "hash_timestamp": "2026-11-24T09:40:06.861210+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572959+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -6333,7 +6501,7 @@
             "xxhash64": "74920c976be01dab",
             "sha1": "138114763c2f482e7bd682fbdc0a65c5b78a4c69",
             "md5": "34c9bd6e9ed6088e3e439fd223a95a83",
-            "hash_timestamp": "2026-11-24T09:40:06.861218+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572963+00:00"
           }
         ]
       }
@@ -6431,7 +6599,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-        "creation_date": "2026-11-24T09:40:06.861222+00:00",
+        "creation_date": "2026-11-25T10:03:44.572966+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -6439,7 +6607,7 @@
             "xxhash64": "e04940a1a416aa25",
             "sha1": "1678973a166b6f508b8e737d61452f42a2217a6a",
             "md5": "4782f0306fe4daadf01148e2e0553a56",
-            "hash_timestamp": "2026-11-24T09:40:06.861192+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572940+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -6447,7 +6615,7 @@
             "xxhash64": "43817543e6faadaf",
             "sha1": "c85cb88c1befd300fe13d37248d831655e788ff6",
             "md5": "47a7d2661a1492cae89d42818b694dfa",
-            "hash_timestamp": "2026-11-24T09:40:06.861206+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572954+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -6455,7 +6623,7 @@
             "xxhash64": "ee3c69b0068465f6",
             "sha1": "d268b53ffddcfd6b2d362710aacb6151124d82cb",
             "md5": "1f0120e80336ebad1e4ba94934288e20",
-            "hash_timestamp": "2026-11-24T09:40:06.861210+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572959+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -6463,7 +6631,7 @@
             "xxhash64": "74920c976be01dab",
             "sha1": "138114763c2f482e7bd682fbdc0a65c5b78a4c69",
             "md5": "34c9bd6e9ed6088e3e439fd223a95a83",
-            "hash_timestamp": "2026-11-24T09:40:06.861218+00:00"
+            "hash_timestamp": "2026-11-25T10:03:44.572963+00:00"
           }
         ]
       }
@@ -13214,7 +13382,7 @@
     "master_c2pa_provenance": {
       "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:286dcc8d1985",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -13223,7 +13391,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13236,7 +13404,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13249,7 +13417,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13262,7 +13430,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13350,13 +13518,13 @@
           "scene_title": "The Soho Stare & The Night Pan",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13369,7 +13537,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13382,7 +13550,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13395,7 +13563,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13465,13 +13633,13 @@
           "scene_title": "The Flagship Infiltration: Tactile Glamour",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13484,7 +13652,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13497,7 +13665,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13510,7 +13678,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13580,13 +13748,13 @@
           "scene_title": "The Soho Runway Strut",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13599,7 +13767,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13612,7 +13780,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13625,7 +13793,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13719,13 +13887,13 @@
           "scene_title": "The Bag Lock & The Soho Freeze",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13738,7 +13906,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13751,7 +13919,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13764,7 +13932,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13842,7 +14010,7 @@
     "c2pa_provenance": {
       "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:286dcc8d1985",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -13851,7 +14019,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13864,7 +14032,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13877,7 +14045,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13890,7 +14058,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13978,13 +14146,13 @@
           "scene_title": "The Soho Stare & The Night Pan",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13997,7 +14165,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14010,7 +14178,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14023,7 +14191,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14093,13 +14261,13 @@
           "scene_title": "The Flagship Infiltration: Tactile Glamour",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14112,7 +14280,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14125,7 +14293,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14138,7 +14306,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14208,13 +14376,13 @@
           "scene_title": "The Soho Runway Strut",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14227,7 +14395,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14240,7 +14408,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14253,7 +14421,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14347,13 +14515,13 @@
           "scene_title": "The Bag Lock & The Soho Freeze",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14366,7 +14534,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14379,7 +14547,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14392,7 +14560,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14470,7 +14638,7 @@
     "content_credentials": {
       "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:286dcc8d1985",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -14479,7 +14647,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14492,7 +14660,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14505,7 +14673,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14518,7 +14686,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14606,13 +14774,13 @@
           "scene_title": "The Soho Stare & The Night Pan",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14625,7 +14793,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14638,7 +14806,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14651,7 +14819,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14721,13 +14889,13 @@
           "scene_title": "The Flagship Infiltration: Tactile Glamour",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14740,7 +14908,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14753,7 +14921,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14766,7 +14934,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14836,13 +15004,13 @@
           "scene_title": "The Soho Runway Strut",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14855,7 +15023,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14868,7 +15036,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14881,7 +15049,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14975,13 +15143,13 @@
           "scene_title": "The Bag Lock & The Soho Freeze",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14994,7 +15162,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15007,7 +15175,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15020,7 +15188,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15098,7 +15266,7 @@
     "provenance_manifest": {
       "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:286dcc8d1985",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -15107,7 +15275,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -15120,7 +15288,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -15133,7 +15301,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -15146,7 +15314,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -15234,13 +15402,13 @@
           "scene_title": "The Soho Stare & The Night Pan",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15253,7 +15421,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15266,7 +15434,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15279,7 +15447,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15349,13 +15517,13 @@
           "scene_title": "The Flagship Infiltration: Tactile Glamour",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15368,7 +15536,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15381,7 +15549,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15394,7 +15562,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15464,13 +15632,13 @@
           "scene_title": "The Soho Runway Strut",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15483,7 +15651,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15496,7 +15664,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15509,7 +15677,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15603,13 +15771,13 @@
           "scene_title": "The Bag Lock & The Soho Freeze",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15622,7 +15790,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15635,7 +15803,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -15648,7 +15816,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -18528,6 +18696,342 @@
       "total_planned_takes": 8,
       "total_video_seconds_planned": 64,
       "dry_run_billable_usd": 0.0
+    },
+    "master_motion_graphics": {
+      "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
+      "domain_archetype": "luxury_fashion",
+      "primary_typeface": "Didot LT Pro / Bodoni Moda",
+      "secondary_typeface": "Inter Light",
+      "endcard": {
+        "duration_sec": 2.8,
+        "logo_lockup_position": "center_upper_safe",
+        "cta_headline": "SEPHORA: London Pulse (Midnight",
+        "cta_subcopy": "Engineered for Luxury Fashion",
+        "url_or_qr_label": "omni.studio/sephoralondonpulse",
+        "audio_sting_sync_smpte": "00:00:29:05",
+        "background_plate_hex": "#0A0A10",
+        "reserved_tail_scene_index": 4
+      },
+      "scene_graphics": [
+        {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "SEPHORA: London Pulse (Midnight Velvet)",
+              "word_count": 5,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 100.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_CALL",
+              "scene_index": 2,
+              "role": "product_callout",
+              "copy_text": "The Flagship Infiltration: Tactile",
+              "word_count": 4,
+              "display_duration_sec": 2.7,
+              "effective_wpm": 88.89,
+              "in_smpte": "00:00:08:19",
+              "out_smpte": "00:00:11:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.26,
+                "max_width_pct": 58.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 600,
+                "min_font_px_1080p": 44,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 3,
+          "cues": [
+            {
+              "cue_id": "GFX_SC03_CALL",
+              "scene_index": 3,
+              "role": "product_callout",
+              "copy_text": "The Soho Runway Strut",
+              "word_count": 4,
+              "display_duration_sec": 2.7,
+              "effective_wpm": 88.89,
+              "in_smpte": "00:00:16:19",
+              "out_smpte": "00:00:19:12",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.26,
+                "max_width_pct": 58.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 600,
+                "min_font_px_1080p": 44,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC03 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 4,
+          "cues": [
+            {
+              "cue_id": "GFX_SC04_ENDCARD",
+              "scene_index": 4,
+              "role": "cta_endcard",
+              "copy_text": "SEPHORA: London Pulse (Midnight · omni.studio/sephoralondonpulse",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:29:05",
+              "out_smpte": "00:00:32:00",
+              "composite_strategy": "hybrid_alpha_matte",
+              "animation_preset": "editorial_silk_reveal",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Didot LT Pro / Bodoni Moda",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#FAF8F5",
+                "backdrop_scrim_opacity": 0.32,
+                "wcag_contrast_ratio": 18.62
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_center_safe",
+          "gfx_prompt_token": "[GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=SEPHORA: London Pulse (Midnight]",
+          "legibility_score": 100.0
+        }
+      ],
+      "total_cues_count": 4,
+      "max_wpm_detected": 107.14,
+      "all_safe_zones_cleared": true,
+      "legal_supers_compliant": true
+    },
+    "master_otio_coherence": {
+      "schema_version": "OTIO_0.16_COMPAT",
+      "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
+      "domain_archetype": "luxury_fashion",
+      "fps": 24.0,
+      "total_frames": 768,
+      "tracks": [
+        {
+          "track_name": "V1_Picture_Master",
+          "kind": "Video",
+          "clip_count": 4,
+          "marker_count": 19,
+          "total_frames_24fps": 768
+        },
+        {
+          "track_name": "V2_VFX_GFX_Overlay",
+          "kind": "Video",
+          "clip_count": 4,
+          "marker_count": 4,
+          "total_frames_24fps": 768
+        },
+        {
+          "track_name": "A1_Dialogue",
+          "kind": "Audio",
+          "clip_count": 0,
+          "marker_count": 0,
+          "total_frames_24fps": 768
+        },
+        {
+          "track_name": "A2_Foley_SFX",
+          "kind": "Audio",
+          "clip_count": 4,
+          "marker_count": 0,
+          "total_frames_24fps": 768
+        },
+        {
+          "track_name": "A3_Ambience",
+          "kind": "Audio",
+          "clip_count": 4,
+          "marker_count": 0,
+          "total_frames_24fps": 768
+        },
+        {
+          "track_name": "A4_Music_Score",
+          "kind": "Audio",
+          "clip_count": 4,
+          "marker_count": 3,
+          "total_frames_24fps": 828
+        },
+        {
+          "track_name": "A5_Audio_Description",
+          "kind": "Audio",
+          "clip_count": 4,
+          "marker_count": 4,
+          "total_frames_24fps": 768
+        }
+      ],
+      "coherence_checks": [
+        {
+          "check_id": "CHK-01-OPTICS-DOF",
+          "pair": "optics_vs_dof",
+          "status": "pass",
+          "source_spec": "master_lens_package / scene.optical_lens",
+          "target_spec": "master_dof_spec / scene.dof_spec",
+          "delta_summary": "Max optical delta: 0.0mm focal, 0.0 T-stop",
+          "measured_value": "0.0mm / 0.0T",
+          "expected_bound": "<= 12.0mm / <= 1.5T",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-02-KELVIN-BLOCKING",
+          "pair": "lighting_kelvin_vs_blocking",
+          "status": "pass",
+          "source_spec": "master_lighting_rig",
+          "target_spec": "master_continuity_blocking",
+          "delta_summary": "Rig=5600K, max Kelvin delta=800K",
+          "measured_value": "800K",
+          "expected_bound": "<= 800K",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-03-AUDIO-SPOTTING",
+          "pair": "audio_stems_vs_spotting",
+          "status": "pass",
+          "source_spec": "master_audio_mixer / master_broadcast_qc",
+          "target_spec": "spotting_manifest / diegetic_sonic",
+          "delta_summary": "LUFS delta=0.0, max_wps=0.00, max_bridge=0.83s",
+          "measured_value": "LUFS 0.0 / 0.00 WPS",
+          "expected_bound": "LUFS <= 2.5 / WPS <= 2.4",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-04-REFRAME-GRAPHICS",
+          "pair": "reframe_vs_graphics_blocking",
+          "status": "pass",
+          "source_spec": "master_reframe_manifest",
+          "target_spec": "master_motion_graphics",
+          "delta_summary": "All motion-graphic supers clear 9:16 TikTok/Reels and 16:9 safe zones",
+          "measured_value": "9:16+16:9 CLEAR",
+          "expected_bound": "y in [0.14, 0.64], x in [0.06, 0.80], 9:16 cleared",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-05-MODEB-ECONOMICS",
+          "pair": "mode_b_vs_runtime_economics",
+          "status": "pass",
+          "source_spec": "storytelling_mode / total_runtime_seconds",
+          "target_spec": "master_render_economics_spec.guardrail",
+          "delta_summary": "Mode=Mode A: Parallel Multi-Scene Cut (Montage), runtime=32s, render_est=$16.59/$25.00",
+          "measured_value": "32s / $16.59",
+          "expected_bound": "Mode B <= 40s & est <= $25.00",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-06-AICP-COMPUTE",
+          "pair": "aicp_post_vs_render_compute",
+          "status": "pass",
+          "source_spec": "master_aicp_bid (Sections J-L)",
+          "target_spec": "master_render_economics_spec",
+          "delta_summary": "AICP post allocation=$24700.00 vs AI compute estimate=$16.59",
+          "measured_value": "$24700.00",
+          "expected_bound": ">= $16.59",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-07-C2PA-SAFETY",
+          "pair": "c2pa_vs_cast_safety",
+          "status": "pass",
+          "source_spec": "master_c2pa_provenance (2026 Model Matrix)",
+          "target_spec": "master_broadcast_qc / master_safety_risk",
+          "delta_summary": "c2pa_ok=True, legacy_hit=False, qc_legal_ok=True, safety_ok=True",
+          "measured_value": "CLEARED",
+          "expected_bound": "2026 Model Matrix + consents + QC + JSA cleared",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        }
+      ],
+      "coherence_score": 100.0,
+      "conflicts_count": 0,
+      "warnings_count": 0,
+      "otio_sha256": "7b3dcdb56f7f6ad79c568f9628302fdc659c606cac471c2163b80be5b52caadb",
+      "shoot_day_ready": true,
+      "coherence_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
     }
   },
   "storyboard_html_path": "examples/sephora_london_pulse_2_0/storyboard_preview.html",
@@ -18590,7 +19094,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 50mm, 2x oval bokeh, rack-focus)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
@@ -18645,6 +19149,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=8s | est=$4.15]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_1>"
@@ -18662,7 +19172,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 2,
@@ -18686,7 +19198,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 50mm, 2x oval bokeh, rack-focus)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
@@ -18741,6 +19253,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=8s | est=$4.15]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>"
@@ -18758,7 +19276,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 3,
@@ -18782,7 +19302,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 50mm, 2x oval bokeh, rack-focus)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
@@ -18837,11 +19357,17 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC03 | mode_b_6step | takes=2 | dur=8s | est=$4.15]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC03 | cues=1 | max_wpm=88.9 | roles=product_callout][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
-          "<image_3>",
-          "<image_1>"
+          "<image_1>",
+          "<image_3>"
         ]
       },
       "drone_flight_compliant": false,
@@ -18856,7 +19382,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 4,
@@ -18880,7 +19408,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 85mm, 2x oval bokeh, rack-focus)",
+        "dof_spec_descriptor": "Anamorphic shallow portraiture (T1.8, 50mm, 2x oval bokeh, rack-focus)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Bleach Bypass Silver high-contrast (bleach_bypass_silver emulation, 33x33x33 3D LUT)",
@@ -18935,6 +19463,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC04 | mode_b_6step | takes=2 | dur=8s | est=$4.15]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=SEPHORA: London Pulse (Midnight]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=7b3dcdb56f7f][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -18952,14 +19486,16 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "793c9b9c-77cb-4864-a086-2169e3f8ee13",
+    "session_id": "5461d473-0c53-4f2d-8022-8efad4508be6",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-24T09:40:09.532067+00:00",
+    "timestamp": "2026-11-25T10:03:46.935340+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -18969,87 +19505,93 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-24T09:40:09.532087+00:00",
-        "end_time": "2026-11-24T09:40:09.532094+00:00",
+        "start_time": "2026-11-25T10:03:46.935361+00:00",
+        "end_time": "2026-11-25T10:03:46.935368+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-24T09:40:09.532109+00:00",
-        "end_time": "2026-11-24T09:40:09.534634+00:00",
-        "duration_ms": 2.52,
+        "start_time": "2026-11-25T10:03:46.935383+00:00",
+        "end_time": "2026-11-25T10:03:46.938425+00:00",
+        "duration_ms": 3.04,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-24T09:40:09.534669+00:00",
-        "end_time": "2026-11-24T09:40:09.537030+00:00",
-        "duration_ms": 2.36,
+        "start_time": "2026-11-25T10:03:46.938463+00:00",
+        "end_time": "2026-11-25T10:03:46.941016+00:00",
+        "duration_ms": 2.55,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-24T09:40:09.537118+00:00",
-        "end_time": "2026-11-24T09:40:09.537626+00:00",
-        "duration_ms": 0.51,
+        "start_time": "2026-11-25T10:03:46.941041+00:00",
+        "end_time": "2026-11-25T10:03:46.941417+00:00",
+        "duration_ms": 0.38,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-24T09:40:09.537644+00:00",
-        "end_time": "2026-11-24T09:40:09.550546+00:00",
-        "duration_ms": 12.9,
+        "start_time": "2026-11-25T10:03:46.941431+00:00",
+        "end_time": "2026-11-25T10:03:46.953633+00:00",
+        "duration_ms": 12.2,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-24T09:40:09.550574+00:00",
-        "end_time": "2026-11-24T09:40:09.550581+00:00",
+        "start_time": "2026-11-25T10:03:46.953658+00:00",
+        "end_time": "2026-11-25T10:03:46.953664+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-24T09:40:09.550589+00:00",
-        "end_time": "2026-11-24T09:40:09.589667+00:00",
-        "duration_ms": 39.08,
+        "start_time": "2026-11-25T10:03:46.953671+00:00",
+        "end_time": "2026-11-25T10:03:46.994339+00:00",
+        "duration_ms": 40.67,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-24T09:40:09.637934+00:00",
-        "end_time": "2026-11-24T09:40:09.760458+00:00",
-        "duration_ms": 122.52,
+        "start_time": "2026-11-25T10:03:47.059918+00:00",
+        "end_time": "2026-11-25T10:03:47.221883+00:00",
+        "duration_ms": 161.97,
         "details": {}
       }
     ],
-    "total_duration_ms": 179.91,
+    "total_duration_ms": 220.83,
     "audit_summary": {
       "estimated_total_compute_usd": 16.586,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9956,
       "total_planned_takes": 8,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 4,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 16.586,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9956,
       "total_planned_takes": 8,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 4,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "61cc5eca2fbb94215a11796a60bef121892289e08f4bdf19071e4a82d5168de5",
-      "storyboard_preview.html": "954eed0bb74218ef4b61321d765995e9db015d20d9d4298238de79e3f05ec9a9",
-      "council_report.json": "7f03c21ce08ffcad028a16ba5d6590b2f357d98d3ddd68c5b3849f646f9fd87c",
-      "council_report.md": "bfd6edd740efb1f4611fb9a901b8ac9c6423ebe05836c98edfa375fe67f90b1c",
-      "timeline.edl": "1df72755213e5f8e032dba6438753270d5d15175c7440c1ee32db07d2e6b2d6f",
-      "sequence.fcpxml": "17eb3eb987c71f204ab5dedff9589dc84ba6aac3eb2cb19cddbe593c08ea4e89",
-      "shot_list.csv": "adbc7731f8760974ecfe7e44aab23396876ee7da5d0b9ee9801cfafb28340c2d",
-      "call_sheet.md": "0bdfca0a71b0f06b03d9ea164fd8d4b5287404156297419c40130c34289f7b3a",
-      "subtitles.srt": "e3e2619fead0ddec80bd67ded0626273bf2042615b97f8acc9a65793fe1c2dee",
-      "subtitles.vtt": "14f46d54f9b7e2f0b97ce8e10c777a1b23c6428a83788207e2c64501665cae60",
+      "production_bundle.json": "8909b7c2cbdea9481608b87e3eab5a046891adede6100969920c2d86fbb743ef",
+      "storyboard_preview.html": "07612b7153758d1e5f3a4fcc47419f900fedc7e092ea6506e7e2bbca6526ec39",
+      "council_report.json": "4af6ce557dcca1bce6e4f7246dac4c6e9aa289c4b9a168fbed3b8e45369521ec",
+      "council_report.md": "79c9f577a15dc9e8716f9da03aa6b2ce617c12af5c36d9de0a738985916248fe",
+      "timeline.edl": "5613ed790f2cfd16162dad289743f0659d46173ce0dfadff07925ae48d5494b3",
+      "sequence.fcpxml": "309245cb15496a720d3cfa9fbab51a0c987de806aace2fe227efdc42203f8ef0",
+      "shot_list.csv": "4819dd786ad60ebbf5925a17751fddf6111c5ff990829d8e708b322b670966db",
+      "call_sheet.md": "2862c47430279ce87bf9e894c80bf73472814f1b5fb1a78f1fdeb96db370cb02",
+      "subtitles.srt": "15b12781ac2ea28b4b7aa90860f14c19f752b1d7e724bf1268e960e2142a127e",
+      "subtitles.vtt": "54cc7f35acc73d4587ad9a0c9e6bbab02022aa448229225a6f6736b6be19f552",
       "production_grade.cdl": "a8f9467be29e2d98c0811c043893ce35f3175191664fd3428bad6aae82b16027",
       "audio_stems_manifest.json": "a6636ee854711cea9fd8f00e3262a39663b35eaedb619c366c70aaf37944c64e",
       "lens_package.csv": "1904509a80d2bccc0b0b4538b86992c3d36b22de04fc7c49ace91c249b71ae12",
@@ -19095,12 +19637,12 @@
       "film_emulation_spec.json": "dacf2f9453598ba9d505ce6ead0fbf426431828c7f23a79563d94e15bf888eda",
       "film_stock_shader.dctl": "5c1af26c9e396cac2a5cdbf95ffc95157ce1d4b3f22c89359945f25febd4c109",
       "film_stock.ale": "d6a60837d9e64989db345b6bd49cefd2fdfa01d4571c84a1e374165dfc1ea969",
-      "slate_manifest.json": "211b1b90185710b4f53d0f1f3349b33ad7cd1bef48a940737192939581ceddad",
-      "asc_mhl_manifest.xml": "48e9c1b7de52e06bfa768ce4a6be76485d555dfd3bd4fb1ac6319785d5d62c59",
+      "slate_manifest.json": "64190b83bb9b0520a2bb6b5cff7bb3136d70cc9d0dbe45880c06dd74c73ddff8",
+      "asc_mhl_manifest.xml": "6866fa2e0865e594e82596472da93f46914e82dd07bcfe01f9057f700f08841a",
       "clapper_slate_log.csv": "395b4063d1ea49fed00aa09faae7a4eaae722e1aceae9d946166b04d950f0ed4",
       "sound_sync.ale": "99d8289acacf7f85b35d7424a524bdfd23c90093025a33415e8ec4ce61161878",
       "flight_path.kml": "97162037a7d8e19b6dc9d34e75b00fd5305264b6b1f6aebfb7dbd8b0d24b5da9",
-      "flight_waypoints.gpx": "7a28ff4fdb4cbd5edcfa558cda72fb2f7141d3f8b081bd2fe67c61c2cdf5b240",
+      "flight_waypoints.gpx": "5f2c94862ca90c0ef91c3f903aabae51a9f3af50f91d2f6de88e29f88d483b43",
       "drone_flight_sheet.csv": "9d59f753d04dd2f75f9cb2b119cbdf225692f02e543053210b92fa72d38fedba",
       "drone_flight_sheet.md": "e72d9b741563ab4aebfc9630e911325eba05dc1201cc6fedaf91357356999ea2",
       "drone_flight_manifest.json": "1cea390b28b42b5361e06f27838395c49fa42117ee36a8758918e946ee435f39",
@@ -19124,8 +19666,8 @@
       "review_notes_frameio.json": "a3497aca32eeabf566f064b5b044087a22c07c8c19601d7c479673bd3754b5e3",
       "review_notes.csv": "e47c4df62a2758297dac5550715560cdb1bb2c54aa162db18fafef2bf84d40e4",
       "client_signoff_report.md": "893d30b04c193a654ea2064c5fca133d8069aedae433909f195359815487bcc1",
-      "c2pa_manifest.json": "d300673aa93ead3a7ab6752c9e443c100bf65179dd14ee6a4ea4da2a6fec8a05",
-      "ai_disclosure_certificate.md": "e8b40dd92c46c13e2132754dbacc904962859c96e2697ffbc90cbf8da99237c8",
+      "c2pa_manifest.json": "c08b169a122dba06aaa623daca7d49a7ace93a720997dbe2eb9d0718f4affe6b",
+      "ai_disclosure_certificate.md": "56c923048d7dbef2ce56963b0302e111e88069f92d9344e8d6501330d677e85b",
       "likeness_consent_ledger.csv": "29b05590536dfba629a28df538b8f6031dae7fdd2bc06b6cf9617d41ea60ca91",
       "safety_bulletin.md": "9e4939f5a613c10c4227e4448b3b440711091e72c2d759085059681c46e9a8bf",
       "safety_jsa_matrix.csv": "a26f138c29ff1b056d722617e2a9c2d8e90157d06d04df37d14b5324ecb4e5fe",
@@ -19142,7 +19684,13 @@
       "subtitles_ad.vtt": "6fe967f01dd8d96cb8028ee170c00a76bfe22ee9426fe0e7de443429095c7a24",
       "ad_script_cue_sheet.csv": "03f587b7cabbe7ae5f8251c8f7fd99da7e6bf1edc2736ccf35549858f324d91c",
       "accessibility_ad_manifest.json": "8eba80bbfe46542b4195173630037d7ee9be5220931f94da1d6cbad35439a9ab",
-      "council_audit_report.json": "7f03c21ce08ffcad028a16ba5d6590b2f357d98d3ddd68c5b3849f646f9fd87c",
+      "wardrobe_prop_bible.json": "5b4748dea1a30db991ab8d733874623b02a306324bc955070fb14b97135aaf96",
+      "prop_continuity_matrix.csv": "7f103aa04f60b3fa85531bbfef43cc8da9571bcb9e4874def8e0766b9743f6b8",
+      "art_dept_pull_list.md": "6e2b4c65101a74be4be2ed58c161c106405dadbca7f1c0cca4343d0e654aa22d",
+      "render_economics_manifest.json": "2066d24bd783cd18c4249e03c46fa4261d736fc0f1c89a286f4d9a7900f53a9d",
+      "take_variant_ledger.csv": "d0aa33c92265c631f102914899d7173ac35fccea719ff379db7947ba04d5bbb9",
+      "ai_compute_estimate.md": "eefe1087d5e7eaf1c0136ef770d43d9203398f8138ffe7e9853a1bafd035e12c",
+      "council_audit_report.json": "4af6ce557dcca1bce6e4f7246dac4c6e9aa289c4b9a168fbed3b8e45369521ec",
       "storyboards/anchor1_character_turnaround.svg": "9bc527c205ef75a024ae1a5ae3f40a4b2c287bb827c07a132f0cd20321593f77",
       "storyboards/anchor2_environment_master.svg": "a92b798d752a8d2cc0e496cc33bc37b1773eb04f9684a43827a6b70070392db3",
       "storyboards/anchor3_scene_1_keyframe.svg": "af4a12bd825cad55352a2a6de04f1eb5d135311dfb66ffc5e857204f4143add8",
@@ -19164,9 +19712,9 @@
     }
   },
   "council_report": {
-    "version": "2.16.0",
+    "version": "2.17.0",
     "project_title": "SEPHORA: London Pulse (Midnight Velvet)",
-    "timestamp": "2026-11-24T09:40:09.756245+00:00",
+    "timestamp": "2026-11-25T10:03:47.218248+00:00",
     "overall_score": 98.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -19478,13 +20026,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "wardrobe_prop_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
-            "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+            "message": "Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "wardrobe_artifacts": [
                 "wardrobe_prop_bible.json",
                 "prop_continuity_matrix.csv",
                 "art_dept_pull_list.md"
@@ -19492,16 +20040,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "render_economics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
-            "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+            "message": "Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "economics_artifacts": [
                 "render_economics_manifest.json",
                 "take_variant_ledger.csv",
                 "ai_compute_estimate.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "motion_graphics_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "motion_graphics_mogrt.json",
+                "broadcast_supers.ass",
+                "brand_endcard_spec.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "otio_coherence_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "production_timeline.otio",
+                "coherence_matrix.json",
+                "coherence_readiness_report.md"
               ]
             }
           },
@@ -19620,9 +20196,32 @@
               ],
               "dry_run_billable_usd": 0.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "motion_graphics_schema",
+            "message": "MasterMotionGraphicsManifest verified (4 cues, max_wpm=107.1, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_cues_count": 4,
+              "max_wpm_detected": 107.14
+            }
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=7b3dcdb56f7f..., coherence_score=100.0, shoot_day_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "schema_version": "OTIO_0.16_COMPAT",
+              "track_count": 7,
+              "otio_sha256_prefix": "7b3dcdb56f7f"
+            }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 33 findings."
+        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -19812,6 +20411,22 @@
           },
           {
             "severity": "info",
+            "category": "motion_graphics_schema_compliance",
+            "message": "Motion Graphics & Safe-Zone Gate verified across 4 scene(s) (max_wpm=107.1 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema_compliance",
+            "message": "OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
             "remediation": null,
@@ -19838,6 +20453,14 @@
             "severity": "info",
             "category": "audit_report_art_and_economics_compliance",
             "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 4 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_gfx_and_otio_compliance",
+            "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 4 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -19939,7 +20562,7 @@
           {
             "severity": "info",
             "category": "domain_dof_calibration",
-            "message": "Domain DoF calibration verified: 'Anamorphic shallow portraiture' (T1.8, 85mm, 2x oval bokeh, rack-focus) aligned with domain 'luxury_fashion'.",
+            "message": "Domain DoF calibration verified: 'Anamorphic shallow portraiture' (T1.8, 50mm, 2x oval bokeh, rack-focus) aligned with domain 'luxury_fashion'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
@@ -20206,6 +20829,32 @@
           },
           {
             "severity": "info",
+            "category": "domain_motion_graphics_calibration",
+            "message": "Motion graphics & Brand End-Card calibrated for domain 'luxury_fashion' (typeface='Didot LT Pro / Bodoni Moda', endcard=2.80s, max_wpm=107.1, 9:16_clear=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "primary_typeface": "Didot LT Pro / Bodoni Moda",
+              "endcard_duration_sec": 2.8,
+              "max_wpm_detected": 107.14
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_otio_coherence_readiness",
+            "message": "OTIO 7-track cross-department coherence verified for domain 'luxury_fashion' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=12.0mm, kelvin_tol<=800.0K).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "shoot_day_ready": true,
+              "coherence_score": 100.0,
+              "conflicts_count": 0
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
             "remediation": null,
@@ -20434,6 +21083,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_motion_graphics_hud",
+            "message": "Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_otio_coherence_hud",
+            "message": "OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -20451,7 +21116,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -20482,6 +21147,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_eq_quote",
+            "message": "Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).",
             "remediation": null,
@@ -20493,8 +21166,8 @@
       }
     ],
     "recommendations": [
-      "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-      "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
     ],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
@@ -21000,6 +21673,50 @@
           "omni_director/tools/html_hud_v216.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-033",
+        "title": "Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+        "problem_statement": "Broadcast and vertical social deliverables for 'SEPHORA: London Pulse (Midnight Velvet)' risk failing readability and safe-zone clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards.",
+        "proposed_solution": "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/motion_graphics.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-034",
+        "title": "Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+        "problem_statement": "Complex multi-department productions for 'SEPHORA: London Pulse (Midnight Velvet)' lack a unified ASWF OpenTimelineIO 0.16 (Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA.",
+        "proposed_solution": "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/otio_coherence.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
           "omni_director/telemetry.py"
         ],
         "priority": "P0",

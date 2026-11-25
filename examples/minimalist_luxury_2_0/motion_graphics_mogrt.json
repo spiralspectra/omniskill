@@ -1,0 +1,89 @@
+{
+  "schema": "omni_mogrt_v1",
+  "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+  "domain_archetype": "luxury_fashion",
+  "resolution": "1920x1080",
+  "fps": 24,
+  "primary_typeface": "Didot LT Pro / Bodoni Moda",
+  "secondary_typeface": "Inter Light",
+  "endcard": {
+    "duration_sec": 2.8,
+    "logo_lockup_position": "center_upper_safe",
+    "cta_headline": "Minimalist Luxury Haute Couture",
+    "cta_subcopy": "Engineered for Luxury Fashion",
+    "url_or_qr_label": "omni.studio/minimalistluxuryha",
+    "audio_sting_sync_smpte": "00:00:07:05",
+    "background_plate_hex": "#09090B",
+    "reserved_tail_scene_index": 2
+  },
+  "total_cues_count": 2,
+  "max_wpm_detected": 150.0,
+  "all_safe_zones_cleared": true,
+  "legal_supers_compliant": true,
+  "cues": [
+    {
+      "cue_id": "GFX_SC01_HEAD",
+      "scene_index": 1,
+      "role": "kinetic_headline",
+      "copy_text": "Minimalist Luxury Haute Couture Silk",
+      "word_count": 5,
+      "display_duration_sec": 2.0,
+      "effective_wpm": 150.0,
+      "in_smpte": "00:00:00:12",
+      "out_smpte": "00:00:02:12",
+      "composite_strategy": "hybrid_alpha_matte",
+      "animation_preset": "editorial_silk_reveal",
+      "placement": {
+        "anchor_zone": "upper_left_third",
+        "normalized_x": 0.1,
+        "normalized_y": 0.22,
+        "max_width_pct": 62.0,
+        "font_family": "Didot LT Pro / Bodoni Moda",
+        "font_weight": 700,
+        "min_font_px_1080p": 56,
+        "fill_hex": "#FAF8F5",
+        "backdrop_scrim_opacity": 0.32,
+        "wcag_contrast_ratio": 18.77
+      },
+      "reframe_cleared_ratios": [
+        "16:9",
+        "4:5",
+        "1:1",
+        "9:16"
+      ],
+      "legibility_audit_passed": true
+    },
+    {
+      "cue_id": "GFX_SC02_ENDCARD",
+      "scene_index": 2,
+      "role": "cta_endcard",
+      "copy_text": "Minimalist Luxury Haute Couture \u00b7 omni.studio/minimalistluxuryha",
+      "word_count": 5,
+      "display_duration_sec": 2.8,
+      "effective_wpm": 107.14,
+      "in_smpte": "00:00:07:05",
+      "out_smpte": "00:00:10:00",
+      "composite_strategy": "hybrid_alpha_matte",
+      "animation_preset": "editorial_silk_reveal",
+      "placement": {
+        "anchor_zone": "center_upper_safe",
+        "normalized_x": 0.46,
+        "normalized_y": 0.4,
+        "max_width_pct": 64.0,
+        "font_family": "Didot LT Pro / Bodoni Moda",
+        "font_weight": 700,
+        "min_font_px_1080p": 52,
+        "fill_hex": "#FAF8F5",
+        "backdrop_scrim_opacity": 0.32,
+        "wcag_contrast_ratio": 18.77
+      },
+      "reframe_cleared_ratios": [
+        "16:9",
+        "4:5",
+        "1:1",
+        "9:16"
+      ],
+      "legibility_audit_passed": true
+    }
+  ]
+}

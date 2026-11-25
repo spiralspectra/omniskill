@@ -42,15 +42,38 @@ def generate_scene_coverage(
     <image_1>/<image_2> visual locks, and synchronized diegetic audio cues so it passes the
     7-Point Gemini Omni Prompt Auditor (>= 90.0/100).
     """
-    del bible  # Reserved for palette/environment cross-injection
     base_cam = scene.craft_camera
     base_anchor = base_cam.action_anchor if base_cam else scene.scene_title
-    base_tone = base_cam.tone_rig if base_cam else "35mm Anamorphic Prime Glass"
+    lens_pkg = getattr(bible, "master_lens_package", None) if bible is not None else None
+    default_tone = (
+        f"{lens_pkg.lens_series} ({lens_pkg.bokeh_characteristic})"
+        if lens_pkg is not None
+        else "35mm Anamorphic Prime Glass"
+    )
+    base_tone = base_cam.tone_rig if base_cam else default_tone
     foley_summary = (
         ", ".join(scene.diegetic_sonic.foley_cues[:2])
         if (scene.diegetic_sonic and scene.diegetic_sonic.foley_cues)
         else "crisp tactile surface contact foley and balanced room acoustics"
     )
+
+    bible_context_parts: List[str] = []
+    if bible is not None:
+        palette = list(getattr(bible, "color_palette", None) or [])
+        if palette:
+            bible_context_parts.append(f"Graded along locked color script ({', '.join(palette[:3])}).")
+        if lens_pkg is not None:
+            bible_context_parts.append(
+                f"Matched to {lens_pkg.lens_series} optical glass with {lens_pkg.bokeh_characteristic}."
+            )
+        polarities = [
+            str(getattr(c, "wardrobe_polarity", "")).strip()
+            for c in list(getattr(bible, "characters", None) or [])[:2]
+            if getattr(c, "wardrobe_polarity", None)
+        ]
+        if polarities:
+            bible_context_parts.append(f"Wardrobe polarity maintained: {'; '.join(polarities)}.")
+    bible_context_clause = (" " + " ".join(bible_context_parts)) if bible_context_parts else ""
 
     master_cam = CraftCameraSpec(
         rig_type="Locked-off Heavy Tripod",
@@ -111,7 +134,7 @@ def generate_scene_coverage(
             f"route: {cam_spec.route}, focus: {cam_spec.focus_axis}) at locked 1.0x real-time natural speed "
             f"with authentic Newtonian gravity, solid surface friction, and rigid physical momentum. "
             f"Preserving <image_1> character identity and <image_2> architectural environment geometry, "
-            f"{scene.omni_prose_prompt} Synchronized diegetic audio captures {foley_summary}."
+            f"{scene.omni_prose_prompt} Synchronized diegetic audio captures {foley_summary}.{bible_context_clause}"
         )
         variants[cov_type.value] = CoverageVariant(
             coverage_type=cov_type,

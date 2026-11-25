@@ -75,6 +75,15 @@ from omni_director.tools.render_economics import (
     compile_render_economics_manifest,
     format_render_profile_token,
 )
+from omni_director.tools.motion_graphics import (
+    compile_motion_graphics_manifest,
+    format_motion_graphics_token,
+)
+from omni_director.tools.otio_coherence import (
+    compile_otio_coherence_manifest,
+    format_otio_coherence_token,
+    reconcile_cross_department_conflicts,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -84,6 +93,8 @@ from omni_director.schemas import (
     DiegeticSonicSpec,
     MasterBgmSpec,
     MasterEnvironmentSpec,
+    MasterMotionGraphicsManifest,
+    MasterOtioCoherenceManifest,
     MasterProductionBible,
     NanoBananaReference,
     ProductionBundle,
@@ -574,6 +585,27 @@ def _backfill_production_specs(
     art_scenes = getattr(bible.master_wardrobe_prop_bible, "scene_art_specs", []) if getattr(bible, "master_wardrobe_prop_bible", None) else []
     econ_scenes = getattr(bible.master_render_economics_spec, "scene_estimates", []) if getattr(bible, "master_render_economics_spec", None) else []
 
+    # PM-FEAT-033: Motion Graphics, Kinetic Typography & Brand End-Card Manifest
+    if not getattr(bible, "master_motion_graphics", None):
+        gfx_fn = getattr(_presets_mod, "get_domain_motion_graphics_spec", None)
+        if callable(gfx_fn):
+            gfx_res = gfx_fn(bible)
+            if isinstance(gfx_res, MasterMotionGraphicsManifest):
+                bible.master_motion_graphics = gfx_res
+            elif isinstance(gfx_res, dict):
+                bible.master_motion_graphics = compile_motion_graphics_manifest(
+                    bible, domain_calibration=gfx_res
+                )
+            else:
+                bible.master_motion_graphics = compile_motion_graphics_manifest(bible)
+        else:
+            bible.master_motion_graphics = compile_motion_graphics_manifest(bible)
+    gfx_scenes = (
+        getattr(bible.master_motion_graphics, "scene_graphics", [])
+        if getattr(bible, "master_motion_graphics", None)
+        else []
+    )
+
     for idx, scene in enumerate(bible.scenes):
         if not getattr(scene, "speed_ramp", None):
             scene.speed_ramp = get_domain_speed_ramp(arch)
@@ -702,6 +734,77 @@ def _backfill_production_specs(
             )
             if matched_econ is not None:
                 scene.compute_estimate_spec = matched_econ
+
+        if not getattr(scene, "motion_graphics_spec", None) and gfx_scenes:
+            matched_gfx = next(
+                (g_spec for g_spec in gfx_scenes if getattr(g_spec, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_gfx is None and idx < len(gfx_scenes):
+                matched_gfx = gfx_scenes[idx]
+            if matched_gfx is not None:
+                scene.motion_graphics_spec = matched_gfx
+
+    # PM-FEAT-034: OpenTimelineIO (OTIO) Multi-Track & Cross-Department Coherence Manifest (hydrated LAST)
+    if not getattr(bible, "master_otio_coherence", None):
+        otio_fn = getattr(_presets_mod, "get_domain_otio_coherence_spec", None)
+        if callable(otio_fn):
+            otio_res = otio_fn(bible)
+            if isinstance(otio_res, MasterOtioCoherenceManifest):
+                bible.master_otio_coherence = otio_res
+            elif isinstance(otio_res, dict):
+                reconciled_bible = reconcile_cross_department_conflicts(bible, tolerances=otio_res)
+                bible.master_otio_coherence = compile_otio_coherence_manifest(
+                    reconciled_bible, tolerances=otio_res, auto_reconcile=True
+                )
+                for _attr in (
+                    "master_dof_spec",
+                    "dof_spec",
+                    "master_lighting_rig",
+                    "master_continuity_blocking",
+                    "continuity_blocking",
+                    "master_audio_mixer",
+                    "spotting_manifest",
+                    "editorial_spotting",
+                    "master_motion_graphics",
+                    "master_reframe_manifest",
+                    "reframe_manifest",
+                ):
+                    _val = getattr(reconciled_bible, _attr, None)
+                    if _val is not None and hasattr(bible, _attr):
+                        setattr(bible, _attr, _val)
+                _reconciled_gfx = getattr(bible, "master_motion_graphics", None)
+                _gfx_by_scene = {
+                    int(getattr(sg, "scene_index", 0) or 0): sg
+                    for sg in list(getattr(_reconciled_gfx, "scene_graphics", None) or [])
+                }
+                for _src_sc, _dst_sc in zip(
+                    list(getattr(reconciled_bible, "scenes", None) or []),
+                    list(getattr(bible, "scenes", None) or []),
+                ):
+                    for _sc_attr in ("dof_spec", "motion_graphics_spec", "otio_sync_token"):
+                        _sc_val = getattr(_src_sc, _sc_attr, None)
+                        if _sc_val is not None and hasattr(_dst_sc, _sc_attr):
+                            setattr(_dst_sc, _sc_attr, _sc_val)
+                    _sc_idx = int(getattr(_dst_sc, "scene_index", 0) or 0)
+                    if _sc_idx in _gfx_by_scene and getattr(_dst_sc, "motion_graphics_spec", None) is not None:
+                        _dst_sc.motion_graphics_spec = _gfx_by_scene[_sc_idx]
+            else:
+                bible.master_otio_coherence = compile_otio_coherence_manifest(
+                    bible, auto_reconcile=True
+                )
+        else:
+            bible.master_otio_coherence = compile_otio_coherence_manifest(
+                bible, auto_reconcile=True
+            )
+
+    otio_manifest = getattr(bible, "master_otio_coherence", None)
+    if otio_manifest is not None:
+        if not getattr(otio_manifest, "coherence_token", ""):
+            otio_manifest.coherence_token = format_otio_coherence_token(otio_manifest)
+        for scene in bible.scenes:
+            if not getattr(scene, "otio_sync_token", None):
+                scene.otio_sync_token = otio_manifest.coherence_token
 
 
 class IntakeAndResearchAgent(BaseAgent):
@@ -1002,6 +1105,29 @@ class ScenePromptAgent(BaseAgent):
                 if compute_spec is not None:
                     render_token = format_render_profile_token(compute_spec)
                     scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {render_token}."
+            if (getattr(bible, "master_motion_graphics", None) is not None or getattr(scene, "motion_graphics_spec", None) is not None) and not re.search(
+                r"\[GFX[-_ ]CLEANPLATE:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                gfx_spec = getattr(scene, "motion_graphics_spec", None)
+                if gfx_spec is not None:
+                    master_gfx = getattr(bible, "master_motion_graphics", None)
+                    endcard_spec = getattr(master_gfx, "endcard", None) if master_gfx is not None else None
+                    gfx_token = format_motion_graphics_token(gfx_spec, endcard=endcard_spec)
+                    if not getattr(gfx_spec, "gfx_prompt_token", ""):
+                        gfx_spec.gfx_prompt_token = gfx_token
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {gfx_token}."
+            if (getattr(bible, "master_otio_coherence", None) is not None or getattr(scene, "otio_sync_token", None)) and not re.search(
+                r"\[OTIO[-_ ]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                master_otio = getattr(bible, "master_otio_coherence", None)
+                if master_otio is not None:
+                    otio_token = format_otio_coherence_token(master_otio)
+                    if not getattr(scene, "otio_sync_token", None):
+                        scene.otio_sync_token = otio_token
+                else:
+                    otio_token = str(getattr(scene, "otio_sync_token", "") or "")
+                if otio_token:
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {otio_token}."
         return context
 
 
@@ -1166,6 +1292,18 @@ class PromptAuditorAgent(BaseAgent):
                 compute_spec is not None
                 and not re.search(r"\[RENDER[-_ ]PROFILE:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
+            gfx_spec = getattr(scene, "motion_graphics_spec", None)
+            needs_gfx_token = bool(
+                gfx_spec is not None
+                and not re.search(r"\[GFX[-_ ]CLEANPLATE:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            gfx_compliance_fail = not getattr(result, "motion_graphics_compliant", True)
+            master_otio = getattr(bible, "master_otio_coherence", None)
+            needs_otio_token = bool(
+                (master_otio is not None or getattr(scene, "otio_sync_token", None))
+                and not re.search(r"\[OTIO[-_ ]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            otio_compliance_fail = not getattr(result, "otio_coherence_compliant", True)
             
             s3d_compliance_fail = False
             s3d_spec = getattr(scene, "s3d_spec", None)
@@ -1188,6 +1326,10 @@ class PromptAuditorAgent(BaseAgent):
                 or needs_art_token
                 or art_compliance_fail
                 or needs_render_profile_token
+                or needs_gfx_token
+                or gfx_compliance_fail
+                or needs_otio_token
+                or otio_compliance_fail
                 or s3d_compliance_fail
                 or ad_compliance_fail
             ):
@@ -1409,13 +1551,28 @@ class DirectorPipeline:
         )
 
     @staticmethod
+    def _ensure_domain_specs(
+        bible: MasterProductionBible,
+        arch: Optional[str] = None,
+        max_render_budget_usd: Optional[float] = None,
+    ) -> MasterProductionBible:
+        """Hydrates missing master and per-scene domain specifications (PM-FEAT-007..034)."""
+        resolved_arch = arch or getattr(bible, "domain_archetype", None) or "architectural_sanctuary"
+        _backfill_production_specs(
+            bible,
+            resolved_arch,
+            max_render_budget_usd=max_render_budget_usd,
+        )
+        return bible
+
+    @staticmethod
     def _record_economics_and_continuity_telemetry(
         telemetry: RuntimeTelemetry,
         bible: MasterProductionBible,
         max_budget_usd: float,
         dry_run: bool,
     ) -> None:
-        """Records numeric PM-FEAT-031 and PM-FEAT-032 telemetry metrics safely."""
+        """Records numeric PM-FEAT-031..034 telemetry metrics safely."""
         econ_spec = getattr(bible, "master_render_economics_spec", None)
         wp_bible = getattr(bible, "master_wardrobe_prop_bible", None)
         if econ_spec is not None:
@@ -1442,12 +1599,36 @@ class DirectorPipeline:
             else 0
         )
 
+        gfx_manifest = getattr(bible, "master_motion_graphics", None)
+        otio_manifest = getattr(bible, "master_otio_coherence", None)
+        motion_graphics_cues_count = (
+            int(getattr(gfx_manifest, "total_cues_count", 0) or 0)
+            if gfx_manifest is not None
+            else sum(
+                len(getattr(getattr(sc, "motion_graphics_spec", None), "cues", None) or [])
+                for sc in (getattr(bible, "scenes", None) or [])
+            )
+        )
+        otio_coherence_score = (
+            float(getattr(otio_manifest, "coherence_score", 100.0) or 0.0)
+            if otio_manifest is not None
+            else 100.0
+        )
+        otio_conflicts_count = (
+            int(getattr(otio_manifest, "conflicts_count", 0) or 0)
+            if otio_manifest is not None
+            else 0
+        )
+
         metrics = {
             "estimated_total_compute_usd": est_compute_usd,
             "render_budget_ceiling_usd": budget_ceiling_usd,
             "aicp_savings_pct": aicp_savings_pct,
             "total_planned_takes": planned_takes,
             "continuity_breaks_detected": continuity_breaks,
+            "motion_graphics_cues_count": motion_graphics_cues_count,
+            "otio_coherence_score": otio_coherence_score,
+            "otio_conflicts_count": otio_conflicts_count,
         }
         telemetry.metadata.update(metrics)
         telemetry.audit_summary.update(metrics)
@@ -1531,7 +1712,7 @@ class DirectorPipeline:
         active_bible: MasterProductionBible = context["bible"]
         telemetry.project_title = active_bible.project_title
         arch = getattr(active_bible, "domain_archetype", None) or "architectural_sanctuary"
-        _backfill_production_specs(active_bible, arch, max_render_budget_usd=effective_max_budget)
+        self._ensure_domain_specs(active_bible, arch, max_render_budget_usd=effective_max_budget)
         self._record_economics_and_continuity_telemetry(
             telemetry, active_bible, effective_max_budget, dry_run
         )

@@ -33,6 +33,8 @@ from omni_director.presets import (
     get_domain_accessibility_spec,
     get_domain_wardrobe_prop_spec,
     get_domain_render_economics_spec,
+    get_domain_motion_graphics_spec,
+    get_domain_otio_coherence_spec,
 )
 from omni_director.schemas import (
     StorytellingMode,
@@ -839,6 +841,78 @@ class ProductManagerAgent(BaseAgent):
                     "omni_director/tools/html_hud_v216.py",
                     "omni_director/agents/agent.py",
                     "omni_director/agents/council.py",
+                    "omni_director/telemetry.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-033",
+                title="Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+                problem_statement=(
+                    f"Broadcast and vertical social deliverables{project_ctx} risk failing readability and safe-zone "
+                    "clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 "
+                    "TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal "
+                    "disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards."
+                ),
+                proposed_solution=(
+                    "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, "
+                    "GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and "
+                    "MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics "
+                    "(compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, "
+                    "format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, "
+                    "broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] "
+                    "telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion "
+                    "Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/motion_graphics.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/tools/html_hud_v217.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-034",
+                title="Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+                problem_statement=(
+                    f"Complex multi-department productions{project_ctx} lack a unified ASWF OpenTimelineIO 0.16 "
+                    "(Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling "
+                    "optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. "
+                    "motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA."
+                ),
+                proposed_solution=(
+                    "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, "
+                    "OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence "
+                    "(compile_otio_timeline_dict, evaluate_cross_department_coherence, "
+                    "reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, "
+                    "export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and "
+                    "coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance "
+                    "calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept "
+                    "Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/otio_coherence.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/tools/html_hud_v217.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
                     "omni_director/telemetry.py",
                 ],
                 priority="P0",
@@ -1664,6 +1738,128 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 1.0
 
+            # Verify Motion Graphics, MOGRT Supers & Brand End-Card deliverables (PM-FEAT-033)
+            gfx_candidates = [
+                "motion_graphics_mogrt.json",
+                "broadcast_supers.ass",
+                "brand_endcard_spec.md",
+            ]
+            gfx_items = [name for name in gfx_candidates if (eval_dir / name).is_file()]
+            if gfx_items:
+                missing_gfx = [name for name in gfx_candidates if name not in gfx_items]
+                mogrt_valid = True
+                mogrt_err = ""
+                if (eval_dir / "motion_graphics_mogrt.json").is_file():
+                    try:
+                        mogrt_payload = json.loads((eval_dir / "motion_graphics_mogrt.json").read_text(encoding="utf-8"))
+                        if not isinstance(mogrt_payload, dict) or "cues" not in mogrt_payload:
+                            mogrt_valid = False
+                            mogrt_err = "motion_graphics_mogrt.json missing 'cues' array."
+                    except Exception as exc:
+                        mogrt_valid = False
+                        mogrt_err = f"Invalid JSON in motion_graphics_mogrt.json: {exc}"
+                if not mogrt_valid:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="motion_graphics_delivery",
+                        message=mogrt_err,
+                        suggested_fix="Regenerate motion_graphics_mogrt.json via export_motion_graphics_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_gfx and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="motion_graphics_delivery",
+                        message=(
+                            f"Partial Motion Graphics deliverables on disk ({', '.join(gfx_items)}); "
+                            f"missing: {', '.join(missing_gfx)}."
+                        ),
+                        suggested_fix="Run export_motion_graphics_bundle() or export_all_nle_artifacts() to export all PM-FEAT-033 artifacts.",
+                        details={"motion_graphics_artifacts": gfx_items, "missing_artifacts": missing_gfx},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="motion_graphics_delivery",
+                        message=f"Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: {', '.join(gfx_items)}.",
+                        details={"motion_graphics_artifacts": gfx_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="motion_graphics_delivery",
+                    message="NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+                    suggested_fix="Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": gfx_candidates},
+                ))
+                score -= 1.0
+
+            # Verify OpenTimelineIO (.otio) & Cross-Dept Coherence deliverables (PM-FEAT-034)
+            otio_candidates = [
+                "production_timeline.otio",
+                "coherence_matrix.json",
+                "coherence_readiness_report.md",
+            ]
+            otio_items = [name for name in otio_candidates if (eval_dir / name).is_file()]
+            if otio_items:
+                missing_otio = [name for name in otio_candidates if name not in otio_items]
+                otio_invalid_reasons: List[str] = []
+                if (eval_dir / "production_timeline.otio").is_file():
+                    try:
+                        otio_doc = json.loads((eval_dir / "production_timeline.otio").read_text(encoding="utf-8"))
+                        otio_tracks = ((otio_doc.get("tracks") or {}).get("children") or []) if isinstance(otio_doc, dict) else []
+                        if not isinstance(otio_doc, dict) or otio_doc.get("OTIO_SCHEMA") != "Timeline.1" or len(otio_tracks) != 7:
+                            otio_invalid_reasons.append(
+                                f"production_timeline.otio invalid schema/tracks (OTIO_SCHEMA={otio_doc.get('OTIO_SCHEMA') if isinstance(otio_doc, dict) else None}, tracks={len(otio_tracks)})."
+                            )
+                    except Exception as exc:
+                        otio_invalid_reasons.append(f"Invalid JSON in production_timeline.otio: {exc}")
+                if (eval_dir / "coherence_matrix.json").is_file():
+                    try:
+                        coh_doc = json.loads((eval_dir / "coherence_matrix.json").read_text(encoding="utf-8"))
+                        sha_val = str(coh_doc.get("otio_sha256", "") or "") if isinstance(coh_doc, dict) else ""
+                        if not isinstance(coh_doc, dict) or coh_doc.get("schema_version") != "OTIO_0.16_COMPAT" or not re.fullmatch(r"[0-9a-f]{64}", sha_val.lower()):
+                            otio_invalid_reasons.append("coherence_matrix.json failed OTIO_0.16_COMPAT / otio_sha256 check.")
+                    except Exception as exc:
+                        otio_invalid_reasons.append(f"Invalid JSON in coherence_matrix.json: {exc}")
+                if otio_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="otio_coherence_delivery",
+                        message=" ".join(otio_invalid_reasons),
+                        suggested_fix="Regenerate OTIO coherence deliverables via export_otio_coherence_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_otio and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="otio_coherence_delivery",
+                        message=(
+                            f"Partial OpenTimelineIO Coherence deliverables on disk ({', '.join(otio_items)}); "
+                            f"missing: {', '.join(missing_otio)}."
+                        ),
+                        suggested_fix="Run export_otio_coherence_bundle() or export_all_nle_artifacts() to export all PM-FEAT-034 artifacts.",
+                        details={"otio_artifacts": otio_items, "missing_artifacts": missing_otio},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="otio_coherence_delivery",
+                        message=f"OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: {', '.join(otio_items)}.",
+                        details={"otio_artifacts": otio_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="otio_coherence_delivery",
+                    message="NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+                    suggested_fix="Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": otio_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -1904,6 +2100,66 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={
                         "model_rate_ids": [getattr(r, "model_id", "") for r in model_rates],
                         "dry_run_billable_usd": dry_run_billable,
+                    },
+                ))
+
+        # Verify PM-FEAT-033 & PM-FEAT-034 schema specs when attached to bible/bundle
+        gfx_spec = getattr(bible, "master_motion_graphics", None)
+        if gfx_spec is not None:
+            if not getattr(gfx_spec, "primary_typeface", "") or not getattr(gfx_spec, "secondary_typeface", "") or getattr(gfx_spec, "endcard", None) is None:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="motion_graphics_schema",
+                    message="MasterMotionGraphicsManifest is missing required primary_typeface, secondary_typeface, or endcard.",
+                    suggested_fix="Hydrate master_motion_graphics via compile_motion_graphics_manifest() or get_domain_motion_graphics_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="motion_graphics_schema",
+                    message=(
+                        f"MasterMotionGraphicsManifest verified ({getattr(gfx_spec, 'total_cues_count', 0)} cues, "
+                        f"max_wpm={float(getattr(gfx_spec, 'max_wpm_detected', 0.0) or 0.0):.1f}, "
+                        f"all_safe_zones_cleared={bool(getattr(gfx_spec, 'all_safe_zones_cleared', True))}, "
+                        f"legal_supers_compliant={bool(getattr(gfx_spec, 'legal_supers_compliant', True))})."
+                    ),
+                    details={
+                        "total_cues_count": getattr(gfx_spec, "total_cues_count", 0),
+                        "max_wpm_detected": float(getattr(gfx_spec, "max_wpm_detected", 0.0) or 0.0),
+                    },
+                ))
+
+        otio_spec = getattr(bible, "master_otio_coherence", None)
+        if otio_spec is not None:
+            otio_schema = str(getattr(otio_spec, "schema_version", "") or "")
+            otio_tracks = list(getattr(otio_spec, "tracks", None) or [])
+            otio_sha = str(getattr(otio_spec, "otio_sha256", "") or "")
+            sha_ok = bool(re.fullmatch(r"[0-9a-f]{64}", otio_sha.lower()))
+            if otio_schema != "OTIO_0.16_COMPAT" or len(otio_tracks) != 7 or not sha_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="otio_coherence_schema",
+                    message=(
+                        f"MasterOtioCoherenceManifest failed FDE contract check "
+                        f"(schema_version={otio_schema!r}, tracks={len(otio_tracks)}, sha256_valid={sha_ok})."
+                    ),
+                    suggested_fix="Hydrate master_otio_coherence via compile_otio_coherence_manifest() or get_domain_otio_coherence_spec().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="otio_coherence_schema",
+                    message=(
+                        f"MasterOtioCoherenceManifest verified ({otio_schema}, 7 tracks, "
+                        f"otio_sha256={otio_sha[:12]}..., coherence_score={float(getattr(otio_spec, 'coherence_score', 100.0) or 0.0):.1f}, "
+                        f"shoot_day_ready={bool(getattr(otio_spec, 'shoot_day_ready', True))})."
+                    ),
+                    details={
+                        "schema_version": otio_schema,
+                        "track_count": len(otio_tracks),
+                        "otio_sha256_prefix": otio_sha[:12],
                     },
                 ))
 
@@ -2759,6 +3015,90 @@ class ProductCouncilOrchestrator(BaseAgent):
                     ),
                 ))
 
+        # Verify PM-FEAT-033 (Motion Graphics) & PM-FEAT-034 (OTIO Coherence) + token stripping
+        gfx_spec = getattr(bible, "master_motion_graphics", None)
+        gfx_otio_strip_failed: List[int] = []
+        for sc in bible.scenes:
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and any(tok in prompt for tok in ("[GFX-CLEANPLATE:", "[GFX-SUPER:", "[OTIO-SYNC:")):
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if any(tok in clean_prompt for tok in ("[GFX-CLEANPLATE:", "[GFX-SUPER:", "[OTIO-SYNC:")):
+                    gfx_otio_strip_failed.append(sc.scene_index)
+        if gfx_otio_strip_failed:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="gfx_otio_prompt_strip_failed",
+                message=(
+                    f"Scene(s) {gfx_otio_strip_failed} failed to cleanly strip "
+                    "[GFX-CLEANPLATE:]/[GFX-SUPER:]/[OTIO-SYNC:] tokens in compile_clean_omni_prompt."
+                ),
+                suggested_fix="Ensure GFX and OTIO telemetry tokens match standard bracket syntax in _MACHINE_TELEMETRY_TOKEN_RE.",
+            ))
+            penalty_points += 2.0
+
+        if gfx_spec is not None:
+            max_wpm = float(getattr(gfx_spec, "max_wpm_detected", 0.0) or 0.0)
+            safe_cleared = bool(getattr(gfx_spec, "all_safe_zones_cleared", True))
+            legal_ok = bool(getattr(gfx_spec, "legal_supers_compliant", True))
+            if max_wpm > 180.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="motion_graphics_wpm_exceeded",
+                    message=f"MasterMotionGraphicsManifest max_wpm_detected={max_wpm:.2f} exceeds 180.0 WPM broadcast ceiling.",
+                    suggested_fix="Shorten super copy or extend cue display_duration_sec so max_wpm_detected <= 180.0.",
+                ))
+                penalty_points += 2.0
+            if not safe_cleared:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="motion_graphics_safe_zone_violation",
+                    message="MasterMotionGraphicsManifest failed 9:16/16:9 safe-zone or >=25% cleanplate negative-space audit.",
+                    suggested_fix="Clamp graphic placement into 9:16 safe envelope and preserve >=25% negative space.",
+                ))
+                penalty_points += 2.0
+            if not legal_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="motion_graphics_legal_non_compliant",
+                    message="MasterMotionGraphicsManifest flagged legal_supers_compliant=False.",
+                    suggested_fix="Attach compliant legal disclaimer cue via compile_motion_graphics_manifest().",
+                ))
+                penalty_points += 2.0
+            if max_wpm <= 180.0 and safe_cleared and legal_ok and not gfx_otio_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="motion_graphics_schema_compliance",
+                    message=(
+                        f"Motion Graphics & Safe-Zone Gate verified across {len(bible.scenes)} scene(s) "
+                        f"(max_wpm={max_wpm:.1f} <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True)."
+                    ),
+                ))
+
+        otio_spec = getattr(bible, "master_otio_coherence", None)
+        if otio_spec is not None:
+            coh_score = float(getattr(otio_spec, "coherence_score", 100.0) or 0.0)
+            coh_conflicts = int(getattr(otio_spec, "conflicts_count", 0) or 0)
+            if coh_score < 85.0 or coh_conflicts > 0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="otio_coherence_gate_failed",
+                    message=(
+                        f"MasterOtioCoherenceManifest failed cross-department coherence gate "
+                        f"(coherence_score={coh_score:.1f} < 85.0 or conflicts_count={coh_conflicts} > 0)."
+                    ),
+                    suggested_fix="Run reconcile_cross_department_conflicts() and compile_otio_coherence_manifest(auto_reconcile=True).",
+                ))
+                penalty_points += 2.0
+            elif not gfx_otio_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="otio_coherence_schema_compliance",
+                    message=(
+                        f"OTIO Cross-Department Coherence Gate verified "
+                        f"(coherence_score={coh_score:.1f} >= 85.0, conflicts_count=0)."
+                    ),
+                ))
+
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
@@ -2800,6 +3140,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "render_economics_compliant", True)
+            ]
+            non_gfx_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "motion_graphics_compliant", True)
+            ]
+            non_otio_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "otio_coherence_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -2914,6 +3264,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_art_and_economics_compliance",
                     message=f"Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if non_gfx_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_motion_graphics_non_compliant",
+                    message=f"Bundle audit_reports flagged motion_graphics_compliant=False on scene(s): {non_gfx_scenes}.",
+                    suggested_fix="Ensure motion graphics WPM <= 180, 9:16 safe zones, and [GFX-CLEANPLATE] compliance on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if non_otio_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_otio_coherence_non_compliant",
+                    message=f"Bundle audit_reports flagged otio_coherence_compliant=False on scene(s): {non_otio_scenes}.",
+                    suggested_fix="Ensure OTIO cross-department coherence reconciliation succeeds on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_gfx_scenes and not non_otio_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_gfx_and_otio_compliance",
+                    message=f"Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -3915,6 +4287,118 @@ class ProductCouncilOrchestrator(BaseAgent):
                         },
                     ))
 
+        # Verify Motion Graphics, Kinetic Typography & Brand End-Card Calibration (PM-FEAT-033)
+        gfx_spec = getattr(bible, "master_motion_graphics", None)
+        if gfx_spec is not None:
+            expected_gfx = get_domain_motion_graphics_spec(detected_domain)
+            exp_primary_font = str(expected_gfx.get("primary_typeface", "") or "")
+            actual_primary_font = str(getattr(gfx_spec, "primary_typeface", "") or "")
+            endcard_obj = getattr(gfx_spec, "endcard", None)
+            ec_dur = float(getattr(endcard_obj, "duration_sec", 0.0) or 0.0) if endcard_obj is not None else 0.0
+            max_wpm = float(getattr(gfx_spec, "max_wpm_detected", 0.0) or 0.0)
+            safe_ok = bool(getattr(gfx_spec, "all_safe_zones_cleared", True))
+            legal_ok = bool(getattr(gfx_spec, "legal_supers_compliant", True))
+
+            auto_legal_ok = True
+            if detected_domain == "automotive_robotics":
+                legal_texts = [
+                    str(getattr(cue, "copy_text", "") or "")
+                    for sg in (getattr(gfx_spec, "scene_graphics", None) or [])
+                    for cue in (getattr(sg, "cues", None) or [])
+                    if str(getattr(getattr(cue, "role", ""), "value", getattr(cue, "role", ""))).lower() == "legal_disclaimer"
+                ]
+                auto_legal_ok = any("Closed course. Professional driver." in txt for txt in legal_texts)
+
+            if endcard_obj is None or ec_dur < 2.5 or ec_dur > 3.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="domain_motion_graphics_calibration",
+                    message=f"BrandEndcardSpec duration ({ec_dur:.2f}s) outside calibrated 2.5s-3.0s window for domain '{detected_domain}'.",
+                    suggested_fix="Calibrate master_motion_graphics via get_domain_motion_graphics_spec(bible).",
+                ))
+                score -= 0.5
+            elif not auto_legal_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_motion_graphics_calibration",
+                    message="Automotive robotics production lacks mandatory 'Closed course. Professional driver.' legal super.",
+                    suggested_fix="Hydrate master_motion_graphics via get_domain_motion_graphics_spec(bible) for automotive_robotics.",
+                ))
+                score -= 1.0
+            elif max_wpm > 180.0 or not safe_ok or not legal_ok:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_motion_graphics_calibration",
+                    message=(
+                        f"Motion graphics calibration failed for domain '{detected_domain}' "
+                        f"(max_wpm={max_wpm:.1f}, all_safe_zones_cleared={safe_ok}, legal_supers_compliant={legal_ok})."
+                    ),
+                    suggested_fix="Recompile master_motion_graphics via get_domain_motion_graphics_spec(bible).",
+                ))
+                score -= 1.0
+            elif exp_primary_font and actual_primary_font and actual_primary_font != exp_primary_font:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.LOW,
+                    category="domain_motion_graphics_calibration",
+                    message=(
+                        f"Motion graphics primary_typeface '{actual_primary_font}' differs from domain "
+                        f"'{detected_domain}' baseline '{exp_primary_font}'."
+                    ),
+                    suggested_fix="Calibrate master_motion_graphics via get_domain_motion_graphics_spec().",
+                ))
+                score -= 0.25
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_motion_graphics_calibration",
+                    message=(
+                        f"Motion graphics & Brand End-Card calibrated for domain '{detected_domain}' "
+                        f"(typeface='{actual_primary_font}', endcard={ec_dur:.2f}s, max_wpm={max_wpm:.1f}, 9:16_clear={safe_ok})."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "primary_typeface": actual_primary_font,
+                        "endcard_duration_sec": ec_dur,
+                        "max_wpm_detected": max_wpm,
+                    },
+                ))
+
+        # Verify OpenTimelineIO & Cross-Department Shoot-Day Coherence (PM-FEAT-034)
+        otio_spec = getattr(bible, "master_otio_coherence", None)
+        if otio_spec is not None:
+            expected_otio = get_domain_otio_coherence_spec(detected_domain)
+            shoot_ready = bool(getattr(otio_spec, "shoot_day_ready", False))
+            coh_score = float(getattr(otio_spec, "coherence_score", 0.0) or 0.0)
+            conflicts_cnt = int(getattr(otio_spec, "conflicts_count", 0) or 0)
+            if not shoot_ready or conflicts_cnt > 0 or coh_score < 85.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_otio_coherence_readiness",
+                    message=(
+                        f"OTIO cross-department coherence gate blocked shoot-day readiness for domain '{detected_domain}' "
+                        f"(shoot_day_ready={shoot_ready}, score={coh_score:.1f}, conflicts={conflicts_cnt})."
+                    ),
+                    suggested_fix="Reconcile cross-department conflicts via get_domain_otio_coherence_spec(bible).",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_otio_coherence_readiness",
+                    message=(
+                        f"OTIO 7-track cross-department coherence verified for domain '{detected_domain}' "
+                        f"(shoot_day_ready=True, coherence_score={coh_score:.1f}, "
+                        f"focal_tol<={expected_otio.get('focal_delta_mm_max', 15.0)}mm, "
+                        f"kelvin_tol<={expected_otio.get('kelvin_delta_max', 1500.0)}K)."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "shoot_day_ready": True,
+                        "coherence_score": coh_score,
+                        "conflicts_count": conflicts_cnt,
+                    },
+                ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -4549,6 +5033,56 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="Compute Economics & Take-Variant Inspector HUD verified (#btn-economics-animatic / #modal-render-economics / hotkey ';').",
                         ))
 
+                    # PM-FEAT-033 Motion Graphics, Supers & End-Card Studio [=] HUD & Command Palette [/] check
+                    missing_mgs_ids = [
+                        el_id
+                        for el_id in ("modal-motion-graphics-studio", "btn-motion-gfx-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_mgs_palette = ("motiongfx" in html_content and "toggleMotionGfxHUD" in html_content)
+                    if missing_mgs_ids or not has_mgs_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_motion_graphics_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Motion Graphics Studio HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_mgs_ids) or 'Command Palette / entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-motion-graphics-studio, #btn-motion-gfx-animatic [=], and Command Palette [/] entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_motion_graphics_hud",
+                            message="Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+                        ))
+
+                    # PM-FEAT-034 OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix ['] HUD & Command Palette [/] check
+                    missing_otio_ids = [
+                        el_id
+                        for el_id in ("modal-otio-coherence", "btn-otio-coherence-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_otio_palette = ("otiocoherence" in html_content and "toggleOtioCoherenceHUD" in html_content)
+                    if missing_otio_ids or not has_otio_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_otio_coherence_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks OpenTimelineIO Coherence HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_otio_ids) or 'Command Palette / entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-otio-coherence, #btn-otio-coherence-animatic ['], and Command Palette [/] entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_otio_coherence_hud",
+                            message="OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -4684,6 +5218,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.",
                             ))
 
+                        has_eq_key = bool(re.search(r"""e\.key\s*===\s*(?:'='|"=")""", kd_block))
+                        has_quote_key = bool(re.search(r"""e\.key\s*===\s*(?:"'"|'\\'')""", kd_block))
+                        if not (has_eq_key and has_quote_key):
+                            missing_eq_quote = []
+                            if not has_eq_key:
+                                missing_eq_quote.append("=")
+                            if not has_quote_key:
+                                missing_eq_quote.append("'")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_eq_quote",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_eq_quote)}.",
+                                suggested_fix="Bind = (Motion Graphics Studio HUD) and ' (OTIO Coherence Matrix HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_eq_quote",
+                                message="Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -4695,31 +5251,35 @@ class ProductCouncilOrchestrator(BaseAgent):
                         )
                         sec_match = re.search(r"function\s+closeSecondaryOpenHUDs\s*\(\)\s*\{(.*?)\}", html_content, re.DOTALL)
                         esc_combined = esc_slice + ("\n" + sec_match.group(1) if (sec_match and "closeSecondaryOpenHUDs" in esc_slice) else "")
-                        missing_esc: list[str] = []
-                        if "animatic-audio-mixer" in html_content and "animatic-audio-mixer" not in esc_combined and "toggleMixer" not in esc_combined:
-                            missing_esc.append("animatic-audio-mixer")
-                        if "animatic-reframe-hud" in html_content and "ReframeHUD" not in esc_combined and "animatic-reframe-hud" not in esc_combined:
-                            missing_esc.append("animatic-reframe-hud")
-                        if "animatic-qc-hud" in html_content and "QcHUD" not in esc_combined and "QCHUD" not in esc_combined and "animatic-qc-hud" not in esc_combined:
-                            missing_esc.append("animatic-qc-hud")
-                        if "animatic-blocking-hud" in html_content and "BlockingHUD" not in esc_combined and "animatic-blocking-hud" not in esc_combined:
-                            missing_esc.append("animatic-blocking-hud")
-                        if "animatic-review-hud" in html_content and "ReviewHUD" not in esc_combined and "animatic-review-hud" not in esc_combined:
-                            missing_esc.append("animatic-review-hud")
-                        if "animatic-c2pa-hud" in html_content and "C2paHUD" not in esc_combined and "animatic-c2pa-hud" not in esc_combined:
-                            missing_esc.append("animatic-c2pa-hud")
-                        if "animatic-safety-hud" in html_content and "SafetyHUD" not in esc_combined and "animatic-safety-hud" not in esc_combined:
-                            missing_esc.append("animatic-safety-hud")
-                        if "animatic-localization-hud" in html_content and "LocalizationHUD" not in esc_combined and "animatic-localization-hud" not in esc_combined:
-                            missing_esc.append("animatic-localization-hud")
-                        if "animatic-spotting-hud" in html_content and "SpottingHUD" not in esc_combined and "animatic-spotting-hud" not in esc_combined:
-                            missing_esc.append("animatic-spotting-hud")
+                        esc_panel_checks = (
+                            ("animatic-audio-mixer", ("animatic-audio-mixer", "toggleMixer")),
+                            ("animatic-reframe-hud", ("ReframeHUD", "animatic-reframe-hud")),
+                            ("animatic-qc-hud", ("QcHUD", "QCHUD", "animatic-qc-hud")),
+                            ("animatic-blocking-hud", ("BlockingHUD", "animatic-blocking-hud")),
+                            ("animatic-review-hud", ("ReviewHUD", "animatic-review-hud")),
+                            ("animatic-c2pa-hud", ("C2paHUD", "animatic-c2pa-hud")),
+                            ("animatic-safety-hud", ("SafetyHUD", "animatic-safety-hud")),
+                            ("animatic-localization-hud", ("LocalizationHUD", "animatic-localization-hud")),
+                            ("animatic-spotting-hud", ("SpottingHUD", "animatic-spotting-hud")),
+                            ("modal-s3d-stereography", ("S3dHUD", "isS3dHUDOpen", "modal-s3d-stereography")),
+                            ("modal-accessibility-ad", ("AccessibilityAdHUD", "isAccessibilityAdHUDOpen", "modal-accessibility-ad")),
+                            ("modal-hud-command-palette", ("HudCommandPalette", "isHudCommandPaletteOpen", "modal-hud-command-palette")),
+                            ("modal-art-wardrobe-continuity", ("ArtWardrobeHUD", "isArtWardrobeHUDOpen", "modal-art-wardrobe-continuity")),
+                            ("modal-render-economics", ("RenderEconomicsHUD", "isRenderEconomicsHUDOpen", "modal-render-economics")),
+                            ("modal-motion-graphics-studio", ("MotionGfxHUD", "isMotionGfxHUDOpen", "modal-motion-graphics-studio")),
+                            ("modal-otio-coherence", ("OtioCoherenceHUD", "isOtioCoherenceHUDOpen", "modal-otio-coherence")),
+                        )
+                        missing_esc: list[str] = [
+                            panel_id
+                            for panel_id, markers in esc_panel_checks
+                            if panel_id in html_content and not any(m in esc_combined for m in markers)
+                        ]
                         if missing_esc:
                             findings.append(CouncilFinding(
                                 severity=CouncilFindingSeverity.LOW,
                                 category="animatic_escape_dismissal",
                                 message=f"Escape key handler does not dismiss open panels: {', '.join(missing_esc)}.",
-                                suggested_fix="Add Escape dismissal logic for mixer, reframe HUD, QC HUD, blocking HUD, review HUD, C2PA HUD, safety HUD, localization HUD, and spotting HUD.",
+                                suggested_fix="Add Escape dismissal logic for all v2.12-v2.17 HUDs and modals in global keydown handler.",
                             ))
                             score -= 0.5
 

@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.16.0"
+__version__ = "2.17.0"
 
 
 class RegimeType(str, Enum):
@@ -43,6 +43,9 @@ class DomainArchetype(str, Enum):
     kinetic_action = "kinetic_action"
     tech_hardware = "tech_hardware"
     architectural_sanctuary = "architectural_sanctuary"
+
+
+CommercialDomain = DomainArchetype
 
 
 
@@ -3236,6 +3239,160 @@ class MasterRenderEconomicsManifest(BaseModel):
     dry_run_billable_usd: float = 0.0
 
 
+# ==============================================================================
+# PM-FEAT-033: Motion Graphics, Kinetic Typography & Brand End-Card Specifier
+# ==============================================================================
+
+
+class GraphicLayerRoleEnum(str, Enum):
+    """Semantic role of an on-screen motion-graphic or typographic super cue (PM-FEAT-033)."""
+    KINETIC_HEADLINE = "kinetic_headline"
+    PRODUCT_CALLOUT = "product_callout"
+    LEGAL_DISCLAIMER = "legal_disclaimer"
+    CTA_ENDCARD = "cta_endcard"
+    LOWER_THIRD = "lower_third"
+    CHAPTER_CARD = "chapter_card"
+
+
+class CompositeStrategyEnum(str, Enum):
+    """Compositing pipeline strategy for on-screen graphic supers (PM-FEAT-033)."""
+    POST_COMP_CLEANPLATE = "post_comp_cleanplate"
+    NATIVE_MACRO_DIEGETIC = "native_macro_diegetic"
+    HYBRID_ALPHA_MATTE = "hybrid_alpha_matte"
+
+
+class TypographyPlacementSpec(BaseModel):
+    """Safe-zone normalized placement and WCAG contrast styling for a graphic cue (PM-FEAT-033)."""
+    anchor_zone: str
+    normalized_x: float = Field(..., ge=0.0, le=1.0)
+    normalized_y: float = Field(..., ge=0.0, le=1.0)
+    max_width_pct: float
+    font_family: str
+    font_weight: int = 600
+    min_font_px_1080p: int
+    fill_hex: str = "#F8FAFC"
+    backdrop_scrim_opacity: float = 0.35
+    wcag_contrast_ratio: float = 7.0
+
+
+class GraphicSuperCueSpec(BaseModel):
+    """Single frame-accurate on-screen graphic super cue specification (PM-FEAT-033)."""
+    cue_id: str
+    scene_index: int
+    role: GraphicLayerRoleEnum
+    copy_text: str
+    word_count: int
+    display_duration_sec: float
+    effective_wpm: float
+    in_smpte: str
+    out_smpte: str
+    composite_strategy: CompositeStrategyEnum
+    animation_preset: str
+    placement: TypographyPlacementSpec
+    reframe_cleared_ratios: List[str]
+    legibility_audit_passed: bool = True
+
+
+class BrandEndcardSpec(BaseModel):
+    """Tail-scene brand end-card lockup and audio sting sync specification (PM-FEAT-033)."""
+    duration_sec: float
+    logo_lockup_position: str
+    cta_headline: str
+    cta_subcopy: str
+    url_or_qr_label: str
+    audio_sting_sync_smpte: str
+    background_plate_hex: str = "#090D16"
+    reserved_tail_scene_index: int
+
+
+class SceneMotionGraphicsSpec(BaseModel):
+    """Per-scene motion graphics, negative-space cleanplate, and legibility contract (PM-FEAT-033)."""
+    scene_index: int
+    cues: List[GraphicSuperCueSpec] = Field(default_factory=list)
+    cleanplate_negative_space_pct: float = 32.0
+    cleanplate_zone: str = "upper_left_third"
+    gfx_prompt_token: str = ""
+    legibility_score: float = 100.0
+
+
+class MasterMotionGraphicsManifest(BaseModel):
+    """Master Motion Graphics, Kinetic Typography & Brand End-Card Manifest (PM-FEAT-033)."""
+    project_title: str
+    domain_archetype: str
+    primary_typeface: str
+    secondary_typeface: str
+    endcard: BrandEndcardSpec
+    scene_graphics: List[SceneMotionGraphicsSpec] = Field(default_factory=list)
+    total_cues_count: int = 0
+    max_wpm_detected: float = 0.0
+    all_safe_zones_cleared: bool = True
+    legal_supers_compliant: bool = True
+
+
+# ==============================================================================
+# PM-FEAT-034: OpenTimelineIO (OTIO) Multi-Track Assembly & Cross-Department Coherence
+# ==============================================================================
+
+
+class CoherenceDomainPairEnum(str, Enum):
+    """Cross-department specification pairs evaluated for shoot-day coherence (PM-FEAT-034)."""
+    OPTICS_VS_DOF = "optics_vs_dof"
+    LIGHTING_KELVIN_VS_BLOCKING = "lighting_kelvin_vs_blocking"
+    AUDIO_STEMS_VS_SPOTTING = "audio_stems_vs_spotting"
+    REFRAME_VS_GRAPHICS_BLOCKING = "reframe_vs_graphics_blocking"
+    MODE_B_VS_RUNTIME_ECONOMICS = "mode_b_vs_runtime_economics"
+    AICP_POST_VS_RENDER_COMPUTE = "aicp_post_vs_render_compute"
+    C2PA_VS_CAST_SAFETY = "c2pa_vs_cast_safety"
+
+
+class CoherenceCheckStatusEnum(str, Enum):
+    """Outcome status for a cross-department coherence check (PM-FEAT-034)."""
+    PASS = "pass"
+    WARN = "warn"
+    CONFLICT = "conflict"
+
+
+class CrossDeptCoherenceCheck(BaseModel):
+    """Single cross-department coherence verification result and remediation plan (PM-FEAT-034)."""
+    check_id: str
+    pair: CoherenceDomainPairEnum
+    status: CoherenceCheckStatusEnum
+    source_spec: str
+    target_spec: str
+    delta_summary: str
+    measured_value: str
+    expected_bound: str
+    auto_reconcilable: bool = True
+    remediation_action: str = ""
+
+
+class OtioTrackSummarySpec(BaseModel):
+    """Summary telemetry for a single OpenTimelineIO track (PM-FEAT-034)."""
+    track_name: str
+    kind: Literal["Video", "Audio"]
+    clip_count: int
+    marker_count: int
+    total_frames_24fps: int
+
+
+class MasterOtioCoherenceManifest(BaseModel):
+    """Master OpenTimelineIO Multi-Track & Cross-Department Coherence Manifest (PM-FEAT-034)."""
+    schema_version: str = "OTIO_0.16_COMPAT"
+    project_title: str
+    domain_archetype: str
+    fps: float = 24.0
+    total_frames: int
+    tracks: List[OtioTrackSummarySpec] = Field(default_factory=list)
+    coherence_checks: List[CrossDeptCoherenceCheck] = Field(default_factory=list)
+    coherence_score: float = 100.0
+    conflicts_count: int = 0
+    warnings_count: int = 0
+    otio_sha256: str = ""
+    shoot_day_ready: bool = True
+    coherence_token: str = ""
+
+
+
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
     scene_index: int = Field(..., description="1-indexed scene number")
@@ -3385,6 +3542,15 @@ class ScenePromptSpec(BaseModel):
     compute_estimate_spec: Optional[SceneComputeEstimateSpec] = Field(
         default=None,
         description="Scene AI Compute, Take-Budget & Render Economics spec (PM-FEAT-032)"
+    )
+    motion_graphics_spec: Optional[SceneMotionGraphicsSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("motion_graphics_spec", "motion_graphics", "gfx_spec"),
+        description="Scene Motion Graphics, Kinetic Typography & Brand End-Card spec (PM-FEAT-033)"
+    )
+    otio_sync_token: Optional[str] = Field(
+        default=None,
+        description="OpenTimelineIO frame-accurate sync token (PM-FEAT-034)"
     )
 
     @model_validator(mode="before")
@@ -3723,6 +3889,9 @@ class ScenePromptSpec(BaseModel):
         if name in ("safety_spec", "jsa_spec"):
             super().__setattr__("safety_risk", value)
             return
+        if name in ("motion_graphics", "gfx_spec"):
+            super().__setattr__("motion_graphics_spec", value)
+            return
         super().__setattr__(name, value)
 
     @field_validator("action_beats")
@@ -3970,24 +4139,28 @@ class MasterProductionBible(BaseModel):
     )
     localization_manifest: Optional[LocalizationManifestSpec] = Field(
         default=None,
-        validation_alias=AliasChoices("localization_manifest", "master_localization_manifest", "adr_manifest"),
+        validation_alias=AliasChoices(
+            "localization_manifest", "master_localization_manifest", "master_localization", "adr_manifest"
+        ),
         description="Master multi-territory localization, ADR dubbing, lip-sync timing, and safe-supers manifest (PM-FEAT-027)"
     )
     spotting_manifest: Optional[SpottingManifestSpec] = Field(
         default=None,
-        validation_alias=AliasChoices("spotting_manifest", "master_spotting_manifest", "editorial_spotting"),
+        validation_alias=AliasChoices(
+            "spotting_manifest", "master_spotting_manifest", "master_spotting", "editorial_spotting"
+        ),
         description="Master editorial J-Cut/L-Cut audio bridge, BPM beat-grid sync, and music/foley spotting manifest (PM-FEAT-028)"
     )
 
 
     master_s3d_spec: Optional[MasterSpatialVideoSpec] = Field(
         default=None,
-        validation_alias=AliasChoices("master_s3d", "s3d_manifest"),
+        validation_alias=AliasChoices("master_s3d_spec", "master_s3d", "s3d_manifest"),
         description="Master Spatial Video & Stereoscopic 3D spec (PM-FEAT-029)"
     )
     master_accessibility_spec: Optional[MasterAccessibilitySpec] = Field(
         default=None,
-        validation_alias=AliasChoices("master_accessibility", "accessibility_manifest"),
+        validation_alias=AliasChoices("master_accessibility_spec", "master_accessibility", "accessibility_manifest"),
         description="Master Accessibility & Audio Description spec (PM-FEAT-030)"
     )
     master_wardrobe_prop_bible: Optional[MasterWardrobePropBible] = Field(
@@ -3999,6 +4172,16 @@ class MasterProductionBible(BaseModel):
         default=None,
         validation_alias=AliasChoices("master_render_economics_spec", "render_economics_manifest", "render_economics_spec"),
         description="Master AI Compute, Take-Budget & Render Economics Manifest (PM-FEAT-032)"
+    )
+    master_motion_graphics: Optional[MasterMotionGraphicsManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_motion_graphics", "motion_graphics_manifest", "motion_graphics_spec"),
+        description="Master Motion Graphics, Kinetic Typography & Brand End-Card Manifest (PM-FEAT-033)"
+    )
+    master_otio_coherence: Optional[MasterOtioCoherenceManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_otio_coherence", "otio_coherence_manifest", "otio_manifest"),
+        description="Master OpenTimelineIO Multi-Track & Cross-Department Coherence Manifest (PM-FEAT-034)"
     )
     @field_validator("nano_banana_assets")
     @classmethod
@@ -4173,6 +4356,29 @@ class MasterProductionBible(BaseModel):
         return self
 
     def __setattr__(self, name: str, value: Any) -> None:
+        alias_targets = {
+            "wardrobe_prop_bible": "master_wardrobe_prop_bible",
+            "art_continuity_bible": "master_wardrobe_prop_bible",
+            "render_economics_manifest": "master_render_economics_spec",
+            "render_economics_spec": "master_render_economics_spec",
+            "motion_graphics_manifest": "master_motion_graphics",
+            "motion_graphics_spec": "master_motion_graphics",
+            "otio_coherence_manifest": "master_otio_coherence",
+            "otio_manifest": "master_otio_coherence",
+            "master_localization": "localization_manifest",
+            "master_localization_manifest": "localization_manifest",
+            "adr_manifest": "localization_manifest",
+            "master_spotting": "spotting_manifest",
+            "master_spotting_manifest": "spotting_manifest",
+            "editorial_spotting": "spotting_manifest",
+            "master_s3d": "master_s3d_spec",
+            "s3d_manifest": "master_s3d_spec",
+            "master_accessibility": "master_accessibility_spec",
+            "accessibility_manifest": "master_accessibility_spec",
+        }
+        if name in alias_targets:
+            super().__setattr__(alias_targets[name], value)
+            return
         super().__setattr__(name, value)
         if name in ("master_aicp_bid", "aicp_bid", "master_aicp_budget", "aicp_budget") and value is not None:
             super().__setattr__("master_aicp_bid", value)
@@ -4211,6 +4417,102 @@ class MasterProductionBible(BaseModel):
             super().__setattr__("safety_risk", value)
             super().__setattr__("safety_manifest", value)
             super().__setattr__("jsa_manifest", value)
+
+    @property
+    def wardrobe_prop_bible(self) -> Optional[MasterWardrobePropBible]:
+        return self.master_wardrobe_prop_bible
+
+    @wardrobe_prop_bible.setter
+    def wardrobe_prop_bible(self, value: Optional[MasterWardrobePropBible]) -> None:
+        super().__setattr__("master_wardrobe_prop_bible", value)
+
+    @property
+    def art_continuity_bible(self) -> Optional[MasterWardrobePropBible]:
+        return self.master_wardrobe_prop_bible
+
+    @art_continuity_bible.setter
+    def art_continuity_bible(self, value: Optional[MasterWardrobePropBible]) -> None:
+        super().__setattr__("master_wardrobe_prop_bible", value)
+
+    @property
+    def render_economics_manifest(self) -> Optional[MasterRenderEconomicsManifest]:
+        return self.master_render_economics_spec
+
+    @render_economics_manifest.setter
+    def render_economics_manifest(self, value: Optional[MasterRenderEconomicsManifest]) -> None:
+        super().__setattr__("master_render_economics_spec", value)
+
+    @property
+    def render_economics_spec(self) -> Optional[MasterRenderEconomicsManifest]:
+        return self.master_render_economics_spec
+
+    @render_economics_spec.setter
+    def render_economics_spec(self, value: Optional[MasterRenderEconomicsManifest]) -> None:
+        super().__setattr__("master_render_economics_spec", value)
+
+    @property
+    def motion_graphics_manifest(self) -> Optional[MasterMotionGraphicsManifest]:
+        return self.master_motion_graphics
+
+    @motion_graphics_manifest.setter
+    def motion_graphics_manifest(self, value: Optional[MasterMotionGraphicsManifest]) -> None:
+        super().__setattr__("master_motion_graphics", value)
+
+    @property
+    def motion_graphics_spec(self) -> Optional[MasterMotionGraphicsManifest]:
+        return self.master_motion_graphics
+
+    @motion_graphics_spec.setter
+    def motion_graphics_spec(self, value: Optional[MasterMotionGraphicsManifest]) -> None:
+        super().__setattr__("master_motion_graphics", value)
+
+    @property
+    def otio_coherence_manifest(self) -> Optional[MasterOtioCoherenceManifest]:
+        return self.master_otio_coherence
+
+    @otio_coherence_manifest.setter
+    def otio_coherence_manifest(self, value: Optional[MasterOtioCoherenceManifest]) -> None:
+        super().__setattr__("master_otio_coherence", value)
+
+    @property
+    def otio_manifest(self) -> Optional[MasterOtioCoherenceManifest]:
+        return self.master_otio_coherence
+
+    @otio_manifest.setter
+    def otio_manifest(self, value: Optional[MasterOtioCoherenceManifest]) -> None:
+        super().__setattr__("master_otio_coherence", value)
+
+    @property
+    def master_localization(self) -> Optional[LocalizationManifestSpec]:
+        return self.localization_manifest
+
+    @master_localization.setter
+    def master_localization(self, value: Optional[LocalizationManifestSpec]) -> None:
+        super().__setattr__("localization_manifest", value)
+
+    @property
+    def master_spotting(self) -> Optional[SpottingManifestSpec]:
+        return self.spotting_manifest
+
+    @master_spotting.setter
+    def master_spotting(self, value: Optional[SpottingManifestSpec]) -> None:
+        super().__setattr__("spotting_manifest", value)
+
+    @property
+    def s3d_manifest(self) -> Optional[MasterSpatialVideoSpec]:
+        return self.master_s3d_spec
+
+    @s3d_manifest.setter
+    def s3d_manifest(self, value: Optional[MasterSpatialVideoSpec]) -> None:
+        super().__setattr__("master_s3d_spec", value)
+
+    @property
+    def accessibility_manifest(self) -> Optional[MasterAccessibilitySpec]:
+        return self.master_accessibility_spec
+
+    @accessibility_manifest.setter
+    def accessibility_manifest(self, value: Optional[MasterAccessibilitySpec]) -> None:
+        super().__setattr__("master_accessibility_spec", value)
 
 
     @property
@@ -4251,6 +4553,8 @@ class AuditResult(BaseModel):
     ad_cue_compliant: bool = True
     art_continuity_compliant: bool = True
     render_economics_compliant: bool = True
+    motion_graphics_compliant: bool = True
+    otio_coherence_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -4365,7 +4669,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.16.0"
+    version: str = "2.17.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -4462,6 +4766,7 @@ ScenePromptPayload = ScenePromptSpec
 
 
 __all__ = [
+    "DomainArchetype",
     "CommercialDomain",
     "StorytellingMode",
     "RegimeType",
@@ -4674,6 +4979,33 @@ __all__ = [
     "AudioDescriptionCueSpec",
     "SceneAccessibilityProfileSpec",
     "MasterAccessibilitySpec",
+    # PM-FEAT-031: Wardrobe, Prop & Art Dressing Continuity Schemas
+    "PropActionStateEnum",
+    "ScenePropContinuityState",
+    "SceneWardrobeStateSpec",
+    "ArtDressingAnchorSpec",
+    "SceneArtContinuitySpec",
+    "MasterWardrobePropBible",
+    # PM-FEAT-032: AI Compute, Take-Budget & Render Economics Schemas
+    "ModelTierRateSpec",
+    "TakeVariantRecord",
+    "SceneComputeEstimateSpec",
+    "RenderBudgetGuardrailSpec",
+    "MasterRenderEconomicsManifest",
+    # PM-FEAT-033: Motion Graphics, Kinetic Typography & Brand End-Card Schemas
+    "GraphicLayerRoleEnum",
+    "CompositeStrategyEnum",
+    "TypographyPlacementSpec",
+    "GraphicSuperCueSpec",
+    "BrandEndcardSpec",
+    "SceneMotionGraphicsSpec",
+    "MasterMotionGraphicsManifest",
+    # PM-FEAT-034: OpenTimelineIO (OTIO) Multi-Track Assembly & Cross-Department Coherence Schemas
+    "CoherenceDomainPairEnum",
+    "CoherenceCheckStatusEnum",
+    "CrossDeptCoherenceCheck",
+    "OtioTrackSummarySpec",
+    "MasterOtioCoherenceManifest",
     "load_bible_from_json",
 ]
 

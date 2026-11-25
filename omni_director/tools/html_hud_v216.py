@@ -56,6 +56,113 @@ def _synthesize_wardrobe_prop_bible(bible: Any) -> Dict[str, Any]:
     scenes = _to_plain(_get_field(bible, "scenes", []) or [])
     nano_assets = _to_plain(_get_field(bible, "nano_banana_assets", []) or [])
 
+    if isinstance(plain, dict) and plain.get("scene_art_specs"):
+        scene_title_map: Dict[int, str] = {}
+        for idx, sc in enumerate(scenes):
+            if isinstance(sc, dict):
+                s_idx = int(sc.get("scene_index", idx + 1) or (idx + 1))
+                scene_title_map[s_idx] = str(sc.get("scene_title") or f"Scene {s_idx}")
+
+        char_looks: List[Dict[str, str]] = []
+        seen_looks = set()
+        for lk in plain.get("wardrobe_looks_summary") or []:
+            if not isinstance(lk, dict):
+                continue
+            char_name = str(lk.get("character_id") or lk.get("character") or "Hero Subject")
+            look_id = str(lk.get("look_id") or "LOOK_A")
+            garment = str(lk.get("garment_summary") or lk.get("wardrobe_spec") or "Hero signature wardrobe")
+            key = (char_name, look_id)
+            if key not in seen_looks:
+                seen_looks.add(key)
+                char_looks.append({"character": char_name, "look_id": look_id, "wardrobe_spec": garment})
+
+        scene_entries: List[Dict[str, Any]] = []
+        prev_prop_states: Dict[str, str] = {}
+        for idx, spec in enumerate(plain.get("scene_art_specs") or []):
+            if not isinstance(spec, dict):
+                continue
+            s_idx = int(spec.get("scene_index", idx + 1) or (idx + 1))
+            s_title = str(spec.get("scene_title") or scene_title_map.get(s_idx) or f"Scene {s_idx}")
+            w_states = spec.get("wardrobe_states") or []
+            p_states = spec.get("prop_states") or []
+            art_anchors = spec.get("dressing_anchors") or spec.get("art_anchors") or []
+
+            first_w = w_states[0] if w_states and isinstance(w_states[0], dict) else {}
+            char_name = str(first_w.get("character_id") or first_w.get("character") or (char_looks[0]["character"] if char_looks else "Hero Subject"))
+            look_id = str(first_w.get("look_id") or "LOOK_A")
+            wardrobe_spec = str(first_w.get("garment_summary") or first_w.get("wardrobe_spec") or "Hero signature wardrobe")
+            weathering = str(first_w.get("weathering_stage") or "").strip()
+            if weathering and weathering not in wardrobe_spec:
+                wardrobe_spec = f"{wardrobe_spec} ({weathering})"
+
+            if (char_name, look_id) not in seen_looks:
+                seen_looks.add((char_name, look_id))
+                char_looks.append({"character": char_name, "look_id": look_id, "wardrobe_spec": wardrobe_spec})
+
+            first_p = p_states[0] if p_states and isinstance(p_states[0], dict) else {}
+            prop_id = str(first_p.get("prop_id") or f"PROP_S{s_idx:02d}")
+            prop_name = str(first_p.get("prop_name") or f"Hero Prop S{s_idx:02d}")
+            prop_state = str(first_p.get("action_state") or "intact")
+
+            assigned_slots = spec.get("assigned_reference_slots") or []
+            raw_slot_count = spec.get("reference_slot_count")
+            slot_count = int(raw_slot_count) if raw_slot_count is not None else len(assigned_slots)
+            slot_count = min(3, max(1, slot_count if slot_count > 0 else 1))
+
+            delta_note = str(spec.get("continuity_delta_note") or "").strip()
+            has_break = bool(spec.get("slot_contention_detected", False))
+            if not has_break and prop_id in prev_prop_states and len(delta_note) < 4:
+                prev_st = prev_prop_states[prop_id]
+                if (prev_st == "damaged" and prop_state == "intact") or (
+                    prev_st in ("in_hand_left", "in_hand_right")
+                    and prop_state in ("in_hand_left", "in_hand_right")
+                    and prev_st != prop_state
+                ):
+                    has_break = True
+            prev_prop_states[prop_id] = prop_state
+
+            anchor_note = ""
+            if art_anchors and isinstance(art_anchors[0], dict):
+                anchor_note = str(art_anchors[0].get("zone_label") or art_anchors[0].get("hero_material_finish") or "")
+
+            note_text = delta_note or (f"Anchor: {anchor_note}" if anchor_note else "Continuity locked")
+            if spec.get("slot_contention_detected") and "contention" not in note_text.lower():
+                note_text = f"Reference slot contention (>3) · {note_text}"
+
+            scene_entries.append({
+                "scene_index": s_idx,
+                "scene_title": s_title,
+                "character": char_name,
+                "look_id": look_id,
+                "wardrobe_spec": wardrobe_spec,
+                "prop_name": prop_name,
+                "prop_state": prop_state,
+                "reference_slots_used": slot_count,
+                "continuity_break": has_break,
+                "continuity_note": note_text[:96],
+            })
+
+        if scene_entries:
+            if not char_looks:
+                char_looks.append({
+                    "character": scene_entries[0]["character"],
+                    "look_id": scene_entries[0]["look_id"],
+                    "wardrobe_spec": scene_entries[0]["wardrobe_spec"],
+                })
+            max_slots_used = min(3, max(1, max(int(r.get("reference_slots_used", 1)) for r in scene_entries)))
+            declared_breaks = int(plain.get("continuity_breaks_detected") or 0)
+            row_breaks = sum(1 for row in scene_entries if row.get("continuity_break"))
+            break_count = max(declared_breaks, row_breaks)
+            return {
+                "project_title": project_title,
+                "reference_slots_max": 3,
+                "reference_slots_used": max_slots_used,
+                "continuity_break_count": break_count,
+                "continuity_status": "VERIFIED" if break_count == 0 else f"{break_count} BREAK RISK(S)",
+                "wardrobe_looks": char_looks,
+                "scene_entries": scene_entries,
+            }
+
     char_looks: List[Dict[str, str]] = []
     for idx, ch in enumerate(characters):
         if isinstance(ch, dict):
@@ -143,6 +250,74 @@ def _synthesize_wardrobe_prop_bible(bible: Any) -> Dict[str, Any]:
     }
 
 
+def _get_2026_rate_lookup() -> Dict[str, Dict[str, Any]]:
+    """Returns 2026 Model Matrix unit rates keyed by approved model_id."""
+    try:
+        from omni_director.tools.render_economics import get_2026_model_matrix_rates
+
+        rates = get_2026_model_matrix_rates()
+        return {
+            r.model_id: {
+                "model_id": r.model_id,
+                "role_label": r.role_label,
+                "input_per_1m_usd": float(r.input_per_1m_usd),
+                "output_per_1m_usd": float(r.output_per_1m_usd),
+                "unit_render_usd": float(r.unit_render_usd),
+            }
+            for r in rates
+        }
+    except Exception:
+        return {
+            "gemini-4-argon": {
+                "model_id": "gemini-4-argon",
+                "role_label": "Lead Creative Director",
+                "input_per_1m_usd": 2.50,
+                "output_per_1m_usd": 10.00,
+                "unit_render_usd": 0.0,
+            },
+            "gemini-3.8-flash": {
+                "model_id": "gemini-3.8-flash",
+                "role_label": "Fast Workhorse Fan-Out",
+                "input_per_1m_usd": 0.15,
+                "output_per_1m_usd": 0.60,
+                "unit_render_usd": 0.0,
+            },
+            "gemini-3-pro-image": {
+                "model_id": "gemini-3-pro-image",
+                "role_label": "Visual Concept & Continuity",
+                "input_per_1m_usd": 1.25,
+                "output_per_1m_usd": 5.00,
+                "unit_render_usd": 0.08,
+            },
+            "gemini-omni-1.1-flash-preview": {
+                "model_id": "gemini-omni-1.1-flash-preview",
+                "role_label": "Video & Multimodal Audio",
+                "input_per_1m_usd": 0.50,
+                "output_per_1m_usd": 2.00,
+                "unit_render_usd": 0.25,
+            },
+        }
+
+
+def _resolve_aicp_baseline_usd(bible: Any, plain: Any = None) -> float:
+    """Resolves traditional AICP baseline USD from manifest or MasterProductionBible."""
+    if isinstance(plain, dict) and plain.get("aicp_post_baseline_usd"):
+        val = float(plain["aicp_post_baseline_usd"])
+        if val > 0.0:
+            return val
+    aicp_spec = _to_plain(_get_field(bible, "master_aicp_bid", None) or _get_field(bible, "aicp_bid", None))
+    if isinstance(aicp_spec, dict):
+        for key in ("grand_total_usd", "grand_total"):
+            if aicp_spec.get(key) and float(aicp_spec[key]) > 0.0:
+                return float(aicp_spec[key])
+        top_sheet = aicp_spec.get("top_sheet")
+        if isinstance(top_sheet, dict) and top_sheet.get("grand_total_bid_usd"):
+            val = float(top_sheet["grand_total_bid_usd"])
+            if val > 0.0:
+                return val
+    return 120000.0
+
+
 def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
     """Extracts or safely synthesizes the Compute Economics & Take-Variant Inspector payload."""
     existing = _get_field(bible, "master_render_economics_spec", None)
@@ -152,41 +327,215 @@ def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
 
     project_title = str(_get_field(bible, "project_title", "Omni Production") or "Omni Production")
     scenes = _to_plain(_get_field(bible, "scenes", []) or [])
-    num_scenes = max(1, len(scenes))
+    rates = _get_2026_rate_lookup()
 
-    # 2026 Model Matrix cost breakdown (strictly approved 2026 models only)
+    if isinstance(plain, dict) and plain.get("model_rates"):
+        for mr in plain.get("model_rates") or []:
+            if isinstance(mr, dict) and mr.get("model_id"):
+                mid = str(mr["model_id"])
+                rates[mid] = {
+                    "model_id": mid,
+                    "role_label": str(mr.get("role_label") or rates.get(mid, {}).get("role_label", mid)),
+                    "input_per_1m_usd": float(mr.get("input_per_1m_usd", rates.get(mid, {}).get("input_per_1m_usd", 0.0))),
+                    "output_per_1m_usd": float(mr.get("output_per_1m_usd", rates.get(mid, {}).get("output_per_1m_usd", 0.0))),
+                    "unit_render_usd": float(mr.get("unit_render_usd", rates.get(mid, {}).get("unit_render_usd", 0.0))),
+                }
+
+    argon_r = rates["gemini-4-argon"]
+    flash_r = rates["gemini-3.8-flash"]
+    image_r = rates["gemini-3-pro-image"]
+    omni_r = rates["gemini-omni-1.1-flash-preview"]
+
+    argon_per_call = round((3500 / 1_000_000.0) * (argon_r["input_per_1m_usd"] + argon_r["output_per_1m_usd"]), 4)
+    flash_per_call = round((2000 / 1_000_000.0) * (flash_r["input_per_1m_usd"] + flash_r["output_per_1m_usd"]), 4)
+    image_unit = float(image_r["unit_render_usd"] or 0.08)
+    omni_unit = float(omni_r["unit_render_usd"] or 0.25)
+
+    if isinstance(plain, dict) and plain.get("scene_estimates"):
+        scene_title_map: Dict[int, str] = {}
+        for idx, sc in enumerate(scenes):
+            if isinstance(sc, dict):
+                s_idx = int(sc.get("scene_index", idx + 1) or (idx + 1))
+                scene_title_map[s_idx] = str(sc.get("scene_title") or f"Scene {s_idx}")
+
+        scene_estimates = list(plain.get("scene_estimates") or [])
+        scene_takes: List[Dict[str, Any]] = []
+        total_reasoning_tokens = 0
+        total_plate_renders = 0
+        total_selected_video_sec = 0
+
+        for idx, est in enumerate(scene_estimates):
+            if not isinstance(est, dict):
+                continue
+            s_idx = int(est.get("scene_index", idx + 1) or (idx + 1))
+            s_title = str(est.get("scene_title") or scene_title_map.get(s_idx) or f"Scene {s_idx}")
+            dur_s = int(est.get("duration_seconds", 8) or 8)
+            total_reasoning_tokens += int(est.get("reasoning_tokens_est", 3500) or 3500)
+            total_plate_renders += int(est.get("plate_renders", 1) or 1)
+            base_video_cost = round(dur_s * omni_unit, 2)
+
+            raw_takes = est.get("takes")
+            takes_dict: Dict[str, Dict[str, Any]] = {}
+            sel_key = str(est.get("selected_take") or "")
+
+            if isinstance(raw_takes, dict):
+                for tk in ("A", "B", "C"):
+                    t_info = raw_takes.get(tk) or {}
+                    takes_dict[tk] = {
+                        "label": str(t_info.get("label") or f"Take {tk}"),
+                        "cost_usd": round(float(t_info.get("cost_usd", t_info.get("estimated_cost_usd", base_video_cost)) or base_video_cost), 2),
+                        "audit_score": int(t_info.get("audit_score", 95) or 95),
+                        "seed": int(t_info.get("seed", 1041 + s_idx) or (1041 + s_idx)),
+                    }
+                if sel_key not in ("A", "B", "C"):
+                    sel_key = "A"
+            else:
+                take_list = list(raw_takes or []) if isinstance(raw_takes, list) else []
+                default_labels = {
+                    "A": "Primary 1080p24 Hero",
+                    "B": "Alt Camera Coverage",
+                    "C": "4K Hero Upscale",
+                }
+                cost_mults = {"A": 1.0, "B": 1.2, "C": 1.6}
+                for t_idx, tk in enumerate(("A", "B", "C")):
+                    if t_idx < len(take_list) and isinstance(take_list[t_idx], dict):
+                        rec = take_list[t_idx]
+                        if not sel_key and rec.get("selected"):
+                            sel_key = tk
+                        rec_cost = float(rec.get("estimated_cost_usd", rec.get("cost_usd", base_video_cost)) or base_video_cost)
+                        note = str(rec.get("director_note") or default_labels[tk])
+                        takes_dict[tk] = {
+                            "label": f"Take {tk} ({note[:28]})",
+                            "cost_usd": round(rec_cost, 2),
+                            "audit_score": int(rec.get("audit_score", 95) or 95),
+                            "seed": int(rec.get("seed", 1041 + s_idx + t_idx * 1000) or (1041 + s_idx + t_idx * 1000)),
+                        }
+                    else:
+                        takes_dict[tk] = {
+                            "label": f"Take {tk} ({default_labels[tk]})",
+                            "cost_usd": round(base_video_cost * cost_mults[tk], 2),
+                            "audit_score": min(99, 94 + t_idx * 2),
+                            "seed": 1041 + s_idx + t_idx * 1000,
+                        }
+                if sel_key not in ("A", "B", "C"):
+                    sel_key = "A"
+
+            total_selected_video_sec += dur_s
+            scene_takes.append({
+                "scene_index": s_idx,
+                "scene_title": s_title,
+                "selected_take": sel_key,
+                "takes": takes_dict,
+            })
+
+        if scene_takes:
+            num_sc = len(scene_takes)
+            argon_sub = round((total_reasoning_tokens / 1_000_000.0) * (argon_r["input_per_1m_usd"] + argon_r["output_per_1m_usd"]), 4)
+            flash_sub = round(num_sc * flash_per_call, 4)
+            image_sub = round(total_plate_renders * image_unit, 4)
+            video_spend = round(sum(float(st["takes"][st["selected_take"]]["cost_usd"]) for st in scene_takes), 2)
+
+            guardrail = plain.get("guardrail") if isinstance(plain.get("guardrail"), dict) else {}
+            manifest_est = float(
+                plain.get("estimated_total_compute_usd")
+                or guardrail.get("estimated_total_usd")
+                or 0.0
+            )
+            estimated_spend = round(manifest_est if manifest_est > 0.0 else (argon_sub + flash_sub + image_sub + video_spend), 2)
+            fixed_overhead = round(max(0.0, estimated_spend - video_spend), 4)
+            budget_ceiling = round(float(guardrail.get("max_render_budget_usd") or max(25.0, estimated_spend * 2.2)), 2)
+
+            aicp_baseline = _resolve_aicp_baseline_usd(bible, plain)
+            savings_raw = plain.get("aicp_savings_pct") or guardrail.get("simulation_savings_vs_aicp_pct")
+            savings_pct = (
+                round(float(savings_raw), 2)
+                if savings_raw is not None and float(savings_raw) > 0.0
+                else round(max(0.0, (1.0 - (estimated_spend / max(1.0, aicp_baseline))) * 100.0), 2)
+            )
+
+            model_breakdown = [
+                {
+                    "model_id": "gemini-4-argon",
+                    "role": argon_r["role_label"],
+                    "unit_cost_usd": argon_per_call,
+                    "calls": num_sc,
+                    "subtotal_usd": round(argon_sub, 2),
+                },
+                {
+                    "model_id": "gemini-3.8-flash",
+                    "role": flash_r["role_label"],
+                    "unit_cost_usd": flash_per_call,
+                    "calls": num_sc,
+                    "subtotal_usd": round(flash_sub, 2),
+                },
+                {
+                    "model_id": "gemini-3-pro-image",
+                    "role": image_r["role_label"],
+                    "unit_cost_usd": image_unit,
+                    "calls": total_plate_renders,
+                    "subtotal_usd": round(image_sub, 2),
+                },
+                {
+                    "model_id": "gemini-omni-1.1-flash-preview",
+                    "role": omni_r["role_label"],
+                    "unit_cost_usd": omni_unit,
+                    "calls": total_selected_video_sec,
+                    "subtotal_usd": video_spend,
+                },
+            ]
+
+            return {
+                "project_title": project_title,
+                "budget_ceiling_usd": budget_ceiling,
+                "fixed_pipeline_overhead_usd": fixed_overhead,
+                "estimated_spend_usd": estimated_spend,
+                "aicp_traditional_baseline_usd": round(aicp_baseline, 2),
+                "aicp_baseline_usd": round(aicp_baseline, 2),
+                "ai_vs_aicp_savings_pct": savings_pct,
+                "savings_pct": savings_pct,
+                "model_breakdown": model_breakdown,
+                "scene_takes": scene_takes,
+            }
+
+    num_scenes = max(1, len(scenes))
+    default_dur = 8
+    take_a_cost = round(default_dur * omni_unit, 2)
+    take_b_cost = round(take_a_cost * 1.2, 2)
+    take_c_cost = round(take_a_cost * 1.6, 2)
+
+    # 2026 Model Matrix cost breakdown (strictly approved 2026 models aligned with get_2026_model_matrix_rates)
     model_breakdown = [
         {
             "model_id": "gemini-4-argon",
-            "role": "Lead Creative Director (Master Bible)",
-            "unit_cost_usd": 0.42,
-            "calls": 1,
-            "subtotal_usd": 0.42,
+            "role": argon_r["role_label"],
+            "unit_cost_usd": argon_per_call,
+            "calls": num_scenes,
+            "subtotal_usd": round(argon_per_call * num_scenes, 2),
         },
         {
             "model_id": "gemini-3.8-flash",
-            "role": "Fast Workhorse Fan-Out (Prompts & Audit)",
-            "unit_cost_usd": 0.04,
-            "calls": num_scenes * 2,
-            "subtotal_usd": round(0.04 * num_scenes * 2, 2),
+            "role": flash_r["role_label"],
+            "unit_cost_usd": flash_per_call,
+            "calls": num_scenes,
+            "subtotal_usd": round(flash_per_call * num_scenes, 2),
         },
         {
             "model_id": "gemini-3-pro-image",
-            "role": "Visual Concept & Continuity Plates",
-            "unit_cost_usd": 0.18,
-            "calls": min(3, num_scenes) + num_scenes,
-            "subtotal_usd": round(0.18 * (min(3, num_scenes) + num_scenes), 2),
+            "role": image_r["role_label"],
+            "unit_cost_usd": image_unit,
+            "calls": num_scenes,
+            "subtotal_usd": round(image_unit * num_scenes, 2),
         },
         {
             "model_id": "gemini-omni-1.1-flash-preview",
-            "role": "Video & Multimodal Audio Takes",
-            "unit_cost_usd": 1.25,
-            "calls": num_scenes,
-            "subtotal_usd": round(1.25 * num_scenes, 2),
+            "role": omni_r["role_label"],
+            "unit_cost_usd": omni_unit,
+            "calls": num_scenes * default_dur,
+            "subtotal_usd": round(take_a_cost * num_scenes, 2),
         },
     ]
 
-    scene_takes: List[Dict[str, Any]] = []
+    scene_takes = []
     for idx, sc in enumerate(scenes):
         sc_dict = sc if isinstance(sc, dict) else {}
         s_idx = int(sc_dict.get("scene_index", idx + 1))
@@ -196,9 +545,9 @@ def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
             "scene_title": s_title,
             "selected_take": "A",
             "takes": {
-                "A": {"label": "Take A (Baseline 1080p24)", "cost_usd": 1.25, "audit_score": 94, "seed": 1041 + s_idx},
-                "B": {"label": "Take B (Alt Camera Motion)", "cost_usd": 1.55, "audit_score": 96, "seed": 2041 + s_idx},
-                "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": 2.40, "audit_score": 98, "seed": 3041 + s_idx},
+                "A": {"label": "Take A (Primary 1080p24 Hero)", "cost_usd": take_a_cost, "audit_score": 95, "seed": 1041 + s_idx},
+                "B": {"label": "Take B (Alt Camera Coverage)", "cost_usd": take_b_cost, "audit_score": 96, "seed": 2041 + s_idx},
+                "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": take_c_cost, "audit_score": 98, "seed": 3041 + s_idx},
             },
         })
 
@@ -208,9 +557,9 @@ def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
             "scene_title": "Opening Master",
             "selected_take": "A",
             "takes": {
-                "A": {"label": "Take A (Baseline 1080p24)", "cost_usd": 1.25, "audit_score": 94, "seed": 1042},
-                "B": {"label": "Take B (Alt Camera Motion)", "cost_usd": 1.55, "audit_score": 96, "seed": 2042},
-                "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": 2.40, "audit_score": 98, "seed": 3042},
+                "A": {"label": "Take A (Primary 1080p24 Hero)", "cost_usd": take_a_cost, "audit_score": 95, "seed": 1042},
+                "B": {"label": "Take B (Alt Camera Coverage)", "cost_usd": take_b_cost, "audit_score": 96, "seed": 2042},
+                "C": {"label": "Take C (4K Hero Upscale)", "cost_usd": take_c_cost, "audit_score": 98, "seed": 3042},
             },
         })
 
@@ -219,10 +568,7 @@ def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
     estimated_spend = round(fixed_overhead + initial_video_spend, 2)
     budget_ceiling = round(max(25.0, estimated_spend * 2.2), 2)
 
-    aicp_spec = _to_plain(_get_field(bible, "master_aicp_bid", None) or _get_field(bible, "aicp_bid", None))
-    aicp_baseline = 48500.0
-    if isinstance(aicp_spec, dict) and aicp_spec.get("grand_total_usd"):
-        aicp_baseline = float(aicp_spec["grand_total_usd"])
+    aicp_baseline = _resolve_aicp_baseline_usd(bible, plain)
     savings_pct = round(max(0.0, (1.0 - (estimated_spend / max(1.0, aicp_baseline))) * 100.0), 2)
 
     return {
@@ -231,7 +577,9 @@ def _synthesize_render_economics_spec(bible: Any) -> Dict[str, Any]:
         "fixed_pipeline_overhead_usd": fixed_overhead,
         "estimated_spend_usd": estimated_spend,
         "aicp_traditional_baseline_usd": round(aicp_baseline, 2),
+        "aicp_baseline_usd": round(aicp_baseline, 2),
         "ai_vs_aicp_savings_pct": savings_pct,
+        "savings_pct": savings_pct,
         "model_breakdown": model_breakdown,
         "scene_takes": scene_takes,
     }
@@ -859,7 +1207,9 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       { id: 's3d', name: 'S3D Stereoscopy & MV-HEVC', dept: 'Camera', key: ']', fn: 'toggleS3dHUD' },
       { id: 'ad', name: 'Audio Description (AD) & CVAA', dept: 'Delivery', key: '[', fn: 'toggleAccessibilityAdHUD' },
       { id: 'art', name: 'Art & Wardrobe Continuity Locker', dept: 'Prep', key: '\\\\', fn: 'toggleArtWardrobeHUD' },
-      { id: 'econ', name: 'Compute Economics & Take-Variant Inspector', dept: 'Budget', key: ';', fn: 'toggleRenderEconomicsHUD' }
+      { id: 'econ', name: 'Compute Economics & Take-Variant Inspector', dept: 'Budget', key: ';', fn: 'toggleRenderEconomicsHUD' },
+      { id: 'motiongfx', name: 'Motion Graphics, Supers & End-Card Studio', dept: 'Color', key: '=', fn: 'toggleMotionGfxHUD' },
+      { id: 'otiocoherence', name: 'OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix', dept: 'Delivery', key: "'", fn: 'toggleOtioCoherenceHUD' }
     ];
 
     function _v216ShowToast(msg) {

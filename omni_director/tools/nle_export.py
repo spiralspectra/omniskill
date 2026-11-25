@@ -598,4 +598,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("Render economics bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.motion_graphics import export_motion_graphics_bundle
+        res.update({k: str(v) for k, v in export_motion_graphics_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("Motion graphics bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.otio_coherence import export_otio_coherence_bundle
+        res.update({k: str(v) for k, v in export_otio_coherence_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("OTIO coherence bundle export skipped: %s", exc)
+
     return res

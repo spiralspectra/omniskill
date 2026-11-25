@@ -1,4 +1,4 @@
-"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.15.0).
+"""Dark-Room Cinema HTML Animatic Compiler and Storyboard UI Generator (v2.17.0).
 
 Renders a self-contained, WCAG 2.2 AA compliant interactive director's animatic monitor,
 SMPTE timeline scrubber, dynamic beat timecode visualization, expandable prompt audit drawer,
@@ -1298,6 +1298,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v214 import build_v214_hud_bundle
     from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
     from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
+    from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1335,6 +1336,11 @@ def compile_storyboard_html(
     v216_css = v216_bundle["css"]
     v216_modals_html = v216_bundle["modals_html"]
     v216_js = v216_bundle["scripts"]
+
+    v217_bundle = build_v217_hud_bundle(bible)
+    v217_css = v217_bundle["css"]
+    v217_modals_html = v217_bundle["modals_html"]
+    v217_js = v217_bundle["js"]
     
 
     # Serialize bible for client-side export
@@ -4887,6 +4893,7 @@ def compile_storyboard_html(
     {v213_css}
     {v214_css}
     {v216_css}
+    {v217_css}
   </style>
 </head>
 <body>
@@ -6487,6 +6494,7 @@ def compile_storyboard_html(
 {v213_modals_html}
 {v214_modals_html}
 {v216_modals_html}
+{v217_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -9121,11 +9129,21 @@ def compile_storyboard_html(
     {v213_js}
     {v214_js}
     {v216_js}
+    {v217_js}
 
     function closeSecondaryOpenHUDs() {{
       const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
       const spotOpen = (typeof isSpottingHUDOpen !== 'undefined') && isSpottingHUDOpen;
-      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen;
+      const s3dOpen = (typeof isS3dHUDOpen !== 'undefined') && isS3dHUDOpen;
+      const accOpen = (typeof isAccessibilityAdHUDOpen !== 'undefined') && isAccessibilityAdHUDOpen;
+      const cmdOpen = (typeof isHudCommandPaletteOpen !== 'undefined') && isHudCommandPaletteOpen;
+      const artOpen = (typeof isArtWardrobeHUDOpen !== 'undefined') && isArtWardrobeHUDOpen;
+      const econOpen = (typeof isRenderEconomicsHUDOpen !== 'undefined') && isRenderEconomicsHUDOpen;
+      const mgsModal = document.getElementById('modal-motion-graphics-studio');
+      const mgsOpen = (typeof isMotionGfxHUDOpen !== 'undefined') && isMotionGfxHUDOpen && mgsModal && mgsModal.style.display === 'flex';
+      const otioModal = document.getElementById('modal-otio-coherence');
+      const otioOpen = (typeof isOtioCoherenceHUDOpen !== 'undefined') && isOtioCoherenceHUDOpen && otioModal && otioModal.style.display === 'flex';
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen;
       if (isMoCoHUDOpen) toggleMoCoHUD();
       if (isGafferHUDOpen) toggleGafferHUD();
       if (isVPStageModalOpen) toggleVPStageModal();
@@ -9141,15 +9159,22 @@ def compile_storyboard_html(
       if (isAicpHUDOpen) toggleAicpHUD();
       if (locOpen && typeof toggleLocalizationHUD === 'function') toggleLocalizationHUD();
       if (spotOpen && typeof toggleSpottingHUD === 'function') toggleSpottingHUD();
+      if (s3dOpen && typeof toggleS3dHUD === 'function') toggleS3dHUD(false);
+      if (accOpen && typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(false);
+      if (cmdOpen && typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(false);
+      if (artOpen && typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(false);
+      if (econOpen && typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(false);
+      if (mgsOpen && typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(false);
+      if (otioOpen && typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(false);
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
@@ -9161,6 +9186,8 @@ def compile_storyboard_html(
         if (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) toggleHudCommandPalette(false);
         if (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) toggleArtWardrobeHUD(false);
         if (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) toggleRenderEconomicsHUD(false);
+        if (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen && typeof toggleMotionGfxHUD === "function") toggleMotionGfxHUD(false);
+        if (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen && typeof toggleOtioCoherenceHUD === "function") toggleOtioCoherenceHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9213,6 +9240,8 @@ def compile_storyboard_html(
       else if (e.key === '/') {{ e.preventDefault(); if (typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(); }}
       else if (e.key === '\\\\') {{ if (typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(); }}
       else if (e.key === ';') {{ if (typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(); }}
+      else if (e.key === '=' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(); }}
+      else if (e.key === "'" && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(); }}
     }});
 
     // Initialize first frame and default look
@@ -9222,6 +9251,7 @@ def compile_storyboard_html(
       if (typeof initS3dHUD === 'function') initS3dHUD();
       if (typeof initAccessibilityAdHUD === 'function') initAccessibilityAdHUD();
       if (typeof initV216HUDs === 'function') initV216HUDs();
+      if (typeof initV217HUDs === 'function') initV217HUDs();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

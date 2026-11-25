@@ -1,4 +1,4 @@
-# Omni Movie Director v2.16.0 (`omni-movie-director`)
+# Omni Movie Director v2.17.0 (`omni-movie-director`)
 
 > **Autonomous ADK 2.0 Multi-Agent Cinematic Production Suite for Gemini Omni 1.1**  
 > *Target Repository*: [https://github.com/spiralspectra/omniskill](https://github.com/spiralspectra/omniskill)  
@@ -6,11 +6,11 @@
 
 ---
 
-## 1. Executive Overview & v2.16.0 Evolution
+## 1. Executive Overview & v2.17.0 Evolution
 
-**Omni Movie Director v2.16.0** is an industrial-grade **ADK 2.0 multi-agent cinematic production system** orchestrating the **2026 Gemini Model Matrix**. It synthesizes full-length cinematic treatments, visual continuity bibles, synchronized diegetic audio specifications, 32 specialized post-production & compliance engineering deliverables (`PM-FEAT-001` through `PM-FEAT-032`), and a **5-Department Dark-Room Cinema Animatic HUD** with SMPTE 24fps accuracy from raw creative briefs.
+**Omni Movie Director v2.17.0** is an industrial-grade **ADK 2.0 multi-agent cinematic production system** orchestrating the **2026 Gemini Model Matrix**. It synthesizes full-length cinematic treatments, visual continuity bibles, synchronized diegetic audio specifications, 34 specialized post-production & compliance engineering deliverables (`PM-FEAT-001` through `PM-FEAT-034`), and a **5-Department Dark-Room Cinema Animatic HUD** with SMPTE 24fps accuracy from raw creative briefs.
 
-### Key Architectural Pillars in v2.16.0
+### Key Architectural Pillars in v2.17.0
 - **Single Source of Truth (`MasterProductionBible`)**: Sealed once by the Lead Creative Director (`CreativeDirectorAgent`) and enforced immutably across every downstream agent and exporter.
 - **Autonomous Product Council (`ProductCouncilOrchestrator`)**: Senior Product Manager (`ProductManagerAgent`) plus a four-persona governance board (`council-fde`, `council-agent-engineer`, `council-strategist`, `council-ux-designer`) scoring production bundles against a 100-point rubric (`>= 88.0` pass threshold, `>= 90.0` showcase standard).
 - **FDE Preflight Doctor (`run_doctor`)**: Deep diagnostic validation verifying Python `>=3.11`, package dependencies, strict 2026 Model Matrix compliance, and output directory permissions prior to pipeline execution.
@@ -111,7 +111,7 @@ Every generated scene prompt must pass the 7-Point Prompt Auditor (`omni_directo
 
 ---
 
-## 6. Production Engineering Suite (`PM-FEAT-001` through `PM-FEAT-032`)
+## 6. Production Engineering Suite (`PM-FEAT-001` through `PM-FEAT-034`)
 
 | ID | Feature Suite | Tool Module | Key Artifacts & Capabilities |
 |---|---|---|---|
@@ -145,24 +145,26 @@ Every generated scene prompt must pass the 7-Point Prompt Auditor (`omni_directo
 | `PM-FEAT-028` | **J-Cut / L-Cut Spotting & BPM Beat-Grid Sync** | `tools/editorial_spotting.py` | `spotting_manifest.json`, `spotting_cue_sheet.csv`, `spotting_sheet.md`, `timeline_split_edits.edl`, FCPXML beat `<marker>`s, J/L Spotting `[J]` |
 | `PM-FEAT-029` | **Stereoscopic 3D (S3D) & Apple Vision Pro** | `tools/stereoscopic_3d.py` | `s3d_parallax_log.csv`, `spatial_video_manifest.json`, MV-HEVC parallax budget, S3D HUD `]` |
 | `PM-FEAT-030` | **Audio Description (AD) & WCAG/CVAA Accessibility** | `tools/accessibility_ad.py` | `subtitles_ad.vtt`, `ad_script_cue_sheet.csv`, `accessibility_ad_manifest.json`, AD HUD `[` |
-| `PM-FEAT-031` | **Art Dept, Wardrobe & Prop Continuity** | `tools/html_hud_v216.py` + Art Dept Exporter | `wardrobe_prop_bible.json`, `prop_continuity_matrix.csv`, `art_dept_pull_list.md`, continuity break detection, Art Dept HUD |
-| `PM-FEAT-032` | **AI Render Economics & Compute Take Budget** | `tools/html_hud_v216.py` + `DirectorConfig` | `render_economics_manifest.json`, `take_variant_ledger.csv`, `ai_compute_estimate.md`, `--max-render-usd` / `OMNI_MAX_RENDER_USD` ceiling, Economics HUD |
+| `PM-FEAT-031` | **Art Dept, Wardrobe & Prop Continuity** | `tools/wardrobe_props.py` + `html_hud_v216.py` | `wardrobe_prop_bible.json`, `prop_continuity_matrix.csv`, `art_dept_pull_list.md`, continuity break detection, Art Dept HUD |
+| `PM-FEAT-032` | **AI Render Economics & Compute Take Budget** | `tools/render_economics.py` + `html_hud_v216.py` | `render_economics_manifest.json`, `take_variant_ledger.csv`, `ai_compute_estimate.md`, `--max-render-usd` / `OMNI_MAX_RENDER_USD` ceiling, Economics HUD |
+| `PM-FEAT-033` | **Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine** | `tools/motion_graphics.py` + `html_hud_v217.py` | `motion_graphics_mogrt.json`, `broadcast_supers.ass`, `brand_endcard_spec.md`, `<= 180` WPM reading-speed & WCAG `>= 4.5:1` contrast audits, `9:16`/`16:9` safe-zone & `>= 25%` cleanplate checks, Motion Graphics Studio HUD `[=]` |
+| `PM-FEAT-034` | **Universal OpenTimelineIO (`.otio`) Multi-Track Interchange & Cross-Departmental Coherence Gate** | `tools/otio_coherence.py` + `html_hud_v217.py` | `production_timeline.otio` (ASWF `Timeline.1` 7-track + `Marker.2` pins), `coherence_matrix.json`, `coherence_readiness_report.md`, `CHK-01..07` cross-departmental audit & reconciliation, OTIO Coherence Matrix HUD `[']` |
 
 ---
 
 ## 7. 5-Department Dark-Room Cinema Animatic HUD
 
-The compiled `storyboard_preview.html` organizes `.hud-actions` into **5 WCAG 2.2 AA collapsible department toolbar groups** (`omni_director/tools/html_hud_v212.py`, `html_hud_v213.py`, `html_hud_v214.py`, `html_hud_v215.py`, `html_hud_v216.py` + `html_compiler.py`) alongside the core screening room transport:
+The compiled `storyboard_preview.html` organizes `.hud-actions` into **5 WCAG 2.2 AA collapsible department toolbar groups** (`omni_director/tools/html_hud_v212.py`, `html_hud_v213.py`, `html_hud_v214.py`, `html_hud_v215.py`, `html_hud_v216.py`, `html_hud_v217.py` + `html_compiler.py`) alongside the core screening room transport:
 
 1. **Camera & Blocking (`#dept-group-camera`)**: Optical DoF HUD (`[F]`), Drone Aerial Flight HUD (`[D]`), 180-Degree Blocking & Continuity Floorplan HUD (`[W]`), S3D Stereoscopy HUD (`]`, `html_hud_v215.py`).
 2. **Color & VFX (`#dept-group-color`)**: DIT 3D LUT Suite (`[L]`), HDR10/HLG Color Volume (`[H]`), Film Stock Emulation (`[E]`), Multi-Pass VFX Passes (`[X]`).
 3. **Audio (`#dept-group-audio`)**: Spatial Audio Console (`[S]`), Editorial J-Cut / L-Cut Spotting & Beat-Grid HUD (`[J]`), Interactive 4-Stem Audio Mixer (`[M]`).
-4. **Prep & Budget (`#dept-group-prep`)**: 1st AD Stripboard Schedule (`[B]`), SMPTE Clapper Slate & ASC-MHL (`[T]`), AICP Commercial Production Bid (`[A]`), On-Set Safety Risk & Exclusion Perimeter JSA HUD (`[Z]`), Art Dept Wardrobe & Prop Continuity and AI Render Economics HUDs (`html_hud_v216.py`).
-5. **Delivery, QC & Review (`#dept-group-delivery`)**: Multi-Aspect Social Reframe (`[R]`), Broadcast QC & Clearances (`[Q]`), Client Review & Frame Pin Annotation (`[N]`), C2PA Content Credentials & Provenance HUD (`[Y]`), Multi-Territory Localization, ADR Dubbing & Safe-Supers HUD (`[I]`), Audio Description & Accessibility HUD (`[`, `html_hud_v215.py`).
+4. **Prep & Budget (`#dept-group-prep`)**: 1st AD Stripboard Schedule (`[B]`), SMPTE Clapper Slate & ASC-MHL (`[T]`), AICP Commercial Production Bid (`[A]`), On-Set Safety Risk & Exclusion Perimeter JSA HUD (`[Z]`), Art Dept Wardrobe & Prop Continuity and AI Render Economics HUDs (`html_hud_v216.py`), and Universal OpenTimelineIO `.otio` Cross-Departmental Coherence Matrix HUD (`[']`, `html_hud_v217.py`).
+5. **Delivery, QC & Review (`#dept-group-delivery`)**: Multi-Aspect Social Reframe (`[R]`), Broadcast QC & Clearances (`[Q]`), Client Review & Frame Pin Annotation (`[N]`), C2PA Content Credentials & Provenance HUD (`[Y]`), Multi-Territory Localization, ADR Dubbing & Safe-Supers HUD (`[I]`), Audio Description & Accessibility HUD (`[`, `html_hud_v215.py`), and Motion Graphics, Kinetic Supers & Brand End-Card Studio (`[=]`, `html_hud_v217.py`).
 
 **Core Screening Room Controls & Keyboard Shortcuts**:
 - **Transport & Scrubber**: Play/Pause (`Space`), Loop (`O`), Seek 1s (`ArrowLeft`/`ArrowRight`), Frame Step (`,`/`.`), Rewind (`Home`/`0`), Jump to Scene (`1`–`9`), 24fps SMPTE timecode monitor (`#smpte-timecode`).
-- **Departmental HUDs & Overlays**: MoCo (`K`), Gaffer (`G`), DoF (`F`), Blocking (`W`), S3D (`]`), 3D LUT (`L`), HDR (`H`), Film (`E`), VFX (`X`), Spatial (`S`), J/L Spotting (`J`), Audio Mixer (`M`), Stripboard (`B`), Slate (`T`), Drone (`D`), AICP (`A`), Safety JSA (`Z`), Reframe (`R`), Broadcast QC (`Q`), Review (`N`), C2PA (`Y`), i18n/ADR (`I`), AD/Accessibility (`[`), Captions (`C`), Viewfinder (`V`), VP Stage (`P`), Safe Guides (`U`), Export Production Bible JSON (`#btn-export-bible`), expandable 6-category `.audit-drawer` cards, and non-blocking `.cinema-toast` notifications.
+- **Departmental HUDs & Overlays**: MoCo (`K`), Gaffer (`G`), DoF (`F`), Blocking (`W`), S3D (`]`), 3D LUT (`L`), HDR (`H`), Film (`E`), VFX (`X`), Spatial (`S`), J/L Spotting (`J`), Audio Mixer (`M`), Stripboard (`B`), Slate (`T`), Drone (`D`), AICP (`A`), Safety JSA (`Z`), Reframe (`R`), Broadcast QC (`Q`), Review (`N`), C2PA (`Y`), i18n/ADR (`I`), AD/Accessibility (`[`), Motion Graphics Studio (`=`), OTIO Coherence Matrix (`'`), Captions (`C`), Viewfinder (`V`), VP Stage (`P`), Safe Guides (`U`), Export Production Bible JSON (`#btn-export-bible`), expandable 6-category `.audit-drawer` cards, and non-blocking `.cinema-toast` notifications.
 
 ---
 
@@ -220,7 +222,7 @@ omni verify-bundle output/ikea_asmr
 ### Post-Production & Compliance Exporter (`omni export`)
 `omni export` supports `--fps` (default `24`), `--max-render-usd` (default `50.0` via `OMNI_MAX_RENDER_USD`), `--refresh-telemetry` (and automatic `telemetry.json` SHA-256 refresh when `telemetry.json` is already present in `--output-dir`), and all `--format` choices:
 
-- **Core & Post**: `all`, `edl`, `fcpxml`, `csv`, `md`, `srt`, `vtt`, `cdl`, `stems`, `lens`, `vp`, `moco`, `lighting`, `dof`, `lut`, `spatial`, `vfx`, `hdr`, `stripboard`, `film`, `slate`, `drone`, `aicp`, `reframe`, `qc`, `continuity`, `review`, `c2pa`, `safety`, `i18n`, `spotting`, `s3d`, `ad`, `ad-vtt`, `art-dept`, `economics`
+- **Core & Post**: `all`, `edl`, `fcpxml`, `csv`, `md`, `srt`, `vtt`, `cdl`, `stems`, `lens`, `vp`, `moco`, `lighting`, `dof`, `lut`, `spatial`, `vfx`, `hdr`, `stripboard`, `film`, `slate`, `drone`, `aicp`, `reframe`, `qc`, `continuity`, `review`, `c2pa`, `safety`, `i18n`, `spotting`, `s3d`, `ad`, `ad-vtt`, `art-dept`, `economics`, `motion-graphics`, `mogrt-json`, `supers-ass`, `endcard-md`, `coherence`, `otio`, `coherence-json`, `coherence-md`
 
 ```bash
 # Export full post-production & compliance suite at 24fps
@@ -238,12 +240,14 @@ omni export --preset ikea-asmr --format safety -o output/ikea_asmr
 omni export --preset ikea-asmr --format i18n --locales en-US,de-DE,fr-FR,ja-JP -o output/ikea_asmr
 omni export --preset ikea-asmr --format spotting --fps 24 -o output/ikea_asmr
 
-# Export Stereoscopic 3D (S3D), Audio Description (AD), Art Dept Continuity & AI Render Economics
+# Export Stereoscopic 3D (S3D), Audio Description (AD), Art Dept Continuity, Render Economics, Motion Graphics & OTIO Coherence
 omni export --preset ikea-asmr --format s3d -o output/ikea_asmr
 omni export --preset ikea-asmr --format ad -o output/ikea_asmr
 omni export --preset ikea-asmr --format ad-vtt -o output/ikea_asmr
 omni export --preset ikea-asmr --format art-dept -o output/ikea_asmr
 omni export --preset ikea-asmr --format economics --max-render-usd 50.0 -o output/ikea_asmr
+omni export --preset ikea-asmr --format motion-graphics -o output/ikea_asmr
+omni export --preset ikea-asmr --format coherence -o output/ikea_asmr
 
 # Granular C2PA, Safety, Localization & Spotting flags with telemetry checksum refresh
 omni export --preset ikea-asmr --format edl --c2pa-json --disclosure-md --likeness-csv --safety-md --safety-csv --safety-json --i18n-json --adr-csv --ttml --spotting-json --spotting-csv --spotting-md --split-edl --refresh-telemetry -o output/ikea_asmr
@@ -274,8 +278,8 @@ python3 scripts/run_daily_council.py
 ```
 omniskill/
 ├── AGENTS.md                       # Constitutional law & 2026 Model Matrix invariants
-├── CHANGELOG.md                    # Release history through v2.16.0
-├── README.md                       # v2.16.0 documentation
+├── CHANGELOG.md                    # Release history through v2.17.0
+├── README.md                       # v2.17.0 documentation
 ├── pyproject.toml                  # Package configuration & dependencies
 ├── .env.example                    # Environment credentials template
 ├── omni_director/                  # Core ADK 2.0 Package
@@ -301,6 +305,7 @@ omniskill/
 │       ├── html_hud_v214.py        # Localization/ADR [I] & J/L Spotting [J] HUD panels
 │       ├── html_hud_v215.py        # S3D Stereoscopy []] & Accessibility/AD [[] HUD panels
 │       ├── html_hud_v216.py        # Art Dept Continuity & AI Render Economics HUD panels
+│       ├── html_hud_v217.py        # Motion Graphics Studio [=] & OTIO Coherence Matrix ['] HUDs
 │       ├── nle_export.py           # Unified NLE & department bundle exporter
 │       ├── c2pa_provenance.py      # C2PA Content Credentials & Consent (PM-FEAT-025)
 │       ├── safety_risk.py          # On-Set Safety Risk & JSA Engine (PM-FEAT-026)
@@ -308,6 +313,8 @@ omniskill/
 │       ├── editorial_spotting.py   # J-Cut / L-Cut Spotting & Beat-Grid (PM-FEAT-028)
 │       ├── stereoscopic_3d.py      # Stereoscopic 3D & Vision Pro MV-HEVC (PM-FEAT-029)
 │       ├── accessibility_ad.py     # Audio Description & WCAG/CVAA (PM-FEAT-030)
+│       ├── motion_graphics.py      # Broadcast Kinetic Typography & Brand End-Card (PM-FEAT-033)
+│       ├── otio_coherence.py       # Universal OpenTimelineIO & Coherence Gate (PM-FEAT-034)
 │       └── ...                     # Specialized tools (PM-FEAT-002..024, 031..032)
 ├── skills/
 │   ├── gemini-omni-prompting/      # 7-Point Gemini Omni Prompting Specification

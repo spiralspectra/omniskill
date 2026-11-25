@@ -51,6 +51,15 @@ SAFE_KEYS = {
     "aicp_savings_pct",
     "total_planned_takes",
     "continuity_breaks_detected",
+    "render_profile_token",
+    "art_continuity_token",
+    "gfx_prompt_token",
+    "otio_sync_token",
+    "coherence_token",
+    "motion_graphics_cues_count",
+    "otio_coherence_score",
+    "otio_conflicts_count",
+    "otio_sha256",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -203,6 +212,14 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "render_economics_manifest.json",
     "take_variant_ledger.csv",
     "ai_compute_estimate.md",
+    # PM-FEAT-033: Motion Graphics, Kinetic Typography & Brand End-Card
+    "motion_graphics_mogrt.json",
+    "broadcast_supers.ass",
+    "brand_endcard_spec.md",
+    # PM-FEAT-034: OpenTimelineIO (.otio) Multi-Track Assembly & Coherence
+    "production_timeline.otio",
+    "coherence_matrix.json",
+    "coherence_readiness_report.md",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
@@ -225,6 +242,8 @@ DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
     ".ale",
     ".kml",
     ".gpx",
+    ".ass",
+    ".otio",
 })
 
 _TELEMETRY_MANIFEST_NAMES: frozenset[str] = frozenset({

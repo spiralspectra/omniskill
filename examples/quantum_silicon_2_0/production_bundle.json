@@ -164,7 +164,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse. [LOCALIZATION_ADR: locales=en-US,ja-JP,zh-CN,ko-KR,de-DE,fr-FR sync=1.00x wps=2.50 supers=clear]. [SPOTTING_SYNC: bpm=110 bridge=j_cut jcut=8f lcut=0f beat_offset=2f]. [S3D-RIG: 65.0mm IO | Conv: 2.21m | +Parallax: 1.80% | fmt=mv_hevc]. [AD-CUE: \"Advanced Quantum Computing Silic\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=weathered@optical_calibration_plinth | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63].",
+        "omni_prose_prompt": "Wide establishing tracking shot. Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Precision magnetic latch click and Haptic motor vibration pulse. [LOCALIZATION_ADR: locales=en-US,ja-JP,zh-CN,ko-KR,de-DE,fr-FR sync=1.00x wps=2.50 supers=clear]. [SPOTTING_SYNC: bpm=110 bridge=j_cut jcut=8f lcut=0f beat_offset=2f]. [S3D-RIG: 65.0mm IO | Conv: 2.21m | +Parallax: 1.80% | fmt=mv_hevc]. [AD-CUE: \"Advanced Quantum Computing Silic\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=weathered@optical_calibration_plinth | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -1110,13 +1110,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1129,7 +1129,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1142,7 +1142,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1155,7 +1155,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1474,7 +1474,81 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Advanced Quantum Computing Silicon Proce",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "SF Pro Display / Inter",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            },
+            {
+              "cue_id": "GFX_SC01_LEGAL",
+              "scene_index": 1,
+              "role": "legal_disclaimer",
+              "copy_text": "Sequences shortened. Screen images simulated.",
+              "word_count": 5,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 100.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "lower_safe_band",
+                "normalized_x": 0.1,
+                "normalized_y": 0.6,
+                "max_width_pct": 66.0,
+                "font_family": "IBM Plex Mono",
+                "font_weight": 500,
+                "min_font_px_1080p": 20,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 2,
@@ -1522,7 +1596,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,ja-JP,zh-CN,ko-KR,de-DE,fr-FR sync=1.00x wps=2.50 supers=clear]. [SPOTTING_SYNC: bpm=110 bridge=j_cut jcut=8f lcut=0f beat_offset=2f]. [S3D-RIG: 65.0mm IO | Conv: 2.21m | +Parallax: 1.80% | fmt=mv_hevc]. [AD-CUE: \"Advanced Quantum Computing Silic\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=in_hand_right@optical_calibration_plinth | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63].",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.. Maintaining continuity with keyframe <image_3>. CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus maneuver at eye-level with Cleanroom 5000K pure white illumination with razor-thin linear specular highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Precision magnetic latch click and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,ja-JP,zh-CN,ko-KR,de-DE,fr-FR sync=1.00x wps=2.50 supers=clear]. [SPOTTING_SYNC: bpm=110 bridge=j_cut jcut=8f lcut=0f beat_offset=2f]. [S3D-RIG: 65.0mm IO | Conv: 2.21m | +Parallax: 1.80% | fmt=mv_hevc]. [AD-CUE: \"Advanced Quantum Computing Silic\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Cleanroom Nanotech Systems Engineer:LOOK_A(studio_immaculate)][PROP-STATE: PROP_DEVICE_01=in_hand_right@optical_calibration_plinth | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Advanced Quantum Computing Silicon]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -2467,13 +2541,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2486,7 +2560,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2499,7 +2573,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2512,7 +2586,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2832,7 +2906,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Advanced Quantum Computing Silicon · omni.studio/advancedquantumcom",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "SF Pro Display / Inter",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Advanced Quantum Computing Silicon]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       }
     ],
     "domain_archetype": "tech_hardware",
@@ -3680,7 +3796,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-24T09:40:11.453897+00:00",
+        "creation_date": "2026-11-25T10:03:48.856022+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3688,7 +3804,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-24T09:40:11.453884+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.856009+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3696,7 +3812,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-24T09:40:11.453894+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.856019+00:00"
           }
         ]
       }
@@ -3752,7 +3868,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Advanced Quantum Computing Silicon Proce",
-        "creation_date": "2026-11-24T09:40:11.453897+00:00",
+        "creation_date": "2026-11-25T10:03:48.856022+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3760,7 +3876,7 @@
             "xxhash64": "9400461c0657d401",
             "sha1": "6b68e100add9313f70b51e5989eadd03c5eb2c52",
             "md5": "5387b57239a93e31d027f570fa8a4d3b",
-            "hash_timestamp": "2026-11-24T09:40:11.453884+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.856009+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3768,7 +3884,7 @@
             "xxhash64": "9920d6f38877faa1",
             "sha1": "23a6567067021df9f86b5b8fb1fa5db1ccb42642",
             "md5": "161bd9ebbee93ba80c35fea1a8b47602",
-            "hash_timestamp": "2026-11-24T09:40:11.453894+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.856019+00:00"
           }
         ]
       }
@@ -8515,7 +8631,7 @@
     "master_c2pa_provenance": {
       "project_title": "Advanced Quantum Computing Silicon Proce",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:10d953cc7c58",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8524,7 +8640,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8537,7 +8653,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8550,7 +8666,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8563,7 +8679,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8635,13 +8751,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8654,7 +8770,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8667,7 +8783,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8680,7 +8796,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8746,13 +8862,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8765,7 +8881,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8778,7 +8894,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8791,7 +8907,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8853,7 +8969,7 @@
     "c2pa_provenance": {
       "project_title": "Advanced Quantum Computing Silicon Proce",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:10d953cc7c58",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8862,7 +8978,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8875,7 +8991,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8888,7 +9004,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8901,7 +9017,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8973,13 +9089,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8992,7 +9108,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9005,7 +9121,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9018,7 +9134,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9084,13 +9200,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9103,7 +9219,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9116,7 +9232,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9129,7 +9245,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9191,7 +9307,7 @@
     "content_credentials": {
       "project_title": "Advanced Quantum Computing Silicon Proce",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:10d953cc7c58",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9200,7 +9316,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9213,7 +9329,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9226,7 +9342,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9239,7 +9355,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9311,13 +9427,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9330,7 +9446,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9343,7 +9459,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9356,7 +9472,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9422,13 +9538,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9441,7 +9557,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9454,7 +9570,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9467,7 +9583,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9529,7 +9645,7 @@
     "provenance_manifest": {
       "project_title": "Advanced Quantum Computing Silicon Proce",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:10d953cc7c58",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9538,7 +9654,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9551,7 +9667,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9564,7 +9680,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9577,7 +9693,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9649,13 +9765,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9668,7 +9784,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9681,7 +9797,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9694,7 +9810,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9760,13 +9876,13 @@
           "scene_title": "Advanced Quantum Computing Silicon Proce - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9779,7 +9895,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9792,7 +9908,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9805,7 +9921,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -11788,6 +11904,292 @@
       "total_planned_takes": 4,
       "total_video_seconds_planned": 20,
       "dry_run_billable_usd": 0.0
+    },
+    "master_motion_graphics": {
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "domain_archetype": "tech_hardware",
+      "primary_typeface": "SF Pro Display / Inter",
+      "secondary_typeface": "IBM Plex Mono",
+      "endcard": {
+        "duration_sec": 2.8,
+        "logo_lockup_position": "center_upper_safe",
+        "cta_headline": "Advanced Quantum Computing Silicon",
+        "cta_subcopy": "Engineered for Tech Hardware",
+        "url_or_qr_label": "omni.studio/advancedquantumcom",
+        "audio_sting_sync_smpte": "00:00:07:05",
+        "background_plate_hex": "#030712",
+        "reserved_tail_scene_index": 2
+      },
+      "scene_graphics": [
+        {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Advanced Quantum Computing Silicon Proce",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "SF Pro Display / Inter",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            },
+            {
+              "cue_id": "GFX_SC01_LEGAL",
+              "scene_index": 1,
+              "role": "legal_disclaimer",
+              "copy_text": "Sequences shortened. Screen images simulated.",
+              "word_count": 5,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 100.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "lower_safe_band",
+                "normalized_x": 0.1,
+                "normalized_y": 0.6,
+                "max_width_pct": 66.0,
+                "font_family": "IBM Plex Mono",
+                "font_weight": 500,
+                "min_font_px_1080p": 20,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Advanced Quantum Computing Silicon · omni.studio/advancedquantumcom",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "native_macro_diegetic",
+              "animation_preset": "subpixel_razor_glide",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "SF Pro Display / Inter",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.38,
+                "wcag_contrast_ratio": 19.24
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Advanced Quantum Computing Silicon]",
+          "legibility_score": 100.0
+        }
+      ],
+      "total_cues_count": 3,
+      "max_wpm_detected": 150.0,
+      "all_safe_zones_cleared": true,
+      "legal_supers_compliant": true
+    },
+    "master_otio_coherence": {
+      "schema_version": "OTIO_0.16_COMPAT",
+      "project_title": "Advanced Quantum Computing Silicon Proce",
+      "domain_archetype": "tech_hardware",
+      "fps": 24.0,
+      "total_frames": 240,
+      "tracks": [
+        {
+          "track_name": "V1_Picture_Master",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 13,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "V2_VFX_GFX_Overlay",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 3,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A1_Dialogue",
+          "kind": "Audio",
+          "clip_count": 0,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A2_Foley_SFX",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A3_Ambience",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A4_Music_Score",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 1,
+          "total_frames_24fps": 248
+        },
+        {
+          "track_name": "A5_Audio_Description",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 2,
+          "total_frames_24fps": 240
+        }
+      ],
+      "coherence_checks": [
+        {
+          "check_id": "CHK-01-OPTICS-DOF",
+          "pair": "optics_vs_dof",
+          "status": "pass",
+          "source_spec": "master_lens_package / scene.optical_lens",
+          "target_spec": "master_dof_spec / scene.dof_spec",
+          "delta_summary": "Max optical delta: 5.0mm focal, 0.8 T-stop",
+          "measured_value": "5.0mm / 0.8T",
+          "expected_bound": "<= 5.0mm / <= 1.0T",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-02-KELVIN-BLOCKING",
+          "pair": "lighting_kelvin_vs_blocking",
+          "status": "pass",
+          "source_spec": "master_lighting_rig",
+          "target_spec": "master_continuity_blocking",
+          "delta_summary": "Rig=5600K, max Kelvin delta=0K",
+          "measured_value": "0K",
+          "expected_bound": "<= 300K",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-03-AUDIO-SPOTTING",
+          "pair": "audio_stems_vs_spotting",
+          "status": "pass",
+          "source_spec": "master_audio_mixer / master_broadcast_qc",
+          "target_spec": "spotting_manifest / diegetic_sonic",
+          "delta_summary": "LUFS delta=0.0, max_wps=0.00, max_bridge=0.33s",
+          "measured_value": "LUFS 0.0 / 0.00 WPS",
+          "expected_bound": "LUFS <= 2.0 / WPS <= 2.5",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-04-REFRAME-GRAPHICS",
+          "pair": "reframe_vs_graphics_blocking",
+          "status": "pass",
+          "source_spec": "master_reframe_manifest",
+          "target_spec": "master_motion_graphics",
+          "delta_summary": "All motion-graphic supers clear 9:16 TikTok/Reels and 16:9 safe zones",
+          "measured_value": "9:16+16:9 CLEAR",
+          "expected_bound": "y in [0.14, 0.64], x in [0.06, 0.80], 9:16 cleared",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-05-MODEB-ECONOMICS",
+          "pair": "mode_b_vs_runtime_economics",
+          "status": "pass",
+          "source_spec": "storytelling_mode / total_runtime_seconds",
+          "target_spec": "master_render_economics_spec.guardrail",
+          "delta_summary": "Mode=Mode A: Parallel Multi-Scene Cut (Montage), runtime=10s, render_est=$5.25/$50.00",
+          "measured_value": "10s / $5.25",
+          "expected_bound": "Mode B <= 40s & est <= $50.00",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-06-AICP-COMPUTE",
+          "pair": "aicp_post_vs_render_compute",
+          "status": "pass",
+          "source_spec": "master_aicp_bid (Sections J-L)",
+          "target_spec": "master_render_economics_spec",
+          "delta_summary": "AICP post allocation=$23465.00 vs AI compute estimate=$5.25",
+          "measured_value": "$23465.00",
+          "expected_bound": ">= $5.25",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-07-C2PA-SAFETY",
+          "pair": "c2pa_vs_cast_safety",
+          "status": "pass",
+          "source_spec": "master_c2pa_provenance (2026 Model Matrix)",
+          "target_spec": "master_broadcast_qc / master_safety_risk",
+          "delta_summary": "c2pa_ok=True, legacy_hit=False, qc_legal_ok=True, safety_ok=True",
+          "measured_value": "CLEARED",
+          "expected_bound": "2026 Model Matrix + consents + QC + JSA cleared",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        }
+      ],
+      "coherence_score": 100.0,
+      "conflicts_count": 0,
+      "warnings_count": 0,
+      "otio_sha256": "37c186ed87f115b8bf362a2f2f8369ddb8040f941ebacc062d9c0bae3600c896",
+      "shoot_day_ready": true,
+      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
     }
   },
   "storyboard_html_path": "examples/quantum_silicon_2_0/storyboard_preview.html",
@@ -11891,6 +12293,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -11912,7 +12320,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 2,
@@ -11991,6 +12401,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Advanced Quantum Computing Silicon]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=37c186ed87f1][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12011,14 +12427,16 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "17b39f97-af69-45f5-8834-4c58dfc73505",
+    "session_id": "9220d19c-960c-4670-b259-12da70e99544",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-24T09:40:11.450589+00:00",
+    "timestamp": "2026-11-25T10:03:48.852665+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -12028,81 +12446,87 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-24T09:40:11.450610+00:00",
-        "end_time": "2026-11-24T09:40:11.451334+00:00",
-        "duration_ms": 0.72,
+        "start_time": "2026-11-25T10:03:48.852686+00:00",
+        "end_time": "2026-11-25T10:03:48.853474+00:00",
+        "duration_ms": 0.79,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-24T09:40:11.451353+00:00",
-        "end_time": "2026-11-24T09:40:11.457238+00:00",
-        "duration_ms": 5.88,
+        "start_time": "2026-11-25T10:03:48.853504+00:00",
+        "end_time": "2026-11-25T10:03:48.865723+00:00",
+        "duration_ms": 12.22,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-24T09:40:11.457269+00:00",
-        "end_time": "2026-11-24T09:40:11.459405+00:00",
-        "duration_ms": 2.14,
+        "start_time": "2026-11-25T10:03:48.865763+00:00",
+        "end_time": "2026-11-25T10:03:48.867923+00:00",
+        "duration_ms": 2.16,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-24T09:40:11.459428+00:00",
-        "end_time": "2026-11-24T09:40:11.459655+00:00",
-        "duration_ms": 0.23,
+        "start_time": "2026-11-25T10:03:48.867939+00:00",
+        "end_time": "2026-11-25T10:03:48.868190+00:00",
+        "duration_ms": 0.25,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-24T09:40:11.459665+00:00",
-        "end_time": "2026-11-24T09:40:11.465488+00:00",
-        "duration_ms": 5.82,
+        "start_time": "2026-11-25T10:03:48.868199+00:00",
+        "end_time": "2026-11-25T10:03:48.873010+00:00",
+        "duration_ms": 4.81,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-24T09:40:11.465520+00:00",
-        "end_time": "2026-11-24T09:40:11.465527+00:00",
+        "start_time": "2026-11-25T10:03:48.873035+00:00",
+        "end_time": "2026-11-25T10:03:48.873040+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-24T09:40:11.465535+00:00",
-        "end_time": "2026-11-24T09:40:11.519452+00:00",
-        "duration_ms": 53.91,
+        "start_time": "2026-11-25T10:03:48.873048+00:00",
+        "end_time": "2026-11-25T10:03:48.897803+00:00",
+        "duration_ms": 24.75,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-24T09:40:11.566074+00:00",
-        "end_time": "2026-11-24T09:40:11.657003+00:00",
-        "duration_ms": 90.93,
+        "start_time": "2026-11-25T10:03:48.951673+00:00",
+        "end_time": "2026-11-25T10:03:49.055215+00:00",
+        "duration_ms": 103.54,
         "details": {}
       }
     ],
-    "total_duration_ms": 159.64,
+    "total_duration_ms": 148.53,
     "audit_summary": {
       "estimated_total_compute_usd": 5.2504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9978,
       "total_planned_takes": 4,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 3,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 5.2504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9978,
       "total_planned_takes": 4,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 3,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "9f85d3070aee5058952ce6e21915781dff03ecc1eff4ea683771b718c89d028b",
-      "storyboard_preview.html": "ca4883fcef736efbc0e195d83cf8d80a504f534137aa5593f551f1585df4daa6",
-      "council_report.json": "c2f063142cf652b9e7db6235dfcc49b7e4af55aecfde8c6ea5a4db284908e36f",
-      "council_report.md": "e48d9763b59029cd344ba82c3c5866f54bdeb150202781c74acc4cb48233dc85",
+      "production_bundle.json": "1effe555443ffcbeac45a182044b6715e16d64455d5ccad704fe1e693c6c8691",
+      "storyboard_preview.html": "6f9b908bb6f8e4686fcdda9704bf53850480168c4e17380f57660710e4a0f6a1",
+      "council_report.json": "ebc0e730d527102e9f333166ad3de0b0d5cca5428f0eb3caef2ea3687914d719",
+      "council_report.md": "4b54caefa613ca435397cc422fec02abb0ff1096aefc3e5b2ebb21354e270ba5",
       "timeline.edl": "b1c85d568a62c83d0060b7f639a281671af0c9bb14e9f7e678c6ced7c6f8c017",
       "sequence.fcpxml": "5f08ef788621e3af7ab2ee060a949ed0006e3ea371d79f1388cfa8a04caafbc5",
       "shot_list.csv": "370cfe3690e0b33ee13c38a5f6008c4f5270b44d8c17dcae791d843c21e5ab9e",
@@ -12154,12 +12578,12 @@
       "film_emulation_spec.json": "f6f2aeded4546e4447581b7ebf5b4908679ba7e7eac4e883980c5a510cc535aa",
       "film_stock_shader.dctl": "714c85a691687fa24cca7bd2988e2115745127592fd63e4ba0e49537d709bddd",
       "film_stock.ale": "76e75fc5a36edb3bce6b7b9ed6069244cc9093322e4f8470f9f7b01f589d95bd",
-      "slate_manifest.json": "0986f77dc89f3f0b03cf76d63aa001f9444ccf8460d32185090406b193666f84",
-      "asc_mhl_manifest.xml": "59e543166853c05cc6040704e953fc720b5306ebb5169f1e56c13896f6b6973c",
+      "slate_manifest.json": "2f983994ffa761b56ca9c0d927525b6159ad95d3e8d10dd7ba3d05a0a1ab221d",
+      "asc_mhl_manifest.xml": "41a451334ebbe2ab7efed6fc12a54d97a502c613b6eeae6e549661d37066f02a",
       "clapper_slate_log.csv": "c27965fb0a6f986a35cf428a8eb4b35dafa890ba684c18bd5414577a208fc10c",
       "sound_sync.ale": "073c78adacf67942af2ed9e79a961625a39dcd71e1f1eb5372a980c1f0515141",
       "flight_path.kml": "d8f4d2acdce0e000253d81fd54c3f8bca980283bcfdcc0f1aed982e5e58295e8",
-      "flight_waypoints.gpx": "e7cc16a95269a935392c5b34e4edea1ba96eb8bf8c3809dc8e599363a49bee0c",
+      "flight_waypoints.gpx": "d2cd4055e54ff6a841367fc3fcde774873472fa9b0aed9e3fd5a6bc29b615e1b",
       "drone_flight_sheet.csv": "3d9fb21ac1504acb6c76b58078f0e828cc5c9de1c05b15d9f56f2390288b02c2",
       "drone_flight_sheet.md": "f6da349cb248769a62835e65705bc4c5eca2ad725b751100d147f86bb61c5b23",
       "drone_flight_manifest.json": "2c2b776b138c8e2d9951fb35da499ab3ec2eca9253b04bd202bcff5211413994",
@@ -12182,8 +12606,8 @@
       "review_notes_frameio.json": "34c32454d1e948c76991027ca0111de80a577afea45d88e48770b47691062276",
       "review_notes.csv": "9ba17c114f66c9136b64117bb480f00ba4331be62fce343e02fcb1894bc9b0f6",
       "client_signoff_report.md": "26057a8d04e3501113c0601b2a721397d21b910391c173bbc5cd423d4b669b59",
-      "c2pa_manifest.json": "f88297f4e1e5d2d52f2aeaed4fcb1c6b69ccf5169c13939dc5160ba8425514d1",
-      "ai_disclosure_certificate.md": "34347348f345f22279265dade2c6a9171104bc016218ff0a0615d4194fecdd83",
+      "c2pa_manifest.json": "c2ee1848f901f0f726b4c618c8c37110b6babb528251f04873c796bdf1f1832e",
+      "ai_disclosure_certificate.md": "9118ae59c8cb01d14d5deb818b8a9633a5dc14aa54b3327863d0aac1eda63f64",
       "likeness_consent_ledger.csv": "ee2ecbddd4f01d5f7ce2b63290daef74f504ea9bf0ef6186aa3a9e9802e104e5",
       "safety_bulletin.md": "b4642d94e12a001c884bb764d8c4d8c256af6a43e3d0ba903252855877a8b49f",
       "safety_jsa_matrix.csv": "5045549a2d93ddb2e864881033f58526bb1045bdda6bab6a473ddd3c516d6697",
@@ -12200,7 +12624,13 @@
       "subtitles_ad.vtt": "8dae5455b9b641ebf027d01b4253ed2cf65cfa8721abc8d059ca5d4230c0b64c",
       "ad_script_cue_sheet.csv": "5c98a741b84d754bf13adee82ea3c36484d4ee4bdd7cc9bcf1b4df6656678721",
       "accessibility_ad_manifest.json": "d41403707383b297c2e5429b48eebb599687e526b63121f832e3884ff798e72a",
-      "council_audit_report.json": "c2f063142cf652b9e7db6235dfcc49b7e4af55aecfde8c6ea5a4db284908e36f",
+      "wardrobe_prop_bible.json": "c6231eafa8fcdb1586a594943f1dc3f933a40ee0fae33468816e6e9375a92d0c",
+      "prop_continuity_matrix.csv": "73153de441328ac6b83a9765f1491c48085fafaca6d10a68fb23e897726ec69a",
+      "art_dept_pull_list.md": "dd312e156749423d4118f91d3e625739079a8ecc29f240ac734baf37761ea4aa",
+      "render_economics_manifest.json": "df5d9b56cfcd4e8e642cfdd70f1ab5e8f4846e011f080dc630089c68f0f98a4b",
+      "take_variant_ledger.csv": "be08544a51064f82deda54b11bfc95ffe5e7350311aacc6fad8352f848f19679",
+      "ai_compute_estimate.md": "71d93a327517719a68953987ad8e01572f979d39579e142f8df87db6e35ec54a",
+      "council_audit_report.json": "ebc0e730d527102e9f333166ad3de0b0d5cca5428f0eb3caef2ea3687914d719",
       "storyboards/anchor1_character_turnaround.svg": "d9f4e8312df0655feaaebf0729586f217c4d79a21556d351b66707f0a2425ed2",
       "storyboards/anchor2_environment_master.svg": "467bdfa2dc732b74012d25b2adafd6a1d5a122b5c83cf872cfbc49ad9e84daa6",
       "storyboards/anchor3_scene_1_keyframe.svg": "871ffb56a79bc932e70c1c8a350b10e9fc06be8659987b9e822cbeee9e03e4b2",
@@ -12220,9 +12650,9 @@
     }
   },
   "council_report": {
-    "version": "2.16.0",
+    "version": "2.17.0",
     "project_title": "Advanced Quantum Computing Silicon Proce",
-    "timestamp": "2026-11-24T09:40:11.653191+00:00",
+    "timestamp": "2026-11-25T10:03:49.045537+00:00",
     "overall_score": 98.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -12534,13 +12964,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "wardrobe_prop_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
-            "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+            "message": "Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "wardrobe_artifacts": [
                 "wardrobe_prop_bible.json",
                 "prop_continuity_matrix.csv",
                 "art_dept_pull_list.md"
@@ -12548,16 +12978,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "render_economics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
-            "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+            "message": "Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "economics_artifacts": [
                 "render_economics_manifest.json",
                 "take_variant_ledger.csv",
                 "ai_compute_estimate.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "motion_graphics_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "motion_graphics_mogrt.json",
+                "broadcast_supers.ass",
+                "brand_endcard_spec.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "otio_coherence_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "production_timeline.otio",
+                "coherence_matrix.json",
+                "coherence_readiness_report.md"
               ]
             }
           },
@@ -12676,9 +13134,32 @@
               ],
               "dry_run_billable_usd": 0.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "motion_graphics_schema",
+            "message": "MasterMotionGraphicsManifest verified (3 cues, max_wpm=150.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_cues_count": 3,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=37c186ed87f1..., coherence_score=100.0, shoot_day_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "schema_version": "OTIO_0.16_COMPAT",
+              "track_count": 7,
+              "otio_sha256_prefix": "37c186ed87f1"
+            }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 33 findings."
+        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -12868,6 +13349,22 @@
           },
           {
             "severity": "info",
+            "category": "motion_graphics_schema_compliance",
+            "message": "Motion Graphics & Safe-Zone Gate verified across 2 scene(s) (max_wpm=150.0 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema_compliance",
+            "message": "OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
             "remediation": null,
@@ -12894,6 +13391,14 @@
             "severity": "info",
             "category": "audit_report_art_and_economics_compliance",
             "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_gfx_and_otio_compliance",
+            "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13264,6 +13769,32 @@
           },
           {
             "severity": "info",
+            "category": "domain_motion_graphics_calibration",
+            "message": "Motion graphics & Brand End-Card calibrated for domain 'tech_hardware' (typeface='SF Pro Display / Inter', endcard=2.80s, max_wpm=150.0, 9:16_clear=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "primary_typeface": "SF Pro Display / Inter",
+              "endcard_duration_sec": 2.8,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_otio_coherence_readiness",
+            "message": "OTIO 7-track cross-department coherence verified for domain 'tech_hardware' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=5.0mm, kelvin_tol<=300.0K).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "tech_hardware",
+              "shoot_day_ready": true,
+              "coherence_score": 100.0,
+              "conflicts_count": 0
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'tech_hardware' matches strategic brief classification.",
             "remediation": null,
@@ -13492,6 +14023,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_motion_graphics_hud",
+            "message": "Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_otio_coherence_hud",
+            "message": "OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -13509,7 +14056,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13540,6 +14087,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_eq_quote",
+            "message": "Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($233,778.83 matches master_aicp_bid).",
             "remediation": null,
@@ -13551,8 +14106,8 @@
       }
     ],
     "recommendations": [
-      "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-      "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
     ],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
@@ -14058,6 +14613,50 @@
           "omni_director/tools/html_hud_v216.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-033",
+        "title": "Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+        "problem_statement": "Broadcast and vertical social deliverables for 'Advanced Quantum Computing Silicon Proce' risk failing readability and safe-zone clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards.",
+        "proposed_solution": "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/motion_graphics.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-034",
+        "title": "Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+        "problem_statement": "Complex multi-department productions for 'Advanced Quantum Computing Silicon Proce' lack a unified ASWF OpenTimelineIO 0.16 (Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA.",
+        "proposed_solution": "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/otio_coherence.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
           "omni_director/telemetry.py"
         ],
         "priority": "P0",

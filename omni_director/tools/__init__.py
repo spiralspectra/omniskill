@@ -341,6 +341,35 @@ from omni_director.tools.accessibility_ad import (
 )
 from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
 from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
+from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
+from omni_director.tools.motion_graphics import (
+    MAX_SUPER_WPM,
+    MIN_CLEANPLATE_NEGATIVE_SPACE_PCT,
+    MIN_WCAG_CONTRAST_RATIO,
+    compile_motion_graphics_manifest,
+    compute_effective_wpm,
+    compute_wcag_contrast_ratio,
+    export_brand_endcard_md,
+    export_broadcast_supers_ass,
+    export_mogrt_json,
+    export_motion_graphics_bundle,
+    format_motion_graphics_token,
+    synthesize_default_motion_graphics,
+)
+from omni_director.tools.otio_coherence import (
+    DEFAULT_COHERENCE_TOLERANCES,
+    OTIO_TRACK_NAMES,
+    compile_otio_coherence_manifest,
+    compile_otio_json,
+    compile_otio_timeline_dict,
+    evaluate_cross_department_coherence,
+    export_coherence_matrix_json,
+    export_coherence_readiness_md,
+    export_otio_coherence_bundle,
+    export_otio_file,
+    format_otio_coherence_token,
+    reconcile_cross_department_conflicts,
+)
 from omni_director.tools.wardrobe_props import (
     compile_wardrobe_prop_bible,
     detect_prop_state_transitions,
@@ -679,5 +708,32 @@ __all__ = [
     "synthesize_default_render_economics_manifest",
     "export_render_economics_bundle",
     "build_v216_hud_bundle",
+    # Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card (PM-FEAT-033)
+    "MAX_SUPER_WPM",
+    "MIN_CLEANPLATE_NEGATIVE_SPACE_PCT",
+    "MIN_WCAG_CONTRAST_RATIO",
+    "compute_effective_wpm",
+    "compute_wcag_contrast_ratio",
+    "format_motion_graphics_token",
+    "compile_motion_graphics_manifest",
+    "synthesize_default_motion_graphics",
+    "export_mogrt_json",
+    "export_broadcast_supers_ass",
+    "export_brand_endcard_md",
+    "export_motion_graphics_bundle",
+    # Universal OpenTimelineIO (.otio) & Cross-Dept Coherence (PM-FEAT-034)
+    "OTIO_TRACK_NAMES",
+    "DEFAULT_COHERENCE_TOLERANCES",
+    "compile_otio_timeline_dict",
+    "compile_otio_json",
+    "evaluate_cross_department_coherence",
+    "reconcile_cross_department_conflicts",
+    "format_otio_coherence_token",
+    "compile_otio_coherence_manifest",
+    "export_otio_file",
+    "export_coherence_matrix_json",
+    "export_coherence_readiness_md",
+    "export_otio_coherence_bundle",
+    "build_v217_hud_bundle",
 ]
 

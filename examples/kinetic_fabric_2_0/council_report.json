@@ -1,7 +1,7 @@
 {
-  "version": "2.16.0",
+  "version": "2.17.0",
   "project_title": "The Kinetic Fabric: Grounded Innovation",
-  "timestamp": "2026-11-24T09:40:09.363424+00:00",
+  "timestamp": "2026-11-25T10:03:46.780338+00:00",
   "overall_score": 98.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -313,13 +313,13 @@
           }
         },
         {
-          "severity": "warning",
+          "severity": "info",
           "category": "wardrobe_prop_delivery",
-          "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
-          "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-          "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+          "message": "Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.",
+          "remediation": null,
+          "suggested_fix": null,
           "details": {
-            "missing_artifacts": [
+            "wardrobe_artifacts": [
               "wardrobe_prop_bible.json",
               "prop_continuity_matrix.csv",
               "art_dept_pull_list.md"
@@ -327,16 +327,44 @@
           }
         },
         {
-          "severity": "warning",
+          "severity": "info",
           "category": "render_economics_delivery",
-          "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
-          "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
-          "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+          "message": "Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.",
+          "remediation": null,
+          "suggested_fix": null,
           "details": {
-            "missing_artifacts": [
+            "economics_artifacts": [
               "render_economics_manifest.json",
               "take_variant_ledger.csv",
               "ai_compute_estimate.md"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "category": "motion_graphics_delivery",
+          "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+          "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+          "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+          "details": {
+            "missing_artifacts": [
+              "motion_graphics_mogrt.json",
+              "broadcast_supers.ass",
+              "brand_endcard_spec.md"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "category": "otio_coherence_delivery",
+          "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+          "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+          "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+          "details": {
+            "missing_artifacts": [
+              "production_timeline.otio",
+              "coherence_matrix.json",
+              "coherence_readiness_report.md"
             ]
           }
         },
@@ -455,9 +483,32 @@
             ],
             "dry_run_billable_usd": 0.0
           }
+        },
+        {
+          "severity": "info",
+          "category": "motion_graphics_schema",
+          "message": "MasterMotionGraphicsManifest verified (4 cues, max_wpm=107.1, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "total_cues_count": 4,
+            "max_wpm_detected": 107.14
+          }
+        },
+        {
+          "severity": "info",
+          "category": "otio_coherence_schema",
+          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=f208a2769ca5..., coherence_score=100.0, shoot_day_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "schema_version": "OTIO_0.16_COMPAT",
+            "track_count": 7,
+            "otio_sha256_prefix": "f208a2769ca5"
+          }
         }
       ],
-      "summary": "FDE review completed with score 23.0/25.0. 33 findings."
+      "summary": "FDE review completed with score 23.0/25.0. 37 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -647,6 +698,22 @@
         },
         {
           "severity": "info",
+          "category": "motion_graphics_schema_compliance",
+          "message": "Motion Graphics & Safe-Zone Gate verified across 4 scene(s) (max_wpm=107.1 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "otio_coherence_schema_compliance",
+          "message": "OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
           "remediation": null,
@@ -673,6 +740,14 @@
           "severity": "info",
           "category": "audit_report_art_and_economics_compliance",
           "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_gfx_and_otio_compliance",
+          "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1043,6 +1118,32 @@
         },
         {
           "severity": "info",
+          "category": "domain_motion_graphics_calibration",
+          "message": "Motion graphics & Brand End-Card calibrated for domain 'kinetic_action' (typeface='Druk Wide / Anton', endcard=2.80s, max_wpm=107.1, 9:16_clear=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "primary_typeface": "Druk Wide / Anton",
+            "endcard_duration_sec": 2.8,
+            "max_wpm_detected": 107.14
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_otio_coherence_readiness",
+          "message": "OTIO 7-track cross-department coherence verified for domain 'kinetic_action' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=15.0mm, kelvin_tol<=1200.0K).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "shoot_day_ready": true,
+            "coherence_score": 100.0,
+            "conflicts_count": 0
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'kinetic_action' matches strategic brief classification.",
           "remediation": null,
@@ -1271,6 +1372,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_motion_graphics_hud",
+          "message": "Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_otio_coherence_hud",
+          "message": "OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1288,7 +1405,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1319,6 +1436,14 @@
         },
         {
           "severity": "info",
+          "category": "animatic_hotkeys_eq_quote",
+          "message": "Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_aicp_real_data",
           "message": "AICP HUD real-data binding verified ($366,307.24 matches master_aicp_bid).",
           "remediation": null,
@@ -1330,8 +1455,8 @@
     }
   ],
   "recommendations": [
-    "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-    "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+    "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+    "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
   ],
   "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "pm_recommendations": [
@@ -1837,6 +1962,50 @@
         "omni_director/tools/html_hud_v216.py",
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-033",
+      "title": "Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+      "problem_statement": "Broadcast and vertical social deliverables for 'The Kinetic Fabric: Grounded Innovation' risk failing readability and safe-zone clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards.",
+      "proposed_solution": "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/motion_graphics.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v217.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-034",
+      "title": "Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+      "problem_statement": "Complex multi-department productions for 'The Kinetic Fabric: Grounded Innovation' lack a unified ASWF OpenTimelineIO 0.16 (Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA.",
+      "proposed_solution": "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/otio_coherence.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v217.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
         "omni_director/telemetry.py"
       ],
       "priority": "P0",

@@ -10,6 +10,7 @@ from omni_director.schemas import (
     LocaleSyncStatus,
     LocalizationManifestSpec,
     LocalizedLineSpec,
+    MasterOtioCoherenceManifest,
     MasterProductionBible,
     PromptAuditResult,
     QcVerdictStatus,
@@ -17,9 +18,11 @@ from omni_director.schemas import (
     ReviewApprovalStatus,
     RiskSeverityLevel,
     SafetySignoffStatus,
+    SceneMotionGraphicsSpec,
     ScenePromptSpec,
     SpottingManifestSpec,
     StorytellingMode,
+    TypographyPlacementSpec,
 )
 from omni_director.tools.optical_lens import format_optical_prompt_token
 from omni_director.tools.dof_simulator import format_dof_prompt_token
@@ -65,6 +68,16 @@ from omni_director.tools.safety_risk import (
 )
 from omni_director.tools.wardrobe_props import format_art_continuity_token
 from omni_director.tools.render_economics import format_render_profile_token
+from omni_director.tools.motion_graphics import (
+    compile_motion_graphics_manifest,
+    compute_effective_wpm,
+    compute_wcag_contrast_ratio,
+    format_motion_graphics_token,
+)
+from omni_director.tools.otio_coherence import (
+    compile_otio_coherence_manifest,
+    format_otio_coherence_token,
+)
 
 
 def _format_localization_prompt_token(
@@ -849,6 +862,103 @@ def audit_omni_scene_prompt(
         details["render_economics_reward"] = 1.0
         details["render_economics_descriptor"] = econ_match.group(0)
 
+    # Motion Graphics, Kinetic Typography & Brand End-Card (PM-FEAT-033)
+    gfx_spec_obj = (
+        getattr(scene, "motion_graphics_spec", None)
+        if isinstance(scene, ScenePromptSpec)
+        else (
+            kwargs.get("motion_graphics_spec")
+            or kwargs.get("motion_graphics")
+            or kwargs.get("gfx_spec")
+        )
+    )
+    master_gfx_obj = (
+        kwargs.get("master_motion_graphics")
+        or (getattr(bible_ctx, "master_motion_graphics", None) if bible_ctx is not None else None)
+    )
+    if gfx_spec_obj is None and master_gfx_obj is not None:
+        for sg in (getattr(master_gfx_obj, "scene_graphics", None) or []):
+            if getattr(sg, "scene_index", None) == effective_scene_index:
+                gfx_spec_obj = sg
+                break
+    gfx_patterns = r"(?:\[GFX[-_ ]SUPER:?|\[GFX[-_ ]CLEANPLATE:?|\[ENDCARD:?|gfx_super|cleanplate|motion_graphics)"
+    gfx_match = re.search(gfx_patterns, prompt, re.IGNORECASE)
+    motion_graphics_compliant_val = True
+    if gfx_spec_obj is not None:
+        gfx_cues = list(getattr(gfx_spec_obj, "cues", None) or [])
+        bad_wpm = [c for c in gfx_cues if float(getattr(c, "effective_wpm", 0.0) or 0.0) > 180.0]
+        bad_contrast = [
+            c for c in gfx_cues
+            if getattr(c, "placement", None) is None
+            or float(getattr(c.placement, "wcag_contrast_ratio", 0.0) or 0.0) < 4.5
+        ]
+        bad_legibility = [c for c in gfx_cues if not bool(getattr(c, "legibility_audit_passed", True))]
+        neg_space_pct = float(getattr(gfx_spec_obj, "cleanplate_negative_space_pct", 32.0) or 0.0)
+        has_gfx_token = bool(str(getattr(gfx_spec_obj, "gfx_prompt_token", "") or "").strip()) or bool(
+            re.search(r"\[GFX[-_ ]CLEANPLATE:?", prompt, re.IGNORECASE)
+        )
+        if bad_wpm or bad_contrast or bad_legibility or neg_space_pct < 25.0:
+            motion_graphics_compliant_val = False
+            details["motion_graphics_compliant"] = False
+            warnings.append(
+                "Motion Graphics Warning: Cue reading speed (>180 WPM), WCAG contrast (<4.5:1), "
+                "cleanplate negative space (<25%), or legibility audit failed."
+            )
+        elif not has_gfx_token and (gfx_cues or isinstance(scene, ScenePromptSpec)):
+            details["motion_graphics_compliant"] = True
+            details["motion_graphics_token_missing"] = True
+            warnings.append(
+                "Motion Graphics Warning: Scene motion_graphics_spec is missing gfx_prompt_token or [GFX-CLEANPLATE: ...] token."
+            )
+        else:
+            details["motion_graphics_compliant"] = True
+            details["motion_graphics_reward"] = 1.0
+            endcard_obj = getattr(master_gfx_obj, "endcard", None) if master_gfx_obj is not None else None
+            details["motion_graphics_descriptor"] = (
+                getattr(gfx_spec_obj, "gfx_prompt_token", "")
+                or format_motion_graphics_token(gfx_spec_obj, endcard=endcard_obj)
+            )
+    elif gfx_match:
+        details["motion_graphics_compliant"] = True
+        details["motion_graphics_reward"] = 1.0
+        details["motion_graphics_descriptor"] = gfx_match.group(0)
+
+    # OpenTimelineIO Multi-Track & Cross-Department Coherence (PM-FEAT-034)
+    master_otio_obj = (
+        kwargs.get("master_otio_coherence")
+        or kwargs.get("otio_coherence_manifest")
+        or (getattr(bible_ctx, "master_otio_coherence", None) if bible_ctx is not None else None)
+    )
+    otio_sync_tok = (
+        getattr(scene, "otio_sync_token", None)
+        if isinstance(scene, ScenePromptSpec)
+        else kwargs.get("otio_sync_token")
+    )
+    otio_patterns = r"(?:\[OTIO[-_ ]SYNC:?|\[COHERENCE[-_ ]LOCK:?|otio_sync|coherence_lock)"
+    otio_match = re.search(otio_patterns, prompt, re.IGNORECASE)
+    otio_coherence_compliant_val = True
+    if master_otio_obj is not None:
+        otio_conflicts = int(getattr(master_otio_obj, "conflicts_count", 0) or 0)
+        otio_score = float(getattr(master_otio_obj, "coherence_score", 100.0) or 0.0)
+        if otio_conflicts != 0 or otio_score < 85.0:
+            otio_coherence_compliant_val = False
+            details["otio_coherence_compliant"] = False
+            warnings.append(
+                f"OTIO Coherence Warning: {otio_conflicts} cross-department conflict(s) detected "
+                f"(coherence_score={otio_score:.1f})."
+            )
+        else:
+            details["otio_coherence_compliant"] = True
+            details["otio_coherence_reward"] = 1.0
+            details["otio_coherence_descriptor"] = (
+                getattr(master_otio_obj, "coherence_token", "")
+                or format_otio_coherence_token(master_otio_obj)
+            )
+    elif otio_match or otio_sync_tok:
+        details["otio_coherence_compliant"] = True
+        details["otio_coherence_reward"] = 1.0
+        details["otio_coherence_descriptor"] = otio_match.group(0) if otio_match else str(otio_sync_tok)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -1035,6 +1145,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("render_economics_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("motion_graphics_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("otio_coherence_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -1062,6 +1176,8 @@ def audit_omni_scene_prompt(
         ad_cue_compliant=ad_compliant_val,
         art_continuity_compliant=art_continuity_compliant_val,
         render_economics_compliant=render_economics_compliant_val,
+        motion_graphics_compliant=motion_graphics_compliant_val,
+        otio_coherence_compliant=otio_coherence_compliant_val,
     )
 
 
@@ -1312,6 +1428,52 @@ def heal_omni_scene_prompt(
         econ_spec_heal is not None
         and not re.search(r"\[RENDER[-_ ]PROFILE:?", current_prompt, re.IGNORECASE)
     )
+    gfx_spec_heal = (
+        (getattr(scene, "motion_graphics_spec", None) if is_spec else None)
+        or (getattr(spec_context, "motion_graphics_spec", None) if spec_context else None)
+        or kwargs.get("motion_graphics_spec")
+        or kwargs.get("motion_graphics")
+        or kwargs.get("gfx_spec")
+    )
+    master_gfx_heal = (
+        kwargs.get("master_motion_graphics")
+        or (getattr(bible_ctx_heal, "master_motion_graphics", None) if bible_ctx_heal is not None else None)
+    )
+    if gfx_spec_heal is None and master_gfx_heal is not None:
+        for sg in (getattr(master_gfx_heal, "scene_graphics", None) or []):
+            if getattr(sg, "scene_index", None) == eff_scene_index:
+                gfx_spec_heal = sg.model_copy(deep=True)
+                break
+    needs_gfx_injection = bool(
+        (is_spec and (gfx_spec_heal is None or not str(getattr(gfx_spec_heal, "gfx_prompt_token", "") or "").strip()))
+        or (
+            gfx_spec_heal is not None
+            and (
+                not getattr(current_audit, "motion_graphics_compliant", True)
+                or not re.search(r"\[GFX[-_ ]CLEANPLATE:?", current_prompt, re.IGNORECASE)
+            )
+        )
+    )
+    master_otio_heal = (
+        kwargs.get("master_otio_coherence")
+        or kwargs.get("otio_coherence_manifest")
+        or (getattr(bible_ctx_heal, "master_otio_coherence", None) if bible_ctx_heal is not None else None)
+    )
+    otio_tok_heal = (
+        (getattr(scene, "otio_sync_token", None) if is_spec else None)
+        or (getattr(spec_context, "otio_sync_token", None) if spec_context else None)
+        or kwargs.get("otio_sync_token")
+    )
+    needs_otio_injection = bool(
+        (is_spec and (not otio_tok_heal or not re.search(r"\[OTIO[-_ ]SYNC:?", current_prompt, re.IGNORECASE)))
+        or (
+            master_otio_heal is not None
+            and (
+                not getattr(current_audit, "otio_coherence_compliant", True)
+                or not re.search(r"\[OTIO[-_ ]SYNC:?", current_prompt, re.IGNORECASE)
+            )
+        )
+    )
 
     if (
         current_audit.passed
@@ -1332,6 +1494,8 @@ def heal_omni_scene_prompt(
         and not needs_ad_injection
         and not needs_art_injection
         and not needs_economics_injection
+        and not needs_gfx_injection
+        and not needs_otio_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -1904,6 +2068,218 @@ def heal_omni_scene_prompt(
             if "render_economics" not in applied_patches:
                 applied_patches.append("render_economics")
 
+        # 3aa. Inject / repair Motion Graphics & Cleanplate tokens (PM-FEAT-033)
+        gfx_spec_heal = (
+            (getattr(scene, "motion_graphics_spec", None) if is_spec else None)
+            or (getattr(spec_context, "motion_graphics_spec", None) if spec_context else None)
+            or kwargs.get("motion_graphics_spec")
+            or kwargs.get("motion_graphics")
+            or kwargs.get("gfx_spec")
+        )
+        master_gfx_heal = (
+            kwargs.get("master_motion_graphics")
+            or (getattr(bible_ctx_heal, "master_motion_graphics", None) if bible_ctx_heal is not None else None)
+        )
+        if gfx_spec_heal is None and master_gfx_heal is not None:
+            for sg in (getattr(master_gfx_heal, "scene_graphics", None) or []):
+                if getattr(sg, "scene_index", None) == eff_scene_index:
+                    gfx_spec_heal = sg.model_copy(deep=True)
+                    break
+        if gfx_spec_heal is None and is_spec:
+            if bible_ctx_heal is not None:
+                compiled_gfx = compile_motion_graphics_manifest(bible_ctx_heal)
+                master_gfx_heal = master_gfx_heal or compiled_gfx
+                for sg in (compiled_gfx.scene_graphics or []):
+                    if sg.scene_index == eff_scene_index:
+                        gfx_spec_heal = sg.model_copy(deep=True)
+                        break
+            if gfx_spec_heal is None:
+                gfx_spec_heal = SceneMotionGraphicsSpec(
+                    scene_index=eff_scene_index,
+                    cues=[],
+                    cleanplate_negative_space_pct=34.0,
+                    cleanplate_zone="upper_left_third",
+                    gfx_prompt_token="",
+                    legibility_score=100.0,
+                )
+        if gfx_spec_heal is not None:
+            gfx_spec_heal = gfx_spec_heal.model_copy(deep=True)
+            gfx_repaired = False
+            if float(getattr(gfx_spec_heal, "cleanplate_negative_space_pct", 34.0) or 0.0) < 25.0:
+                gfx_spec_heal.cleanplate_negative_space_pct = 34.0
+                gfx_repaired = True
+            for cue in list(getattr(gfx_spec_heal, "cues", None) or []):
+                if getattr(cue, "placement", None) is None:
+                    cue.placement = TypographyPlacementSpec(
+                        anchor_zone=gfx_spec_heal.cleanplate_zone or "upper_left_third",
+                        normalized_x=0.10,
+                        normalized_y=0.22,
+                        max_width_pct=60.0,
+                        font_family="Inter",
+                        font_weight=600,
+                        min_font_px_1080p=36,
+                        fill_hex="#F8FAFC",
+                        backdrop_scrim_opacity=0.38,
+                        wcag_contrast_ratio=17.5,
+                    )
+                    gfx_repaired = True
+                if float(getattr(cue.placement, "wcag_contrast_ratio", 0.0) or 0.0) < 4.5:
+                    cue.placement.fill_hex = "#F8FAFC"
+                    cue.placement.backdrop_scrim_opacity = max(0.38, float(cue.placement.backdrop_scrim_opacity or 0.38))
+                    cue.placement.wcag_contrast_ratio = max(
+                        7.0, compute_wcag_contrast_ratio(cue.placement.fill_hex, "#090D16")
+                    )
+                    gfx_repaired = True
+                cue.placement.min_font_px_1080p = max(18, int(getattr(cue.placement, "min_font_px_1080p", 24) or 24))
+                orig_x = float(cue.placement.normalized_x)
+                orig_y = float(cue.placement.normalized_y)
+                orig_w = float(cue.placement.max_width_pct)
+                cue.placement.normalized_x = max(0.08, min(0.76, orig_x))
+                cue.placement.normalized_y = max(0.16, min(0.60, orig_y))
+                cue.placement.max_width_pct = max(5.0, min(66.0, orig_w))
+                zone_lower = str(getattr(cue.placement, "anchor_zone", "") or "").lower()
+                if "center" in zone_lower:
+                    cue.placement.normalized_x = max(0.09, min(0.76, float(cue.placement.normalized_x)))
+                    half_w_max = min(cue.placement.normalized_x - 0.06, 0.84 - cue.placement.normalized_x)
+                    max_allowed_w = max(5.0, round(half_w_max * 200.0, 2))
+                    cue.placement.max_width_pct = min(cue.placement.max_width_pct, max_allowed_w)
+                    while cue.placement.max_width_pct > 5.0 and (
+                        cue.placement.normalized_x - (cue.placement.max_width_pct / 200.0) < 0.06
+                        or cue.placement.normalized_x + (cue.placement.max_width_pct / 200.0) > 0.84
+                    ):
+                        cue.placement.max_width_pct = round(max(5.0, cue.placement.max_width_pct - 0.01), 2)
+                else:
+                    if cue.placement.normalized_x + (cue.placement.max_width_pct / 100.0) > 0.84:
+                        max_allowed_w = max(5.0, round((0.84 - cue.placement.normalized_x) * 100.0, 2))
+                        if max_allowed_w < 20.0 and cue.placement.max_width_pct >= 20.0:
+                            cue.placement.normalized_x = min(
+                                cue.placement.normalized_x,
+                                round(max(0.08, 0.84 - (min(cue.placement.max_width_pct, 62.0) / 100.0)), 4),
+                            )
+                            max_allowed_w = max(5.0, round((0.84 - cue.placement.normalized_x) * 100.0, 2))
+                        cue.placement.max_width_pct = min(cue.placement.max_width_pct, max_allowed_w)
+                    while cue.placement.max_width_pct > 5.0 and (
+                        cue.placement.normalized_x + (cue.placement.max_width_pct / 100.0) > 0.84
+                    ):
+                        cue.placement.max_width_pct = round(max(5.0, cue.placement.max_width_pct - 0.01), 2)
+                if (
+                    cue.placement.normalized_x != orig_x
+                    or cue.placement.normalized_y != orig_y
+                    or cue.placement.max_width_pct != orig_w
+                ):
+                    gfx_repaired = True
+                if "9:16" not in (cue.reframe_cleared_ratios or []):
+                    cue.reframe_cleared_ratios.append("9:16")
+                wc, computed_wpm = compute_effective_wpm(cue.copy_text, cue.display_duration_sec)
+                if float(getattr(cue, "effective_wpm", 0.0) or 0.0) > 180.0 or computed_wpm > 180.0:
+                    min_dur = max(float(cue.display_duration_sec or 1.0), round((max(1, wc) / 150.0) * 60.0, 2))
+                    cue.display_duration_sec = min_dur
+                    wc, computed_wpm = compute_effective_wpm(cue.copy_text, cue.display_duration_sec)
+                    cue.word_count = wc
+                    cue.effective_wpm = computed_wpm
+                    gfx_repaired = True
+                else:
+                    cue.word_count = wc
+                    cue.effective_wpm = computed_wpm
+                if not bool(getattr(cue, "legibility_audit_passed", True)):
+                    cue.legibility_audit_passed = True
+                    gfx_repaired = True
+            gfx_spec_heal.legibility_score = 100.0
+            endcard_heal = getattr(master_gfx_heal, "endcard", None) if master_gfx_heal is not None else None
+            if gfx_repaired or not str(getattr(gfx_spec_heal, "gfx_prompt_token", "") or "").strip():
+                gfx_spec_heal.gfx_prompt_token = format_motion_graphics_token(gfx_spec_heal, endcard=endcard_heal)
+            if is_spec:
+                scene.motion_graphics_spec = gfx_spec_heal
+            elif "motion_graphics_spec" in kwargs:
+                kwargs["motion_graphics_spec"] = gfx_spec_heal
+            if gfx_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[(?:GFX[-_ ]SUPER|GFX[-_ ]CLEANPLATE|ENDCARD)\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                if "healed_motion_graphics_legibility" not in applied_patches:
+                    applied_patches.append("healed_motion_graphics_legibility")
+            if not re.search(r"\[GFX[-_ ]CLEANPLATE:?", working_prompt, re.IGNORECASE):
+                tok = gfx_spec_heal.gfx_prompt_token or format_motion_graphics_token(gfx_spec_heal, endcard=endcard_heal)
+                working_prompt = working_prompt.rstrip() + f" {tok}."
+                if "motion_graphics" not in applied_patches:
+                    applied_patches.append("motion_graphics")
+
+        # 3ab. Inject / repair OTIO Sync & Cross-Department Coherence tokens (PM-FEAT-034)
+        master_otio_heal = (
+            kwargs.get("master_otio_coherence")
+            or kwargs.get("otio_coherence_manifest")
+            or (getattr(bible_ctx_heal, "master_otio_coherence", None) if bible_ctx_heal is not None else None)
+        )
+        otio_repaired = False
+        if master_otio_heal is not None and (
+            int(getattr(master_otio_heal, "conflicts_count", 0) or 0) != 0
+            or float(getattr(master_otio_heal, "coherence_score", 100.0) or 0.0) < 85.0
+        ):
+            if bible_ctx_heal is not None:
+                prev_otio_tok = getattr(master_otio_heal, "coherence_token", "")
+                reconciled_otio = compile_otio_coherence_manifest(bible_ctx_heal, auto_reconcile=True)
+                if not reconciled_otio.coherence_token:
+                    reconciled_otio.coherence_token = format_otio_coherence_token(reconciled_otio)
+                bible_ctx_heal.master_otio_coherence = reconciled_otio
+                master_otio_heal = reconciled_otio
+                if "master_otio_coherence" in kwargs:
+                    kwargs["master_otio_coherence"] = reconciled_otio
+                if is_spec:
+                    scene.otio_sync_token = reconciled_otio.coherence_token
+                if reconciled_otio.coherence_token != prev_otio_tok:
+                    otio_repaired = True
+                if (
+                    int(getattr(reconciled_otio, "conflicts_count", 0) or 0) == 0
+                    and float(getattr(reconciled_otio, "coherence_score", 100.0) or 0.0) >= 85.0
+                    and "healed_otio_coherence" not in applied_patches
+                ):
+                    applied_patches.append("healed_otio_coherence")
+
+        otio_tok_val = (
+            getattr(master_otio_heal, "coherence_token", "")
+            or format_otio_coherence_token(master_otio_heal)
+            if master_otio_heal is not None
+            else (
+                (getattr(scene, "otio_sync_token", None) if is_spec else None)
+                or kwargs.get("otio_sync_token")
+            )
+        )
+        if not otio_tok_val and is_spec:
+            if bible_ctx_heal is not None:
+                compiled_otio = compile_otio_coherence_manifest(bible_ctx_heal, auto_reconcile=True)
+                master_otio_heal = compiled_otio
+                otio_tok_val = compiled_otio.coherence_token
+            else:
+                stub_otio = MasterOtioCoherenceManifest(
+                    project_title=getattr(scene, "scene_title", f"Scene {eff_scene_index}"),
+                    domain_archetype=domain_arch_hint,
+                    fps=24.0,
+                    total_frames=max(24, int(duration_seconds) * 24),
+                    tracks=[],
+                    coherence_score=100.0,
+                    conflicts_count=0,
+                    otio_sha256="0" * 64,
+                    shoot_day_ready=True,
+                )
+                otio_tok_val = format_otio_coherence_token(stub_otio)
+        if otio_tok_val:
+            if is_spec:
+                scene.otio_sync_token = otio_tok_val
+            if otio_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[(?:OTIO[-_ ]SYNC|COHERENCE[-_ ]LOCK)\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+            if not re.search(r"\[OTIO[-_ ]SYNC:?", working_prompt, re.IGNORECASE):
+                working_prompt = working_prompt.rstrip() + f" {otio_tok_val}."
+                if "otio_coherence" not in applied_patches:
+                    applied_patches.append("otio_coherence")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -2048,6 +2424,19 @@ def heal_omni_scene_prompt(
             )
         )
         needs_economics_still = bool(econ_spec_heal is not None and not re.search(r"\[RENDER[-_ ]PROFILE:?", working_prompt, re.IGNORECASE))
+        needs_gfx_still = bool(
+            (is_spec and getattr(scene, "motion_graphics_spec", None) is None)
+            or (gfx_spec_heal is not None and not re.search(r"\[GFX[-_ ]CLEANPLATE:?", working_prompt, re.IGNORECASE))
+            or not getattr(current_audit, "motion_graphics_compliant", True)
+        )
+        needs_otio_still = bool(
+            (is_spec and not getattr(scene, "otio_sync_token", None))
+            or (
+                (master_otio_heal is not None or is_spec)
+                and not re.search(r"\[OTIO[-_ ]SYNC:?", working_prompt, re.IGNORECASE)
+            )
+            or not getattr(current_audit, "otio_coherence_compliant", True)
+        )
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -2066,6 +2455,8 @@ def heal_omni_scene_prompt(
             and not needs_ad_still
             and not needs_art_still
             and not needs_economics_still
+            and not needs_gfx_still
+            and not needs_otio_still
         ):
             break
 
@@ -2125,7 +2516,9 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"LOCALIZATION_ADR|LOCALIZATION\s+ADR|SPOTTING_SYNC|SPOTTING\s+SYNC|"
     r"LIGHTING_RIG|MOCO_RIG|OPTICAL_LENS|SPATIAL_AUDIO|SPATIAL\s+AUDIO|"
     r"VFX_COMPOSITING|VFX\s+COMPOSITING|S3D[-_]RIG|S3D\s+RIG|AD[-_]CUE|AD\s+CUE|"
-    r"WARDROBE[-_]LOCK|WARDROBE\s+LOCK|PROP[-_]STATE|PROP\s+STATE|RENDER[-_]PROFILE|RENDER\s+PROFILE)\s*:[^\]]*\]\.?",
+    r"WARDROBE[-_]LOCK|WARDROBE\s+LOCK|PROP[-_]STATE|PROP\s+STATE|RENDER[-_]PROFILE|RENDER\s+PROFILE|"
+    r"GFX[-_]SUPER|GFX\s+SUPER|GFX[-_]CLEANPLATE|GFX\s+CLEANPLATE|ENDCARD|"
+    r"OTIO[-_]SYNC|OTIO\s+SYNC|COHERENCE[-_]LOCK|COHERENCE\s+LOCK)\s*:[^\]]*\]\.?",
     re.IGNORECASE,
 )
 

@@ -122,68 +122,6 @@ from omni_director.schemas import (
     VirtualProductionStageSpec,
     WindDriftVectorSpec,
 )
-from omni_director.tools.aicp_budget import calculate_aicp_top_sheet
-from omni_director.tools.clapper_slate import (
-    calculate_smpte12m_frames,
-    format_smpte12m_timecode,
-)
-from omni_director.tools.drone_flight import (
-    format_drone_flight_prompt_token,
-    synthesize_default_drone_flight,
-)
-from omni_director.tools.color_grade import get_preset_color_look
-from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
-from omni_director.tools.moco_kinematics import synthesize_default_moco_rig
-from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
-from omni_director.tools.spatial_audio import calculate_eyring_rt60, calculate_sabine_rt60
-from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
-from omni_director.tools.stripboard_scheduler import (
-    extract_script_breakdown_sheet,
-    generate_stripboard_schedule,
-)
-from omni_director.tools.vfx_compositor import generate_cryptomatte_manifest
-from omni_director.tools.virtual_production import synthesize_default_vp_stage
-from omni_director.tools.delivery_reframe import (
-    calculate_aspect_crop_window,
-    format_reframe_prompt_token,
-    synthesize_cutdown_versions,
-    synthesize_default_reframe_manifest,
-    synthesize_default_scene_reframe,
-)
-from omni_director.tools.broadcast_qc import (
-    LOUDNESS_STANDARDS,
-    evaluate_scene_pse_safety,
-    format_broadcast_qc_prompt_token,
-    synthesize_default_broadcast_qc_spec,
-    synthesize_default_scene_qc,
-    synthesize_rights_clearances,
-    validate_loudness_target,
-)
-from omni_director.tools.continuity_blocking import (
-    evaluate_180_axis_and_30_rule,
-    format_continuity_prompt_token,
-    synthesize_default_continuity_blocking,
-    synthesize_scene_blocking,
-)
-from omni_director.tools.review_notes import (
-    compile_review_note_to_delta,
-    format_review_prompt_token,
-    synthesize_default_client_review,
-    synthesize_scene_review_signoff,
-)
-from omni_director.tools.c2pa_provenance import (
-    IPTC_COMPOSITE_ALGORITHMIC_MEDIA,
-    IPTC_TRAINED_ALGORITHMIC_MEDIA,
-    format_c2pa_prompt_token,
-    synthesize_default_c2pa_provenance,
-    synthesize_scene_c2pa_provenance,
-)
-from omni_director.tools.safety_risk import (
-    assess_scene_hazards,
-    calculate_kinetic_exclusion_zone_m,
-    format_safety_prompt_token,
-    synthesize_default_safety_risk_spec,
-)
 
 DOMAIN_PRIORITY: List[str] = [
     "automotive_robotics",
@@ -643,6 +581,70 @@ def classify_brief_domain(brief_text: str) -> str:
             return domain
 
     return "architectural_sanctuary"
+
+
+from omni_director.tools.aicp_budget import calculate_aicp_top_sheet
+from omni_director.tools.clapper_slate import (
+    calculate_smpte12m_frames,
+    format_smpte12m_timecode,
+)
+from omni_director.tools.drone_flight import (
+    format_drone_flight_prompt_token,
+    synthesize_default_drone_flight,
+)
+from omni_director.tools.color_grade import get_preset_color_look
+from omni_director.tools.lighting_rig import synthesize_default_lighting_rig
+from omni_director.tools.moco_kinematics import synthesize_default_moco_rig
+from omni_director.tools.optical_lens import calculate_hyperfocal_distance, calculate_sensor_fov
+from omni_director.tools.spatial_audio import calculate_eyring_rt60, calculate_sabine_rt60
+from omni_director.tools.speed_ramp import synthesize_speed_ramp_curve
+from omni_director.tools.stripboard_scheduler import (
+    extract_script_breakdown_sheet,
+    generate_stripboard_schedule,
+)
+from omni_director.tools.vfx_compositor import generate_cryptomatte_manifest
+from omni_director.tools.virtual_production import synthesize_default_vp_stage
+from omni_director.tools.delivery_reframe import (
+    calculate_aspect_crop_window,
+    format_reframe_prompt_token,
+    synthesize_cutdown_versions,
+    synthesize_default_reframe_manifest,
+    synthesize_default_scene_reframe,
+)
+from omni_director.tools.broadcast_qc import (
+    LOUDNESS_STANDARDS,
+    evaluate_scene_pse_safety,
+    format_broadcast_qc_prompt_token,
+    synthesize_default_broadcast_qc_spec,
+    synthesize_default_scene_qc,
+    synthesize_rights_clearances,
+    validate_loudness_target,
+)
+from omni_director.tools.continuity_blocking import (
+    evaluate_180_axis_and_30_rule,
+    format_continuity_prompt_token,
+    synthesize_default_continuity_blocking,
+    synthesize_scene_blocking,
+)
+from omni_director.tools.review_notes import (
+    compile_review_note_to_delta,
+    format_review_prompt_token,
+    synthesize_default_client_review,
+    synthesize_scene_review_signoff,
+)
+from omni_director.tools.c2pa_provenance import (
+    IPTC_COMPOSITE_ALGORITHMIC_MEDIA,
+    IPTC_TRAINED_ALGORITHMIC_MEDIA,
+    format_c2pa_prompt_token,
+    synthesize_default_c2pa_provenance,
+    synthesize_scene_c2pa_provenance,
+)
+from omni_director.tools.safety_risk import (
+    assess_scene_hazards,
+    calculate_kinetic_exclusion_zone_m,
+    format_safety_prompt_token,
+    synthesize_default_safety_risk_spec,
+)
 
 
 def get_domain_color_look(domain: str) -> ColorLookSpec:
@@ -4001,6 +4003,281 @@ def get_domain_render_economics_spec(
     out["domain_archetype"] = resolved
     return out
 
+
+# ==============================================================================
+# PM-FEAT-033: Motion Graphics, Kinetic Typography & Brand End-Card Calibrations
+# ==============================================================================
+
+_DOMAIN_MOTION_GRAPHICS_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "primary_typeface": "Eurostile Next / Space Grotesk",
+        "secondary_typeface": "JetBrains Mono",
+        "animation_preset": "telemetry_precision_slide",
+        "composite_strategy": "post_comp_cleanplate",
+        "fill_hex": "#F8FAFC",
+        "bg_hex": "#090D16",
+        "scrim_opacity": 0.42,
+        "requires_legal": True,
+        "legal_copy": "Closed course. Professional driver. Do not attempt.",
+        "cleanplate_zone": "upper_left_third",
+        "max_wpm": 180.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.8,
+        "rationale": "High-velocity telemetry typography with mandatory closed-course legal disclaimer and 9:16 Reels/TikTok safe-zone clearance.",
+    },
+    "culinary_asmr": {
+        "primary_typeface": "Cormorant Garamond / Playfair Display",
+        "secondary_typeface": "Plus Jakarta Sans",
+        "animation_preset": "warm_organic_fade",
+        "composite_strategy": "post_comp_cleanplate",
+        "fill_hex": "#FFFDF7",
+        "bg_hex": "#16110D",
+        "scrim_opacity": 0.35,
+        "requires_legal": False,
+        "legal_copy": "Serving suggestion.",
+        "cleanplate_zone": "upper_left_third",
+        "max_wpm": 165.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.8,
+        "rationale": "Warm serif editorial typography preserving macro culinary cleanplates and unhurried ASMR reading cadence <= 165 WPM.",
+    },
+    "luxury_fashion": {
+        "primary_typeface": "Didot LT Pro / Bodoni Moda",
+        "secondary_typeface": "Inter Light",
+        "animation_preset": "editorial_silk_reveal",
+        "composite_strategy": "hybrid_alpha_matte",
+        "fill_hex": "#FAF8F5",
+        "bg_hex": "#0B0B0F",
+        "scrim_opacity": 0.32,
+        "requires_legal": False,
+        "legal_copy": "Atelier capsule edition.",
+        "cleanplate_zone": "upper_center_safe",
+        "max_wpm": 160.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.8,
+        "rationale": "Editorial high-fashion serif stack with hybrid alpha-matte lockup and portrait 9:16 negative-space clearance.",
+    },
+    "kinetic_action": {
+        "primary_typeface": "Druk Wide / Anton",
+        "secondary_typeface": "Roboto Condensed",
+        "animation_preset": "staccato_impact_snap",
+        "composite_strategy": "hybrid_alpha_matte",
+        "fill_hex": "#F8FAFC",
+        "bg_hex": "#0A0E17",
+        "scrim_opacity": 0.45,
+        "requires_legal": False,
+        "legal_copy": "Dramatization. Safety equipment used.",
+        "cleanplate_zone": "upper_left_third",
+        "max_wpm": 180.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.6,
+        "rationale": "High-impact condensed action display strictly capped at 180 WPM with high-opacity scrim legibility.",
+    },
+    "tech_hardware": {
+        "primary_typeface": "SF Pro Display / Inter",
+        "secondary_typeface": "IBM Plex Mono",
+        "animation_preset": "subpixel_razor_glide",
+        "composite_strategy": "native_macro_diegetic",
+        "fill_hex": "#F8FAFC",
+        "bg_hex": "#090D16",
+        "scrim_opacity": 0.38,
+        "requires_legal": True,
+        "legal_copy": "Sequences shortened. Screen images simulated.",
+        "cleanplate_zone": "upper_left_third",
+        "max_wpm": 175.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.8,
+        "rationale": "Subpixel geometric sans + mono specs with simulated-screen disclaimer and cleanroom 9:16 safe-zone lock.",
+    },
+    "architectural_sanctuary": {
+        "primary_typeface": "Canela / Instrument Serif",
+        "secondary_typeface": "DM Sans",
+        "animation_preset": "tranquil_luma_dissolve",
+        "composite_strategy": "post_comp_cleanplate",
+        "fill_hex": "#F7F6F2",
+        "bg_hex": "#101419",
+        "scrim_opacity": 0.30,
+        "requires_legal": False,
+        "legal_copy": "Architectural concept visualization.",
+        "cleanplate_zone": "upper_left_third",
+        "max_wpm": 155.0,
+        "safe_zone_9_16": {"x_min": 0.06, "x_max": 0.84, "y_min": 0.14, "y_max": 0.64},
+        "endcard_duration_sec": 2.8,
+        "rationale": "Serene architectural serif/sans pairing with tranquil luma dissolves and 2.8s balanced end-card sting.",
+    },
+}
+
+
+def get_domain_motion_graphics_spec(
+    archetype: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Any:
+    """Retrieve calibrated Motion Graphics, Typography & Brand End-Card parameters for a commercial domain (PM-FEAT-033)."""
+    if isinstance(archetype, MasterProductionBible):
+        from omni_director.tools.motion_graphics import (
+            compile_motion_graphics_manifest,
+            compute_effective_wpm,
+            format_motion_graphics_token,
+        )
+        from omni_director.tools.nle_export import _parse_scene_window, _seconds_to_smpte_frames
+
+        resolved = _normalize_domain_key(archetype)
+        cal = dict(_DOMAIN_MOTION_GRAPHICS_CALIBRATIONS[resolved])
+        manifest = compile_motion_graphics_manifest(archetype, domain_calibration=cal)
+
+        # Enforce calibrated 2.5s-3.0s BrandEndcardSpec window across Mode A (32s) and Mode B (40s)
+        ec_dur = float(manifest.endcard.duration_sec)
+        if ec_dur < 2.5 or ec_dur > 3.0:
+            clamped_dur = round(min(3.0, max(2.5, float(cal.get("endcard_duration_sec", 2.8)))), 2)
+            scenes = list(getattr(archetype, "scenes", None) or [])
+            total_scenes = max(1, len(scenes))
+            total_runtime = float(getattr(archetype, "total_runtime_seconds", 32) or 32)
+            tail_scene = scenes[-1] if scenes else None
+            if tail_scene is not None:
+                tail_start, tail_end = _parse_scene_window(tail_scene, total_scenes, total_scenes, total_runtime)
+            else:
+                tail_start, tail_end = max(0.0, total_runtime - 8.0), total_runtime
+            new_in_sec = round(max(tail_start, tail_end - clamped_dur), 2)
+            manifest.endcard.duration_sec = clamped_dur
+            manifest.endcard.audio_sting_sync_smpte = _seconds_to_smpte_frames(new_in_sec, fps=24)
+
+            if manifest.scene_graphics:
+                tail_gfx = manifest.scene_graphics[-1]
+                for cue in tail_gfx.cues:
+                    if getattr(cue.role, "value", cue.role) == "cta_endcard":
+                        cue.display_duration_sec = clamped_dur
+                        cue.in_smpte = _seconds_to_smpte_frames(new_in_sec, fps=24)
+                        cue.out_smpte = _seconds_to_smpte_frames(new_in_sec + clamped_dur, fps=24)
+                        wc, wpm = compute_effective_wpm(cue.copy_text, clamped_dur)
+                        cue.word_count = wc
+                        cue.effective_wpm = wpm
+                tail_gfx.gfx_prompt_token = format_motion_graphics_token(tail_gfx, endcard=manifest.endcard)
+                manifest.max_wpm_detected = round(
+                    max((c.effective_wpm for sg in manifest.scene_graphics for c in sg.cues), default=0.0),
+                    2,
+                )
+        return manifest
+
+    resolved = _normalize_domain_key(archetype if archetype is not None else "architectural_sanctuary")
+    cfg = _DOMAIN_MOTION_GRAPHICS_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["safe_zone_9_16"] = dict(cfg["safe_zone_9_16"])
+    out["endcard_spec"] = {
+        "duration_sec": float(cfg["endcard_duration_sec"]),
+        "min_duration_sec": 2.5,
+        "max_duration_sec": 3.0,
+        "logo_lockup_position": "center_upper_safe",
+        "background_plate_hex": cfg["bg_hex"],
+    }
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-034: OpenTimelineIO (.otio) & Cross-Department Coherence Calibrations
+# ==============================================================================
+
+_DOMAIN_OTIO_COHERENCE_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "focal_delta_mm_max": 8.0,
+        "t_stop_delta_max": 1.4,
+        "kelvin_delta_max": 500.0,
+        "max_wps": 2.5,
+        "lufs_delta_max": 2.5,
+        "max_bridge_sec": 3.0,
+        "max_wpm": 180.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "Strict optical focal (<=8mm) and Kelvin (<=500K) coherence for high-speed pursuit plates and cockpit HUDs.",
+    },
+    "culinary_asmr": {
+        "focal_delta_mm_max": 10.0,
+        "t_stop_delta_max": 1.5,
+        "kelvin_delta_max": 600.0,
+        "max_wps": 2.2,
+        "lufs_delta_max": 2.0,
+        "max_bridge_sec": 2.5,
+        "max_wpm": 165.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "Tight stem-to-spotting bounds (LUFS <=2.0dB, bridge <=2.5s, <=2.2 WPS) to protect delicate ASMR foley tails.",
+    },
+    "luxury_fashion": {
+        "focal_delta_mm_max": 12.0,
+        "t_stop_delta_max": 1.5,
+        "kelvin_delta_max": 800.0,
+        "max_wps": 2.4,
+        "lufs_delta_max": 2.5,
+        "max_bridge_sec": 3.0,
+        "max_wpm": 160.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "Enforces 9:16 portrait super/COI clearance alongside <=40s Mode B continuous editorial chain budget.",
+    },
+    "kinetic_action": {
+        "focal_delta_mm_max": 15.0,
+        "t_stop_delta_max": 2.0,
+        "kelvin_delta_max": 1200.0,
+        "max_wps": 2.5,
+        "lufs_delta_max": 3.0,
+        "max_bridge_sec": 3.0,
+        "max_wpm": 180.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "High-dynamic stunt & safety-JSA cross-gate calibrated for rapid parallel cuts and impact audio sync.",
+    },
+    "tech_hardware": {
+        "focal_delta_mm_max": 5.0,
+        "t_stop_delta_max": 1.0,
+        "kelvin_delta_max": 300.0,
+        "max_wps": 2.5,
+        "lufs_delta_max": 2.0,
+        "max_bridge_sec": 2.5,
+        "max_wpm": 175.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "Ultra-strict cleanroom optical (<=5mm, <=1.0 T-stop) and lighting Kelvin (<=300K) tolerances for macro hardware.",
+    },
+    "architectural_sanctuary": {
+        "focal_delta_mm_max": 10.0,
+        "t_stop_delta_max": 1.5,
+        "kelvin_delta_max": 600.0,
+        "max_wps": 2.0,
+        "lufs_delta_max": 2.5,
+        "max_bridge_sec": 2.5,
+        "max_wpm": 155.0,
+        "mode_b_max_sec": 40.0,
+        "require_9_16_super_clearance": True,
+        "rationale": "Locked architectural focal/Kelvin continuity and serene low-density audio spotting tolerances.",
+    },
+}
+
+
+def get_domain_otio_coherence_spec(
+    archetype: Optional[Union[MasterProductionBible, DomainArchetype, str]] = None,
+) -> Any:
+    """Retrieve calibrated OpenTimelineIO (.otio) & Cross-Department Coherence tolerances for a domain (PM-FEAT-034)."""
+    if isinstance(archetype, MasterProductionBible):
+        from omni_director.tools.otio_coherence import compile_otio_coherence_manifest
+
+        resolved = _normalize_domain_key(archetype)
+        cal = _DOMAIN_OTIO_COHERENCE_CALIBRATIONS[resolved]
+        numeric_tolerances = {
+            k: float(v)
+            for k, v in cal.items()
+            if isinstance(v, (int, float)) and not isinstance(v, bool)
+        }
+        return compile_otio_coherence_manifest(
+            archetype,
+            tolerances=numeric_tolerances,
+            auto_reconcile=True,
+        )
+
+    resolved = _normalize_domain_key(archetype if archetype is not None else "architectural_sanctuary")
+    out = dict(_DOMAIN_OTIO_COHERENCE_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -4670,6 +4947,8 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
             bible,
             max_budget_usd=max_budget,
         )
+    if not getattr(bible, "master_motion_graphics", None):
+        bible.master_motion_graphics = get_domain_motion_graphics_spec(bible)
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -4799,6 +5078,26 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
                 matched_econ = econ_scenes[idx - 1]
             if matched_econ is not None:
                 scene.compute_estimate_spec = matched_econ
+        if not getattr(scene, "motion_graphics_spec", None) and getattr(bible, "master_motion_graphics", None):
+            gfx_scenes = getattr(bible.master_motion_graphics, "scene_graphics", None) or []
+            matched_gfx = next(
+                (g for g in gfx_scenes if getattr(g, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_gfx is None and len(gfx_scenes) >= idx:
+                matched_gfx = gfx_scenes[idx - 1]
+            if matched_gfx is not None:
+                scene.motion_graphics_spec = matched_gfx
+
+    # Hydrate PM-FEAT-034 LAST so all 33 prior department specs are present for cross-department reconciliation
+    if not getattr(bible, "master_otio_coherence", None):
+        bible.master_otio_coherence = get_domain_otio_coherence_spec(bible)
+    else:
+        coherence_tok = getattr(bible.master_otio_coherence, "coherence_token", "")
+        if coherence_tok:
+            for sc in bible.scenes:
+                if not getattr(sc, "otio_sync_token", None):
+                    sc.otio_sync_token = coherence_tok
 
     return bible
 
@@ -4880,6 +5179,8 @@ def create_bible(
         bible.master_accessibility_spec = None
         bible.master_wardrobe_prop_bible = None
         bible.master_render_economics_spec = None
+        bible.master_motion_graphics = None
+        bible.master_otio_coherence = None
         for sc in bible.scenes:
             sc.locale_tracks = []
             sc.edit_bridge_in = None
@@ -4887,6 +5188,8 @@ def create_bible(
             sc.accessibility_spec = None
             sc.art_continuity_spec = None
             sc.compute_estimate_spec = None
+            sc.motion_graphics_spec = None
+            sc.otio_sync_token = None
     else:
         bible = MasterProductionBible(
             project_title=resolved_title,

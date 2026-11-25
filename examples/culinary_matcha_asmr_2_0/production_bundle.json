@@ -164,7 +164,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88].",
+        "omni_prose_prompt": "Wide establishing tracking shot. Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 100mm Macro Probe Lens with micro-fluidic pan and tilt with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Crisp blade cutting through textured crust and Subtle simmering bubble pops. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. [GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -1128,13 +1128,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1147,7 +1147,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1160,7 +1160,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1173,7 +1173,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1477,7 +1477,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Artisanal Japanese Culinary Ceremonial M",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "warm_organic_fade",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Cormorant Garamond / Playfair Display",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#FFFDF7",
+                "backdrop_scrim_opacity": 0.35,
+                "wcag_contrast_ratio": 17.19
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 2,
@@ -1525,7 +1567,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED].",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Artisanal Japanese culinary ceremonial matcha preparation ASMR sequence inside a minimalist tea kitchen. Macro 100mm lens tracks vibrant green matcha powder sifting into a textured black ceramic bowl, followed by hot water pouring and a bamboo chasen whisk rapidly frothing dense emerald foam with tactile acoustic clicks.. Maintaining continuity with keyframe <image_3>. 100mm Macro Probe Lens with micro-fluidic pan and tilt maneuver at eye-level with Warm 3200K tungsten backlight emphasizing surface steam and glistening oils. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Crisp blade cutting through textured crust and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,ja-JP,es-419,da-DK sync=1.00x wps=2.00 supers=tight_wrap]. [SPOTTING_SYNC: bpm=68 bridge=jl_overlap jcut=20f lcut=12f beat_offset=-7f]. [S3D-RIG: 15.0mm IO | Conv: 0.55m | +Parallax: 1.50% | fmt=mv_hevc]. [AD-CUE: \"Artisanal Japanese Culinary Cere\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Master Artisanal Chef / Tea Master:LOOK_A(crisp_starched)][PROP-STATE: PROP_KNIFE_01=weathered@end_grain_walnut_block | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Artisanal Japanese Culinary Ceremonial]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) bolt_cinebot rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Warm Kodak 5219 Vision3 emulation (kodak_5219_vision3 emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Binaural Hrtf, RT60=0.25s (Marble Glass), Objects: obj_knife_slice_contact (az:-10°, el:-5°, 0.3m); obj_cast_iron_sizzle (az:+20°, el:-10°, 0.5m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (PIZ, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.1m-5.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: ARIB STD-B67 HLG, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 920 nits, MaxFALL: 310 nits]. [1st AD Breakdown: INT. DAY (White Strip), 4/8 pgs, Location: A MINIMALIST TEA KITCHEN, Cast: 1, Props: lens]. [CLAPPER_SLATE: Scene 2, Take 1, Roll A02/SR02, Cam A 24.0fps, INT DAY, Filter Clear / Linear Polarizer, 180.0° Shutter, TC 01:00:10:00]. [DRONE_FLIGHT: RIG=cable_cam_hybrid ALT=1-3m PROFILE=indoor_slow_orbital_reveal GIMBAL_PITCH=-38° SPEED=1.5mps WIND=0kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.48) | static_lock | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=static_centered scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=04120a3f]. [SAFETY_JSA: risk=moderate exclusion=10.0m hazards=3 status=MITIGATED].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -2488,13 +2530,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2507,7 +2549,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2520,7 +2562,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2533,7 +2575,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2838,7 +2880,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Artisanal Japanese Culinary Ceremonial · omni.studio/artisanaljapanesec",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "warm_organic_fade",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Cormorant Garamond / Playfair Display",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#FFFDF7",
+                "backdrop_scrim_opacity": 0.35,
+                "wcag_contrast_ratio": 17.19
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Artisanal Japanese Culinary Ceremonial]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       }
     ],
     "domain_archetype": "culinary_asmr",
@@ -3686,7 +3770,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-24T09:40:11.097557+00:00",
+        "creation_date": "2026-11-25T10:03:48.503634+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3694,7 +3778,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-24T09:40:11.097541+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.503620+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3702,7 +3786,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-24T09:40:11.097554+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.503631+00:00"
           }
         ]
       }
@@ -3758,7 +3842,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Artisanal Japanese Culinary Ceremonial M",
-        "creation_date": "2026-11-24T09:40:11.097557+00:00",
+        "creation_date": "2026-11-25T10:03:48.503634+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3766,7 +3850,7 @@
             "xxhash64": "9e4da76b3779cac8",
             "sha1": "797042c271b4e7662ecd473a5e8a003233b60094",
             "md5": "20a6cf1e65a6f0462e8eab05bbfc21d0",
-            "hash_timestamp": "2026-11-24T09:40:11.097541+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.503620+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3774,7 +3858,7 @@
             "xxhash64": "878e85010224a769",
             "sha1": "f55f1b4a8e3e093dc76c0efd5ba1e227dc40e188",
             "md5": "de765bb3eacdf579e0c7116ec82362fe",
-            "hash_timestamp": "2026-11-24T09:40:11.097554+00:00"
+            "hash_timestamp": "2026-11-25T10:03:48.503631+00:00"
           }
         ]
       }
@@ -8697,7 +8781,7 @@
     "master_c2pa_provenance": {
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8706,7 +8790,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8719,7 +8803,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8732,7 +8816,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8745,7 +8829,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8817,13 +8901,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8836,7 +8920,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8849,7 +8933,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8862,7 +8946,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8928,13 +9012,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8947,7 +9031,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8960,7 +9044,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8973,7 +9057,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9035,7 +9119,7 @@
     "c2pa_provenance": {
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9044,7 +9128,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9057,7 +9141,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9070,7 +9154,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9083,7 +9167,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9155,13 +9239,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9174,7 +9258,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9187,7 +9271,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9200,7 +9284,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9266,13 +9350,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9285,7 +9369,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9298,7 +9382,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9311,7 +9395,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9373,7 +9457,7 @@
     "content_credentials": {
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9382,7 +9466,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9395,7 +9479,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9408,7 +9492,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9421,7 +9505,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9493,13 +9577,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9512,7 +9596,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9525,7 +9609,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9538,7 +9622,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9604,13 +9688,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9623,7 +9707,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9636,7 +9720,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9649,7 +9733,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9711,7 +9795,7 @@
     "provenance_manifest": {
       "project_title": "Artisanal Japanese Culinary Ceremonial M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:3ab6a1bed9e9",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9720,7 +9804,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9733,7 +9817,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9746,7 +9830,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9759,7 +9843,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9831,13 +9915,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9850,7 +9934,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9863,7 +9947,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9876,7 +9960,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9942,13 +10026,13 @@
           "scene_title": "Artisanal Japanese Culinary Ceremonial M - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9961,7 +10045,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9974,7 +10058,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9987,7 +10071,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -11793,6 +11877,260 @@
       "total_planned_takes": 6,
       "total_video_seconds_planned": 30,
       "dry_run_billable_usd": 0.0
+    },
+    "master_motion_graphics": {
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "domain_archetype": "culinary_asmr",
+      "primary_typeface": "Cormorant Garamond / Playfair Display",
+      "secondary_typeface": "Plus Jakarta Sans",
+      "endcard": {
+        "duration_sec": 2.8,
+        "logo_lockup_position": "center_upper_safe",
+        "cta_headline": "Artisanal Japanese Culinary Ceremonial",
+        "cta_subcopy": "Engineered for Culinary Asmr",
+        "url_or_qr_label": "omni.studio/artisanaljapanesec",
+        "audio_sting_sync_smpte": "00:00:07:05",
+        "background_plate_hex": "#1C1917",
+        "reserved_tail_scene_index": 2
+      },
+      "scene_graphics": [
+        {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Artisanal Japanese Culinary Ceremonial M",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "warm_organic_fade",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Cormorant Garamond / Playfair Display",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#FFFDF7",
+                "backdrop_scrim_opacity": 0.35,
+                "wcag_contrast_ratio": 17.19
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Artisanal Japanese Culinary Ceremonial · omni.studio/artisanaljapanesec",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "warm_organic_fade",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Cormorant Garamond / Playfair Display",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#FFFDF7",
+                "backdrop_scrim_opacity": 0.35,
+                "wcag_contrast_ratio": 17.19
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Artisanal Japanese Culinary Ceremonial]",
+          "legibility_score": 100.0
+        }
+      ],
+      "total_cues_count": 2,
+      "max_wpm_detected": 150.0,
+      "all_safe_zones_cleared": true,
+      "legal_supers_compliant": true
+    },
+    "master_otio_coherence": {
+      "schema_version": "OTIO_0.16_COMPAT",
+      "project_title": "Artisanal Japanese Culinary Ceremonial M",
+      "domain_archetype": "culinary_asmr",
+      "fps": 24.0,
+      "total_frames": 240,
+      "tracks": [
+        {
+          "track_name": "V1_Picture_Master",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 13,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "V2_VFX_GFX_Overlay",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 2,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A1_Dialogue",
+          "kind": "Audio",
+          "clip_count": 0,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A2_Foley_SFX",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A3_Ambience",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A4_Music_Score",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 1,
+          "total_frames_24fps": 272
+        },
+        {
+          "track_name": "A5_Audio_Description",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 2,
+          "total_frames_24fps": 240
+        }
+      ],
+      "coherence_checks": [
+        {
+          "check_id": "CHK-01-OPTICS-DOF",
+          "pair": "optics_vs_dof",
+          "status": "pass",
+          "source_spec": "master_lens_package / scene.optical_lens",
+          "target_spec": "master_dof_spec / scene.dof_spec",
+          "delta_summary": "Max optical delta: 0.0mm focal, 1.4 T-stop",
+          "measured_value": "0.0mm / 1.4T",
+          "expected_bound": "<= 10.0mm / <= 1.5T",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-02-KELVIN-BLOCKING",
+          "pair": "lighting_kelvin_vs_blocking",
+          "status": "pass",
+          "source_spec": "master_lighting_rig",
+          "target_spec": "master_continuity_blocking",
+          "delta_summary": "Rig=5600K, max Kelvin delta=0K",
+          "measured_value": "0K",
+          "expected_bound": "<= 600K",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-03-AUDIO-SPOTTING",
+          "pair": "audio_stems_vs_spotting",
+          "status": "pass",
+          "source_spec": "master_audio_mixer / master_broadcast_qc",
+          "target_spec": "spotting_manifest / diegetic_sonic",
+          "delta_summary": "LUFS delta=0.0, max_wps=0.00, max_bridge=1.33s",
+          "measured_value": "LUFS 0.0 / 0.00 WPS",
+          "expected_bound": "LUFS <= 2.0 / WPS <= 2.2",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-04-REFRAME-GRAPHICS",
+          "pair": "reframe_vs_graphics_blocking",
+          "status": "pass",
+          "source_spec": "master_reframe_manifest",
+          "target_spec": "master_motion_graphics",
+          "delta_summary": "All motion-graphic supers clear 9:16 TikTok/Reels and 16:9 safe zones",
+          "measured_value": "9:16+16:9 CLEAR",
+          "expected_bound": "y in [0.14, 0.64], x in [0.06, 0.80], 9:16 cleared",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-05-MODEB-ECONOMICS",
+          "pair": "mode_b_vs_runtime_economics",
+          "status": "pass",
+          "source_spec": "storytelling_mode / total_runtime_seconds",
+          "target_spec": "master_render_economics_spec.guardrail",
+          "delta_summary": "Mode=Mode A: Parallel Multi-Scene Cut (Montage), runtime=10s, render_est=$7.75/$50.00",
+          "measured_value": "10s / $7.75",
+          "expected_bound": "Mode B <= 40s & est <= $50.00",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-06-AICP-COMPUTE",
+          "pair": "aicp_post_vs_render_compute",
+          "status": "pass",
+          "source_spec": "master_aicp_bid (Sections J-L)",
+          "target_spec": "master_render_economics_spec",
+          "delta_summary": "AICP post allocation=$14820.00 vs AI compute estimate=$7.75",
+          "measured_value": "$14820.00",
+          "expected_bound": ">= $7.75",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-07-C2PA-SAFETY",
+          "pair": "c2pa_vs_cast_safety",
+          "status": "pass",
+          "source_spec": "master_c2pa_provenance (2026 Model Matrix)",
+          "target_spec": "master_broadcast_qc / master_safety_risk",
+          "delta_summary": "c2pa_ok=True, legacy_hit=False, qc_legal_ok=True, safety_ok=True",
+          "measured_value": "CLEARED",
+          "expected_bound": "2026 Model Matrix + consents + QC + JSA cleared",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        }
+      ],
+      "coherence_score": 100.0,
+      "conflicts_count": 0,
+      "warnings_count": 0,
+      "otio_sha256": "c3db552fb8a8dde963e2e71c31f8abff9179e2ce1829fb3e89ef81b4f1da86e0",
+      "shoot_day_ready": true,
+      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
     }
   },
   "storyboard_html_path": "examples/culinary_matcha_asmr_2_0/storyboard_preview.html",
@@ -11896,6 +12234,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -11917,7 +12261,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 2,
@@ -12002,6 +12348,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Artisanal Japanese Culinary Ceremonial]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=c3db552fb8a8][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12064,14 +12416,16 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "b8c275f8-b3d3-4775-b5e2-65850efee03c",
+    "session_id": "ac2c3405-900e-40d3-bc26-8f00dd2e6ecb",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-24T09:40:11.094102+00:00",
+    "timestamp": "2026-11-25T10:03:48.500367+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -12081,81 +12435,87 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-24T09:40:11.094125+00:00",
-        "end_time": "2026-11-24T09:40:11.094846+00:00",
-        "duration_ms": 0.72,
+        "start_time": "2026-11-25T10:03:48.500386+00:00",
+        "end_time": "2026-11-25T10:03:48.501137+00:00",
+        "duration_ms": 0.75,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-24T09:40:11.094866+00:00",
-        "end_time": "2026-11-24T09:40:11.100653+00:00",
-        "duration_ms": 5.79,
+        "start_time": "2026-11-25T10:03:48.501154+00:00",
+        "end_time": "2026-11-25T10:03:48.514234+00:00",
+        "duration_ms": 13.08,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-24T09:40:11.100681+00:00",
-        "end_time": "2026-11-24T09:40:11.103652+00:00",
-        "duration_ms": 2.97,
+        "start_time": "2026-11-25T10:03:48.514275+00:00",
+        "end_time": "2026-11-25T10:03:48.516044+00:00",
+        "duration_ms": 1.77,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-24T09:40:11.103666+00:00",
-        "end_time": "2026-11-24T09:40:11.103858+00:00",
-        "duration_ms": 0.19,
+        "start_time": "2026-11-25T10:03:48.516071+00:00",
+        "end_time": "2026-11-25T10:03:48.516439+00:00",
+        "duration_ms": 0.37,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-24T09:40:11.103867+00:00",
-        "end_time": "2026-11-24T09:40:11.113323+00:00",
-        "duration_ms": 9.45,
+        "start_time": "2026-11-25T10:03:48.516452+00:00",
+        "end_time": "2026-11-25T10:03:48.528448+00:00",
+        "duration_ms": 11.99,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-24T09:40:11.113351+00:00",
-        "end_time": "2026-11-24T09:40:11.113361+00:00",
+        "start_time": "2026-11-25T10:03:48.528477+00:00",
+        "end_time": "2026-11-25T10:03:48.528484+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-24T09:40:11.113368+00:00",
-        "end_time": "2026-11-24T09:40:11.135008+00:00",
-        "duration_ms": 21.64,
+        "start_time": "2026-11-25T10:03:48.528491+00:00",
+        "end_time": "2026-11-25T10:03:48.553532+00:00",
+        "duration_ms": 25.04,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-24T09:40:11.187698+00:00",
-        "end_time": "2026-11-24T09:40:11.289776+00:00",
-        "duration_ms": 102.08,
+        "start_time": "2026-11-25T10:03:48.600473+00:00",
+        "end_time": "2026-11-25T10:03:48.698881+00:00",
+        "duration_ms": 98.41,
         "details": {}
       }
     ],
-    "total_duration_ms": 142.85,
+    "total_duration_ms": 151.42,
     "audit_summary": {
       "estimated_total_compute_usd": 7.7504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9951,
       "total_planned_takes": 6,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 2,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 7.7504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.9951,
       "total_planned_takes": 6,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 2,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "4587e15b5ae0f3db5e066279e4a6b19ffacd4a00eee42110027880c3c0f37088",
-      "storyboard_preview.html": "769436322f7fe98087d17a34727ad6d6ab9e0535ec54c404928fcb246bbaaaa6",
-      "council_report.json": "4a52afc199ff7fa227e8d6f95d71613d6cf5bc81b15f923f4e84397a70711a63",
-      "council_report.md": "29b46f41c49edfc23b7ad1e82b80a02048d80225e82f320e46bfe08c2771f9eb",
+      "production_bundle.json": "31f87992a572f3d68e6f0f278ce465ab424e14223e87e6c1c1470909b747e76b",
+      "storyboard_preview.html": "09eecc0797ec9e3f0c9bd163838b72d9c03ae0742a17ef150e7946229f515b18",
+      "council_report.json": "938e3308cea8933959e2e986d96ca6f8b9063a80c69d0b63fe8eaddceb7a0422",
+      "council_report.md": "a8f216dc5567e5b2ae0328d201315e18586ba27cede09127513fbc4d94f79992",
       "timeline.edl": "e0f648bbbe8b7425541ae21ed22f2e84746bcf64c68326930939d3d591de3631",
       "sequence.fcpxml": "5ce80edf7b4f5340dc42efc8946030b181cdc4dfd29bec60bc0f026171701aa6",
       "shot_list.csv": "0e706fad976638a8d1159bab3a6bcf0bb87514321aa206f958dac50111e57c68",
@@ -12207,12 +12567,12 @@
       "film_emulation_spec.json": "f3dbcc3ed70f5e39642e358be0238233657b39f909d166045bbcab4d436f2e59",
       "film_stock_shader.dctl": "1ea6862506fc6c86278eaec36ac5ba335b731101ba2c7cddf5c1564f33a2511f",
       "film_stock.ale": "81b997b2dcbf38a121d5170f1d714addea36674da5619acb88acb6f8e2b1e27a",
-      "slate_manifest.json": "aa9d61dea72739f4d887b7047df4ce7fba993a4b128764a07c9073ca74923c2a",
-      "asc_mhl_manifest.xml": "d536ae10b4fa19ccc56936641b478d2f9d342f9ed7306413b25e9e821b18dd6e",
+      "slate_manifest.json": "6fb82ff0db71c7cb2fe2990f6897033ae502daa196b9f7f0e9e3849cce23ef1b",
+      "asc_mhl_manifest.xml": "285f6079c6dde6b8361c9bd8be44c7e7eb923b1d5d6203d16910900a4edd1d75",
       "clapper_slate_log.csv": "ccf028e61e3f77e7c2df55c893ed3baa533fbe651d0d2fd49d50a6317bb615ce",
       "sound_sync.ale": "f4e39639602ec201831c2f3c17bb5c6b9154e5ff3a3efb297fd318416b624127",
       "flight_path.kml": "0b8b4cdb8d1d493e35e74a6a65d0b3e598f9094f4f4ec20ec8ea2c9a2faea55d",
-      "flight_waypoints.gpx": "9d7790bdc35b32ca59bd3a52edccafb59b38ecd6296652f3290c8fef62f48b78",
+      "flight_waypoints.gpx": "15dda44f2c0296f8585db92e8691101bcf945af638795e55f6a19cea830f4c9a",
       "drone_flight_sheet.csv": "968196ff225755371cf8ad691e4e8ddde4ddc537105ba83e88429573c71c880c",
       "drone_flight_sheet.md": "7eba0018960ff4bc0b8e7d38ceba417b38327ffee79a1e6d921133f3fa317389",
       "drone_flight_manifest.json": "67cdc9b335721788910822f45dd532b1e115c89199c0f1d16c502d83517f89a8",
@@ -12235,8 +12595,8 @@
       "review_notes_frameio.json": "33de1850a13910ca07d95abd160f18328d7885b599a2ec3f3e9ccefc14bc242d",
       "review_notes.csv": "5228179e0795a1c6e14ee43d1ec4961bb7e824e111011f910309a209ee228584",
       "client_signoff_report.md": "6610d5ec40a81e9fe88949d70bebbc332baabd791030f1d08d9b93b83c3e4e18",
-      "c2pa_manifest.json": "58e02f6678885bfc699ec46c8b80ca56a90796cdffe58a273bf2fd8d02253eb4",
-      "ai_disclosure_certificate.md": "c427f98adb0ecb643e27cbfe737a2c551f3b2f7d05a09673b396ac801b89e432",
+      "c2pa_manifest.json": "7afba27a3fa9fb01832f4baf533f05d46639a4582bcdcd353a8f3b658a2f6d82",
+      "ai_disclosure_certificate.md": "fc503e6ef710ba6c4624746c2c2f6213b67f93af8b6fe773104dcb2a81942b6d",
       "likeness_consent_ledger.csv": "16dc8fe772d0a45d69d3b44759b6c52f0171bc5b4fadf641215baf5aeea3c1b4",
       "safety_bulletin.md": "102f734ab07eb5b1b673db9d7c874b93bfa12618596d99ce703c39900a163e92",
       "safety_jsa_matrix.csv": "c9cd4c925356e0f59114f2b403dbdf438376a82fdc2176d9332551c48912dda5",
@@ -12253,7 +12613,13 @@
       "subtitles_ad.vtt": "ef2507eb3f720c83b8f1d81e889fbe9002c4cc8f37b476d0afe9aae0dc38d291",
       "ad_script_cue_sheet.csv": "367b4ae9ddcb1e008937ab182b28db09de246093d9ad574aebc366a0b4d2a73a",
       "accessibility_ad_manifest.json": "d7e8f42735b88932b2457417cb6ebe9683d0744a0350894c2e86a1106e072a8c",
-      "council_audit_report.json": "4a52afc199ff7fa227e8d6f95d71613d6cf5bc81b15f923f4e84397a70711a63",
+      "wardrobe_prop_bible.json": "b9f3809a71c547a7c12530020d0469347c4a64e4365c84f06ab2b6c7dd13b429",
+      "prop_continuity_matrix.csv": "e1b83773b14ab7a5f76eb3341693ef157ce1f42c22e1b98af064841a1bd2c4d8",
+      "art_dept_pull_list.md": "6a45d6bebae41bd5fb40b95d6fb7bd51e393b39a646a08b725245a712329e010",
+      "render_economics_manifest.json": "7d034a492ca308f9e21005c07fd9a7e3ad0504393d2ea706a7a26219d206a7d9",
+      "take_variant_ledger.csv": "095f000cd68ba8218756f4924911a46bbb2499c204803cf310140a1db573ffb7",
+      "ai_compute_estimate.md": "5cdd6b0d478e39825ea978acf67b740bfe3b548cd8e46b9032a8707f67dfe512",
+      "council_audit_report.json": "938e3308cea8933959e2e986d96ca6f8b9063a80c69d0b63fe8eaddceb7a0422",
       "storyboards/anchor1_character_turnaround.svg": "49ac46caa0989d8e794c7b6a3ad955ef0bdac50829f056bffcac8d0d99327318",
       "storyboards/anchor2_environment_master.svg": "5996c07b6c1d1cc8a7ae5b336a2f98054b926655c1e957d2331bd774287c67bc",
       "storyboards/anchor3_scene_1_keyframe.svg": "e59e554ef651f1f3ca069cec3a26f410cff48ac0b8bda32f0454fd83e4e8d775",
@@ -12273,9 +12639,9 @@
     }
   },
   "council_report": {
-    "version": "2.16.0",
+    "version": "2.17.0",
     "project_title": "Artisanal Japanese Culinary Ceremonial M",
-    "timestamp": "2026-11-24T09:40:11.285704+00:00",
+    "timestamp": "2026-11-25T10:03:48.693931+00:00",
     "overall_score": 98.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -12587,13 +12953,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "wardrobe_prop_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
-            "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+            "message": "Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "wardrobe_artifacts": [
                 "wardrobe_prop_bible.json",
                 "prop_continuity_matrix.csv",
                 "art_dept_pull_list.md"
@@ -12601,16 +12967,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "render_economics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
-            "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+            "message": "Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "economics_artifacts": [
                 "render_economics_manifest.json",
                 "take_variant_ledger.csv",
                 "ai_compute_estimate.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "motion_graphics_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "motion_graphics_mogrt.json",
+                "broadcast_supers.ass",
+                "brand_endcard_spec.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "otio_coherence_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "production_timeline.otio",
+                "coherence_matrix.json",
+                "coherence_readiness_report.md"
               ]
             }
           },
@@ -12729,9 +13123,32 @@
               ],
               "dry_run_billable_usd": 0.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "motion_graphics_schema",
+            "message": "MasterMotionGraphicsManifest verified (2 cues, max_wpm=150.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_cues_count": 2,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=c3db552fb8a8..., coherence_score=100.0, shoot_day_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "schema_version": "OTIO_0.16_COMPAT",
+              "track_count": 7,
+              "otio_sha256_prefix": "c3db552fb8a8"
+            }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 33 findings."
+        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -12941,6 +13358,22 @@
           },
           {
             "severity": "info",
+            "category": "motion_graphics_schema_compliance",
+            "message": "Motion Graphics & Safe-Zone Gate verified across 2 scene(s) (max_wpm=150.0 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema_compliance",
+            "message": "OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_spotting_advisory",
             "message": "Scene(s) [2] within half-beat BPM tolerance (beat_alignment_score >= 70%).",
             "remediation": null,
@@ -12967,6 +13400,14 @@
             "severity": "info",
             "category": "audit_report_art_and_economics_compliance",
             "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_gfx_and_otio_compliance",
+            "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13336,6 +13777,32 @@
           },
           {
             "severity": "info",
+            "category": "domain_motion_graphics_calibration",
+            "message": "Motion graphics & Brand End-Card calibrated for domain 'culinary_asmr' (typeface='Cormorant Garamond / Playfair Display', endcard=2.80s, max_wpm=150.0, 9:16_clear=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "primary_typeface": "Cormorant Garamond / Playfair Display",
+              "endcard_duration_sec": 2.8,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_otio_coherence_readiness",
+            "message": "OTIO 7-track cross-department coherence verified for domain 'culinary_asmr' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=10.0mm, kelvin_tol<=600.0K).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "culinary_asmr",
+              "shoot_day_ready": true,
+              "coherence_score": 100.0,
+              "conflicts_count": 0
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'culinary_asmr' matches strategic brief classification.",
             "remediation": null,
@@ -13564,6 +14031,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_motion_graphics_hud",
+            "message": "Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_otio_coherence_hud",
+            "message": "OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -13581,7 +14064,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13612,6 +14095,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_eq_quote",
+            "message": "Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($158,002.24 matches master_aicp_bid).",
             "remediation": null,
@@ -13623,8 +14114,8 @@
       }
     ],
     "recommendations": [
-      "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-      "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
     ],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
@@ -14130,6 +14621,50 @@
           "omni_director/tools/html_hud_v216.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-033",
+        "title": "Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+        "problem_statement": "Broadcast and vertical social deliverables for 'Artisanal Japanese Culinary Ceremonial M' risk failing readability and safe-zone clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards.",
+        "proposed_solution": "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/motion_graphics.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-034",
+        "title": "Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+        "problem_statement": "Complex multi-department productions for 'Artisanal Japanese Culinary Ceremonial M' lack a unified ASWF OpenTimelineIO 0.16 (Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA.",
+        "proposed_solution": "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/otio_coherence.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
           "omni_director/telemetry.py"
         ],
         "priority": "P0",

@@ -164,7 +164,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with Russian Arm 28mm Anamorphic with dynamic low-angle tracking with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous High-torque electric motor whine and Mechanical robotic servo snaps. [LOCALIZATION_ADR: locales=en-US,de-DE,ja-JP,zh-CN,es-419 sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=130 bridge=j_cut jcut=15f lcut=6f beat_offset=-2f]. [S3D-RIG: 65.0mm IO | Conv: 13.25m | +Parallax: 2.40% | fmt=mv_hevc]. [AD-CUE: \"Cyberpunk Neon-Lit High-Speed El\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Lead Test Pilot / Telematics Specialist:LOOK_A(dry_tailored)][PROP-STATE: PROP_KEYFOB_01=weathered@cockpit_console | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88].",
+        "omni_prose_prompt": "Wide establishing tracking shot. Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with Russian Arm 28mm Anamorphic with dynamic low-angle tracking with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous High-torque electric motor whine and Mechanical robotic servo snaps. [LOCALIZATION_ADR: locales=en-US,de-DE,ja-JP,zh-CN,es-419 sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=130 bridge=j_cut jcut=15f lcut=6f beat_offset=-2f]. [S3D-RIG: 65.0mm IO | Conv: 13.25m | +Parallax: 2.40% | fmt=mv_hevc]. [AD-CUE: \"Cyberpunk Neon-Lit High-Speed El\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Lead Test Pilot / Telematics Specialist:LOOK_A(dry_tailored)][PROP-STATE: PROP_KEYFOB_01=weathered@cockpit_console | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. [GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -485,7 +485,7 @@
         },
         "dof_spec": {
           "focus_style": "Dynamic deep focus",
-          "aperture_t_stop": 5.6,
+          "aperture_t_stop": 2.0,
           "focal_length_mm": 24,
           "iris_geometry": "circular iris",
           "depth_character": "hyperfocal tracking",
@@ -1151,13 +1151,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1170,7 +1170,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1183,7 +1183,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1196,7 +1196,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1489,7 +1489,81 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Cyberpunk Neon-Lit High-Speed Electric M",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Eurostile Next / Space Grotesk",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            },
+            {
+              "cue_id": "GFX_SC01_LEGAL",
+              "scene_index": 1,
+              "role": "legal_disclaimer",
+              "copy_text": "Closed course. Professional driver. Do not attempt.",
+              "word_count": 7,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 140.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "lower_safe_band",
+                "normalized_x": 0.1,
+                "normalized_y": 0.6,
+                "max_width_pct": 66.0,
+                "font_family": "JetBrains Mono",
+                "font_weight": 500,
+                "min_font_px_1080p": 20,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       },
       {
         "scene_index": 2,
@@ -1537,7 +1611,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Maintaining continuity with keyframe <image_3>. Russian Arm 28mm Anamorphic with dynamic low-angle tracking maneuver at eye-level with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate High-torque electric motor whine and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,de-DE,ja-JP,zh-CN,es-419 sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=130 bridge=j_cut jcut=15f lcut=6f beat_offset=-2f]. [S3D-RIG: 65.0mm IO | Conv: 13.25m | +Parallax: 2.40% | fmt=mv_hevc]. [AD-CUE: \"Cyberpunk Neon-Lit High-Speed El\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Lead Test Pilot / Telematics Specialist:LOOK_A(dry_tailored)][PROP-STATE: PROP_KEYFOB_01=weathered@cockpit_console | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88].",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Cyberpunk neon-lit high-speed electric motorcycle pursuit through rain-slicked Tokyo alleyways with holographic advertisements, tactile throttle friction, and reflective asphalt puddles.. Maintaining continuity with keyframe <image_3>. Russian Arm 28mm Anamorphic with dynamic low-angle tracking maneuver at eye-level with Cool 6500K high-contrast industrial LED with sharp metallic rim highlights. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate High-torque electric motor whine and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,de-DE,ja-JP,zh-CN,es-419 sync=1.00x wps=2.50 supers=tight_wrap]. [SPOTTING_SYNC: bpm=130 bridge=j_cut jcut=15f lcut=6f beat_offset=-2f]. [S3D-RIG: 65.0mm IO | Conv: 13.25m | +Parallax: 2.40% | fmt=mv_hevc]. [AD-CUE: \"Cyberpunk Neon-Lit High-Speed El\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Lead Test Pilot / Telematics Specialist:LOOK_A(dry_tailored)][PROP-STATE: PROP_KEYFOB_01=weathered@cockpit_console | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Cyberpunk Neon-Lit High-Speed Electric]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -1858,7 +1932,7 @@
         },
         "dof_spec": {
           "focus_style": "Dynamic deep focus",
-          "aperture_t_stop": 5.6,
+          "aperture_t_stop": 2.0,
           "focal_length_mm": 24,
           "iris_geometry": "circular iris",
           "depth_character": "hyperfocal tracking",
@@ -2523,13 +2597,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2542,7 +2616,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2555,7 +2629,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2568,7 +2642,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2862,7 +2936,49 @@
             }
           ],
           "render_profile_token": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]"
-        }
+        },
+        "motion_graphics_spec": {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Cyberpunk Neon-Lit High-Speed Electric · omni.studio/cyberpunkneonlithi",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Eurostile Next / Space Grotesk",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Cyberpunk Neon-Lit High-Speed Electric]",
+          "legibility_score": 100.0
+        },
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
       }
     ],
     "domain_archetype": "automotive_robotics",
@@ -3149,7 +3265,7 @@
     },
     "master_dof_spec": {
       "focus_style": "Dynamic deep focus",
-      "aperture_t_stop": 5.6,
+      "aperture_t_stop": 2.0,
       "focal_length_mm": 24,
       "iris_geometry": "circular iris",
       "depth_character": "hyperfocal tracking",
@@ -3157,7 +3273,7 @@
     },
     "dof_spec": {
       "focus_style": "Dynamic deep focus",
-      "aperture_t_stop": 5.6,
+      "aperture_t_stop": 2.0,
       "focal_length_mm": 24,
       "iris_geometry": "circular iris",
       "depth_character": "hyperfocal tracking",
@@ -3748,7 +3864,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-24T09:40:09.943830+00:00",
+        "creation_date": "2026-11-25T10:03:47.408159+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3756,7 +3872,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-24T09:40:09.943810+00:00"
+            "hash_timestamp": "2026-11-25T10:03:47.408147+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3764,7 +3880,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-24T09:40:09.943827+00:00"
+            "hash_timestamp": "2026-11-25T10:03:47.408156+00:00"
           }
         ]
       }
@@ -3820,7 +3936,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-        "creation_date": "2026-11-24T09:40:09.943830+00:00",
+        "creation_date": "2026-11-25T10:03:47.408159+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3828,7 +3944,7 @@
             "xxhash64": "da7ed89d863c1524",
             "sha1": "a5d258bf9b9e5ee8eee0c0ab3c4f6983feb1ff86",
             "md5": "f30b3fa2fbaa83b6a72d70e80184ed2d",
-            "hash_timestamp": "2026-11-24T09:40:09.943810+00:00"
+            "hash_timestamp": "2026-11-25T10:03:47.408147+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3836,7 +3952,7 @@
             "xxhash64": "c576bc3f88b50a70",
             "sha1": "6e3cb39865b6f7895f21a2c0a40f8e22b92f8ce5",
             "md5": "2bf44d76136743e2250de7f19a0284a0",
-            "hash_timestamp": "2026-11-24T09:40:09.943827+00:00"
+            "hash_timestamp": "2026-11-25T10:03:47.408156+00:00"
           }
         ]
       }
@@ -9199,7 +9315,7 @@
     "master_c2pa_provenance": {
       "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -9208,7 +9324,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9221,7 +9337,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9234,7 +9350,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9247,7 +9363,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9319,13 +9435,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9338,7 +9454,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9351,7 +9467,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9364,7 +9480,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9430,13 +9546,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9449,7 +9565,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9462,7 +9578,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9475,7 +9591,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9537,7 +9653,7 @@
     "c2pa_provenance": {
       "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -9546,7 +9662,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9559,7 +9675,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9572,7 +9688,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9585,7 +9701,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9657,13 +9773,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9676,7 +9792,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9689,7 +9805,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9702,7 +9818,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9768,13 +9884,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9787,7 +9903,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9800,7 +9916,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9813,7 +9929,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9875,7 +9991,7 @@
     "content_credentials": {
       "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -9884,7 +10000,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9897,7 +10013,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9910,7 +10026,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9923,7 +10039,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9995,13 +10111,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10014,7 +10130,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10027,7 +10143,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10040,7 +10156,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10106,13 +10222,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10125,7 +10241,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10138,7 +10254,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10151,7 +10267,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10213,7 +10329,7 @@
     "provenance_manifest": {
       "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.16.0",
+      "claim_generator": "OmniMovieDirector/2.17.0",
       "manifest_id": "urn:c2pa:omni-director:2026:9e5be0b14ed5",
       "synthetic_tier": "hybrid_icvfx_assisted",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
@@ -10222,7 +10338,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -10235,7 +10351,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -10248,7 +10364,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -10261,7 +10377,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -10333,13 +10449,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Initiation",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10352,7 +10468,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10365,7 +10481,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10378,7 +10494,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10444,13 +10560,13 @@
           "scene_title": "Cyberpunk Neon-Lit High-Speed Electric M - Climax",
           "synthetic_tier": "hybrid_icvfx_assisted",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.16.0",
+          "claim_generator": "OmniMovieDirector/2.17.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10463,7 +10579,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10476,7 +10592,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -10489,7 +10605,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.16.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12236,6 +12352,292 @@
       "total_planned_takes": 6,
       "total_video_seconds_planned": 30,
       "dry_run_billable_usd": 0.0
+    },
+    "master_motion_graphics": {
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "domain_archetype": "automotive_robotics",
+      "primary_typeface": "Eurostile Next / Space Grotesk",
+      "secondary_typeface": "JetBrains Mono",
+      "endcard": {
+        "duration_sec": 2.8,
+        "logo_lockup_position": "center_upper_safe",
+        "cta_headline": "Cyberpunk Neon-Lit High-Speed Electric",
+        "cta_subcopy": "Engineered for Automotive Robotics",
+        "url_or_qr_label": "omni.studio/cyberpunkneonlithi",
+        "audio_sting_sync_smpte": "00:00:07:05",
+        "background_plate_hex": "#0B0E14",
+        "reserved_tail_scene_index": 2
+      },
+      "scene_graphics": [
+        {
+          "scene_index": 1,
+          "cues": [
+            {
+              "cue_id": "GFX_SC01_HEAD",
+              "scene_index": 1,
+              "role": "kinetic_headline",
+              "copy_text": "Cyberpunk Neon-Lit High-Speed Electric M",
+              "word_count": 5,
+              "display_duration_sec": 2.0,
+              "effective_wpm": 150.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:02:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "upper_left_third",
+                "normalized_x": 0.1,
+                "normalized_y": 0.22,
+                "max_width_pct": 62.0,
+                "font_family": "Eurostile Next / Space Grotesk",
+                "font_weight": 700,
+                "min_font_px_1080p": 56,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            },
+            {
+              "cue_id": "GFX_SC01_LEGAL",
+              "scene_index": 1,
+              "role": "legal_disclaimer",
+              "copy_text": "Closed course. Professional driver. Do not attempt.",
+              "word_count": 7,
+              "display_duration_sec": 3.0,
+              "effective_wpm": 140.0,
+              "in_smpte": "00:00:00:12",
+              "out_smpte": "00:00:03:12",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "lower_safe_band",
+                "normalized_x": 0.1,
+                "normalized_y": 0.6,
+                "max_width_pct": 66.0,
+                "font_family": "JetBrains Mono",
+                "font_weight": 500,
+                "min_font_px_1080p": 20,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+          "legibility_score": 100.0
+        },
+        {
+          "scene_index": 2,
+          "cues": [
+            {
+              "cue_id": "GFX_SC02_ENDCARD",
+              "scene_index": 2,
+              "role": "cta_endcard",
+              "copy_text": "Cyberpunk Neon-Lit High-Speed Electric · omni.studio/cyberpunkneonlithi",
+              "word_count": 5,
+              "display_duration_sec": 2.8,
+              "effective_wpm": 107.14,
+              "in_smpte": "00:00:07:05",
+              "out_smpte": "00:00:10:00",
+              "composite_strategy": "post_comp_cleanplate",
+              "animation_preset": "telemetry_precision_slide",
+              "placement": {
+                "anchor_zone": "center_upper_safe",
+                "normalized_x": 0.46,
+                "normalized_y": 0.4,
+                "max_width_pct": 64.0,
+                "font_family": "Eurostile Next / Space Grotesk",
+                "font_weight": 700,
+                "min_font_px_1080p": 52,
+                "fill_hex": "#F8FAFC",
+                "backdrop_scrim_opacity": 0.42,
+                "wcag_contrast_ratio": 18.46
+              },
+              "reframe_cleared_ratios": [
+                "16:9",
+                "4:5",
+                "1:1",
+                "9:16"
+              ],
+              "legibility_audit_passed": true
+            }
+          ],
+          "cleanplate_negative_space_pct": 34.0,
+          "cleanplate_zone": "upper_left_third",
+          "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Cyberpunk Neon-Lit High-Speed Electric]",
+          "legibility_score": 100.0
+        }
+      ],
+      "total_cues_count": 3,
+      "max_wpm_detected": 150.0,
+      "all_safe_zones_cleared": true,
+      "legal_supers_compliant": true
+    },
+    "master_otio_coherence": {
+      "schema_version": "OTIO_0.16_COMPAT",
+      "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+      "domain_archetype": "automotive_robotics",
+      "fps": 24.0,
+      "total_frames": 240,
+      "tracks": [
+        {
+          "track_name": "V1_Picture_Master",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 13,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "V2_VFX_GFX_Overlay",
+          "kind": "Video",
+          "clip_count": 2,
+          "marker_count": 3,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A1_Dialogue",
+          "kind": "Audio",
+          "clip_count": 0,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A2_Foley_SFX",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A3_Ambience",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 0,
+          "total_frames_24fps": 240
+        },
+        {
+          "track_name": "A4_Music_Score",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 1,
+          "total_frames_24fps": 261
+        },
+        {
+          "track_name": "A5_Audio_Description",
+          "kind": "Audio",
+          "clip_count": 2,
+          "marker_count": 2,
+          "total_frames_24fps": 240
+        }
+      ],
+      "coherence_checks": [
+        {
+          "check_id": "CHK-01-OPTICS-DOF",
+          "pair": "optics_vs_dof",
+          "status": "pass",
+          "source_spec": "master_lens_package / scene.optical_lens",
+          "target_spec": "master_dof_spec / scene.dof_spec",
+          "delta_summary": "Max optical delta: 4.0mm focal, 0.0 T-stop",
+          "measured_value": "4.0mm / 0.0T",
+          "expected_bound": "<= 8.0mm / <= 1.4T",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-02-KELVIN-BLOCKING",
+          "pair": "lighting_kelvin_vs_blocking",
+          "status": "pass",
+          "source_spec": "master_lighting_rig",
+          "target_spec": "master_continuity_blocking",
+          "delta_summary": "Rig=5600K, max Kelvin delta=0K",
+          "measured_value": "0K",
+          "expected_bound": "<= 500K",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-03-AUDIO-SPOTTING",
+          "pair": "audio_stems_vs_spotting",
+          "status": "pass",
+          "source_spec": "master_audio_mixer / master_broadcast_qc",
+          "target_spec": "spotting_manifest / diegetic_sonic",
+          "delta_summary": "LUFS delta=1.0, max_wps=0.00, max_bridge=0.88s",
+          "measured_value": "LUFS 1.0 / 0.00 WPS",
+          "expected_bound": "LUFS <= 2.5 / WPS <= 2.5",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-04-REFRAME-GRAPHICS",
+          "pair": "reframe_vs_graphics_blocking",
+          "status": "pass",
+          "source_spec": "master_reframe_manifest",
+          "target_spec": "master_motion_graphics",
+          "delta_summary": "All motion-graphic supers clear 9:16 TikTok/Reels and 16:9 safe zones",
+          "measured_value": "9:16+16:9 CLEAR",
+          "expected_bound": "y in [0.14, 0.64], x in [0.06, 0.80], 9:16 cleared",
+          "auto_reconcilable": true,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-05-MODEB-ECONOMICS",
+          "pair": "mode_b_vs_runtime_economics",
+          "status": "pass",
+          "source_spec": "storytelling_mode / total_runtime_seconds",
+          "target_spec": "master_render_economics_spec.guardrail",
+          "delta_summary": "Mode=Mode A: Parallel Multi-Scene Cut (Montage), runtime=10s, render_est=$7.75/$50.00",
+          "measured_value": "10s / $7.75",
+          "expected_bound": "Mode B <= 40s & est <= $50.00",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-06-AICP-COMPUTE",
+          "pair": "aicp_post_vs_render_compute",
+          "status": "pass",
+          "source_spec": "master_aicp_bid (Sections J-L)",
+          "target_spec": "master_render_economics_spec",
+          "delta_summary": "AICP post allocation=$39520.00 vs AI compute estimate=$7.75",
+          "measured_value": "$39520.00",
+          "expected_bound": ">= $7.75",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        },
+        {
+          "check_id": "CHK-07-C2PA-SAFETY",
+          "pair": "c2pa_vs_cast_safety",
+          "status": "pass",
+          "source_spec": "master_c2pa_provenance (2026 Model Matrix)",
+          "target_spec": "master_broadcast_qc / master_safety_risk",
+          "delta_summary": "c2pa_ok=True, legacy_hit=False, qc_legal_ok=True, safety_ok=True",
+          "measured_value": "CLEARED",
+          "expected_bound": "2026 Model Matrix + consents + QC + JSA cleared",
+          "auto_reconcilable": false,
+          "remediation_action": ""
+        }
+      ],
+      "coherence_score": 100.0,
+      "conflicts_count": 0,
+      "warnings_count": 0,
+      "otio_sha256": "e1b4947bb4b4252ceec79c84204850cd030d611a730ffd19d3d18a23f1ec376e",
+      "shoot_day_ready": true,
+      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
     }
   },
   "storyboard_html_path": "examples/cyberpunk_noir_2_0/storyboard_preview.html",
@@ -12284,7 +12686,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)",
+        "dof_spec_descriptor": "Dynamic deep focus (T2.0, 24mm, circular iris, hyperfocal tracking)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
@@ -12339,6 +12741,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC01 | mode_a_4step | takes=3 | dur=5s | est=$3.88]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=2 | max_wpm=150.0 | roles=kinetic_headline,legal_disclaimer][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12360,7 +12768,9 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     },
     {
       "scene_index": 2,
@@ -12384,7 +12794,7 @@
         "lighting_rig_descriptor": "5 fixtures (Key:Fill 4.0:1, 7825.0 lux)",
         "dof_spec_compliant": true,
         "dof_spec_reward": 1.0,
-        "dof_spec_descriptor": "Dynamic deep focus (T5.6, 24mm, circular iris, hyperfocal tracking)",
+        "dof_spec_descriptor": "Dynamic deep focus (T2.0, 24mm, circular iris, hyperfocal tracking)",
         "lut_spec_compliant": true,
         "lut_spec_reward": 1.0,
         "lut_spec_descriptor": "Graded with Teal & Orange high-velocity metallic (teal_and_orange_metallic emulation, 33x33x33 3D LUT)",
@@ -12439,6 +12849,12 @@
         "render_economics_compliant": true,
         "render_economics_reward": 1.0,
         "render_economics_descriptor": "[RENDER-PROFILE: SC02 | mode_a_4step | takes=3 | dur=5s | est=$3.88]",
+        "motion_graphics_compliant": true,
+        "motion_graphics_reward": 1.0,
+        "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Cyberpunk Neon-Lit High-Speed Electric]",
+        "otio_coherence_compliant": true,
+        "otio_coherence_reward": 1.0,
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=e1b4947bb4b4][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12459,14 +12875,16 @@
       "s3d_rig_compliant": true,
       "ad_cue_compliant": true,
       "art_continuity_compliant": true,
-      "render_economics_compliant": true
+      "render_economics_compliant": true,
+      "motion_graphics_compliant": true,
+      "otio_coherence_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "821f9ce0-5cde-48ec-91bb-cdc466b2b0c2",
+    "session_id": "10898b37-da74-4b85-bc0c-78897b63b239",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-24T09:40:09.937785+00:00",
+    "timestamp": "2026-11-25T10:03:47.403407+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -12476,81 +12894,87 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-24T09:40:09.937805+00:00",
-        "end_time": "2026-11-24T09:40:09.940641+00:00",
-        "duration_ms": 2.83,
+        "start_time": "2026-11-25T10:03:47.403426+00:00",
+        "end_time": "2026-11-25T10:03:47.405894+00:00",
+        "duration_ms": 2.47,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-24T09:40:09.940688+00:00",
-        "end_time": "2026-11-24T09:40:09.947846+00:00",
-        "duration_ms": 7.16,
+        "start_time": "2026-11-25T10:03:47.405926+00:00",
+        "end_time": "2026-11-25T10:03:47.418936+00:00",
+        "duration_ms": 13.01,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-24T09:40:09.947876+00:00",
-        "end_time": "2026-11-24T09:40:09.949779+00:00",
-        "duration_ms": 1.9,
+        "start_time": "2026-11-25T10:03:47.418975+00:00",
+        "end_time": "2026-11-25T10:03:47.420831+00:00",
+        "duration_ms": 1.85,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-24T09:40:09.949814+00:00",
-        "end_time": "2026-11-24T09:40:09.950050+00:00",
-        "duration_ms": 0.24,
+        "start_time": "2026-11-25T10:03:47.420861+00:00",
+        "end_time": "2026-11-25T10:03:47.421114+00:00",
+        "duration_ms": 0.25,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-24T09:40:09.950063+00:00",
-        "end_time": "2026-11-24T09:40:09.953560+00:00",
-        "duration_ms": 3.5,
+        "start_time": "2026-11-25T10:03:47.421126+00:00",
+        "end_time": "2026-11-25T10:03:47.425520+00:00",
+        "duration_ms": 4.39,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-24T09:40:09.953578+00:00",
-        "end_time": "2026-11-24T09:40:09.953584+00:00",
+        "start_time": "2026-11-25T10:03:47.425544+00:00",
+        "end_time": "2026-11-25T10:03:47.425549+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-24T09:40:09.953591+00:00",
-        "end_time": "2026-11-24T09:40:09.980567+00:00",
-        "duration_ms": 26.97,
+        "start_time": "2026-11-25T10:03:47.425556+00:00",
+        "end_time": "2026-11-25T10:03:47.487659+00:00",
+        "duration_ms": 62.1,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-24T09:40:10.033931+00:00",
-        "end_time": "2026-11-24T09:40:10.140876+00:00",
-        "duration_ms": 106.95,
+        "start_time": "2026-11-25T10:03:47.543100+00:00",
+        "end_time": "2026-11-25T10:03:47.650412+00:00",
+        "duration_ms": 107.31,
         "details": {}
       }
     ],
-    "total_duration_ms": 149.56,
+    "total_duration_ms": 191.39,
     "audit_summary": {
       "estimated_total_compute_usd": 7.7504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.998,
       "total_planned_takes": 6,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 3,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 7.7504,
       "render_budget_ceiling_usd": 50.0,
       "aicp_savings_pct": 99.998,
       "total_planned_takes": 6,
-      "continuity_breaks_detected": 0
+      "continuity_breaks_detected": 0,
+      "motion_graphics_cues_count": 3,
+      "otio_coherence_score": 100.0,
+      "otio_conflicts_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "fddb49cc48acac28e68bad41b6da0b4e348e662ca56d99287fcdd3cf1339f1fe",
-      "storyboard_preview.html": "a14c86d299870861589de4bde5d6b266c253722f73a78fd5c6c8c10cbc684136",
-      "council_report.json": "3d71b654905824ad9b262bf89fda0b859208427ab48c54e6ee93f5e523fe8451",
-      "council_report.md": "c3ca7f2f332449fb27e0e5e1e72b5a1851c820c12341cab2d4163532556b044f",
+      "production_bundle.json": "f8abb48dcc690fc397b004ca33a3ad948bcbc37613a63849f8631b61c5b6480a",
+      "storyboard_preview.html": "036cfa076922e5de9c328c166f94e0f601a1b5555af5941448c78fc1bc6b380e",
+      "council_report.json": "63958a3ca5fed2069bdda21815f02c04075aa006fc04ed52d770569f31201660",
+      "council_report.md": "6bdab6cd6f19653399819f626447b57b6bc7fb0f7902b4e0a4de425b6d33ed3b",
       "timeline.edl": "dc6c77cff8700e759129087dbbb55459863625c286d5094506d139386cec6ed3",
       "sequence.fcpxml": "8480b8bb45e240fbb55e9f910f92da98f964ad8266e5f1392e175f92dacc907d",
       "shot_list.csv": "7d182397340499c1564f08a6e54bc901dae0dd6de0e0788f717bac941c9aa11b",
@@ -12602,12 +13026,12 @@
       "film_emulation_spec.json": "d77ba656c3d6020f1286b3763439ae5f36fe2ab8276fd1379f85363fdd71de91",
       "film_stock_shader.dctl": "2c7f9bb93bc4b6d47533a0f92f25890f4b15ab1b9311082fbecd6fa647d87006",
       "film_stock.ale": "21e00aa9db26f0f2b219c4e05f2242e0085e40e47581a015e4da1a117be69ec2",
-      "slate_manifest.json": "3b310a73b703eb14a71fa4678b79aa516287d16647bca2222d5c59e4dbc7198b",
-      "asc_mhl_manifest.xml": "106c63b06cb699fdc208459131915888742b46dae2bafd8b0291c6c3088307d9",
+      "slate_manifest.json": "009e985be68c53b52ac8c932d9f4ca90fef848eaeb980deeb75e0f9d7eb254b4",
+      "asc_mhl_manifest.xml": "bc3ecf6f6933a3e4b15fd382edea0fe5c9c0f3ef4cbb81fc64cf95336e5ab884",
       "clapper_slate_log.csv": "90e20bf01978114171962afc849b52ecbff2d016bd8b8b59428afa3a0fd3993b",
       "sound_sync.ale": "b1ac6d2ac2ca3cb6dd5cf6459497cbfc51e6738499db281ae6d2cf35a472a8ea",
       "flight_path.kml": "129d6d0062ecabf9f72268110e207d222f7d5d33545730d485b6b6d518671151",
-      "flight_waypoints.gpx": "53af6dbe4257aaf3103bb863183a7da9d7ff98ddff57d05b12789ef13af4de36",
+      "flight_waypoints.gpx": "925408c8094fcbc8b0662dd961b062355b23ddd69aaddefe5481552dea4bce71",
       "drone_flight_sheet.csv": "79d85da03f21168fd0ebae24941dc17a74a5ca259b506d341f9a301785ba0779",
       "drone_flight_sheet.md": "7aa169bfd6337f4528ee490edc893cd7580b384d5f5ede02fd480596f258b6af",
       "drone_flight_manifest.json": "f5443eaa0ebb682574d65bbe31d4114e81f55d05292a34e5b5dd7ab2b506a413",
@@ -12630,8 +13054,8 @@
       "review_notes_frameio.json": "e791b728c3b27f0ae769590d83539fb08a2ba9024e69233b84fad8489c491b66",
       "review_notes.csv": "9478be1e1c5f502f930a9957ba0122c9572b1259b005549a844bbaa5a892e081",
       "client_signoff_report.md": "8af9afa41562abc1c6ee6235b4ed8f6888d2034aa85cc6c2e083b0e780c081eb",
-      "c2pa_manifest.json": "67973427b3113f342f5e2f8d241872c6948a057368be60e456c26c7522b88e85",
-      "ai_disclosure_certificate.md": "5f42510da9dceb591f5d399218ea99cf4200aa335250d7599a4754e0c5eb4b43",
+      "c2pa_manifest.json": "5e7db4b76c9b6e461691506c8f1d4759c40baa32e8e16d45902cc4cad77423ec",
+      "ai_disclosure_certificate.md": "4fe9bda78bbf125d6735c31b12a4653eaf76b4f8064c8689e4ab9ec2ea17cc06",
       "likeness_consent_ledger.csv": "4f77264526eb933f7ec690d38195a072cec8f45aaa90192d9dcea70adc3aa770",
       "safety_bulletin.md": "d02368ef22d3d1fddc52e07a1d07612669c85e4b8cdffb447d2bc2ad102c7719",
       "safety_jsa_matrix.csv": "84775bd806307bc80ed4db66082252d2577b73d95574564d6314496b9f963731",
@@ -12648,7 +13072,13 @@
       "subtitles_ad.vtt": "acb50f41fca3e4ca6f7c9ab11ba27525d40ec55fa35fde03d6e3a12edd276544",
       "ad_script_cue_sheet.csv": "9188e2fc2ce8107e7351c2c91278edf24ad03ccaff8de48b74aeef1568fcc7ab",
       "accessibility_ad_manifest.json": "051307ce8b317d28babb00a584220fd8b794b2d2b47253d417036abe90acd332",
-      "council_audit_report.json": "3d71b654905824ad9b262bf89fda0b859208427ab48c54e6ee93f5e523fe8451",
+      "wardrobe_prop_bible.json": "c7bc99971663adfbc2a81aaeb6704999e7a380d69f788aa11c33479f1ffefb3c",
+      "prop_continuity_matrix.csv": "81a8013cb012840f8b0db2fefb200c789dac18b7fd2c9f8d8c63338e778b89ab",
+      "art_dept_pull_list.md": "56a46cf06a1d1e74dbe2187592d5a61c3dab60374cde28ecf79b8b0ccc55a96a",
+      "render_economics_manifest.json": "0846763f1fcedbaf9941ecc6892ed532ba5ac18e9332c834e7403bb874903e40",
+      "take_variant_ledger.csv": "4facbb152d1c4e5ea4d3909a830adccfd43867e2554a6e8397078851c40016d5",
+      "ai_compute_estimate.md": "9e21332dba755aadd11176a89ad65a9a2b9d8e253de28ffbc1e07a8fea97b405",
+      "council_audit_report.json": "63958a3ca5fed2069bdda21815f02c04075aa006fc04ed52d770569f31201660",
       "storyboards/anchor1_character_turnaround.svg": "6fe05754a2307303f0026fafee912853eb5678a6122250fbdaa7e4d27a3de121",
       "storyboards/anchor2_environment_master.svg": "280a27068876a5cd81b6be8ada54eb57417fadb13b22ec65b1f9565f7dff8972",
       "storyboards/anchor3_scene_1_keyframe.svg": "0d4958438163583ed492d93a00a88392becc547a0144d874b35853cd85620678",
@@ -12666,9 +13096,9 @@
     }
   },
   "council_report": {
-    "version": "2.16.0",
+    "version": "2.17.0",
     "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
-    "timestamp": "2026-11-24T09:40:10.137325+00:00",
+    "timestamp": "2026-11-25T10:03:47.645177+00:00",
     "overall_score": 98.0,
     "passed": true,
     "critical_findings_count": 0,
@@ -12980,13 +13410,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "wardrobe_prop_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-031 Art Dept deliverables (wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md).",
-            "remediation": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
+            "message": "Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "wardrobe_artifacts": [
                 "wardrobe_prop_bible.json",
                 "prop_continuity_matrix.csv",
                 "art_dept_pull_list.md"
@@ -12994,16 +13424,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "render_economics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-032 Render Economics deliverables (render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md).",
-            "remediation": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_render_economics_bundle() or export_all_nle_artifacts().",
+            "message": "Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "economics_artifacts": [
                 "render_economics_manifest.json",
                 "take_variant_ledger.csv",
                 "ai_compute_estimate.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "motion_graphics_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
+            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "motion_graphics_mogrt.json",
+                "broadcast_supers.ass",
+                "brand_endcard_spec.md"
+              ]
+            }
+          },
+          {
+            "severity": "warning",
+            "category": "otio_coherence_delivery",
+            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
+            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "details": {
+              "missing_artifacts": [
+                "production_timeline.otio",
+                "coherence_matrix.json",
+                "coherence_readiness_report.md"
               ]
             }
           },
@@ -13121,9 +13579,32 @@
               ],
               "dry_run_billable_usd": 0.0
             }
+          },
+          {
+            "severity": "info",
+            "category": "motion_graphics_schema",
+            "message": "MasterMotionGraphicsManifest verified (3 cues, max_wpm=150.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "total_cues_count": 3,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=e1b4947bb4b4..., coherence_score=100.0, shoot_day_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "schema_version": "OTIO_0.16_COMPAT",
+              "track_count": 7,
+              "otio_sha256_prefix": "e1b4947bb4b4"
+            }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 33 findings."
+        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -13312,6 +13793,22 @@
           },
           {
             "severity": "info",
+            "category": "motion_graphics_schema_compliance",
+            "message": "Motion Graphics & Safe-Zone Gate verified across 2 scene(s) (max_wpm=150.0 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "otio_coherence_schema_compliance",
+            "message": "OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
             "remediation": null,
@@ -13338,6 +13835,14 @@
             "severity": "info",
             "category": "audit_report_art_and_economics_compliance",
             "message": "Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_gfx_and_otio_compliance",
+            "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13439,13 +13944,13 @@
           {
             "severity": "info",
             "category": "domain_dof_calibration",
-            "message": "Domain DoF calibration verified: 'Dynamic deep focus' (T5.6, 24mm, circular iris, hyperfocal tracking) aligned with domain 'automotive_robotics'.",
+            "message": "Domain DoF calibration verified: 'Dynamic deep focus' (T2.0, 24mm, circular iris, hyperfocal tracking) aligned with domain 'automotive_robotics'.",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "domain": "automotive_robotics",
               "focus_style": "Dynamic deep focus",
-              "aperture": 5.6,
+              "aperture": 2.0,
               "iris": "circular iris",
               "depth_character": "hyperfocal tracking"
             }
@@ -13706,6 +14211,32 @@
           },
           {
             "severity": "info",
+            "category": "domain_motion_graphics_calibration",
+            "message": "Motion graphics & Brand End-Card calibrated for domain 'automotive_robotics' (typeface='Eurostile Next / Space Grotesk', endcard=2.80s, max_wpm=150.0, 9:16_clear=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "primary_typeface": "Eurostile Next / Space Grotesk",
+              "endcard_duration_sec": 2.8,
+              "max_wpm_detected": 150.0
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_otio_coherence_readiness",
+            "message": "OTIO 7-track cross-department coherence verified for domain 'automotive_robotics' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=8.0mm, kelvin_tol<=500.0K).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "automotive_robotics",
+              "shoot_day_ready": true,
+              "coherence_score": 100.0,
+              "conflicts_count": 0
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'automotive_robotics' matches strategic brief classification.",
             "remediation": null,
@@ -13934,6 +14465,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_motion_graphics_hud",
+            "message": "Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_otio_coherence_hud",
+            "message": "OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -13951,7 +14498,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 63 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13982,6 +14529,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_eq_quote",
+            "message": "Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($390,007.59 matches master_aicp_bid).",
             "remediation": null,
@@ -13993,8 +14548,8 @@
       }
     ],
     "recommendations": [
-      "Run export_wardrobe_prop_bundle() or export_all_nle_artifacts().",
-      "Run export_render_economics_bundle() or export_all_nle_artifacts()."
+      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
     ],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
@@ -14500,6 +15055,50 @@
           "omni_director/tools/html_hud_v216.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-033",
+        "title": "Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine",
+        "problem_statement": "Broadcast and vertical social deliverables for 'Cyberpunk Neon-Lit High-Speed Electric M' risk failing readability and safe-zone clearance when on-screen kinetic supers exceed the 180 WPM reading ceiling, collide with 9:16 TikTok/Reels engagement chrome, lack WCAG 2.2 AA/AAA scrim contrast, omit mandatory legal disclaimers (such as closed-course automotive supers), or desynchronize tail Brand End-Cards.",
+        "proposed_solution": "Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/motion_graphics.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-034",
+        "title": "Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate",
+        "problem_statement": "Complex multi-department productions for 'Cyberpunk Neon-Lit High-Speed Electric M' lack a unified ASWF OpenTimelineIO 0.16 (Timeline.1) 7-track interchange container and an automated shoot-day coherence gate reconciling optics vs. DoF, lighting Kelvin vs. blocking, audio stems vs. spotting, 9:16 reframe vs. motion graphics, Mode B runtime vs. render economics, AICP post vs. compute, and C2PA vs. safety JSA.",
+        "proposed_solution": "Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/otio_coherence.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
           "omni_director/telemetry.py"
         ],
         "priority": "P0",

@@ -67,7 +67,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-color" onclick="toggleDeptGroup('color')" aria-expanded="false" aria-controls="dept-tray-color">
             <span class="dept-pill-icon" aria-hidden="true">🎨</span>
             <span>Color &amp; VFX</span>
-            <span class="dept-count">4</span>
+            <span class="dept-count">5</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray" id="dept-tray-color" role="group" aria-label="Color and VFX Tools" hidden>
@@ -83,6 +83,7 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
               ✨ VFX Passes [X]
             </button>
+            <button type="button" class="btn-dit-lut" id="btn-motion-gfx-animatic" onclick="toggleMotionGfxHUD()" aria-label="Motion Graphics, Supers and End-Card Studio [=]" aria-expanded="false" aria-controls="modal-motion-graphics-studio" title="Motion Graphics &amp; End-Card [=]">🎞️ Motion GFX [=]</button>
           </div>
         </div>
 
@@ -139,7 +140,7 @@ def _build_departmental_toolbar_html() -> str:
           <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
             <span class="dept-pill-icon" aria-hidden="true">📡</span>
             <span>Delivery, QC &amp; Review</span>
-            <span class="dept-count">6</span>
+            <span class="dept-count">7</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
           <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
@@ -161,6 +162,7 @@ def _build_departmental_toolbar_html() -> str:
             <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD &amp; CVAA [[]]" aria-expanded="false" aria-controls="modal-accessibility-ad" title="AD &amp; CVAA [[]">
               🗣️ AD &amp; CVAA [[]
             </button>
+            <button type="button" class="btn-dit-lut" id="btn-otio-coherence-animatic" onclick="toggleOtioCoherenceHUD()" aria-label="OpenTimelineIO and Cross-Dept Coherence Matrix [']" aria-expanded="false" aria-controls="modal-otio-coherence" title="OTIO &amp; Coherence [']">🧭 OTIO Coherence [']</button>
           </div>
         </div>
 
@@ -173,7 +175,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [=] Motion GFX · ['] OTIO Coherence · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.15.0", "2.16.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,7 +5398,7 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.16.0"
+        assert omni_director.__version__ == "2.17.0"
         report = run_doctor()
         assert report.version == omni_director.__version__
         assert report.passed is True
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version in ("2.15.0", "2.16.0")
+            assert report.version in ("2.15.0", "2.16.0", "2.17.0")
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6448,7 +6448,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version in ("2.15.0", "2.16.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7128,7 +7128,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version in ("2.15.0", "2.16.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7714,7 +7714,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         # Fix 3: c2pa_provenance.py and html_compiler.py report current __version__ dynamically
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.16.0"
+        assert omni_director.__version__ == "2.17.0"
         assert all(omni_director.__version__ in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
@@ -7836,7 +7836,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version in ("2.15.0", "2.16.0")
+        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0")
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
@@ -8349,14 +8349,16 @@ class TestV216WardrobePropsAndRenderEconomicsFeatures:
         assert res.details.get("s3d_rig_compliant") is True
         assert res.details.get("ad_cue_compliant") is True
 
-        # 4. ProductManagerAgent 32 proposals with distinct non-placeholder PM-FEAT-029..032
+        # 4. ProductManagerAgent >= 34 proposals with distinct non-placeholder PM-FEAT-029..034
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(ikea)
-        assert len(proposals) == 32
+        assert len(proposals) >= 34
         prop_by_id = {p.feature_id: p for p in proposals}
+        assert "PM-FEAT-033" in prop_by_id
+        assert "PM-FEAT-034" in prop_by_id
         problems = set()
         solutions = set()
-        for fid in ("PM-FEAT-029", "PM-FEAT-030", "PM-FEAT-031", "PM-FEAT-032"):
+        for fid in ("PM-FEAT-029", "PM-FEAT-030", "PM-FEAT-031", "PM-FEAT-032", "PM-FEAT-033", "PM-FEAT-034"):
             assert fid in prop_by_id
             p = prop_by_id[fid]
             assert p.priority == "P0"
@@ -8367,8 +8369,8 @@ class TestV216WardrobePropsAndRenderEconomicsFeatures:
             assert "TODO" not in p.proposed_solution and "placeholder" not in p.proposed_solution.lower()
             problems.add(p.problem_statement)
             solutions.add(p.proposed_solution)
-        assert len(problems) == 4
-        assert len(solutions) == 4
+        assert len(problems) == 6
+        assert len(solutions) == 6
 
         # 5. CLI handle_export (--format art-dept, --format economics, granular flags) & checksums
         cli_art = tmp_path / "cli_art"
@@ -8419,3 +8421,552 @@ class TestV216WardrobePropsAndRenderEconomicsFeatures:
         assert convene_rep.passed is True
         assert convene_rep.critical_findings_count == 0
         assert convene_rep.overall_score >= 90.0
+
+
+class TestV217MotionGraphicsAndOtioCoherenceFeatures:
+    """Verifies v2.17.0 PM-FEAT-033 (Motion Graphics), PM-FEAT-034 (OTIO Coherence), and cross-cutting fixes."""
+
+    def test_pm_feat_033_motion_graphics_schemas_calibrations_audit_and_exports(self, tmp_path):
+        import json
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_motion_graphics_spec,
+        )
+        from omni_director.schemas import (
+            BrandEndcardSpec,
+            CompositeStrategyEnum,
+            GraphicLayerRoleEnum,
+            GraphicSuperCueSpec,
+            MasterMotionGraphicsManifest,
+            SceneMotionGraphicsSpec,
+            TypographyPlacementSpec,
+        )
+        from omni_director.tools.motion_graphics import (
+            MAX_SUPER_WPM,
+            MIN_WCAG_CONTRAST_RATIO,
+            compile_motion_graphics_manifest,
+            compute_effective_wpm,
+            compute_wcag_contrast_ratio,
+            export_motion_graphics_bundle,
+            format_motion_graphics_token,
+        )
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. Schemas, package exports & __version__
+        assert omni_director.__version__ == "2.17.0"
+        expected_033_exports = (
+            "get_domain_motion_graphics_spec",
+            "GraphicLayerRoleEnum",
+            "CompositeStrategyEnum",
+            "TypographyPlacementSpec",
+            "GraphicSuperCueSpec",
+            "BrandEndcardSpec",
+            "SceneMotionGraphicsSpec",
+            "MasterMotionGraphicsManifest",
+        )
+        for sym in expected_033_exports:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_033_exports[1:]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. 6-domain calibrations
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_motion_graphics_spec(domain)
+            assert cal["domain_archetype"] == domain
+            assert cal["primary_typeface"]
+            assert cal["secondary_typeface"]
+            assert cal["max_wpm"] <= MAX_SUPER_WPM
+            assert 2.5 <= cal["endcard_spec"]["duration_sec"] <= 3.0
+
+        # 3. automotive_robotics legal super, WPM <= 180, WCAG contrast >= 4.5
+        auto_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        auto_bible.domain_archetype = "automotive_robotics"
+        auto_bible.master_motion_graphics = None
+        for sc in auto_bible.scenes:
+            sc.motion_graphics_spec = None
+        auto_manifest = get_domain_motion_graphics_spec(auto_bible)
+        assert isinstance(auto_manifest, MasterMotionGraphicsManifest)
+        assert auto_manifest.legal_supers_compliant is True
+        assert auto_manifest.max_wpm_detected <= MAX_SUPER_WPM
+        assert auto_manifest.all_safe_zones_cleared is True
+        all_cues = [c for sg in auto_manifest.scene_graphics for c in sg.cues]
+        legal_cues = [c for c in all_cues if c.role == GraphicLayerRoleEnum.LEGAL_DISCLAIMER]
+        assert len(legal_cues) >= 1
+        assert "Closed course" in legal_cues[0].copy_text
+        for cue in all_cues:
+            _, wpm = compute_effective_wpm(cue.copy_text, cue.display_duration_sec)
+            assert wpm <= MAX_SUPER_WPM
+            assert cue.placement.wcag_contrast_ratio >= MIN_WCAG_CONTRAST_RATIO
+        assert compute_wcag_contrast_ratio("#F8FAFC", "#090D16") >= 15.0
+
+        # 4. Token stripping in compile_clean_omni_prompt + audit & heal
+        tok = format_motion_graphics_token(auto_manifest.scene_graphics[-1], endcard=auto_manifest.endcard)
+        assert "[GFX-SUPER:" in tok
+        assert "[GFX-CLEANPLATE:" in tok
+        assert "[ENDCARD:" in tok
+        stripped = compile_clean_omni_prompt(f"{tok} Sleek electric coupe sweeps through twilight curve.")
+        assert "[GFX-SUPER:" not in stripped
+        assert "[GFX-CLEANPLATE:" not in stripped
+        assert "[ENDCARD:" not in stripped
+
+        bad_scene = auto_bible.scenes[0].model_copy(deep=True)
+        bad_scene.motion_graphics_spec = SceneMotionGraphicsSpec(
+            scene_index=1,
+            cues=[
+                GraphicSuperCueSpec(
+                    cue_id="GFX_BAD_01",
+                    scene_index=1,
+                    role=GraphicLayerRoleEnum.KINETIC_HEADLINE,
+                    copy_text="Ultra high velocity engineering performance precision aerodynamic super text",
+                    word_count=9,
+                    display_duration_sec=1.0,
+                    effective_wpm=540.0,
+                    in_smpte="00:00:00:12",
+                    out_smpte="00:00:01:12",
+                    composite_strategy=CompositeStrategyEnum.POST_COMP_CLEANPLATE,
+                    animation_preset="telemetry_precision_slide",
+                    placement=TypographyPlacementSpec(
+                        anchor_zone="lower_unsafe",
+                        normalized_x=0.92,
+                        normalized_y=0.90,
+                        max_width_pct=85.0,
+                        font_family="Space Grotesk",
+                        font_weight=700,
+                        min_font_px_1080p=14,
+                        fill_hex="#333333",
+                        backdrop_scrim_opacity=0.10,
+                        wcag_contrast_ratio=1.6,
+                    ),
+                    reframe_cleared_ratios=["16:9"],
+                    legibility_audit_passed=False,
+                )
+            ],
+            cleanplate_negative_space_pct=12.0,
+            cleanplate_zone="upper_left_third",
+            gfx_prompt_token="",
+            legibility_score=0.0,
+        )
+        bad_audit = audit_omni_scene_prompt(bad_scene, bible=auto_bible)
+        assert bad_audit.motion_graphics_compliant is False
+
+        healed = heal_omni_scene_prompt(bad_scene, bible=auto_bible)
+        assert healed.audit.motion_graphics_compliant is True
+        healed_gfx = healed.healed.motion_graphics_spec
+        assert healed_gfx.cleanplate_negative_space_pct >= 25.0
+        assert healed_gfx.cues[0].effective_wpm <= MAX_SUPER_WPM
+        assert healed_gfx.cues[0].placement.wcag_contrast_ratio >= MIN_WCAG_CONTRAST_RATIO
+        assert "9:16" in healed_gfx.cues[0].reframe_cleared_ratios
+        assert "[GFX-CLEANPLATE:" in healed.healed.omni_prose_prompt
+
+        # 5. Bundle exports: MOGRT JSON / ASS / Brand End-Card MD
+        gfx_dir = tmp_path / "gfx_bundle"
+        exported = export_motion_graphics_bundle(auto_bible, gfx_dir, fps=24)
+        for fname in ("motion_graphics_mogrt.json", "broadcast_supers.ass", "brand_endcard_spec.md"):
+            fpath = gfx_dir / fname
+            assert fpath.is_file() and fpath.stat().st_size > 0
+        assert len(exported) == 3
+        mogrt_data = json.loads((gfx_dir / "motion_graphics_mogrt.json").read_text(encoding="utf-8"))
+        assert mogrt_data["schema"] == "omni_mogrt_v1"
+        assert len(mogrt_data["cues"]) == auto_manifest.total_cues_count
+        ass_text = (gfx_dir / "broadcast_supers.ass").read_text(encoding="utf-8")
+        assert "[Script Info]" in ass_text and "Dialogue:" in ass_text
+        endcard_md = (gfx_dir / "brand_endcard_spec.md").read_text(encoding="utf-8")
+        assert "Brand End-Card Lockup" in endcard_md
+
+    def test_pm_feat_034_otio_timeline_coherence_reconcile_and_exports(self, tmp_path):
+        import json
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            IKEA_ASMR_BIBLE,
+            get_domain_otio_coherence_spec,
+            get_preset_bible,
+        )
+        from omni_director.schemas import (
+            CoherenceCheckStatusEnum,
+            CoherenceDomainPairEnum,
+            CrossDeptCoherenceCheck,
+            DepthOfFieldSpec,
+            MasterOtioCoherenceManifest,
+            OtioTrackSummarySpec,
+            StorytellingMode,
+        )
+        from omni_director.tools.otio_coherence import (
+            OTIO_TRACK_NAMES,
+            compile_otio_coherence_manifest,
+            compile_otio_timeline_dict,
+            evaluate_cross_department_coherence,
+            export_otio_coherence_bundle,
+            format_otio_coherence_token,
+            reconcile_cross_department_conflicts,
+        )
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. Schemas & exports
+        expected_034_exports = (
+            "get_domain_otio_coherence_spec",
+            "CoherenceDomainPairEnum",
+            "CoherenceCheckStatusEnum",
+            "CrossDeptCoherenceCheck",
+            "OtioTrackSummarySpec",
+            "MasterOtioCoherenceManifest",
+        )
+        for sym in expected_034_exports:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_034_exports[1:]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. Pure-Python ASWF Timeline.1 .otio compilation with 7 tracks & Marker.2 pins
+        ikea = get_preset_bible("ikea-asmr")
+        otio_dict = compile_otio_timeline_dict(ikea, fps=24.0)
+        assert otio_dict["OTIO_SCHEMA"] == "Timeline.1"
+        tracks = otio_dict["tracks"]["children"]
+        assert len(tracks) == 7
+        assert tuple(t["name"] for t in tracks) == OTIO_TRACK_NAMES
+        v1_markers = tracks[0]["markers"]
+        assert len(v1_markers) == 7
+        assert all(m["OTIO_SCHEMA"] == "Marker.2" for m in v1_markers)
+
+        # 3. All 7 CoherenceDomainPairEnum checks
+        checks = evaluate_cross_department_coherence(ikea)
+        assert {c.pair for c in checks} == set(CoherenceDomainPairEnum)
+        assert all(c.status == CoherenceCheckStatusEnum.PASS for c in checks)
+
+        # 4. Auto-reconcilable conflict detection & deterministic reconciliation
+        mismatch_bible = ikea.model_copy(deep=True)
+        mismatch_bible.master_dof_spec = DepthOfFieldSpec(
+            focal_length_mm=135,
+            aperture_f_stop=11.0,
+            focus_distance_m=2.0,
+        )
+        mismatch_bible.master_audio_mixer.master_lufs_target = -6.0
+        pre_checks = {c.pair: c for c in evaluate_cross_department_coherence(mismatch_bible)}
+        assert pre_checks[CoherenceDomainPairEnum.OPTICS_VS_DOF].status == CoherenceCheckStatusEnum.CONFLICT
+        assert pre_checks[CoherenceDomainPairEnum.AUDIO_STEMS_VS_SPOTTING].status == CoherenceCheckStatusEnum.CONFLICT
+
+        reconciled = reconcile_cross_department_conflicts(mismatch_bible)
+        post_checks = {c.pair: c for c in evaluate_cross_department_coherence(reconciled)}
+        assert post_checks[CoherenceDomainPairEnum.OPTICS_VS_DOF].status == CoherenceCheckStatusEnum.PASS
+        assert post_checks[CoherenceDomainPairEnum.AUDIO_STEMS_VS_SPOTTING].status == CoherenceCheckStatusEnum.PASS
+
+        # 5. Un-reconcilable Mode B > 40s conflict preservation
+        mode_b_over = ikea.model_copy(deep=True)
+        mode_b_over.storytelling_mode = StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        mode_b_over.total_runtime_seconds = 48
+        mode_b_reconciled = reconcile_cross_department_conflicts(mode_b_over)
+        mode_b_checks = {c.pair: c for c in evaluate_cross_department_coherence(mode_b_reconciled)}
+        assert mode_b_checks[CoherenceDomainPairEnum.MODE_B_VS_RUNTIME_ECONOMICS].status == CoherenceCheckStatusEnum.CONFLICT
+        assert mode_b_checks[CoherenceDomainPairEnum.MODE_B_VS_RUNTIME_ECONOMICS].auto_reconcilable is False
+
+        # 6. Domain calibration & [OTIO-SYNC:]/[COHERENCE-LOCK:] token stripping + audit/heal
+        otio_manifest = get_domain_otio_coherence_spec(ikea)
+        assert isinstance(otio_manifest, MasterOtioCoherenceManifest)
+        assert otio_manifest.coherence_score == 100.0
+        assert otio_manifest.conflicts_count == 0
+        tok = format_otio_coherence_token(otio_manifest)
+        assert "[OTIO-SYNC:" in tok and "[COHERENCE-LOCK:" in tok
+        cleaned = compile_clean_omni_prompt(f"{tok} Minimalist oak dowel locks cleanly.")
+        assert "[OTIO-SYNC:" not in cleaned
+        assert "[COHERENCE-LOCK:" not in cleaned
+
+        bad_otio_manifest = otio_manifest.model_copy(deep=True)
+        bad_otio_manifest.conflicts_count = 2
+        bad_otio_manifest.coherence_score = 70.0
+        bad_otio_bible = ikea.model_copy(deep=True)
+        bad_otio_bible.master_otio_coherence = bad_otio_manifest
+        bad_audit = audit_omni_scene_prompt(bad_otio_bible.scenes[0], bible=bad_otio_bible)
+        assert bad_audit.otio_coherence_compliant is False
+        healed_otio = heal_omni_scene_prompt(bad_otio_bible.scenes[0], bible=bad_otio_bible)
+        assert healed_otio.audit.otio_coherence_compliant is True
+        assert "[OTIO-SYNC:" in healed_otio.healed.omni_prose_prompt
+
+        # 7. Bundle exports: .otio / coherence_matrix.json / coherence_readiness_report.md
+        otio_dir = tmp_path / "otio_bundle"
+        exported = export_otio_coherence_bundle(ikea, otio_dir, fps=24)
+        for fname in ("production_timeline.otio", "coherence_matrix.json", "coherence_readiness_report.md"):
+            fpath = otio_dir / fname
+            assert fpath.is_file() and fpath.stat().st_size > 0
+        assert len(exported) == 3
+        otio_loaded = json.loads((otio_dir / "production_timeline.otio").read_text(encoding="utf-8"))
+        assert otio_loaded["OTIO_SCHEMA"] == "Timeline.1"
+        assert len(otio_loaded["tracks"]["children"]) == 7
+        coh_loaded = json.loads((otio_dir / "coherence_matrix.json").read_text(encoding="utf-8"))
+        assert coh_loaded["schema_version"] == "OTIO_0.16_COMPAT"
+        assert len(coh_loaded["otio_sha256"]) == 64
+
+    def test_v217_cross_cutting_fixes_cli_telemetry_hud_and_council(self, tmp_path):
+        import json
+        import re
+        from omni_director import DirectorPipeline
+        from omni_director.agents.council import ProductCouncilOrchestrator
+        from omni_director.cli import handle_council, handle_export
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import ProductionBundle
+        from omni_director.telemetry import KNOWN_PRODUCTION_ARTIFACTS, RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.coverage import generate_scene_coverage
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.html_hud_v216 import (
+            _synthesize_render_economics_spec,
+            _synthesize_wardrobe_prop_bible,
+        )
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        ikea = get_preset_bible("ikea-asmr")
+
+        # 1. html_hud_v216 reads real MasterWardrobePropBible.scene_art_specs & MasterRenderEconomicsManifest.scene_estimates
+        art_hud = _synthesize_wardrobe_prop_bible(ikea)
+        assert len(art_hud["scene_entries"]) == len(ikea.master_wardrobe_prop_bible.scene_art_specs)
+        econ_hud = _synthesize_render_economics_spec(ikea)
+        assert len(econ_hud["scene_takes"]) == len(ikea.master_render_economics_spec.scene_estimates)
+        model_ids = {m["model_id"] for m in econ_hud["model_breakdown"]}
+        assert model_ids == {
+            "gemini-4-argon",
+            "gemini-3.8-flash",
+            "gemini-3-pro-image",
+            "gemini-omni-1.1-flash-preview",
+        }
+
+        # 2. coverage.py generate_scene_coverage(scene, bible) executes cleanly
+        cov_with_bible = generate_scene_coverage(ikea.scenes[0], ikea)
+        cov_no_bible = generate_scene_coverage(ikea.scenes[0], None)
+        assert set(cov_with_bible.keys()) == {"master", "dynamic", "macro"}
+        assert set(cov_no_bible.keys()) == {"master", "dynamic", "macro"}
+
+        # 3. telemetry.py SAFE_KEYS preserve safe tokens while redacting secrets
+        tel = RuntimeTelemetry(
+            project_title=ikea.project_title,
+            metadata={
+                "render_profile_token": "[RENDER-PROFILE: SC01]",
+                "art_continuity_token": "[WARDROBE-LOCK: HERO]",
+                "gfx_prompt_token": "[GFX-CLEANPLATE: upper_left_third]",
+                "otio_sync_token": "[OTIO-SYNC: frames=768]",
+                "coherence_token": "[COHERENCE-LOCK: score=100.0]",
+                "motion_graphics_cues_count": 4,
+                "otio_coherence_score": 100.0,
+                "otio_conflicts_count": 0,
+                "otio_sha256": "a" * 64,
+                "api_key": "AIzaSyFakeSecretValue123456",
+            },
+        )
+        sanitized = tel.to_dict()["metadata"]
+        assert sanitized["render_profile_token"] == "[RENDER-PROFILE: SC01]"
+        assert sanitized["coherence_token"] == "[COHERENCE-LOCK: score=100.0]"
+        assert sanitized["otio_sha256"] == "a" * 64
+        assert sanitized["api_key"] == "[REDACTED]"
+
+        # 4. html_compiler.py contains v2.17 modals, hotkeys =/', Command Palette entries, closeSecondaryOpenHUDs & Escape dismissal
+        html_dir = tmp_path / "html_v217"
+        bundle = ProductionBundle(bible=ikea, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html = compile_storyboard_html(bundle, html_dir).read_text(encoding="utf-8")
+        assert 'id="modal-motion-graphics-studio"' in html
+        assert 'id="modal-otio-coherence"' in html
+        assert "e.key === '='" in html
+        assert 'e.key === "\'"' in html or "e.key === \"'\"" in html or "key: \"'\"" in html
+        assert "id: 'motiongfx'" in html
+        assert "id: 'otiocoherence'" in html
+        assert "closeSecondaryOpenHUDs" in html
+        assert "isMotionGfxHUDOpen" in html
+        assert "isOtioCoherenceHUDOpen" in html
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+
+        # 5. CLI exports for single formats, bundle formats, granular flags, and export_all_nle_artifacts
+        cli_single_checks = [
+            ("mogrt-json", "motion_graphics_mogrt.json"),
+            ("supers-ass", "broadcast_supers.ass"),
+            ("endcard-md", "brand_endcard_spec.md"),
+            ("otio", "production_timeline.otio"),
+            ("coherence-json", "coherence_matrix.json"),
+            ("coherence-md", "coherence_readiness_report.md"),
+        ]
+        for fmt_name, expected_file in cli_single_checks:
+            sub_dir = tmp_path / f"cli_{fmt_name}"
+            assert handle_export(["--preset", "ikea-asmr", "--format", fmt_name, "--output-dir", str(sub_dir)]) == 0
+            assert expected_file in KNOWN_PRODUCTION_ARTIFACTS
+            assert (sub_dir / expected_file).is_file()
+            assert len(list(sub_dir.iterdir())) == 1
+
+        nle_dir = tmp_path / "full_nle_v217"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(nle_dir), dry_run=True, render_video=False)
+        nle_res = export_all_nle_artifacts(ikea, nle_dir, fps=24)
+        for _, expected_file in cli_single_checks:
+            assert (nle_dir / expected_file).is_file()
+        assert "production_timeline_otio" in nle_res
+        assert "motion_graphics_mogrt_json" in nle_res
+        RuntimeTelemetry(project_title=ikea.project_title).write_manifest(nle_dir)
+        ok_nle, errs_nle = verify_bundle_checksums(nle_dir)
+        assert ok_nle is True and errs_nle == [], f"Checksum verification failed: {errs_nle}"
+
+        # 6. ProductCouncilOrchestrator & handle_council >= 90.0 with 0 critical findings
+        pipe_dir = tmp_path / "pipeline_council_v217"
+        run_bundle = DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(pipe_dir), dry_run=True, render_video=False)
+        report = ProductCouncilOrchestrator().convene_council(bible=run_bundle.bible, bundle=run_bundle, output_dir=pipe_dir)
+        assert report.version == "2.17.0"
+        assert report.passed is True
+        assert report.critical_findings_count == 0
+        assert report.overall_score >= 90.0
+
+        council_cli_dir = tmp_path / "cli_council_v217"
+        assert handle_council(["--preset", "ikea-asmr", "--output-dir", str(council_cli_dir)]) == 0
+        persisted = json.loads((council_cli_dir / "production_bundle.json").read_text(encoding="utf-8"))
+        assert persisted["council_report"]["overall_score"] >= 90.0
+        assert persisted["council_report"]["critical_findings_count"] == 0
+        ok_council, errs_council = verify_bundle_checksums(council_cli_dir)
+        assert ok_council is True and errs_council == [], f"Council checksum verification failed: {errs_council}"
+
+    def test_v217_adversary_hud_state_heal_and_pipeline_reconcile_contracts(self, tmp_path):
+        import hashlib
+        import json
+        import pytest
+        import omni_director
+        import omni_director.tools as tools_mod
+        from omni_director import DirectorPipeline
+        from omni_director.presets import get_domain_motion_graphics_spec, get_preset_bible
+        from omni_director.schemas import (
+            CoherenceCheckStatusEnum,
+            CoherenceDomainPairEnum,
+            DepthOfFieldSpec,
+            MasterMotionGraphicsManifest,
+            MasterOtioCoherenceManifest,
+            StorytellingMode,
+        )
+        from omni_director.telemetry import DISCOVERABLE_ARTIFACT_EXTENSIONS, RuntimeTelemetry
+        from omni_director.tools.html_hud_v217 import (
+            synthesize_v217_motion_graphics_state,
+            synthesize_v217_otio_coherence_state,
+        )
+        from omni_director.tools.otio_coherence import compile_otio_coherence_manifest
+        from omni_director.tools.prompt_auditor import heal_omni_scene_prompt
+
+        # 1. Package exports & telemetry discoverable extensions (.ass, .otio)
+        assert "build_v217_hud_bundle" in tools_mod.__all__
+        assert hasattr(tools_mod, "build_v217_hud_bundle")
+        assert "export_motion_graphics_bundle" in tools_mod.__all__
+        assert "export_otio_coherence_bundle" in tools_mod.__all__
+        assert "build_v217_hud_bundle" in omni_director.__all__
+        assert hasattr(omni_director, "build_v217_hud_bundle")
+        assert ".ass" in DISCOVERABLE_ARTIFACT_EXTENSIONS
+        assert ".otio" in DISCOVERABLE_ARTIFACT_EXTENSIONS
+
+        disc_dir = tmp_path / "discover_v217"
+        sub_dir = disc_dir / "nested"
+        sub_dir.mkdir(parents=True)
+        (sub_dir / "extra_supers.ass").write_text("[Script Info]\nTitle: Extra\n", encoding="utf-8")
+        (sub_dir / "extra_cut.otio").write_text('{"OTIO_SCHEMA": "Timeline.1"}\n', encoding="utf-8")
+        checksums = RuntimeTelemetry(project_title="Discovery Check").compute_artifact_checksums(disc_dir)
+        assert "nested/extra_supers.ass" in checksums
+        assert "nested/extra_cut.otio" in checksums
+
+        ikea = get_preset_bible("ikea-asmr")
+
+        # 2. synthesize_v217_motion_graphics_state flows real GraphicSuperCueSpec & BrandEndcardSpec
+        mgs_bible = ikea.model_copy(deep=True)
+        real_mgs = get_domain_motion_graphics_spec(mgs_bible)
+        assert isinstance(real_mgs, MasterMotionGraphicsManifest)
+        first_cue = real_mgs.scene_graphics[0].cues[0]
+        first_cue.copy_text = "HANDCRAFTED BIRCH JOINERY"
+        first_cue.effective_wpm = 142.5
+        first_cue.placement.wcag_contrast_ratio = 9.25
+        real_mgs.endcard.cta_headline = "RESERVE YOUR STUDIO PIECE"
+        mgs_bible.master_motion_graphics = real_mgs
+
+        mgs_state = synthesize_v217_motion_graphics_state(mgs_bible)
+        matched_cues = [c for c in mgs_state["scene_graphics"] if c.get("super_text") == "HANDCRAFTED BIRCH JOINERY"]
+        assert len(matched_cues) == 1
+        assert matched_cues[0]["wpm"] == pytest.approx(142.5, abs=0.1)
+        assert matched_cues[0]["contrast_ratio"] == pytest.approx(9.25, abs=0.01)
+        assert mgs_state["endcard"]["cta_text"] == "RESERVE YOUR STUDIO PIECE"
+
+        # Injecting an over-WPM / low-contrast / unsafe cue surfaces truthfully (not masked by defaults)
+        failing_bible = mgs_bible.model_copy(deep=True)
+        failing_cue = failing_bible.master_motion_graphics.scene_graphics[0].cues[0]
+        failing_cue.copy_text = "OVER SPEED LOW CONTRAST FAILING CUE"
+        failing_cue.effective_wpm = 245.0
+        failing_cue.placement.wcag_contrast_ratio = 2.1
+        failing_cue.reframe_cleared_ratios = ["16:9"]
+        failing_cue.legibility_audit_passed = False
+
+        failing_state = synthesize_v217_motion_graphics_state(failing_bible)
+        failing_rows = [c for c in failing_state["scene_graphics"] if c.get("super_text") == "OVER SPEED LOW CONTRAST FAILING CUE"]
+        assert len(failing_rows) == 1
+        assert failing_rows[0]["wpm"] == pytest.approx(245.0, abs=0.1)
+        assert failing_rows[0]["contrast_ratio"] == pytest.approx(2.1, abs=0.01)
+        assert failing_rows[0]["safe_zone_9x16"] is False
+        assert failing_state["max_wpm_detected"] >= 245.0
+        assert failing_state["min_contrast_ratio"] <= 2.1
+        assert failing_state["all_safe_zones_cleared"] is False
+        assert failing_state["legal_supers_compliant"] is False
+
+        # 3. synthesize_v217_otio_coherence_state surfaces real CHK-01..07 rows, conflicts & otio_sha256
+        otio_bible = ikea.model_copy(deep=True)
+        real_otio = compile_otio_coherence_manifest(otio_bible, auto_reconcile=True)
+        assert isinstance(real_otio, MasterOtioCoherenceManifest)
+        otio_bible.master_otio_coherence = real_otio
+
+        otio_state = synthesize_v217_otio_coherence_state(otio_bible)
+        returned_ids = [c["check_id"] for c in otio_state["coherence_checks"]]
+        assert len(returned_ids) == 7
+        for prefix in ("CHK-01", "CHK-02", "CHK-03", "CHK-04", "CHK-05", "CHK-06", "CHK-07"):
+            assert any(cid.startswith(prefix) for cid in returned_ids), f"Missing {prefix} in {returned_ids}"
+        expected_sha = hashlib.sha256(
+            json.dumps(otio_state["otio_timeline_doc"], indent=2, sort_keys=True).encode("utf-8")
+        ).hexdigest()
+        assert otio_state["otio_sha256"] == expected_sha
+
+        # Inject a genuine Mode B > 40s conflict and verify it surfaces truthfully
+        mode_b_bible = ikea.model_copy(deep=True)
+        mode_b_bible.storytelling_mode = StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        mode_b_bible.total_runtime_seconds = 48
+        mode_b_manifest = compile_otio_coherence_manifest(mode_b_bible, auto_reconcile=True)
+        mode_b_bible.master_otio_coherence = mode_b_manifest
+
+        mode_b_state = synthesize_v217_otio_coherence_state(mode_b_bible)
+        assert mode_b_state["conflicts_count"] > 0
+        assert mode_b_state["shoot_day_ready"] is False
+        chk05 = next(c for c in mode_b_state["coherence_checks"] if c["check_id"].startswith("CHK-05"))
+        assert str(chk05["status"]).upper() == "CONFLICT"
+        expected_mode_b_sha = hashlib.sha256(
+            json.dumps(mode_b_state["otio_timeline_doc"], indent=2, sort_keys=True).encode("utf-8")
+        ).hexdigest()
+        assert mode_b_state["otio_sha256"] == expected_mode_b_sha
+
+        # 4. heal_omni_scene_prompt preserves genuine un-reconcilable holds (Mode B > 40s)
+        healed_hold = heal_omni_scene_prompt(mode_b_bible.scenes[0], bible=mode_b_bible)
+        assert mode_b_bible.master_otio_coherence.conflicts_count > 0
+        assert mode_b_bible.master_otio_coherence.shoot_day_ready is False
+        assert healed_hold.audit.otio_coherence_compliant is False
+
+        # 5. DirectorPipeline._ensure_domain_specs propagates reconcile_cross_department_conflicts onto original bible
+        dirty_bible = ikea.model_copy(deep=True)
+        dirty_bible.master_dof_spec = DepthOfFieldSpec(
+            focal_length_mm=135,
+            aperture_f_stop=11.0,
+            focus_distance_m=2.0,
+        )
+        dirty_bible.master_audio_mixer.master_lufs_target = -6.0
+        dirty_bible.master_otio_coherence = None
+
+        returned_bible = DirectorPipeline._ensure_domain_specs(dirty_bible)
+        assert returned_bible is dirty_bible
+        expected_focal = int(dirty_bible.master_lens_package.focal_length_mm)
+        expected_lufs = float(dirty_bible.master_broadcast_qc.loudness_compliance.target_integrated_lufs)
+        assert dirty_bible.master_dof_spec.focal_length_mm == expected_focal
+        assert abs(float(dirty_bible.master_audio_mixer.master_lufs_target) - expected_lufs) <= 0.1
+        assert dirty_bible.master_otio_coherence is not None
+        assert dirty_bible.master_otio_coherence.conflicts_count == 0
+        assert dirty_bible.master_otio_coherence.shoot_day_ready is True
+        chk_map = {c.pair: c for c in dirty_bible.master_otio_coherence.coherence_checks}
+        assert chk_map[CoherenceDomainPairEnum.OPTICS_VS_DOF].status == CoherenceCheckStatusEnum.PASS
+        assert chk_map[CoherenceDomainPairEnum.AUDIO_STEMS_VS_SPOTTING].status == CoherenceCheckStatusEnum.PASS
