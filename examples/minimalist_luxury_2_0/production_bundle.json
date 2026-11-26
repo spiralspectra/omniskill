@@ -164,7 +164,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 50mm Prime on Steadicam Ultra with gentle vertical float with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Rhythmic stiletto heel clicks on polished marble and Subtle perfume atomizer mist spray. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=118 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"Minimalist Luxury Haute Couture \" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Haute Couture Runway Model:LOOK_A(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=5s | est=$2.65]. [GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "Wide establishing tracking shot. Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 50mm Prime on Steadicam Ultra with gentle vertical float with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving continuous kinetic momentum conservation, physical inertia, and friction invariants. Diegetic audio captures synchronous Rhythmic stiletto heel clicks on polished marble and Subtle perfume atomizer mist spray. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=118 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"Minimalist Luxury Haute Couture \" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Haute Couture Runway Model:LOOK_A(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=weathered@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC01 | mode_b_6step | takes=2 | dur=5s | est=$2.65]. [GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC01 | take=SC01_T2 | seed=1644193087 | qa=98.1 | status=qa_passed]. [TREATMENT-BEAT: SC01 | slide=scene_beat_spread | tone=Editorial Couture Restraint & Kinetic Silk Fluidity | hook=Architectural poise and fluid textile drama in continuous edi...].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -1125,13 +1125,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1144,7 +1144,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1157,7 +1157,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1170,7 +1170,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1508,7 +1508,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc01-93087",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T2",
+          "seed": 1644193087,
+          "interaction_id": "omni-interact-1-93087",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T2",
+            "seed": 1644193087,
+            "prompt_sha256_prefix": "b4260203f893",
+            "temporal_stability_score": 98.2,
+            "prompt_adherence_score": 98.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.95,
+            "composite_qa_score": 98.08,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 706883618,
+              "prompt_sha256_prefix": "b4260203f893",
+              "temporal_stability_score": 96.45,
+              "prompt_adherence_score": 98.45,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 98.25,
+              "composite_qa_score": 97.7,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 1644193087,
+              "prompt_sha256_prefix": "b4260203f893",
+              "temporal_stability_score": 98.2,
+              "prompt_adherence_score": 98.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.95,
+              "composite_qa_score": 98.08,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "subhead": "00:00 - 00:05 · Regime 2: High-Kinetic & Precision Commercial · 50mm · 5600K",
+          "narrative_copy": "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02) -> Beat 2: Subject engages primary movement trajectory (00:02 - 00:05) Kinetic Chain: 1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance.",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:05",
+            "lens_mm": "50mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       },
       {
         "scene_index": 2,
@@ -1556,7 +1634,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Maintaining continuity with keyframe <image_3>. 50mm Prime on Steadicam Ultra with gentle vertical float maneuver at eye-level with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Rhythmic stiletto heel clicks on polished marble and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=118 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"Minimalist Luxury Haute Couture \" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Haute Couture Runway Model:LOOK_A(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=in_hand_right@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=5s | est=$2.65]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Minimalist Luxury Haute Couture]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.. Maintaining continuity with keyframe <image_3>. 50mm Prime on Steadicam Ultra with gentle vertical float maneuver at eye-level with 5600K diffused commercial beauty illumination with reflective mirror bounce. Rendered at natural 1.0x real-time speed preserving solid kinetic momentum conservation and ground contact reaction. Diegetic sound design features immediate Rhythmic stiletto heel clicks on polished marble and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,fr-FR,it-IT,zh-CN,ar-SA,ko-KR sync=1.00x wps=2.20 supers=tight_wrap]. [SPOTTING_SYNC: bpm=118 bridge=l_cut jcut=0f lcut=20f beat_offset=-2f]. [S3D-RIG: 35.0mm IO | Conv: 3.31m | +Parallax: 2.00% | fmt=mv_hevc]. [AD-CUE: \"Minimalist Luxury Haute Couture \" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Haute Couture Runway Model:LOOK_A(runway_pressed)][PROP-STATE: PROP_CLUTCH_01=in_hand_right@travertine_pedestal | slots=3/3]. [RENDER-PROFILE: SC02 | mode_b_6step | takes=2 | dur=5s | est=$2.65]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Minimalist Luxury Haute Couture]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC02 | take=SC02_T2 | seed=1726417881 | qa=98.2 | status=qa_passed]. [TREATMENT-BEAT: SC02 | slide=scene_beat_spread | tone=Editorial Couture Restraint & Kinetic Silk Fluidity | hook=Architectural poise and fluid textile drama in continuous edi...].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -2513,13 +2591,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2532,7 +2610,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2545,7 +2623,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2558,7 +2636,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2897,7 +2975,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Minimalist Luxury Haute Couture]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc02-17881",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 1726417881,
+          "interaction_id": "omni-interact-2-17881",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 1726417881,
+            "prompt_sha256_prefix": "3861f3867373",
+            "temporal_stability_score": 98.55,
+            "prompt_adherence_score": 97.65,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 98.55,
+            "composite_qa_score": 98.19,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 996366775,
+              "prompt_sha256_prefix": "3861f3867373",
+              "temporal_stability_score": 98.2,
+              "prompt_adherence_score": 97.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.95,
+              "composite_qa_score": 97.76,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 1726417881,
+              "prompt_sha256_prefix": "3861f3867373",
+              "temporal_stability_score": 98.55,
+              "prompt_adherence_score": 97.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 98.55,
+              "composite_qa_score": 98.19,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "subhead": "00:05 - 00:10 · Regime 2: High-Kinetic & Precision Commercial · 85mm · 5600K",
+          "narrative_copy": "Beat 1: Peak acceleration and directional transition (00:05 - 00:08) -> Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10) Kinetic Chain: 1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose.",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:05 - 00:10",
+            "lens_mm": "85mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       }
     ],
     "domain_archetype": "luxury_fashion",
@@ -3745,7 +3901,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-25T10:03:48.145446+00:00",
+        "creation_date": "2026-11-26T09:30:31.281772+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3753,7 +3909,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-25T10:03:48.145436+00:00"
+            "hash_timestamp": "2026-11-26T09:30:31.281762+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3761,7 +3917,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-25T10:03:48.145444+00:00"
+            "hash_timestamp": "2026-11-26T09:30:31.281770+00:00"
           }
         ]
       }
@@ -3817,7 +3973,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-        "creation_date": "2026-11-25T10:03:48.145446+00:00",
+        "creation_date": "2026-11-26T09:30:31.281772+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3825,7 +3981,7 @@
             "xxhash64": "cfb1f3c6cd129749",
             "sha1": "ca83dcb953098dda70faf200c37fa05ab100989b",
             "md5": "b6d798f3dcf26ab6a6a53358998fb079",
-            "hash_timestamp": "2026-11-25T10:03:48.145436+00:00"
+            "hash_timestamp": "2026-11-26T09:30:31.281762+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3833,7 +3989,7 @@
             "xxhash64": "f8305b45be608fd8",
             "sha1": "207623a4e3c9ef8bf8207297221d0d19ad943a40",
             "md5": "980a4952b6a5da7152fca8b31a683344",
-            "hash_timestamp": "2026-11-25T10:03:48.145444+00:00"
+            "hash_timestamp": "2026-11-26T09:30:31.281770+00:00"
           }
         ]
       }
@@ -8668,7 +8824,7 @@
     "master_c2pa_provenance": {
       "project_title": "Minimalist Luxury Haute Couture Silk Vel",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8677,7 +8833,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8690,7 +8846,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8703,7 +8859,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8716,7 +8872,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8788,13 +8944,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8807,7 +8963,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8820,7 +8976,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8833,7 +8989,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8899,13 +9055,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8918,7 +9074,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8931,7 +9087,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8944,7 +9100,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9006,7 +9162,7 @@
     "c2pa_provenance": {
       "project_title": "Minimalist Luxury Haute Couture Silk Vel",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9015,7 +9171,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9028,7 +9184,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9041,7 +9197,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9054,7 +9210,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9126,13 +9282,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9145,7 +9301,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9158,7 +9314,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9171,7 +9327,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9237,13 +9393,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9256,7 +9412,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9269,7 +9425,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9282,7 +9438,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9344,7 +9500,7 @@
     "content_credentials": {
       "project_title": "Minimalist Luxury Haute Couture Silk Vel",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9353,7 +9509,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9366,7 +9522,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9379,7 +9535,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9392,7 +9548,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9464,13 +9620,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9483,7 +9639,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9496,7 +9652,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9509,7 +9665,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9575,13 +9731,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9594,7 +9750,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9607,7 +9763,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9620,7 +9776,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9682,7 +9838,7 @@
     "provenance_manifest": {
       "project_title": "Minimalist Luxury Haute Couture Silk Vel",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:24921a3dd6f4",
       "synthetic_tier": "virtual_digital_replica",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9691,7 +9847,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9704,7 +9860,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9717,7 +9873,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9730,7 +9886,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9802,13 +9958,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Initiation",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9821,7 +9977,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9834,7 +9990,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9847,7 +10003,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9913,13 +10069,13 @@
           "scene_title": "Minimalist Luxury Haute Couture Silk Vel - Climax",
           "synthetic_tier": "virtual_digital_replica",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9932,7 +10088,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9945,7 +10101,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9958,7 +10114,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -12007,9 +12163,371 @@
       "coherence_score": 100.0,
       "conflicts_count": 0,
       "warnings_count": 0,
-      "otio_sha256": "74737eb519ab7c79f1f33c6d8a943ed47447e960fedd99e696241385c65fa49d",
+      "otio_sha256": "2b6dd08372a5e9c7faf5f94a2125da094d009a31174c9b6c0942675a56b7f201",
       "shoot_day_ready": true,
-      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+    },
+    "master_render_jobs": {
+      "manifest_id": "rjm-ddb70f5836",
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "domain_archetype": "luxury_fashion",
+      "storytelling_mode": "Mode A",
+      "jobs": [
+        {
+          "job_id": "rj-sc01-93087",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T2",
+          "seed": 1644193087,
+          "interaction_id": "omni-interact-1-93087",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T2",
+            "seed": 1644193087,
+            "prompt_sha256_prefix": "b4260203f893",
+            "temporal_stability_score": 98.2,
+            "prompt_adherence_score": 98.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.95,
+            "composite_qa_score": 98.08,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 706883618,
+              "prompt_sha256_prefix": "b4260203f893",
+              "temporal_stability_score": 96.45,
+              "prompt_adherence_score": 98.45,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 98.25,
+              "composite_qa_score": 97.7,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 1644193087,
+              "prompt_sha256_prefix": "b4260203f893",
+              "temporal_stability_score": 98.2,
+              "prompt_adherence_score": 98.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.95,
+              "composite_qa_score": 98.08,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        {
+          "job_id": "rj-sc02-17881",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 1726417881,
+          "interaction_id": "omni-interact-2-17881",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 1726417881,
+            "prompt_sha256_prefix": "3861f3867373",
+            "temporal_stability_score": 98.55,
+            "prompt_adherence_score": 97.65,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 98.55,
+            "composite_qa_score": 98.19,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 996366775,
+              "prompt_sha256_prefix": "3861f3867373",
+              "temporal_stability_score": 98.2,
+              "prompt_adherence_score": 97.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.95,
+              "composite_qa_score": 97.76,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 1726417881,
+              "prompt_sha256_prefix": "3861f3867373",
+              "temporal_stability_score": 98.55,
+              "prompt_adherence_score": 97.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 98.55,
+              "composite_qa_score": 98.19,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        }
+      ],
+      "frame_anchor_handoffs": [],
+      "overall_qa_score": 98.13,
+      "promoted_takes_count": 2,
+      "assembly_ready": true,
+      "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=98.1 | handoffs=0 | assembly_ready=True]"
+    },
+    "master_pitch_treatment": {
+      "treatment_id": "pt-c3a877e4af",
+      "project_title": "Minimalist Luxury Haute Couture Silk Vel",
+      "client_brand_label": "Maison de Haute Horlogerie Paris",
+      "domain_archetype": "luxury_fashion",
+      "executive_director_statement": "Minimalist Luxury Haute Couture Silk Vel frames bespoke tailoring and sculptural movement in an unbroken 10s study. Guided by Regime 2: High-Kinetic & Precision Commercial and Mode A: Parallel Multi-Scene Cut (Montage), lighting ratios and fabric physics elevate Maison Prestige & Silhouette Memorability.",
+      "target_audience_hook": "Architectural poise and fluid textile drama in continuous editorial motion.",
+      "slides": [
+        {
+          "slide_index": 1,
+          "slide_type": "cover_logline",
+          "scene_index": null,
+          "headline": "Minimalist Luxury Haute Couture Silk Vel",
+          "subhead": "Maison de Haute Horlogerie Paris · luxury_fashion · Editorial Couture Restraint & Kinetic Silk Fluidity",
+          "narrative_copy": "Minimalist luxury haute couture silk velvet runway parfum fragrance luxury editorial atelier campaign inside brutalist travertine marble gallery with structured wool coats and geometric light shafts.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37",
+            "#0F172A",
+            "#1E3A5F"
+          ],
+          "key_metrics": {
+            "client_brand": "Maison de Haute Horlogerie Paris",
+            "runtime": "10s",
+            "aspect_ratio": "16:9",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Editorial Couture Restraint & Kinetic Silk Fluidity"
+          }
+        },
+        {
+          "slide_index": 2,
+          "slide_type": "creative_vision_regime",
+          "scene_index": null,
+          "headline": "Creative Vision & Storytelling Regime",
+          "subhead": "Regime 2: High-Kinetic & Precision Commercial · Mode A: Parallel Multi-Scene Cut (Montage)",
+          "narrative_copy": "Minimalist Luxury Haute Couture Silk Vel frames bespoke tailoring and sculptural movement in an unbroken 10s study. Guided by Regime 2: High-Kinetic & Precision Commercial and Mode A: Parallel Multi-Scene Cut (Montage), lighting ratios and fabric physics elevate Maison Prestige & Silhouette Memorability.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "creative_regime": "Regime 2: High-Kinetic & Precision Commercial",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Editorial Couture Restraint & Kinetic Silk Fluidity",
+            "hero_kpi_focus": "Maison Prestige & Silhouette Memorability",
+            "audience_hook": "Architectural poise and fluid textile drama in continuous editorial motion."
+          }
+        },
+        {
+          "slide_index": 3,
+          "slide_type": "color_script_palette",
+          "scene_index": null,
+          "headline": "Color Script & Optical Look Science",
+          "subhead": "Look: fuji_eterna_500t · ACEScg · 5600K Key",
+          "narrative_copy": "Master palette #09090B, #F43F5E, #E2E8F0, #D4AF37, #0F172A, #1E3A5F calibrated in ACEScg with fuji_eterna_500t tonal curve and 5600K primary illumination.",
+          "visual_plate_ref": "COLOR_SCRIPT_STRIP",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37",
+            "#0F172A",
+            "#1E3A5F"
+          ],
+          "key_metrics": {
+            "look_preset": "fuji_eterna_500t",
+            "working_color_space": "ACEScg",
+            "key_kelvin": "5600K",
+            "swatch_count": "6"
+          }
+        },
+        {
+          "slide_index": 4,
+          "slide_type": "cast_wardrobe_polarity",
+          "scene_index": null,
+          "headline": "Cast, Hero Subject & Wardrobe Polarity",
+          "subhead": "1 Character Anchor(s) · 3/3 Nano Banana References",
+          "narrative_copy": "Haute Couture Runway Model: Statuesque architectural posture with dynamic high-fashion stride (Wardrobe Polarity: Sculptural black velvet evening coat with structured iridescent silk lapels; Motion: Fluid, confident, momentum-conserving runway cadence)",
+          "visual_plate_ref": "Haute Couture Runway Model",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0"
+          ],
+          "key_metrics": {
+            "characters_count": "1",
+            "nano_banana_refs": "3/3",
+            "polarity_lock": "ENFORCED"
+          }
+        },
+        {
+          "slide_index": 5,
+          "slide_type": "environment_plates",
+          "scene_index": null,
+          "headline": "Master Environment — Luxury Fashion Sanctuary",
+          "subhead": "Key Light 5600K · 2 Geometric Invariants",
+          "narrative_copy": "Architectural space styled for luxury fashion Lighting: 5600K diffused commercial beauty illumination with reflective mirror bounce Atmosphere: Ultra-fine suspended haze catching oblique light shafts Invariants: Haute couture garment maintains structural textile tension and crisp drape; Polished runway mirror floor reflects silhouettes with optical clarity",
+          "visual_plate_ref": "<image_2>",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "location": "Luxury Fashion Sanctuary",
+            "kelvin": "5600K",
+            "invariants": "2"
+          }
+        },
+        {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: Minimalist Luxury Haute Couture Silk Vel - Initiation",
+          "subhead": "00:00 - 00:05 · Regime 2: High-Kinetic & Precision Commercial · 50mm · 5600K",
+          "narrative_copy": "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02) -> Beat 2: Subject engages primary movement trajectory (00:02 - 00:05) Kinetic Chain: 1. Initiation: Subject moves -> 2. Contact: Foot impacts ground -> 3. Transfer: Force accelerates mass -> 4. Evidence: Surface dust shifts -> 5. Recovery: Stable stance.",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:05",
+            "lens_mm": "50mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: Minimalist Luxury Haute Couture Silk Vel - Climax",
+          "subhead": "00:05 - 00:10 · Regime 2: High-Kinetic & Precision Commercial · 85mm · 5600K",
+          "narrative_copy": "Beat 1: Peak acceleration and directional transition (00:05 - 00:08) -> Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10) Kinetic Chain: 1. Initiation: Momentum shifts -> 2. Contact: Grip engages frame -> 3. Transfer: Torque arrests rotation -> 4. Evidence: Structural vibration -> 5. Recovery: Heroic pose.",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:05 - 00:10",
+            "lens_mm": "85mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 8,
+          "slide_type": "sonic_bgm_arc",
+          "scene_index": null,
+          "headline": "Sonic Architecture & BGM Arc — Minimalist Luxury Haute Couture Silk Vel Theme",
+          "subhead": "Deep House Runway & Parisian Haute Couture Pulse · 118 BPM · A Minor",
+          "narrative_copy": "Dynamic Arc: Gentle rhythmic pulse building into an assertive cinematic climax | Diegetic Foley: Rhythmic stiletto heel clicks on polished marble; Crisp textile rustle of silk taffeta; Metallic snap of luxury compact; Subtle perfume atomizer mist spray | Room Acoustics: Controlled cinematic soundstage | Stems: percussion: Rhythmic pulse and transient acoustic hits, bass: Sub-harmonic foundation and low-end drone, harmony: Mid-range chord progression and ambient pads, lead: Hero melodic motif or lead arpeggio",
+          "visual_plate_ref": "SONIC_BGM_ARC",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0"
+          ],
+          "key_metrics": {
+            "track_title": "Minimalist Luxury Haute Couture Silk Vel Theme",
+            "tempo_bpm": "118",
+            "key_signature": "A Minor",
+            "foley_cues": "4",
+            "stems_count": "4"
+          }
+        },
+        {
+          "slide_index": 9,
+          "slide_type": "budget_roi_summary",
+          "scene_index": null,
+          "headline": "Production Economics: AI-First vs. Traditional AICP Bid",
+          "subhead": "AICP Baseline $375,658.39 vs. AI Live Compute $5.29 (100.00% Savings)",
+          "narrative_copy": "Traditional AICP commercial shoot baseline is estimated at $375,658.39. Omni 2026 Matrix simulation mode executes at $0.00 billable cost, while planned multi-take live rendering totals $5.29 — capturing $375,653.10 (100.00%) in production capital efficiency.",
+          "visual_plate_ref": "BUDGET_ROI_SUMMARY",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0"
+          ],
+          "key_metrics": {
+            "aicp_grand_total_usd": "$375,658.39",
+            "ai_compute_est_usd": "$5.29",
+            "dry_run_billable_usd": "$0.00",
+            "net_savings_usd": "$375,653.10",
+            "savings_pct": "100.00%"
+          }
+        },
+        {
+          "slide_index": 10,
+          "slide_type": "deliverables_signoff",
+          "scene_index": null,
+          "headline": "Deliverables Matrix & Executive Greenlight",
+          "subhead": "2026 Gemini Model Matrix · 16:9 · 10s @ 24fps",
+          "narrative_copy": "Approved deliverables package includes: immutable MasterProductionBible SSOT JSON, interactive dark-room Cinema Animatic HTML5, SMPTE EDL/FCPXML/SRT/VTT timelines, OpenTimelineIO (.otio) cross-department coherence manifest, C2PA provenance manifest, and print-ready Executive Director's Lookbook.",
+          "visual_plate_ref": "DELIVERABLES_SIGNOFF",
+          "color_swatches": [
+            "#09090B",
+            "#F43F5E",
+            "#E2E8F0",
+            "#D4AF37",
+            "#0F172A",
+            "#1E3A5F"
+          ],
+          "key_metrics": {
+            "hero_kpi_focus": "Maison Prestige & Silhouette Memorability",
+            "scenes_count": "2",
+            "model_matrix": "2026-Compliant",
+            "signoff_status": "READY_FOR_GREENLIGHT"
+          }
+        }
+      ],
+      "color_script_strip": [
+        "#09090B",
+        "#F43F5E",
+        "#E2E8F0",
+        "#D4AF37",
+        "#0F172A",
+        "#1E3A5F"
+      ],
+      "revision_diff": null,
+      "treatment_token": "[PITCH-TREATMENT: id=pt-c3a877e4af | domain=luxury_fashion | slides=10 | tone=Editorial Couture Restraint & Kinetic Silk Fluidity | roi_savings=100.0%]"
     }
   },
   "storyboard_html_path": "examples/minimalist_luxury_2_0/storyboard_preview.html",
@@ -12118,7 +12636,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=1 | max_wpm=150.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC01 | take=SC01_T2 | seed=1644193087 | qa=98.1 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC01 | type=scene_beat_spread | headline=SC01: Minimalist Luxury Haute Couture Silk Vel -]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12142,7 +12666,9 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     },
     {
       "scene_index": 2,
@@ -12226,7 +12752,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_center_safe | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Minimalist Luxury Haute Couture]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=74737eb519ab][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=2b6dd08372a5][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC02 | take=SC02_T2 | seed=1726417881 | qa=98.2 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC02 | type=scene_beat_spread | headline=SC02: Minimalist Luxury Haute Couture Silk Vel -]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12249,14 +12781,16 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "8e45da6f-d2ff-471a-adaf-899255b47b9c",
+    "session_id": "682b2945-e614-4e55-8e11-1d10e35ff235",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-25T10:03:48.142723+00:00",
+    "timestamp": "2026-11-26T09:30:31.278946+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -12266,62 +12800,62 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-25T10:03:48.142743+00:00",
-        "end_time": "2026-11-25T10:03:48.143321+00:00",
-        "duration_ms": 0.58,
+        "start_time": "2026-11-26T09:30:31.278966+00:00",
+        "end_time": "2026-11-26T09:30:31.279528+00:00",
+        "duration_ms": 0.56,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-25T10:03:48.143351+00:00",
-        "end_time": "2026-11-25T10:03:48.157605+00:00",
-        "duration_ms": 14.25,
+        "start_time": "2026-11-26T09:30:31.279550+00:00",
+        "end_time": "2026-11-26T09:30:31.291411+00:00",
+        "duration_ms": 11.86,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-25T10:03:48.157645+00:00",
-        "end_time": "2026-11-25T10:03:48.159914+00:00",
-        "duration_ms": 2.27,
+        "start_time": "2026-11-26T09:30:31.291442+00:00",
+        "end_time": "2026-11-26T09:30:31.293585+00:00",
+        "duration_ms": 2.14,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-25T10:03:48.159943+00:00",
-        "end_time": "2026-11-25T10:03:48.160195+00:00",
-        "duration_ms": 0.25,
+        "start_time": "2026-11-26T09:30:31.293600+00:00",
+        "end_time": "2026-11-26T09:30:31.293893+00:00",
+        "duration_ms": 0.29,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-25T10:03:48.160206+00:00",
-        "end_time": "2026-11-25T10:03:48.164767+00:00",
-        "duration_ms": 4.56,
+        "start_time": "2026-11-26T09:30:31.293903+00:00",
+        "end_time": "2026-11-26T09:30:31.298921+00:00",
+        "duration_ms": 5.02,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-25T10:03:48.164786+00:00",
-        "end_time": "2026-11-25T10:03:48.164791+00:00",
+        "start_time": "2026-11-26T09:30:31.298937+00:00",
+        "end_time": "2026-11-26T09:30:31.298941+00:00",
         "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-25T10:03:48.164798+00:00",
-        "end_time": "2026-11-25T10:03:48.190332+00:00",
-        "duration_ms": 25.53,
+        "start_time": "2026-11-26T09:30:31.298949+00:00",
+        "end_time": "2026-11-26T09:30:31.326456+00:00",
+        "duration_ms": 27.51,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-25T10:03:48.229909+00:00",
-        "end_time": "2026-11-25T10:03:48.323531+00:00",
-        "duration_ms": 93.62,
+        "start_time": "2026-11-26T09:30:31.508096+00:00",
+        "end_time": "2026-11-26T09:30:31.606821+00:00",
+        "duration_ms": 98.72,
         "details": {}
       }
     ],
-    "total_duration_ms": 141.06,
+    "total_duration_ms": 146.1,
     "audit_summary": {
       "estimated_total_compute_usd": 5.293,
       "render_budget_ceiling_usd": 50.0,
@@ -12330,7 +12864,11 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 2,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 98.13,
+      "promoted_takes_count": 2,
+      "treatment_slides_count": 10,
+      "revision_deltas_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 5.293,
@@ -12340,13 +12878,17 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 2,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 98.13,
+      "promoted_takes_count": 2,
+      "treatment_slides_count": 10,
+      "revision_deltas_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "f45b3c90d6f209812215417e131a63c1b141c4840fd9d391ce333ef5661d373b",
-      "storyboard_preview.html": "94f4036c93e740bf5393523dd2b8f1061bedf3d0a06af56ded7ecaa23dd1bf3d",
-      "council_report.json": "1745d1cb39e9e7229bd172a2635276fd490708816ebf5fafd6ad554bfb81f209",
-      "council_report.md": "72308b85b1d2c27b5bca0aaa9b6804e83ec0017263e12736e1af678a0eccc7e4",
+      "production_bundle.json": "095156df5405d23cc8e2df0734f4a07044a57228ec25de6dba4e1f2a715a8756",
+      "storyboard_preview.html": "5ca3ff84631c92c06819003242c5ecb5252888ea487f8cb822621bed6368b1fc",
+      "council_report.json": "00c55248c73940c85089bfbe6b5b85f2d05bcc45744ede5fdb55f45c68c01652",
+      "council_report.md": "f9752136bd034e0d887e693b88a135ae73c312e297b7c8b56e502ffb3a6db6f9",
       "timeline.edl": "72ba67d55f2b8b2ece89297d8c651d0c3483be4b4f78695f76cfacd64eae4527",
       "sequence.fcpxml": "62e9991b289715f688243ad62382ea167f76139f7f8cfe3bc582b0539d164ecc",
       "shot_list.csv": "3d2cb0835a542a6a34520e631da55b1073278f3dfead2f6e29aa0f95c901a21a",
@@ -12370,8 +12912,8 @@
       "studio_lighting_plot.json": "52aa970f5459db25d64693c4180acca0b896342654c089af6d4c2e46df945382",
       "gaffer_callsheet.csv": "0001b77cf7499ef005f8224086483ad2e0401def2055da4eca49c8e6d687f044",
       "gaffer_call_sheet.csv": "0001b77cf7499ef005f8224086483ad2e0401def2055da4eca49c8e6d687f044",
-      "dof_chart.json": "f3246c4cc25a7b83419714917f1da39b7df2730744ba57bbcc79063d270695b8",
-      "focus_puller_cue_sheet.csv": "c5ed15e4176037949794ff6a36eb9b2a6005071b7e4e16cece1ce38be785a312",
+      "dof_chart.json": "1cf4b0c77b1680f72c5cb3970934d4b1949e9c70c0f3174a6bef099a929c010d",
+      "focus_puller_cue_sheet.csv": "4929ca9ae5548634e2c82fa08002ba1bc67e0bfe8fd0fb79858127cec61de4fa",
       "production_look.cube": "18e090330512874b494579bd68e23de31984eafdd1cb3ff20ebd99d02aaf8bb7",
       "dit_cart_manifest.json": "4e11e3fc81e9972535274ec660278437c740866fb028cf28c734732d3e374a63",
       "spatial_audio_adm.json": "6ff41c9f4958c7cdb1e51cd7275c7dbf6bc65e0fc1c90707863b1366b30a47c9",
@@ -12398,12 +12940,12 @@
       "film_emulation_spec.json": "dacf2f9453598ba9d505ce6ead0fbf426431828c7f23a79563d94e15bf888eda",
       "film_stock_shader.dctl": "5c1af26c9e396cac2a5cdbf95ffc95157ce1d4b3f22c89359945f25febd4c109",
       "film_stock.ale": "722e0ebc63bfb37fef32a7ee619318492f8d8f0bfefabcc614ac4f899529869e",
-      "slate_manifest.json": "37c1172f693b975faa2680602006aa25d373eecbc24a9724faeb4f93146fcad6",
-      "asc_mhl_manifest.xml": "7f828f05023a41864c14456bdad62a0c9515d0fdd82e97e44b076ed3ba16b427",
+      "slate_manifest.json": "eab35fe4891ca541859c420686143354cf26397ea5156fd773365ce675eb2333",
+      "asc_mhl_manifest.xml": "d9af6e203e4a3d31e98c43dea48adf73a3960e56759b9e4a2c77990167eaa28e",
       "clapper_slate_log.csv": "9dfbfb862ec8ead4cef7559abdf602c0885967e7eb2935f4ec5d4bd02c50ffe4",
       "sound_sync.ale": "e0bf8ddbf25666c70e6a7a09c099b4891d726f2ce0cb8f07eb20e2676665f713",
       "flight_path.kml": "7f24ba3ffc75fe85f2a2cea52196755858ae8da40f37c78808a9e87beacdedff",
-      "flight_waypoints.gpx": "1401452e2fd1dbb6cf9db75f3968a699f1c13426538cde3dd8befd8693cc2729",
+      "flight_waypoints.gpx": "859a4d68f412f7b98bc4945caff989c338f6d6b66e807fd97c3b2dbd68c256f7",
       "drone_flight_sheet.csv": "9d59f753d04dd2f75f9cb2b119cbdf225692f02e543053210b92fa72d38fedba",
       "drone_flight_sheet.md": "f29853c440d7d6fde53f4013c41bb6dd2eb1816826f78bbb5ad46abc7a6e9a9f",
       "drone_flight_manifest.json": "1cea390b28b42b5361e06f27838395c49fa42117ee36a8758918e946ee435f39",
@@ -12426,8 +12968,8 @@
       "review_notes_frameio.json": "1dc5894d73b48581c60542b06a2483b7c0b2d9683302af670b7cad582b3ebc13",
       "review_notes.csv": "67f2c9f680db71868c1a42a66e3beec1935176494d9e06239272a46ab9b86660",
       "client_signoff_report.md": "ca2d58a1addb43dbf0108236e7f2d0f699bdd5cdfec040559a2d84c0d1331038",
-      "c2pa_manifest.json": "f93c37427bfc9a75391e7b1a29c2465203266da9f4d182af75cda8f0ae740247",
-      "ai_disclosure_certificate.md": "745a198087b6d0e4721d772f35345b372118bd472e59bb4aa269b23582225f07",
+      "c2pa_manifest.json": "486f20d381a86b8afc88657fc673c66b7006d035deb5a3ff68b6d7cb1ef26a4d",
+      "ai_disclosure_certificate.md": "87883f2ab4e9b5d7fcddf13cd1efe3e553967f47988e72dddef29e08a275f695",
       "likeness_consent_ledger.csv": "39b9c14d1e89fc628eea40c967c0112b3e8b97d9e7ef889c1f1833be692bf3ba",
       "safety_bulletin.md": "9b122f1db430e2b10fd7d43c382f6ffc3f91dead70e48e8648d86c67a06fe836",
       "safety_jsa_matrix.csv": "41bf602fd385e9c07dfb8bcddf099163a7c2a1e4e127d9446934451a2dc054a8",
@@ -12450,7 +12992,19 @@
       "render_economics_manifest.json": "f52aeb4c7291e435c43073ca284e33c32b978425c26b6e2cd9ba0e2c2309599f",
       "take_variant_ledger.csv": "064fa15c58c7a6704e81089f0ea2dce2e44a0d8cec1a29e37da9ff3d8c71dfe2",
       "ai_compute_estimate.md": "3f2a4b18a37ed03e8d07462d51e99f3d912ed88292281db27074d8aab0f732c6",
-      "council_audit_report.json": "1745d1cb39e9e7229bd172a2635276fd490708816ebf5fafd6ad554bfb81f209",
+      "motion_graphics_mogrt.json": "7d23b47fe45a2cd3b62809e726cd91991884500c1a066bb8f1b01c0fff8d074e",
+      "broadcast_supers.ass": "5d8a0461732d8a9248aa8cbd85ddab0e57528fc6f685ffe442d89dff5aa9ae25",
+      "brand_endcard_spec.md": "391e9b05d372272fd69760ea4c952d83f6145f5c497b6998eab3992df3526109",
+      "production_timeline.otio": "2b6dd08372a5e9c7faf5f94a2125da094d009a31174c9b6c0942675a56b7f201",
+      "coherence_matrix.json": "ce9c92192f151bb51e3aaf23fc9e18749528ce2f86fc1d32722700aa62884d32",
+      "coherence_readiness_report.md": "449974437e62907798c43a7311d790ace1e9dc565d744887629611350f4d3b85",
+      "render_job_manifest.json": "56e9b8324f4af4fd010869d12d86d759cad30bc5a2f2b9154c3ca77bce9493a3",
+      "take_qa_scorecard.csv": "685227d8f40b62f2a2a892f796541a6835fb6ae1688251cde3bc4df4473afffe",
+      "rough_cut_assembly.sh": "b0ab75f29aaced37bcf71a31cda17063053a503c79163c299e12590e52774e6c",
+      "director_treatment_lookbook.html": "24e06783f447b125a0e6bdb91ff1fd7125c3ee86ee7b46abcffc0e5a8f1435e6",
+      "director_treatment_brief.md": "7a2c59e3f69901286969961d0426621055d6a5bd6224a4544dff3a95746bd839",
+      "pitch_treatment_manifest.json": "04892d2ffd3d095a50e72f88c5bab9df96c46509665c2ae97e95c3a7f1aa3744",
+      "council_audit_report.json": "00c55248c73940c85089bfbe6b5b85f2d05bcc45744ede5fdb55f45c68c01652",
       "storyboards/anchor1_character_turnaround.svg": "755b580bc8708343824f964ce4d67d847b7e630be03c1968a9a1f273c6f252f6",
       "storyboards/anchor2_environment_master.svg": "794b41dd0b00f6074ba182b1324d2e6d54d0017ce01591676309d5092cfcd6a4",
       "storyboards/anchor3_scene_1_keyframe.svg": "f9b4ed8913c9d5c06020e0354652363a958ef9cb4caed1b32461c88e9fa3303f",
@@ -12470,16 +13024,16 @@
     }
   },
   "council_report": {
-    "version": "2.17.0",
+    "version": "2.18.0",
     "project_title": "Minimalist Luxury Haute Couture Silk Vel",
-    "timestamp": "2026-11-25T10:03:48.319607+00:00",
-    "overall_score": 98.0,
+    "timestamp": "2026-11-26T09:30:31.602412+00:00",
+    "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
     "reviews": [
       {
         "persona": "council-fde",
-        "score": 23.0,
+        "score": 25.0,
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
@@ -12812,13 +13366,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "motion_graphics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
-            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "message": "Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "motion_graphics_artifacts": [
                 "motion_graphics_mogrt.json",
                 "broadcast_supers.ass",
                 "brand_endcard_spec.md"
@@ -12826,16 +13380,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "otio_coherence_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
-            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "message": "OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "otio_artifacts": [
                 "production_timeline.otio",
                 "coherence_matrix.json",
                 "coherence_readiness_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_job_delivery",
+            "message": "Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "render_job_artifacts": [
+                "render_job_manifest.json",
+                "take_qa_scorecard.csv",
+                "rough_cut_assembly.sh"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_delivery",
+            "message": "Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "pitch_treatment_artifacts": [
+                "director_treatment_lookbook.html",
+                "director_treatment_brief.md",
+                "pitch_treatment_manifest.json"
               ]
             }
           },
@@ -12969,17 +13551,42 @@
           {
             "severity": "info",
             "category": "otio_coherence_schema",
-            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=74737eb519ab..., coherence_score=100.0, shoot_day_ready=True).",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=2b6dd08372a5..., coherence_score=100.0, shoot_day_ready=True).",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "schema_version": "OTIO_0.16_COMPAT",
               "track_count": 7,
-              "otio_sha256_prefix": "74737eb519ab"
+              "otio_sha256_prefix": "2b6dd08372a5"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_jobs_schema",
+            "message": "MasterRenderJobManifest verified (2 job(s), 2026 Model Matrix compliant, overall_qa_score=98.1, assembly_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "jobs_count": 2,
+              "model_ids": [
+                "gemini-omni-1.1-flash-preview"
+              ],
+              "overall_qa_score": 98.13
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema",
+            "message": "MasterPitchTreatmentSpec verified (id=pt-c3a877e4af, 10 board(s), domain=luxury_fashion).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "treatment_id": "pt-c3a877e4af",
+              "slides_count": 10
             }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 41 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -13185,6 +13792,22 @@
           },
           {
             "severity": "info",
+            "category": "render_orchestrator_schema_compliance",
+            "message": "Render Orchestrator & Mode B Frame-Anchor Continuity verified (overall_qa_score=98.1, assembly_ready=True, handoffs=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema_compliance",
+            "message": "MasterPitchTreatmentSpec contract verified (10 board slides, token present=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
             "remediation": null,
@@ -13219,6 +13842,14 @@
             "severity": "info",
             "category": "audit_report_gfx_and_otio_compliance",
             "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_render_and_treatment_compliance",
+            "message": "Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13614,6 +14245,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_render_qa_calibration",
+            "message": "Domain-calibrated Live-Render QA verified for 'luxury_fashion' (overall_qa_score=98.1 >= 90.0, min_temporal=94.0, min_ref_fidelity=95.0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "overall_qa_score": 98.13,
+              "assembly_ready": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_pitch_treatment_calibration",
+            "message": "Executive Director's Treatment calibrated for 'luxury_fashion' (tone='Editorial Couture Restraint & Kinetic Silk Fluidity', slides=10, budget_roi_summary=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "luxury_fashion",
+              "slides_count": 10,
+              "hero_kpi_focus": "Maison Prestige & Silhouette Memorability"
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
             "remediation": null,
@@ -13858,6 +14513,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_render_jobs_hud",
+            "message": "Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_pitch_treatment_hud",
+            "message": "Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -13875,7 +14546,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 66 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13914,6 +14585,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_backtick_minus",
+            "message": "Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).",
             "remediation": null,
@@ -13924,10 +14603,7 @@
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
-    "recommendations": [
-      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
-    ],
+    "recommendations": [],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
       {
@@ -14473,6 +15149,50 @@
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/html_hud_v216.py",
           "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-035",
+        "title": "Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+        "problem_statement": "Production pipelines for 'Minimalist Luxury Haute Couture Silk Vel' transitioning from dry-run storyboards to live video rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg rough-cut assembly scripts.",
+        "proposed_solution": "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/render_orchestrator.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-036",
+        "title": "Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+        "problem_statement": "Executive stakeholders and agency creative directors for 'Minimalist Luxury Haute Couture Silk Vel' lack a print-ready director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision diff engine comparing Bible iterations and council scores.",
+        "proposed_solution": "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/pitch_treatment.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
           "omni_director/tools/nle_export.py",

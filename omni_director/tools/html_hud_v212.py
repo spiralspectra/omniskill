@@ -38,133 +38,158 @@ def _escape_js_template_literal(text: str) -> str:
 
 def _build_departmental_toolbar_html() -> str:
     """Builds the 5 accessible collapsible/pill department groups inside .hud-actions."""
-    return """    <div class="hud-actions">
-      <div class="dept-toolbar" role="navigation" aria-label="Production Department HUD Launchers">
-        <div class="dept-group" id="dept-group-camera" role="group" aria-label="Camera and Blocking Department">
-          <button type="button" class="dept-pill-toggle" id="dept-toggle-camera" onclick="toggleDeptGroup('camera')" aria-expanded="false" aria-controls="dept-tray-camera">
-            <span class="dept-pill-icon" aria-hidden="true">🎥</span>
-            <span>Camera &amp; Blocking</span>
-            <span class="dept-count">4</span>
-            <span class="dept-caret" aria-hidden="true">▾</span>
-          </button>
-          <div class="dept-tray" id="dept-tray-camera" role="group" aria-label="Camera and Blocking Tools" hidden>
-            <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
+    dept_groups: List[Tuple[str, str, str, str, str, str, List[str]]] = [
+        (
+            "camera",
+            "🎥",
+            "Camera &amp; Blocking",
+            "Camera and Blocking Department",
+            "Camera and Blocking Tools",
+            "",
+            [
+                """            <button type="button" class="btn-dof" id="btn-dof-animatic" onclick="toggleDoFHUD()" aria-label="Optical DoF HUD [F]" aria-expanded="false" aria-controls="animatic-dof-hud">
               🎯 Optical DoF HUD [F]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-drone-animatic" onclick="toggleDroneHUD()" aria-label="Drone Aerial Flight HUD [D]" aria-expanded="false" aria-controls="animatic-drone-hud">
               🚁 Drone [D]
-            </button>
-            <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-blocking-animatic" onclick="toggleBlockingHUD()" aria-label="180-Degree Blocking and Continuity HUD [W]" aria-expanded="false" aria-controls="animatic-blocking-hud">
               📐 Blocking [W]
-            </button>
-            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="modal-s3d-stereography" title="S3D Stereoscopy []]">
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-s3d-animatic" onclick="toggleS3dHUD()" aria-label="S3D Stereoscopy []]" aria-expanded="false" aria-controls="modal-s3d-stereography" title="S3D Stereoscopy []]">
               👓 S3D Stereoscopy []]
-            </button>
-          </div>
-        </div>
-
-        <div class="dept-group" id="dept-group-color" role="group" aria-label="Color and VFX Department">
-          <button type="button" class="dept-pill-toggle" id="dept-toggle-color" onclick="toggleDeptGroup('color')" aria-expanded="false" aria-controls="dept-tray-color">
-            <span class="dept-pill-icon" aria-hidden="true">🎨</span>
-            <span>Color &amp; VFX</span>
-            <span class="dept-count">5</span>
-            <span class="dept-caret" aria-hidden="true">▾</span>
-          </button>
-          <div class="dept-tray" id="dept-tray-color" role="group" aria-label="Color and VFX Tools" hidden>
-            <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
+            </button>""",
+            ],
+        ),
+        (
+            "color",
+            "🎨",
+            "Color &amp; VFX",
+            "Color and VFX Department",
+            "Color and VFX Tools",
+            "",
+            [
+                """            <button type="button" class="btn-dit-lut" id="btn-dit-lut-animatic" onclick="toggleDitLutHUD()" aria-label="DIT 3D LUT Suite [L]" aria-expanded="false" aria-controls="animatic-dit-lut-hud">
               🎨 DIT 3D LUT Suite [L]
-            </button>
-            <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-hdr-animatic" onclick="toggleHdrHUD()" aria-label="HDR10/HLG Color Volume HUD [H]" aria-expanded="false" aria-controls="animatic-hdr-hud">
               🌈 HDR Color [H]
-            </button>
-            <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-film-animatic" onclick="toggleFilmHUD()" aria-label="Film Stock Emulation HUD [E]" aria-expanded="false" aria-controls="animatic-film-hud">
               🎞️ Film Stock [E]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-vfx-animatic" onclick="toggleVfxHUD()" aria-label="VFX Passes HUD [X]" aria-expanded="false" aria-controls="animatic-vfx-hud">
               ✨ VFX Passes [X]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-motion-gfx-animatic" onclick="toggleMotionGfxHUD()" aria-label="Motion Graphics, Supers and End-Card Studio [=]" aria-expanded="false" aria-controls="modal-motion-graphics-studio" title="Motion Graphics &amp; End-Card [=]">🎞️ Motion GFX [=]</button>
-          </div>
-        </div>
-
-        <div class="dept-group" id="dept-group-audio" role="group" aria-label="Audio Department">
-          <button type="button" class="dept-pill-toggle" id="dept-toggle-audio" onclick="toggleDeptGroup('audio')" aria-expanded="false" aria-controls="dept-tray-audio">
-            <span class="dept-pill-icon" aria-hidden="true">🔊</span>
-            <span>Audio</span>
-            <span class="dept-count">3</span>
-            <span class="dept-caret" aria-hidden="true">▾</span>
-          </button>
-          <div class="dept-tray" id="dept-tray-audio" role="group" aria-label="Audio Tools" hidden>
-            <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-motion-gfx-animatic" onclick="toggleMotionGfxHUD()" aria-label="Motion Graphics, Supers and End-Card Studio [=]" aria-expanded="false" aria-controls="modal-motion-graphics-studio" title="Motion Graphics &amp; End-Card [=]">🎞️ Motion GFX [=]</button>""",
+            ],
+        ),
+        (
+            "audio",
+            "🔊",
+            "Audio",
+            "Audio Department",
+            "Audio Tools",
+            "",
+            [
+                """            <button type="button" class="btn-dof" id="btn-spatial-animatic" onclick="toggleSpatialHUD()" aria-label="Spatial Audio HUD [S]" aria-expanded="false" aria-controls="animatic-spatial-hud">
               🔊 Spatial Audio [S]
-            </button>
-            <button type="button" class="btn-dof" id="btn-spotting-animatic" onclick="toggleSpottingHUD()" aria-label="Editorial J-Cut / L-Cut Spotting and Beat-Grid HUD [J]" aria-expanded="false" aria-controls="animatic-spotting-hud">
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-spotting-animatic" onclick="toggleSpottingHUD()" aria-label="Editorial J-Cut / L-Cut Spotting and Beat-Grid HUD [J]" aria-expanded="false" aria-controls="animatic-spotting-hud">
               🎚️ J/L Spotting [J]
-            </button>
-            <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
+            </button>""",
+                """            <button type="button" class="btn-mixer" id="btn-toggle-mixer" onclick="toggleMixer()" aria-label="Toggle Audio Console [M]" aria-expanded="false" aria-controls="animatic-audio-mixer">
               🎚️ AUDIO [M]
-            </button>
-          </div>
-        </div>
-
-        <div class="dept-group" id="dept-group-prep" role="group" aria-label="Prep and Budget Department">
-          <button type="button" class="dept-pill-toggle" id="dept-toggle-prep" onclick="toggleDeptGroup('prep')" aria-expanded="false" aria-controls="dept-tray-prep">
-            <span class="dept-pill-icon" aria-hidden="true">📋</span>
-            <span>Prep &amp; Budget</span>
-            <span class="dept-count">6</span>
-            <span class="dept-caret" aria-hidden="true">▾</span>
-          </button>
-          <div class="dept-tray" id="dept-tray-prep" role="group" aria-label="Prep and Budget Tools" hidden>
-            <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
+            </button>""",
+            ],
+        ),
+        (
+            "prep",
+            "📋",
+            "Prep &amp; Budget",
+            "Prep and Budget Department",
+            "Prep and Budget Tools",
+            "",
+            [
+                """            <button type="button" class="btn-dit-lut" id="btn-stripboard-animatic" onclick="toggleStripboardHUD()" aria-label="1st AD Stripboard Schedule HUD [B]" aria-expanded="false" aria-controls="animatic-stripboard-hud">
               📋 Stripboard [B]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-slate-animatic" onclick="toggleSlateHUD()" aria-label="SMPTE Slate &amp; Offload Manifest HUD [T]" aria-expanded="false" aria-controls="animatic-slate-hud">
               🎬 Slate [T]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-aicp-animatic" onclick="toggleAicpHUD()" aria-label="AICP Commercial Production Bid HUD [A]" aria-expanded="false" aria-controls="animatic-aicp-hud">
               💼 AICP [A]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-safety-animatic" onclick="toggleSafetyHUD()" aria-label="On-Set Safety Risk and Exclusion Zone HUD [Z]" aria-expanded="false" aria-controls="animatic-safety-hud">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-safety-animatic" onclick="toggleSafetyHUD()" aria-label="On-Set Safety Risk and Exclusion Zone HUD [Z]" aria-expanded="false" aria-controls="animatic-safety-hud">
               🦺 Safety JSA [Z]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-art-dept-animatic" onclick="toggleArtWardrobeHUD()" aria-label="Art &amp; Wardrobe Continuity Locker [\\]" aria-expanded="false" aria-controls="modal-art-wardrobe-continuity" title="Art &amp; Wardrobe [\\]">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-art-dept-animatic" onclick="toggleArtWardrobeHUD()" aria-label="Art &amp; Wardrobe Continuity Locker [\\]" aria-expanded="false" aria-controls="modal-art-wardrobe-continuity" title="Art &amp; Wardrobe [\\]">
               👗 Art &amp; Wardrobe [\\]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-economics-animatic" onclick="toggleRenderEconomicsHUD()" aria-label="Compute &amp; Takes Economics Inspector [;]" aria-expanded="false" aria-controls="modal-render-economics" title="Compute &amp; Takes [;]">
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-economics-animatic" onclick="toggleRenderEconomicsHUD()" aria-label="Compute &amp; Takes Economics Inspector [;]" aria-expanded="false" aria-controls="modal-render-economics" title="Compute &amp; Takes [;]">
               💎 Compute &amp; Takes [;]
-            </button>
-          </div>
-        </div>
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-render-jobs-animatic" onclick="toggleRenderJobsHUD()" aria-label="Live-Render Jobs and QA HUD [`]" aria-expanded="false" aria-controls="modal-render-jobs" title="Live-Render Jobs &amp; QA [`]">
+              🎬 Render Jobs [`]
+            </button>""",
+            ],
+        ),
+        (
+            "delivery",
+            "📡",
+            "Delivery, QC &amp; Review",
+            "Delivery, QC and Review Department",
+            "Delivery, QC and Review Tools",
+            " dept-tray-right",
+            [
+                """            <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
+              📐 Reframe [R]
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
+              📡 Broadcast QC [Q]
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-review-animatic" onclick="toggleReviewHUD()" aria-label="Client Review and Frame Pin Annotation HUD [N]" aria-expanded="false" aria-controls="animatic-review-hud">
+              📝 Review [N]
+            </button>""",
+                """            <button type="button" class="btn-dof" id="btn-c2pa-animatic" onclick="toggleC2paHUD()" aria-label="C2PA Content Credentials and Provenance HUD [Y]" aria-expanded="false" aria-controls="animatic-c2pa-hud">
+              🛡️ C2PA [Y]
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
+              🌐 i18n / ADR [I]
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD &amp; CVAA [[]]" aria-expanded="false" aria-controls="modal-accessibility-ad" title="AD &amp; CVAA [[]">
+              🗣️ AD &amp; CVAA [[]
+            </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-otio-coherence-animatic" onclick="toggleOtioCoherenceHUD()" aria-label="OpenTimelineIO and Cross-Dept Coherence Matrix [']" aria-expanded="false" aria-controls="modal-otio-coherence" title="OTIO &amp; Coherence [']">🧭 OTIO Coherence [']</button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-treatment-animatic" onclick="togglePitchTreatmentHUD()" aria-label="Director Pitch Treatment HUD [-]" aria-expanded="false" aria-controls="modal-pitch-treatment" title="Director Pitch Treatment [-]">
+              📽️ Treatment [-]
+            </button>""",
+            ],
+        ),
+    ]
 
-        <div class="dept-group" id="dept-group-delivery" role="group" aria-label="Delivery, QC and Review Department">
-          <button type="button" class="dept-pill-toggle" id="dept-toggle-delivery" onclick="toggleDeptGroup('delivery')" aria-expanded="false" aria-controls="dept-tray-delivery">
-            <span class="dept-pill-icon" aria-hidden="true">📡</span>
-            <span>Delivery, QC &amp; Review</span>
-            <span class="dept-count">7</span>
+    groups_html: List[str] = []
+    for dept_id, icon, label, group_aria, tray_aria, extra_cls, launchers in dept_groups:
+        launcher_count = len(launchers)
+        tray_body = "\n".join(launchers)
+        groups_html.append(
+            f"""        <div class="dept-group" id="dept-group-{dept_id}" role="group" aria-label="{group_aria}">
+          <button type="button" class="dept-pill-toggle" id="dept-toggle-{dept_id}" onclick="toggleDeptGroup('{dept_id}')" aria-expanded="false" aria-controls="dept-tray-{dept_id}">
+            <span class="dept-pill-icon" aria-hidden="true">{icon}</span>
+            <span>{label}</span>
+            <span class="dept-count">{launcher_count}</span>
             <span class="dept-caret" aria-hidden="true">▾</span>
           </button>
-          <div class="dept-tray dept-tray-right" id="dept-tray-delivery" role="group" aria-label="Delivery, QC and Review Tools" hidden>
-            <button type="button" class="btn-dof" id="btn-reframe-animatic" onclick="toggleReframeHUD()" aria-label="Multi-Aspect Social Reframe and Cutdown HUD [R]" aria-expanded="false" aria-controls="animatic-reframe-hud">
-              📐 Reframe [R]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-qc-animatic" onclick="toggleQcHUD()" aria-label="Broadcast QC and Clearances HUD [Q]" aria-expanded="false" aria-controls="animatic-qc-hud">
-              📡 Broadcast QC [Q]
-            </button>
-            <button type="button" class="btn-dof" id="btn-review-animatic" onclick="toggleReviewHUD()" aria-label="Client Review and Frame Pin Annotation HUD [N]" aria-expanded="false" aria-controls="animatic-review-hud">
-              📝 Review [N]
-            </button>
-            <button type="button" class="btn-dof" id="btn-c2pa-animatic" onclick="toggleC2paHUD()" aria-label="C2PA Content Credentials and Provenance HUD [Y]" aria-expanded="false" aria-controls="animatic-c2pa-hud">
-              🛡️ C2PA [Y]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-localization-animatic" onclick="toggleLocalizationHUD()" aria-label="Localization, ADR Dubbing and Safe-Supers HUD [I]" aria-expanded="false" aria-controls="animatic-localization-hud">
-              🌐 i18n / ADR [I]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-ad-animatic" onclick="toggleAccessibilityAdHUD()" aria-label="AD &amp; CVAA [[]]" aria-expanded="false" aria-controls="modal-accessibility-ad" title="AD &amp; CVAA [[]">
-              🗣️ AD &amp; CVAA [[]
-            </button>
-            <button type="button" class="btn-dit-lut" id="btn-otio-coherence-animatic" onclick="toggleOtioCoherenceHUD()" aria-label="OpenTimelineIO and Cross-Dept Coherence Matrix [']" aria-expanded="false" aria-controls="modal-otio-coherence" title="OTIO &amp; Coherence [']">🧭 OTIO Coherence [']</button>
+          <div class="dept-tray{extra_cls}" id="dept-tray-{dept_id}" role="group" aria-label="{tray_aria}" hidden>
+{tray_body}
           </div>
-        </div>
+        </div>"""
+        )
+
+    groups_joined = "\n\n".join(groups_html)
+    return f"""    <div class="hud-actions">
+      <div class="dept-toolbar" role="navigation" aria-label="Production Department HUD Launchers">
+{groups_joined}
 
         <button type="button" class="btn-dof" id="btn-command-palette-animatic" onclick="toggleHudCommandPalette()" aria-label="HUD Palette [/]" aria-expanded="false" aria-controls="modal-hud-command-palette" title="Unified HUD Command Palette [/]">
           ⌘ HUD Palette [/]
@@ -175,7 +200,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [=] Motion GFX · ['] OTIO Coherence · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [`] Render Jobs · [-] Treatment · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [=] Motion GFX · ['] OTIO Coherence · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

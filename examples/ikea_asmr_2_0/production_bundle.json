@@ -112,7 +112,7 @@
         "kinetic_contact_chain": "Stillness -> Micro-oscillation of box edges against ash floorboards -> High-tension seam split -> Cardboard flaps spring open 15 degrees -> Settles into open posture.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=3f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Awakening Box: Cool concrete\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "A locked-off wide-angle architectural shot captures an empty, pristine Scandinavian room with pale blonde ash wood floors and sunlit white walls, based on the spatial layout of <image_2>. In the exact dead-center of the floor rests a sealed kraft cardboard IKEA flat-pack box matching the design in <image_1>. All action occurs at natural, real-time 1.0x playback speed with unyielding physical gravity. For the first three seconds, the box sits in dead stillness under warm morning sunlight streaming through the tall left windows. At second 03, the box begins to tremble and vibrate with intense, tactile micro-tremors, rattling crisply against the rigid hardwood floor without shifting location. At second 07, the center packing tape violently splits open, releasing a small puff of kraft dust as the top cardboard flaps spring slightly upward. The camera remains completely fixed on its tripod with zero movement, zero drift, and tack-sharp deep focus. Synchronized diegetic audio begins with dead-silent empty room tone, followed by the dry resonant woody rattling of cardboard against ash flooring, culminating in a sharp, hyper-tactile cardboard POP and tearing tape sound. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=3f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Awakening Box: Cool concrete\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC01 | take=SC01_T1 | seed=400322655 | qa=93.9 | status=qa_passed]. [TREATMENT-BEAT: SC01 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -1052,13 +1052,13 @@
           "scene_title": "The Awakening Box",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1071,7 +1071,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1084,7 +1084,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1097,7 +1097,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1380,7 +1380,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc01-22655",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T1",
+          "seed": 400322655,
+          "interaction_id": "omni-interact-1-22655",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T1",
+            "seed": 400322655,
+            "prompt_sha256_prefix": "53486545738d",
+            "temporal_stability_score": 94.2,
+            "prompt_adherence_score": 93.25,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 93.91,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 400322655,
+              "prompt_sha256_prefix": "53486545738d",
+              "temporal_stability_score": 94.2,
+              "prompt_adherence_score": 93.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 93.91,
+              "promoted_hero": true,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 645783531,
+              "prompt_sha256_prefix": "53486545738d",
+              "temporal_stability_score": 92.8,
+              "prompt_adherence_score": 93.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 93.58,
+              "promoted_hero": false,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: The Awakening Box",
+          "subhead": "00:00 - 00:08 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "The sealed IKEA box sits dead-center on the bare ash floor in total stillness under morning sunlight. -> At second 03, the box begins to shudder rapidly with high-frequency tactile micro-vibrations. -> At second 07, the reinforced packing tape along the top center seam suddenly splits open with a crisp pop and a tiny puff of kraft paper dust. Kinetic Chain: Stillness -> Micro-oscillation of box edges against ash floorboards -> High-tension seam split -> Cardboard flaps spring open 15 degrees -> Settles into open posture.",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:08",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       },
       {
         "scene_index": 2,
@@ -1395,7 +1473,7 @@
         "kinetic_contact_chain": "Flaps burst outward -> Wooden pieces slide on air trajectories -> Dovetail joints collide and snap together -> Base legs strike the hardwood floor with solid acoustic thuds -> Stable resting lock.",
         "craft_camera": null,
         "diegetic_sonic": null,
-        "omni_prose_prompt": "A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=3f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Hyper-Kinetic Self-Assembly:\" @ 8.10-11.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=in_hand_right@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC02 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "A locked-off wide-angle architectural shot from the exact same fixed camera position in the empty Scandinavian room. Continuing at 1.0x real-time speed with no slow motion, the cardboard box flaps instantly burst fully open, laying flat on the blonde ash floor. In a rapid, hyper-satisfying burst of choreographed kinetic assembly, flat-pack components derived from <image_3> erupt in crisp sequence: precision-cut solid oak table legs shoot outward and lock with rigid mechanical authority into an oval coffee table tabletop, while white-lacquered shelf panels slide and click into a vertical bookcase against the rear wall. Every wooden dowel, joint, and cam-lock snaps into place with zero elastic warping or rubbery bending, obeying rigid solid-state geometry. The camera holds perfectly static on its tripod, framing the explosive self-building choreography in tack-sharp focus. Synchronized diegetic ASMR audio features a rapid cascade of hyper-detailed mechanical sounds: high-speed sliding wood panels, sharp rhythmic CLICK-CLACK dowel snaps, metallic fastener clicks, and the deep, solid THUD of oak table legs planting firmly onto the hardwood floorboards, accompanied by playful acoustic cello pizzicato from the master score. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=3f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Hyper-Kinetic Self-Assembly:\" @ 8.10-11.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=in_hand_right@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC02 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC02 | take=SC02_T2 | seed=509971797 | qa=94.3 | status=qa_passed]. [TREATMENT-BEAT: SC02 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -2338,13 +2416,13 @@
           "scene_title": "The Hyper-Kinetic Self-Assembly",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2357,7 +2435,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2370,7 +2448,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2383,7 +2461,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2667,7 +2745,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc02-71797",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 509971797,
+          "interaction_id": "omni-interact-2-71797",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 509971797,
+            "prompt_sha256_prefix": "5e71d01ba23b",
+            "temporal_stability_score": 94.55,
+            "prompt_adherence_score": 94.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 94.35,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 1148764841,
+              "prompt_sha256_prefix": "5e71d01ba23b",
+              "temporal_stability_score": 92.45,
+              "prompt_adherence_score": 93.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 95.15,
+              "composite_qa_score": 93.6,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 509971797,
+              "prompt_sha256_prefix": "5e71d01ba23b",
+              "temporal_stability_score": 94.55,
+              "prompt_adherence_score": 94.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 94.35,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: The Hyper-Kinetic Self-Assembly",
+          "subhead": "00:08 - 00:16 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "The cardboard flaps fold flat onto the floor like blooming origami petals. -> Precision-cut solid oak furniture legs, white shelf panels, and frame components levitate out in structured order. -> Components interlock at high velocity into a low coffee table and a minimalist shelving unit with rigid mechanical clicks. Kinetic Chain: Flaps burst outward -> Wooden pieces slide on air trajectories -> Dovetail joints collide and snap together -> Base legs strike the hardwood floor with solid acoustic thuds -> Stable resting lock.",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:08 - 00:16",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       },
       {
         "scene_index": 3,
@@ -2702,7 +2858,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage"
         },
-        "omni_prose_prompt": "The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=7f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Upholstery & Soft Architecture: \" @ 16.10-19.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=damaged@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC03 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC03 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) motorized_dolly rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Ambisonic B Format, RT60=1.85s (Hardwood Concrete), Objects: obj_reflecting_pool_trickle (az:-40°, el:-15°, 6.0m); obj_cathedral_stone_reverb (az:+60°, el:+0°, 4.0m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-80.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 980 nits, MaxFALL: 360 nits]. [1st AD Breakdown: INT. DAY (White Strip), 6/8 pgs, Location: UPHOLSTERY & SOFT ARCHITECTURE, Cast: 1]. [FILM_STOCK: Kodak Vision3 250D (5207), 65mm 15-perf IMAX negative, ISO 250 5500K Daylight, RMS granularity 2.6 (5.0μm dye clouds), halation glow r=5.0px intensity=0.32 (rem-jet 90%), gate weave ±0.3μm (mitchell_dual_pin)]. [CLAPPER_SLATE: Scene 3, Take 1, Roll A03/SR03, Cam A 24.0fps, INT DAY, Filter Ultra Pol / ND 0.3, 180.0° Shutter, TC 01:00:20:00]. [DRONE_FLIGHT: RIG=compact_cinema_inspire3 ALT=22-45m PROFILE=monolithic_orbital_reveal GIMBAL_PITCH=-20° SPEED=4.0mps WIND=7kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=toward_camera scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=ef92c1be]. [SAFETY_JSA: risk=moderate exclusion=4.0m hazards=2 status=MITIGATED].",
+        "omni_prose_prompt": "The locked-off wide-angle shot maintains unbroken continuous framing of the evolving Scandinavian room. At natural real-time 1.0x speed, a large textured oat-grey fabric two-seater sofa matching <image_3> unfolds with solid mechanical grace in the center-left living space, its dense foam cushions plumping and expanding into taut upholstery. Simultaneously, a dense woven natural wool area rug unrolls rapidly across the ash floorboards from right to left, coming to a dead stop beneath the sofa legs with crisp surface friction. In the background, a white ceramic table lamp with a pleated paper shade and a potted fiddle-leaf plant glide smoothly into position onto the finished oak coffee table and bookcase surfaces, their bases landing with micro-second precision. Maintain rigid prop geometry and lighting continuity from the low morning sun. Synchronized diegetic audio layers the satisfying heavy unrolling friction of thick wool rug against hardwood, the deep, muffled FWUMP of heavy sofa cushions settling, the delicate ceramic tink of the lamp touching wood, and the subtle rustle of green plant leaves coming to rest. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=7f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Upholstery & Soft Architecture: \" @ 16.10-19.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=damaged@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC03 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC03 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC03 | take=SC03_T2 | seed=666730357 | qa=94.2 | status=qa_passed]. [TREATMENT-BEAT: SC03 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) motorized_dolly rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Ambisonic B Format, RT60=1.85s (Hardwood Concrete), Objects: obj_reflecting_pool_trickle (az:-40°, el:-15°, 6.0m); obj_cathedral_stone_reverb (az:+60°, el:+0°, 4.0m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-80.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 980 nits, MaxFALL: 360 nits]. [1st AD Breakdown: INT. DAY (White Strip), 6/8 pgs, Location: UPHOLSTERY & SOFT ARCHITECTURE, Cast: 1]. [FILM_STOCK: Kodak Vision3 250D (5207), 65mm 15-perf IMAX negative, ISO 250 5500K Daylight, RMS granularity 2.6 (5.0μm dye clouds), halation glow r=5.0px intensity=0.32 (rem-jet 90%), gate weave ±0.3μm (mitchell_dual_pin)]. [CLAPPER_SLATE: Scene 3, Take 1, Roll A03/SR03, Cam A 24.0fps, INT DAY, Filter Ultra Pol / ND 0.3, 180.0° Shutter, TC 01:00:20:00]. [DRONE_FLIGHT: RIG=compact_cinema_inspire3 ALT=22-45m PROFILE=monolithic_orbital_reveal GIMBAL_PITCH=-20° SPEED=4.0mps WIND=7kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=toward_camera scale=MS axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=ef92c1be]. [SAFETY_JSA: risk=moderate exclusion=4.0m hazards=2 status=MITIGATED].",
         "s3d_spec": {
           "scene_number": 3,
           "camera_spec": {
@@ -3639,13 +3795,13 @@
           "scene_title": "Upholstery & Soft Architecture",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3658,7 +3814,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3671,7 +3827,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3684,7 +3840,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -3968,7 +4124,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC03 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc03-30357",
+          "scene_index": 3,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC03_T2",
+          "seed": 666730357,
+          "interaction_id": "omni-interact-3-30357",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_3.mp4",
+          "end_frame_path": "End_Frame_03.png",
+          "qa_scorecard": {
+            "scene_index": 3,
+            "take_id": "SC03_T2",
+            "seed": 666730357,
+            "prompt_sha256_prefix": "db64b49b285d",
+            "temporal_stability_score": 94.55,
+            "prompt_adherence_score": 94.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 93.95,
+            "composite_qa_score": 94.2,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 3,
+              "take_id": "SC03_T1",
+              "seed": 1326602329,
+              "prompt_sha256_prefix": "db64b49b285d",
+              "temporal_stability_score": 93.5,
+              "prompt_adherence_score": 94.85,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 93.95,
+              "composite_qa_score": 94.15,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 3,
+              "take_id": "SC03_T2",
+              "seed": 666730357,
+              "prompt_sha256_prefix": "db64b49b285d",
+              "temporal_stability_score": 94.55,
+              "prompt_adherence_score": 94.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 93.95,
+              "composite_qa_score": 94.2,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 8,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 3,
+          "headline": "SC03: Upholstery & Soft Architecture",
+          "subhead": "00:16 - 00:24 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "A textured grey fabric sofa expands smoothly from the center staging area, cushions billowing outward. -> A woven natural wool area rug unrolls across the ash floor with rhythmic momentum. -> A ceramic table lamp and a potted green fiddle-leaf fig slide gracefully onto their finished surfaces. Kinetic Chain: Rug unrolls across floorboards with surface friction -> Sofa cushions drop under gravity -> Potted plant bases contact oak tabletop with ceramic clinks -> Secondary leaf settling oscillation.",
+          "visual_plate_ref": "SC03_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "3",
+            "timestamp_range": "00:16 - 00:24",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       },
       {
         "scene_index": 4,
@@ -4003,7 +4237,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage"
         },
-        "omni_prose_prompt": "The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=-7f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Final Flourish & The ASMR St\" @ 24.10-27.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=damaged@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC04 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=IKEA: The Living Room]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) motorized_dolly rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Ambisonic B Format, RT60=1.85s (Hardwood Concrete), Objects: obj_reflecting_pool_trickle (az:-40°, el:-15°, 6.0m); obj_cathedral_stone_reverb (az:+60°, el:+0°, 4.0m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-80.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 980 nits, MaxFALL: 360 nits]. [1st AD Breakdown: INT. DAY (White Strip), 7/8 pgs, Location: GENTLE, Cast: 1, Props: camera]. [FILM_STOCK: Kodak Vision3 250D (5207), 65mm 15-perf IMAX negative, ISO 250 5500K Daylight, RMS granularity 2.6 (5.0μm dye clouds), halation glow r=5.0px intensity=0.32 (rem-jet 90%), gate weave ±0.3μm (mitchell_dual_pin)]. [CLAPPER_SLATE: Scene 4, Take 1, Roll A04/SR04, Cam A 24.0fps, INT DAY, Filter Ultra Pol / ND 0.3, 180.0° Shutter, TC 01:00:30:00]. [DRONE_FLIGHT: RIG=compact_cinema_inspire3 ALT=22-45m PROFILE=monolithic_orbital_reveal GIMBAL_PITCH=-20° SPEED=4.0mps WIND=7kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=toward_camera scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=acb1940a]. [SAFETY_JSA: risk=moderate exclusion=4.0m hazards=2 status=MITIGATED].",
+        "omni_prose_prompt": "The fixed wide-angle camera remains perfectly locked on the fully assembled Scandinavian living room under warm morning sunlight. Filmed at real-time 1.0x playback speed, the final missing element—a vibrant mustard-yellow waffle-knit wool throw blanket from <image_3>—descends smoothly through the sunlit air in a gentle, gravity-bound arc. At second 28, the blanket lands gracefully across the right armrest of the textured grey sofa, its soft wool folds settling with natural fabric weight and creating a momentary gentle compression in the seat cushion before coming to complete rest. As the blanket touches down, every moving element in the room reaches absolute, motionless stillness: the plants are static, the furniture is pristine, and warm sunlight bathes the peaceful sanctuary. The camera holds unbroken static discipline with no jump cuts and no morphing. Synchronized diegetic audio captures the gentle, airy fwoosh of the descending wool, followed by a singular, supremely soft and satisfying fwoomp as it cushions onto the sofa fabric. Instantly, all musical and mechanical sounds cut out, leaving only pristine, hushed Scandinavian room tone and the faint, distant chirp of morning birds outside. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=84 bridge=l_cut jcut=0f lcut=30f beat_offset=-7f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"The Final Flourish & The ASMR St\" @ 24.10-27.30s | CVAA=True]. [WARDROBE-LOCK: HERO_SUBJECT:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=damaged@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC04 | mode_a_4step | takes=2 | dur=8s | est=$4.13]. [GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=IKEA: The Living Room]. [OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC04 | take=SC04_T1 | seed=199226469 | qa=94.1 | status=qa_passed]. [TREATMENT-BEAT: SC04 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...]. Staged within an in-camera VFX LED volume with dynamic perspective frustum tracking and parallax depth planes. Executed on precision robotic motion control (MoCo) motorized_dolly rig following calibrated 6-DOF trajectory waypoints. Calibrated studio lighting rig with Key:Fill 4.0:1 contrast ratio and mineral haze atmospheric scattering. Graded with Verdant warm daylight organic (verdant_warm_daylight emulation, 33x33x33 3D LUT). [SPATIAL AUDIO: Ambisonic B Format, RT60=1.85s (Hardwood Concrete), Objects: obj_reflecting_pool_trickle (az:-40°, el:-15°, 6.0m); obj_cathedral_stone_reverb (az:+60°, el:+0°, 4.0m), Binaural HRTF]. [VFX COMPOSITING: OpenEXR (ZIP_SCANLINE, ACEScg), Passes: beauty.RGB, diffuse.RGB, specular.RGB, normals.RGB, depth.Z, ao.RGB, crypto_object.RGBA, Cryptomatte (Obj/Mat), Depth: 0.2m-80.0m, Reconstruct: (Diffuse * AO) + Specular]. [HDR Signal: SMPTE ST 2084 PQ, Gamut: Rec.2020, Peak: 1000 nits, MaxCLL: 980 nits, MaxFALL: 360 nits]. [1st AD Breakdown: INT. DAY (White Strip), 7/8 pgs, Location: GENTLE, Cast: 1, Props: camera]. [FILM_STOCK: Kodak Vision3 250D (5207), 65mm 15-perf IMAX negative, ISO 250 5500K Daylight, RMS granularity 2.6 (5.0μm dye clouds), halation glow r=5.0px intensity=0.32 (rem-jet 90%), gate weave ±0.3μm (mitchell_dual_pin)]. [CLAPPER_SLATE: Scene 4, Take 1, Roll A04/SR04, Cam A 24.0fps, INT DAY, Filter Ultra Pol / ND 0.3, 180.0° Shutter, TC 01:00:30:00]. [DRONE_FLIGHT: RIG=compact_cinema_inspire3 ALT=22-45m PROFILE=monolithic_orbital_reveal GIMBAL_PITCH=-20° SPEED=4.0mps WIND=7kt]. [REFRAME: 16:9->9:16/4:5/1:1 | COI(0.50,0.46) | pillarbox_safe | UI_SAFE_CLEARED]. [BROADCAST_QC: -23.0LUFS/-1.0dBTP | PSE_BT1702 0.8Hz<=3Hz PASS | REC709_LEGAL]. [CONTINUITY_AXIS: dir=toward_camera scale=MCU axis=A_SIDE@0deg 180_deg_lock=PASS eyeline=+0deg]. [REVIEW_GATE: rev=1 status=approved open_notes=0]. [C2PA_PROVENANCE: c2pa=2.1 tier=full_ai_synthetic synthid=true eu_art50=PASS likeness=CLEARED digest=acb1940a]. [SAFETY_JSA: risk=moderate exclusion=4.0m hazards=2 status=MITIGATED].",
         "s3d_spec": {
           "scene_number": 4,
           "camera_spec": {
@@ -4946,13 +5180,13 @@
           "scene_title": "The Final Flourish & The ASMR Stillness",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4965,7 +5199,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4978,7 +5212,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -4991,7 +5225,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -5275,7 +5509,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=IKEA: The Living Room]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc04-26469",
+          "scene_index": 4,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC04_T1",
+          "seed": 199226469,
+          "interaction_id": "omni-interact-4-26469",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_4.mp4",
+          "end_frame_path": "End_Frame_04.png",
+          "qa_scorecard": {
+            "scene_index": 4,
+            "take_id": "SC04_T1",
+            "seed": 199226469,
+            "prompt_sha256_prefix": "3e2861a41e97",
+            "temporal_stability_score": 92.8,
+            "prompt_adherence_score": 94.85,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 94.06,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 4,
+              "take_id": "SC04_T1",
+              "seed": 199226469,
+              "prompt_sha256_prefix": "3e2861a41e97",
+              "temporal_stability_score": 92.8,
+              "prompt_adherence_score": 94.85,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 94.06,
+              "promoted_hero": true,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 4,
+              "take_id": "SC04_T2",
+              "seed": 1755634445,
+              "prompt_sha256_prefix": "3e2861a41e97",
+              "temporal_stability_score": 94.2,
+              "prompt_adherence_score": 93.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 95.15,
+              "composite_qa_score": 94.06,
+              "promoted_hero": false,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 9,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 4,
+          "headline": "SC04: The Final Flourish & The ASMR Stillness",
+          "subhead": "00:24 - 00:32 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "A folded mustard-yellow waffle-knit wool throw blanket arcs gracefully through the air over the sofa. -> The blanket lands dead-center on the grey sofa corner, sending a soft, visible air ripple through its knit folds. -> All motion abruptly freezes into an immaculate, serene, fully furnished architectural living room. Kinetic Chain: Throw blanket trajectory -> Gentle gravitational descent -> Impact with sofa cushion -> Micro-compression of textile knit -> Total static equilibrium.",
+          "visual_plate_ref": "SC04_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "4",
+            "timestamp_range": "00:24 - 00:32",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        }
       }
     ],
     "domain_archetype": "architectural_sanctuary",
@@ -6195,7 +6507,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "IKEA: The Living Room Unfolds",
-        "creation_date": "2026-11-25T10:03:44.550512+00:00",
+        "creation_date": "2026-11-26T09:30:27.524560+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -6203,7 +6515,7 @@
             "xxhash64": "116de09e405ac0a7",
             "sha1": "0420f0191db0eca96fb4174d7dd36763efe8ed71",
             "md5": "189ee4916e3ce3795f3af3f8ad7beb3e",
-            "hash_timestamp": "2026-11-25T10:03:44.549445+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524174+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -6211,7 +6523,7 @@
             "xxhash64": "65da3e9659353f79",
             "sha1": "5b699bf53f60773432d1739ca6b6618aca2016b7",
             "md5": "fddbd29da0b614c19452c22c9b1fd0aa",
-            "hash_timestamp": "2026-11-25T10:03:44.550497+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524546+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -6219,7 +6531,7 @@
             "xxhash64": "80e9d5736f05de08",
             "sha1": "ff09d786bfefe0fb787dccff133ca0c7412179ed",
             "md5": "51c36097246233a267d718f5bb190687",
-            "hash_timestamp": "2026-11-25T10:03:44.550504+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524552+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -6227,7 +6539,7 @@
             "xxhash64": "fa964778483c3aee",
             "sha1": "64e1d72cbcd997f78f96d5337053d52cad31a894",
             "md5": "9de0463a02f54d28c17bddd56c0ec916",
-            "hash_timestamp": "2026-11-25T10:03:44.550509+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524557+00:00"
           }
         ]
       }
@@ -6325,7 +6637,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "IKEA: The Living Room Unfolds",
-        "creation_date": "2026-11-25T10:03:44.550512+00:00",
+        "creation_date": "2026-11-26T09:30:27.524560+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -6333,7 +6645,7 @@
             "xxhash64": "116de09e405ac0a7",
             "sha1": "0420f0191db0eca96fb4174d7dd36763efe8ed71",
             "md5": "189ee4916e3ce3795f3af3f8ad7beb3e",
-            "hash_timestamp": "2026-11-25T10:03:44.549445+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524174+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -6341,7 +6653,7 @@
             "xxhash64": "65da3e9659353f79",
             "sha1": "5b699bf53f60773432d1739ca6b6618aca2016b7",
             "md5": "fddbd29da0b614c19452c22c9b1fd0aa",
-            "hash_timestamp": "2026-11-25T10:03:44.550497+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524546+00:00"
           },
           {
             "file_path": "A03_03_take01.mov",
@@ -6349,7 +6661,7 @@
             "xxhash64": "80e9d5736f05de08",
             "sha1": "ff09d786bfefe0fb787dccff133ca0c7412179ed",
             "md5": "51c36097246233a267d718f5bb190687",
-            "hash_timestamp": "2026-11-25T10:03:44.550504+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524552+00:00"
           },
           {
             "file_path": "A04_04_take01.mov",
@@ -6357,7 +6669,7 @@
             "xxhash64": "fa964778483c3aee",
             "sha1": "64e1d72cbcd997f78f96d5337053d52cad31a894",
             "md5": "9de0463a02f54d28c17bddd56c0ec916",
-            "hash_timestamp": "2026-11-25T10:03:44.550509+00:00"
+            "hash_timestamp": "2026-11-26T09:30:27.524557+00:00"
           }
         ]
       }
@@ -13020,7 +13332,7 @@
     "master_c2pa_provenance": {
       "project_title": "IKEA: The Living Room Unfolds",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:681051cbecf6",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -13029,7 +13341,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13042,7 +13354,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13055,7 +13367,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13068,7 +13380,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13140,13 +13452,13 @@
           "scene_title": "The Awakening Box",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13159,7 +13471,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13172,7 +13484,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13185,7 +13497,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13234,13 +13546,13 @@
           "scene_title": "The Hyper-Kinetic Self-Assembly",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13253,7 +13565,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13266,7 +13578,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13279,7 +13591,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13316,13 +13628,13 @@
           "scene_title": "Upholstery & Soft Architecture",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13335,7 +13647,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13348,7 +13660,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13361,7 +13673,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13398,13 +13710,13 @@
           "scene_title": "The Final Flourish & The ASMR Stillness",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13417,7 +13729,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13430,7 +13742,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13443,7 +13755,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13488,7 +13800,7 @@
     "c2pa_provenance": {
       "project_title": "IKEA: The Living Room Unfolds",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:681051cbecf6",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -13497,7 +13809,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13510,7 +13822,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13523,7 +13835,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13536,7 +13848,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13608,13 +13920,13 @@
           "scene_title": "The Awakening Box",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13627,7 +13939,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13640,7 +13952,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13653,7 +13965,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13702,13 +14014,13 @@
           "scene_title": "The Hyper-Kinetic Self-Assembly",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13721,7 +14033,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13734,7 +14046,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13747,7 +14059,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13784,13 +14096,13 @@
           "scene_title": "Upholstery & Soft Architecture",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13803,7 +14115,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13816,7 +14128,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13829,7 +14141,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13866,13 +14178,13 @@
           "scene_title": "The Final Flourish & The ASMR Stillness",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13885,7 +14197,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13898,7 +14210,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13911,7 +14223,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -13956,7 +14268,7 @@
     "content_credentials": {
       "project_title": "IKEA: The Living Room Unfolds",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:681051cbecf6",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -13965,7 +14277,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13978,7 +14290,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -13991,7 +14303,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14004,7 +14316,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14076,13 +14388,13 @@
           "scene_title": "The Awakening Box",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14095,7 +14407,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14108,7 +14420,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14121,7 +14433,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14170,13 +14482,13 @@
           "scene_title": "The Hyper-Kinetic Self-Assembly",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14189,7 +14501,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14202,7 +14514,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14215,7 +14527,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14252,13 +14564,13 @@
           "scene_title": "Upholstery & Soft Architecture",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14271,7 +14583,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14284,7 +14596,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14297,7 +14609,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14334,13 +14646,13 @@
           "scene_title": "The Final Flourish & The ASMR Stillness",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14353,7 +14665,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14366,7 +14678,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14379,7 +14691,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14424,7 +14736,7 @@
     "provenance_manifest": {
       "project_title": "IKEA: The Living Room Unfolds",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:681051cbecf6",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -14433,7 +14745,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14446,7 +14758,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14459,7 +14771,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14472,7 +14784,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -14544,13 +14856,13 @@
           "scene_title": "The Awakening Box",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14563,7 +14875,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14576,7 +14888,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14589,7 +14901,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14638,13 +14950,13 @@
           "scene_title": "The Hyper-Kinetic Self-Assembly",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14657,7 +14969,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14670,7 +14982,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14683,7 +14995,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14720,13 +15032,13 @@
           "scene_title": "Upholstery & Soft Architecture",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S03-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14739,7 +15051,7 @@
               "action_id": "ACT-S03-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14752,7 +15064,7 @@
               "action_id": "ACT-S03-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14765,7 +15077,7 @@
               "action_id": "ACT-S03-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14802,13 +15114,13 @@
           "scene_title": "The Final Flourish & The ASMR Stillness",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S04-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14821,7 +15133,7 @@
               "action_id": "ACT-S04-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14834,7 +15146,7 @@
               "action_id": "ACT-S04-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -14847,7 +15159,7 @@
               "action_id": "ACT-S04-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -17817,9 +18129,527 @@
       "coherence_score": 100.0,
       "conflicts_count": 0,
       "warnings_count": 0,
-      "otio_sha256": "31ce38e98ead2b80545fcfc0941ad04b2f8a8996d15d2f0fb0dc6dc6f414822f",
+      "otio_sha256": "8c5883fb2f13f6a0a53b95b9386f143ea01c1de40e5bb21667bd033575e4725f",
       "shoot_day_ready": true,
-      "coherence_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+      "coherence_token": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+    },
+    "master_render_jobs": {
+      "manifest_id": "rjm-4642a4d7db",
+      "project_title": "IKEA: The Living Room Unfolds",
+      "domain_archetype": "architectural_sanctuary",
+      "storytelling_mode": "Mode A",
+      "jobs": [
+        {
+          "job_id": "rj-sc01-22655",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T1",
+          "seed": 400322655,
+          "interaction_id": "omni-interact-1-22655",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T1",
+            "seed": 400322655,
+            "prompt_sha256_prefix": "53486545738d",
+            "temporal_stability_score": 94.2,
+            "prompt_adherence_score": 93.25,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 93.91,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 400322655,
+              "prompt_sha256_prefix": "53486545738d",
+              "temporal_stability_score": 94.2,
+              "prompt_adherence_score": 93.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 93.91,
+              "promoted_hero": true,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 645783531,
+              "prompt_sha256_prefix": "53486545738d",
+              "temporal_stability_score": 92.8,
+              "prompt_adherence_score": 93.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 93.58,
+              "promoted_hero": false,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        {
+          "job_id": "rj-sc02-71797",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 509971797,
+          "interaction_id": "omni-interact-2-71797",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 509971797,
+            "prompt_sha256_prefix": "5e71d01ba23b",
+            "temporal_stability_score": 94.55,
+            "prompt_adherence_score": 94.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 94.35,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 1148764841,
+              "prompt_sha256_prefix": "5e71d01ba23b",
+              "temporal_stability_score": 92.45,
+              "prompt_adherence_score": 93.65,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 95.15,
+              "composite_qa_score": 93.6,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 509971797,
+              "prompt_sha256_prefix": "5e71d01ba23b",
+              "temporal_stability_score": 94.55,
+              "prompt_adherence_score": 94.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 94.35,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        {
+          "job_id": "rj-sc03-30357",
+          "scene_index": 3,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC03_T2",
+          "seed": 666730357,
+          "interaction_id": "omni-interact-3-30357",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_3.mp4",
+          "end_frame_path": "End_Frame_03.png",
+          "qa_scorecard": {
+            "scene_index": 3,
+            "take_id": "SC03_T2",
+            "seed": 666730357,
+            "prompt_sha256_prefix": "db64b49b285d",
+            "temporal_stability_score": 94.55,
+            "prompt_adherence_score": 94.05,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 93.95,
+            "composite_qa_score": 94.2,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 3,
+              "take_id": "SC03_T1",
+              "seed": 1326602329,
+              "prompt_sha256_prefix": "db64b49b285d",
+              "temporal_stability_score": 93.5,
+              "prompt_adherence_score": 94.85,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 93.95,
+              "composite_qa_score": 94.15,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 3,
+              "take_id": "SC03_T2",
+              "seed": 666730357,
+              "prompt_sha256_prefix": "db64b49b285d",
+              "temporal_stability_score": 94.55,
+              "prompt_adherence_score": 94.05,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 93.95,
+              "composite_qa_score": 94.2,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        {
+          "job_id": "rj-sc04-26469",
+          "scene_index": 4,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC04_T1",
+          "seed": 199226469,
+          "interaction_id": "omni-interact-4-26469",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_4.mp4",
+          "end_frame_path": "End_Frame_04.png",
+          "qa_scorecard": {
+            "scene_index": 4,
+            "take_id": "SC04_T1",
+            "seed": 199226469,
+            "prompt_sha256_prefix": "3e2861a41e97",
+            "temporal_stability_score": 92.8,
+            "prompt_adherence_score": 94.85,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 94.55,
+            "composite_qa_score": 94.06,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 4,
+              "take_id": "SC04_T1",
+              "seed": 199226469,
+              "prompt_sha256_prefix": "3e2861a41e97",
+              "temporal_stability_score": 92.8,
+              "prompt_adherence_score": 94.85,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 94.55,
+              "composite_qa_score": 94.06,
+              "promoted_hero": true,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 4,
+              "take_id": "SC04_T2",
+              "seed": 1755634445,
+              "prompt_sha256_prefix": "3e2861a41e97",
+              "temporal_stability_score": 94.2,
+              "prompt_adherence_score": 93.25,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 95.15,
+              "composite_qa_score": 94.06,
+              "promoted_hero": false,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        }
+      ],
+      "frame_anchor_handoffs": [],
+      "overall_qa_score": 94.13,
+      "promoted_takes_count": 4,
+      "assembly_ready": true,
+      "render_job_token": "[RENDER-ORCHESTRATOR: jobs=4 | mode=Mode A | avg_qa=94.1 | handoffs=0 | assembly_ready=True]"
+    },
+    "master_pitch_treatment": {
+      "treatment_id": "pt-aed170c10d",
+      "project_title": "IKEA: The Living Room Unfolds",
+      "client_brand_label": "Atelier Sanctuary Works",
+      "domain_archetype": "architectural_sanctuary",
+      "executive_director_statement": "IKEA: The Living Room Unfolds honors stillness, daylight geometry, and honest natural materials across 32s. Composed in Regime 2: High-Kinetic & Precision Commercial using Mode A: Parallel Multi-Scene Cut (Montage), measured spatial breathing room deepens Atmospheric Affinity & Brand Sanctuary Recall.",
+      "target_audience_hook": "Calm Nordic light and honest materiality transforming empty space into sanctuary.",
+      "slides": [
+        {
+          "slide_index": 1,
+          "slide_type": "cover_logline",
+          "scene_index": null,
+          "headline": "IKEA: The Living Room Unfolds",
+          "subhead": "Atelier Sanctuary Works · architectural_sanctuary · Serene Spatial Minimalism & Quiet Light Choreography",
+          "narrative_copy": "In an empty sunlit Scandinavian apartment, an iconic flat-pack IKEA box violently trembles, then mechanically unpacks and self-assembles into a pristine, serene living sanctuary with hyper-tactile ASMR foley.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "client_brand": "Atelier Sanctuary Works",
+            "runtime": "32s",
+            "aspect_ratio": "16:9",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Serene Spatial Minimalism & Quiet Light Choreography"
+          }
+        },
+        {
+          "slide_index": 2,
+          "slide_type": "creative_vision_regime",
+          "scene_index": null,
+          "headline": "Creative Vision & Storytelling Regime",
+          "subhead": "Regime 2: High-Kinetic & Precision Commercial · Mode A: Parallel Multi-Scene Cut (Montage)",
+          "narrative_copy": "IKEA: The Living Room Unfolds honors stillness, daylight geometry, and honest natural materials across 32s. Composed in Regime 2: High-Kinetic & Precision Commercial using Mode A: Parallel Multi-Scene Cut (Montage), measured spatial breathing room deepens Atmospheric Affinity & Brand Sanctuary Recall.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "creative_regime": "Regime 2: High-Kinetic & Precision Commercial",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Serene Spatial Minimalism & Quiet Light Choreography",
+            "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall",
+            "audience_hook": "Calm Nordic light and honest materiality transforming empty space into sanctuary."
+          }
+        },
+        {
+          "slide_index": 3,
+          "slide_type": "color_script_palette",
+          "scene_index": null,
+          "headline": "Color Script & Optical Look Science",
+          "subhead": "Look: rec709_neutral · Rec.709 · 5600K Key",
+          "narrative_copy": "Master palette #1E293B, #F59E0B, #0284C7, #F8FAFC, #111827, #374151 calibrated in Rec.709 with rec709_neutral tonal curve and 5600K primary illumination.",
+          "visual_plate_ref": "COLOR_SCRIPT_STRIP",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "look_preset": "rec709_neutral",
+            "working_color_space": "Rec.709",
+            "key_kelvin": "5600K",
+            "swatch_count": "6"
+          }
+        },
+        {
+          "slide_index": 4,
+          "slide_type": "cast_wardrobe_polarity",
+          "scene_index": null,
+          "headline": "Cast, Hero Subject & Wardrobe Polarity",
+          "subhead": "0 Character Anchor(s) · 3/3 Nano Banana References",
+          "narrative_copy": "Product-led hero subject: Defines the exact cardboard texture, proportions, blue-printed IKEA logo, and packing tape styling of the sealed flat-pack box.. Strict material polarity lock enforced across all cuts.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7"
+          ],
+          "key_metrics": {
+            "characters_count": "0",
+            "nano_banana_refs": "3/3",
+            "polarity_lock": "ENFORCED"
+          }
+        },
+        {
+          "slide_index": 5,
+          "slide_type": "environment_plates",
+          "scene_index": null,
+          "headline": "Master Environment — Minimalist Stockholm Loft",
+          "subhead": "Key Light 5600K · 3 Geometric Invariants",
+          "narrative_copy": "An expansive 8x6 meter open-plan apartment with ultra-smooth pale blonde ash hardwood floors, matte-white limewashed walls, and floor-to-ceiling multi-pane Nordic windows on the left wall looking out to quiet birch trees. Lighting: Soft, low-angled morning Scandinavian sunlight streaming through the windows at 5200K daylight balance, casting elongated warm rectangular light pools across the floor, filled with soft 6500K ambient room bounce. Atmosphere: Delicate, slow-drifting micro-motes of atmospheric dust illuminated in the light beam; zero haze, zero smoke. Invariants: The pale blonde ash floorboards remain mechanically rigid with realistic wood grain that never distorts or changes direction.; The walls remain pristine matte-white with consistent architectural baseboards.; All furniture pieces retain exact Scandinavian minimalist geometry and color-true IKEA fabrics once assembled.",
+          "visual_plate_ref": "<image_2>",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "location": "Minimalist Stockholm Loft",
+            "kelvin": "5600K",
+            "invariants": "3"
+          }
+        },
+        {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: The Awakening Box",
+          "subhead": "00:00 - 00:08 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "The sealed IKEA box sits dead-center on the bare ash floor in total stillness under morning sunlight. -> At second 03, the box begins to shudder rapidly with high-frequency tactile micro-vibrations. -> At second 07, the reinforced packing tape along the top center seam suddenly splits open with a crisp pop and a tiny puff of kraft paper dust. Kinetic Chain: Stillness -> Micro-oscillation of box edges against ash floorboards -> High-tension seam split -> Cardboard flaps spring open 15 degrees -> Settles into open posture.",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:08",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: The Hyper-Kinetic Self-Assembly",
+          "subhead": "00:08 - 00:16 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "The cardboard flaps fold flat onto the floor like blooming origami petals. -> Precision-cut solid oak furniture legs, white shelf panels, and frame components levitate out in structured order. -> Components interlock at high velocity into a low coffee table and a minimalist shelving unit with rigid mechanical clicks. Kinetic Chain: Flaps burst outward -> Wooden pieces slide on air trajectories -> Dovetail joints collide and snap together -> Base legs strike the hardwood floor with solid acoustic thuds -> Stable resting lock.",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:08 - 00:16",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 8,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 3,
+          "headline": "SC03: Upholstery & Soft Architecture",
+          "subhead": "00:16 - 00:24 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "A textured grey fabric sofa expands smoothly from the center staging area, cushions billowing outward. -> A woven natural wool area rug unrolls across the ash floor with rhythmic momentum. -> A ceramic table lamp and a potted green fiddle-leaf fig slide gracefully onto their finished surfaces. Kinetic Chain: Rug unrolls across floorboards with surface friction -> Sofa cushions drop under gravity -> Potted plant bases contact oak tabletop with ceramic clinks -> Secondary leaf settling oscillation.",
+          "visual_plate_ref": "SC03_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "3",
+            "timestamp_range": "00:16 - 00:24",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 9,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 4,
+          "headline": "SC04: The Final Flourish & The ASMR Stillness",
+          "subhead": "00:24 - 00:32 · Regime 2: High-Kinetic & Precision Commercial · 35mm · 5600K",
+          "narrative_copy": "A folded mustard-yellow waffle-knit wool throw blanket arcs gracefully through the air over the sofa. -> The blanket lands dead-center on the grey sofa corner, sending a soft, visible air ripple through its knit folds. -> All motion abruptly freezes into an immaculate, serene, fully furnished architectural living room. Kinetic Chain: Throw blanket trajectory -> Gentle gravitational descent -> Impact with sofa cushion -> Micro-compression of textile knit -> Total static equilibrium.",
+          "visual_plate_ref": "SC04_KEYFRAME",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC"
+          ],
+          "key_metrics": {
+            "scene_index": "4",
+            "timestamp_range": "00:24 - 00:32",
+            "lens_mm": "35mm",
+            "kelvin": "5600K",
+            "beats_count": "3",
+            "regime": "Regime 2: High-Kinetic & Precision Commercial"
+          }
+        },
+        {
+          "slide_index": 10,
+          "slide_type": "sonic_bgm_arc",
+          "scene_index": null,
+          "headline": "Sonic Architecture & BGM Arc — Nordic Serenity: Tactile Pulse",
+          "subhead": "Minimalist Acoustic Neo-Classical ASMR · 84 BPM · D Major",
+          "narrative_copy": "Dynamic Arc: Seconds 00-08: Tense, playful pizzicato rhythm ticking like a clockwork box. Seconds 08-16: Rapid, polyrhythmic wooden mallet pulses synchronizing with furniture clicks. Seconds 16-24: Swelling warm cello and piano harmony. Seconds 24-32: All music decrescendos instantly on the final blanket drop, leaving only a sustained pure piano chord and serene silence. | Diegetic Foley: Low resonant cardboard vibration on wood floor; Sharp, satisfying high-frequency tape tear and cardboard seam pop; Crisp wood dowel clicks, rapid mechanical drawer slide swooshes, and solid pine locking thuds; Soft, airy, deep 'fwoomp' of down-filled textiles settling onto wood | Room Acoustics: Bright, reverberant empty wooden room acoustics during the initial box opening, transitioning smoothly into a warm, dampened, acoustically insulated soundscape as fabrics, rugs, and cushions populate the space. | Stems: percussion: Rhythmic pulse and transient acoustic hits, bass: Sub-harmonic foundation and low-end drone, harmony: Mid-range chord progression and ambient pads, lead: Hero melodic motif or lead arpeggio",
+          "visual_plate_ref": "SONIC_BGM_ARC",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7"
+          ],
+          "key_metrics": {
+            "track_title": "Nordic Serenity: Tactile Pulse",
+            "tempo_bpm": "84",
+            "key_signature": "D Major",
+            "foley_cues": "5",
+            "stems_count": "4"
+          }
+        },
+        {
+          "slide_index": 11,
+          "slide_type": "budget_roi_summary",
+          "scene_index": null,
+          "headline": "Production Economics: AI-First vs. Traditional AICP Bid",
+          "subhead": "AICP Baseline $203,145.74 vs. AI Live Compute $16.50 (99.99% Savings)",
+          "narrative_copy": "Traditional AICP commercial shoot baseline is estimated at $203,145.74. Omni 2026 Matrix simulation mode executes at $0.00 billable cost, while planned multi-take live rendering totals $16.50 — capturing $203,129.24 (99.99%) in production capital efficiency.",
+          "visual_plate_ref": "BUDGET_ROI_SUMMARY",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7"
+          ],
+          "key_metrics": {
+            "aicp_grand_total_usd": "$203,145.74",
+            "ai_compute_est_usd": "$16.50",
+            "dry_run_billable_usd": "$0.00",
+            "net_savings_usd": "$203,129.24",
+            "savings_pct": "99.99%"
+          }
+        },
+        {
+          "slide_index": 12,
+          "slide_type": "deliverables_signoff",
+          "scene_index": null,
+          "headline": "Deliverables Matrix & Executive Greenlight",
+          "subhead": "2026 Gemini Model Matrix · 16:9 · 32s @ 24fps",
+          "narrative_copy": "Approved deliverables package includes: immutable MasterProductionBible SSOT JSON, interactive dark-room Cinema Animatic HTML5, SMPTE EDL/FCPXML/SRT/VTT timelines, OpenTimelineIO (.otio) cross-department coherence manifest, C2PA provenance manifest, and print-ready Executive Director's Lookbook.",
+          "visual_plate_ref": "DELIVERABLES_SIGNOFF",
+          "color_swatches": [
+            "#1E293B",
+            "#F59E0B",
+            "#0284C7",
+            "#F8FAFC",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall",
+            "scenes_count": "4",
+            "model_matrix": "2026-Compliant",
+            "signoff_status": "READY_FOR_GREENLIGHT"
+          }
+        }
+      ],
+      "color_script_strip": [
+        "#1E293B",
+        "#F59E0B",
+        "#0284C7",
+        "#F8FAFC",
+        "#111827",
+        "#374151"
+      ],
+      "revision_diff": null,
+      "treatment_token": "[PITCH-TREATMENT: id=pt-aed170c10d | domain=architectural_sanctuary | slides=12 | tone=Serene Spatial Minimalism & Quiet Light Choreography | roi_savings=100.0%]"
     }
   },
   "storyboard_html_path": "examples/ikea_asmr_2_0/storyboard_preview.html",
@@ -17942,7 +18772,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=1 | max_wpm=100.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC01 | take=SC01_T1 | seed=400322655 | qa=93.9 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC01 | type=scene_beat_spread | headline=SC01: The Awakening Box]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_2>",
@@ -17963,7 +18799,9 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     },
     {
       "scene_index": 2,
@@ -18047,7 +18885,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC02 | take=SC02_T2 | seed=509971797 | qa=94.3 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC02 | type=scene_beat_spread | headline=SC02: The Hyper-Kinetic Self-Assembly]",
         "craft_camera_inferred": true,
         "image_refs_detected": [
           "<image_3>"
@@ -18067,7 +18911,9 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     },
     {
       "scene_index": 3,
@@ -18157,7 +19003,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC03 | cues=1 | max_wpm=66.7 | roles=product_callout][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC03 | take=SC03_T2 | seed=666730357 | qa=94.2 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC03 | type=scene_beat_spread | headline=SC03: Upholstery & Soft Architecture]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -18228,7 +19080,9 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     },
     {
       "scene_index": 4,
@@ -18318,7 +19172,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC04 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:29:05 | cta=IKEA: The Living Room]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=31ce38e98ead][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=768 | tracks=7 | sha256=8c5883fb2f13][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC04 | take=SC04_T1 | seed=199226469 | qa=94.1 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC04 | type=scene_beat_spread | headline=SC04: The Final Flourish & The ASMR Stillness]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -18389,14 +19249,16 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "e802b017-0321-44d5-ad0d-d51941442a25",
+    "session_id": "6fcc1bf0-c148-4c68-9815-aa02208a0c3a",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-25T10:03:45.340072+00:00",
+    "timestamp": "2026-11-26T09:30:28.230339+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -18406,62 +19268,62 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-25T10:03:45.340089+00:00",
-        "end_time": "2026-11-25T10:03:45.340101+00:00",
+        "start_time": "2026-11-26T09:30:28.230349+00:00",
+        "end_time": "2026-11-26T09:30:28.230360+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-25T10:03:45.340120+00:00",
-        "end_time": "2026-11-25T10:03:45.343833+00:00",
-        "duration_ms": 3.71,
+        "start_time": "2026-11-26T09:30:28.230375+00:00",
+        "end_time": "2026-11-26T09:30:28.234096+00:00",
+        "duration_ms": 3.72,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-25T10:03:45.343886+00:00",
-        "end_time": "2026-11-25T10:03:45.347447+00:00",
-        "duration_ms": 3.56,
+        "start_time": "2026-11-26T09:30:28.234145+00:00",
+        "end_time": "2026-11-26T09:30:28.236712+00:00",
+        "duration_ms": 2.57,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-25T10:03:45.347476+00:00",
-        "end_time": "2026-11-25T10:03:45.348208+00:00",
-        "duration_ms": 0.73,
+        "start_time": "2026-11-26T09:30:28.236730+00:00",
+        "end_time": "2026-11-26T09:30:28.237704+00:00",
+        "duration_ms": 0.97,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-25T10:03:45.348226+00:00",
-        "end_time": "2026-11-25T10:03:45.382785+00:00",
-        "duration_ms": 34.56,
+        "start_time": "2026-11-26T09:30:28.237731+00:00",
+        "end_time": "2026-11-26T09:30:28.274515+00:00",
+        "duration_ms": 36.78,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-25T10:03:45.382816+00:00",
-        "end_time": "2026-11-25T10:03:45.382827+00:00",
+        "start_time": "2026-11-26T09:30:28.274542+00:00",
+        "end_time": "2026-11-26T09:30:28.274551+00:00",
         "duration_ms": 0.01,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-25T10:03:45.382834+00:00",
-        "end_time": "2026-11-25T10:03:45.422364+00:00",
-        "duration_ms": 39.53,
+        "start_time": "2026-11-26T09:30:28.274559+00:00",
+        "end_time": "2026-11-26T09:30:28.320564+00:00",
+        "duration_ms": 46.0,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-25T10:03:45.478121+00:00",
-        "end_time": "2026-11-25T10:03:45.626490+00:00",
-        "duration_ms": 148.37,
+        "start_time": "2026-11-26T09:30:28.518879+00:00",
+        "end_time": "2026-11-26T09:30:28.660500+00:00",
+        "duration_ms": 141.62,
         "details": {}
       }
     ],
-    "total_duration_ms": 230.48,
+    "total_duration_ms": 231.68,
     "audit_summary": {
       "estimated_total_compute_usd": 16.5012,
       "render_budget_ceiling_usd": 50.0,
@@ -18470,7 +19332,11 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 4,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 94.13,
+      "promoted_takes_count": 4,
+      "treatment_slides_count": 12,
+      "revision_deltas_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 16.5012,
@@ -18480,13 +19346,17 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 4,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 94.13,
+      "promoted_takes_count": 4,
+      "treatment_slides_count": 12,
+      "revision_deltas_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "ff550dbd77417c12c1cf400e1db4ce7f3f500936b4be3a804f7160030c20d310",
-      "storyboard_preview.html": "51f5c19f0f48ed00cfa101633adabcfb2e78dde73c7e0dd54de64715f1e07b29",
-      "council_report.json": "05db4cc19a8311fe5208db875a3854eb02d98b0a59c3b68371e8e7f9950e3551",
-      "council_report.md": "b4362f95886722cbb39175ae104130b238835b725836cbce0e0b97ebd1780e4a",
+      "production_bundle.json": "458abfdb8eb12a9362ff50c343b64c390c33162e23795e1427cd3b0296253c08",
+      "storyboard_preview.html": "8230732645c93e4b1e8b95fe03c48ae44c184e4a717a62d50d14e6347f702a04",
+      "council_report.json": "ed3d206d6b6a55a1235ffc34c79e28600e6339bb4dab6d09182fee21183d23d9",
+      "council_report.md": "f8e2cf05d2687f29b37dd4722dec9d208aa522293edb23bb3cef09ff1426e302",
       "timeline.edl": "d32a85d3ebb1113b50d317056912d137aee523714caff0648a87c4b2676ef662",
       "sequence.fcpxml": "3208ff8a038dd96dcd83b655a19a15a57879d049d49bef32545b36b0a850c1e8",
       "shot_list.csv": "baf86fc3da0c154680bd67674d14a0558b8c23c3189882fe957b66800cb3536e",
@@ -18510,8 +19380,8 @@
       "studio_lighting_plot.json": "c41ea2ffa3cb0f8759efc1a2358baeff2380b0d87ee990d4ed66ab58a5cedd59",
       "gaffer_callsheet.csv": "05b1928c48bd7f9e35f3d8612c287aba89bf1a9c4f3ec7b8344da6897eeb3844",
       "gaffer_call_sheet.csv": "05b1928c48bd7f9e35f3d8612c287aba89bf1a9c4f3ec7b8344da6897eeb3844",
-      "dof_chart.json": "86792ce86ff51d16b22cbae86159b50f4501b61578842f138000169e438699b5",
-      "focus_puller_cue_sheet.csv": "40caab3389a1241648283629e2f6a7c52b7738dc5522e66d319c039e7c0d55cb",
+      "dof_chart.json": "69367d213b5766f999d297c9cb26d005cd334748cb16137e889f832910e984a7",
+      "focus_puller_cue_sheet.csv": "977070c2f683b9f377ad0d7bf6297d9d437bf0a8af2793fcfe12483ea2ff5d03",
       "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
       "dit_cart_manifest.json": "e586a0b91359d97d922892074e7d922862579673b03ce2f759157cfca9e6d8e0",
       "spatial_audio_adm.json": "ab36b4e5619c5375f01c5da00f764b834559316c9dd8290089af85f1c3f0f1e2",
@@ -18538,12 +19408,12 @@
       "film_emulation_spec.json": "efa4d4949ea3a61ac7fe6afbed25da2c1e4a074573284b607c79d6731b2c8467",
       "film_stock_shader.dctl": "255ff7cb535010d280ebb1368d92450844b9f34a28bcdbbdf9848a2dbdb93ee2",
       "film_stock.ale": "1f9ad6476c44b835f70de6c3b8d92c7f18a680fa9558e2ddcf4d72d7d4b8f745",
-      "slate_manifest.json": "d161e619036261caf8428ab1d40906319428c0778e0b5eeb66e0ebd7b6fc6127",
-      "asc_mhl_manifest.xml": "ddbd268ef66aab041d1009a0ae27459068a95547b53bc4dce37b8ba825bbda24",
+      "slate_manifest.json": "a976ae067e5e9506166ae62375bc94ed596c3b6c3a50419ed0f3dbe2c40daf8c",
+      "asc_mhl_manifest.xml": "92298d6b4cde5b66a88f5d6899bf848a5866c3af97cf8e3ce6783425d38f0614",
       "clapper_slate_log.csv": "5db2aee8731f18cfb12ee6f6331954b9e8aec3fb293a6400dc7c572221655ff7",
       "sound_sync.ale": "97ad30ce0cce7d8092b909e52ef287661a3ea54ecb3a45a214fd4b8876ddb4a6",
       "flight_path.kml": "d5903f892a4ad24fce5c2fdd8cd91d46986210f8c026ead05b570ba866f76c8b",
-      "flight_waypoints.gpx": "1ce36f58e91f1db3be52546029fd191a2f59bc02dcaa8dde114203479a724506",
+      "flight_waypoints.gpx": "1e9998f75f65e54f6120976bc7fc3d545049524d29787432b2bd5c12a0afe310",
       "drone_flight_sheet.csv": "80e1aa963046da59227bd76bcd19e27257c94c9d92c3ce4f74b686fc10c93882",
       "drone_flight_sheet.md": "509b53b45f0e1ae808d0f9550e3b4bd5ec6b8460ac347e4f4184ffed7ce9eb7e",
       "drone_flight_manifest.json": "3ea1839d2a6435c324237d99c291c52adc22d41ce8bd9489a493604156d5229a",
@@ -18567,8 +19437,8 @@
       "review_notes_frameio.json": "190680e4d589eb615ca45826d12dca7618bc8825da39d67e64abe6f1c0146ae7",
       "review_notes.csv": "37f6ec7b6622f5ab87e1fe426ab3622782946b3ab0ccf893f3ac230df6395c35",
       "client_signoff_report.md": "29c8b1fa90593255d37b541ae4f0a38b00959b81f5a0ea8acf379d2385d1ebb9",
-      "c2pa_manifest.json": "6198fee48632467ee9b7a975242377be8717ab223440ae480e506c6266a92f4a",
-      "ai_disclosure_certificate.md": "ee23c5d0f18425bc9d357ca9e9971139367c51d5ea228b926ad9ab84556099e5",
+      "c2pa_manifest.json": "09cd9deec40ced6ef86498af473cd865b3dd41de4f8e287a4fa2d1af0f294799",
+      "ai_disclosure_certificate.md": "bb6330bb9296342c29f0a2b547867b05493601977c8f53720912ba7af2ae3f37",
       "likeness_consent_ledger.csv": "b653e4bfcd906cbdfda2ec9e33019fef5ed16d595b42d90794c3b37b0e5bbccd",
       "safety_bulletin.md": "5496e7bdfd4777127c76db4cee9652470c079e46fdd5e25e0381c6b8507b3c29",
       "safety_jsa_matrix.csv": "789b69ef21813b13e0da4d2b810c6190ae7ad52e1c674c40ae64bbffdb9a3ef5",
@@ -18591,7 +19461,19 @@
       "render_economics_manifest.json": "fadf6f7a2fb16fe3301abfc4b39c0e73bf34cdad2e1c6541f422364739fdf503",
       "take_variant_ledger.csv": "87177bc95091e2deb83fdfcd9e5489d138c43c684b1d6def72f79645f04c1059",
       "ai_compute_estimate.md": "808da8355f01689fb6596ecbcda93dc1a3c6305ce3137b4b4038b6465804fff4",
-      "council_audit_report.json": "05db4cc19a8311fe5208db875a3854eb02d98b0a59c3b68371e8e7f9950e3551",
+      "motion_graphics_mogrt.json": "4a0ef15f9f0b6c031b7cbaab65abbf3c1710bfe24ea8cf0ca7b1a9a5beaef12f",
+      "broadcast_supers.ass": "aa830c5109320b9f8e0aa0588420a7bbade4340a078b516538354b1709e6e87e",
+      "brand_endcard_spec.md": "8108489aa697250df8e09823c6106b6d079f104f566e5714730b5af46b91c1b2",
+      "production_timeline.otio": "0a28c859b70716f9a0c627eb189fa8b335cfd397a40a5882d1b5a5ee70b2e9a3",
+      "coherence_matrix.json": "69ff9fbf5bc987e8cb4e9e66b5cbf7221989ca5919cf36902ce49701574375bf",
+      "coherence_readiness_report.md": "147a863d5a36d1526265a42698e8ec42ad44fd94e68b83c757cd4e785fc2390c",
+      "render_job_manifest.json": "f1a418729a50482d86a2b5bb5adc70fb7337ed84929a54ab232ae8a15d924d59",
+      "take_qa_scorecard.csv": "1a8410964610433e94ceaecc110192e849100c106d86c87384a7a40de7f1bc98",
+      "rough_cut_assembly.sh": "304ccc4883898ab36735ef951c27a05449b79b309522b3f7346909244f21db53",
+      "director_treatment_lookbook.html": "78584915f01b5bc5e3bd639f858a3616c771c36b9be757a44b9b9945d1c2b6cd",
+      "director_treatment_brief.md": "82cf113cd90cd5c7ec46a70203598957d76c2e537190b8b12e237b12d20b616a",
+      "pitch_treatment_manifest.json": "a39a490ecf0ed3855ad71334f8fbe07e4c224ff0336267fd362d6cac59e62d85",
+      "council_audit_report.json": "ed3d206d6b6a55a1235ffc34c79e28600e6339bb4dab6d09182fee21183d23d9",
       "storyboards/anchor1_character_turnaround.svg": "5f6252244617ed1fe3fcd4ce1f2c1e1fed58ca68f5ea07557f49c1366284e0a1",
       "storyboards/anchor2_environment_master.svg": "07d8aa410a42776c1c3aa6988b99273ce9f041429bf3a4d278f533006138ad64",
       "storyboards/anchor3_scene_1_keyframe.svg": "658d1a10d70d4cf55ef249059d58d905831c5575ce2862fab4a39fb3c43c1886",
@@ -18611,16 +19493,16 @@
     }
   },
   "council_report": {
-    "version": "2.17.0",
+    "version": "2.18.0",
     "project_title": "IKEA: The Living Room Unfolds",
-    "timestamp": "2026-11-25T10:03:45.619624+00:00",
-    "overall_score": 98.0,
+    "timestamp": "2026-11-26T09:30:28.657153+00:00",
+    "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
     "reviews": [
       {
         "persona": "council-fde",
-        "score": 23.0,
+        "score": 25.0,
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
@@ -18953,13 +19835,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "motion_graphics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
-            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "message": "Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "motion_graphics_artifacts": [
                 "motion_graphics_mogrt.json",
                 "broadcast_supers.ass",
                 "brand_endcard_spec.md"
@@ -18967,16 +19849,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "otio_coherence_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
-            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "message": "OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "otio_artifacts": [
                 "production_timeline.otio",
                 "coherence_matrix.json",
                 "coherence_readiness_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_job_delivery",
+            "message": "Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "render_job_artifacts": [
+                "render_job_manifest.json",
+                "take_qa_scorecard.csv",
+                "rough_cut_assembly.sh"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_delivery",
+            "message": "Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "pitch_treatment_artifacts": [
+                "director_treatment_lookbook.html",
+                "director_treatment_brief.md",
+                "pitch_treatment_manifest.json"
               ]
             }
           },
@@ -19109,17 +20019,42 @@
           {
             "severity": "info",
             "category": "otio_coherence_schema",
-            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=31ce38e98ead..., coherence_score=100.0, shoot_day_ready=True).",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=8c5883fb2f13..., coherence_score=100.0, shoot_day_ready=True).",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "schema_version": "OTIO_0.16_COMPAT",
               "track_count": 7,
-              "otio_sha256_prefix": "31ce38e98ead"
+              "otio_sha256_prefix": "8c5883fb2f13"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_jobs_schema",
+            "message": "MasterRenderJobManifest verified (4 job(s), 2026 Model Matrix compliant, overall_qa_score=94.1, assembly_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "jobs_count": 4,
+              "model_ids": [
+                "gemini-omni-1.1-flash-preview"
+              ],
+              "overall_qa_score": 94.13
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema",
+            "message": "MasterPitchTreatmentSpec verified (id=pt-aed170c10d, 12 board(s), domain=architectural_sanctuary).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "treatment_id": "pt-aed170c10d",
+              "slides_count": 12
             }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 41 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -19344,6 +20279,22 @@
           },
           {
             "severity": "info",
+            "category": "render_orchestrator_schema_compliance",
+            "message": "Render Orchestrator & Mode B Frame-Anchor Continuity verified (overall_qa_score=94.1, assembly_ready=True, handoffs=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema_compliance",
+            "message": "MasterPitchTreatmentSpec contract verified (12 board slides, token present=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_spotting_advisory",
             "message": "Scene(s) [3, 4] within half-beat BPM tolerance (beat_alignment_score >= 70%).",
             "remediation": null,
@@ -19378,6 +20329,14 @@
             "severity": "info",
             "category": "audit_report_gfx_and_otio_compliance",
             "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 4 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_render_and_treatment_compliance",
+            "message": "Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 4 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -19771,6 +20730,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_render_qa_calibration",
+            "message": "Domain-calibrated Live-Render QA verified for 'architectural_sanctuary' (overall_qa_score=94.1 >= 90.0, min_temporal=94.0, min_ref_fidelity=94.0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "overall_qa_score": 94.13,
+              "assembly_ready": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_pitch_treatment_calibration",
+            "message": "Executive Director's Treatment calibrated for 'architectural_sanctuary' (tone='Serene Spatial Minimalism & Quiet Light Choreography', slides=12, budget_roi_summary=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "slides_count": 12,
+              "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall"
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.",
             "remediation": null,
@@ -20015,6 +20998,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_render_jobs_hud",
+            "message": "Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_pitch_treatment_hud",
+            "message": "Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -20032,7 +21031,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 66 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -20071,6 +21070,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_backtick_minus",
+            "message": "Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($203,145.74 matches master_aicp_bid).",
             "remediation": null,
@@ -20081,10 +21088,7 @@
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
-    "recommendations": [
-      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
-    ],
+    "recommendations": [],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
       {
@@ -20630,6 +21634,50 @@
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/html_hud_v216.py",
           "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-035",
+        "title": "Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+        "problem_statement": "Production pipelines for 'IKEA: The Living Room Unfolds' transitioning from dry-run storyboards to live video rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg rough-cut assembly scripts.",
+        "proposed_solution": "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/render_orchestrator.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-036",
+        "title": "Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+        "problem_statement": "Executive stakeholders and agency creative directors for 'IKEA: The Living Room Unfolds' lack a print-ready director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision diff engine comparing Bible iterations and council scores.",
+        "proposed_solution": "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/pitch_treatment.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
           "omni_director/tools/nle_export.py",

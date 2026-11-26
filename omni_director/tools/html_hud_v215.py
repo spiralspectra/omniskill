@@ -474,6 +474,8 @@ def build_v215_hud_bundle(
         const btn = document.getElementById('btn-s3d-animatic');
         if (!modal) return;
         const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isS3dHUDOpen;
+        if (!shouldOpen && !isS3dHUDOpen) return;
+        if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
         isS3dHUDOpen = shouldOpen;
         if (btn) {{
             btn.classList.toggle('active', shouldOpen);
@@ -498,6 +500,8 @@ def build_v215_hud_bundle(
         const btn = document.getElementById('btn-ad-animatic');
         if (!modal) return;
         const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isAccessibilityAdHUDOpen;
+        if (!shouldOpen && !isAccessibilityAdHUDOpen) return;
+        if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
         isAccessibilityAdHUDOpen = shouldOpen;
         isAccHUDOpen = shouldOpen;
         if (btn) {{

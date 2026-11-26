@@ -4278,6 +4278,168 @@ def get_domain_otio_coherence_spec(
     return out
 
 
+# ==============================================================================
+# PM-FEAT-035: Live-Render Job Orchestrator & Multi-Take Visual QA Calibrations
+# ==============================================================================
+
+_DOMAIN_RENDER_JOB_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "min_temporal_stability": 92.0,
+        "min_prompt_adherence": 92.0,
+        "min_reference_fidelity": 93.0,
+        "max_luminance_drift_pct": 4.5,
+        "min_audio_sync_score": 90.0,
+        "max_retries": 2,
+        "rationale": "High-speed tracking and rigid CAD chassis fidelity with tight luminance handoff control.",
+    },
+    "culinary_asmr": {
+        "min_temporal_stability": 93.0,
+        "min_prompt_adherence": 93.0,
+        "min_reference_fidelity": 94.0,
+        "max_luminance_drift_pct": 4.0,
+        "min_audio_sync_score": 94.0,
+        "max_retries": 2,
+        "rationale": "Elevated audio-sync threshold (94.0) to protect micro-ASMR foley transients and fluid texture.",
+    },
+    "luxury_fashion": {
+        "min_temporal_stability": 94.0,
+        "min_prompt_adherence": 92.0,
+        "min_reference_fidelity": 95.0,
+        "max_luminance_drift_pct": 3.5,
+        "min_audio_sync_score": 90.0,
+        "max_retries": 2,
+        "rationale": "Strict Mode B frame-anchor luminance drift ceiling (<=3.5%) and 95.0 garment reference fidelity.",
+    },
+    "kinetic_action": {
+        "min_temporal_stability": 90.0,
+        "min_prompt_adherence": 91.0,
+        "min_reference_fidelity": 91.0,
+        "max_luminance_drift_pct": 5.5,
+        "min_audio_sync_score": 91.0,
+        "max_retries": 3,
+        "rationale": "Expanded retry allowance (3) for high-velocity stunt physics and rapid impact transitions.",
+    },
+    "tech_hardware": {
+        "min_temporal_stability": 95.0,
+        "min_prompt_adherence": 94.0,
+        "min_reference_fidelity": 96.0,
+        "max_luminance_drift_pct": 3.0,
+        "min_audio_sync_score": 92.0,
+        "max_retries": 2,
+        "rationale": "Strictest cleanroom macro tolerances (96.0 reference fidelity, <=3.0% luminance drift).",
+    },
+    "architectural_sanctuary": {
+        "min_temporal_stability": 94.0,
+        "min_prompt_adherence": 92.0,
+        "min_reference_fidelity": 94.0,
+        "max_luminance_drift_pct": 4.0,
+        "min_audio_sync_score": 91.0,
+        "max_retries": 2,
+        "rationale": "Locked tripod architectural stability and serene daylight luminance consistency.",
+    },
+}
+
+
+def get_domain_render_job_spec(archetype_or_bible: Any = None) -> Dict[str, Any]:
+    """Retrieve calibrated Live-Render Job QA & Mode B frame-anchor tolerances for a domain (PM-FEAT-035)."""
+    resolved = _normalize_domain_key(
+        archetype_or_bible if archetype_or_bible is not None else "architectural_sanctuary"
+    )
+    out = dict(_DOMAIN_RENDER_JOB_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-036: Executive Director's Treatment & Pitch Lookbook Calibrations
+# ==============================================================================
+
+_DOMAIN_PITCH_TREATMENT_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "executive_tone": "Precision Telemetry & Autonomous Engineering",
+        "director_statement_template": (
+            "{project_title} pairs robotic motion-control discipline with tactile high-speed telemetry. "
+            "Built under {regime} in {mode}, every {runtime}s frame preserves rigid CAD geometry and "
+            "kinetic inertia while spotlighting {kpi}."
+        ),
+        "audience_hook": "Zero-latency machine craftsmanship meets visceral asphalt velocity.",
+        "hero_kpi_focus": "Telemetry Precision & Hero Vehicle Silhouette Recall",
+        "color_palette": ["#0B111E", "#1E293B", "#38BDF8", "#F59E0B", "#F8FAFC"],
+        "rationale": "Engineering-first executive framing emphasizing CAD accuracy, robotic camera telemetry, and flagship recall.",
+    },
+    "culinary_asmr": {
+        "executive_tone": "Hyper-Tactile Macro Gastronomy & Sensory Intimacy",
+        "director_statement_template": (
+            "{project_title} celebrates micro-texture, natural daylight warmth, and unhurried ASMR foley. "
+            "Designed in {regime} ({mode}) across {runtime}s, the lens isolates authentic material acoustics "
+            "to drive {kpi}."
+        ),
+        "audience_hook": "Visceral close-range texture and acoustic crispness you can almost taste.",
+        "hero_kpi_focus": "Appetite Appeal & Tactile ASMR Sensory Retention",
+        "color_palette": ["#1C1410", "#78350F", "#F59E0B", "#FDE68A", "#FFFBEB"],
+        "rationale": "Warm sensory pitch language highlighting tactile macro fidelity and intimate acoustic design.",
+    },
+    "luxury_fashion": {
+        "executive_tone": "Editorial Couture Restraint & Kinetic Silk Fluidity",
+        "director_statement_template": (
+            "{project_title} frames bespoke tailoring and sculptural movement in an unbroken {runtime}s study. "
+            "Guided by {regime} and {mode}, lighting ratios and fabric physics elevate {kpi}."
+        ),
+        "audience_hook": "Architectural poise and fluid textile drama in continuous editorial motion.",
+        "hero_kpi_focus": "Maison Prestige & Silhouette Memorability",
+        "color_palette": ["#0B0B0F", "#27272A", "#D4AF37", "#E5E7EB", "#FAF8F5"],
+        "rationale": "Couture lookbook tone anchored in uninterrupted Mode B flow, textile physics, and maison prestige.",
+    },
+    "kinetic_action": {
+        "executive_tone": "High-Velocity Newtonian Impact & Staccato Rhythm",
+        "director_statement_template": (
+            "{project_title} translates pure physical momentum into disciplined {runtime}s storytelling. "
+            "Operating under {regime} in {mode}, every impact chain preserves mass, inertia, and "
+            "aerodynamic truth to maximize {kpi}."
+        ),
+        "audience_hook": "Unflinching kinetic force anchored by crisp 180-degree shutter clarity.",
+        "hero_kpi_focus": "Adrenaline Completion Rate & Brand Hero Impact",
+        "color_palette": ["#090D16", "#DC2626", "#06B6D4", "#94A3B8", "#F8FAFC"],
+        "rationale": "Momentum-driven commercial treatment centered on Newtonian contact chains and staccato pacing.",
+    },
+    "tech_hardware": {
+        "executive_tone": "Cleanroom Optical Minimalism & Sub-Millimeter Craft",
+        "director_statement_template": (
+            "{project_title} reveals precision industrial design through locked-off MoCo macro optics. "
+            "Structured in {regime} ({mode}) over {runtime}s, specular highlights and chamfered aluminum "
+            "reflections reinforce {kpi}."
+        ),
+        "audience_hook": "Sub-millimeter industrial elegance engineered for instant flagship authority.",
+        "hero_kpi_focus": "Product Detail Comprehension & Hardware Desire",
+        "color_palette": ["#090D16", "#1E293B", "#6366F1", "#38BDF8", "#F8FAFC"],
+        "rationale": "Cleanroom keynote lookbook emphasizing specular discipline, macro detail, and flagship authority.",
+    },
+    "architectural_sanctuary": {
+        "executive_tone": "Serene Spatial Minimalism & Quiet Light Choreography",
+        "director_statement_template": (
+            "{project_title} honors stillness, daylight geometry, and honest natural materials across {runtime}s. "
+            "Composed in {regime} using {mode}, measured spatial breathing room deepens {kpi}."
+        ),
+        "audience_hook": "Calm Nordic light and honest materiality transforming empty space into sanctuary.",
+        "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall",
+        "color_palette": ["#1E293B", "#64748B", "#D97706", "#E2E8F0", "#F8FAFC"],
+        "rationale": "Architectural monograph tone centered on daylight geometry, material honesty, and calm spatial flow.",
+    },
+}
+
+
+def get_domain_pitch_treatment_spec(archetype_or_bible: Any = None) -> Dict[str, Any]:
+    """Retrieve calibrated Executive Director's Treatment & Pitch Lookbook parameters for a domain (PM-FEAT-036)."""
+    resolved = _normalize_domain_key(
+        archetype_or_bible if archetype_or_bible is not None else "architectural_sanctuary"
+    )
+    cfg = _DOMAIN_PITCH_TREATMENT_CALIBRATIONS[resolved]
+    out = dict(cfg)
+    out["color_palette"] = list(cfg["color_palette"])
+    out["domain_archetype"] = resolved
+    return out
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -4949,6 +5111,30 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
         )
     if not getattr(bible, "master_motion_graphics", None):
         bible.master_motion_graphics = get_domain_motion_graphics_spec(bible)
+    if not getattr(bible, "master_render_jobs", None):
+        try:
+            from omni_director.tools.render_orchestrator import (
+                compile_render_job_manifest,
+                format_render_job_token,
+            )
+
+            render_job_cal = get_domain_render_job_spec(arch)
+            bible.master_render_jobs = compile_render_job_manifest(
+                bible,
+                domain_calibration=render_job_cal,
+                dry_run=True,
+            )
+            _ = format_render_job_token
+        except ImportError:
+            pass
+    if not getattr(bible, "master_pitch_treatment", None):
+        from omni_director.tools.pitch_treatment import compile_pitch_treatment
+
+        treatment_cal = get_domain_pitch_treatment_spec(arch)
+        bible.master_pitch_treatment = compile_pitch_treatment(
+            bible,
+            domain_calibration=treatment_cal,
+        )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -5088,6 +5274,31 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
                 matched_gfx = gfx_scenes[idx - 1]
             if matched_gfx is not None:
                 scene.motion_graphics_spec = matched_gfx
+        if not getattr(scene, "render_job_spec", None) and getattr(bible, "master_render_jobs", None):
+            rj_jobs = getattr(bible.master_render_jobs, "jobs", None) or []
+            matched_rj = next(
+                (j for j in rj_jobs if getattr(j, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_rj is None and len(rj_jobs) >= idx:
+                matched_rj = rj_jobs[idx - 1]
+            if matched_rj is not None:
+                scene.render_job_spec = matched_rj
+        if not getattr(scene, "treatment_spec", None) and getattr(bible, "master_pitch_treatment", None):
+            tr_slides = [
+                sl
+                for sl in (getattr(bible.master_pitch_treatment, "slides", None) or [])
+                if getattr(getattr(sl, "slide_type", None), "value", getattr(sl, "slide_type", None))
+                == "scene_beat_spread"
+            ]
+            matched_tr = next(
+                (sl for sl in tr_slides if getattr(sl, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_tr is None and len(tr_slides) >= idx:
+                matched_tr = tr_slides[idx - 1]
+            if matched_tr is not None:
+                scene.treatment_spec = matched_tr
 
     # Hydrate PM-FEAT-034 LAST so all 33 prior department specs are present for cross-department reconciliation
     if not getattr(bible, "master_otio_coherence", None):
@@ -5180,6 +5391,8 @@ def create_bible(
         bible.master_wardrobe_prop_bible = None
         bible.master_render_economics_spec = None
         bible.master_motion_graphics = None
+        bible.master_render_jobs = None
+        bible.master_pitch_treatment = None
         bible.master_otio_coherence = None
         for sc in bible.scenes:
             sc.locale_tracks = []
@@ -5189,6 +5402,8 @@ def create_bible(
             sc.art_continuity_spec = None
             sc.compute_estimate_spec = None
             sc.motion_graphics_spec = None
+            sc.render_job_spec = None
+            sc.treatment_spec = None
             sc.otio_sync_token = None
     else:
         bible = MasterProductionBible(

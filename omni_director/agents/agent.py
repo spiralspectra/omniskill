@@ -84,6 +84,15 @@ from omni_director.tools.otio_coherence import (
     format_otio_coherence_token,
     reconcile_cross_department_conflicts,
 )
+from omni_director.tools.render_orchestrator import (
+    compile_render_job_manifest,
+    format_render_job_token,
+    promote_scene_take,
+)
+from omni_director.tools.pitch_treatment import (
+    compile_pitch_treatment,
+    format_pitch_treatment_token,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -95,7 +104,9 @@ from omni_director.schemas import (
     MasterEnvironmentSpec,
     MasterMotionGraphicsManifest,
     MasterOtioCoherenceManifest,
+    MasterPitchTreatmentSpec,
     MasterProductionBible,
+    MasterRenderJobManifest,
     NanoBananaReference,
     ProductionBundle,
     RegimeType,
@@ -115,8 +126,30 @@ logger = logging.getLogger("omni_director.agents")
 # Graceful Google ADK 2.0 Import Handling
 try:
     import google.adk
-    from google.adk.agents import BaseAgent, LlmAgent, ParallelAgent, SequentialAgent
+    from google.adk.agents import BaseAgent, LlmAgent, SequentialAgent
     HAS_GOOGLE_ADK = True
+
+    class ParallelAgent(BaseAgent):  # type: ignore[no-redef]
+        """Non-deprecated ADK parallel fan-out wrapper built on BaseAgent."""
+
+        model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
+        def __init__(
+            self,
+            name: str = "ParallelAgent",
+            sub_agents: Optional[List[BaseAgent]] = None,
+            description: str = "",
+            instruction: str = "",
+            **kwargs: Any,
+        ) -> None:
+            desc = description or instruction
+            super().__init__(name=name, description=desc, **kwargs)
+            self.sub_agents = list(sub_agents or [])
+
+        def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+            for agent in self.sub_agents:
+                context = agent.run(context)
+            return context
 except ImportError:
     HAS_GOOGLE_ADK = False
 
@@ -806,6 +839,65 @@ def _backfill_production_specs(
             if not getattr(scene, "otio_sync_token", None):
                 scene.otio_sync_token = otio_manifest.coherence_token
 
+    # PM-FEAT-035: Live-Render Job Orchestrator, Multi-Take QA & Mode B Frame-Anchor Continuity
+    if not getattr(bible, "master_render_jobs", None):
+        rj_fn = getattr(_presets_mod, "get_domain_render_job_spec", None)
+        if callable(rj_fn):
+            rj_cal = rj_fn(bible)
+            if isinstance(rj_cal, MasterRenderJobManifest):
+                bible.master_render_jobs = rj_cal
+            elif isinstance(rj_cal, dict):
+                bible.master_render_jobs = compile_render_job_manifest(
+                    bible, domain_calibration=rj_cal, dry_run=True
+                )
+            else:
+                bible.master_render_jobs = compile_render_job_manifest(bible, dry_run=True)
+        else:
+            bible.master_render_jobs = compile_render_job_manifest(bible, dry_run=True)
+
+    rj_manifest = getattr(bible, "master_render_jobs", None)
+    if rj_manifest is not None:
+        rj_by_scene = {
+            int(getattr(j, "scene_index", 0) or 0): j
+            for j in list(getattr(rj_manifest, "jobs", None) or [])
+        }
+        for idx, scene in enumerate(bible.scenes):
+            if not getattr(scene, "render_job_spec", None):
+                matched_rj = rj_by_scene.get(int(scene.scene_index))
+                if matched_rj is None and idx < len(getattr(rj_manifest, "jobs", None) or []):
+                    matched_rj = rj_manifest.jobs[idx]
+                if matched_rj is not None:
+                    scene.render_job_spec = matched_rj
+
+    # PM-FEAT-036: Executive Director's Treatment & Print-Ready Pitch Lookbook
+    if not getattr(bible, "master_pitch_treatment", None):
+        pt_fn = getattr(_presets_mod, "get_domain_pitch_treatment_spec", None)
+        if callable(pt_fn):
+            pt_cal = pt_fn(bible)
+            if isinstance(pt_cal, MasterPitchTreatmentSpec):
+                bible.master_pitch_treatment = pt_cal
+            elif isinstance(pt_cal, dict):
+                bible.master_pitch_treatment = compile_pitch_treatment(
+                    bible, domain_calibration=pt_cal
+                )
+            else:
+                bible.master_pitch_treatment = compile_pitch_treatment(bible)
+        else:
+            bible.master_pitch_treatment = compile_pitch_treatment(bible)
+
+    pt_manifest = getattr(bible, "master_pitch_treatment", None)
+    if pt_manifest is not None:
+        pt_by_scene = {
+            int(getattr(sl, "scene_index", 0) or 0): sl
+            for sl in list(getattr(pt_manifest, "slides", None) or [])
+            if getattr(sl, "scene_index", None) is not None
+        }
+        for scene in bible.scenes:
+            if not getattr(scene, "treatment_spec", None):
+                matched_sl = pt_by_scene.get(int(scene.scene_index))
+                if matched_sl is not None:
+                    scene.treatment_spec = matched_sl
+
 
 class IntakeAndResearchAgent(BaseAgent):
     """Stage 1: Ingests user creative loglines, references, and research parameters."""
@@ -1128,6 +1220,58 @@ class ScenePromptAgent(BaseAgent):
                     otio_token = str(getattr(scene, "otio_sync_token", "") or "")
                 if otio_token:
                     scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {otio_token}."
+
+            # Ensure PM-FEAT-035 [RENDER-JOB: ...] (+ [FRAME-ANCHOR: ...] in Mode B) token is attached
+            master_rj = getattr(bible, "master_render_jobs", None)
+            rj_spec = getattr(scene, "render_job_spec", None)
+            if rj_spec is None and master_rj is not None:
+                for job in (getattr(master_rj, "jobs", None) or []):
+                    if getattr(job, "scene_index", None) == scene.scene_index:
+                        rj_spec = job
+                        scene.render_job_spec = job
+                        break
+            if rj_spec is not None:
+                is_mode_b_scene = (
+                    getattr(bible, "storytelling_mode", None) == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+                    or bool(re.search(r"\+10s|extension", getattr(scene, "timestamp_range", "") or "", re.IGNORECASE))
+                )
+                needs_anchor = is_mode_b_scene and scene.scene_index > 1
+                handoff_spec = None
+                if needs_anchor and master_rj is not None:
+                    for ho in (getattr(master_rj, "frame_anchor_handoffs", None) or []):
+                        if getattr(ho, "to_scene_index", None) == scene.scene_index:
+                            handoff_spec = ho
+                            break
+                has_rj_tok = bool(re.search(r"\[RENDER[-_ ]JOB:?", scene.omni_prose_prompt, re.IGNORECASE))
+                has_fa_tok = bool(re.search(r"\[FRAME[-_ ]ANCHOR:?", scene.omni_prose_prompt, re.IGNORECASE))
+                if not has_rj_tok or (needs_anchor and not has_fa_tok):
+                    scene.omni_prose_prompt = re.sub(
+                        r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
+                        "",
+                        scene.omni_prose_prompt,
+                        flags=re.IGNORECASE,
+                    ).rstrip()
+                    rj_token = format_render_job_token(rj_spec, handoff=handoff_spec if needs_anchor else None)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt + f" {rj_token}."
+
+            # Ensure PM-FEAT-036 [TREATMENT-BEAT: ...] token is attached
+            master_pt = getattr(bible, "master_pitch_treatment", None)
+            pt_slide = getattr(scene, "treatment_spec", None)
+            if pt_slide is None and master_pt is not None:
+                for sl in (getattr(master_pt, "slides", None) or []):
+                    if getattr(sl, "scene_index", None) == scene.scene_index:
+                        pt_slide = sl
+                        scene.treatment_spec = sl
+                        break
+            if pt_slide is not None and not re.search(
+                r"\[TREATMENT[-_ ]BEAT:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                if master_pt is not None:
+                    treat_token = format_pitch_treatment_token(pt_slide, master_pt)
+                else:
+                    s_type = pt_slide.slide_type.value if hasattr(pt_slide.slide_type, "value") else str(pt_slide.slide_type)
+                    treat_token = f"[TREATMENT-BEAT: SC{scene.scene_index:02d} | slide={s_type} | headline={pt_slide.headline[:48]}]"
+                scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {treat_token}."
         return context
 
 
@@ -1193,7 +1337,7 @@ class ParallelScenePromptAgent(ParallelAgent):
         cfg_val = config or cfg
         agent_name = name or "ParallelScenePromptAgent"
         desc = kwargs.pop("description", kwargs.pop("instruction", "Parallel scene prompt fan-out agent."))
-        sub_list = sub_agents or []
+        sub_list = list(sub_agents or [])
         super().__init__(name=agent_name, description=desc, sub_agents=sub_list, **kwargs)
         self.config = cfg_val
         self.name = agent_name
@@ -1304,6 +1448,18 @@ class PromptAuditorAgent(BaseAgent):
                 and not re.search(r"\[OTIO[-_ ]SYNC:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
             otio_compliance_fail = not getattr(result, "otio_coherence_compliant", True)
+            rj_spec = getattr(scene, "render_job_spec", None)
+            needs_rj_token = bool(
+                (rj_spec is not None or getattr(bible, "master_render_jobs", None) is not None)
+                and not re.search(r"\[RENDER[-_ ]JOB:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            rj_compliance_fail = not getattr(result, "render_orchestrator_compliant", True)
+            pt_spec = getattr(scene, "treatment_spec", None)
+            needs_pt_token = bool(
+                (pt_spec is not None or getattr(bible, "master_pitch_treatment", None) is not None)
+                and not re.search(r"\[TREATMENT[-_ ]BEAT:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            pt_compliance_fail = not getattr(result, "pitch_treatment_compliant", True)
             
             s3d_compliance_fail = False
             s3d_spec = getattr(scene, "s3d_spec", None)
@@ -1330,6 +1486,10 @@ class PromptAuditorAgent(BaseAgent):
                 or gfx_compliance_fail
                 or needs_otio_token
                 or otio_compliance_fail
+                or needs_rj_token
+                or rj_compliance_fail
+                or needs_pt_token
+                or pt_compliance_fail
                 or s3d_compliance_fail
                 or ad_compliance_fail
             ):
@@ -1456,7 +1616,12 @@ class OmniVideoRenderAgent(BaseAgent):
 
         visual_plates = context.get("visual_plates", {})
         logger.info(f"[{self.name}] Executing video pipeline for '{bible.project_title}'...")
-        rendered_videos = self.engine.render_production_scenes(bible, reference_plate_paths=visual_plates)
+        render_kwargs: Dict[str, Any] = {"reference_plate_paths": visual_plates}
+        if context.get("scene_filter") is not None:
+            render_kwargs["scene_filter"] = context.get("scene_filter")
+        if context.get("promote_take") is not None:
+            render_kwargs["promote_take"] = context.get("promote_take")
+        rendered_videos = self.engine.render_production_scenes(bible, **render_kwargs)
         context["rendered_videos"] = rendered_videos
         return context
 
@@ -1620,6 +1785,31 @@ class DirectorPipeline:
             else 0
         )
 
+        rj_manifest = getattr(bible, "master_render_jobs", None)
+        render_qa_score = (
+            float(getattr(rj_manifest, "overall_qa_score", 95.0) or 0.0)
+            if rj_manifest is not None
+            else 0.0
+        )
+        promoted_takes_count = (
+            int(getattr(rj_manifest, "promoted_takes_count", 0) or 0)
+            if rj_manifest is not None
+            else 0
+        )
+
+        pt_manifest = getattr(bible, "master_pitch_treatment", None)
+        treatment_slides_count = (
+            len(getattr(pt_manifest, "slides", None) or [])
+            if pt_manifest is not None
+            else 0
+        )
+        pt_diff = getattr(pt_manifest, "revision_diff", None) if pt_manifest is not None else None
+        revision_deltas_count = (
+            int(getattr(pt_diff, "total_changes", 0) or 0)
+            if pt_diff is not None
+            else 0
+        )
+
         metrics = {
             "estimated_total_compute_usd": est_compute_usd,
             "render_budget_ceiling_usd": budget_ceiling_usd,
@@ -1629,6 +1819,10 @@ class DirectorPipeline:
             "motion_graphics_cues_count": motion_graphics_cues_count,
             "otio_coherence_score": otio_coherence_score,
             "otio_conflicts_count": otio_conflicts_count,
+            "render_qa_score": render_qa_score,
+            "promoted_takes_count": promoted_takes_count,
+            "treatment_slides_count": treatment_slides_count,
+            "revision_deltas_count": revision_deltas_count,
         }
         telemetry.metadata.update(metrics)
         telemetry.audit_summary.update(metrics)
@@ -1645,6 +1839,8 @@ class DirectorPipeline:
         continuous_mode: bool = False,
         run_council: bool = False,
         max_render_budget_usd: Optional[float] = None,
+        promote_take: Optional[Dict[int, str]] = None,
+        scene_filter: Optional[List[int]] = None,
     ) -> ProductionBundle:
         """Executes the end-to-end multi-agent pipeline with telemetry and optional council audit."""
         target_output_dir = output_dir or self.config.output_dir
@@ -1699,6 +1895,8 @@ class DirectorPipeline:
             "dry_run": dry_run,
             "continuous_mode": continuous_mode,
             "max_render_budget_usd": effective_max_budget,
+            "promote_take": promote_take,
+            "scene_filter": scene_filter,
         }
 
         # Stage 1: Intake & Research
@@ -1713,6 +1911,26 @@ class DirectorPipeline:
         telemetry.project_title = active_bible.project_title
         arch = getattr(active_bible, "domain_archetype", None) or "architectural_sanctuary"
         self._ensure_domain_specs(active_bible, arch, max_render_budget_usd=effective_max_budget)
+        if promote_take and getattr(active_bible, "master_render_jobs", None) is not None:
+            rj_manifest = active_bible.master_render_jobs
+            for sc_idx, take_id in promote_take.items():
+                rj_manifest = promote_scene_take(rj_manifest, int(sc_idx), str(take_id))
+            active_bible.master_render_jobs = rj_manifest
+            jobs_by_sc = {int(j.scene_index): j for j in rj_manifest.jobs}
+            handoffs_by_to = {int(h.to_scene_index): h for h in rj_manifest.frame_anchor_handoffs}
+            is_mode_b = active_bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            for sc in active_bible.scenes:
+                if int(sc.scene_index) in jobs_by_sc:
+                    sc.render_job_spec = jobs_by_sc[int(sc.scene_index)]
+                    if re.search(r"\[RENDER[-_ ]JOB:?", sc.omni_prose_prompt, re.IGNORECASE):
+                        sc.omni_prose_prompt = re.sub(
+                            r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
+                            "",
+                            sc.omni_prose_prompt,
+                            flags=re.IGNORECASE,
+                        ).rstrip()
+                        ho = handoffs_by_to.get(int(sc.scene_index)) if (is_mode_b and sc.scene_index > 1) else None
+                        sc.omni_prose_prompt += f" {format_render_job_token(sc.render_job_spec, handoff=ho)}."
         self._record_economics_and_continuity_telemetry(
             telemetry, active_bible, effective_max_budget, dry_run
         )

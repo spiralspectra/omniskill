@@ -1,0 +1,149 @@
+{
+  "manifest_id": "rjm-1bf336f9ee",
+  "project_title": "Artisanal Japanese Culinary Ceremonial M",
+  "domain_archetype": "culinary_asmr",
+  "storytelling_mode": "Mode A",
+  "jobs": [
+    {
+      "job_id": "rj-sc01-59319",
+      "scene_index": 1,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC01_T2",
+      "seed": 1872559319,
+      "interaction_id": "omni-interact-1-59319",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_1.mp4",
+      "end_frame_path": "End_Frame_01.png",
+      "qa_scorecard": {
+        "scene_index": 1,
+        "take_id": "SC01_T2",
+        "seed": 1872559319,
+        "prompt_sha256_prefix": "7bda5ef81ff4",
+        "temporal_stability_score": 96.8,
+        "prompt_adherence_score": 98.85,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 99.15,
+        "composite_qa_score": 98.21,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T1",
+          "seed": 1174238941,
+          "prompt_sha256_prefix": "7bda5ef81ff4",
+          "temporal_stability_score": 96.8,
+          "prompt_adherence_score": 97.65,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.95,
+          "composite_qa_score": 97.43,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T2",
+          "seed": 1872559319,
+          "prompt_sha256_prefix": "7bda5ef81ff4",
+          "temporal_stability_score": 96.8,
+          "prompt_adherence_score": 98.85,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 99.15,
+          "composite_qa_score": 98.21,
+          "promoted_hero": true,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T3",
+          "seed": 1992245439,
+          "prompt_sha256_prefix": "7bda5ef81ff4",
+          "temporal_stability_score": 97.15,
+          "prompt_adherence_score": 98.85,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 98.55,
+          "composite_qa_score": 98.18,
+          "promoted_hero": false,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    },
+    {
+      "job_id": "rj-sc02-73544",
+      "scene_index": 2,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC02_T3",
+      "seed": 2028173544,
+      "interaction_id": "omni-interact-2-73544",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_2.mp4",
+      "end_frame_path": "End_Frame_02.png",
+      "qa_scorecard": {
+        "scene_index": 2,
+        "take_id": "SC02_T3",
+        "seed": 2028173544,
+        "prompt_sha256_prefix": "a9f6289d21f9",
+        "temporal_stability_score": 98.2,
+        "prompt_adherence_score": 98.85,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.65,
+        "composite_qa_score": 98.32,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T1",
+          "seed": 183285123,
+          "prompt_sha256_prefix": "a9f6289d21f9",
+          "temporal_stability_score": 96.45,
+          "prompt_adherence_score": 98.45,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 98.55,
+          "composite_qa_score": 97.78,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T2",
+          "seed": 2135596501,
+          "prompt_sha256_prefix": "a9f6289d21f9",
+          "temporal_stability_score": 97.5,
+          "prompt_adherence_score": 97.65,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.95,
+          "composite_qa_score": 97.67,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T3",
+          "seed": 2028173544,
+          "prompt_sha256_prefix": "a9f6289d21f9",
+          "temporal_stability_score": 98.2,
+          "prompt_adherence_score": 98.85,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 98.32,
+          "promoted_hero": true,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    }
+  ],
+  "frame_anchor_handoffs": [],
+  "overall_qa_score": 98.26,
+  "promoted_takes_count": 2,
+  "assembly_ready": true,
+  "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=98.3 | handoffs=0 | assembly_ready=True]"
+}

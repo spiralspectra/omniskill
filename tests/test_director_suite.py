@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5398,7 +5398,7 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.schemas import ProductCouncilReport
 
-        assert omni_director.__version__ == "2.17.0"
+        assert omni_director.__version__ == "2.18.0"
         report = run_doctor()
         assert report.version == omni_director.__version__
         assert report.passed is True
@@ -5835,7 +5835,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version in ("2.15.0", "2.16.0", "2.17.0")
+            assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6448,7 +6448,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7128,7 +7128,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7714,7 +7714,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         # Fix 3: c2pa_provenance.py and html_compiler.py report current __version__ dynamically
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.17.0"
+        assert omni_director.__version__ == "2.18.0"
         assert all(omni_director.__version__ in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
@@ -7836,7 +7836,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0")
+        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
@@ -8460,7 +8460,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         )
 
         # 1. Schemas, package exports & __version__
-        assert omni_director.__version__ == "2.17.0"
+        assert omni_director.__version__ == "2.18.0"
         expected_033_exports = (
             "get_domain_motion_graphics_spec",
             "GraphicLayerRoleEnum",
@@ -8813,7 +8813,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         pipe_dir = tmp_path / "pipeline_council_v217"
         run_bundle = DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(pipe_dir), dry_run=True, render_video=False)
         report = ProductCouncilOrchestrator().convene_council(bible=run_bundle.bible, bundle=run_bundle, output_dir=pipe_dir)
-        assert report.version == "2.17.0"
+        assert report.version == "2.18.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -8970,3 +8970,495 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         chk_map = {c.pair: c for c in dirty_bible.master_otio_coherence.coherence_checks}
         assert chk_map[CoherenceDomainPairEnum.OPTICS_VS_DOF].status == CoherenceCheckStatusEnum.PASS
         assert chk_map[CoherenceDomainPairEnum.AUDIO_STEMS_VS_SPOTTING].status == CoherenceCheckStatusEnum.PASS
+
+
+class TestV218RenderJobsAndPitchTreatment:
+    """Verifies v2.18.0 PM-FEAT-035 (Render Jobs & QA), PM-FEAT-036 (Pitch Treatment & Diff), CLI, Telemetry & UX."""
+
+    def test_pm_feat_035_render_jobs_mode_b_matrix_video_engine_and_exports(self, tmp_path):
+        import csv
+        import json
+        import subprocess
+        import pytest
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_render_job_spec,
+            get_preset_bible,
+        )
+        from omni_director.schemas import (
+            FrameAnchorHandoffSpec,
+            MasterRenderJobManifest,
+            RenderJobStatusEnum,
+            SceneRenderJobSpec,
+            TakeQaScorecardSpec,
+        )
+        from omni_director.tools.omni_video import GeminiOmniVideoEngine
+        from omni_director.tools.render_economics import compile_render_economics_manifest
+        from omni_director.tools.render_orchestrator import (
+            compile_render_job_manifest,
+            export_render_jobs_bundle,
+            promote_scene_take,
+        )
+
+        # 1. Package & schema exports
+        assert omni_director.__version__ == "2.18.0"
+        expected_035 = (
+            "get_domain_render_job_spec",
+            "RenderJobStatusEnum",
+            "TakeQaScorecardSpec",
+            "FrameAnchorHandoffSpec",
+            "SceneRenderJobSpec",
+            "MasterRenderJobManifest",
+            "compile_render_job_manifest",
+            "promote_scene_take",
+            "export_render_jobs_bundle",
+        )
+        for sym in expected_035:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_035[1:6]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. 6-domain calibrations & TakeVariantRecord seed alignment
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_render_job_spec(domain)
+            assert cal["domain_archetype"] == domain
+            assert "max_luminance_drift_pct" in cal
+
+            dom_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+            dom_bible.domain_archetype = domain
+            dom_bible.master_render_economics_spec = compile_render_economics_manifest(dom_bible)
+            rj_manifest = compile_render_job_manifest(dom_bible, domain_calibration=cal, dry_run=True)
+            assert isinstance(rj_manifest, MasterRenderJobManifest)
+            assert len(rj_manifest.jobs) == len(dom_bible.scenes)
+            econ_by_sc = {e.scene_index: e for e in dom_bible.master_render_economics_spec.scene_estimates}
+            for job in rj_manifest.jobs:
+                expected_seeds = {t.take_id: t.seed for t in econ_by_sc[job.scene_index].takes}
+                for card in job.take_scorecards:
+                    assert card.seed == expected_seeds[card.take_id]
+
+        # 3. promote_scene_take mutates hero, selected_take_id, seed, and recalculates overall_qa_score
+        ikea_manifest = compile_render_job_manifest(IKEA_ASMR_BIBLE, dry_run=True)
+        sc1_job = ikea_manifest.jobs[0]
+        alt_card = next(c for c in sc1_job.take_scorecards if c.take_id != sc1_job.selected_take_id)
+        promoted_manifest = promote_scene_take(ikea_manifest, sc1_job.scene_index, alt_card.take_id)
+        new_sc1 = promoted_manifest.jobs[0]
+        assert new_sc1.selected_take_id == alt_card.take_id
+        assert new_sc1.seed == alt_card.seed
+        assert new_sc1.qa_scorecard.promoted_hero is True
+        assert sum(1 for c in new_sc1.take_scorecards if c.promoted_hero) == 1
+        assert next(c for c in new_sc1.take_scorecards if c.take_id == alt_card.take_id).promoted_hero is True
+        expected_avg = round(sum(j.qa_scorecard.composite_qa_score for j in promoted_manifest.jobs) / len(promoted_manifest.jobs), 2)
+        assert promoted_manifest.overall_qa_score == expected_avg
+
+        # 4. Mode B continuous bible FrameAnchorHandoffSpec chain
+        sephora_ext = get_preset_bible("sephora-extension-40s")
+        mode_b_manifest = compile_render_job_manifest(sephora_ext, dry_run=True)
+        assert len(mode_b_manifest.frame_anchor_handoffs) == len(sephora_ext.scenes) - 1
+        for i, handoff in enumerate(mode_b_manifest.frame_anchor_handoffs):
+            assert isinstance(handoff, FrameAnchorHandoffSpec)
+            assert handoff.continuity_locked is True
+            assert len(handoff.end_frame_sha256) == 64
+            assert mode_b_manifest.jobs[i + 1].previous_interaction_id == handoff.previous_interaction_id
+
+        # 5. Legacy 3.1 rejection on SceneRenderJobSpec
+        forbidden_legacy_id = "gemini-" + "3." + "1-pro"
+        with pytest.raises(ValueError):
+            SceneRenderJobSpec(
+                job_id="rj-bad-01",
+                scene_index=1,
+                status=RenderJobStatusEnum.QA_PASSED,
+                model_id=forbidden_legacy_id,
+                selected_take_id="SC01_T1",
+                seed=12345,
+                qa_scorecard=TakeQaScorecardSpec(
+                    scene_index=1,
+                    take_id="SC01_T1",
+                    seed=12345,
+                    prompt_sha256_prefix="a" * 12,
+                    temporal_stability_score=95.0,
+                    prompt_adherence_score=95.0,
+                    audio_sync_rms_db=-16.0,
+                    reference_drift_score=95.0,
+                    composite_qa_score=95.0,
+                    promoted_hero=True,
+                ),
+            )
+
+        # 6. GeminiOmniVideoEngine scene_filter + promote_take + Mode B previous_interaction_id chaining
+        video_engine = GeminiOmniVideoEngine()
+        all_renders = video_engine.render_production_scenes(sephora_ext)
+        filtered_renders = video_engine.render_production_scenes(
+            sephora_ext,
+            scene_filter=[2],
+            promote_take={2: "SC02_T2"},
+        )
+        assert len(filtered_renders) == 1
+        assert filtered_renders[0]["scene_index"] == 2
+        assert filtered_renders[0]["selected_take_id"] == "SC02_T2"
+        assert filtered_renders[0]["previous_interaction_id"] == all_renders[0]["interaction_id"]
+
+        # 7. export_render_jobs_bundle & bash -n check
+        rj_dir = tmp_path / "render_jobs_out"
+        exported = export_render_jobs_bundle(sephora_ext, rj_dir, fps=24)
+        assert set(exported.keys()) == {
+            "render_job_manifest_json",
+            "take_qa_scorecard_csv",
+            "rough_cut_assembly_sh",
+        }
+        manifest_loaded = json.loads((rj_dir / "render_job_manifest.json").read_text(encoding="utf-8"))
+        assert len(manifest_loaded["jobs"]) == len(sephora_ext.scenes)
+        with (rj_dir / "take_qa_scorecard.csv").open(encoding="utf-8", newline="") as f:
+            csv_rows = list(csv.DictReader(f))
+        expected_take_rows = sum(len(j.take_scorecards) or 1 for j in mode_b_manifest.jobs)
+        assert len(csv_rows) == expected_take_rows and len(csv_rows) >= len(sephora_ext.scenes)
+        sh_path = rj_dir / "rough_cut_assembly.sh"
+        assert sh_path.is_file()
+        bash_check = subprocess.run(["bash", "-n", str(sh_path)], capture_output=True, text=True, check=False)
+        assert bash_check.returncode == 0, f"rough_cut_assembly.sh syntax error: {bash_check.stderr}"
+
+    def test_pm_feat_036_pitch_treatment_revision_diff_lookbook_and_exports(self, tmp_path):
+        import json
+        import re
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_pitch_treatment_spec,
+        )
+        from omni_director.schemas import (
+            BibleRevisionDeltaItem,
+            BibleRevisionDiffReport,
+            MasterPitchTreatmentSpec,
+            ProductCouncilReport,
+            ProductionBundle,
+            TreatmentBoardSlideSpec,
+            TreatmentSlideTypeEnum,
+        )
+        from omni_director.tools.pitch_treatment import (
+            compile_pitch_treatment,
+            diff_production_bibles,
+            export_pitch_treatment_bundle,
+            export_treatment_lookbook_html,
+        )
+
+        # 1. Package & schema exports
+        expected_036 = (
+            "get_domain_pitch_treatment_spec",
+            "TreatmentSlideTypeEnum",
+            "TreatmentBoardSlideSpec",
+            "BibleRevisionDeltaItem",
+            "BibleRevisionDiffReport",
+            "MasterPitchTreatmentSpec",
+            "compile_pitch_treatment",
+            "diff_production_bibles",
+            "export_treatment_lookbook_html",
+            "export_pitch_treatment_bundle",
+        )
+        for sym in expected_036:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_036[1:6]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. compile_pitch_treatment across all 6 domain archetypes
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_pitch_treatment_spec(domain)
+            assert cal["domain_archetype"] == domain
+            dom_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+            dom_bible.domain_archetype = domain
+            treatment = compile_pitch_treatment(dom_bible, domain_calibration=cal)
+            assert isinstance(treatment, MasterPitchTreatmentSpec)
+            slide_types = {s.slide_type for s in treatment.slides}
+            assert {
+                TreatmentSlideTypeEnum.COVER_LOGLINE,
+                TreatmentSlideTypeEnum.COLOR_SCRIPT_PALETTE,
+                TreatmentSlideTypeEnum.SCENE_BEAT_SPREAD,
+                TreatmentSlideTypeEnum.BUDGET_ROI_SUMMARY,
+            } <= slide_types
+            assert cal["executive_tone"] in treatment.slides[0].subhead
+
+        # 3. diff_production_bibles across MasterProductionBible, ProductionBundle & JSON paths
+        base_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        targ_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        targ_bible.scenes[0].omni_prose_prompt = targ_bible.scenes[0].omni_prose_prompt + " Crisp oak dowel highlight."
+        if targ_bible.scenes[0].optical_lens is not None:
+            targ_bible.scenes[0].optical_lens.focal_length_mm = 50
+        elif targ_bible.scenes[0].craft_camera is not None:
+            targ_bible.scenes[0].craft_camera.focal_length_mm = 50
+        if targ_bible.master_aicp_bid is not None and targ_bible.master_aicp_bid.top_sheet is not None:
+            targ_bible.master_aicp_bid.top_sheet.grand_total_bid_usd += 5000.0
+        if targ_bible.master_render_economics_spec is not None and targ_bible.master_render_economics_spec.guardrail is not None:
+            targ_bible.master_render_economics_spec.guardrail.estimated_total_usd += 4.25
+
+        diff_direct = diff_production_bibles(base_bible, targ_bible)
+        assert isinstance(diff_direct, BibleRevisionDiffReport)
+        assert diff_direct.baseline_sha256 != diff_direct.target_sha256
+        assert diff_direct.scene_prompt_deltas_count >= 1
+        assert diff_direct.aicp_budget_delta_usd == 5000.0
+        assert diff_direct.render_compute_delta_usd == 4.25
+        assert any("lens_mm" in d.field_path for d in diff_direct.deltas)
+
+        b1_bundle = ProductionBundle(
+            bible=base_bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            council_report=ProductCouncilReport(project_title=base_bible.project_title, overall_score=96.0),
+        )
+        b2_bundle = ProductionBundle(
+            bible=targ_bible,
+            storyboard_html_path="",
+            bundle_json_path="",
+            council_report=ProductCouncilReport(project_title=targ_bible.project_title, overall_score=100.0),
+        )
+        bundle_diff = diff_production_bibles(b1_bundle, b2_bundle)
+        assert bundle_diff.council_score_delta == 4.0
+
+        b1_json = tmp_path / "base_bundle.json"
+        b2_json = tmp_path / "targ_bundle.json"
+        b1_json.write_text(b1_bundle.model_dump_json(indent=2), encoding="utf-8")
+        b2_json.write_text(b2_bundle.model_dump_json(indent=2), encoding="utf-8")
+        path_diff = diff_production_bibles(b1_json, b2_json)
+        assert path_diff.total_changes == bundle_diff.total_changes
+        assert path_diff.council_score_delta == 4.0
+
+        # 4. export_treatment_lookbook_html print CSS, html.escape safety, SVG plates, zero dialog/external scripts
+        clean_lookbook = export_treatment_lookbook_html(compile_pitch_treatment(IKEA_ASMR_BIBLE), IKEA_ASMR_BIBLE)
+        assert not re.search(r"<script\b[^>]*\bsrc\s*=", clean_lookbook, re.IGNORECASE)
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", clean_lookbook)
+
+        unsafe_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+        unsafe_bible.project_title = '<script>alert("xss")</script> Studio Pitch'
+        unsafe_treatment = compile_pitch_treatment(unsafe_bible, baseline_bible=base_bible)
+        lookbook_html = export_treatment_lookbook_html(unsafe_treatment, unsafe_bible)
+        assert "@media print" in lookbook_html
+        assert "page-break-after: always" in lookbook_html
+        assert "<svg" in lookbook_html
+        assert '<script>alert("xss")</script>' not in lookbook_html
+        assert "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;" in lookbook_html
+        assert not re.search(r"<script\b", lookbook_html, re.IGNORECASE)
+
+        # 5. export_pitch_treatment_bundle outputs
+        pt_dir = tmp_path / "pitch_treatment_out"
+        pt_exported = export_pitch_treatment_bundle(IKEA_ASMR_BIBLE, pt_dir)
+        assert set(pt_exported.keys()) == {
+            "director_treatment_lookbook_html",
+            "director_treatment_brief_md",
+            "pitch_treatment_manifest_json",
+        }
+        assert "@media print" in (pt_dir / "director_treatment_lookbook.html").read_text(encoding="utf-8")
+        assert "# Executive Director's Treatment" in (pt_dir / "director_treatment_brief.md").read_text(encoding="utf-8")
+        pt_json = json.loads((pt_dir / "pitch_treatment_manifest.json").read_text(encoding="utf-8"))
+        assert len(pt_json["slides"]) >= 8
+
+    def test_v218_auditor_cli_nle_telemetry_and_council_ordering(self, tmp_path):
+        import json
+        from omni_director.cli import main as cli_main
+        from omni_director.presets import get_preset_bible
+        from omni_director.telemetry import (
+            DISCOVERABLE_ARTIFACT_EXTENSIONS,
+            KNOWN_PRODUCTION_ARTIFACTS,
+            RuntimeTelemetry,
+            verify_bundle_checksums,
+        )
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. compile_clean_omni_prompt strips PM-FEAT-035/036 tokens
+        raw_tagged = (
+            "[RENDER-JOB: SC02 | take=SC02_T1 | seed=12345 | qa=95.0 | status=qa_passed] "
+            "[FRAME-ANCHOR: S01->S02 | end_frame=End_Frame_01.png | luma_drift=1.4% | locked=True] "
+            "[TREATMENT-BEAT: SC02 | slide=scene_beat_spread | tone=Couture | hook=Silk] "
+            "Macro 50mm lens glides smoothly across brushed anodized aluminum."
+        )
+        cleaned = compile_clean_omni_prompt(raw_tagged)
+        for tok in ("[RENDER-JOB:", "[FRAME-ANCHOR:", "[TREATMENT-BEAT:"):
+            assert tok not in cleaned
+        assert "Macro 50mm lens glides smoothly" in cleaned
+
+        # 2. heal_omni_scene_prompt repairs missing/mismatched Mode B tokens & QA flags to score >= 90.0
+        from omni_director.schemas import RenderJobStatusEnum
+        from omni_director.tools.render_orchestrator import compile_render_job_manifest
+
+        sephora_ext = get_preset_bible("sephora-extension-40s").model_copy(deep=True)
+        sephora_rj = compile_render_job_manifest(sephora_ext, dry_run=True)
+        bad_sc2 = sephora_ext.scenes[1].model_copy(deep=True)
+        bad_job = sephora_rj.jobs[1].model_copy(deep=True)
+        bad_job.status = RenderJobStatusEnum.QA_FLAGGED
+        bad_job.qa_scorecard.composite_qa_score = 70.0
+        bad_sc2.render_job_spec = bad_job
+        bad_sc2.omni_prose_prompt = "[RENDER-JOB: SC02 | take=WRONG_TAKE | seed=999 | qa=70.0 | status=qa_flagged] " + compile_clean_omni_prompt(bad_sc2.omni_prose_prompt)
+        bad_audit = audit_omni_scene_prompt(bad_sc2, bible=sephora_ext)
+        assert bad_audit.render_orchestrator_compliant is False
+        healed_sc2 = heal_omni_scene_prompt(bad_sc2, bible=sephora_ext)
+        assert healed_sc2.audit.score >= 90.0
+        assert healed_sc2.audit.render_orchestrator_compliant is True
+        assert healed_sc2.audit.pitch_treatment_compliant is True
+        assert "[RENDER-JOB:" in healed_sc2.healed.omni_prose_prompt
+        assert "[FRAME-ANCHOR:" in healed_sc2.healed.omni_prose_prompt
+        assert "[TREATMENT-BEAT:" in healed_sc2.healed.omni_prose_prompt
+
+        # 3. export_all_nle_artifacts includes all 6 new files + telemetry registration & SAFE_KEYS
+        ikea = get_preset_bible("ikea-asmr")
+        nle_dir = tmp_path / "nle_all_v218"
+        nle_res = export_all_nle_artifacts(ikea, nle_dir, fps=24)
+        new_files = (
+            "render_job_manifest.json",
+            "take_qa_scorecard.csv",
+            "rough_cut_assembly.sh",
+            "director_treatment_lookbook.html",
+            "director_treatment_brief.md",
+            "pitch_treatment_manifest.json",
+        )
+        assert ".sh" in DISCOVERABLE_ARTIFACT_EXTENSIONS
+        for fname in new_files:
+            assert fname in KNOWN_PRODUCTION_ARTIFACTS
+            assert (nle_dir / fname).is_file() and (nle_dir / fname).stat().st_size > 0
+        assert "render_job_manifest_json" in nle_res
+        assert "director_treatment_lookbook_html" in nle_res
+
+        tel = RuntimeTelemetry(
+            project_title=ikea.project_title,
+            metadata={
+                "render_job_token": "[RENDER-JOB: SC01]",
+                "frame_anchor_token": "[FRAME-ANCHOR: S01->S02]",
+                "render_qa_score": 95.8,
+                "promoted_takes_count": 4,
+                "treatment_token": "[TREATMENT-BEAT: SC01]",
+                "treatment_slides_count": 11,
+                "revision_deltas_count": 2,
+                "api_key": "AIzaSySecretTestLeak987654",
+            },
+        )
+        sanitized = tel.to_dict()["metadata"]
+        for safe_k in (
+            "render_job_token",
+            "frame_anchor_token",
+            "render_qa_score",
+            "promoted_takes_count",
+            "treatment_token",
+            "treatment_slides_count",
+            "revision_deltas_count",
+        ):
+            assert sanitized[safe_k] != "[REDACTED]"
+        assert sanitized["api_key"] == "[REDACTED]"
+
+        # 4. CLI tests: export render-jobs, export treatment, diff, and --export-nle --council --promote-take
+        cli_rj_dir = tmp_path / "cli_rj"
+        assert cli_main(["export", "--preset", "ikea-asmr", "--format", "render-jobs", "-o", str(cli_rj_dir), "--json"]) == 0
+        assert (cli_rj_dir / "render_job_manifest.json").is_file()
+        assert (cli_rj_dir / "rough_cut_assembly.sh").is_file()
+
+        cli_pt_dir = tmp_path / "cli_pt"
+        assert cli_main(["export", "--preset", "ikea-asmr", "--format", "treatment", "-o", str(cli_pt_dir), "--json"]) == 0
+        assert (cli_pt_dir / "director_treatment_lookbook.html").is_file()
+        assert (cli_pt_dir / "pitch_treatment_manifest.json").is_file()
+
+        v1_path = tmp_path / "v1.json"
+        v2_path = tmp_path / "v2.json"
+        v1_path.write_text(ikea.model_dump_json(indent=2), encoding="utf-8")
+        ikea_v2 = ikea.model_copy(deep=True)
+        ikea_v2.project_title = "IKEA: Revised Cut"
+        v2_path.write_text(ikea_v2.model_dump_json(indent=2), encoding="utf-8")
+        diff_out = tmp_path / "cli_diff"
+        assert cli_main(["diff", str(v1_path), str(v2_path), "-o", str(diff_out), "--json"]) == 0
+        assert (diff_out / "bible_revision_diff.json").is_file()
+        assert (diff_out / "bible_revision_diff.md").is_file()
+
+        run_dir = tmp_path / "cli_run_council"
+        rc = cli_main([
+            "--preset", "ikea-asmr",
+            "-o", str(run_dir),
+            "--export-nle",
+            "--council",
+            "--promote-take", "1:B",
+            "--json",
+        ])
+        assert rc == 0
+        ok, errs = verify_bundle_checksums(run_dir)
+        assert ok is True and errs == [], f"Checksum verification failed: {errs}"
+        council_rep = json.loads((run_dir / "council_report.json").read_text(encoding="utf-8"))
+        assert council_rep["overall_score"] == 100.0
+        persisted_bundle = json.loads((run_dir / "production_bundle.json").read_text(encoding="utf-8"))
+        assert persisted_bundle["bible"]["master_render_jobs"]["jobs"][0]["selected_take_id"] == "SC01_T2"
+
+    def test_v218_html_dark_room_ux_pm_proposals_and_zero_deprecation_warnings(self, tmp_path):
+        import re
+        import warnings
+        from omni_director.agents.agent import ParallelScenePromptAgent
+        from omni_director.agents.council import ProductManagerAgent
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+
+        ikea = get_preset_bible("ikea-asmr")
+        bundle = ProductionBundle(bible=ikea, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html = compile_storyboard_html(bundle, tmp_path / "ux_v218").read_text(encoding="utf-8")
+
+        # 1. PM-FEAT-035 & PM-FEAT-036 modals, buttons, SVG, hotkeys, and Command Palette entries
+        for marker in (
+            'id="modal-render-jobs"',
+            'id="btn-render-jobs-animatic"',
+            'id="render-anchor-svg"',
+            'id="modal-pitch-treatment"',
+            'id="btn-treatment-animatic"',
+            "e.key === '`'",
+            "e.key === '-'",
+            "id: 'renderjobs'",
+            "id: 'treatment'",
+            "id: 'safeguides'",
+        ):
+            assert marker in html, f"Missing HTML UX marker: {marker}"
+
+        # 2. closeSecondaryOpenHUDs() covers all secondary HUD state flags
+        close_fn_match = re.search(r"function closeSecondaryOpenHUDs\s*\(\)\s*\{(.*?)\n\s*\}", html, re.DOTALL)
+        assert close_fn_match is not None
+        close_fn_body = close_fn_match.group(1)
+        for state_flag in (
+            "isReframeHUDOpen",
+            "isQcHUDOpen",
+            "isBlockingHUDOpen",
+            "isReviewHUDOpen",
+            "isC2paHUDOpen",
+            "isSafetyHUDOpen",
+            "isRenderJobsHUDOpen",
+            "isPitchTreatmentHUDOpen",
+        ):
+            assert state_flag in close_fn_body, f"Missing {state_flag} in closeSecondaryOpenHUDs()"
+
+        # 3. Dynamic .dept-count badges match launcher button counts inside each .dept-tray
+        group_blocks = re.findall(
+            r'<span class="dept-count">(\d+)</span>.*?<div class="dept-tray[^"]*"[^>]*>(.*?)</div>',
+            html,
+            re.DOTALL,
+        )
+        assert len(group_blocks) >= 5
+        for badge_str, tray_html in group_blocks:
+            button_count = len(re.findall(r"<button\b", tray_html))
+            assert int(badge_str) == button_count, f"Badge {badge_str} != launcher count {button_count}"
+
+        # 4. Zero blocking dialogs
+        assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
+
+        # 5. ProductManagerAgent includes PM-FEAT-035 and PM-FEAT-036 (36 proposals)
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(ikea)
+        assert len(proposals) == 36
+        prop_ids = {p.feature_id for p in proposals}
+        assert "PM-FEAT-035" in prop_ids
+        assert "PM-FEAT-036" in prop_ids
+
+        # 6. ParallelScenePromptAgent() produces zero DeprecationWarning
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            ParallelScenePromptAgent()
+        dep_warnings = [w for w in caught if issubclass(w.category, DeprecationWarning)]
+        assert dep_warnings == [], f"Unexpected DeprecationWarning(s): {[str(w.message) for w in dep_warnings]}"

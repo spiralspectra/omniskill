@@ -1,0 +1,123 @@
+{
+  "manifest_id": "rjm-d69af5ba96",
+  "project_title": "Solarpunk Architectural Sanctuary Featur",
+  "domain_archetype": "architectural_sanctuary",
+  "storytelling_mode": "Mode A",
+  "jobs": [
+    {
+      "job_id": "rj-sc01-65637",
+      "scene_index": 1,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC01_T2",
+      "seed": 1695265637,
+      "interaction_id": "omni-interact-1-65637",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_1.mp4",
+      "end_frame_path": "End_Frame_01.png",
+      "qa_scorecard": {
+        "scene_index": 1,
+        "take_id": "SC01_T2",
+        "seed": 1695265637,
+        "prompt_sha256_prefix": "a2bb8309755d",
+        "temporal_stability_score": 95.65,
+        "prompt_adherence_score": 96.55,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.65,
+        "composite_qa_score": 96.51,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T1",
+          "seed": 350751081,
+          "prompt_sha256_prefix": "a2bb8309755d",
+          "temporal_stability_score": 95.65,
+          "prompt_adherence_score": 96.15,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.05,
+          "composite_qa_score": 96.2,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T2",
+          "seed": 1695265637,
+          "prompt_sha256_prefix": "a2bb8309755d",
+          "temporal_stability_score": 95.65,
+          "prompt_adherence_score": 96.55,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 96.51,
+          "promoted_hero": true,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    },
+    {
+      "job_id": "rj-sc02-34497",
+      "scene_index": 2,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC02_T2",
+      "seed": 2012334497,
+      "interaction_id": "omni-interact-2-34497",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_2.mp4",
+      "end_frame_path": "End_Frame_02.png",
+      "qa_scorecard": {
+        "scene_index": 2,
+        "take_id": "SC02_T2",
+        "seed": 2012334497,
+        "prompt_sha256_prefix": "d2a7d561205c",
+        "temporal_stability_score": 96.7,
+        "prompt_adherence_score": 96.55,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.65,
+        "composite_qa_score": 96.88,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T1",
+          "seed": 1402950584,
+          "prompt_sha256_prefix": "d2a7d561205c",
+          "temporal_stability_score": 94.95,
+          "prompt_adherence_score": 97.35,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 96.75,
+          "composite_qa_score": 96.36,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T2",
+          "seed": 2012334497,
+          "prompt_sha256_prefix": "d2a7d561205c",
+          "temporal_stability_score": 96.7,
+          "prompt_adherence_score": 96.55,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 96.88,
+          "promoted_hero": true,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    }
+  ],
+  "frame_anchor_handoffs": [],
+  "overall_qa_score": 96.69,
+  "promoted_takes_count": 2,
+  "assembly_ready": true,
+  "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=96.7 | handoffs=0 | assembly_ready=True]"
+}

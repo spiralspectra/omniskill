@@ -1,0 +1,149 @@
+{
+  "manifest_id": "rjm-682153ccca",
+  "project_title": "Cyberpunk Neon-Lit High-Speed Electric M",
+  "domain_archetype": "automotive_robotics",
+  "storytelling_mode": "Mode A",
+  "jobs": [
+    {
+      "job_id": "rj-sc01-14148",
+      "scene_index": 1,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC01_T1",
+      "seed": 1162514148,
+      "interaction_id": "omni-interact-1-14148",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_1.mp4",
+      "end_frame_path": "End_Frame_01.png",
+      "qa_scorecard": {
+        "scene_index": 1,
+        "take_id": "SC01_T1",
+        "seed": 1162514148,
+        "prompt_sha256_prefix": "6b78e322cea4",
+        "temporal_stability_score": 98.2,
+        "prompt_adherence_score": 98.45,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.65,
+        "composite_qa_score": 98.16,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T1",
+          "seed": 1162514148,
+          "prompt_sha256_prefix": "6b78e322cea4",
+          "temporal_stability_score": 98.2,
+          "prompt_adherence_score": 98.45,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 98.16,
+          "promoted_hero": true,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T2",
+          "seed": 1570848594,
+          "prompt_sha256_prefix": "6b78e322cea4",
+          "temporal_stability_score": 96.45,
+          "prompt_adherence_score": 98.85,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 97.71,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T3",
+          "seed": 1230779455,
+          "prompt_sha256_prefix": "6b78e322cea4",
+          "temporal_stability_score": 97.5,
+          "prompt_adherence_score": 97.25,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.95,
+          "composite_qa_score": 97.51,
+          "promoted_hero": false,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    },
+    {
+      "job_id": "rj-sc02-09331",
+      "scene_index": 2,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC02_T3",
+      "seed": 1266009331,
+      "interaction_id": "omni-interact-2-09331",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_2.mp4",
+      "end_frame_path": "End_Frame_02.png",
+      "qa_scorecard": {
+        "scene_index": 2,
+        "take_id": "SC02_T3",
+        "seed": 1266009331,
+        "prompt_sha256_prefix": "e335d8f9f947",
+        "temporal_stability_score": 98.55,
+        "prompt_adherence_score": 97.65,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.95,
+        "composite_qa_score": 98.04,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T1",
+          "seed": 1695372868,
+          "prompt_sha256_prefix": "e335d8f9f947",
+          "temporal_stability_score": 96.45,
+          "prompt_adherence_score": 98.45,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 98.85,
+          "composite_qa_score": 97.85,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T2",
+          "seed": 246876107,
+          "prompt_sha256_prefix": "e335d8f9f947",
+          "temporal_stability_score": 97.15,
+          "prompt_adherence_score": 98.05,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 99.15,
+          "composite_qa_score": 98.01,
+          "promoted_hero": false,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T3",
+          "seed": 1266009331,
+          "prompt_sha256_prefix": "e335d8f9f947",
+          "temporal_stability_score": 98.55,
+          "prompt_adherence_score": 97.65,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.95,
+          "composite_qa_score": 98.04,
+          "promoted_hero": true,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    }
+  ],
+  "frame_anchor_handoffs": [],
+  "overall_qa_score": 98.1,
+  "promoted_takes_count": 2,
+  "assembly_ready": true,
+  "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=98.1 | handoffs=0 | assembly_ready=True]"
+}

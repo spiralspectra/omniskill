@@ -1,0 +1,123 @@
+{
+  "manifest_id": "rjm-823bd70238",
+  "project_title": "Advanced Quantum Computing Silicon Proce",
+  "domain_archetype": "tech_hardware",
+  "storytelling_mode": "Mode A",
+  "jobs": [
+    {
+      "job_id": "rj-sc01-74057",
+      "scene_index": 1,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC01_T1",
+      "seed": 530874057,
+      "interaction_id": "omni-interact-1-74057",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_1.mp4",
+      "end_frame_path": "End_Frame_01.png",
+      "qa_scorecard": {
+        "scene_index": 1,
+        "take_id": "SC01_T1",
+        "seed": 530874057,
+        "prompt_sha256_prefix": "dc9d2131b7c9",
+        "temporal_stability_score": 96.45,
+        "prompt_adherence_score": 98.05,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 98.55,
+        "composite_qa_score": 97.61,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T1",
+          "seed": 530874057,
+          "prompt_sha256_prefix": "dc9d2131b7c9",
+          "temporal_stability_score": 96.45,
+          "prompt_adherence_score": 98.05,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 98.55,
+          "composite_qa_score": 97.61,
+          "promoted_hero": true,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 1,
+          "take_id": "SC01_T2",
+          "seed": 1352894025,
+          "prompt_sha256_prefix": "dc9d2131b7c9",
+          "temporal_stability_score": 96.45,
+          "prompt_adherence_score": 97.25,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 98.55,
+          "composite_qa_score": 97.3,
+          "promoted_hero": false,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    },
+    {
+      "job_id": "rj-sc02-30939",
+      "scene_index": 2,
+      "status": "qa_passed",
+      "model_id": "gemini-omni-1.1-flash-preview",
+      "selected_take_id": "SC02_T1",
+      "seed": 1438930939,
+      "interaction_id": "omni-interact-2-30939",
+      "previous_interaction_id": null,
+      "output_media_path": "rendered_scene_2.mp4",
+      "end_frame_path": "End_Frame_02.png",
+      "qa_scorecard": {
+        "scene_index": 2,
+        "take_id": "SC02_T1",
+        "seed": 1438930939,
+        "prompt_sha256_prefix": "d9f0cbae3e22",
+        "temporal_stability_score": 98.2,
+        "prompt_adherence_score": 98.85,
+        "audio_sync_rms_db": -18.0,
+        "reference_drift_score": 97.95,
+        "composite_qa_score": 98.4,
+        "promoted_hero": true,
+        "retry_recommended": false
+      },
+      "take_scorecards": [
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T1",
+          "seed": 1438930939,
+          "prompt_sha256_prefix": "d9f0cbae3e22",
+          "temporal_stability_score": 98.2,
+          "prompt_adherence_score": 98.85,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.95,
+          "composite_qa_score": 98.4,
+          "promoted_hero": true,
+          "retry_recommended": false
+        },
+        {
+          "scene_index": 2,
+          "take_id": "SC02_T2",
+          "seed": 98655078,
+          "prompt_sha256_prefix": "d9f0cbae3e22",
+          "temporal_stability_score": 97.85,
+          "prompt_adherence_score": 98.45,
+          "audio_sync_rms_db": -18.0,
+          "reference_drift_score": 97.65,
+          "composite_qa_score": 98.04,
+          "promoted_hero": false,
+          "retry_recommended": false
+        }
+      ],
+      "retry_count": 0,
+      "max_retries": 2
+    }
+  ],
+  "frame_anchor_handoffs": [],
+  "overall_qa_score": 98.0,
+  "promoted_takes_count": 2,
+  "assembly_ready": true,
+  "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=98.0 | handoffs=0 | assembly_ready=True]"
+}

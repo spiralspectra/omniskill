@@ -1,14 +1,14 @@
 {
-  "version": "2.17.0",
+  "version": "2.18.0",
   "project_title": "The Kinetic Fabric: Grounded Innovation",
-  "timestamp": "2026-11-25T10:03:46.780338+00:00",
-  "overall_score": 98.0,
+  "timestamp": "2026-11-26T09:30:30.026894+00:00",
+  "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
   "reviews": [
     {
       "persona": "council-fde",
-      "score": 23.0,
+      "score": 25.0,
       "max_score": 25.0,
       "passed": true,
       "persona_title": "",
@@ -341,13 +341,13 @@
           }
         },
         {
-          "severity": "warning",
+          "severity": "info",
           "category": "motion_graphics_delivery",
-          "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
-          "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-          "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+          "message": "Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md.",
+          "remediation": null,
+          "suggested_fix": null,
           "details": {
-            "missing_artifacts": [
+            "motion_graphics_artifacts": [
               "motion_graphics_mogrt.json",
               "broadcast_supers.ass",
               "brand_endcard_spec.md"
@@ -355,16 +355,44 @@
           }
         },
         {
-          "severity": "warning",
+          "severity": "info",
           "category": "otio_coherence_delivery",
-          "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
-          "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
-          "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+          "message": "OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md.",
+          "remediation": null,
+          "suggested_fix": null,
           "details": {
-            "missing_artifacts": [
+            "otio_artifacts": [
               "production_timeline.otio",
               "coherence_matrix.json",
               "coherence_readiness_report.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "render_job_delivery",
+          "message": "Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "render_job_artifacts": [
+              "render_job_manifest.json",
+              "take_qa_scorecard.csv",
+              "rough_cut_assembly.sh"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "pitch_treatment_delivery",
+          "message": "Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "pitch_treatment_artifacts": [
+              "director_treatment_lookbook.html",
+              "director_treatment_brief.md",
+              "pitch_treatment_manifest.json"
             ]
           }
         },
@@ -498,17 +526,42 @@
         {
           "severity": "info",
           "category": "otio_coherence_schema",
-          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=f208a2769ca5..., coherence_score=100.0, shoot_day_ready=True).",
+          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=70ed0caff1cf..., coherence_score=100.0, shoot_day_ready=True).",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "schema_version": "OTIO_0.16_COMPAT",
             "track_count": 7,
-            "otio_sha256_prefix": "f208a2769ca5"
+            "otio_sha256_prefix": "70ed0caff1cf"
+          }
+        },
+        {
+          "severity": "info",
+          "category": "render_jobs_schema",
+          "message": "MasterRenderJobManifest verified (4 job(s), 2026 Model Matrix compliant, overall_qa_score=94.3, assembly_ready=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "jobs_count": 4,
+            "model_ids": [
+              "gemini-omni-1.1-flash-preview"
+            ],
+            "overall_qa_score": 94.29
+          }
+        },
+        {
+          "severity": "info",
+          "category": "pitch_treatment_schema",
+          "message": "MasterPitchTreatmentSpec verified (id=pt-fb6586d0a3, 12 board(s), domain=kinetic_action).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "treatment_id": "pt-fb6586d0a3",
+            "slides_count": 12
           }
         }
       ],
-      "summary": "FDE review completed with score 23.0/25.0. 37 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 41 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -714,6 +767,22 @@
         },
         {
           "severity": "info",
+          "category": "render_orchestrator_schema_compliance",
+          "message": "Render Orchestrator & Mode B Frame-Anchor Continuity verified (overall_qa_score=94.3, assembly_ready=True, handoffs=0).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "pitch_treatment_schema_compliance",
+          "message": "MasterPitchTreatmentSpec contract verified (12 board slides, token present=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
           "remediation": null,
@@ -748,6 +817,14 @@
           "severity": "info",
           "category": "audit_report_gfx_and_otio_compliance",
           "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_render_and_treatment_compliance",
+          "message": "Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1144,6 +1221,30 @@
         },
         {
           "severity": "info",
+          "category": "domain_render_qa_calibration",
+          "message": "Domain-calibrated Live-Render QA verified for 'kinetic_action' (overall_qa_score=94.3 >= 90.0, min_temporal=90.0, min_ref_fidelity=91.0).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "overall_qa_score": 94.29,
+            "assembly_ready": true
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_pitch_treatment_calibration",
+          "message": "Executive Director's Treatment calibrated for 'kinetic_action' (tone='High-Velocity Newtonian Impact & Staccato Rhythm', slides=12, budget_roi_summary=True).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "kinetic_action",
+            "slides_count": 12,
+            "hero_kpi_focus": "Adrenaline Completion Rate & Brand Hero Impact"
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'kinetic_action' matches strategic brief classification.",
           "remediation": null,
@@ -1388,6 +1489,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_render_jobs_hud",
+          "message": "Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_pitch_treatment_hud",
+          "message": "Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1405,7 +1522,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 66 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1444,6 +1561,14 @@
         },
         {
           "severity": "info",
+          "category": "animatic_hotkeys_backtick_minus",
+          "message": "Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_aicp_real_data",
           "message": "AICP HUD real-data binding verified ($366,307.24 matches master_aicp_bid).",
           "remediation": null,
@@ -1454,10 +1579,7 @@
       "summary": "UX Designer review completed with score 25.0/25.0."
     }
   ],
-  "recommendations": [
-    "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-    "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
-  ],
+  "recommendations": [],
   "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "pm_recommendations": [
     {
@@ -2003,6 +2125,50 @@
         "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/html_hud_v216.py",
         "omni_director/tools/html_hud_v217.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-035",
+      "title": "Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+      "problem_statement": "Production pipelines for 'The Kinetic Fabric: Grounded Innovation' transitioning from dry-run storyboards to live video rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg rough-cut assembly scripts.",
+      "proposed_solution": "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/render_orchestrator.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v218.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-036",
+      "title": "Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+      "problem_statement": "Executive stakeholders and agency creative directors for 'The Kinetic Fabric: Grounded Innovation' lack a print-ready director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision diff engine comparing Bible iterations and council scores.",
+      "proposed_solution": "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/pitch_treatment.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v218.py",
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
         "omni_director/tools/nle_export.py",

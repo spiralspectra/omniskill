@@ -610,4 +610,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("OTIO coherence bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.render_orchestrator import export_render_jobs_bundle
+        res.update({k: str(v) for k, v in export_render_jobs_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("Render orchestrator bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.pitch_treatment import export_pitch_treatment_bundle
+        res.update({k: str(v) for k, v in export_pitch_treatment_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Pitch treatment bundle export skipped: %s", exc)
+
     return res

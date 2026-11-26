@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import inspect
 import json
 import shutil
 import sys
@@ -363,8 +364,16 @@ def handle_export(args_list: List[str]) -> int:
         "-f",
         type=str,
         default="all",
-        choices=["all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco", "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone", "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting", "s3d", "ad", "ad-vtt", "art-dept", "economics", "motion-graphics", "mogrt-json", "supers-ass", "endcard-md", "coherence", "otio", "coherence-json", "coherence-md"],
-        help="Artifact format to export (default: all; includes motion-graphics, mogrt-json, supers-ass, endcard-md, coherence, otio, coherence-json, coherence-md)",
+        choices=[
+            "all", "edl", "fcpxml", "csv", "md", "srt", "vtt", "cdl", "stems", "lens", "vp", "moco",
+            "lighting", "dof", "lut", "spatial", "vfx", "hdr", "stripboard", "film", "slate", "drone",
+            "aicp", "reframe", "qc", "continuity", "review", "c2pa", "safety", "i18n", "spotting",
+            "s3d", "ad", "ad-vtt", "art-dept", "economics", "motion-graphics", "mogrt-json",
+            "supers-ass", "endcard-md", "coherence", "otio", "coherence-json", "coherence-md",
+            "render-jobs", "render-manifest", "take-qa", "rough-cut",
+            "treatment", "lookbook", "treatment-md", "treatment-json",
+        ],
+        help="Artifact format to export (default: all; includes render-jobs, rough-cut, treatment, lookbook, etc.)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
@@ -447,6 +456,15 @@ def handle_export(args_list: List[str]) -> int:
     otio_group.add_argument("--otio", action="store_true", help="Export ASWF OpenTimelineIO 0.16 Timeline.1 (production_timeline.otio)")
     otio_group.add_argument("--coherence-json", action="store_true", help="Export Cross-Department Coherence Matrix JSON (coherence_matrix.json)")
     otio_group.add_argument("--coherence-md", action="store_true", help="Export Cross-Department Coherence & Shoot-Day Readiness Report Markdown (coherence_readiness_report.md)")
+    render_group = parser.add_argument_group("Export Subsystem: Live-Render Jobs, Take QA & Rough Cut Assembly (PM-FEAT-035)")
+    render_group.add_argument("--render-jobs", action="store_true", help="Export full Render Orchestrator bundle (render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh)")
+    render_group.add_argument("--render-manifest", action="store_true", help="Export Render Job Orchestrator manifest JSON (render_job_manifest.json)")
+    render_group.add_argument("--take-qa-csv", action="store_true", help="Export Multi-Take Visual QA scorecard CSV (take_qa_scorecard.csv)")
+    render_group.add_argument("--assembly-sh", action="store_true", help="Export ffmpeg rough-cut concat assembly script (rough_cut_assembly.sh)")
+    treatment_group = parser.add_argument_group("Export Subsystem: Director Treatment Lookbook & Pitch Deck (PM-FEAT-036)")
+    treatment_group.add_argument("--treatment-html", action="store_true", help="Export printable Director's Pitch Lookbook HTML5 (director_treatment_lookbook.html)")
+    treatment_group.add_argument("--treatment-md", action="store_true", help="Export Executive Director's Treatment brief Markdown (director_treatment_brief.md)")
+    treatment_group.add_argument("--treatment-json", action="store_true", help="Export Pitch Treatment manifest JSON (pitch_treatment_manifest.json)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -524,6 +542,51 @@ def handle_export(args_list: List[str]) -> int:
             p = out_dir / "coherence_readiness_report.md"
             p.write_text(export_coherence_readiness_md(manifest), encoding="utf-8")
             exported_files["coherence_readiness_report_md"] = str(p.resolve())
+
+    def _write_render_jobs_artifact(kind: str) -> None:
+        from omni_director.tools.render_orchestrator import (
+            compile_render_job_manifest,
+            export_render_job_manifest_json,
+            export_take_qa_csv,
+            generate_rough_cut_assembly_script,
+        )
+        manifest = getattr(bible, "master_render_jobs", None)
+        if manifest is None or not getattr(manifest, "jobs", None):
+            manifest = compile_render_job_manifest(bible, dry_run=True)
+        if kind == "render-manifest":
+            p = out_dir / "render_job_manifest.json"
+            p.write_text(export_render_job_manifest_json(manifest), encoding="utf-8")
+            exported_files["render_job_manifest_json"] = str(p.resolve())
+        elif kind == "take-qa":
+            p = out_dir / "take_qa_scorecard.csv"
+            p.write_text(export_take_qa_csv(manifest), encoding="utf-8")
+            exported_files["take_qa_scorecard_csv"] = str(p.resolve())
+        elif kind == "rough-cut":
+            p = out_dir / "rough_cut_assembly.sh"
+            p.write_text(generate_rough_cut_assembly_script(manifest, bible, fps=args.fps), encoding="utf-8")
+            p.chmod(0o755)
+            exported_files["rough_cut_assembly_sh"] = str(p.resolve())
+
+    def _write_treatment_artifact(kind: str) -> None:
+        from omni_director.tools.pitch_treatment import (
+            compile_pitch_treatment,
+            export_treatment_brief_md,
+            export_treatment_lookbook_html,
+            export_treatment_manifest_json,
+        )
+        manifest = getattr(bible, "master_pitch_treatment", None) or compile_pitch_treatment(bible)
+        if kind == "lookbook":
+            p = out_dir / "director_treatment_lookbook.html"
+            p.write_text(export_treatment_lookbook_html(manifest, bible), encoding="utf-8")
+            exported_files["director_treatment_lookbook_html"] = str(p.resolve())
+        elif kind == "treatment-md":
+            p = out_dir / "director_treatment_brief.md"
+            p.write_text(export_treatment_brief_md(manifest), encoding="utf-8")
+            exported_files["director_treatment_brief_md"] = str(p.resolve())
+        elif kind == "treatment-json":
+            p = out_dir / "pitch_treatment_manifest.json"
+            p.write_text(export_treatment_manifest_json(manifest), encoding="utf-8")
+            exported_files["pitch_treatment_manifest_json"] = str(p.resolve())
 
     if fmt == "all":
         exported_files.update(export_all_nle_artifacts(bible, out_dir, fps=args.fps))
@@ -668,6 +731,18 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update({k: str(Path(v).resolve()) for k, v in otio_files.items()})
     elif fmt in ("otio", "coherence-json", "coherence-md"):
         _write_otio_coherence_artifact(fmt)
+    elif fmt == "render-jobs":
+        from omni_director.tools.render_orchestrator import export_render_jobs_bundle
+        rj_files = export_render_jobs_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in rj_files.items()})
+    elif fmt in ("render-manifest", "take-qa", "rough-cut"):
+        _write_render_jobs_artifact(fmt)
+    elif fmt == "treatment":
+        from omni_director.tools.pitch_treatment import export_pitch_treatment_bundle
+        pt_files = export_pitch_treatment_bundle(bible, out_dir)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in pt_files.items()})
+    elif fmt in ("lookbook", "treatment-md", "treatment-json"):
+        _write_treatment_artifact(fmt)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -1024,6 +1099,24 @@ def handle_export(args_list: List[str]) -> int:
             _write_otio_coherence_artifact("coherence-json")
         if args.coherence_md and fmt != "coherence-md":
             _write_otio_coherence_artifact("coherence-md")
+    if args.render_jobs and fmt != "render-jobs":
+        from omni_director.tools.render_orchestrator import export_render_jobs_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_render_jobs_bundle(bible, out_dir, fps=args.fps).items()}
+        )
+    else:
+        if args.render_manifest and fmt != "render-manifest":
+            _write_render_jobs_artifact("render-manifest")
+        if args.take_qa_csv and fmt != "take-qa":
+            _write_render_jobs_artifact("take-qa")
+        if args.assembly_sh and fmt != "rough-cut":
+            _write_render_jobs_artifact("rough-cut")
+    if args.treatment_html and fmt not in ("treatment", "lookbook"):
+        _write_treatment_artifact("lookbook")
+    if args.treatment_md and fmt not in ("treatment", "treatment-md"):
+        _write_treatment_artifact("treatment-md")
+    if args.treatment_json and fmt not in ("treatment", "treatment-json"):
+        _write_treatment_artifact("treatment-json")
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 
@@ -1058,6 +1151,161 @@ def handle_export(args_list: List[str]) -> int:
     return 0
 
 
+def _parse_promote_take_args(raw_values: Optional[List[str]]) -> Dict[int, str]:
+    """Parses repeatable or comma-separated SCENE:TAKE overrides into Dict[int, str]."""
+    mapping: Dict[int, str] = {}
+    for entry in raw_values or []:
+        for part in str(entry).split(","):
+            item = part.strip()
+            if not item:
+                continue
+            if ":" not in item:
+                raise ValueError(f"Invalid --promote-take '{item}': expected SCENE:TAKE (e.g. 1:B or 1:SC01_T2)")
+            sc_str, take_str = item.split(":", 1)
+            sc_idx = int(sc_str.strip())
+            take_id = take_str.strip()
+            if sc_idx < 1 or not take_id:
+                raise ValueError(f"Invalid --promote-take '{item}': scene index must be >= 1 and take must be non-empty")
+            mapping[sc_idx] = take_id
+    return mapping
+
+
+def _parse_retry_scene_args(raw_values: Optional[List[str]]) -> List[int]:
+    """Parses repeatable or comma-separated scene indices into a deduplicated List[int]."""
+    indices: List[int] = []
+    seen: set[int] = set()
+    for entry in raw_values or []:
+        for part in str(entry).split(","):
+            tok = part.strip()
+            if not tok:
+                continue
+            sc_idx = int(tok)
+            if sc_idx < 1:
+                raise ValueError(f"Invalid --retry-scene '{tok}': scene index must be >= 1")
+            if sc_idx not in seen:
+                seen.add(sc_idx)
+                indices.append(sc_idx)
+    return indices
+
+
+def handle_diff(args_list: List[str]) -> int:
+    """Compares two ProductionBible or ProductionBundle JSON files (PM-FEAT-036)."""
+    from omni_director.tools.pitch_treatment import (
+        diff_production_bibles,
+        export_bible_revision_diff_json,
+        export_bible_revision_diff_md,
+    )
+
+    parser = argparse.ArgumentParser(
+        prog="omni diff",
+        description="Compare two ProductionBible or ProductionBundle JSON files and emit SHA-256 revision deltas.",
+    )
+    parser.add_argument("baseline_json", type=str, help="Path to baseline MasterProductionBible or ProductionBundle JSON")
+    parser.add_argument("target_json", type=str, help="Path to target MasterProductionBible or ProductionBundle JSON")
+    parser.add_argument("--output-dir", "-o", type=str, default=None, help="Optional directory to write bible_revision_diff.json and bible_revision_diff.md")
+    parser.add_argument("--json", action="store_true", default=False, help="Emit BibleRevisionDiffReport JSON to stdout")
+
+    args = parser.parse_args(args_list)
+    base_path = Path(args.baseline_json)
+    targ_path = Path(args.target_json)
+    for label, p in (("baseline", base_path), ("target", targ_path)):
+        if not p.exists() or not p.is_file():
+            print(f"Error: {label} JSON file does not exist at '{p}'", file=sys.stderr)
+            return 1
+
+    try:
+        diff_report = diff_production_bibles(base_path, targ_path)
+    except Exception as exc:
+        print(f"Error computing revision diff: {exc}", file=sys.stderr)
+        return 1
+
+    if args.output_dir:
+        out_dir = Path(args.output_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "bible_revision_diff.json").write_text(
+            export_bible_revision_diff_json(diff_report), encoding="utf-8"
+        )
+        (out_dir / "bible_revision_diff.md").write_text(
+            export_bible_revision_diff_md(diff_report), encoding="utf-8"
+        )
+        telemetry_path = out_dir / "telemetry.json"
+        if telemetry_path.is_file():
+            from omni_director.telemetry import RuntimeTelemetry
+            try:
+                existing_tel = json.loads(telemetry_path.read_text(encoding="utf-8"))
+                tel_obj = RuntimeTelemetry(**existing_tel) if isinstance(existing_tel, dict) else RuntimeTelemetry(project_title=diff_report.target_title)
+            except Exception:
+                tel_obj = RuntimeTelemetry(project_title=diff_report.target_title)
+            tel_obj.write_manifest(out_dir)
+
+    if args.json:
+        print(diff_report.model_dump_json(indent=2))
+    elif HAS_RICH:
+        console = Console()
+        print_banner()
+        council_delta_str = (
+            f"{diff_report.council_score_delta:+.2f}"
+            if diff_report.council_score_delta is not None
+            else "N/A"
+        )
+        console.print(
+            Panel(
+                f"• [bold]Baseline:[/bold] {diff_report.baseline_title} (`{diff_report.baseline_sha256[:16]}`)\n"
+                f"• [bold]Target:[/bold] {diff_report.target_title} (`{diff_report.target_sha256[:16]}`)\n"
+                f"• [bold]Total Changes:[/bold] {diff_report.total_changes} | "
+                f"[bold]Scene Prompt Deltas:[/bold] {diff_report.scene_prompt_deltas_count}\n"
+                f"• [bold]AICP Delta:[/bold] ${diff_report.aicp_budget_delta_usd:+,.2f} | "
+                f"[bold]Compute Delta:[/bold] ${diff_report.render_compute_delta_usd:+,.4f} | "
+                f"[bold]Council Delta:[/bold] {council_delta_str}",
+                title="Bible Revision Diff Summary",
+                border_style="cyan",
+            )
+        )
+        table = Table(title="Revision Deltas", border_style="magenta")
+        table.add_column("Section", style="bold cyan")
+        table.add_column("Field", style="white")
+        table.add_column("Type", style="yellow")
+        table.add_column("Previous", style="dim")
+        table.add_column("Current", style="green")
+        table.add_column("Severity", style="bold")
+        table.add_column("Owner", style="cyan")
+        if diff_report.deltas:
+            for d in diff_report.deltas:
+                table.add_row(
+                    d.section,
+                    d.field_path,
+                    d.change_type,
+                    d.previous_value,
+                    d.current_value,
+                    d.impact_severity,
+                    d.department_owner,
+                )
+        else:
+            table.add_row("All", "*", "none", "identical", "identical", "low", "Direction")
+        console.print(table)
+    else:
+        council_delta_str = (
+            f"{diff_report.council_score_delta:+.2f}"
+            if diff_report.council_score_delta is not None
+            else "N/A"
+        )
+        print(f"Bible Revision Diff: {diff_report.baseline_title} -> {diff_report.target_title}")
+        print(f"  Baseline SHA-256: {diff_report.baseline_sha256}")
+        print(f"  Target SHA-256:   {diff_report.target_sha256}")
+        print(f"  Total Changes:    {diff_report.total_changes}")
+        print(f"  Scene Prompt Deltas: {diff_report.scene_prompt_deltas_count}")
+        print(f"  AICP Budget Delta:   ${diff_report.aicp_budget_delta_usd:+,.2f}")
+        print(f"  Compute Cost Delta:  ${diff_report.render_compute_delta_usd:+,.4f}")
+        print(f"  Council Score Delta: {council_delta_str}")
+        for d in diff_report.deltas:
+            print(
+                f"  - [{d.impact_severity.upper()}] {d.section} {d.field_path} ({d.change_type}): "
+                f"{d.previous_value} -> {d.current_value} [{d.department_owner}]"
+            )
+
+    return 0
+
+
 def main(argv: Optional[list[str]] = None) -> int:
     args_list = list(sys.argv[1:] if argv is None else argv)
 
@@ -1073,6 +1321,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return handle_council(args_list[1:])
     if args_list and args_list[0] == "export":
         return handle_export(args_list[1:])
+    if args_list and args_list[0] == "diff":
+        return handle_diff(args_list[1:])
     if args_list and args_list[0] == "verify-bundle":
         positionals = [a for a in args_list[1:] if not a.startswith("-")]
         flags = [a for a in args_list[1:] if a.startswith("-")]
@@ -1198,6 +1448,18 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=None,
         help="Override maximum live-render compute budget ceiling in USD (overrides cfg.max_render_budget_usd).",
     )
+    parser.add_argument(
+        "--promote-take",
+        action="append",
+        default=[],
+        help="Promote a specific take for a scene (repeatable or comma-separated SCENE:TAKE, e.g. 1:B or 1:SC01_T2).",
+    )
+    parser.add_argument(
+        "--retry-scene",
+        action="append",
+        default=[],
+        help="Scene index or comma-separated scene indices to retry during render orchestration (e.g. 2 or 1,3).",
+    )
 
     args = parser.parse_args(args_list)
 
@@ -1304,7 +1566,40 @@ def main(argv: Optional[list[str]] = None) -> int:
             else:
                 print(f"Initiating Director Pipeline for {loaded_bible.project_title if loaded_bible else (args.preset or raw_prompt)}...")
 
+        try:
+            promote_take_map = _parse_promote_take_args(args.promote_take)
+            retry_scenes_list = _parse_retry_scene_args(args.retry_scene)
+        except ValueError as parse_exc:
+            print(f"Error: {parse_exc}", file=sys.stderr)
+            return 1
+
         run_council = args.council or args.council_strict
+        defer_council_until_after_nle = bool(args.export_nle and run_council)
+
+        run_sig = inspect.signature(pipeline.run)
+        has_var_kw = any(p.kind == inspect.Parameter.VAR_KEYWORD for p in run_sig.parameters.values())
+        extra_run_kwargs: Dict[str, Any] = {}
+        if promote_take_map and ("promote_take" in run_sig.parameters or has_var_kw):
+            normalized_promote_map: Dict[int, str] = {}
+            for sc_idx, raw_take in promote_take_map.items():
+                up_take = raw_take.strip().upper()
+                shorthand = {
+                    "A": f"SC{sc_idx:02d}_T1",
+                    "B": f"SC{sc_idx:02d}_T2",
+                    "C": f"SC{sc_idx:02d}_T3",
+                    "T1": f"SC{sc_idx:02d}_T1",
+                    "T2": f"SC{sc_idx:02d}_T2",
+                    "T3": f"SC{sc_idx:02d}_T3",
+                }
+                normalized_promote_map[sc_idx] = shorthand.get(up_take, raw_take)
+            extra_run_kwargs["promote_take"] = normalized_promote_map
+        if retry_scenes_list:
+            if "scene_filter" in run_sig.parameters:
+                extra_run_kwargs["scene_filter"] = retry_scenes_list
+            elif "retry_scene" in run_sig.parameters or has_var_kw:
+                extra_run_kwargs["retry_scene"] = retry_scenes_list
+            elif "retry_scenes" in run_sig.parameters:
+                extra_run_kwargs["retry_scenes"] = retry_scenes_list
 
         if loaded_bible:
             bundle = pipeline.run_from_bible(
@@ -1313,7 +1608,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                 render_video=args.render_video,
                 dry_run=args.dry_run,
                 continuous_mode=continuous_mode,
-                run_council=run_council,
+                run_council=(False if defer_council_until_after_nle else run_council),
+                **extra_run_kwargs,
             )
         else:
             bundle = pipeline.run(
@@ -1323,8 +1619,24 @@ def main(argv: Optional[list[str]] = None) -> int:
                 render_video=args.render_video,
                 dry_run=args.dry_run,
                 continuous_mode=continuous_mode,
-                run_council=run_council,
+                run_council=(False if defer_council_until_after_nle else run_council),
+                **extra_run_kwargs,
             )
+
+        if promote_take_map and "promote_take" not in extra_run_kwargs:
+            master_jobs = getattr(bundle.bible, "master_render_jobs", None)
+            if master_jobs is not None:
+                from omni_director.tools.render_orchestrator import promote_scene_take
+                for sc_idx, raw_take in promote_take_map.items():
+                    cand_take = raw_take
+                    letter_map = {"A": f"SC{sc_idx:02d}_T1", "B": f"SC{sc_idx:02d}_T2", "C": f"SC{sc_idx:02d}_T3"}
+                    if cand_take.upper() in letter_map:
+                        cand_take = letter_map[cand_take.upper()]
+                    try:
+                        master_jobs = promote_scene_take(master_jobs, sc_idx, cand_take)
+                    except ValueError:
+                        pass
+                bundle.bible.master_render_jobs = master_jobs
 
         if args.export_nle:
             from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
@@ -1333,13 +1645,42 @@ def main(argv: Optional[list[str]] = None) -> int:
             export_all_nle_artifacts(bundle.bible, out_p, fps=24)
             (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
             (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
-            if getattr(pipeline, "telemetry", None) is not None and (out_p / "telemetry.json").is_file():
-                pipeline.telemetry.write_manifest(out_p)
-                bundle.telemetry = pipeline.telemetry.to_dict()
-                if bundle.bundle_json_path and Path(bundle.bundle_json_path).is_file():
-                    Path(bundle.bundle_json_path).write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
-                    pipeline.telemetry.write_manifest(out_p)
-                    bundle.telemetry = pipeline.telemetry.to_dict()
+
+            telemetry_obj = getattr(pipeline, "telemetry", None)
+            if telemetry_obj is None:
+                from omni_director.telemetry import RuntimeTelemetry
+                telemetry_obj = RuntimeTelemetry(project_title=bundle.bible.project_title)
+
+            # Refresh telemetry manifest before council audit so all NLE exports are SHA-256 verified
+            telemetry_obj.write_manifest(out_p)
+            bundle.telemetry = telemetry_obj.to_dict()
+
+            if defer_council_until_after_nle:
+                orchestrator = ProductCouncilOrchestrator(config=pipeline.config)
+                with telemetry_obj.record_stage("product_council"):
+                    council_rep = orchestrator.audit(bundle, output_dir=out_p)
+                bundle.council_report = council_rep
+                council_json_path = out_p / "council_report.json"
+                council_md_path = out_p / "council_report.md"
+                if not council_json_path.is_file():
+                    council_json_path.write_text(
+                        json.dumps(council_rep.model_dump(), indent=2), encoding="utf-8"
+                    )
+                if not council_md_path.is_file():
+                    council_md_path.write_text(
+                        orchestrator.generate_markdown_report(council_rep), encoding="utf-8"
+                    )
+                telemetry_obj.write_manifest(out_p)
+                bundle.telemetry = telemetry_obj.to_dict()
+
+            bundle_json_file = (
+                Path(bundle.bundle_json_path)
+                if getattr(bundle, "bundle_json_path", None)
+                else (out_p / "production_bundle.json")
+            )
+            bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+            telemetry_obj.write_manifest(out_p)
+            bundle.telemetry = telemetry_obj.to_dict()
 
         if args.json:
             print(bundle.model_dump_json(indent=2))

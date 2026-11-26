@@ -1,10 +1,10 @@
-# Daily Autonomous Product Council & Senior PM Report (v2.17.0)
+# Daily Autonomous Product Council & Senior PM Report (v2.18.0)
 
-- **Release Version**: `v2.17.0`
-- **Run Timestamp**: `2026-11-25 10:03:45 UTC`
+- **Release Version**: `v2.18.0`
+- **Run Timestamp**: `2026-11-26 09:30:28 UTC`
 - **Preflight Doctor Health**: `PASS`
 - **Quality Gates Status**: `PASSED (>= 90.0)`
-- **Average Council Score**: `98.00 / 100.0`
+- **Average Council Score**: `100.00 / 100.0`
 - **Minimum Scene Audit Score**: `100.0 / 100.0`
 
 ---
@@ -49,6 +49,8 @@
 | `PM-FEAT-032` | **P0** | Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger | `implemented` | `omni_director/schemas.py`, `omni_director/tools/render_economics.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/telemetry.py` |
 | `PM-FEAT-033` | **P0** | Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine | `implemented` | `omni_director/schemas.py`, `omni_director/tools/motion_graphics.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v217.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
 | `PM-FEAT-034` | **P0** | Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate | `implemented` | `omni_director/schemas.py`, `omni_director/tools/otio_coherence.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v217.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
+| `PM-FEAT-035` | **P0** | Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine | `implemented` | `omni_director/schemas.py`, `omni_director/tools/render_orchestrator.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v218.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
+| `PM-FEAT-036` | **P0** | Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine | `implemented` | `omni_director/schemas.py`, `omni_director/tools/pitch_treatment.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v218.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
 
 ---
 
@@ -56,16 +58,16 @@
 
 | Bundle Name | Domain Archetype | Runtime | Scenes | Council Score | Status |
 |---|---|---|---|---|---|
-| `ikea_asmr_2_0` | `architectural_sanctuary` | 32s | 4 | **98.0/100** | ✅ PASS |
-| `sephora_pulse_2_0` | `luxury_fashion` | 32s | 4 | **98.0/100** | ✅ PASS |
-| `sephora_extension_40s_2_0` | `luxury_fashion` | 40s | 4 | **98.0/100** | ✅ PASS |
-| `kinetic_fabric_2_0` | `kinetic_action` | 32s | 4 | **98.0/100** | ✅ PASS |
-| `sephora_london_pulse_2_0` | `luxury_fashion` | 32s | 4 | **98.0/100** | ✅ PASS |
-| `cyberpunk_noir_2_0` | `automotive_robotics` | 10s | 2 | **98.0/100** | ✅ PASS |
-| `solarpunk_utopia_2_0` | `architectural_sanctuary` | 10s | 2 | **98.0/100** | ✅ PASS |
-| `minimalist_luxury_2_0` | `luxury_fashion` | 10s | 2 | **98.0/100** | ✅ PASS |
-| `culinary_matcha_asmr_2_0` | `culinary_asmr` | 10s | 2 | **98.0/100** | ✅ PASS |
-| `quantum_silicon_2_0` | `tech_hardware` | 10s | 2 | **98.0/100** | ✅ PASS |
+| `ikea_asmr_2_0` | `architectural_sanctuary` | 32s | 4 | **100.0/100** | ✅ PASS |
+| `sephora_pulse_2_0` | `luxury_fashion` | 32s | 4 | **100.0/100** | ✅ PASS |
+| `sephora_extension_40s_2_0` | `luxury_fashion` | 40s | 4 | **100.0/100** | ✅ PASS |
+| `kinetic_fabric_2_0` | `kinetic_action` | 32s | 4 | **100.0/100** | ✅ PASS |
+| `sephora_london_pulse_2_0` | `luxury_fashion` | 32s | 4 | **100.0/100** | ✅ PASS |
+| `cyberpunk_noir_2_0` | `automotive_robotics` | 10s | 2 | **100.0/100** | ✅ PASS |
+| `solarpunk_utopia_2_0` | `architectural_sanctuary` | 10s | 2 | **100.0/100** | ✅ PASS |
+| `minimalist_luxury_2_0` | `luxury_fashion` | 10s | 2 | **100.0/100** | ✅ PASS |
+| `culinary_matcha_asmr_2_0` | `culinary_asmr` | 10s | 2 | **100.0/100** | ✅ PASS |
+| `quantum_silicon_2_0` | `tech_hardware` | 10s | 2 | **100.0/100** | ✅ PASS |
 
 ---
-*Automated report generated by `scripts/run_daily_council.py` via Omni Movie Director v2.17.0.*
+*Automated report generated by `scripts/run_daily_council.py` via Omni Movie Director v2.18.0.*

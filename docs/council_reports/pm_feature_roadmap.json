@@ -1,6 +1,6 @@
 {
-  "version": "2.17.0",
-  "timestamp": "2026-11-25T10:03:45.338026+00:00",
+  "version": "2.18.0",
+  "timestamp": "2026-11-26T09:30:28.228435+00:00",
   "persona": "council-product-manager",
   "persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "recommendations": [
@@ -547,6 +547,50 @@
         "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/html_hud_v216.py",
         "omni_director/tools/html_hud_v217.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-035",
+      "title": "Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+      "problem_statement": "Production pipelines transitioning from dry-run storyboards to live video rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg rough-cut assembly scripts.",
+      "proposed_solution": "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/render_orchestrator.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v218.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-036",
+      "title": "Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+      "problem_statement": "Executive stakeholders and agency creative directors lack a print-ready director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision diff engine comparing Bible iterations and council scores.",
+      "proposed_solution": "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/pitch_treatment.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v216.py",
+        "omni_director/tools/html_hud_v218.py",
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
         "omni_director/tools/nle_export.py",

@@ -164,7 +164,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Controlled cinematic soundstage with damp low-end reverb"
         },
-        "omni_prose_prompt": "Wide establishing tracking shot. Solarpunk architectural sanctuary featuring cascading vertical gardens, curved bamboo pavilions, photovoltaic glass domes, and quiet magnetic levitation transport in morning mist.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control with Low-angle golden hour sunlight casting geometric window shadows through dust motes. Gentle macro motion with tactile physics, kinetic continuity, and continuous velocity vector. Diegetic audio captures synchronous Acoustic reverberation in tall stone hall and Gentle water fountain trickle. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=60 bridge=l_cut jcut=0f lcut=30f beat_offset=0f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Solarpunk Architectural Sanctuar\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC01 | cues=1 | max_wpm=120.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "Wide establishing tracking shot. Solarpunk architectural sanctuary featuring cascading vertical gardens, curved bamboo pavilions, photovoltaic glass domes, and quiet magnetic levitation transport in morning mist.. Adhering to character aesthetic <image_1> and architectural staging <image_2>. Shot with 24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control with Low-angle golden hour sunlight casting geometric window shadows through dust motes. Gentle macro motion with tactile physics, kinetic continuity, and continuous velocity vector. Diegetic audio captures synchronous Acoustic reverberation in tall stone hall and Gentle water fountain trickle. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=60 bridge=l_cut jcut=0f lcut=30f beat_offset=0f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Solarpunk Architectural Sanctuar\" @ 0.10-3.30s | CVAA=True]. [WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC01 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC01 | cues=1 | max_wpm=120.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC01 | take=SC01_T2 | seed=1695265637 | qa=96.5 | status=qa_passed]. [TREATMENT-BEAT: SC01 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...].",
         "s3d_spec": {
           "scene_number": 1,
           "camera_spec": {
@@ -1116,13 +1116,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1135,7 +1135,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1148,7 +1148,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1161,7 +1161,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -1486,7 +1486,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC01 | cues=1 | max_wpm=120.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc01-65637",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T2",
+          "seed": 1695265637,
+          "interaction_id": "omni-interact-1-65637",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T2",
+            "seed": 1695265637,
+            "prompt_sha256_prefix": "a2bb8309755d",
+            "temporal_stability_score": 95.65,
+            "prompt_adherence_score": 96.55,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.65,
+            "composite_qa_score": 96.51,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 350751081,
+              "prompt_sha256_prefix": "a2bb8309755d",
+              "temporal_stability_score": 95.65,
+              "prompt_adherence_score": 96.15,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.05,
+              "composite_qa_score": 96.2,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 1695265637,
+              "prompt_sha256_prefix": "a2bb8309755d",
+              "temporal_stability_score": 95.65,
+              "prompt_adherence_score": 96.55,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.65,
+              "composite_qa_score": 96.51,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: Solarpunk Architectural Sanctuary Featur - Initiation",
+          "subhead": "00:00 - 00:05 · Regime 1: World-Knowledge & Atmospheric Flow · 24mm · 5600K",
+          "narrative_copy": "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02) -> Beat 2: Subject engages primary movement trajectory (00:02 - 00:05)",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:05",
+            "lens_mm": "24mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 1: World-Knowledge & Atmospheric Flow"
+          }
+        }
       },
       {
         "scene_index": 2,
@@ -1534,7 +1612,7 @@
           "dialogue_lines": [],
           "room_acoustics": "Reflective dynamic spatial acoustics with crisp decay"
         },
-        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Solarpunk architectural sanctuary featuring cascading vertical gardens, curved bamboo pavilions, photovoltaic glass domes, and quiet magnetic levitation transport in morning mist.. Maintaining continuity with keyframe <image_3>. 24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control maneuver at eye-level with Low-angle golden hour sunlight casting geometric window shadows through dust motes. Controlled tactile interaction with micro-acoustic detail and kinetic continuity. Diegetic sound design features immediate Acoustic reverberation in tall stone hall and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=60 bridge=l_cut jcut=0f lcut=30f beat_offset=0f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Solarpunk Architectural Sanctuar\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Solarpunk Architectural Sanctuary Featur]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True].",
+        "omni_prose_prompt": "Continuation of Scene 1 following the subject. Continuation of Solarpunk architectural sanctuary featuring cascading vertical gardens, curved bamboo pavilions, photovoltaic glass domes, and quiet magnetic levitation transport in morning mist.. Maintaining continuity with keyframe <image_3>. 24mm Tilt-Shift Prime on heavy hydraulic dolly with perspective control maneuver at eye-level with Low-angle golden hour sunlight casting geometric window shadows through dust motes. Controlled tactile interaction with micro-acoustic detail and kinetic continuity. Diegetic sound design features immediate Acoustic reverberation in tall stone hall and atmospheric air wash. [LOCALIZATION_ADR: locales=en-US,da-DK,fr-FR,de-DE,ja-JP sync=1.00x wps=2.10 supers=tight_wrap]. [SPOTTING_SYNC: bpm=60 bridge=l_cut jcut=0f lcut=30f beat_offset=0f]. [S3D-RIG: 100.0mm IO | Conv: 16.56m | +Parallax: 1.20% | fmt=mv_hevc]. [AD-CUE: \"Solarpunk Architectural Sanctuar\" @ 5.10-8.30s | CVAA=True]. [WARDROBE-LOCK: Resident Spatial Architect / Meditator:LOOK_A(soft_draped)][PROP-STATE: PROP_VESSEL_01=weathered@cedar_low_table | slots=3/3]. [RENDER-PROFILE: SC02 | mode_a_4step | takes=2 | dur=5s | est=$2.63]. [GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Solarpunk Architectural Sanctuary Featur]. [OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]. [RENDER-JOB: SC02 | take=SC02_T2 | seed=2012334497 | qa=96.9 | status=qa_passed]. [TREATMENT-BEAT: SC02 | slide=scene_beat_spread | tone=Serene Spatial Minimalism & Quiet Light Choreography | hook=Calm Nordic light and honest materiality transforming empty s...].",
         "s3d_spec": {
           "scene_number": 2,
           "camera_spec": {
@@ -2485,13 +2563,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2504,7 +2582,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2517,7 +2595,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2530,7 +2608,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -2856,7 +2934,85 @@
           "gfx_prompt_token": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Solarpunk Architectural Sanctuary Featur]",
           "legibility_score": 100.0
         },
-        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+        "otio_sync_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_job_spec": {
+          "job_id": "rj-sc02-34497",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 2012334497,
+          "interaction_id": "omni-interact-2-34497",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 2012334497,
+            "prompt_sha256_prefix": "d2a7d561205c",
+            "temporal_stability_score": 96.7,
+            "prompt_adherence_score": 96.55,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.65,
+            "composite_qa_score": 96.88,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 1402950584,
+              "prompt_sha256_prefix": "d2a7d561205c",
+              "temporal_stability_score": 94.95,
+              "prompt_adherence_score": 97.35,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 96.75,
+              "composite_qa_score": 96.36,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 2012334497,
+              "prompt_sha256_prefix": "d2a7d561205c",
+              "temporal_stability_score": 96.7,
+              "prompt_adherence_score": 96.55,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.65,
+              "composite_qa_score": 96.88,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        "treatment_spec": {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: Solarpunk Architectural Sanctuary Featur - Climax",
+          "subhead": "00:05 - 00:10 · Regime 1: World-Knowledge & Atmospheric Flow · 50mm · 5600K",
+          "narrative_copy": "Beat 1: Peak acceleration and directional transition (00:05 - 00:08) -> Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10)",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:05 - 00:10",
+            "lens_mm": "50mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 1: World-Knowledge & Atmospheric Flow"
+          }
+        }
       }
     ],
     "domain_archetype": "architectural_sanctuary",
@@ -3704,7 +3860,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-25T10:03:47.807728+00:00",
+        "creation_date": "2026-11-26T09:30:30.924383+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3712,7 +3868,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-25T10:03:47.807711+00:00"
+            "hash_timestamp": "2026-11-26T09:30:30.924370+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3720,7 +3876,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-25T10:03:47.807725+00:00"
+            "hash_timestamp": "2026-11-26T09:30:30.924381+00:00"
           }
         ]
       }
@@ -3776,7 +3932,7 @@
       "asc_mhl": {
         "mhl_version": "2.0",
         "project_title": "Solarpunk Architectural Sanctuary Featur",
-        "creation_date": "2026-11-25T10:03:47.807728+00:00",
+        "creation_date": "2026-11-26T09:30:30.924383+00:00",
         "hash_entries": [
           {
             "file_path": "A01_01_take01.mov",
@@ -3784,7 +3940,7 @@
             "xxhash64": "6e2473d70caf149e",
             "sha1": "1569f096a91205d4a4713be0f07c882193cd912f",
             "md5": "064840538ec9bf8e761844cd2492de26",
-            "hash_timestamp": "2026-11-25T10:03:47.807711+00:00"
+            "hash_timestamp": "2026-11-26T09:30:30.924370+00:00"
           },
           {
             "file_path": "A02_02_take01.mov",
@@ -3792,7 +3948,7 @@
             "xxhash64": "4972654f5496af9b",
             "sha1": "6efd09cb7f64e30cc3c49f21caf720757dfc1171",
             "md5": "e98ac29f07bbeb0c2b9a65944ff473fb",
-            "hash_timestamp": "2026-11-25T10:03:47.807725+00:00"
+            "hash_timestamp": "2026-11-26T09:30:30.924381+00:00"
           }
         ]
       }
@@ -8539,7 +8695,7 @@
     "master_c2pa_provenance": {
       "project_title": "Solarpunk Architectural Sanctuary Featur",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:474ad2b0bda0",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8548,7 +8704,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8561,7 +8717,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8574,7 +8730,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8587,7 +8743,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8659,13 +8815,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8678,7 +8834,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8691,7 +8847,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8704,7 +8860,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8770,13 +8926,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8789,7 +8945,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8802,7 +8958,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8815,7 +8971,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -8877,7 +9033,7 @@
     "c2pa_provenance": {
       "project_title": "Solarpunk Architectural Sanctuary Featur",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:474ad2b0bda0",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -8886,7 +9042,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8899,7 +9055,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8912,7 +9068,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8925,7 +9081,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -8997,13 +9153,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9016,7 +9172,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9029,7 +9185,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9042,7 +9198,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9108,13 +9264,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9127,7 +9283,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9140,7 +9296,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9153,7 +9309,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9215,7 +9371,7 @@
     "content_credentials": {
       "project_title": "Solarpunk Architectural Sanctuary Featur",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:474ad2b0bda0",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9224,7 +9380,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9237,7 +9393,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9250,7 +9406,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9263,7 +9419,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9335,13 +9491,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9354,7 +9510,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9367,7 +9523,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9380,7 +9536,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9446,13 +9602,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9465,7 +9621,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9478,7 +9634,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9491,7 +9647,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9553,7 +9709,7 @@
     "provenance_manifest": {
       "project_title": "Solarpunk Architectural Sanctuary Featur",
       "c2pa_spec_version": "2.1",
-      "claim_generator": "OmniMovieDirector/2.17.0",
+      "claim_generator": "OmniMovieDirector/2.18.0",
       "manifest_id": "urn:c2pa:omni-director:2026:474ad2b0bda0",
       "synthetic_tier": "full_ai_synthetic",
       "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
@@ -9562,7 +9718,7 @@
           "action_id": "ACT-MASTER-01",
           "action": "c2pa.created",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
           "model_used": "gemini-4-argon",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9575,7 +9731,7 @@
           "action_id": "ACT-MASTER-02",
           "action": "c2pa.edited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
           "model_used": "gemini-3.8-flash",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9588,7 +9744,7 @@
           "action_id": "ACT-MASTER-03",
           "action": "c2pa.composited",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
           "model_used": "gemini-3-pro-image",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9601,7 +9757,7 @@
           "action_id": "ACT-MASTER-04",
           "action": "c2pa.transcoded",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+          "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
           "model_used": "gemini-omni-1.1-flash-preview",
           "when_iso8601": "2026-11-21T00:00:00Z",
           "parameters": {
@@ -9673,13 +9829,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Initiation",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S01-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9692,7 +9848,7 @@
               "action_id": "ACT-S01-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9705,7 +9861,7 @@
               "action_id": "ACT-S01-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9718,7 +9874,7 @@
               "action_id": "ACT-S01-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9784,13 +9940,13 @@
           "scene_title": "Solarpunk Architectural Sanctuary Featur - Climax",
           "synthetic_tier": "full_ai_synthetic",
           "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-          "claim_generator": "OmniMovieDirector/2.17.0",
+          "claim_generator": "OmniMovieDirector/2.18.0",
           "actions": [
             {
               "action_id": "ACT-S02-01",
               "action": "c2pa.created",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (CreativeDirectorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (CreativeDirectorAgent)",
               "model_used": "gemini-4-argon",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9803,7 +9959,7 @@
               "action_id": "ACT-S02-02",
               "action": "c2pa.edited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (PromptAuditorAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (PromptAuditorAgent)",
               "model_used": "gemini-3.8-flash",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9816,7 +9972,7 @@
               "action_id": "ACT-S02-03",
               "action": "c2pa.composited",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (VisualStoryboardAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (VisualStoryboardAgent)",
               "model_used": "gemini-3-pro-image",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -9829,7 +9985,7 @@
               "action_id": "ACT-S02-04",
               "action": "c2pa.transcoded",
               "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
-              "software_agent": "OmniMovieDirector/2.17.0 (OptionalOmniVideoRenderAgent)",
+              "software_agent": "OmniMovieDirector/2.18.0 (OptionalOmniVideoRenderAgent)",
               "model_used": "gemini-omni-1.1-flash-preview",
               "when_iso8601": "2026-11-21T00:00:00Z",
               "parameters": {
@@ -11792,9 +11948,371 @@
       "coherence_score": 100.0,
       "conflicts_count": 0,
       "warnings_count": 0,
-      "otio_sha256": "d6a457ef70bec6512b486687f3b5d848f28c36aafc21ab7e25fb34aa696bfaf4",
+      "otio_sha256": "44f82e901936aac028e777daabed65ac130c4ea9b10f83b0a0acbf62f5779bbb",
       "shoot_day_ready": true,
-      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+      "coherence_token": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]"
+    },
+    "master_render_jobs": {
+      "manifest_id": "rjm-d69af5ba96",
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "domain_archetype": "architectural_sanctuary",
+      "storytelling_mode": "Mode A",
+      "jobs": [
+        {
+          "job_id": "rj-sc01-65637",
+          "scene_index": 1,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC01_T2",
+          "seed": 1695265637,
+          "interaction_id": "omni-interact-1-65637",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_1.mp4",
+          "end_frame_path": "End_Frame_01.png",
+          "qa_scorecard": {
+            "scene_index": 1,
+            "take_id": "SC01_T2",
+            "seed": 1695265637,
+            "prompt_sha256_prefix": "a2bb8309755d",
+            "temporal_stability_score": 95.65,
+            "prompt_adherence_score": 96.55,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.65,
+            "composite_qa_score": 96.51,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T1",
+              "seed": 350751081,
+              "prompt_sha256_prefix": "a2bb8309755d",
+              "temporal_stability_score": 95.65,
+              "prompt_adherence_score": 96.15,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.05,
+              "composite_qa_score": 96.2,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 1,
+              "take_id": "SC01_T2",
+              "seed": 1695265637,
+              "prompt_sha256_prefix": "a2bb8309755d",
+              "temporal_stability_score": 95.65,
+              "prompt_adherence_score": 96.55,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.65,
+              "composite_qa_score": 96.51,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        },
+        {
+          "job_id": "rj-sc02-34497",
+          "scene_index": 2,
+          "status": "qa_passed",
+          "model_id": "gemini-omni-1.1-flash-preview",
+          "selected_take_id": "SC02_T2",
+          "seed": 2012334497,
+          "interaction_id": "omni-interact-2-34497",
+          "previous_interaction_id": null,
+          "output_media_path": "rendered_scene_2.mp4",
+          "end_frame_path": "End_Frame_02.png",
+          "qa_scorecard": {
+            "scene_index": 2,
+            "take_id": "SC02_T2",
+            "seed": 2012334497,
+            "prompt_sha256_prefix": "d2a7d561205c",
+            "temporal_stability_score": 96.7,
+            "prompt_adherence_score": 96.55,
+            "audio_sync_rms_db": -18.0,
+            "reference_drift_score": 97.65,
+            "composite_qa_score": 96.88,
+            "promoted_hero": true,
+            "retry_recommended": false
+          },
+          "take_scorecards": [
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T1",
+              "seed": 1402950584,
+              "prompt_sha256_prefix": "d2a7d561205c",
+              "temporal_stability_score": 94.95,
+              "prompt_adherence_score": 97.35,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 96.75,
+              "composite_qa_score": 96.36,
+              "promoted_hero": false,
+              "retry_recommended": false
+            },
+            {
+              "scene_index": 2,
+              "take_id": "SC02_T2",
+              "seed": 2012334497,
+              "prompt_sha256_prefix": "d2a7d561205c",
+              "temporal_stability_score": 96.7,
+              "prompt_adherence_score": 96.55,
+              "audio_sync_rms_db": -18.0,
+              "reference_drift_score": 97.65,
+              "composite_qa_score": 96.88,
+              "promoted_hero": true,
+              "retry_recommended": false
+            }
+          ],
+          "retry_count": 0,
+          "max_retries": 2
+        }
+      ],
+      "frame_anchor_handoffs": [],
+      "overall_qa_score": 96.69,
+      "promoted_takes_count": 2,
+      "assembly_ready": true,
+      "render_job_token": "[RENDER-ORCHESTRATOR: jobs=2 | mode=Mode A | avg_qa=96.7 | handoffs=0 | assembly_ready=True]"
+    },
+    "master_pitch_treatment": {
+      "treatment_id": "pt-a069576b42",
+      "project_title": "Solarpunk Architectural Sanctuary Featur",
+      "client_brand_label": "Atelier Sanctuary Works",
+      "domain_archetype": "architectural_sanctuary",
+      "executive_director_statement": "Solarpunk Architectural Sanctuary Featur honors stillness, daylight geometry, and honest natural materials across 10s. Composed in Regime 1: World-Knowledge & Atmospheric Flow using Mode A: Parallel Multi-Scene Cut (Montage), measured spatial breathing room deepens Atmospheric Affinity & Brand Sanctuary Recall.",
+      "target_audience_hook": "Calm Nordic light and honest materiality transforming empty space into sanctuary.",
+      "slides": [
+        {
+          "slide_index": 1,
+          "slide_type": "cover_logline",
+          "scene_index": null,
+          "headline": "Solarpunk Architectural Sanctuary Featur",
+          "subhead": "Atelier Sanctuary Works · architectural_sanctuary · Serene Spatial Minimalism & Quiet Light Choreography",
+          "narrative_copy": "Solarpunk architectural sanctuary featuring cascading vertical gardens, curved bamboo pavilions, photovoltaic glass domes, and quiet magnetic levitation transport in morning mist.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "client_brand": "Atelier Sanctuary Works",
+            "runtime": "10s",
+            "aspect_ratio": "16:9",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Serene Spatial Minimalism & Quiet Light Choreography"
+          }
+        },
+        {
+          "slide_index": 2,
+          "slide_type": "creative_vision_regime",
+          "scene_index": null,
+          "headline": "Creative Vision & Storytelling Regime",
+          "subhead": "Regime 1: World-Knowledge & Atmospheric Flow · Mode A: Parallel Multi-Scene Cut (Montage)",
+          "narrative_copy": "Solarpunk Architectural Sanctuary Featur honors stillness, daylight geometry, and honest natural materials across 10s. Composed in Regime 1: World-Knowledge & Atmospheric Flow using Mode A: Parallel Multi-Scene Cut (Montage), measured spatial breathing room deepens Atmospheric Affinity & Brand Sanctuary Recall.",
+          "visual_plate_ref": "<image_1>",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "creative_regime": "Regime 1: World-Knowledge & Atmospheric Flow",
+            "storytelling_mode": "Mode A: Parallel Multi-Scene Cut (Montage)",
+            "executive_tone": "Serene Spatial Minimalism & Quiet Light Choreography",
+            "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall",
+            "audience_hook": "Calm Nordic light and honest materiality transforming empty space into sanctuary."
+          }
+        },
+        {
+          "slide_index": 3,
+          "slide_type": "color_script_palette",
+          "scene_index": null,
+          "headline": "Color Script & Optical Look Science",
+          "subhead": "Look: rec709_neutral · Rec.709 · 5600K Key",
+          "narrative_copy": "Master palette #1C1917, #78716C, #D6D3D1, #E7E5E4, #111827, #374151 calibrated in Rec.709 with rec709_neutral tonal curve and 5600K primary illumination.",
+          "visual_plate_ref": "COLOR_SCRIPT_STRIP",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "look_preset": "rec709_neutral",
+            "working_color_space": "Rec.709",
+            "key_kelvin": "5600K",
+            "swatch_count": "6"
+          }
+        },
+        {
+          "slide_index": 4,
+          "slide_type": "cast_wardrobe_polarity",
+          "scene_index": null,
+          "headline": "Cast, Hero Subject & Wardrobe Polarity",
+          "subhead": "1 Character Anchor(s) · 3/3 Nano Banana References",
+          "narrative_copy": "Resident Spatial Architect / Meditator: Serene contemplative silhouette framed by monumental spatial geometry (Wardrobe Polarity: Monochrome architectural linen tunic in warm ecru and charcoal; Motion: Calm, deliberate pacing along cardinal spatial axes)",
+          "visual_plate_ref": "Resident Spatial Architect / Meditator",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1"
+          ],
+          "key_metrics": {
+            "characters_count": "1",
+            "nano_banana_refs": "3/3",
+            "polarity_lock": "ENFORCED"
+          }
+        },
+        {
+          "slide_index": 5,
+          "slide_type": "environment_plates",
+          "scene_index": null,
+          "headline": "Master Environment — Architectural Sanctuary Sanctuary",
+          "subhead": "Key Light 5600K · 2 Geometric Invariants",
+          "narrative_copy": "Architectural space styled for architectural sanctuary Lighting: Low-angle golden hour sunlight casting geometric window shadows through dust motes Atmosphere: Ultra-fine suspended haze catching oblique light shafts Invariants: Monolithic board-formed concrete walls remain immovable and textured; Travertine stone floor slabs maintain continuous geometric perspective",
+          "visual_plate_ref": "<image_2>",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "location": "Architectural Sanctuary Sanctuary",
+            "kelvin": "5600K",
+            "invariants": "2"
+          }
+        },
+        {
+          "slide_index": 6,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 1,
+          "headline": "SC01: Solarpunk Architectural Sanctuary Featur - Initiation",
+          "subhead": "00:00 - 00:05 · Regime 1: World-Knowledge & Atmospheric Flow · 24mm · 5600K",
+          "narrative_copy": "Beat 1: Subject emerges into illuminated frame (00:00 - 00:02) -> Beat 2: Subject engages primary movement trajectory (00:02 - 00:05)",
+          "visual_plate_ref": "SC01_KEYFRAME",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "scene_index": "1",
+            "timestamp_range": "00:00 - 00:05",
+            "lens_mm": "24mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 1: World-Knowledge & Atmospheric Flow"
+          }
+        },
+        {
+          "slide_index": 7,
+          "slide_type": "scene_beat_spread",
+          "scene_index": 2,
+          "headline": "SC02: Solarpunk Architectural Sanctuary Featur - Climax",
+          "subhead": "00:05 - 00:10 · Regime 1: World-Knowledge & Atmospheric Flow · 50mm · 5600K",
+          "narrative_copy": "Beat 1: Peak acceleration and directional transition (00:05 - 00:08) -> Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10)",
+          "visual_plate_ref": "SC02_KEYFRAME",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4"
+          ],
+          "key_metrics": {
+            "scene_index": "2",
+            "timestamp_range": "00:05 - 00:10",
+            "lens_mm": "50mm",
+            "kelvin": "5600K",
+            "beats_count": "2",
+            "regime": "Regime 1: World-Knowledge & Atmospheric Flow"
+          }
+        },
+        {
+          "slide_index": 8,
+          "slide_type": "sonic_bgm_arc",
+          "scene_index": null,
+          "headline": "Sonic Architecture & BGM Arc — Solarpunk Architectural Sanctuary Featur Theme",
+          "subhead": "Neo-Classical Piano & Spatial Drone Sanctuary · 60 BPM · G Major",
+          "narrative_copy": "Dynamic Arc: Gentle rhythmic pulse building into an assertive cinematic climax | Diegetic Foley: Acoustic reverberation in tall stone hall; Subtle distant wind through bamboo atrium; Soft leather creak on timber seat; Gentle water fountain trickle | Room Acoustics: Controlled cinematic soundstage | Stems: percussion: Rhythmic pulse and transient acoustic hits, bass: Sub-harmonic foundation and low-end drone, harmony: Mid-range chord progression and ambient pads, lead: Hero melodic motif or lead arpeggio",
+          "visual_plate_ref": "SONIC_BGM_ARC",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1"
+          ],
+          "key_metrics": {
+            "track_title": "Solarpunk Architectural Sanctuary Featur Theme",
+            "tempo_bpm": "60",
+            "key_signature": "G Major",
+            "foley_cues": "4",
+            "stems_count": "4"
+          }
+        },
+        {
+          "slide_index": 9,
+          "slide_type": "budget_roi_summary",
+          "scene_index": null,
+          "headline": "Production Economics: AI-First vs. Traditional AICP Bid",
+          "subhead": "AICP Baseline $203,145.74 vs. AI Live Compute $5.25 (100.00% Savings)",
+          "narrative_copy": "Traditional AICP commercial shoot baseline is estimated at $203,145.74. Omni 2026 Matrix simulation mode executes at $0.00 billable cost, while planned multi-take live rendering totals $5.25 — capturing $203,140.49 (100.00%) in production capital efficiency.",
+          "visual_plate_ref": "BUDGET_ROI_SUMMARY",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1"
+          ],
+          "key_metrics": {
+            "aicp_grand_total_usd": "$203,145.74",
+            "ai_compute_est_usd": "$5.25",
+            "dry_run_billable_usd": "$0.00",
+            "net_savings_usd": "$203,140.49",
+            "savings_pct": "100.00%"
+          }
+        },
+        {
+          "slide_index": 10,
+          "slide_type": "deliverables_signoff",
+          "scene_index": null,
+          "headline": "Deliverables Matrix & Executive Greenlight",
+          "subhead": "2026 Gemini Model Matrix · 16:9 · 10s @ 24fps",
+          "narrative_copy": "Approved deliverables package includes: immutable MasterProductionBible SSOT JSON, interactive dark-room Cinema Animatic HTML5, SMPTE EDL/FCPXML/SRT/VTT timelines, OpenTimelineIO (.otio) cross-department coherence manifest, C2PA provenance manifest, and print-ready Executive Director's Lookbook.",
+          "visual_plate_ref": "DELIVERABLES_SIGNOFF",
+          "color_swatches": [
+            "#1C1917",
+            "#78716C",
+            "#D6D3D1",
+            "#E7E5E4",
+            "#111827",
+            "#374151"
+          ],
+          "key_metrics": {
+            "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall",
+            "scenes_count": "2",
+            "model_matrix": "2026-Compliant",
+            "signoff_status": "READY_FOR_GREENLIGHT"
+          }
+        }
+      ],
+      "color_script_strip": [
+        "#1C1917",
+        "#78716C",
+        "#D6D3D1",
+        "#E7E5E4",
+        "#111827",
+        "#374151"
+      ],
+      "revision_diff": null,
+      "treatment_token": "[PITCH-TREATMENT: id=pt-a069576b42 | domain=architectural_sanctuary | slides=10 | tone=Serene Spatial Minimalism & Quiet Light Choreography | roi_savings=100.0%]"
     }
   },
   "storyboard_html_path": "examples/solarpunk_utopia_2_0/storyboard_preview.html",
@@ -11903,7 +12421,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC01 | cues=1 | max_wpm=120.0 | roles=kinetic_headline][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC01 | take=SC01_T2 | seed=1695265637 | qa=96.5 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC01 | type=scene_beat_spread | headline=SC01: Solarpunk Architectural Sanctuary Featur -]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -11927,7 +12451,9 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     },
     {
       "scene_index": 2,
@@ -12011,7 +12537,13 @@
         "motion_graphics_descriptor": "[GFX-SUPER: SC02 | cues=1 | max_wpm=107.1 | roles=cta_endcard][GFX-CLEANPLATE: zone=upper_left_third | neg_space=34.0% | score=100.0][ENDCARD: dur=2.8s | sync=00:00:07:05 | cta=Solarpunk Architectural Sanctuary Featur]",
         "otio_coherence_compliant": true,
         "otio_coherence_reward": 1.0,
-        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=d6a457ef70be][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "otio_coherence_descriptor": "[OTIO-SYNC: frames=240 | tracks=7 | sha256=44f82e901936][COHERENCE-LOCK: score=100.0 | conflicts=0 | ready=True]",
+        "render_orchestrator_compliant": true,
+        "render_orchestrator_reward": 1.0,
+        "render_orchestrator_descriptor": "[RENDER-JOB: SC02 | take=SC02_T2 | seed=2012334497 | qa=96.9 | status=qa_passed]",
+        "pitch_treatment_compliant": true,
+        "pitch_treatment_reward": 1.0,
+        "pitch_treatment_descriptor": "[TREATMENT-BEAT: SC02 | type=scene_beat_spread | headline=SC02: Solarpunk Architectural Sanctuary Featur -]",
         "shutter_angle_compliant": true,
         "shutter_angle_descriptor": "180.0° shutter",
         "shutter_angle_reward": 5.0,
@@ -12034,14 +12566,16 @@
       "art_continuity_compliant": true,
       "render_economics_compliant": true,
       "motion_graphics_compliant": true,
-      "otio_coherence_compliant": true
+      "otio_coherence_compliant": true,
+      "render_orchestrator_compliant": true,
+      "pitch_treatment_compliant": true
     }
   ],
   "mode": "dry-run",
   "telemetry": {
-    "session_id": "96cab5c9-78c0-4092-a7a2-9b89404675d5",
+    "session_id": "a274fa41-863f-448a-894b-74a3aa6cd024",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-25T10:03:47.804965+00:00",
+    "timestamp": "2026-11-26T09:30:30.921723+00:00",
     "model_matrix": {
       "director_model": "gemini-4-argon",
       "fast_model": "gemini-3.8-flash",
@@ -12051,62 +12585,62 @@
     "stage_timings": [
       {
         "stage_name": "intake_and_research",
-        "start_time": "2026-11-25T10:03:47.804983+00:00",
-        "end_time": "2026-11-25T10:03:47.805463+00:00",
-        "duration_ms": 0.48,
+        "start_time": "2026-11-26T09:30:30.921743+00:00",
+        "end_time": "2026-11-26T09:30:30.922293+00:00",
+        "duration_ms": 0.55,
         "details": {}
       },
       {
         "stage_name": "creative_director",
-        "start_time": "2026-11-25T10:03:47.805478+00:00",
-        "end_time": "2026-11-25T10:03:47.817778+00:00",
-        "duration_ms": 12.3,
+        "start_time": "2026-11-26T09:30:30.922310+00:00",
+        "end_time": "2026-11-26T09:30:30.933739+00:00",
+        "duration_ms": 11.43,
         "details": {}
       },
       {
         "stage_name": "visual_storyboard",
-        "start_time": "2026-11-25T10:03:47.817813+00:00",
-        "end_time": "2026-11-25T10:03:47.819408+00:00",
-        "duration_ms": 1.59,
+        "start_time": "2026-11-26T09:30:30.933772+00:00",
+        "end_time": "2026-11-26T09:30:30.935234+00:00",
+        "duration_ms": 1.46,
         "details": {}
       },
       {
         "stage_name": "scene_prompts_and_bgm",
-        "start_time": "2026-11-25T10:03:47.819441+00:00",
-        "end_time": "2026-11-25T10:03:47.819671+00:00",
-        "duration_ms": 0.23,
+        "start_time": "2026-11-26T09:30:30.935248+00:00",
+        "end_time": "2026-11-26T09:30:30.935511+00:00",
+        "duration_ms": 0.26,
         "details": {}
       },
       {
         "stage_name": "prompt_auditor",
-        "start_time": "2026-11-25T10:03:47.819682+00:00",
-        "end_time": "2026-11-25T10:03:47.824328+00:00",
-        "duration_ms": 4.64,
+        "start_time": "2026-11-26T09:30:30.935520+00:00",
+        "end_time": "2026-11-26T09:30:30.940555+00:00",
+        "duration_ms": 5.03,
         "details": {}
       },
       {
         "stage_name": "video_rendering",
-        "start_time": "2026-11-25T10:03:47.824353+00:00",
-        "end_time": "2026-11-25T10:03:47.824359+00:00",
-        "duration_ms": 0.01,
+        "start_time": "2026-11-26T09:30:30.940572+00:00",
+        "end_time": "2026-11-26T09:30:30.940577+00:00",
+        "duration_ms": 0.0,
         "details": {}
       },
       {
         "stage_name": "compilation",
-        "start_time": "2026-11-25T10:03:47.824366+00:00",
-        "end_time": "2026-11-25T10:03:47.853892+00:00",
-        "duration_ms": 29.52,
+        "start_time": "2026-11-26T09:30:30.940584+00:00",
+        "end_time": "2026-11-26T09:30:30.964831+00:00",
+        "duration_ms": 24.25,
         "details": {}
       },
       {
         "stage_name": "product_council",
-        "start_time": "2026-11-25T10:03:47.897756+00:00",
-        "end_time": "2026-11-25T10:03:48.000758+00:00",
-        "duration_ms": 103.0,
+        "start_time": "2026-11-26T09:30:31.139101+00:00",
+        "end_time": "2026-11-26T09:30:31.235002+00:00",
+        "duration_ms": 95.9,
         "details": {}
       }
     ],
-    "total_duration_ms": 151.77,
+    "total_duration_ms": 138.88,
     "audit_summary": {
       "estimated_total_compute_usd": 5.2504,
       "render_budget_ceiling_usd": 50.0,
@@ -12115,7 +12649,11 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 2,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 96.69,
+      "promoted_takes_count": 2,
+      "treatment_slides_count": 10,
+      "revision_deltas_count": 0
     },
     "metadata": {
       "estimated_total_compute_usd": 5.2504,
@@ -12125,13 +12663,17 @@
       "continuity_breaks_detected": 0,
       "motion_graphics_cues_count": 2,
       "otio_coherence_score": 100.0,
-      "otio_conflicts_count": 0
+      "otio_conflicts_count": 0,
+      "render_qa_score": 96.69,
+      "promoted_takes_count": 2,
+      "treatment_slides_count": 10,
+      "revision_deltas_count": 0
     },
     "artifact_checksums": {
-      "production_bundle.json": "4088f918c45cc540e188e82f096c329f1674f8014271cef6ba98e866cd09723d",
-      "storyboard_preview.html": "9f269354dcdadb596024c1bdecbde6594d5902a628aa89e2961d66111cdbc8eb",
-      "council_report.json": "b3ec10cdcb5caa2f78cc8ccfee22c6c2da79a69f8ebb39a9b6a963f7b97b5996",
-      "council_report.md": "5f816fec4a5af4b1f0d3a6b378a5e2b9a782578e1087da11083dc9a73d3d5669",
+      "production_bundle.json": "31bcfc90e01eefd17f97fa44ac366fcd6f265aeaff048f36f960232db6bac2e5",
+      "storyboard_preview.html": "97a7be44c3af8a6d16b75ce72dd9296872f3c8c4a7a07314314a613fba91d35d",
+      "council_report.json": "3edb40413ea948ec570507b881532e01e08fdc54c51e17e5fac4afa94f8ac4b5",
+      "council_report.md": "e313fafae46e073f0941cee0a126fb6b52f63cc36a8dbcb3267a8308cd1a6222",
       "timeline.edl": "2474883a4f7e6285c07876ae9865d4710db27d7b1d52ff0f761025969c771171",
       "sequence.fcpxml": "adbc37aa487794ca293ef50b55a3c10a2dc8cbf62d4e6d4e550ff1b147fb945e",
       "shot_list.csv": "9f952d7eebeece6c9defba91fda2c08472817a40655e695c179c92680da9dd21",
@@ -12155,8 +12697,8 @@
       "studio_lighting_plot.json": "6522c4a78a2eaf6482d3d21cc4cc30b4ad530b16eaa5c211a16c6ed051ffc14c",
       "gaffer_callsheet.csv": "7e436e59f925689bd084e923d7d2d099946e7d04023c88449594fee61b1af828",
       "gaffer_call_sheet.csv": "7e436e59f925689bd084e923d7d2d099946e7d04023c88449594fee61b1af828",
-      "dof_chart.json": "8ac06f9731ad8e3bd0f70f3146377b3059b675062c39fcd25abbda9a10ef679e",
-      "focus_puller_cue_sheet.csv": "c7404f4827cda0380dfc1904cfba993948c4f0212b77ea8d02d00207ef861846",
+      "dof_chart.json": "f037a91dfe5337c977bccb7d594be92e156517c3de2f9c869e8ff8445e3dae77",
+      "focus_puller_cue_sheet.csv": "54441fa02ae78d0432bf12c8552e1c3d4316742f7be6473e3f981b76c5df530f",
       "production_look.cube": "def01fdedcb1df74e8f01160ffcb60dac98ef204407400aba4457e927444c053",
       "dit_cart_manifest.json": "7c33e361374970bb5d90169a7de4af63253eefdada2badeace3f9ecea6d48d7c",
       "spatial_audio_adm.json": "000a276c7594441eb5f2b81010c7e947fbbad68ca838dcb8be32d7ffa2b047dd",
@@ -12183,12 +12725,12 @@
       "film_emulation_spec.json": "efa4d4949ea3a61ac7fe6afbed25da2c1e4a074573284b607c79d6731b2c8467",
       "film_stock_shader.dctl": "255ff7cb535010d280ebb1368d92450844b9f34a28bcdbbdf9848a2dbdb93ee2",
       "film_stock.ale": "9e8d53c9eb129c3f2b533f94d1b89f6870397b45fca0189c697babea1e936bfe",
-      "slate_manifest.json": "a05875b8df8fcf509c501473d2ba318d39162f432ed62ec90d01fdc30f3a41f2",
-      "asc_mhl_manifest.xml": "fd727ad7d0c8bab7c415651183d08a1bedf84a426530fd52bfe8e48f804aaae6",
+      "slate_manifest.json": "25bdc2ef235c0b01e1aca0868c7f3a6abe1ce7a51f12fbcf0c93159ce197b1c5",
+      "asc_mhl_manifest.xml": "e768d2b7d8328aaf7a56baed48bdb397f189cfb77931ef5212d680f484399dba",
       "clapper_slate_log.csv": "d93f399d115ca9452a9d32c3271e8c5329faeb6e5043fb1050d2fdb6973bfef6",
       "sound_sync.ale": "159bfded9e1cefa099793218ea2e23b8b1362c99c131d24b6ec54da650d55781",
       "flight_path.kml": "a2f8ac7f2eac7b5f42d4285a7d80dbd1ea92b62bdc8d20417e2f3c2795eb69f3",
-      "flight_waypoints.gpx": "481b9714561d0edbd73736a9878acbc0efc8ad6797d35ea96073f0faef7626da",
+      "flight_waypoints.gpx": "6c69cc49b72f8d3c57842607133c34a1f9fbfcb8ca417d148250fb908da16c19",
       "drone_flight_sheet.csv": "80e1aa963046da59227bd76bcd19e27257c94c9d92c3ce4f74b686fc10c93882",
       "drone_flight_sheet.md": "087ebfa038de9fa259da81885bd9a31bf57d2619b9f0ce995faf127f7a19adb8",
       "drone_flight_manifest.json": "3ea1839d2a6435c324237d99c291c52adc22d41ce8bd9489a493604156d5229a",
@@ -12211,8 +12753,8 @@
       "review_notes_frameio.json": "9d838b045aa8692ef5932559bcf09be84275f5f85c8224cfe6a2c54023fecefa",
       "review_notes.csv": "c034f215748086b2795dea525f8252a4f28c379f5b5c4eee5e0b20676bc33d8c",
       "client_signoff_report.md": "0633e6f22e7fd9cc6976a4c08474be1378c30b2e6894d8d87ae63ac238ff8ba7",
-      "c2pa_manifest.json": "90b64e90ac0acd73c441bae21d123dc4eeb92ffc1140a12e6f5bce4d304a930a",
-      "ai_disclosure_certificate.md": "921873d3e9aa85bf64ced325850e3163273a7e5d34e615857a4b9646816629b3",
+      "c2pa_manifest.json": "d224769d46bca24a08e83721e11b751ba4fade1c45edfbf27a7d8cbacea64a6c",
+      "ai_disclosure_certificate.md": "0c8deac24ed6212158d2cc4ae3361f9dedb169858a49926554c740e841f5600b",
       "likeness_consent_ledger.csv": "145b9198659f089351e1583cc2ea08d6a52003dfd7a6fc5fd1baed99614a2f48",
       "safety_bulletin.md": "3f27bf2f07366a6d1980626c59f524edbb6ac0249657caf2e191c8a3088b675d",
       "safety_jsa_matrix.csv": "51b5138595b1efb74ec10d8b99a01bc35bca05e961da9274da6b3cd48192a04d",
@@ -12235,7 +12777,19 @@
       "render_economics_manifest.json": "1754bbb61c1a69bddbd975fed3ae03518bde5ad0b6055b31246246f2197e6199",
       "take_variant_ledger.csv": "eef697caa769709846c459ae873001d014669c385b47c58f5c4e0953be498663",
       "ai_compute_estimate.md": "63b2e860bd1d40ae2a42de4448f09f879c59d95b509593037ef37c33ee956b81",
-      "council_audit_report.json": "b3ec10cdcb5caa2f78cc8ccfee22c6c2da79a69f8ebb39a9b6a963f7b97b5996",
+      "motion_graphics_mogrt.json": "05f56b8c767532c4dfd551b317f8c1b50757dc7b82133d76da722cb26ec9883d",
+      "broadcast_supers.ass": "3fa218ffac18185bd88e95c29f792cda3794ef1291858e95916bb06b1307c12e",
+      "brand_endcard_spec.md": "2978728f8e2a0df193728563edff1a60f95678ed3e6f2a50b2579e188482b990",
+      "production_timeline.otio": "44f82e901936aac028e777daabed65ac130c4ea9b10f83b0a0acbf62f5779bbb",
+      "coherence_matrix.json": "fd1f3450b04f15ea17cc02fca5ea41c5ab0d642c1ea23227f07214f72ffab2b8",
+      "coherence_readiness_report.md": "393077e8058b1dc19427cc6cd9bb2e3040091db56ef911834de32ca5c568772c",
+      "render_job_manifest.json": "45f07f3c0b96a543b3b5f8b3f7922567f66f02c47ec8bec233058b5078ddf119",
+      "take_qa_scorecard.csv": "e6574a55555186e9d7ed3bdd88c1bcb0625fbb85b09142375a0ed6120a678bfc",
+      "rough_cut_assembly.sh": "0f46ab84e5104307a2f8cdcc6df20803fc4df0d78311c7dab11a9d08327f7eb6",
+      "director_treatment_lookbook.html": "f523096c7b2421034e193991657a1ef3663e5be14948423da6aeada55a8ae56a",
+      "director_treatment_brief.md": "b8ca6b9f993efaadf0405e502bdb9f70079d7bc672022837a3f55355a4571173",
+      "pitch_treatment_manifest.json": "fa11db5e0195900cb36d9dc2a4a25d4d230056d8d0032dc0ae4360c4f8a01f84",
+      "council_audit_report.json": "3edb40413ea948ec570507b881532e01e08fdc54c51e17e5fac4afa94f8ac4b5",
       "storyboards/anchor1_character_turnaround.svg": "9dd047344bc05a328dc994056be2b82e5e8cacf07325a8c6927a5ccab01cadff",
       "storyboards/anchor2_environment_master.svg": "80a0fb2ebe918241aa3e9ae74249335c4d21b7aeed62da444b86b66ead4c2293",
       "storyboards/anchor3_scene_1_keyframe.svg": "947d6d5380ec25dffe62c6f15c49348d747e2e51405cc8b446c8482bfeac20ff",
@@ -12253,16 +12807,16 @@
     }
   },
   "council_report": {
-    "version": "2.17.0",
+    "version": "2.18.0",
     "project_title": "Solarpunk Architectural Sanctuary Featur",
-    "timestamp": "2026-11-25T10:03:47.993103+00:00",
-    "overall_score": 98.0,
+    "timestamp": "2026-11-26T09:30:31.231049+00:00",
+    "overall_score": 100.0,
     "passed": true,
     "critical_findings_count": 0,
     "reviews": [
       {
         "persona": "council-fde",
-        "score": 23.0,
+        "score": 25.0,
         "max_score": 25.0,
         "passed": true,
         "persona_title": "",
@@ -12595,13 +13149,13 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "motion_graphics_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).",
-            "remediation": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
+            "message": "Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "motion_graphics_artifacts": [
                 "motion_graphics_mogrt.json",
                 "broadcast_supers.ass",
                 "brand_endcard_spec.md"
@@ -12609,16 +13163,44 @@
             }
           },
           {
-            "severity": "warning",
+            "severity": "info",
             "category": "otio_coherence_delivery",
-            "message": "NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).",
-            "remediation": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
-            "suggested_fix": "Run export_otio_coherence_bundle() or export_all_nle_artifacts().",
+            "message": "OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md.",
+            "remediation": null,
+            "suggested_fix": null,
             "details": {
-              "missing_artifacts": [
+              "otio_artifacts": [
                 "production_timeline.otio",
                 "coherence_matrix.json",
                 "coherence_readiness_report.md"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_job_delivery",
+            "message": "Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "render_job_artifacts": [
+                "render_job_manifest.json",
+                "take_qa_scorecard.csv",
+                "rough_cut_assembly.sh"
+              ]
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_delivery",
+            "message": "Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "pitch_treatment_artifacts": [
+                "director_treatment_lookbook.html",
+                "director_treatment_brief.md",
+                "pitch_treatment_manifest.json"
               ]
             }
           },
@@ -12751,17 +13333,42 @@
           {
             "severity": "info",
             "category": "otio_coherence_schema",
-            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=d6a457ef70be..., coherence_score=100.0, shoot_day_ready=True).",
+            "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=44f82e901936..., coherence_score=100.0, shoot_day_ready=True).",
             "remediation": null,
             "suggested_fix": null,
             "details": {
               "schema_version": "OTIO_0.16_COMPAT",
               "track_count": 7,
-              "otio_sha256_prefix": "d6a457ef70be"
+              "otio_sha256_prefix": "44f82e901936"
+            }
+          },
+          {
+            "severity": "info",
+            "category": "render_jobs_schema",
+            "message": "MasterRenderJobManifest verified (2 job(s), 2026 Model Matrix compliant, overall_qa_score=96.7, assembly_ready=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "jobs_count": 2,
+              "model_ids": [
+                "gemini-omni-1.1-flash-preview"
+              ],
+              "overall_qa_score": 96.69
+            }
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema",
+            "message": "MasterPitchTreatmentSpec verified (id=pt-a069576b42, 10 board(s), domain=architectural_sanctuary).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "treatment_id": "pt-a069576b42",
+              "slides_count": 10
             }
           }
         ],
-        "summary": "FDE review completed with score 23.0/25.0. 37 findings."
+        "summary": "FDE review completed with score 25.0/25.0. 41 findings."
       },
       {
         "persona": "council-agent-engineer",
@@ -12966,6 +13573,22 @@
           },
           {
             "severity": "info",
+            "category": "render_orchestrator_schema_compliance",
+            "message": "Render Orchestrator & Mode B Frame-Anchor Continuity verified (overall_qa_score=96.7, assembly_ready=True, handoffs=0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "pitch_treatment_schema_compliance",
+            "message": "MasterPitchTreatmentSpec contract verified (10 board slides, token present=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "audit_report_continuity_and_review_compliance",
             "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
             "remediation": null,
@@ -13000,6 +13623,14 @@
             "severity": "info",
             "category": "audit_report_gfx_and_otio_compliance",
             "message": "Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "audit_report_render_and_treatment_compliance",
+            "message": "Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 2 scene(s).",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13394,6 +14025,30 @@
           },
           {
             "severity": "info",
+            "category": "domain_render_qa_calibration",
+            "message": "Domain-calibrated Live-Render QA verified for 'architectural_sanctuary' (overall_qa_score=96.7 >= 90.0, min_temporal=94.0, min_ref_fidelity=94.0).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "overall_qa_score": 96.69,
+              "assembly_ready": true
+            }
+          },
+          {
+            "severity": "info",
+            "category": "domain_pitch_treatment_calibration",
+            "message": "Executive Director's Treatment calibrated for 'architectural_sanctuary' (tone='Serene Spatial Minimalism & Quiet Light Choreography', slides=10, budget_roi_summary=True).",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": {
+              "domain": "architectural_sanctuary",
+              "slides_count": 10,
+              "hero_kpi_focus": "Atmospheric Affinity & Brand Sanctuary Recall"
+            }
+          },
+          {
+            "severity": "info",
             "category": "domain_cross_alignment",
             "message": "Domain cross-alignment verified: explicit domain_archetype 'architectural_sanctuary' matches strategic brief classification.",
             "remediation": null,
@@ -13638,6 +14293,22 @@
           },
           {
             "severity": "info",
+            "category": "animatic_render_jobs_hud",
+            "message": "Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
+            "category": "animatic_pitch_treatment_hud",
+            "message": "Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_departmental_toolbar",
             "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
             "remediation": null,
@@ -13655,7 +14326,7 @@
           {
             "severity": "info",
             "category": "animatic_hotkey_collision",
-            "message": "Zero duplicate JS keydown hotkey bindings verified across 64 key checks.",
+            "message": "Zero duplicate JS keydown hotkey bindings verified across 66 key checks.",
             "remediation": null,
             "suggested_fix": null,
             "details": null
@@ -13694,6 +14365,14 @@
           },
           {
             "severity": "info",
+            "category": "animatic_hotkeys_backtick_minus",
+            "message": "Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+            "remediation": null,
+            "suggested_fix": null,
+            "details": null
+          },
+          {
+            "severity": "info",
             "category": "animatic_aicp_real_data",
             "message": "AICP HUD real-data binding verified ($203,145.74 matches master_aicp_bid).",
             "remediation": null,
@@ -13704,10 +14383,7 @@
         "summary": "UX Designer review completed with score 25.0/25.0."
       }
     ],
-    "recommendations": [
-      "Run export_motion_graphics_bundle() or export_all_nle_artifacts().",
-      "Run export_otio_coherence_bundle() or export_all_nle_artifacts()."
-    ],
+    "recommendations": [],
     "pm_persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
     "pm_recommendations": [
       {
@@ -14253,6 +14929,50 @@
           "omni_director/tools/html_hud_v212.py",
           "omni_director/tools/html_hud_v216.py",
           "omni_director/tools/html_hud_v217.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-035",
+        "title": "Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+        "problem_statement": "Production pipelines for 'Solarpunk Architectural Sanctuary Featur' transitioning from dry-run storyboards to live video rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg rough-cut assembly scripts.",
+        "proposed_solution": "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/render_orchestrator.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
+          "omni_director/agents/agent.py",
+          "omni_director/agents/council.py",
+          "omni_director/tools/nle_export.py",
+          "omni_director/telemetry.py"
+        ],
+        "priority": "P0",
+        "status": "implemented"
+      },
+      {
+        "feature_id": "PM-FEAT-036",
+        "title": "Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+        "problem_statement": "Executive stakeholders and agency creative directors for 'Solarpunk Architectural Sanctuary Featur' lack a print-ready director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision diff engine comparing Bible iterations and council scores.",
+        "proposed_solution": "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment).",
+        "target_modules": [
+          "omni_director/schemas.py",
+          "omni_director/tools/pitch_treatment.py",
+          "omni_director/presets.py",
+          "omni_director/tools/prompt_auditor.py",
+          "omni_director/tools/html_compiler.py",
+          "omni_director/tools/html_hud_v212.py",
+          "omni_director/tools/html_hud_v216.py",
+          "omni_director/tools/html_hud_v218.py",
           "omni_director/agents/agent.py",
           "omni_director/agents/council.py",
           "omni_director/tools/nle_export.py",

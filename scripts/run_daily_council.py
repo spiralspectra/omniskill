@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.17.0).
+"""Autonomous Daily Product Council & PM Feature Release Runner for Omni Movie Director (v2.18.0).
 
 Executes the automated daily product management, feature verification, quality assurance, and release routine:
 1. Preflight environment & 2026 Model Matrix health diagnostics (run_doctor).
@@ -136,7 +136,7 @@ CANONICAL_SHOWCASES = [
 
 def bump_project_version(bump_type: str) -> str:
     """Bumps semantic version across pyproject.toml, omni_director/__init__.py, doctor.py, schemas.py, and CHANGELOG.md using targeted regexes."""
-    current = getattr(omni_director, "__version__", "2.17.0")
+    current = getattr(omni_director, "__version__", "2.18.0")
     parts = [int(x) for x in current.split(".")[:3]]
     while len(parts) < 3:
         parts.append(0)
@@ -166,6 +166,7 @@ def bump_project_version(bump_type: str) -> str:
             (re.compile(rf'^(\s*version:\s*str\s*=\s*"){escaped_cur}(")', re.MULTILINE), rf"\g<1>{new_ver}\g<2>"),
         ],
         REPO_ROOT / "omni_director" / "tools" / "drone_flight.py": [
+            (re.compile(rf'^(\s*_OMNI_VERSION\s*=\s*"){escaped_cur}(")', re.MULTILINE), rf"\g<1>{new_ver}\g<2>"),
             (re.compile(rf'(creator="OmniDirector-v){escaped_cur}(")'), rf"\g<1>{new_ver}\g<2>"),
         ],
         REPO_ROOT / "scripts" / "run_daily_council.py": [
@@ -212,7 +213,7 @@ def run_daily_council(
         active_version = bump_project_version(bump_version)
         print(f"🔖 Bumped project version to v{active_version}")
     else:
-        active_version = getattr(omni_director, "__version__", "2.17.0")
+        active_version = getattr(omni_director, "__version__", "2.18.0")
 
     start_time = datetime.datetime.now(datetime.timezone.utc)
     print("=" * 70)
@@ -254,7 +255,7 @@ def run_daily_council(
                 output_dir=str(out_path),
                 dry_run=True,
                 render_video=False,
-                run_council=True,
+                run_council=False,
             )
 
             # Export PM-mandated NLE, Post-Production, Continuity & Client Review Artifacts into each showcase bundle
@@ -268,10 +269,43 @@ def run_daily_council(
             exported_artifacts["srt"] = str(srt_file)
             exported_artifacts["vtt"] = str(vtt_file)
 
-            # Refresh telemetry manifest so all exported NLE, HDR, Stripboard, Film, Slate, Reframe, Broadcast QC, Continuity & Review artifacts are SHA-256 verified
-            pipeline.telemetry.write_manifest(out_path)
+            # Refresh telemetry manifest before council audit so all newly exported artifacts are SHA-256 verified
+            telemetry_obj = getattr(pipeline, "telemetry", None)
+            if telemetry_obj is None:
+                from omni_director.telemetry import RuntimeTelemetry
+                telemetry_obj = RuntimeTelemetry(project_title=bundle.bible.project_title)
+            telemetry_obj.write_manifest(out_path)
+            bundle.telemetry = telemetry_obj.to_dict()
 
-            council_rep = bundle.council_report
+            # Run Product Council audit after NLE exports & manifest refresh
+            with telemetry_obj.record_stage("product_council"):
+                council_rep = orchestrator.audit(bundle, output_dir=out_path)
+            bundle.council_report = council_rep
+
+            # Ensure council_report.json and council_report.md are persisted (mirroring DirectorPipeline / cli.py)
+            council_json_path = out_path / "council_report.json"
+            council_md_path = out_path / "council_report.md"
+            if not council_json_path.is_file():
+                council_json_path.write_text(
+                    json.dumps(council_rep.model_dump(), indent=2), encoding="utf-8"
+                )
+            if not council_md_path.is_file():
+                council_md_path.write_text(
+                    orchestrator.generate_markdown_report(council_rep), encoding="utf-8"
+                )
+
+            # Sync bundle.telemetry & bundle.council_report into production_bundle.json and refresh telemetry manifest
+            telemetry_obj.write_manifest(out_path)
+            bundle.telemetry = telemetry_obj.to_dict()
+            bundle_json_file = (
+                Path(bundle.bundle_json_path)
+                if getattr(bundle, "bundle_json_path", None)
+                else (out_path / "production_bundle.json")
+            )
+            bundle_json_file.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+            telemetry_obj.write_manifest(out_path)
+            bundle.telemetry = telemetry_obj.to_dict()
+
             overall_score = float(getattr(council_rep, "overall_score", 90.0))
             passed = bool(getattr(council_rep, "passed", True))
             council_scores.append(overall_score)

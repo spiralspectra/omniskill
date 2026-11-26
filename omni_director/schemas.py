@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.17.0"
+__version__ = "2.18.0"
 
 
 class RegimeType(str, Enum):
@@ -3392,6 +3392,160 @@ class MasterOtioCoherenceManifest(BaseModel):
     coherence_token: str = ""
 
 
+# ==============================================================================
+# PM-FEAT-035: Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity
+# ==============================================================================
+
+
+class RenderJobStatusEnum(str, Enum):
+    """Lifecycle status for a scene live-render or simulated render job (PM-FEAT-035)."""
+    QUEUED = "queued"
+    SUBMITTED = "submitted"
+    POLLING = "polling"
+    COMPLETED = "completed"
+    QA_PASSED = "qa_passed"
+    QA_FLAGGED = "qa_flagged"
+    FAILED_RETRY = "failed_retry"
+
+
+class TakeQaScorecardSpec(BaseModel):
+    """Multi-take visual/audio QA scorecard for selecting the hero render take (PM-FEAT-035)."""
+    scene_index: int
+    take_id: str
+    seed: int
+    prompt_sha256_prefix: str = ""
+    temporal_stability_score: float = Field(default=94.0, ge=0.0, le=100.0)
+    prompt_adherence_score: float = Field(default=95.0, ge=0.0, le=100.0)
+    audio_sync_rms_db: float = -18.0
+    reference_drift_score: float = Field(default=95.0, ge=0.0, le=100.0)
+    composite_qa_score: float = Field(default=94.5, ge=0.0, le=100.0)
+    promoted_hero: bool = False
+    retry_recommended: bool = False
+
+
+class FrameAnchorHandoffSpec(BaseModel):
+    """Mode B frame-anchor continuity handoff between consecutive scene jobs (PM-FEAT-035)."""
+    from_scene_index: int
+    to_scene_index: int
+    end_frame_asset_id: str
+    end_frame_sha256: str = ""
+    previous_interaction_id: str = ""
+    luminance_delta_pct: float = 0.0
+    continuity_locked: bool = True
+
+
+class SceneRenderJobSpec(BaseModel):
+    """Per-scene render job orchestration, multi-take QA, and retry state (PM-FEAT-035)."""
+    job_id: str
+    scene_index: int
+    status: RenderJobStatusEnum = RenderJobStatusEnum.QA_PASSED
+    model_id: str = "gemini-omni-1.1-flash-preview"
+    selected_take_id: str
+    seed: int
+    interaction_id: str = ""
+    previous_interaction_id: Optional[str] = None
+    output_media_path: str = ""
+    end_frame_path: str = ""
+    qa_scorecard: TakeQaScorecardSpec
+    take_scorecards: List[TakeQaScorecardSpec] = Field(default_factory=list)
+    retry_count: int = 0
+    max_retries: int = 2
+
+    @field_validator("model_id")
+    @classmethod
+    def validate_2026_model_id(cls, value: str) -> str:
+        from omni_director.config import validate_model_identifier
+
+        if not value or not value.strip():
+            raise ValueError("SceneRenderJobSpec.model_id must not be empty.")
+        validate_model_identifier(value, "SceneRenderJobSpec.model_id")
+        return value
+
+
+class MasterRenderJobManifest(BaseModel):
+    """Master Live-Render Job Orchestrator & Multi-Take Visual QA Manifest (PM-FEAT-035)."""
+    manifest_id: str
+    project_title: str
+    domain_archetype: str = "general"
+    storytelling_mode: str = "Mode A"
+    jobs: List[SceneRenderJobSpec] = Field(default_factory=list)
+    frame_anchor_handoffs: List[FrameAnchorHandoffSpec] = Field(default_factory=list)
+    overall_qa_score: float = 95.0
+    promoted_takes_count: int = 0
+    assembly_ready: bool = True
+    render_job_token: str = ""
+
+
+# ==============================================================================
+# PM-FEAT-036: Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff
+# ==============================================================================
+
+
+class TreatmentSlideTypeEnum(str, Enum):
+    """Canonical slide roles in the Executive Director's Treatment lookbook (PM-FEAT-036)."""
+    COVER_LOGLINE = "cover_logline"
+    CREATIVE_VISION_REGIME = "creative_vision_regime"
+    COLOR_SCRIPT_PALETTE = "color_script_palette"
+    CAST_WARDROBE_POLARITY = "cast_wardrobe_polarity"
+    ENVIRONMENT_PLATES = "environment_plates"
+    SCENE_BEAT_SPREAD = "scene_beat_spread"
+    SONIC_BGM_ARC = "sonic_bgm_arc"
+    BUDGET_ROI_SUMMARY = "budget_roi_summary"
+    DELIVERABLES_SIGNOFF = "deliverables_signoff"
+
+
+class TreatmentBoardSlideSpec(BaseModel):
+    """Single presentation board slide in the Director's Pitch Treatment (PM-FEAT-036)."""
+    slide_index: int
+    slide_type: TreatmentSlideTypeEnum
+    scene_index: Optional[int] = None
+    headline: str
+    subhead: str = ""
+    narrative_copy: str = ""
+    visual_plate_ref: str = ""
+    color_swatches: List[str] = Field(default_factory=list)
+    key_metrics: Dict[str, str] = Field(default_factory=dict)
+
+
+class BibleRevisionDeltaItem(BaseModel):
+    """Single field-level delta between two MasterProductionBible revisions (PM-FEAT-036)."""
+    section: str
+    field_path: str
+    change_type: Literal["added", "removed", "modified"] = "modified"
+    previous_value: str = ""
+    current_value: str = ""
+    impact_severity: Literal["low", "medium", "high"] = "low"
+    department_owner: str = "Direction"
+
+
+class BibleRevisionDiffReport(BaseModel):
+    """Structured diff summary comparing baseline vs target MasterProductionBible (PM-FEAT-036)."""
+    baseline_title: str
+    target_title: str
+    baseline_sha256: str = ""
+    target_sha256: str = ""
+    total_changes: int = 0
+    scene_prompt_deltas_count: int = 0
+    aicp_budget_delta_usd: float = 0.0
+    render_compute_delta_usd: float = 0.0
+    council_score_delta: Optional[float] = None
+    deltas: List[BibleRevisionDeltaItem] = Field(default_factory=list)
+
+
+class MasterPitchTreatmentSpec(BaseModel):
+    """Master Executive Director's Treatment & Print-Ready Pitch Lookbook (PM-FEAT-036)."""
+    treatment_id: str
+    project_title: str
+    client_brand_label: str = "Brand Partner"
+    domain_archetype: str = "general"
+    executive_director_statement: str = ""
+    target_audience_hook: str = ""
+    slides: List[TreatmentBoardSlideSpec] = Field(default_factory=list)
+    color_script_strip: List[str] = Field(default_factory=list)
+    revision_diff: Optional[BibleRevisionDiffReport] = None
+    treatment_token: str = ""
+
+
 
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
@@ -3551,6 +3705,16 @@ class ScenePromptSpec(BaseModel):
     otio_sync_token: Optional[str] = Field(
         default=None,
         description="OpenTimelineIO frame-accurate sync token (PM-FEAT-034)"
+    )
+    render_job_spec: Optional[SceneRenderJobSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("render_job_spec", "render_job", "job_spec"),
+        description="Scene Live-Render Job Orchestrator & Multi-Take QA specification (PM-FEAT-035)"
+    )
+    treatment_spec: Optional[TreatmentBoardSlideSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("treatment_spec", "pitch_slide"),
+        description="Scene Executive Director's Treatment & Pitch Lookbook slide specification (PM-FEAT-036)"
     )
 
     @model_validator(mode="before")
@@ -4183,6 +4347,16 @@ class MasterProductionBible(BaseModel):
         validation_alias=AliasChoices("master_otio_coherence", "otio_coherence_manifest", "otio_manifest"),
         description="Master OpenTimelineIO Multi-Track & Cross-Department Coherence Manifest (PM-FEAT-034)"
     )
+    master_render_jobs: Optional[MasterRenderJobManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_render_jobs", "render_jobs_manifest", "render_job_manifest"),
+        description="Master Live-Render Job Orchestrator & Multi-Take Visual QA Manifest (PM-FEAT-035)"
+    )
+    master_pitch_treatment: Optional[MasterPitchTreatmentSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_pitch_treatment", "pitch_treatment", "director_treatment"),
+        description="Master Executive Director's Treatment & Print-Ready Pitch Lookbook Manifest (PM-FEAT-036)"
+    )
     @field_validator("nano_banana_assets")
     @classmethod
     def validate_reference_ceiling(cls, assets: List[NanoBananaReference]) -> List[NanoBananaReference]:
@@ -4555,6 +4729,8 @@ class AuditResult(BaseModel):
     render_economics_compliant: bool = True
     motion_graphics_compliant: bool = True
     otio_coherence_compliant: bool = True
+    render_orchestrator_compliant: bool = True
+    pitch_treatment_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -4669,7 +4845,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.17.0"
+    version: str = "2.18.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -5006,6 +5182,18 @@ __all__ = [
     "CrossDeptCoherenceCheck",
     "OtioTrackSummarySpec",
     "MasterOtioCoherenceManifest",
+    # PM-FEAT-035: Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity
+    "RenderJobStatusEnum",
+    "TakeQaScorecardSpec",
+    "FrameAnchorHandoffSpec",
+    "SceneRenderJobSpec",
+    "MasterRenderJobManifest",
+    # PM-FEAT-036: Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff
+    "TreatmentSlideTypeEnum",
+    "TreatmentBoardSlideSpec",
+    "BibleRevisionDeltaItem",
+    "BibleRevisionDiffReport",
+    "MasterPitchTreatmentSpec",
     "load_bible_from_json",
 ]
 

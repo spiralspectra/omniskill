@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Quantum Computing Silicon Proce — Executive Director's Lookbook</title>
+  <style>
+    :root {
+      --bg-cinema: #090C12;
+      --bg-panel: #111622;
+      --border-subtle: rgba(148, 163, 184, 0.22);
+      --ink-primary: #F8FAFC;
+      --ink-secondary: #94A3B8;
+      --accent-primary: #94A3B8;
+      --accent-warm: #38BDF8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--bg-cinema);
+      color: var(--ink-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      line-height: 1.5;
+    }
+    .lookbook-masthead {
+      max-width: 1200px;
+      margin: 0 auto 24px auto;
+      padding: 20px 24px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .masthead-title h1 { margin: 0 0 4px 0; font-size: 1.4rem; }
+    .masthead-title p { margin: 0; color: var(--ink-secondary); font-size: 0.9rem; }
+    .swatch-strip { display: flex; gap: 10px; flex-wrap: wrap; }
+    .swatch-chip { display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-subtle); font-size: 0.78rem; }
+    .swatch-color { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+    .lookbook-deck { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+    .lookbook-slide {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      page-break-after: always;
+      break-after: page;
+    }
+    .lookbook-slide:last-of-type {
+      page-break-after: auto;
+      break-after: auto;
+    }
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+    }
+    .slide-kicker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
+    }
+    .slide-swatches { display: flex; gap: 6px; }
+    .mini-swatch { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); }
+    .slide-body {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .slide-body { grid-template-columns: 1fr; }
+    }
+    .slide-copy h2 { margin: 0 0 8px 0; font-size: 1.45rem; }
+    .slide-subhead { margin: 0 0 12px 0; color: var(--accent-warm); font-weight: 600; font-size: 0.95rem; }
+    .slide-narrative { margin: 0 0 16px 0; color: #E2E8F0; font-size: 0.96rem; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .metric-pill {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .metric-k { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-secondary); }
+    .metric-v { display: block; font-size: 0.9rem; font-weight: 600; color: var(--ink-primary); }
+    .slide-plate-wrap {
+      background: #05070B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .slide-plate-wrap svg, .plate-img { width: 100%; height: auto; display: block; border-radius: 6px; }
+    .nb-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+    .nb-card { border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px; background: rgba(15, 23, 42, 0.55); }
+    .nb-plate svg { width: 100%; height: auto; display: block; border-radius: 4px; }
+    .nb-meta { font-size: 0.75rem; margin-top: 6px; color: var(--ink-secondary); }
+    .sonic-box { border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; background: rgba(15, 23, 42, 0.55); font-size: 0.85rem; }
+    .stem-list { margin: 8px 0 0 18px; padding: 0; }
+    .slide-footer {
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      color: var(--ink-secondary);
+    }
+    .diff-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 12px; }
+    .diff-table th, .diff-table td { border: 1px solid var(--border-subtle); padding: 8px; text-align: left; vertical-align: top; }
+    .diff-table th { background: rgba(15, 23, 42, 0.85); color: var(--accent-primary); }
+    @media print {
+      @page { size: landscape; margin: 12mm; }
+      body { background: #FFFFFF; color: #0F172A; padding: 0; }
+      .lookbook-masthead, .lookbook-slide, .metric-pill, .sonic-box, .nb-card {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+        border-color: #CBD5E1 !important;
+      }
+      .slide-narrative, .nb-meta, .slide-footer, .masthead-title p { color: #334155 !important; }
+      .slide-kicker { color: #0369A1 !important; }
+      .slide-subhead { color: #B45309 !important; }
+      .lookbook-slide { page-break-after: always; break-after: page; margin-bottom: 0; box-shadow: none; }
+      .lookbook-slide:last-of-type { page-break-after: auto; break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="lookbook-masthead">
+    <div class="masthead-title">
+      <h1>Advanced Quantum Computing Silicon Proce — Director's Pitch Lookbook</h1>
+      <p>Quantum Nanotech Semiconductor Labs · tech_hardware · Hook: Sub-millimeter industrial elegance engineered for instant flagship authority.</p>
+    </div>
+    <div class="swatch-strip"><div class="swatch-chip"><span class="swatch-color" style="background:#030712;"></span><span class="swatch-code">#030712</span></div><div class="swatch-chip"><span class="swatch-color" style="background:#38BDF8;"></span><span class="swatch-code">#38BDF8</span></div><div class="swatch-chip"><span class="swatch-color" style="background:#94A3B8;"></span><span class="swatch-code">#94A3B8</span></div><div class="swatch-chip"><span class="swatch-color" style="background:#F8FAFC;"></span><span class="swatch-code">#F8FAFC</span></div><div class="swatch-chip"><span class="swatch-color" style="background:#111827;"></span><span class="swatch-code">#111827</span></div><div class="swatch-chip"><span class="swatch-color" style="background:#374151;"></span><span class="swatch-code">#374151</span></div></div>
+  </header>
+  <main class="lookbook-deck">
+    <section class="lookbook-slide" data-slide-type="cover_logline">  <header class="slide-header">    <div class="slide-kicker">BOARD 01 · COVER_LOGLINE</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span><span class="mini-swatch" style="background:#111827;" title="#111827"></span><span class="mini-swatch" style="background:#374151;" title="#374151"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Advanced Quantum Computing Silicon Proce</h2>      <p class="slide-subhead">Quantum Nanotech Semiconductor Labs · tech_hardware · Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft</p>      <p class="slide-narrative">Advanced quantum computing silicon processor hardware fabrication sequence inside an ultra-sterile cleanroom. Precision CNC robotic arm positions a monolithic semiconductor chip wafer beneath laser etching beams, revealing intricate nanoscale circuit pathways, gold wire bonds, and an anodized aluminum cryo-chamber enclosure.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">client_brand</span><span class="metric-v">Quantum Nanotech Semiconductor Labs</span></div><div class="metric-pill"><span class="metric-k">runtime</span><span class="metric-v">10s</span></div><div class="metric-pill"><span class="metric-k">aspect_ratio</span><span class="metric-v">16:9</span></div><div class="metric-pill"><span class="metric-k">storytelling_mode</span><span class="metric-v">Mode A: Parallel Multi-Scene Cut (Montage)</span></div><div class="metric-pill"><span class="metric-k">executive_tone</span><span class="metric-v">Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft</span></div></div>      <div class="nb-strip"><div class="nb-card"><div class="nb-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: CLEANROOM NANOTECH SYSTEMS ENGINEER | SILHOUETTE: Methodical ergonomic posture inside sterile cleanr...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Cleanroom white Gore-Tex antistatic suit with...
+  </text>
+</svg></div><div class="nb-meta"><strong>&lt;image_1&gt;</strong><p>Hero Character Turnaround Reference Sheet</p></div></div><div class="nb-card"><div class="nb-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="702" x2="1920" y2="702" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="702" x2="192" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="576" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1344" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1728" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="96" y="162" width="422" height="486" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="307" y1="162" x2="307" y2="648" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="324" x2="518" y2="324" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="486" x2="518" y2="486" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="96,162 518,162 1632,1080 480,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="194" x2="960" y2="702" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="194" x2="1920" y2="194" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: TECH HARDWARE SANCTUARY | ARCHITECTURE: Architectural space styled for tech hardware...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Cleanroom 5000K pure white illumination with ...
+  </text>
+</svg></div><div class="nb-meta"><strong>&lt;image_2&gt;</strong><p>Master Architectural Environment Anchor</p></div></div><div class="nb-card"><div class="nb-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sceneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sceneGrad)"/>
+
+  <!-- SMPTE Safe Guides -->
+  <rect class="safe-guide-action" x="96" y="54" width="1728" height="972" fill="none" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,6" opacity="0.6"/>
+  <rect class="safe-guide-title" x="192" y="108" width="1536" height="864" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+
+  <!-- Depth Staging Grid -->
+  <circle cx="960" cy="540" r="378" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  <circle cx="960" cy="540" r="216" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="540" r="86" fill="none" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Dynamic Vector Arrow -->
+  <path d="M 696 729 Q 960 540 1224 729" fill="none" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="1224,729 1204,714 1209,739" fill="#94A3B8"/>
+
+  <!-- Center Action Node -->
+  <circle cx="960" cy="540" r="16" fill="#38BDF8"/>
+  <line x1="960" y1="460" x2="960" y2="620" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="880" y1="540" x2="1040" y2="540" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Top Bar -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#38BDF8" letter-spacing="2">
+    SCENE 1: ADVANCED QUANTUM COMPUTING SILICON PROCE - INITIATION
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#94A3B8" text-anchor="end">
+    WINDOW: 00:00 - 00:05 | Regime 2
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0B132B" stroke="#1C2541" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#38BDF8">
+    CRAFT RIG: CNC Motion Control Arm with 85mm Macro Prime and laser-guided rack focus (85mm) | Wide establishing shot with centered horizon and geometric symmetry | Route: Smooth forward dolly along the central camera axis
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#F43F5E" text-anchor="end">
+    PHYSICS: 1.0X REALTIME LOCK | SEEDANCE KINETIC ENGINE
+  </text>
+</svg></div><div class="nb-meta"><strong>&lt;image_3&gt;</strong><p>Scene 1 Composition Keyframe</p></div></div></div>    </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: CLEANROOM NANOTECH SYSTEMS ENGINEER | SILHOUETTE: Methodical ergonomic posture inside sterile cleanr...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Cleanroom white Gore-Tex antistatic suit with...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC01 | slide=cover_logline | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="creative_vision_regime">  <header class="slide-header">    <div class="slide-kicker">BOARD 02 · CREATIVE_VISION_REGIME</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Creative Vision &amp; Storytelling Regime</h2>      <p class="slide-subhead">Regime 2: High-Kinetic &amp; Precision Commercial · Mode A: Parallel Multi-Scene Cut (Montage)</p>      <p class="slide-narrative">Advanced Quantum Computing Silicon Proce reveals precision industrial design through locked-off MoCo macro optics. Structured in Regime 2: High-Kinetic &amp; Precision Commercial (Mode A: Parallel Multi-Scene Cut (Montage)) over 10s, specular highlights and chamfered aluminum reflections reinforce Product Detail Comprehension &amp; Hardware Desire.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">creative_regime</span><span class="metric-v">Regime 2: High-Kinetic &amp; Precision Commercial</span></div><div class="metric-pill"><span class="metric-k">storytelling_mode</span><span class="metric-v">Mode A: Parallel Multi-Scene Cut (Montage)</span></div><div class="metric-pill"><span class="metric-k">executive_tone</span><span class="metric-v">Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft</span></div><div class="metric-pill"><span class="metric-k">hero_kpi_focus</span><span class="metric-v">Product Detail Comprehension &amp; Hardware Desire</span></div><div class="metric-pill"><span class="metric-k">audience_hook</span><span class="metric-v">Sub-millimeter industrial elegance engineered for instant flagship authority.</span></div></div>          </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: CLEANROOM NANOTECH SYSTEMS ENGINEER | SILHOUETTE: Methodical ergonomic posture inside sterile cleanr...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Cleanroom white Gore-Tex antistatic suit with...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC02 | slide=creative_vision_regime | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="color_script_palette">  <header class="slide-header">    <div class="slide-kicker">BOARD 03 · COLOR_SCRIPT_PALETTE</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span><span class="mini-swatch" style="background:#111827;" title="#111827"></span><span class="mini-swatch" style="background:#374151;" title="#374151"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Color Script &amp; Optical Look Science</h2>      <p class="slide-subhead">Look: rec709_neutral · Rec.709 · 5600K Key</p>      <p class="slide-narrative">Master palette #030712, #38BDF8, #94A3B8, #F8FAFC, #111827, #374151 calibrated in Rec.709 with rec709_neutral tonal curve and 5600K primary illumination.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">look_preset</span><span class="metric-v">rec709_neutral</span></div><div class="metric-pill"><span class="metric-k">working_color_space</span><span class="metric-v">Rec.709</span></div><div class="metric-pill"><span class="metric-k">key_kelvin</span><span class="metric-v">5600K</span></div><div class="metric-pill"><span class="metric-k">swatch_count</span><span class="metric-v">6</span></div></div>          </div>    <div class="slide-plate-wrap"><svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Color Script &amp; Optical Look Science"><defs><linearGradient id="ptGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#1E293B"/></linearGradient></defs><rect width="640" height="360" fill="url(#ptGrad)" rx="8"/><rect x="24" y="24" width="592" height="312" fill="none" stroke="#94A3B8" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="6 4"/><line x1="213" y1="24" x2="213" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="426" y1="24" x2="426" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="128" x2="616" y2="128" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="232" x2="616" y2="232" stroke="#FFFFFF" stroke-opacity="0.12"/><circle cx="320" cy="180" r="46" fill="none" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.75"/><text x="320" y="185" text-anchor="middle" fill="#F8FAFC" font-family="ui-monospace, monospace" font-size="15">Color Script &amp; Optical Look Science</text><text x="40" y="320" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="11">OMNI 2026 NANO BANANA PLATE</text></svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC03 | slide=color_script_palette | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="cast_wardrobe_polarity">  <header class="slide-header">    <div class="slide-kicker">BOARD 04 · CAST_WARDROBE_POLARITY</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Cast, Hero Subject &amp; Wardrobe Polarity</h2>      <p class="slide-subhead">1 Character Anchor(s) · 3/3 Nano Banana References</p>      <p class="slide-narrative">Cleanroom Nanotech Systems Engineer: Methodical ergonomic posture inside sterile cleanroom envelope (Wardrobe Polarity: Cleanroom white Gore-Tex antistatic suit with matte sapphire visor; Motion: Micrometric, steady-handed vacuum wand positioning with sub-millimeter precision)</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">characters_count</span><span class="metric-v">1</span></div><div class="metric-pill"><span class="metric-k">nano_banana_refs</span><span class="metric-v">3/3</span></div><div class="metric-pill"><span class="metric-k">polarity_lock</span><span class="metric-v">ENFORCED</span></div></div>          </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: CLEANROOM NANOTECH SYSTEMS ENGINEER | SILHOUETTE: Methodical ergonomic posture inside sterile cleanr...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Cleanroom white Gore-Tex antistatic suit with...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC04 | slide=cast_wardrobe_polarity | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="environment_plates">  <header class="slide-header">    <div class="slide-kicker">BOARD 05 · ENVIRONMENT_PLATES</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Master Environment — Tech Hardware Sanctuary</h2>      <p class="slide-subhead">Key Light 5600K · 2 Geometric Invariants</p>      <p class="slide-narrative">Architectural space styled for tech hardware Lighting: Cleanroom 5000K pure white illumination with razor-thin linear specular highlights Atmosphere: Ultra-fine suspended haze catching oblique light shafts Invariants: Silicon wafer mirror finish reflects sterile yellow lithography lighting; CNC unibody chamfered edges retain micron-level geometric tolerance</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">location</span><span class="metric-v">Tech Hardware Sanctuary</span></div><div class="metric-pill"><span class="metric-k">kelvin</span><span class="metric-v">5600K</span></div><div class="metric-pill"><span class="metric-k">invariants</span><span class="metric-v">2</span></div></div>          </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="702" x2="1920" y2="702" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="702" x2="192" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="576" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1344" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1728" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="96" y="162" width="422" height="486" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="307" y1="162" x2="307" y2="648" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="324" x2="518" y2="324" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="486" x2="518" y2="486" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="96,162 518,162 1632,1080 480,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="194" x2="960" y2="702" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="194" x2="1920" y2="194" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: TECH HARDWARE SANCTUARY | ARCHITECTURE: Architectural space styled for tech hardware...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Cleanroom 5000K pure white illumination with ...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC05 | slide=environment_plates | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="scene_beat_spread">  <header class="slide-header">    <div class="slide-kicker">BOARD 06 · SCENE_BEAT_SPREAD</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>SC01: Advanced Quantum Computing Silicon Proce - Initiation</h2>      <p class="slide-subhead">00:00 - 00:05 · Regime 2: High-Kinetic &amp; Precision Commercial · 85mm · 5600K</p>      <p class="slide-narrative">Beat 1: Subject emerges into illuminated frame (00:00 - 00:02) -&gt; Beat 2: Subject engages primary movement trajectory (00:02 - 00:05) Kinetic Chain: 1. Initiation: Subject moves -&gt; 2. Contact: Foot impacts ground -&gt; 3. Transfer: Force accelerates mass -&gt; 4. Evidence: Surface dust shifts -&gt; 5. Recovery: Stable stance.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">scene_index</span><span class="metric-v">1</span></div><div class="metric-pill"><span class="metric-k">timestamp_range</span><span class="metric-v">00:00 - 00:05</span></div><div class="metric-pill"><span class="metric-k">lens_mm</span><span class="metric-v">85mm</span></div><div class="metric-pill"><span class="metric-k">kelvin</span><span class="metric-v">5600K</span></div><div class="metric-pill"><span class="metric-k">beats_count</span><span class="metric-v">2</span></div><div class="metric-pill"><span class="metric-k">regime</span><span class="metric-v">Regime 2: High-Kinetic &amp; Precision Commercial</span></div></div>          </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A0B10" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#252736" stroke-width="1" stroke-opacity="0.4"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Top Cinema HUD -->
+  <rect x="40" y="40" width="1840" height="70" rx="8" fill="#12131A" stroke="#2F3242" stroke-width="1.5"/>
+  <text x="65" y="82" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" fill="#00F0FF" letter-spacing="2">
+    ANCHOR 1: CHARACTER TURNAROUND SHEET (DNA LOCK)
+  </text>
+  <text x="1855" y="82" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8" text-anchor="end">
+    MODEL: gemini-3-pro-image | 5600K DIFFUSE STUDIO | POLARITY LOCK
+  </text>
+
+  <!-- 3-Panel Turnaround Frames -->
+  <!-- Panel 1: Front Full Body -->
+  <rect x="40" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="60" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL A: FRONT</text>
+  <!-- Stylized Figure Front -->
+  <circle cx="340" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <path d="M 285 370 Q 340 350 395 370 L 410 590 L 270 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="300" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="345" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 2: 3/4 Dynamic Profile -->
+  <rect x="660" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="680" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL B: 3/4 ANGLE</text>
+  <!-- Stylized Figure 3/4 -->
+  <circle cx="960" cy="300" r="55" fill="none" stroke="url(#heroAccent)" stroke-width="4"/>
+  <path d="M 915 370 Q 975 355 1015 385 L 1025 590 L 895 590 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+  <rect x="920" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+  <rect x="965" y="590" width="35" height="246" rx="8" fill="#282B3E" stroke="#3A3E56" stroke-width="2"/>
+
+  <!-- Panel 3: Tight Profile Macro -->
+  <rect x="1280" y="140" width="600" height="820" rx="10" fill="#151722" stroke="#2F3242" stroke-width="1"/>
+  <text x="1300" y="180" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8E92A8">PANEL C: PROFILE</text>
+  <circle cx="1580" cy="330" r="71" fill="none" stroke="url(#heroAccent)" stroke-width="4" filter="url(#glow)"/>
+  <!-- Facial Profile Path -->
+  <path d="M 1580 270 Q 1630 300 1630 330 L 1610 360 L 1640 400 L 1600 425" fill="none" stroke="#00F0FF" stroke-width="3"/>
+  <path d="M 1520 440 Q 1600 420 1650 470 L 1650 650 L 1520 650 Z" fill="#1E202F" stroke="url(#heroAccent)" stroke-width="3"/>
+
+    <!-- Telemetry Lower Bar -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0C0D13" stroke="#2F3242" stroke-width="1"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#00F0FF">
+    SUBJECT: CLEANROOM NANOTECH SYSTEMS ENGINEER | SILHOUETTE: Methodical ergonomic posture inside sterile cleanr...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#E5A93C" text-anchor="end">
+    WARDROBE POLARITY: Cleanroom white Gore-Tex antistatic suit with...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC01 | slide=scene_beat_spread | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="scene_beat_spread">  <header class="slide-header">    <div class="slide-kicker">BOARD 07 · SCENE_BEAT_SPREAD</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>SC02: Advanced Quantum Computing Silicon Proce - Climax</h2>      <p class="slide-subhead">00:05 - 00:10 · Regime 2: High-Kinetic &amp; Precision Commercial · 50mm · 5600K</p>      <p class="slide-narrative">Beat 1: Peak acceleration and directional transition (00:05 - 00:08) -&gt; Beat 2: Decisive deceleration into static hero posture (00:08 - 00:10) Kinetic Chain: 1. Initiation: Momentum shifts -&gt; 2. Contact: Grip engages frame -&gt; 3. Transfer: Torque arrests rotation -&gt; 4. Evidence: Structural vibration -&gt; 5. Recovery: Heroic pose.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">scene_index</span><span class="metric-v">2</span></div><div class="metric-pill"><span class="metric-k">timestamp_range</span><span class="metric-v">00:05 - 00:10</span></div><div class="metric-pill"><span class="metric-k">lens_mm</span><span class="metric-v">50mm</span></div><div class="metric-pill"><span class="metric-k">kelvin</span><span class="metric-v">5600K</span></div><div class="metric-pill"><span class="metric-k">beats_count</span><span class="metric-v">2</span></div><div class="metric-pill"><span class="metric-k">regime</span><span class="metric-v">Regime 2: High-Kinetic &amp; Precision Commercial</span></div></div>          </div>    <div class="slide-plate-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="100%" stop-color="#080A0F"/>
+    </linearGradient>
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#envGrad)"/>
+
+  <!-- Architectural Perspective Lines -->
+  <!-- Floorboard Lines -->
+  <line x1="0" y1="702" x2="1920" y2="702" stroke="#2D333B" stroke-width="2"/>
+  <line x1="960" y1="702" x2="192" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="576" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="960" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1344" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+  <line x1="960" y1="702" x2="1728" y2="1080" stroke="#30363D" stroke-width="1.5"/>
+
+  <!-- Architectural Window Structure (Left) -->
+  <rect x="96" y="162" width="422" height="486" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="307" y1="162" x2="307" y2="648" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="324" x2="518" y2="324" stroke="#38BDF8" stroke-width="2"/>
+  <line x1="96" y1="486" x2="518" y2="486" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Volumetric Sunlight Beam -->
+  <polygon points="96,162 518,162 1632,1080 480,1080" fill="url(#lightRay)"/>
+
+  <!-- Back Wall Minimalist Architecture -->
+  <line x1="960" y1="194" x2="960" y2="702" stroke="#21262D" stroke-width="1.5"/>
+  <line x1="0" y1="194" x2="1920" y2="194" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Camera Reticle Overlay -->
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#58A6FF" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="940" y1="540" x2="980" y2="540" stroke="#58A6FF" stroke-width="1.5"/>
+  <line x1="960" y1="520" x2="960" y2="560" stroke="#58A6FF" stroke-width="1.5"/>
+  <!-- Corner Reticles -->
+  <path d="M 60 140 L 60 80 L 120 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 140 L 1860 80 L 1800 80" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 60 940 L 60 1000 L 120 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+  <path d="M 1860 940 L 1860 1000 L 1800 1000" fill="none" stroke="#8B949E" stroke-width="2"/>
+
+  <!-- Top Title HUD -->
+  <rect x="40" y="40" width="1840" height="65" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="80" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#58A6FF" letter-spacing="2">
+    ANCHOR 2: MASTER ARCHITECTURAL ENVIRONMENT PLATE
+  </text>
+  <text x="1855" y="80" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8B949E" text-anchor="end">
+    ZERO-CHARACTER PLATE | VOLUMETRIC LIGHTING LOCK
+  </text>
+
+  <!-- Lower Telemetry -->
+  <rect x="40" y="980" width="1840" height="60" rx="8" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="65" y="1017" font-family="'JetBrains Mono', monospace" font-size="14" fill="#3FB950">
+    LOCATION: TECH HARDWARE SANCTUARY | ARCHITECTURE: Architectural space styled for tech hardware...
+  </text>
+  <text x="1855" y="1017" font-family="'JetBrains Mono', monospace" font-size="13" fill="#D29922" text-anchor="end">
+    LIGHTING: Cleanroom 5000K pure white illumination with ...
+  </text>
+</svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC02 | slide=scene_beat_spread | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="sonic_bgm_arc">  <header class="slide-header">    <div class="slide-kicker">BOARD 08 · SONIC_BGM_ARC</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Sonic Architecture &amp; BGM Arc — Advanced Quantum Computing Silicon Proce Theme</h2>      <p class="slide-subhead">Minimalist Glitch &amp; Micro-Acoustic Electronic Pulse · 110 BPM · D Minor</p>      <p class="slide-narrative">Dynamic Arc: Gentle rhythmic pulse building into an assertive cinematic climax | Diegetic Foley: Precision magnetic latch click; Anodized aluminum bevel contact; Subtle ultrasonic cleanroom hum; Haptic motor vibration pulse | Room Acoustics: Controlled cinematic soundstage | Stems: percussion: Rhythmic pulse and transient acoustic hits, bass: Sub-harmonic foundation and low-end drone, harmony: Mid-range chord progression and ambient pads, lead: Hero melodic motif or lead arpeggio</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">track_title</span><span class="metric-v">Advanced Quantum Computing Silicon Proce Theme</span></div><div class="metric-pill"><span class="metric-k">tempo_bpm</span><span class="metric-v">110</span></div><div class="metric-pill"><span class="metric-k">key_signature</span><span class="metric-v">D Minor</span></div><div class="metric-pill"><span class="metric-k">foley_cues</span><span class="metric-v">4</span></div><div class="metric-pill"><span class="metric-k">stems_count</span><span class="metric-v">4</span></div></div>      <div class="sonic-box"><div><strong>Lyria Prompt:</strong> Cinematic score for tech hardware, minimalist glitch &amp; micro-acoustic electronic pulse at 110 BPM in D Minor</div><ul class="stem-list"><li><strong>percussion:</strong> Rhythmic pulse and transient acoustic hits</li><li><strong>bass:</strong> Sub-harmonic foundation and low-end drone</li><li><strong>harmony:</strong> Mid-range chord progression and ambient pads</li><li><strong>lead:</strong> Hero melodic motif or lead arpeggio</li></ul></div>    </div>    <div class="slide-plate-wrap"><svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sonic Architecture &amp; BGM Arc — Advanced Quantum "><defs><linearGradient id="ptGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#1E293B"/></linearGradient></defs><rect width="640" height="360" fill="url(#ptGrad)" rx="8"/><rect x="24" y="24" width="592" height="312" fill="none" stroke="#94A3B8" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="6 4"/><line x1="213" y1="24" x2="213" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="426" y1="24" x2="426" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="128" x2="616" y2="128" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="232" x2="616" y2="232" stroke="#FFFFFF" stroke-opacity="0.12"/><circle cx="320" cy="180" r="46" fill="none" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.75"/><text x="320" y="185" text-anchor="middle" fill="#F8FAFC" font-family="ui-monospace, monospace" font-size="15">Sonic Architecture &amp; BGM Arc — Advanced Quantum </text><text x="40" y="320" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="11">OMNI 2026 NANO BANANA PLATE</text></svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC08 | slide=sonic_bgm_arc | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="budget_roi_summary">  <header class="slide-header">    <div class="slide-kicker">BOARD 09 · BUDGET_ROI_SUMMARY</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Production Economics: AI-First vs. Traditional AICP Bid</h2>      <p class="slide-subhead">AICP Baseline $233,778.83 vs. AI Live Compute $5.25 (100.00% Savings)</p>      <p class="slide-narrative">Traditional AICP commercial shoot baseline is estimated at $233,778.83. Omni 2026 Matrix simulation mode executes at $0.00 billable cost, while planned multi-take live rendering totals $5.25 — capturing $233,773.58 (100.00%) in production capital efficiency.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">aicp_grand_total_usd</span><span class="metric-v">$233,778.83</span></div><div class="metric-pill"><span class="metric-k">ai_compute_est_usd</span><span class="metric-v">$5.25</span></div><div class="metric-pill"><span class="metric-k">dry_run_billable_usd</span><span class="metric-v">$0.00</span></div><div class="metric-pill"><span class="metric-k">net_savings_usd</span><span class="metric-v">$233,773.58</span></div><div class="metric-pill"><span class="metric-k">savings_pct</span><span class="metric-v">100.00%</span></div></div>          </div>    <div class="slide-plate-wrap"><svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Production Economics: AI-First vs. Traditional A"><defs><linearGradient id="ptGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#1E293B"/></linearGradient></defs><rect width="640" height="360" fill="url(#ptGrad)" rx="8"/><rect x="24" y="24" width="592" height="312" fill="none" stroke="#94A3B8" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="6 4"/><line x1="213" y1="24" x2="213" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="426" y1="24" x2="426" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="128" x2="616" y2="128" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="232" x2="616" y2="232" stroke="#FFFFFF" stroke-opacity="0.12"/><circle cx="320" cy="180" r="46" fill="none" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.75"/><text x="320" y="185" text-anchor="middle" fill="#F8FAFC" font-family="ui-monospace, monospace" font-size="15">Production Economics: AI-First vs. Traditional A</text><text x="40" y="320" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="11">OMNI 2026 NANO BANANA PLATE</text></svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC09 | slide=budget_roi_summary | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section><section class="lookbook-slide" data-slide-type="deliverables_signoff">  <header class="slide-header">    <div class="slide-kicker">BOARD 10 · DELIVERABLES_SIGNOFF</div>    <div class="slide-swatches"><span class="mini-swatch" style="background:#030712;" title="#030712"></span><span class="mini-swatch" style="background:#38BDF8;" title="#38BDF8"></span><span class="mini-swatch" style="background:#94A3B8;" title="#94A3B8"></span><span class="mini-swatch" style="background:#F8FAFC;" title="#F8FAFC"></span><span class="mini-swatch" style="background:#111827;" title="#111827"></span><span class="mini-swatch" style="background:#374151;" title="#374151"></span></div>  </header>  <div class="slide-body">    <div class="slide-copy">      <h2>Deliverables Matrix &amp; Executive Greenlight</h2>      <p class="slide-subhead">2026 Gemini Model Matrix · 16:9 · 10s @ 24fps</p>      <p class="slide-narrative">Approved deliverables package includes: immutable MasterProductionBible SSOT JSON, interactive dark-room Cinema Animatic HTML5, SMPTE EDL/FCPXML/SRT/VTT timelines, OpenTimelineIO (.otio) cross-department coherence manifest, C2PA provenance manifest, and print-ready Executive Director&#x27;s Lookbook.</p>      <div class="metrics-grid"><div class="metric-pill"><span class="metric-k">hero_kpi_focus</span><span class="metric-v">Product Detail Comprehension &amp; Hardware Desire</span></div><div class="metric-pill"><span class="metric-k">scenes_count</span><span class="metric-v">2</span></div><div class="metric-pill"><span class="metric-k">model_matrix</span><span class="metric-v">2026-Compliant</span></div><div class="metric-pill"><span class="metric-k">signoff_status</span><span class="metric-v">READY_FOR_GREENLIGHT</span></div></div>          </div>    <div class="slide-plate-wrap"><svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Deliverables Matrix &amp; Executive Greenlight"><defs><linearGradient id="ptGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#030712"/><stop offset="100%" stop-color="#1E293B"/></linearGradient></defs><rect width="640" height="360" fill="url(#ptGrad)" rx="8"/><rect x="24" y="24" width="592" height="312" fill="none" stroke="#94A3B8" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="6 4"/><line x1="213" y1="24" x2="213" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="426" y1="24" x2="426" y2="336" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="128" x2="616" y2="128" stroke="#FFFFFF" stroke-opacity="0.12"/><line x1="24" y1="232" x2="616" y2="232" stroke="#FFFFFF" stroke-opacity="0.12"/><circle cx="320" cy="180" r="46" fill="none" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.75"/><text x="320" y="185" text-anchor="middle" fill="#F8FAFC" font-family="ui-monospace, monospace" font-size="15">Deliverables Matrix &amp; Executive Greenlight</text><text x="40" y="320" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="11">OMNI 2026 NANO BANANA PLATE</text></svg></div>  </div>  <footer class="slide-footer">    <span>Advanced Quantum Computing Silicon Proce — Quantum Nanotech Semiconductor Labs</span>    <code>[TREATMENT-BEAT: SC10 | slide=deliverables_signoff | tone=Cleanroom Optical Minimalism &amp; Sub-Millimeter Craft | hook=Sub-millimeter industrial elegance engineered for instant fla...]</code>  </footer></section>
+    
+  </main>
+</body>
+</html>

@@ -342,6 +342,7 @@ from omni_director.tools.accessibility_ad import (
 from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
 from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
 from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
+from omni_director.tools.html_hud_v218 import build_v218_hud_bundle
 from omni_director.tools.motion_graphics import (
     MAX_SUPER_WPM,
     MIN_CLEANPLATE_NEGATIVE_SPACE_PCT,
@@ -386,6 +387,29 @@ from omni_director.tools.render_economics import (
     format_render_profile_token,
     get_2026_model_matrix_rates,
     synthesize_default_render_economics_manifest,
+)
+from omni_director.tools.render_orchestrator import (
+    compile_render_job_manifest,
+    evaluate_take_visual_qa,
+    export_render_job_manifest_json,
+    export_render_jobs_bundle,
+    export_take_qa_csv,
+    format_render_job_token,
+    generate_rough_cut_assembly_script,
+    promote_scene_take,
+    synthesize_default_render_jobs,
+    verify_mode_b_frame_anchor,
+)
+from omni_director.tools.pitch_treatment import (
+    compile_pitch_treatment,
+    diff_production_bibles,
+    export_bible_revision_diff_json,
+    export_bible_revision_diff_md,
+    export_pitch_treatment_bundle,
+    export_treatment_brief_md,
+    export_treatment_lookbook_html,
+    export_treatment_manifest_json,
+    format_pitch_treatment_token,
 )
 
 __all__ = [
@@ -735,5 +759,27 @@ __all__ = [
     "export_coherence_readiness_md",
     "export_otio_coherence_bundle",
     "build_v217_hud_bundle",
+    # Live-Render Job Orchestration, Multi-Take QA & Frame-Anchor Continuity (PM-FEAT-035)
+    "evaluate_take_visual_qa",
+    "verify_mode_b_frame_anchor",
+    "format_render_job_token",
+    "compile_render_job_manifest",
+    "synthesize_default_render_jobs",
+    "promote_scene_take",
+    "generate_rough_cut_assembly_script",
+    "export_render_job_manifest_json",
+    "export_take_qa_csv",
+    "export_render_jobs_bundle",
+    # Director Treatment Lookbook, Pitch Deck & Bible Revision Diff (PM-FEAT-036)
+    "compile_pitch_treatment",
+    "diff_production_bibles",
+    "format_pitch_treatment_token",
+    "export_treatment_lookbook_html",
+    "export_treatment_brief_md",
+    "export_treatment_manifest_json",
+    "export_bible_revision_diff_md",
+    "export_bible_revision_diff_json",
+    "export_pitch_treatment_bundle",
+    "build_v218_hud_bundle",
 ]
 

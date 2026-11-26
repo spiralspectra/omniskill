@@ -60,6 +60,13 @@ SAFE_KEYS = {
     "otio_coherence_score",
     "otio_conflicts_count",
     "otio_sha256",
+    "render_job_token",
+    "frame_anchor_token",
+    "render_qa_score",
+    "promoted_takes_count",
+    "treatment_token",
+    "treatment_slides_count",
+    "revision_deltas_count",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -220,6 +227,16 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "production_timeline.otio",
     "coherence_matrix.json",
     "coherence_readiness_report.md",
+    # PM-FEAT-035: Cloud Video Render Job Orchestration, Take QA & Rough Cut Assembly
+    "render_job_manifest.json",
+    "take_qa_scorecard.csv",
+    "rough_cut_assembly.sh",
+    # PM-FEAT-036: Director Treatment Lookbook, Pitch Deck & Bible Revision Diff
+    "director_treatment_lookbook.html",
+    "director_treatment_brief.md",
+    "pitch_treatment_manifest.json",
+    "bible_revision_diff.json",
+    "bible_revision_diff.md",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
@@ -244,6 +261,7 @@ DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
     ".gpx",
     ".ass",
     ".otio",
+    ".sh",
 })
 
 _TELEMETRY_MANIFEST_NAMES: frozenset[str] = frozenset({

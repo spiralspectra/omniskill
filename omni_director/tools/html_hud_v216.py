@@ -1183,6 +1183,7 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       { id: 'cc', name: 'Closed Captions (CC)', dept: 'Delivery', key: 'C', fn: 'toggleCC' },
       { id: 'mixer', name: 'Audio Stem Console Mixer', dept: 'Audio', key: 'M', fn: 'toggleMixer' },
       { id: 'viewfinder', name: 'Optical Viewfinder & Safe Guides', dept: 'Camera', key: 'V', fn: 'toggleViewfinder' },
+      { id: 'safeguides', name: 'SMPTE Safe Guides Overlay', dept: 'Camera', key: 'U', fn: 'toggleSafeGuides' },
       { id: 'vpstage', name: 'Virtual Production LED Stage', dept: 'Camera', key: 'P', fn: 'toggleVPStageModal' },
       { id: 'moco', name: 'Motion Control Trajectory', dept: 'Camera', key: 'K', fn: 'toggleMoCoHUD' },
       { id: 'gaffer', name: 'Studio Gaffer & Lighting Rig', dept: 'Lighting', key: 'G', fn: 'toggleGafferHUD' },
@@ -1344,6 +1345,8 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       const btn = document.getElementById('btn-command-palette-animatic');
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isHudCommandPaletteOpen;
+      if (!shouldOpen && !isHudCommandPaletteOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
       isHudCommandPaletteOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
@@ -1374,6 +1377,8 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       const btn = document.getElementById('btn-art-dept-animatic');
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isArtWardrobeHUDOpen;
+      if (!shouldOpen && !isArtWardrobeHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
       isArtWardrobeHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
@@ -1397,6 +1402,8 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       const btn = document.getElementById('btn-economics-animatic');
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isRenderEconomicsHUDOpen;
+      if (!shouldOpen && !isRenderEconomicsHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
       isRenderEconomicsHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);

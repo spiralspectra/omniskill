@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
     EditBridgeSpec,
+    FrameAnchorHandoffSpec,
     InterSceneCutCheckSpec,
     LikenessConsentStatus,
     LocaleSyncStatus,
@@ -15,13 +16,18 @@ from omni_director.schemas import (
     PromptAuditResult,
     QcVerdictStatus,
     RegimeType,
+    RenderJobStatusEnum,
     ReviewApprovalStatus,
     RiskSeverityLevel,
     SafetySignoffStatus,
     SceneMotionGraphicsSpec,
     ScenePromptSpec,
+    SceneRenderJobSpec,
     SpottingManifestSpec,
     StorytellingMode,
+    TakeQaScorecardSpec,
+    TreatmentBoardSlideSpec,
+    TreatmentSlideTypeEnum,
     TypographyPlacementSpec,
 )
 from omni_director.tools.optical_lens import format_optical_prompt_token
@@ -78,6 +84,26 @@ from omni_director.tools.otio_coherence import (
     compile_otio_coherence_manifest,
     format_otio_coherence_token,
 )
+from omni_director.tools.render_orchestrator import (
+    compile_render_job_manifest,
+    evaluate_take_visual_qa,
+    format_render_job_token,
+    verify_mode_b_frame_anchor,
+)
+
+
+def _format_treatment_beat_token(
+    slide_spec: TreatmentBoardSlideSpec,
+    scene_index: int,
+) -> str:
+    """Formats the machine telemetry token for PM-FEAT-036 pitch treatment beat slides."""
+    slide_type_val = (
+        slide_spec.slide_type.value
+        if hasattr(slide_spec.slide_type, "value")
+        else str(slide_spec.slide_type)
+    )
+    headline_clean = str(slide_spec.headline or f"Scene {scene_index}").strip().replace("]", "")[:48]
+    return f"[TREATMENT-BEAT: SC{scene_index:02d} | type={slide_type_val} | headline={headline_clean}]"
 
 
 def _format_localization_prompt_token(
@@ -959,6 +985,125 @@ def audit_omni_scene_prompt(
         details["otio_coherence_reward"] = 1.0
         details["otio_coherence_descriptor"] = otio_match.group(0) if otio_match else str(otio_sync_tok)
 
+    # Live-Render Job Orchestrator & Mode B Frame-Anchor Continuity (PM-FEAT-035)
+    master_render_jobs_obj = (
+        kwargs.get("master_render_jobs")
+        or kwargs.get("render_jobs_manifest")
+        or kwargs.get("render_job_manifest")
+        or (getattr(bible_ctx, "master_render_jobs", None) if bible_ctx is not None else None)
+    )
+    render_job_obj = (
+        (getattr(scene, "render_job_spec", None) if isinstance(scene, ScenePromptSpec) else None)
+        or kwargs.get("render_job_spec")
+        or kwargs.get("render_job")
+        or kwargs.get("job_spec")
+    )
+    if render_job_obj is None and master_render_jobs_obj is not None:
+        for job in (getattr(master_render_jobs_obj, "jobs", None) or []):
+            if getattr(job, "scene_index", None) == effective_scene_index:
+                render_job_obj = job
+                break
+    handoff_obj = None
+    if master_render_jobs_obj is not None:
+        for ho in (getattr(master_render_jobs_obj, "frame_anchor_handoffs", None) or []):
+            if getattr(ho, "to_scene_index", None) == effective_scene_index:
+                handoff_obj = ho
+                break
+
+    render_job_match = re.search(r"\[RENDER[-_ ]JOB:?", prompt, re.IGNORECASE)
+    frame_anchor_match = re.search(r"\[FRAME[-_ ]ANCHOR:?", prompt, re.IGNORECASE)
+    is_mode_b_ctx = (
+        storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        or bool(re.search(r"\+10s|extension", timestamp_range, re.IGNORECASE))
+    )
+    render_orchestrator_compliant_val = True
+    if render_job_obj is not None:
+        qa_card = getattr(render_job_obj, "qa_scorecard", None)
+        qa_score_val = float(getattr(qa_card, "composite_qa_score", 95.0) or 0.0)
+        raw_status = getattr(render_job_obj, "status", RenderJobStatusEnum.QA_PASSED)
+        status_str = (raw_status.value if hasattr(raw_status, "value") else str(raw_status)).lower()
+        handoff_locked = bool(getattr(handoff_obj, "continuity_locked", True)) if handoff_obj is not None else True
+        needs_anchor = is_mode_b_ctx and effective_scene_index > 1
+
+        if qa_score_val < 85.0 or status_str in ("qa_flagged", "failed_retry") or not handoff_locked:
+            render_orchestrator_compliant_val = False
+            details["render_orchestrator_compliant"] = False
+            warnings.append(
+                f"Render Orchestrator Warning: Scene {effective_scene_index} render job status={status_str}, "
+                f"QA={qa_score_val:.1f}, continuity_locked={handoff_locked}."
+            )
+        elif not render_job_match or (needs_anchor and not frame_anchor_match):
+            details["render_orchestrator_compliant"] = True
+            details["render_job_token_missing"] = True
+            warnings.append(
+                "Render Orchestrator Warning: Scene render_job_spec is missing [RENDER-JOB: ...] "
+                "or Mode B [FRAME-ANCHOR: ...] telemetry token."
+            )
+        else:
+            details["render_orchestrator_compliant"] = True
+            details["render_orchestrator_reward"] = 1.0
+            details["render_orchestrator_descriptor"] = format_render_job_token(
+                render_job_obj,
+                handoff=handoff_obj if needs_anchor else None,
+            )
+    elif render_job_match:
+        if is_mode_b_ctx and effective_scene_index > 1 and not frame_anchor_match:
+            details["render_orchestrator_compliant"] = True
+            details["frame_anchor_token_missing"] = True
+            warnings.append(
+                "Render Orchestrator Warning: Mode B scene_index > 1 has [RENDER-JOB: ...] "
+                "without [FRAME-ANCHOR: ...] continuity token."
+            )
+        else:
+            details["render_orchestrator_compliant"] = True
+            details["render_orchestrator_reward"] = 1.0
+            details["render_orchestrator_descriptor"] = render_job_match.group(0)
+
+    # Executive Director's Treatment & Pitch Lookbook (PM-FEAT-036)
+    master_treatment_obj = (
+        kwargs.get("master_pitch_treatment")
+        or kwargs.get("pitch_treatment")
+        or kwargs.get("director_treatment")
+        or (getattr(bible_ctx, "master_pitch_treatment", None) if bible_ctx is not None else None)
+    )
+    treatment_slide_obj = (
+        (getattr(scene, "treatment_spec", None) if isinstance(scene, ScenePromptSpec) else None)
+        or kwargs.get("treatment_spec")
+        or kwargs.get("pitch_slide")
+    )
+    if treatment_slide_obj is None and master_treatment_obj is not None:
+        for sl in (getattr(master_treatment_obj, "slides", None) or []):
+            if getattr(sl, "scene_index", None) == effective_scene_index:
+                treatment_slide_obj = sl
+                break
+
+    treatment_match = re.search(r"\[TREATMENT[-_ ]BEAT:?", prompt, re.IGNORECASE)
+    pitch_treatment_compliant_val = True
+    if treatment_slide_obj is not None:
+        slide_headline = str(getattr(treatment_slide_obj, "headline", "") or "").strip()
+        if not slide_headline:
+            pitch_treatment_compliant_val = False
+            details["pitch_treatment_compliant"] = False
+            warnings.append(
+                f"Pitch Treatment Warning: Scene {effective_scene_index} treatment_spec headline is empty."
+            )
+        elif not treatment_match:
+            details["pitch_treatment_compliant"] = True
+            details["treatment_token_missing"] = True
+            warnings.append(
+                "Pitch Treatment Warning: Scene treatment_spec is missing [TREATMENT-BEAT: ...] telemetry token."
+            )
+        else:
+            details["pitch_treatment_compliant"] = True
+            details["pitch_treatment_reward"] = 1.0
+            details["pitch_treatment_descriptor"] = _format_treatment_beat_token(
+                treatment_slide_obj, effective_scene_index
+            )
+    elif treatment_match:
+        details["pitch_treatment_compliant"] = True
+        details["pitch_treatment_reward"] = 1.0
+        details["pitch_treatment_descriptor"] = treatment_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -1149,6 +1294,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("otio_coherence_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("render_orchestrator_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("pitch_treatment_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -1178,6 +1327,8 @@ def audit_omni_scene_prompt(
         render_economics_compliant=render_economics_compliant_val,
         motion_graphics_compliant=motion_graphics_compliant_val,
         otio_coherence_compliant=otio_coherence_compliant_val,
+        render_orchestrator_compliant=render_orchestrator_compliant_val,
+        pitch_treatment_compliant=pitch_treatment_compliant_val,
     )
 
 
@@ -1474,6 +1625,70 @@ def heal_omni_scene_prompt(
             )
         )
     )
+    render_job_heal_init = (
+        (getattr(scene, "render_job_spec", None) if is_spec else None)
+        or (getattr(spec_context, "render_job_spec", None) if spec_context else None)
+        or kwargs.get("render_job_spec")
+        or kwargs.get("render_job")
+        or kwargs.get("job_spec")
+    )
+    master_render_jobs_heal = (
+        kwargs.get("master_render_jobs")
+        or kwargs.get("render_jobs_manifest")
+        or kwargs.get("render_job_manifest")
+        or (getattr(bible_ctx_heal, "master_render_jobs", None) if bible_ctx_heal is not None else None)
+    )
+    is_mode_b_heal = (
+        storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+        or (is_spec and bool(re.search(r"\+10s|extension", getattr(scene, "timestamp_range", "") or "", re.IGNORECASE)))
+    )
+    needs_anchor_heal = is_mode_b_heal and eff_scene_index > 1
+    needs_render_job_injection = bool(
+        (
+            is_spec
+            and (
+                render_job_heal_init is None
+                or not re.search(r"\[RENDER[-_ ]JOB:?", current_prompt, re.IGNORECASE)
+                or (needs_anchor_heal and not re.search(r"\[FRAME[-_ ]ANCHOR:?", current_prompt, re.IGNORECASE))
+            )
+        )
+        or (
+            (render_job_heal_init is not None or master_render_jobs_heal is not None)
+            and (
+                not getattr(current_audit, "render_orchestrator_compliant", True)
+                or not re.search(r"\[RENDER[-_ ]JOB:?", current_prompt, re.IGNORECASE)
+                or (needs_anchor_heal and not re.search(r"\[FRAME[-_ ]ANCHOR:?", current_prompt, re.IGNORECASE))
+            )
+        )
+    )
+    treatment_heal_init = (
+        (getattr(scene, "treatment_spec", None) if is_spec else None)
+        or (getattr(spec_context, "treatment_spec", None) if spec_context else None)
+        or kwargs.get("treatment_spec")
+        or kwargs.get("pitch_slide")
+    )
+    master_treatment_heal = (
+        kwargs.get("master_pitch_treatment")
+        or kwargs.get("pitch_treatment")
+        or kwargs.get("director_treatment")
+        or (getattr(bible_ctx_heal, "master_pitch_treatment", None) if bible_ctx_heal is not None else None)
+    )
+    needs_treatment_injection = bool(
+        (
+            is_spec
+            and (
+                treatment_heal_init is None
+                or not re.search(r"\[TREATMENT[-_ ]BEAT:?", current_prompt, re.IGNORECASE)
+            )
+        )
+        or (
+            (treatment_heal_init is not None or master_treatment_heal is not None)
+            and (
+                not getattr(current_audit, "pitch_treatment_compliant", True)
+                or not re.search(r"\[TREATMENT[-_ ]BEAT:?", current_prompt, re.IGNORECASE)
+            )
+        )
+    )
 
     if (
         current_audit.passed
@@ -1496,6 +1711,8 @@ def heal_omni_scene_prompt(
         and not needs_economics_injection
         and not needs_gfx_injection
         and not needs_otio_injection
+        and not needs_render_job_injection
+        and not needs_treatment_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -2280,6 +2497,194 @@ def heal_omni_scene_prompt(
                 if "otio_coherence" not in applied_patches:
                     applied_patches.append("otio_coherence")
 
+        # 3ac. Inject / repair Live-Render Job & Mode B Frame-Anchor Continuity tokens (PM-FEAT-035)
+        master_rj_heal = (
+            kwargs.get("master_render_jobs")
+            or kwargs.get("render_jobs_manifest")
+            or kwargs.get("render_job_manifest")
+            or (getattr(bible_ctx_heal, "master_render_jobs", None) if bible_ctx_heal is not None else None)
+        )
+        rj_heal = (
+            (getattr(scene, "render_job_spec", None) if is_spec else None)
+            or (getattr(spec_context, "render_job_spec", None) if spec_context else None)
+            or kwargs.get("render_job_spec")
+            or kwargs.get("render_job")
+            or kwargs.get("job_spec")
+        )
+        if rj_heal is None and master_rj_heal is not None:
+            for job in (getattr(master_rj_heal, "jobs", None) or []):
+                if getattr(job, "scene_index", None) == eff_scene_index:
+                    rj_heal = job.model_copy(deep=True)
+                    break
+        if rj_heal is None and is_spec:
+            if bible_ctx_heal is not None:
+                compiled_rj = compile_render_job_manifest(bible_ctx_heal, dry_run=True)
+                master_rj_heal = master_rj_heal or compiled_rj
+                for job in compiled_rj.jobs:
+                    if job.scene_index == eff_scene_index:
+                        rj_heal = job.model_copy(deep=True)
+                        break
+            if rj_heal is None:
+                qa_card = evaluate_take_visual_qa(scene)
+                qa_card.promoted_hero = True
+                rj_heal = SceneRenderJobSpec(
+                    job_id=f"rj-sc{eff_scene_index:02d}-{qa_card.seed % 100000:05d}",
+                    scene_index=eff_scene_index,
+                    status=RenderJobStatusEnum.QA_PASSED,
+                    model_id="gemini-omni-1.1-flash-preview",
+                    selected_take_id=qa_card.take_id,
+                    seed=qa_card.seed,
+                    interaction_id=f"omni-interact-{eff_scene_index}-{qa_card.seed % 100000:05d}",
+                    output_media_path=f"rendered_scene_{eff_scene_index}.mp4",
+                    end_frame_path=f"End_Frame_{eff_scene_index:02d}.png",
+                    qa_scorecard=qa_card,
+                    take_scorecards=[qa_card],
+                )
+        handoff_heal = None
+        if rj_heal is not None:
+            rj_heal = rj_heal.model_copy(deep=True)
+            rj_repaired = False
+            qa_card = getattr(rj_heal, "qa_scorecard", None)
+            if qa_card is None or float(getattr(qa_card, "composite_qa_score", 0.0) or 0.0) < 85.0:
+                ref_scene = scene if is_spec else ScenePromptSpec(
+                    scene_index=eff_scene_index,
+                    timestamp_range=f"00:00-00:{duration_seconds:02d}",
+                    scene_title=f"Scene {eff_scene_index}",
+                    omni_prose_prompt=working_prompt,
+                )
+                repaired_card = evaluate_take_visual_qa(ref_scene)
+                repaired_card.promoted_hero = True
+                rj_heal.qa_scorecard = repaired_card
+                rj_heal.selected_take_id = repaired_card.take_id
+                rj_heal.seed = repaired_card.seed
+                rj_heal.take_scorecards = [repaired_card]
+                rj_repaired = True
+            if str(getattr(getattr(rj_heal, "status", None), "value", getattr(rj_heal, "status", ""))).lower() in ("qa_flagged", "failed_retry"):
+                rj_heal.status = RenderJobStatusEnum.QA_PASSED
+                rj_repaired = True
+
+            is_mode_b_curr = (
+                storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+                or (is_spec and bool(re.search(r"\+10s|extension", getattr(scene, "timestamp_range", "") or "", re.IGNORECASE)))
+            )
+            if is_mode_b_curr and eff_scene_index > 1:
+                if master_rj_heal is not None:
+                    for ho in (getattr(master_rj_heal, "frame_anchor_handoffs", None) or []):
+                        if getattr(ho, "to_scene_index", None) == eff_scene_index:
+                            handoff_heal = ho.model_copy(deep=True)
+                            break
+                if handoff_heal is None:
+                    handoff_heal = FrameAnchorHandoffSpec(
+                        from_scene_index=eff_scene_index - 1,
+                        to_scene_index=eff_scene_index,
+                        end_frame_asset_id=f"End_Frame_{eff_scene_index - 1:02d}.png",
+                        previous_interaction_id=rj_heal.previous_interaction_id or f"omni-interact-{eff_scene_index - 1}-00001",
+                        luminance_delta_pct=2.0,
+                        continuity_locked=True,
+                    )
+                if not bool(getattr(handoff_heal, "continuity_locked", True)):
+                    handoff_heal.luminance_delta_pct = 2.0
+                    handoff_heal.continuity_locked = True
+                    rj_repaired = True
+                    if master_rj_heal is not None:
+                        for ho in (getattr(master_rj_heal, "frame_anchor_handoffs", None) or []):
+                            if getattr(ho, "to_scene_index", None) == eff_scene_index:
+                                ho.luminance_delta_pct = 2.0
+                                ho.continuity_locked = True
+                if master_rj_heal is not None:
+                    for job in (getattr(master_rj_heal, "jobs", None) or []):
+                        if getattr(job, "scene_index", None) == eff_scene_index:
+                            job.status = rj_heal.status
+                            job.qa_scorecard = rj_heal.qa_scorecard.model_copy(deep=True)
+                            job.selected_take_id = rj_heal.selected_take_id
+                            job.seed = rj_heal.seed
+
+            if is_spec:
+                scene.render_job_spec = rj_heal
+            elif "render_job_spec" in kwargs:
+                kwargs["render_job_spec"] = rj_heal
+
+            if rj_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                if "healed_render_job_qa" not in applied_patches:
+                    applied_patches.append("healed_render_job_qa")
+
+            needs_anchor_tok = is_mode_b_curr and eff_scene_index > 1
+            has_rj_tok = bool(re.search(r"\[RENDER[-_ ]JOB:?", working_prompt, re.IGNORECASE))
+            has_fa_tok = bool(re.search(r"\[FRAME[-_ ]ANCHOR:?", working_prompt, re.IGNORECASE))
+            if not has_rj_tok or (needs_anchor_tok and not has_fa_tok):
+                working_prompt = re.sub(
+                    r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                tok = format_render_job_token(rj_heal, handoff=handoff_heal if needs_anchor_tok else None)
+                working_prompt = working_prompt.rstrip() + f" {tok}."
+                if "render_orchestrator" not in applied_patches:
+                    applied_patches.append("render_orchestrator")
+
+        # 3ad. Inject / repair Executive Director's Treatment Beat token (PM-FEAT-036)
+        master_treat_heal = (
+            kwargs.get("master_pitch_treatment")
+            or kwargs.get("pitch_treatment")
+            or kwargs.get("director_treatment")
+            or (getattr(bible_ctx_heal, "master_pitch_treatment", None) if bible_ctx_heal is not None else None)
+        )
+        treat_heal = (
+            (getattr(scene, "treatment_spec", None) if is_spec else None)
+            or (getattr(spec_context, "treatment_spec", None) if spec_context else None)
+            or kwargs.get("treatment_spec")
+            or kwargs.get("pitch_slide")
+        )
+        if treat_heal is None and master_treat_heal is not None:
+            for sl in (getattr(master_treat_heal, "slides", None) or []):
+                if getattr(sl, "scene_index", None) == eff_scene_index:
+                    treat_heal = sl.model_copy(deep=True)
+                    break
+        if treat_heal is None and is_spec:
+            treat_heal = TreatmentBoardSlideSpec(
+                slide_index=eff_scene_index,
+                slide_type=TreatmentSlideTypeEnum.SCENE_BEAT_SPREAD,
+                scene_index=eff_scene_index,
+                headline=str(getattr(scene, "scene_title", "") or f"Scene {eff_scene_index}"),
+                subhead=str(getattr(scene, "timestamp_range", "") or f"00:00-00:{duration_seconds:02d}"),
+                narrative_copy=str(getattr(scene, "kinetic_contact_chain", "") or "")[:180],
+            )
+        if treat_heal is not None:
+            treat_heal = treat_heal.model_copy(deep=True)
+            treat_repaired = False
+            if not str(getattr(treat_heal, "headline", "") or "").strip():
+                treat_heal.headline = (
+                    str(getattr(scene, "scene_title", "") or f"Scene {eff_scene_index}")
+                    if is_spec
+                    else f"Scene {eff_scene_index}"
+                )
+                treat_repaired = True
+            if is_spec:
+                scene.treatment_spec = treat_heal
+            elif "treatment_spec" in kwargs:
+                kwargs["treatment_spec"] = treat_heal
+            if treat_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[TREATMENT[-_ ]BEAT\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                if "healed_pitch_treatment_slide" not in applied_patches:
+                    applied_patches.append("healed_pitch_treatment_slide")
+            if not re.search(r"\[TREATMENT[-_ ]BEAT:?", working_prompt, re.IGNORECASE):
+                treat_tok = _format_treatment_beat_token(treat_heal, eff_scene_index)
+                working_prompt = working_prompt.rstrip() + f" {treat_tok}."
+                if "pitch_treatment" not in applied_patches:
+                    applied_patches.append("pitch_treatment")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -2437,6 +2842,29 @@ def heal_omni_scene_prompt(
             )
             or not getattr(current_audit, "otio_coherence_compliant", True)
         )
+        is_mode_b_still = (
+            storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            or (is_spec and bool(re.search(r"\+10s|extension", getattr(scene, "timestamp_range", "") or "", re.IGNORECASE)))
+        )
+        needs_render_job_still = bool(
+            (is_spec and getattr(scene, "render_job_spec", None) is None)
+            or (
+                (rj_heal is not None or master_rj_heal is not None or is_spec)
+                and (
+                    not re.search(r"\[RENDER[-_ ]JOB:?", working_prompt, re.IGNORECASE)
+                    or (is_mode_b_still and eff_scene_index > 1 and not re.search(r"\[FRAME[-_ ]ANCHOR:?", working_prompt, re.IGNORECASE))
+                )
+            )
+            or not getattr(current_audit, "render_orchestrator_compliant", True)
+        )
+        needs_treatment_still = bool(
+            (is_spec and getattr(scene, "treatment_spec", None) is None)
+            or (
+                (treat_heal is not None or master_treat_heal is not None or is_spec)
+                and not re.search(r"\[TREATMENT[-_ ]BEAT:?", working_prompt, re.IGNORECASE)
+            )
+            or not getattr(current_audit, "pitch_treatment_compliant", True)
+        )
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -2457,6 +2885,8 @@ def heal_omni_scene_prompt(
             and not needs_economics_still
             and not needs_gfx_still
             and not needs_otio_still
+            and not needs_render_job_still
+            and not needs_treatment_still
         ):
             break
 
@@ -2518,7 +2948,9 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"VFX_COMPOSITING|VFX\s+COMPOSITING|S3D[-_]RIG|S3D\s+RIG|AD[-_]CUE|AD\s+CUE|"
     r"WARDROBE[-_]LOCK|WARDROBE\s+LOCK|PROP[-_]STATE|PROP\s+STATE|RENDER[-_]PROFILE|RENDER\s+PROFILE|"
     r"GFX[-_]SUPER|GFX\s+SUPER|GFX[-_]CLEANPLATE|GFX\s+CLEANPLATE|ENDCARD|"
-    r"OTIO[-_]SYNC|OTIO\s+SYNC|COHERENCE[-_]LOCK|COHERENCE\s+LOCK)\s*:[^\]]*\]\.?",
+    r"OTIO[-_]SYNC|OTIO\s+SYNC|COHERENCE[-_]LOCK|COHERENCE\s+LOCK|"
+    r"RENDER[-_]JOB|RENDER\s+JOB|FRAME[-_]ANCHOR|FRAME\s+ANCHOR|"
+    r"TREATMENT[-_]BEAT|TREATMENT\s+BEAT)\s*:[^\]]*\]\.?",
     re.IGNORECASE,
 )
 

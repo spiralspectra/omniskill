@@ -1299,6 +1299,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
     from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
     from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
+    from omni_director.tools.html_hud_v218 import build_v218_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1341,6 +1342,8 @@ def compile_storyboard_html(
     v217_css = v217_bundle["css"]
     v217_modals_html = v217_bundle["modals_html"]
     v217_js = v217_bundle["js"]
+
+    v218_css, v218_modals_html, v218_js = build_v218_hud_bundle(bible, bundle)
     
 
     # Serialize bible for client-side export
@@ -4894,6 +4897,7 @@ def compile_storyboard_html(
     {v214_css}
     {v216_css}
     {v217_css}
+    {v218_css}
   </style>
 </head>
 <body>
@@ -6495,6 +6499,7 @@ def compile_storyboard_html(
 {v214_modals_html}
 {v216_modals_html}
 {v217_modals_html}
+{v218_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -9130,6 +9135,7 @@ def compile_storyboard_html(
     {v214_js}
     {v216_js}
     {v217_js}
+    {v218_js}
 
     function closeSecondaryOpenHUDs() {{
       const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
@@ -9143,7 +9149,15 @@ def compile_storyboard_html(
       const mgsOpen = (typeof isMotionGfxHUDOpen !== 'undefined') && isMotionGfxHUDOpen && mgsModal && mgsModal.style.display === 'flex';
       const otioModal = document.getElementById('modal-otio-coherence');
       const otioOpen = (typeof isOtioCoherenceHUDOpen !== 'undefined') && isOtioCoherenceHUDOpen && otioModal && otioModal.style.display === 'flex';
-      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen;
+      const reframeOpen = (typeof isReframeHUDOpen !== 'undefined') && isReframeHUDOpen;
+      const qcOpen = (typeof isQcHUDOpen !== 'undefined') && isQcHUDOpen;
+      const blockingOpen = (typeof isBlockingHUDOpen !== 'undefined') && isBlockingHUDOpen;
+      const reviewOpen = (typeof isReviewHUDOpen !== 'undefined') && isReviewHUDOpen;
+      const c2paOpen = (typeof isC2paHUDOpen !== 'undefined') && isC2paHUDOpen;
+      const safetyOpen = (typeof isSafetyHUDOpen !== 'undefined') && isSafetyHUDOpen;
+      const rjOpen = (typeof isRenderJobsHUDOpen !== 'undefined') && isRenderJobsHUDOpen;
+      const ptOpen = (typeof isPitchTreatmentHUDOpen !== 'undefined') && isPitchTreatmentHUDOpen;
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen || reframeOpen || qcOpen || blockingOpen || reviewOpen || c2paOpen || safetyOpen || rjOpen || ptOpen;
       if (isMoCoHUDOpen) toggleMoCoHUD();
       if (isGafferHUDOpen) toggleGafferHUD();
       if (isVPStageModalOpen) toggleVPStageModal();
@@ -9157,6 +9171,12 @@ def compile_storyboard_html(
       if (isSlateHUDOpen) toggleSlateHUD();
       if (isDroneHUDOpen) toggleDroneHUD();
       if (isAicpHUDOpen) toggleAicpHUD();
+      if (reframeOpen && typeof toggleReframeHUD === 'function') toggleReframeHUD();
+      if (qcOpen && typeof toggleQcHUD === 'function') toggleQcHUD();
+      if (blockingOpen && typeof toggleBlockingHUD === 'function') toggleBlockingHUD();
+      if (reviewOpen && typeof toggleReviewHUD === 'function') toggleReviewHUD();
+      if (c2paOpen && typeof toggleC2paHUD === 'function') toggleC2paHUD();
+      if (safetyOpen && typeof toggleSafetyHUD === 'function') toggleSafetyHUD();
       if (locOpen && typeof toggleLocalizationHUD === 'function') toggleLocalizationHUD();
       if (spotOpen && typeof toggleSpottingHUD === 'function') toggleSpottingHUD();
       if (s3dOpen && typeof toggleS3dHUD === 'function') toggleS3dHUD(false);
@@ -9166,15 +9186,17 @@ def compile_storyboard_html(
       if (econOpen && typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(false);
       if (mgsOpen && typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(false);
       if (otioOpen && typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(false);
+      if (rjOpen && typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(false);
+      if (ptOpen && typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(false);
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', `, -, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen) || (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen) || (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
@@ -9188,6 +9210,8 @@ def compile_storyboard_html(
         if (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) toggleRenderEconomicsHUD(false);
         if (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen && typeof toggleMotionGfxHUD === "function") toggleMotionGfxHUD(false);
         if (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen && typeof toggleOtioCoherenceHUD === "function") toggleOtioCoherenceHUD(false);
+        if (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen && typeof toggleRenderJobsHUD === "function") toggleRenderJobsHUD(false);
+        if (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen && typeof togglePitchTreatmentHUD === "function") togglePitchTreatmentHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9242,6 +9266,8 @@ def compile_storyboard_html(
       else if (e.key === ';') {{ if (typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(); }}
       else if (e.key === '=' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(); }}
       else if (e.key === "'" && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(); }}
+      else if (e.key === '`' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(); }}
+      else if (e.key === '-' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(); }}
     }});
 
     // Initialize first frame and default look
@@ -9252,6 +9278,7 @@ def compile_storyboard_html(
       if (typeof initAccessibilityAdHUD === 'function') initAccessibilityAdHUD();
       if (typeof initV216HUDs === 'function') initV216HUDs();
       if (typeof initV217HUDs === 'function') initV217HUDs();
+      if (typeof initV218HUDs === 'function') initV218HUDs();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

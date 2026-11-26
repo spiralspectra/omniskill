@@ -35,6 +35,8 @@ from omni_director.presets import (
     get_domain_render_economics_spec,
     get_domain_motion_graphics_spec,
     get_domain_otio_coherence_spec,
+    get_domain_render_job_spec,
+    get_domain_pitch_treatment_spec,
 )
 from omni_director.schemas import (
     StorytellingMode,
@@ -910,6 +912,78 @@ class ProductManagerAgent(BaseAgent):
                     "omni_director/tools/html_hud_v212.py",
                     "omni_director/tools/html_hud_v216.py",
                     "omni_director/tools/html_hud_v217.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-035",
+                title="Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine",
+                problem_statement=(
+                    f"Production pipelines{project_ctx} transitioning from dry-run storyboards to live video "
+                    "rendering lack deterministic multi-take visual/audio QA scoring, Mode B frame-anchor "
+                    "handoff validation (End_Frame_0N.png & previous_interaction_id), and one-click ffmpeg "
+                    "rough-cut assembly scripts."
+                ),
+                proposed_solution=(
+                    "Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, "
+                    "SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator "
+                    "(evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, "
+                    "promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, "
+                    "export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and "
+                    "rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA "
+                    "calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & "
+                    "Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/render_orchestrator.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/tools/html_hud_v218.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-036",
+                title="Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine",
+                problem_statement=(
+                    f"Executive stakeholders and agency creative directors{project_ctx} lack a print-ready "
+                    "director's pitch treatment lookbook combining Nano Banana visual plates, color scripts, "
+                    "sonic arcs, and AI-vs-AICP ROI summaries, as well as a deterministic SHA-256 revision "
+                    "diff engine comparing Bible iterations and council scores."
+                ),
+                proposed_solution=(
+                    "Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, "
+                    "BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment "
+                    "(compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, "
+                    "export_treatment_lookbook_html with @media print page breaks and html.escape(), "
+                    "export_pitch_treatment_bundle exporting director_treatment_lookbook.html, "
+                    "director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] "
+                    "tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's "
+                    "Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/pitch_treatment.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v216.py",
+                    "omni_director/tools/html_hud_v218.py",
                     "omni_director/agents/agent.py",
                     "omni_director/agents/council.py",
                     "omni_director/tools/nle_export.py",
@@ -1860,6 +1934,129 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 1.0
 
+            # Verify Live-Render Job Orchestrator & Multi-Take QA deliverables (PM-FEAT-035)
+            rj_candidates = [
+                "render_job_manifest.json",
+                "take_qa_scorecard.csv",
+                "rough_cut_assembly.sh",
+            ]
+            rj_items = [name for name in rj_candidates if (eval_dir / name).is_file()]
+            if rj_items:
+                missing_rj = [name for name in rj_candidates if name not in rj_items]
+                rj_invalid_reasons: List[str] = []
+                if (eval_dir / "render_job_manifest.json").is_file():
+                    try:
+                        rj_doc = json.loads((eval_dir / "render_job_manifest.json").read_text(encoding="utf-8"))
+                        if not isinstance(rj_doc, dict) or not isinstance(rj_doc.get("jobs"), list):
+                            rj_invalid_reasons.append("render_job_manifest.json missing 'jobs' list.")
+                        else:
+                            for job in rj_doc.get("jobs", []):
+                                m_id = str((job or {}).get("model_id", "") or "")
+                                try:
+                                    validate_model_identifier(m_id, "render_job_manifest.jobs.model_id")
+                                except Exception:
+                                    rj_invalid_reasons.append(f"Unapproved model_id {m_id!r} in render_job_manifest.json.")
+                                    break
+                    except Exception as exc:
+                        rj_invalid_reasons.append(f"Invalid JSON in render_job_manifest.json: {exc}")
+                if rj_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="render_job_delivery",
+                        message=" ".join(rj_invalid_reasons),
+                        suggested_fix="Regenerate render job deliverables via export_render_jobs_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_rj and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="render_job_delivery",
+                        message=(
+                            f"Partial Live-Render Job deliverables on disk ({', '.join(rj_items)}); "
+                            f"missing: {', '.join(missing_rj)}."
+                        ),
+                        suggested_fix="Run export_render_jobs_bundle() or export_all_nle_artifacts() to export all PM-FEAT-035 artifacts.",
+                        details={"render_job_artifacts": rj_items, "missing_artifacts": missing_rj},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="render_job_delivery",
+                        message=f"Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: {', '.join(rj_items)}.",
+                        details={"render_job_artifacts": rj_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="render_job_delivery",
+                    message="NLE exports present on disk without PM-FEAT-035 Render Job deliverables (render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh).",
+                    suggested_fix="Run export_render_jobs_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": rj_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Executive Director's Treatment & Pitch Lookbook deliverables (PM-FEAT-036)
+            pt_candidates = [
+                "director_treatment_lookbook.html",
+                "director_treatment_brief.md",
+                "pitch_treatment_manifest.json",
+            ]
+            pt_items = [name for name in pt_candidates if (eval_dir / name).is_file()]
+            if pt_items:
+                missing_pt = [name for name in pt_candidates if name not in pt_items]
+                pt_invalid_reasons: List[str] = []
+                if (eval_dir / "pitch_treatment_manifest.json").is_file():
+                    try:
+                        pt_doc = json.loads((eval_dir / "pitch_treatment_manifest.json").read_text(encoding="utf-8"))
+                        if not isinstance(pt_doc, dict) or not pt_doc.get("treatment_id") or not isinstance(pt_doc.get("slides"), list):
+                            pt_invalid_reasons.append("pitch_treatment_manifest.json missing 'treatment_id' or 'slides' list.")
+                    except Exception as exc:
+                        pt_invalid_reasons.append(f"Invalid JSON in pitch_treatment_manifest.json: {exc}")
+                if (eval_dir / "director_treatment_lookbook.html").is_file():
+                    try:
+                        lookbook_html = (eval_dir / "director_treatment_lookbook.html").read_text(encoding="utf-8")
+                        if "@media print" not in lookbook_html:
+                            pt_invalid_reasons.append("director_treatment_lookbook.html missing @media print styling.")
+                    except Exception as exc:
+                        pt_invalid_reasons.append(f"Failed reading director_treatment_lookbook.html: {exc}")
+                if pt_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="pitch_treatment_delivery",
+                        message=" ".join(pt_invalid_reasons),
+                        suggested_fix="Regenerate pitch treatment deliverables via export_pitch_treatment_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_pt and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="pitch_treatment_delivery",
+                        message=(
+                            f"Partial Pitch Treatment deliverables on disk ({', '.join(pt_items)}); "
+                            f"missing: {', '.join(missing_pt)}."
+                        ),
+                        suggested_fix="Run export_pitch_treatment_bundle() or export_all_nle_artifacts() to export all PM-FEAT-036 artifacts.",
+                        details={"pitch_treatment_artifacts": pt_items, "missing_artifacts": missing_pt},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="pitch_treatment_delivery",
+                        message=f"Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: {', '.join(pt_items)}.",
+                        details={"pitch_treatment_artifacts": pt_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="pitch_treatment_delivery",
+                    message="NLE exports present on disk without PM-FEAT-036 Pitch Treatment deliverables (director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json).",
+                    suggested_fix="Run export_pitch_treatment_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": pt_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -2160,6 +2357,78 @@ class ProductCouncilOrchestrator(BaseAgent):
                         "schema_version": otio_schema,
                         "track_count": len(otio_tracks),
                         "otio_sha256_prefix": otio_sha[:12],
+                    },
+                ))
+
+        # Verify PM-FEAT-035 (Live-Render Jobs) & PM-FEAT-036 (Pitch Treatment) schema presence & 2026 Model Matrix
+        rj_spec = getattr(bible, "master_render_jobs", None)
+        if rj_spec is not None:
+            rj_jobs = list(getattr(rj_spec, "jobs", None) or [])
+            invalid_rj_models: List[str] = []
+            for job in rj_jobs:
+                m_id = str(getattr(job, "model_id", "") or "")
+                try:
+                    validate_model_identifier(m_id, "master_render_jobs.jobs.model_id")
+                except Exception:
+                    invalid_rj_models.append(m_id or "<empty>")
+            if invalid_rj_models:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.CRITICAL,
+                    category="render_jobs_model_matrix",
+                    message=(
+                        f"Forbidden or unapproved model ID(s) in master_render_jobs.jobs: "
+                        f"{', '.join(invalid_rj_models)}."
+                    ),
+                    suggested_fix="Use strictly approved 2026 Gemini Model Matrix IDs (gemini-omni-1.1-flash-preview).",
+                ))
+                score -= 5.0
+            elif not rj_jobs:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="render_jobs_schema",
+                    message="MasterRenderJobManifest has empty jobs list.",
+                    suggested_fix="Hydrate master_render_jobs via compile_render_job_manifest().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="render_jobs_schema",
+                    message=(
+                        f"MasterRenderJobManifest verified ({len(rj_jobs)} job(s), 2026 Model Matrix compliant, "
+                        f"overall_qa_score={float(getattr(rj_spec, 'overall_qa_score', 95.0) or 0.0):.1f}, "
+                        f"assembly_ready={bool(getattr(rj_spec, 'assembly_ready', True))})."
+                    ),
+                    details={
+                        "jobs_count": len(rj_jobs),
+                        "model_ids": sorted({str(getattr(j, "model_id", "")) for j in rj_jobs}),
+                        "overall_qa_score": float(getattr(rj_spec, "overall_qa_score", 95.0) or 0.0),
+                    },
+                ))
+
+        pt_spec = getattr(bible, "master_pitch_treatment", None)
+        if pt_spec is not None:
+            pt_id = str(getattr(pt_spec, "treatment_id", "") or "").strip()
+            pt_slides = list(getattr(pt_spec, "slides", None) or [])
+            if not pt_id or not pt_slides:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="pitch_treatment_schema",
+                    message="MasterPitchTreatmentSpec is missing treatment_id or slides.",
+                    suggested_fix="Hydrate master_pitch_treatment via compile_pitch_treatment().",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="pitch_treatment_schema",
+                    message=(
+                        f"MasterPitchTreatmentSpec verified (id={pt_id}, {len(pt_slides)} board(s), "
+                        f"domain={getattr(pt_spec, 'domain_archetype', 'general')})."
+                    ),
+                    details={
+                        "treatment_id": pt_id,
+                        "slides_count": len(pt_slides),
                     },
                 ))
 
@@ -3099,6 +3368,87 @@ class ProductCouncilOrchestrator(BaseAgent):
                     ),
                 ))
 
+        # Verify PM-FEAT-035 (Render Orchestrator) & PM-FEAT-036 (Pitch Treatment) token stripping & Mode B continuity
+        rj_pt_strip_failed: List[int] = []
+        for sc in bible.scenes:
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and any(tok in prompt for tok in ("[RENDER-JOB:", "[FRAME-ANCHOR:", "[TREATMENT-BEAT:")):
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if any(tok in clean_prompt for tok in ("[RENDER-JOB:", "[FRAME-ANCHOR:", "[TREATMENT-BEAT:")):
+                    rj_pt_strip_failed.append(sc.scene_index)
+        if rj_pt_strip_failed:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="render_treatment_prompt_strip_failed",
+                message=(
+                    f"Scene(s) {rj_pt_strip_failed} failed to cleanly strip "
+                    "[RENDER-JOB:]/[FRAME-ANCHOR:]/[TREATMENT-BEAT:] tokens in compile_clean_omni_prompt."
+                ),
+                suggested_fix="Ensure PM-FEAT-035/036 telemetry tokens match _MACHINE_TELEMETRY_TOKEN_RE.",
+            ))
+            penalty_points += 2.0
+
+        rj_spec = getattr(bible, "master_render_jobs", None)
+        if rj_spec is not None:
+            overall_qa = float(getattr(rj_spec, "overall_qa_score", 95.0) or 0.0)
+            assembly_ready = bool(getattr(rj_spec, "assembly_ready", True))
+            story_mode = getattr(bible, "storytelling_mode", StorytellingMode.MODE_A_PARALLEL_CUT)
+            is_mode_b = story_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            handoffs = list(getattr(rj_spec, "frame_anchor_handoffs", None) or [])
+
+            if overall_qa < 85.0 or not assembly_ready:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="render_orchestrator_gate_failed",
+                    message=(
+                        f"MasterRenderJobManifest failed QA/assembly gate "
+                        f"(overall_qa_score={overall_qa:.1f}, assembly_ready={assembly_ready})."
+                    ),
+                    suggested_fix="Promote passing takes or re-evaluate via compile_render_job_manifest().",
+                ))
+                penalty_points += 2.0
+            elif is_mode_b and len(bible.scenes) > 1 and (
+                len(handoffs) < len(bible.scenes) - 1
+                or any(not bool(getattr(h, "continuity_locked", False)) or not getattr(h, "end_frame_asset_id", "") for h in handoffs)
+            ):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="mode_b_frame_anchor_continuity_failed",
+                    message=(
+                        f"Mode B production lacks locked FrameAnchorHandoffSpec continuity across "
+                        f"{len(bible.scenes)} scenes (handoffs={len(handoffs)})."
+                    ),
+                    suggested_fix="Verify Mode B frame-anchor handoffs via verify_mode_b_frame_anchor().",
+                ))
+                penalty_points += 2.0
+            elif not rj_pt_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="render_orchestrator_schema_compliance",
+                    message=(
+                        f"Render Orchestrator & Mode B Frame-Anchor Continuity verified "
+                        f"(overall_qa_score={overall_qa:.1f}, assembly_ready={assembly_ready}, handoffs={len(handoffs)})."
+                    ),
+                ))
+
+        pt_spec = getattr(bible, "master_pitch_treatment", None)
+        if pt_spec is not None:
+            pt_slides = list(getattr(pt_spec, "slides", None) or [])
+            if not pt_slides:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="pitch_treatment_schema_failed",
+                    message="MasterPitchTreatmentSpec contains zero treatment slides.",
+                    suggested_fix="Compile pitch treatment via compile_pitch_treatment().",
+                ))
+                penalty_points += 2.0
+            elif not rj_pt_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="pitch_treatment_schema_compliance",
+                    message=f"MasterPitchTreatmentSpec contract verified ({len(pt_slides)} board slides, token present={bool(getattr(pt_spec, 'treatment_token', ''))}).",
+                ))
+
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
@@ -3150,6 +3500,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "otio_coherence_compliant", True)
+            ]
+            non_rj_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "render_orchestrator_compliant", True)
+            ]
+            non_pt_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "pitch_treatment_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -3286,6 +3646,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_gfx_and_otio_compliance",
                     message=f"Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if non_rj_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_render_orchestrator_non_compliant",
+                    message=f"Bundle audit_reports flagged render_orchestrator_compliant=False on scene(s): {non_rj_scenes}.",
+                    suggested_fix="Resolve flagged render job QA or Mode B frame-anchor continuity on affected scenes.",
+                ))
+                penalty_points += 2.0
+            if non_pt_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_pitch_treatment_non_compliant",
+                    message=f"Bundle audit_reports flagged pitch_treatment_compliant=False on scene(s): {non_pt_scenes}.",
+                    suggested_fix="Hydrate scene treatment_spec and master_pitch_treatment on affected scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_rj_scenes and not non_pt_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_render_and_treatment_compliance",
+                    message=f"Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -4399,6 +4781,77 @@ class ProductCouncilOrchestrator(BaseAgent):
                     },
                 ))
 
+        # Verify Live-Render Job QA & Domain Alignment (PM-FEAT-035)
+        rj_spec = getattr(bible, "master_render_jobs", None)
+        if rj_spec is not None:
+            expected_rj = get_domain_render_job_spec(detected_domain)
+            overall_qa = float(getattr(rj_spec, "overall_qa_score", 0.0) or 0.0)
+            assembly_ready = bool(getattr(rj_spec, "assembly_ready", False))
+            if overall_qa < 90.0 or not assembly_ready:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_render_qa_calibration",
+                    message=(
+                        f"MasterRenderJobManifest failed domain '{detected_domain}' QA threshold "
+                        f"(overall_qa_score={overall_qa:.1f} < 90.0 or assembly_ready={assembly_ready})."
+                    ),
+                    suggested_fix="Promote higher-scoring takes or recalibrate via get_domain_render_job_spec(bible).",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_render_qa_calibration",
+                    message=(
+                        f"Domain-calibrated Live-Render QA verified for '{detected_domain}' "
+                        f"(overall_qa_score={overall_qa:.1f} >= 90.0, min_temporal={expected_rj.get('min_temporal_stability', 90.0)}, "
+                        f"min_ref_fidelity={expected_rj.get('min_reference_fidelity', 91.0)})."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "overall_qa_score": overall_qa,
+                        "assembly_ready": assembly_ready,
+                    },
+                ))
+
+        # Verify Executive Director's Treatment & Pitch Lookbook Alignment (PM-FEAT-036)
+        pt_spec = getattr(bible, "master_pitch_treatment", None)
+        if pt_spec is not None:
+            expected_pt = get_domain_pitch_treatment_spec(detected_domain)
+            dir_stmt = str(getattr(pt_spec, "executive_director_statement", "") or "").strip()
+            aud_hook = str(getattr(pt_spec, "target_audience_hook", "") or "").strip()
+            slides = list(getattr(pt_spec, "slides", None) or [])
+            slide_types = {
+                str(getattr(getattr(sl, "slide_type", None), "value", getattr(sl, "slide_type", ""))).lower()
+                for sl in slides
+            }
+            has_roi = "budget_roi_summary" in slide_types
+            if not dir_stmt or not aud_hook or len(slides) < 5 or not has_roi:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_pitch_treatment_calibration",
+                    message=(
+                        f"MasterPitchTreatmentSpec incomplete for domain '{detected_domain}' "
+                        f"(statement={bool(dir_stmt)}, hook={bool(aud_hook)}, slides={len(slides)}, has_budget_roi={has_roi})."
+                    ),
+                    suggested_fix="Compile Executive Treatment via compile_pitch_treatment(bible, domain_calibration=get_domain_pitch_treatment_spec(bible)).",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_pitch_treatment_calibration",
+                    message=(
+                        f"Executive Director's Treatment calibrated for '{detected_domain}' "
+                        f"(tone='{expected_pt.get('executive_tone', '')}', slides={len(slides)}, budget_roi_summary=True)."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "slides_count": len(slides),
+                        "hero_kpi_focus": expected_pt.get("hero_kpi_focus", ""),
+                    },
+                ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -5083,6 +5536,60 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').",
                         ))
 
+                    # PM-FEAT-035 Live-Render Jobs, Take A/B/C QA & Mode B Frame-Anchor [`] HUD & Command Palette [/] check
+                    missing_rj_ids = [
+                        el_id
+                        for el_id in ("modal-render-jobs", "btn-render-jobs-animatic", "render-anchor-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_rj_palette = ("renderjobs" in html_content and "toggleRenderJobsHUD" in html_content)
+                    if missing_rj_ids or not has_rj_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_render_jobs_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Live-Render Jobs HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_rj_ids) or 'Command Palette / entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-render-jobs, #btn-render-jobs-animatic [`], #render-anchor-svg, and Command Palette 'renderjobs' entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_render_jobs_hud",
+                            message="Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').",
+                        ))
+
+                    # PM-FEAT-036 Director's Pitch Treatment & Lookbook [-] HUD & Command Palette [/] check
+                    missing_pt_ids = [
+                        el_id
+                        for el_id in ("modal-pitch-treatment", "btn-treatment-animatic")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_pt_palette = (
+                        "treatment" in html_content
+                        and "togglePitchTreatmentHUD" in html_content
+                        and "safeguides" in html_content
+                    )
+                    if missing_pt_ids or not has_pt_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_pitch_treatment_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Director's Pitch Treatment HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_pt_ids) or 'Command Palette (treatment/safeguides) entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #modal-pitch-treatment, #btn-treatment-animatic [-], and Command Palette 'treatment' & 'safeguides' entries.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_pitch_treatment_hud",
+                            message="Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -5240,6 +5747,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.",
                             ))
 
+                        has_backtick_key = bool(re.search(r"""e\.key\s*===\s*(?:'`'|"`")""", kd_block))
+                        has_minus_key = bool(re.search(r"""e\.key\s*===\s*(?:'-'|"-")""", kd_block))
+                        if not (has_backtick_key and has_minus_key):
+                            missing_bm = []
+                            if not has_backtick_key:
+                                missing_bm.append("`")
+                            if not has_minus_key:
+                                missing_bm.append("-")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_backtick_minus",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_bm)}.",
+                                suggested_fix="Bind ` (Live-Render Jobs HUD) and - (Director Pitch Treatment HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_backtick_minus",
+                                message="Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -5268,6 +5797,8 @@ class ProductCouncilOrchestrator(BaseAgent):
                             ("modal-render-economics", ("RenderEconomicsHUD", "isRenderEconomicsHUDOpen", "modal-render-economics")),
                             ("modal-motion-graphics-studio", ("MotionGfxHUD", "isMotionGfxHUDOpen", "modal-motion-graphics-studio")),
                             ("modal-otio-coherence", ("OtioCoherenceHUD", "isOtioCoherenceHUDOpen", "modal-otio-coherence")),
+                            ("modal-render-jobs", ("RenderJobsHUD", "isRenderJobsHUDOpen", "modal-render-jobs")),
+                            ("modal-pitch-treatment", ("PitchTreatmentHUD", "isPitchTreatmentHUDOpen", "modal-pitch-treatment")),
                         )
                         missing_esc: list[str] = [
                             panel_id

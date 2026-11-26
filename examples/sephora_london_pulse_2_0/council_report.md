@@ -1,17 +1,17 @@
 # Product Council Audit Report: SEPHORA: London Pulse (Midnight Velvet)
 
-**Version**: 2.17.0 | **Timestamp**: `2026-11-25T10:03:47.218248+00:00`
-**Overall Score**: **`98.0 / 100.0`** | **Status**: **PASSED**
+**Version**: 2.18.0 | **Timestamp**: `2026-11-26T09:30:30.499091+00:00`
+**Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
 ## Persona Scorecard
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **23.0** | 37 | FDE review completed with score 23.0/25.0. 37 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 23 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 30 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 36 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 41 | FDE review completed with score 25.0/25.0. 41 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 26 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 32 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 39 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -39,10 +39,10 @@
 - [INFO] **accessibility_ad_delivery**: Accessibility AD manifest JSON, cue sheet CSV, and VTT verified on disk: subtitles_ad.vtt, ad_script_cue_sheet.csv, accessibility_ad_manifest.json.
 - [INFO] **wardrobe_prop_delivery**: Wardrobe/Prop Bible JSON, continuity matrix CSV, and pull list MD verified on disk: wardrobe_prop_bible.json, prop_continuity_matrix.csv, art_dept_pull_list.md.
 - [INFO] **render_economics_delivery**: Render Economics manifest JSON, take variant ledger CSV, and compute estimate MD verified on disk: render_economics_manifest.json, take_variant_ledger.csv, ai_compute_estimate.md.
-- [WARNING] **motion_graphics_delivery**: NLE exports present on disk without PM-FEAT-033 Motion Graphics deliverables (motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md).
-  - *Suggested Fix*: Run export_motion_graphics_bundle() or export_all_nle_artifacts().
-- [WARNING] **otio_coherence_delivery**: NLE exports present on disk without PM-FEAT-034 OTIO Coherence deliverables (production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md).
-  - *Suggested Fix*: Run export_otio_coherence_bundle() or export_all_nle_artifacts().
+- [INFO] **motion_graphics_delivery**: Motion Graphics MOGRT JSON, ASS supers, and Brand End-Card MD verified on disk: motion_graphics_mogrt.json, broadcast_supers.ass, brand_endcard_spec.md.
+- [INFO] **otio_coherence_delivery**: OpenTimelineIO 7-track .otio, coherence matrix JSON, and readiness report MD verified on disk: production_timeline.otio, coherence_matrix.json, coherence_readiness_report.md.
+- [INFO] **render_job_delivery**: Live-Render Job manifest JSON, Take QA CSV, and Rough-Cut Assembly script verified on disk: render_job_manifest.json, take_qa_scorecard.csv, rough_cut_assembly.sh.
+- [INFO] **pitch_treatment_delivery**: Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (4 scenes, ready_for_live_render=True).
 - [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 4 scenes, manifest_signed=True).
@@ -54,7 +54,9 @@
 - [INFO] **wardrobe_prop_schema**: MasterWardrobePropBible verified (4 scenes, looks=2, hero_props=1, pull_list_ready=True).
 - [INFO] **render_economics_schema**: MasterRenderEconomicsManifest verified (4 2026 model rates, dry_run_billable_usd=$0.00, takes=8).
 - [INFO] **motion_graphics_schema**: MasterMotionGraphicsManifest verified (4 cues, max_wpm=107.1, all_safe_zones_cleared=True, legal_supers_compliant=True).
-- [INFO] **otio_coherence_schema**: MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=7b3dcdb56f7f..., coherence_score=100.0, shoot_day_ready=True).
+- [INFO] **otio_coherence_schema**: MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=772e501b86cf..., coherence_score=100.0, shoot_day_ready=True).
+- [INFO] **render_jobs_schema**: MasterRenderJobManifest verified (4 job(s), 2026 Model Matrix compliant, overall_qa_score=94.1, assembly_ready=True).
+- [INFO] **pitch_treatment_schema**: MasterPitchTreatmentSpec verified (id=pt-615b858d55, 12 board(s), domain=luxury_fashion).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -75,11 +77,14 @@
 - [INFO] **render_economics_schema_compliance**: Render Economics Guardrail verified across 4 scene(s) (within_budget=True, total_takes=8).
 - [INFO] **motion_graphics_schema_compliance**: Motion Graphics & Safe-Zone Gate verified across 4 scene(s) (max_wpm=107.1 <= 180.0, all_safe_zones_cleared=True, legal_supers_compliant=True).
 - [INFO] **otio_coherence_schema_compliance**: OTIO Cross-Department Coherence Gate verified (coherence_score=100.0 >= 85.0, conflicts_count=0).
+- [INFO] **render_orchestrator_schema_compliance**: Render Orchestrator & Mode B Frame-Anchor Continuity verified (overall_qa_score=94.1, assembly_ready=True, handoffs=0).
+- [INFO] **pitch_treatment_schema_compliance**: MasterPitchTreatmentSpec contract verified (12 board slides, token present=True).
 - [INFO] **audit_report_continuity_and_review_compliance**: Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).
 - [INFO] **audit_report_c2pa_and_safety_compliance**: Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 4 scene(s).
 - [INFO] **audit_report_localization_and_spotting_compliance**: Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 4 scene(s).
 - [INFO] **audit_report_art_and_economics_compliance**: Bundle audit_reports verified art_continuity_compliant=True and render_economics_compliant=True across 4 scene(s).
 - [INFO] **audit_report_gfx_and_otio_compliance**: Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 4 scene(s).
+- [INFO] **audit_report_render_and_treatment_compliance**: Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 4 scene(s).
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -111,6 +116,8 @@
 - [INFO] **domain_render_economics**: Render economics calibrated for domain 'luxury_fashion' (est=$16.59/$50.00 cap, domain_cap=$25.00, AI-vs-AICP savings=100.00%).
 - [INFO] **domain_motion_graphics_calibration**: Motion graphics & Brand End-Card calibrated for domain 'luxury_fashion' (typeface='Didot LT Pro / Bodoni Moda', endcard=2.80s, max_wpm=107.1, 9:16_clear=True).
 - [INFO] **domain_otio_coherence_readiness**: OTIO 7-track cross-department coherence verified for domain 'luxury_fashion' (shoot_day_ready=True, coherence_score=100.0, focal_tol<=12.0mm, kelvin_tol<=800.0K).
+- [INFO] **domain_render_qa_calibration**: Domain-calibrated Live-Render QA verified for 'luxury_fashion' (overall_qa_score=94.1 >= 90.0, min_temporal=94.0, min_ref_fidelity=95.0).
+- [INFO] **domain_pitch_treatment_calibration**: Executive Director's Treatment calibrated for 'luxury_fashion' (tone='Editorial Couture Restraint & Kinetic Silk Fluidity', slides=12, budget_roi_summary=True).
 - [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
@@ -142,13 +149,16 @@
 - [INFO] **animatic_render_economics_hud**: Compute Economics & Take-Variant Inspector HUD verified (#btn-economics-animatic / #modal-render-economics / hotkey ';').
 - [INFO] **animatic_motion_graphics_hud**: Motion Graphics, Supers & End-Card Studio HUD verified (#btn-motion-gfx-animatic / #modal-motion-graphics-studio / Command Palette '/' / hotkey '=').
 - [INFO] **animatic_otio_coherence_hud**: OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD verified (#btn-otio-coherence-animatic / #modal-otio-coherence / Command Palette '/' / hotkey ''').
+- [INFO] **animatic_render_jobs_hud**: Live-Render Jobs & Frame-Anchor HUD verified (#btn-render-jobs-animatic / #modal-render-jobs / #render-anchor-svg / Command Palette 'renderjobs').
+- [INFO] **animatic_pitch_treatment_hud**: Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 64 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 66 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_ij**: Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_eq_quote**: Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.
+- [INFO] **animatic_hotkeys_backtick_minus**: Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.
 - [INFO] **animatic_aicp_real_data**: AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).
 
 ## Senior Product Manager Roadmap & Feature Inspection
@@ -191,8 +201,5 @@
 | `PM-FEAT-032` | **P0** | `implemented` | **Gemini Model Matrix Compute Economics, Live-Render Cost Guardrail & Multi-Take Variant Ledger**: Implement ModelTierRateSpec, TakeVariantRecord, SceneComputeEstimateSpec, RenderBudgetGuardrailSpec, and MasterRenderEconomicsManifest schemas; omni_director.tools.render_economics (get_2026_model_matrix_rates, estimate_scene_compute_cost, check_render_budget_guardrail, compile_render_economics_manifest, format_render_profile_token, export_render_economics_bundle, [RENDER-PROFILE: ...] tokens); 6-domain calibration via get_domain_render_economics_spec(); and the Compute Economics & Take-Variant Inspector HUD [;] (#btn-economics-animatic, #modal-render-economics) in the dark-room animatic. | `omni_director/schemas.py`, `omni_director/tools/render_economics.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/telemetry.py` |
 | `PM-FEAT-033` | **P0** | `implemented` | **Broadcast Kinetic Typography, MOGRT Supers & Brand End-Card Compositing Engine**: Implement GraphicLayerRoleEnum, CompositeStrategyEnum, TypographyPlacementSpec, GraphicSuperCueSpec, BrandEndcardSpec, SceneMotionGraphicsSpec, and MasterMotionGraphicsManifest schemas; omni_director.tools.motion_graphics (compile_motion_graphics_manifest, compute_effective_wpm, compute_wcag_contrast_ratio, format_motion_graphics_token, export_motion_graphics_bundle exporting motion_graphics_mogrt.json, broadcast_supers.ass, and brand_endcard_spec.md, plus [GFX-SUPER:]/[GFX-CLEANPLATE:]/[ENDCARD:] telemetry tokens); 6-domain calibration via get_domain_motion_graphics_spec(); and the Motion Graphics, Supers & End-Card Studio HUD [=] (#btn-motion-gfx-animatic, #modal-motion-graphics-studio). | `omni_director/schemas.py`, `omni_director/tools/motion_graphics.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v217.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
 | `PM-FEAT-034` | **P0** | `implemented` | **Universal OpenTimelineIO (.otio) Multi-Track Interchange & Cross-Departmental Coherence Gate**: Implement CoherenceDomainPairEnum, CoherenceCheckStatusEnum, CrossDeptCoherenceCheck, OtioTrackSummarySpec, and MasterOtioCoherenceManifest schemas; omni_director.tools.otio_coherence (compile_otio_timeline_dict, evaluate_cross_department_coherence, reconcile_cross_department_conflicts, compile_otio_coherence_manifest, format_otio_coherence_token, export_otio_coherence_bundle exporting production_timeline.otio, coherence_matrix.json, and coherence_readiness_report.md, plus [OTIO-SYNC:]/[COHERENCE-LOCK:] tokens); 6-domain tolerance calibration via get_domain_otio_coherence_spec(); and the OpenTimelineIO (.otio) & Cross-Dept Coherence Matrix HUD ['] (#btn-otio-coherence-animatic, #modal-otio-coherence). | `omni_director/schemas.py`, `omni_director/tools/otio_coherence.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v217.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
-
-## Recommendations
-
-1. Run export_motion_graphics_bundle() or export_all_nle_artifacts().
-1. Run export_otio_coherence_bundle() or export_all_nle_artifacts().
+| `PM-FEAT-035` | **P0** | `implemented` | **Live-Render Job Orchestrator, Multi-Take Visual QA & Mode B Frame-Anchor Continuity Engine**: Implement RenderJobStatusEnum, TakeQaScorecardSpec, FrameAnchorHandoffSpec, SceneRenderJobSpec, and MasterRenderJobManifest schemas; omni_director.tools.render_orchestrator (evaluate_take_visual_qa, verify_mode_b_frame_anchor, compile_render_job_manifest, promote_scene_take, generate_rough_cut_assembly_script, format_render_job_token, export_render_jobs_bundle exporting render_job_manifest.json, take_qa_scorecard.csv, and rough_cut_assembly.sh, plus [RENDER-JOB:]/[FRAME-ANCHOR:] telemetry tokens); 6-domain QA calibration via get_domain_render_job_spec(); and the Live-Render Jobs, Take A/B/C QA & Frame-Anchor HUD [`] (#btn-render-jobs-animatic, #modal-render-jobs, #render-anchor-svg). | `omni_director/schemas.py`, `omni_director/tools/render_orchestrator.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v218.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
+| `PM-FEAT-036` | **P0** | `implemented` | **Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine**: Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment). | `omni_director/schemas.py`, `omni_director/tools/pitch_treatment.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v218.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |

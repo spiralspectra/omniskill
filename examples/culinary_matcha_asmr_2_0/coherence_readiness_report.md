@@ -6,7 +6,7 @@
 - **Coherence Score**: `100.0 / 100.0`
 - **Conflicts / Warnings**: `0` / `0`
 - **Shoot-Day Ready**: `True`
-- **OTIO SHA-256**: `c3db552fb8a8dde963e2e71c31f8abff9179e2ce1829fb3e89ef81b4f1da86e0`
+- **OTIO SHA-256**: `7f8b040ccc10f6cfd48e1fe4ad3820b2ef0343d0faf2e24326b26f1fcd7b7e39`
 
 ## 7-Track OpenTimelineIO Assembly
 | Track | Kind | Clips | Markers | Frames (24fps) |
