@@ -1672,12 +1672,16 @@ def build_v217_hud_bundle(bible: Any) -> Dict[str, str]:
     }
 
     function _v217CloseSiblingHUDs(activeKey) {
-      if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs(activeKey);
       if (typeof isHudCommandPaletteOpen !== 'undefined' && isHudCommandPaletteOpen && typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(false);
       if (typeof isArtWardrobeHUDOpen !== 'undefined' && isArtWardrobeHUDOpen && typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(false);
       if (typeof isRenderEconomicsHUDOpen !== 'undefined' && isRenderEconomicsHUDOpen && typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(false);
       if (typeof isS3dHUDOpen !== 'undefined' && isS3dHUDOpen && typeof toggleS3dHUD === 'function') toggleS3dHUD(false);
       if (typeof isAccessibilityAdHUDOpen !== 'undefined' && isAccessibilityAdHUDOpen && typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(false);
+      if (typeof isRenderJobsHUDOpen !== 'undefined' && isRenderJobsHUDOpen && typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(false);
+      if (typeof isPitchTreatmentHUDOpen !== 'undefined' && isPitchTreatmentHUDOpen && typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(false);
+      if (typeof isImfDcpHUDOpen !== 'undefined' && isImfDcpHUDOpen && typeof toggleImfDcpHUD === 'function') toggleImfDcpHUD(false);
+      if (typeof isVoiceDuckingHUDOpen !== 'undefined' && isVoiceDuckingHUDOpen && typeof toggleVoiceDuckingHUD === 'function') toggleVoiceDuckingHUD(false);
       if (activeKey !== 'motiongfx' && isMotionGfxHUDOpen) toggleMotionGfxHUD(false);
       if (activeKey !== 'otio' && isOtioCoherenceHUDOpen) toggleOtioCoherenceHUD(false);
     }
@@ -1927,13 +1931,15 @@ def build_v217_hud_bundle(bible: Any) -> Dict[str, str]:
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isMotionGfxHUDOpen;
       if (!shouldOpen && !isMotionGfxHUDOpen) return;
+      if (shouldOpen) {
+        _v217CloseSiblingHUDs('motiongfx');
+      }
       isMotionGfxHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
         btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
       }
       if (shouldOpen) {
-        _v217CloseSiblingHUDs('motiongfx');
         lastMotionGfxOpener = document.activeElement;
         modal.style.display = 'flex';
         renderMotionGfxPreview();
@@ -1953,13 +1959,15 @@ def build_v217_hud_bundle(bible: Any) -> Dict[str, str]:
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isOtioCoherenceHUDOpen;
       if (!shouldOpen && !isOtioCoherenceHUDOpen) return;
+      if (shouldOpen) {
+        _v217CloseSiblingHUDs('otio');
+      }
       isOtioCoherenceHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
         btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
       }
       if (shouldOpen) {
-        _v217CloseSiblingHUDs('otio');
         lastOtioCoherenceOpener = document.activeElement;
         modal.style.display = 'flex';
         renderOtioTimelineSvg();

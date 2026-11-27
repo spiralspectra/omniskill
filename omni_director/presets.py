@@ -30,6 +30,7 @@ from omni_director.schemas import (
     ColorLookPreset,
     ColorLookSpec,
     ColorVolumeGamut,
+    CommercialDomain,
     CraftCameraSpec,
     CrewLaborTier,
     CryptomatteManifestSpec,
@@ -120,6 +121,7 @@ from omni_director.schemas import (
     VfxLayerChannelSpec,
     VfxRenderPassType,
     VirtualProductionStageSpec,
+    VocalRegisterEnum,
     WindDriftVectorSpec,
 )
 
@@ -4440,6 +4442,193 @@ def get_domain_pitch_treatment_spec(archetype_or_bible: Any = None) -> Dict[str,
     return out
 
 
+# ==============================================================================
+# PM-FEAT-037: SMPTE IMF (ST 2067) Supplemental Packaging & DCI DCP Calibrations
+# ==============================================================================
+
+_DOMAIN_IMF_DCP_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "application_profile": "ST_2067_21_App2E",
+        "resolution_class": "2K_SCOPE_2048x858",
+        "jpeg2000_max_bitrate_mbps": 250.0,
+        "audio_config": "ATMOS_IAB",
+        "kdm_encryption_required": False,
+    },
+    "culinary_asmr": {
+        "application_profile": "ST_2067_50_ProRes",
+        "resolution_class": "2K_FLAT_1998x1080",
+        "jpeg2000_max_bitrate_mbps": 200.0,
+        "audio_config": "5.1",
+        "kdm_encryption_required": False,
+    },
+    "luxury_fashion": {
+        "application_profile": "ST_2067_21_App2E",
+        "resolution_class": "4K_SCOPE_4096x1716",
+        "jpeg2000_max_bitrate_mbps": 250.0,
+        "audio_config": "ATMOS_IAB",
+        "kdm_encryption_required": True,
+    },
+    "kinetic_action": {
+        "application_profile": "ST_2067_21_App2E",
+        "resolution_class": "2K_SCOPE_2048x858",
+        "jpeg2000_max_bitrate_mbps": 250.0,
+        "audio_config": "ATMOS_IAB",
+        "kdm_encryption_required": False,
+    },
+    "tech_hardware": {
+        "application_profile": "ST_2067_50_ProRes",
+        "resolution_class": "2K_FLAT_1998x1080",
+        "jpeg2000_max_bitrate_mbps": 180.0,
+        "audio_config": "5.1",
+        "kdm_encryption_required": False,
+    },
+    "architectural_sanctuary": {
+        "application_profile": "ST_2067_21_App2E",
+        "resolution_class": "4K_FLAT_3996x2160",
+        "jpeg2000_max_bitrate_mbps": 220.0,
+        "audio_config": "7.1_DS",
+        "kdm_encryption_required": False,
+    },
+}
+
+
+def get_domain_imf_dcp_profile(
+    domain: Union[CommercialDomain, DomainArchetype, str] = "architectural_sanctuary"
+) -> Dict[str, Any]:
+    """Retrieve calibrated SMPTE IMF & DCI Theatrical DCP mastering parameters for a domain (PM-FEAT-037)."""
+    resolved = _normalize_domain_key(
+        domain if domain is not None else "architectural_sanctuary"
+    )
+    out = dict(_DOMAIN_IMF_DCP_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-038: Voice Casting, Viseme Lip-Sync & Sidechain Ducking Calibrations
+# ==============================================================================
+
+_DOMAIN_VOICE_DUCKING_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "vocal_register": "BARITONE",
+        "mic_perspective": "vo_booth_neumann_u87",
+        "target_wpm": 126.0,
+        "music_duck_db": -8.0,
+        "ambience_duck_db": -4.0,
+        "attack_ms": 45,
+        "release_ms": 320,
+    },
+    "culinary_asmr": {
+        "vocal_register": "WHISPER_ASMR",
+        "mic_perspective": "close_cardioid",
+        "target_wpm": 96.0,
+        "music_duck_db": -12.0,
+        "ambience_duck_db": -6.0,
+        "attack_ms": 30,
+        "release_ms": 400,
+    },
+    "luxury_fashion": {
+        "vocal_register": "MEZZO_SOPRANO",
+        "mic_perspective": "vo_booth_neumann_u87",
+        "target_wpm": 108.0,
+        "music_duck_db": -6.5,
+        "ambience_duck_db": -5.0,
+        "attack_ms": 80,
+        "release_ms": 450,
+    },
+    "kinetic_action": {
+        "vocal_register": "TENOR",
+        "mic_perspective": "boom_natural",
+        "target_wpm": 138.0,
+        "music_duck_db": -9.5,
+        "ambience_duck_db": -3.5,
+        "attack_ms": 25,
+        "release_ms": 220,
+    },
+    "tech_hardware": {
+        "vocal_register": "ALTO",
+        "mic_perspective": "vo_booth_neumann_u87",
+        "target_wpm": 135.0,
+        "music_duck_db": -8.5,
+        "ambience_duck_db": -5.0,
+        "attack_ms": 40,
+        "release_ms": 280,
+    },
+    "architectural_sanctuary": {
+        "vocal_register": "BASS",
+        "mic_perspective": "lavalier_intimate",
+        "target_wpm": 102.0,
+        "music_duck_db": -7.5,
+        "ambience_duck_db": -4.5,
+        "attack_ms": 90,
+        "release_ms": 500,
+    },
+}
+
+
+def get_domain_voice_ducking_profile(
+    domain: Union[CommercialDomain, DomainArchetype, str] = "architectural_sanctuary"
+) -> Dict[str, Any]:
+    """Retrieve calibrated Voice Casting, Viseme Lip-Sync & Sidechain Ducking parameters for a domain (PM-FEAT-038)."""
+    resolved = _normalize_domain_key(
+        domain if domain is not None else "architectural_sanctuary"
+    )
+    out = dict(_DOMAIN_VOICE_DUCKING_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
+def hydrate_imf_dcp_and_voice_ducking_specs(
+    bible: MasterProductionBible,
+    imf_profile: Dict[str, Any],
+    vd_profile: Dict[str, Any],
+) -> None:
+    """Compile and attach master and per-scene IMF/DCP (PM-FEAT-037) and Voice Ducking (PM-FEAT-038) specs."""
+    if not getattr(bible, "master_imf_dcp", None):
+        from omni_director.tools.imf_dcp_packager import compile_imf_dcp_manifest
+
+        imf_manifest = compile_imf_dcp_manifest(bible, imf_profile)
+        if imf_profile.get("resolution_class") and getattr(imf_manifest, "dcp_spec", None) is not None:
+            imf_manifest.dcp_spec.resolution_class = str(imf_profile["resolution_class"])
+        bible.master_imf_dcp = imf_manifest
+
+    if not getattr(bible, "master_voice_ducking", None):
+        from omni_director.tools.voice_ducking import compile_voice_ducking_manifest
+
+        vd_cfg = dict(vd_profile)
+        if "vocal_register" in vd_cfg and "register" not in vd_cfg:
+            try:
+                vd_cfg["register"] = VocalRegisterEnum(str(vd_cfg["vocal_register"]))
+            except ValueError:
+                pass
+        vd_manifest = compile_voice_ducking_manifest(bible, vd_cfg)
+        attack_ms = int(vd_profile.get("attack_ms", 40) or 40)
+        release_ms = int(vd_profile.get("release_ms", 300) or 300)
+        for sp in getattr(vd_manifest, "scene_profiles", None) or []:
+            for kf in getattr(sp, "ducking_keyframes", None) or []:
+                kf.attack_ms = attack_ms
+                kf.release_ms = release_ms
+        bible.master_voice_ducking = vd_manifest
+
+    master_imf = getattr(bible, "master_imf_dcp", None)
+    master_vd = getattr(bible, "master_voice_ducking", None)
+    imf_cpls = list(getattr(master_imf, "cpls", None) or []) if master_imf is not None else []
+    vd_profiles = list(getattr(master_vd, "scene_profiles", None) or []) if master_vd is not None else []
+
+    for idx, scene in enumerate(getattr(bible, "scenes", None) or [], 1):
+        if not getattr(scene, "imf_dcp_profile", None) and imf_cpls:
+            scene.imf_dcp_profile = imf_cpls[0].model_copy(deep=True)
+        if not getattr(scene, "voice_ducking_spec", None) and vd_profiles:
+            matched_vd = next(
+                (sp for sp in vd_profiles if getattr(sp, "scene_index", None) == scene.scene_index),
+                None,
+            )
+            if matched_vd is None and len(vd_profiles) >= idx:
+                matched_vd = vd_profiles[idx - 1]
+            if matched_vd is not None:
+                scene.voice_ducking_spec = matched_vd
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -5136,6 +5325,12 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
             domain_calibration=treatment_cal,
         )
 
+    hydrate_imf_dcp_and_voice_ducking_specs(
+        bible,
+        get_domain_imf_dcp_profile(arch),
+        get_domain_voice_ducking_profile(arch),
+    )
+
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
             scene.speed_ramp = get_domain_speed_ramp(arch)
@@ -5393,6 +5588,8 @@ def create_bible(
         bible.master_motion_graphics = None
         bible.master_render_jobs = None
         bible.master_pitch_treatment = None
+        bible.master_imf_dcp = None
+        bible.master_voice_ducking = None
         bible.master_otio_coherence = None
         for sc in bible.scenes:
             sc.locale_tracks = []
@@ -5404,6 +5601,8 @@ def create_bible(
             sc.motion_graphics_spec = None
             sc.render_job_spec = None
             sc.treatment_spec = None
+            sc.imf_dcp_profile = None
+            sc.voice_ducking_spec = None
             sc.otio_sync_token = None
     else:
         bible = MasterProductionBible(

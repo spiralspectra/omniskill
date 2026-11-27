@@ -1,0 +1,304 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "BASS",
+      "timbre_descriptors": "Warm natural room-tone alto with unhurried spatial cadence",
+      "mic_perspective": "lavalier_intimate",
+      "target_wpm": 102.0,
+      "pitch_hz_range": "145-220 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Awakening Box: Cool concrete echoing footsteps.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 4,
+          "wps": 1.25,
+          "dominant_visemes": [
+            "KK",
+            "OO",
+            "NN",
+            "KK",
+            "OO",
+            "NN",
+            "KK",
+            "RR",
+            "EE",
+            "DD",
+            "EE",
+            "CH"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Hyper-Kinetic Self-Assembly: Warm light pooling on timber.",
+          "start_sec": 8.1,
+          "end_sec": 11.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "TH",
+            "EE",
+            "PP",
+            "EE",
+            "RR",
+            "KK",
+            "EE",
+            "NN",
+            "EE",
+            "DD",
+            "EE",
+            "KK"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 8.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 11.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 11.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    },
+    {
+      "scene_index": 3,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 3,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Upholstery & Soft Architecture: Expansive vaulted ceiling distance.",
+          "start_sec": 16.1,
+          "end_sec": 19.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "OO",
+            "PP",
+            "OO",
+            "NN",
+            "SS",
+            "DD",
+            "EE",
+            "RR",
+            "EE",
+            "SS",
+            "OO",
+            "FF"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 16.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 16.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 19.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 19.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 3
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    },
+    {
+      "scene_index": 4,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 4,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Final Flourish & The ASMR Stillness: Cool.",
+          "start_sec": 24.1,
+          "end_sec": 27.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "TH",
+            "EE",
+            "FF",
+            "EE",
+            "NN",
+            "AA",
+            "NN",
+            "FF",
+            "NN",
+            "OO",
+            "RR",
+            "EE"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 24.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 24.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 27.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 27.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 4
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    }
+  ],
+  "default_music_duck_db": -7.5,
+  "default_ambience_duck_db": -4.5,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

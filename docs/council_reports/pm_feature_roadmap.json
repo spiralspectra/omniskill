@@ -1,6 +1,6 @@
 {
-  "version": "2.18.0",
-  "timestamp": "2026-11-26T09:30:28.228435+00:00",
+  "version": "2.19.0",
+  "timestamp": "2026-11-27T10:54:08.747975+00:00",
   "persona": "council-product-manager",
   "persona_prompt": "You are a world-class senior product manager that recently joined this project from a top software company. You will inspect everything about this product and recommend new features and improvements to the product council who will then implement it.",
   "recommendations": [
@@ -595,6 +595,50 @@
         "omni_director/agents/council.py",
         "omni_director/tools/nle_export.py",
         "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-037",
+      "title": "SMPTE ST 2067 IMF Multi-Version Mastering & DCI Theatrical DCP Packaging Engine",
+      "problem_statement": "Multi-territory and multi-cutdown commercial deliveries duplicate 12-bit master picture essence across localized/cutdown renders and lack SMPTE ST 2067 ASSETMAP/PKL/CPL XML packaging plus SMPTE ST 429 DCI Theatrical DCP bitrate/color/KDM verification.",
+      "proposed_solution": "Implement ImfApplicationProfileEnum, ImfAssetTrackSpec, ImfCompositionPlaylistSpec, DciTheatricalDcpSpec, and MasterImfDcpManifest schemas; omni_director.tools.imf_dcp_packager (compile_imf_dcp_manifest, format_imf_dcp_token, export_imf_assetmap_xml, export_imf_pkl_xml, export_imf_cpl_xml, export_imf_dcp_manifest_json, export_dcp_cpl_spec_md, export_imf_dcp_bundle with deduplicated OV picture essence reuse and <=250.0 Mbps JPEG2000 DCI cap); 6-domain calibration via get_domain_imf_dcp_profile(); [IMF-CPL:] telemetry token stripping; and the IMF Package & Theatrical DCP Mastering HUD [}] (#btn-imf-dcp, #imfDcpModal).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/imf_dcp_packager.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v219.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-038",
+      "title": "Voice Casting, Phoneme/Viseme Lip-Sync Scripting & Automated Stem Sidechain Ducking Engine",
+      "problem_statement": "Dialogue, voice-over, and Audio Description (AD) tracks lack explicit vocal register casting, Preston Blair 13-class viseme lip-sync timing <=2.5 WPS, and sample-accurate sidechain stem ducking automation preserving >=6.0 dB dialogue-to-BGM SNR.",
+      "proposed_solution": "Implement VocalRegisterEnum, VisemeClassEnum, VoiceCastingProfile, VisemeLipSyncCue, SidechainDuckingKeyframe, SceneVoiceDuckingSpec, and MasterVoiceDuckingManifest schemas; omni_director.tools.voice_ducking (compile_voice_ducking_manifest, format_voice_ducking_token, export_voice_casting_json, export_stem_ducking_csv, export_adr_viseme_md, export_voice_ducking_bundle); 6-domain calibration via get_domain_voice_ducking_profile(); [VOICE-CAST:] telemetry token stripping; and the Voice Casting, Viseme Lip-Sync & Sidechain Ducking Studio HUD [{] (#btn-voice-ducking, #voiceDuckingModal, #v219-ducking-svg).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/voice_ducking.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v219.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
       ],
       "priority": "P0",
       "status": "implemented"

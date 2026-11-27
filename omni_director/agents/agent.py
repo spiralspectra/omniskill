@@ -27,6 +27,7 @@ from omni_director.presets import (
     get_domain_c2pa_provenance_spec,
     get_domain_film_emulation_spec,
     get_domain_hdr_spec,
+    get_domain_imf_dcp_profile,
     get_domain_lighting_rig,
     get_domain_lut_spec,
     get_domain_moco_rig,
@@ -37,7 +38,9 @@ from omni_director.presets import (
     get_domain_stripboard_spec,
     get_domain_vfx_manifest,
     get_domain_virtual_production,
+    get_domain_voice_ducking_profile,
     get_preset_bible,
+    hydrate_imf_dcp_and_voice_ducking_specs,
 )
 from omni_director.tools.stripboard_scheduler import extract_script_breakdown_sheet
 from omni_director.tools.delivery_reframe import (
@@ -85,14 +88,19 @@ from omni_director.tools.otio_coherence import (
     reconcile_cross_department_conflicts,
 )
 from omni_director.tools.render_orchestrator import (
+    _recalculate_manifest_summary,
     compile_render_job_manifest,
+    evaluate_take_visual_qa,
     format_render_job_token,
     promote_scene_take,
+    verify_mode_b_frame_anchor,
 )
 from omni_director.tools.pitch_treatment import (
     compile_pitch_treatment,
     format_pitch_treatment_token,
 )
+from omni_director.tools.imf_dcp_packager import format_imf_dcp_token
+from omni_director.tools.voice_ducking import format_voice_ducking_token
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -110,6 +118,7 @@ from omni_director.schemas import (
     NanoBananaReference,
     ProductionBundle,
     RegimeType,
+    RenderJobStatusEnum,
     ScenePromptSpec,
     StorytellingMode,
     load_bible_from_json,
@@ -457,6 +466,11 @@ def synthesize_custom_bible(
         master_drone_spec=domain_drone,
         master_aicp_bid=get_domain_aicp_bid_spec(domain, total_runtime_seconds=total_runtime_sec or 10),
     )
+    bible.master_imf_dcp = None
+    bible.master_voice_ducking = None
+    for sc in bible.scenes:
+        sc.imf_dcp_profile = None
+        sc.voice_ducking_spec = None
     _backfill_production_specs(
         bible,
         domain,
@@ -898,6 +912,13 @@ def _backfill_production_specs(
                 if matched_sl is not None:
                     scene.treatment_spec = matched_sl
 
+    # PM-FEAT-037 & PM-FEAT-038: SMPTE IMF/DCP Supplemental Packaging & Voice Casting / Sidechain Ducking
+    imf_fn = getattr(_presets_mod, "get_domain_imf_dcp_profile", None)
+    vd_fn = getattr(_presets_mod, "get_domain_voice_ducking_profile", None)
+    imf_profile = imf_fn(arch) if callable(imf_fn) else get_domain_imf_dcp_profile(arch)
+    vd_profile = vd_fn(arch) if callable(vd_fn) else get_domain_voice_ducking_profile(arch)
+    hydrate_imf_dcp_and_voice_ducking_specs(bible, imf_profile, vd_profile)
+
 
 class IntakeAndResearchAgent(BaseAgent):
     """Stage 1: Ingests user creative loglines, references, and research parameters."""
@@ -1272,6 +1293,24 @@ class ScenePromptAgent(BaseAgent):
                     s_type = pt_slide.slide_type.value if hasattr(pt_slide.slide_type, "value") else str(pt_slide.slide_type)
                     treat_token = f"[TREATMENT-BEAT: SC{scene.scene_index:02d} | slide={s_type} | headline={pt_slide.headline[:48]}]"
                 scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {treat_token}."
+
+            # Ensure PM-FEAT-037 [IMF-CPL: ...] token is attached
+            master_imf = getattr(bible, "master_imf_dcp", None)
+            if (master_imf is not None or getattr(scene, "imf_dcp_profile", None) is not None) and not re.search(
+                r"\[IMF[-_ ]CPL:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                if master_imf is not None:
+                    imf_token = format_imf_dcp_token(master_imf, scene.scene_index)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {imf_token}."
+
+            # Ensure PM-FEAT-038 [VOICE-CAST: ...] token is attached
+            master_vd = getattr(bible, "master_voice_ducking", None)
+            if (master_vd is not None or getattr(scene, "voice_ducking_spec", None) is not None) and not re.search(
+                r"\[VOICE[-_ ]CAST:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                if master_vd is not None:
+                    vd_token = format_voice_ducking_token(master_vd, scene.scene_index)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {vd_token}."
         return context
 
 
@@ -1460,6 +1499,8 @@ class PromptAuditorAgent(BaseAgent):
                 and not re.search(r"\[TREATMENT[-_ ]BEAT:?", scene.omni_prose_prompt, re.IGNORECASE)
             )
             pt_compliance_fail = not getattr(result, "pitch_treatment_compliant", True)
+            imf_compliance_fail = not getattr(result, "imf_dcp_compliant", True)
+            vd_compliance_fail = not getattr(result, "voice_ducking_compliant", True)
             
             s3d_compliance_fail = False
             s3d_spec = getattr(scene, "s3d_spec", None)
@@ -1490,6 +1531,8 @@ class PromptAuditorAgent(BaseAgent):
                 or rj_compliance_fail
                 or needs_pt_token
                 or pt_compliance_fail
+                or imf_compliance_fail
+                or vd_compliance_fail
                 or s3d_compliance_fail
                 or ad_compliance_fail
             ):
@@ -1731,6 +1774,100 @@ class DirectorPipeline:
         return bible
 
     @staticmethod
+    def _sync_render_job_specs_to_scenes(
+        bible: MasterProductionBible,
+        rj_manifest: MasterRenderJobManifest,
+    ) -> None:
+        """Synchronize SceneRenderJobSpec entries and [RENDER-JOB]/[FRAME-ANCHOR] tokens onto scenes."""
+        jobs_by_sc = {int(j.scene_index): j for j in rj_manifest.jobs}
+        handoffs_by_to = {int(h.to_scene_index): h for h in rj_manifest.frame_anchor_handoffs}
+        is_mode_b = (
+            bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            or "mode b" in str(bible.storytelling_mode).lower()
+        )
+        for sc in bible.scenes:
+            if int(sc.scene_index) in jobs_by_sc:
+                sc.render_job_spec = jobs_by_sc[int(sc.scene_index)]
+                if re.search(r"\[RENDER[-_ ]JOB:?", sc.omni_prose_prompt, re.IGNORECASE):
+                    sc.omni_prose_prompt = re.sub(
+                        r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
+                        "",
+                        sc.omni_prose_prompt,
+                        flags=re.IGNORECASE,
+                    ).rstrip()
+                    ho = handoffs_by_to.get(int(sc.scene_index)) if (is_mode_b and sc.scene_index > 1) else None
+                    sc.omni_prose_prompt += f" {format_render_job_token(sc.render_job_spec, handoff=ho)}."
+
+    @classmethod
+    def _propagate_retry_scene_filter(
+        cls,
+        bible: MasterProductionBible,
+        scene_filter: List[int],
+    ) -> None:
+        """Increment retry_count, refresh QA scorecards, and re-verify Mode B handoffs for --retry-scene."""
+        rj_manifest = getattr(bible, "master_render_jobs", None)
+        if rj_manifest is None:
+            return
+        target_indices = {int(s) for s in scene_filter}
+        scenes_by_idx = {int(sc.scene_index): sc for sc in bible.scenes}
+        rj_fn = getattr(_presets_mod, "get_domain_render_job_spec", None)
+        rj_cal = rj_fn(bible) if callable(rj_fn) else None
+
+        for job in rj_manifest.jobs:
+            sc_idx = int(job.scene_index)
+            if sc_idx not in target_indices:
+                continue
+            job.retry_count = int(getattr(job, "retry_count", 0) or 0) + 1
+            sc_obj = scenes_by_idx.get(sc_idx)
+            if sc_obj is not None:
+                existing_cards = list(getattr(job, "take_scorecards", None) or [])
+                if existing_cards:
+                    refreshed_cards = [
+                        evaluate_take_visual_qa(sc_obj, take_record=card, domain_cal=rj_cal)
+                        for card in existing_cards
+                    ]
+                else:
+                    refreshed_cards = [
+                        evaluate_take_visual_qa(sc_obj, take_record=job.qa_scorecard, domain_cal=rj_cal)
+                    ]
+                job.take_scorecards = refreshed_cards
+                matched_hero = next(
+                    (c for c in refreshed_cards if c.take_id == job.selected_take_id),
+                    refreshed_cards[0],
+                )
+                for card in refreshed_cards:
+                    card.promoted_hero = card.take_id == matched_hero.take_id
+                matched_hero.promoted_hero = True
+                job.qa_scorecard = matched_hero.model_copy(deep=True)
+                job.status = (
+                    RenderJobStatusEnum.QA_PASSED
+                    if job.qa_scorecard.composite_qa_score >= 85.0
+                    else RenderJobStatusEnum.QA_FLAGGED
+                )
+
+        is_mode_b = (
+            bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
+            or "mode b" in str(bible.storytelling_mode).lower()
+        )
+        if is_mode_b and len(rj_manifest.jobs) > 1:
+            refreshed_handoffs = []
+            for i in range(len(rj_manifest.jobs) - 1):
+                prev_job = rj_manifest.jobs[i]
+                next_job = rj_manifest.jobs[i + 1]
+                next_sc = scenes_by_idx.get(int(next_job.scene_index))
+                if next_sc is None and i + 1 < len(bible.scenes):
+                    next_sc = bible.scenes[i + 1]
+                if next_sc is not None:
+                    handoff = verify_mode_b_frame_anchor(prev_job, next_sc)
+                    next_job.previous_interaction_id = handoff.previous_interaction_id
+                    refreshed_handoffs.append(handoff)
+            rj_manifest.frame_anchor_handoffs = refreshed_handoffs
+
+        rj_manifest = _recalculate_manifest_summary(rj_manifest)
+        bible.master_render_jobs = rj_manifest
+        cls._sync_render_job_specs_to_scenes(bible, rj_manifest)
+
+    @staticmethod
     def _record_economics_and_continuity_telemetry(
         telemetry: RuntimeTelemetry,
         bible: MasterProductionBible,
@@ -1916,21 +2053,9 @@ class DirectorPipeline:
             for sc_idx, take_id in promote_take.items():
                 rj_manifest = promote_scene_take(rj_manifest, int(sc_idx), str(take_id))
             active_bible.master_render_jobs = rj_manifest
-            jobs_by_sc = {int(j.scene_index): j for j in rj_manifest.jobs}
-            handoffs_by_to = {int(h.to_scene_index): h for h in rj_manifest.frame_anchor_handoffs}
-            is_mode_b = active_bible.storytelling_mode == StorytellingMode.MODE_B_CONTINUOUS_CHAIN
-            for sc in active_bible.scenes:
-                if int(sc.scene_index) in jobs_by_sc:
-                    sc.render_job_spec = jobs_by_sc[int(sc.scene_index)]
-                    if re.search(r"\[RENDER[-_ ]JOB:?", sc.omni_prose_prompt, re.IGNORECASE):
-                        sc.omni_prose_prompt = re.sub(
-                            r"\s*\[(?:RENDER[-_ ]JOB|FRAME[-_ ]ANCHOR)\s*:[^\]]*\]\.?",
-                            "",
-                            sc.omni_prose_prompt,
-                            flags=re.IGNORECASE,
-                        ).rstrip()
-                        ho = handoffs_by_to.get(int(sc.scene_index)) if (is_mode_b and sc.scene_index > 1) else None
-                        sc.omni_prose_prompt += f" {format_render_job_token(sc.render_job_spec, handoff=ho)}."
+            self._sync_render_job_specs_to_scenes(active_bible, rj_manifest)
+        if scene_filter is not None and getattr(active_bible, "master_render_jobs", None) is not None:
+            self._propagate_retry_scene_filter(active_bible, scene_filter)
         self._record_economics_and_continuity_telemetry(
             telemetry, active_bible, effective_max_budget, dry_run
         )

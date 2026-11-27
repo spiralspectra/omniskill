@@ -67,6 +67,14 @@ SAFE_KEYS = {
     "treatment_token",
     "treatment_slides_count",
     "revision_deltas_count",
+    "imf_package_id",
+    "imf_cpl_count",
+    "imf_dedup_reuse_pct",
+    "dcp_bitrate_mbps",
+    "voice_cast_count",
+    "ducking_keyframe_count",
+    "lip_sync_pass_rate_pct",
+    "dialogue_bgm_snr_db",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -237,6 +245,16 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "pitch_treatment_manifest.json",
     "bible_revision_diff.json",
     "bible_revision_diff.md",
+    # PM-FEAT-037: SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering
+    "ASSETMAP.xml",
+    "PKL.xml",
+    "CPL_master.xml",
+    "imf_dcp_manifest.json",
+    "dcp_cpl_spec.md",
+    # PM-FEAT-038: Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking
+    "voice_casting_script.json",
+    "stem_ducking_automation.csv",
+    "adr_viseme_timing.md",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({

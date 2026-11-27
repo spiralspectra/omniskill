@@ -1,0 +1,324 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "CHAR_01_MODEL_MAYA_THE_NEO",
+      "character_name": "Model Maya (The Neon Siren)",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "155-235 Hz",
+      "delivery_notes": "Aligned to Aggressive, predatory, fast-tempo runway stride with zero hip sway and sharp hea"
+    },
+    {
+      "character_id": "CHAR_02_MODEL_KAELEN_THE_S",
+      "character_name": "Model Kaelen (The Shimmer Rebel)",
+      "vocal_register": "BARITONE",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "95-155 Hz",
+      "delivery_notes": "Aligned to Fluid, rhythm-locked street bounce with syncopated shoulder dips matching the UK"
+    },
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "165-245 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Soho Stare & The Night Pan: Smooth.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "TH",
+            "EE",
+            "SS",
+            "OO",
+            "SS",
+            "DD",
+            "AA",
+            "RR",
+            "EE",
+            "TH",
+            "EE",
+            "NN"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Flagship Infiltration: Tactile Glamour: Heavy drape of.",
+          "start_sec": 8.1,
+          "end_sec": 11.3,
+          "word_count": 5,
+          "wps": 1.56,
+          "dominant_visemes": [
+            "DD",
+            "AA",
+            "KK",
+            "DD",
+            "EE",
+            "NN",
+            "EE",
+            "KK",
+            "NN",
+            "AA",
+            "PP",
+            "OO"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 8.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 11.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 11.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 3,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 3,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Soho Runway Strut: Catching the light on.",
+          "start_sec": 16.1,
+          "end_sec": 19.3,
+          "word_count": 4,
+          "wps": 1.25,
+          "dominant_visemes": [
+            "KK",
+            "AA",
+            "DD",
+            "CH",
+            "EE",
+            "NN",
+            "KK",
+            "TH",
+            "EE",
+            "NN",
+            "EE",
+            "KK"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 16.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 16.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 19.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 19.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 4,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 4,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Bag Lock & The Soho Freeze: Smooth.",
+          "start_sec": 24.1,
+          "end_sec": 27.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "TH",
+            "EE",
+            "PP",
+            "AA",
+            "KK",
+            "NN",
+            "OO",
+            "KK",
+            "TH",
+            "EE",
+            "SS",
+            "OO"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 24.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 24.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 27.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 27.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    }
+  ],
+  "default_music_duck_db": -6.5,
+  "default_ambience_duck_db": -5.0,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

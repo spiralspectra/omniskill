@@ -359,6 +359,7 @@ def handle_export(args_list: List[str]) -> int:
     parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML/OTIO), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, Gemini compute render economics (economics), Motion Graphics MOGRT/ASS/end-card specs (motion-graphics), and OpenTimelineIO 7-track & cross-department coherence matrices (coherence)")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
+    parser.add_argument("--baseline-bible", type=str, default=None, help="Path to baseline MasterProductionBible or ProductionBundle JSON for revision diff generation")
     parser.add_argument(
         "--format",
         "-f",
@@ -372,8 +373,10 @@ def handle_export(args_list: List[str]) -> int:
             "supers-ass", "endcard-md", "coherence", "otio", "coherence-json", "coherence-md",
             "render-jobs", "render-manifest", "take-qa", "rough-cut",
             "treatment", "lookbook", "treatment-md", "treatment-json",
+            "imf-dcp", "imf-assetmap", "imf-pkl", "imf-cpl", "dcp-spec",
+            "voice-ducking", "voice-cast", "ducking-csv", "viseme-md",
         ],
-        help="Artifact format to export (default: all; includes render-jobs, rough-cut, treatment, lookbook, etc.)",
+        help="Artifact format to export (default: all; includes render-jobs, rough-cut, treatment, imf-dcp, voice-ducking, etc.)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
@@ -465,6 +468,17 @@ def handle_export(args_list: List[str]) -> int:
     treatment_group.add_argument("--treatment-html", action="store_true", help="Export printable Director's Pitch Lookbook HTML5 (director_treatment_lookbook.html)")
     treatment_group.add_argument("--treatment-md", action="store_true", help="Export Executive Director's Treatment brief Markdown (director_treatment_brief.md)")
     treatment_group.add_argument("--treatment-json", action="store_true", help="Export Pitch Treatment manifest JSON (pitch_treatment_manifest.json)")
+    imf_group = parser.add_argument_group("Export Subsystem: SMPTE IMF Supplemental Package & DCI Theatrical DCP (PM-FEAT-037)")
+    imf_group.add_argument("--imf-dcp", action="store_true", help="Export full SMPTE IMF & DCI DCP bundle (ASSETMAP.xml, PKL.xml, CPL_master.xml, imf_dcp_manifest.json, dcp_cpl_spec.md)")
+    imf_group.add_argument("--imf-assetmap", action="store_true", help="Export SMPTE ST 429-9 / ST 2067-2 ASSETMAP XML (ASSETMAP.xml)")
+    imf_group.add_argument("--imf-pkl", action="store_true", help="Export SMPTE ST 2067-2 Packing List XML (PKL.xml)")
+    imf_group.add_argument("--imf-cpl", action="store_true", help="Export SMPTE ST 2067-3 Composition Playlist XML (CPL_master.xml)")
+    imf_group.add_argument("--dcp-spec", action="store_true", help="Export IMF & DCI Theatrical DCP mastering specification Markdown (dcp_cpl_spec.md)")
+    voice_group = parser.add_argument_group("Export Subsystem: Voice Casting, Viseme Lip-Sync & Stem Sidechain Ducking (PM-FEAT-038)")
+    voice_group.add_argument("--voice-ducking", action="store_true", help="Export full Voice Casting, Viseme Lip-Sync & Sidechain Ducking bundle (voice_casting_script.json, stem_ducking_automation.csv, adr_viseme_timing.md)")
+    voice_group.add_argument("--voice-cast", action="store_true", help="Export Voice Casting & Viseme Lip-Sync manifest JSON (voice_casting_script.json)")
+    voice_group.add_argument("--ducking-csv", action="store_true", help="Export Sidechain Stem Ducking automation keyframes CSV (stem_ducking_automation.csv)")
+    voice_group.add_argument("--viseme-md", action="store_true", help="Export Voice Casting, ADR & Preston Blair Viseme timing script Markdown (adr_viseme_timing.md)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -487,6 +501,13 @@ def handle_export(args_list: List[str]) -> int:
     else:
         preset_key = args.preset or "ikea-asmr"
         bible = get_preset_bible(preset_key)
+
+    baseline_path: Optional[Path] = None
+    if args.baseline_bible:
+        baseline_path = Path(args.baseline_bible)
+        if not baseline_path.exists() or not baseline_path.is_file():
+            print(f"Error: Baseline bible file does not exist at '{args.baseline_bible}'", file=sys.stderr)
+            return 1
 
     target_locales: Optional[List[str]] = None
     if args.locales:
@@ -588,6 +609,53 @@ def handle_export(args_list: List[str]) -> int:
             p.write_text(export_treatment_manifest_json(manifest), encoding="utf-8")
             exported_files["pitch_treatment_manifest_json"] = str(p.resolve())
 
+    def _write_imf_dcp_artifact(kind: str) -> None:
+        from omni_director.tools.imf_dcp_packager import (
+            compile_imf_dcp_manifest,
+            export_dcp_cpl_spec_md,
+            export_imf_assetmap_xml,
+            export_imf_cpl_xml,
+            export_imf_pkl_xml,
+        )
+        manifest = getattr(bible, "master_imf_dcp", None) or compile_imf_dcp_manifest(bible)
+        if kind == "imf-assetmap":
+            p = out_dir / "ASSETMAP.xml"
+            p.write_text(export_imf_assetmap_xml(manifest), encoding="utf-8")
+            exported_files["assetmap_xml"] = str(p.resolve())
+        elif kind == "imf-pkl":
+            p = out_dir / "PKL.xml"
+            p.write_text(export_imf_pkl_xml(manifest), encoding="utf-8")
+            exported_files["pkl_xml"] = str(p.resolve())
+        elif kind == "imf-cpl":
+            p = out_dir / "CPL_master.xml"
+            p.write_text(export_imf_cpl_xml(manifest), encoding="utf-8")
+            exported_files["cpl_master_xml"] = str(p.resolve())
+        elif kind == "dcp-spec":
+            p = out_dir / "dcp_cpl_spec.md"
+            p.write_text(export_dcp_cpl_spec_md(manifest, bible), encoding="utf-8")
+            exported_files["dcp_cpl_spec_md"] = str(p.resolve())
+
+    def _write_voice_ducking_artifact(kind: str) -> None:
+        from omni_director.tools.voice_ducking import (
+            compile_voice_ducking_manifest,
+            export_adr_viseme_md,
+            export_stem_ducking_csv,
+            export_voice_casting_json,
+        )
+        manifest = getattr(bible, "master_voice_ducking", None) or compile_voice_ducking_manifest(bible)
+        if kind == "voice-cast":
+            p = out_dir / "voice_casting_script.json"
+            p.write_text(export_voice_casting_json(manifest), encoding="utf-8")
+            exported_files["voice_casting_script_json"] = str(p.resolve())
+        elif kind == "ducking-csv":
+            p = out_dir / "stem_ducking_automation.csv"
+            p.write_text(export_stem_ducking_csv(manifest, fps=args.fps), encoding="utf-8")
+            exported_files["stem_ducking_automation_csv"] = str(p.resolve())
+        elif kind == "viseme-md":
+            p = out_dir / "adr_viseme_timing.md"
+            p.write_text(export_adr_viseme_md(manifest, bible), encoding="utf-8")
+            exported_files["adr_viseme_timing_md"] = str(p.resolve())
+
     if fmt == "all":
         exported_files.update(export_all_nle_artifacts(bible, out_dir, fps=args.fps))
         srt_path = out_dir / "subtitles.srt"
@@ -596,6 +664,19 @@ def handle_export(args_list: List[str]) -> int:
         vtt_path.write_text(compile_subtitles_vtt(bible), encoding="utf-8")
         exported_files["srt"] = str(srt_path.resolve())
         exported_files["vtt"] = str(vtt_path.resolve())
+        if baseline_path is not None:
+            from omni_director.tools.pitch_treatment import (
+                diff_production_bibles,
+                export_bible_revision_diff_json,
+                export_bible_revision_diff_md,
+            )
+            diff_report = diff_production_bibles(baseline_path, bible)
+            diff_json_path = out_dir / "bible_revision_diff.json"
+            diff_md_path = out_dir / "bible_revision_diff.md"
+            diff_json_path.write_text(export_bible_revision_diff_json(diff_report), encoding="utf-8")
+            diff_md_path.write_text(export_bible_revision_diff_md(diff_report), encoding="utf-8")
+            exported_files["bible_revision_diff_json"] = str(diff_json_path.resolve())
+            exported_files["bible_revision_diff_md"] = str(diff_md_path.resolve())
     elif fmt == "edl":
         p = out_dir / "timeline.edl"
         p.write_text(export_cmx3600_edl(bible, fps=args.fps), encoding="utf-8")
@@ -739,10 +820,22 @@ def handle_export(args_list: List[str]) -> int:
         _write_render_jobs_artifact(fmt)
     elif fmt == "treatment":
         from omni_director.tools.pitch_treatment import export_pitch_treatment_bundle
-        pt_files = export_pitch_treatment_bundle(bible, out_dir)
+        pt_files = export_pitch_treatment_bundle(bible, out_dir, baseline_bible=baseline_path)
         exported_files.update({k: str(Path(v).resolve()) for k, v in pt_files.items()})
     elif fmt in ("lookbook", "treatment-md", "treatment-json"):
         _write_treatment_artifact(fmt)
+    elif fmt == "imf-dcp":
+        from omni_director.tools.imf_dcp_packager import export_imf_dcp_bundle
+        imf_files = export_imf_dcp_bundle(bible, out_dir)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in imf_files.items()})
+    elif fmt in ("imf-assetmap", "imf-pkl", "imf-cpl", "dcp-spec"):
+        _write_imf_dcp_artifact(fmt)
+    elif fmt == "voice-ducking":
+        from omni_director.tools.voice_ducking import export_voice_ducking_bundle
+        vd_files = export_voice_ducking_bundle(bible, out_dir, fps=args.fps)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in vd_files.items()})
+    elif fmt in ("voice-cast", "ducking-csv", "viseme-md"):
+        _write_voice_ducking_artifact(fmt)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -1075,53 +1168,79 @@ def handle_export(args_list: List[str]) -> int:
                         dest = out_dir / filename
                         shutil.copy2(bundle_paths[key], dest)
                         exported_files[key] = str(dest.resolve())
-    if args.motion_graphics:
+    if args.motion_graphics and fmt not in ("all", "motion-graphics"):
         from omni_director.tools.motion_graphics import export_motion_graphics_bundle
         exported_files.update(
             {k: str(Path(v).resolve()) for k, v in export_motion_graphics_bundle(bible, out_dir, fps=args.fps).items()}
         )
-    else:
+    elif not args.motion_graphics and fmt not in ("all", "motion-graphics"):
         if args.mogrt_json and fmt != "mogrt-json":
             _write_motion_graphics_artifact("mogrt-json")
         if args.supers_ass and fmt != "supers-ass":
             _write_motion_graphics_artifact("supers-ass")
         if args.endcard_md and fmt != "endcard-md":
             _write_motion_graphics_artifact("endcard-md")
-    if args.coherence:
+    if args.coherence and fmt not in ("all", "coherence"):
         from omni_director.tools.otio_coherence import export_otio_coherence_bundle
         exported_files.update(
             {k: str(Path(v).resolve()) for k, v in export_otio_coherence_bundle(bible, out_dir, fps=args.fps).items()}
         )
-    else:
+    elif not args.coherence and fmt not in ("all", "coherence"):
         if args.otio and fmt != "otio":
             _write_otio_coherence_artifact("otio")
         if args.coherence_json and fmt != "coherence-json":
             _write_otio_coherence_artifact("coherence-json")
         if args.coherence_md and fmt != "coherence-md":
             _write_otio_coherence_artifact("coherence-md")
-    if args.render_jobs and fmt != "render-jobs":
+    if args.render_jobs and fmt not in ("all", "render-jobs"):
         from omni_director.tools.render_orchestrator import export_render_jobs_bundle
         exported_files.update(
             {k: str(Path(v).resolve()) for k, v in export_render_jobs_bundle(bible, out_dir, fps=args.fps).items()}
         )
-    else:
+    elif not args.render_jobs and fmt not in ("all", "render-jobs"):
         if args.render_manifest and fmt != "render-manifest":
             _write_render_jobs_artifact("render-manifest")
         if args.take_qa_csv and fmt != "take-qa":
             _write_render_jobs_artifact("take-qa")
         if args.assembly_sh and fmt != "rough-cut":
             _write_render_jobs_artifact("rough-cut")
-    if args.treatment_html and fmt not in ("treatment", "lookbook"):
+    if args.treatment_html and fmt not in ("all", "treatment", "lookbook"):
         _write_treatment_artifact("lookbook")
-    if args.treatment_md and fmt not in ("treatment", "treatment-md"):
+    if args.treatment_md and fmt not in ("all", "treatment", "treatment-md"):
         _write_treatment_artifact("treatment-md")
-    if args.treatment_json and fmt not in ("treatment", "treatment-json"):
+    if args.treatment_json and fmt not in ("all", "treatment", "treatment-json"):
         _write_treatment_artifact("treatment-json")
+    if args.imf_dcp and fmt not in ("all", "imf-dcp"):
+        from omni_director.tools.imf_dcp_packager import export_imf_dcp_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_imf_dcp_bundle(bible, out_dir).items()}
+        )
+    elif not args.imf_dcp and fmt not in ("all", "imf-dcp"):
+        if args.imf_assetmap and fmt != "imf-assetmap":
+            _write_imf_dcp_artifact("imf-assetmap")
+        if args.imf_pkl and fmt != "imf-pkl":
+            _write_imf_dcp_artifact("imf-pkl")
+        if args.imf_cpl and fmt != "imf-cpl":
+            _write_imf_dcp_artifact("imf-cpl")
+        if args.dcp_spec and fmt != "dcp-spec":
+            _write_imf_dcp_artifact("dcp-spec")
+    if args.voice_ducking and fmt not in ("all", "voice-ducking"):
+        from omni_director.tools.voice_ducking import export_voice_ducking_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_voice_ducking_bundle(bible, out_dir, fps=args.fps).items()}
+        )
+    elif not args.voice_ducking and fmt not in ("all", "voice-ducking"):
+        if args.voice_cast and fmt != "voice-cast":
+            _write_voice_ducking_artifact("voice-cast")
+        if args.ducking_csv and fmt != "ducking-csv":
+            _write_voice_ducking_artifact("ducking-csv")
+        if args.viseme_md and fmt != "viseme-md":
+            _write_voice_ducking_artifact("viseme-md")
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 
     telemetry_path = out_dir / "telemetry.json"
-    if telemetry_path.is_file() or args.refresh_telemetry:
+    if telemetry_path.is_file() or args.refresh_telemetry or fmt == "all":
         from omni_director.telemetry import RuntimeTelemetry
         telemetry_obj: Optional[RuntimeTelemetry] = None
         if telemetry_path.is_file():
@@ -1443,6 +1562,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="Export CMX 3600 EDL, FCPXML, CSV shot list, Markdown call sheet, and SRT/VTT subtitles into output-dir.",
     )
     parser.add_argument(
+        "--fps",
+        type=int,
+        default=24,
+        choices=[24, 25, 30, 48, 60],
+        help="Frame rate for timecode calculations and NLE exports (default: 24).",
+    )
+    parser.add_argument(
         "--max-render-usd",
         type=float,
         default=None,
@@ -1642,8 +1768,9 @@ def main(argv: Optional[list[str]] = None) -> int:
             from omni_director.tools.dialogue import compile_subtitles_srt, compile_subtitles_vtt
             from omni_director.tools.nle_export import export_all_nle_artifacts
             out_p = Path(args.output_dir)
-            export_all_nle_artifacts(bundle.bible, out_p, fps=24)
-            (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=24), encoding="utf-8")
+            run_fps = getattr(args, "fps", 24)
+            export_all_nle_artifacts(bundle.bible, out_p, fps=run_fps)
+            (out_p / "subtitles.srt").write_text(compile_subtitles_srt(bundle.bible, fps=run_fps), encoding="utf-8")
             (out_p / "subtitles.vtt").write_text(compile_subtitles_vtt(bundle.bible), encoding="utf-8")
 
             telemetry_obj = getattr(pipeline, "telemetry", None)

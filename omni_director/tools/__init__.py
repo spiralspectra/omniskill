@@ -343,6 +343,11 @@ from omni_director.tools.html_hud_v215 import build_v215_hud_bundle
 from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
 from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
 from omni_director.tools.html_hud_v218 import build_v218_hud_bundle
+from omni_director.tools.html_hud_v219 import (
+    build_v219_hud_bundle,
+    synthesize_v219_imf_dcp_state,
+    synthesize_v219_voice_ducking_state,
+)
 from omni_director.tools.motion_graphics import (
     MAX_SUPER_WPM,
     MIN_CLEANPLATE_NEGATIVE_SPACE_PCT,
@@ -410,6 +415,26 @@ from omni_director.tools.pitch_treatment import (
     export_treatment_lookbook_html,
     export_treatment_manifest_json,
     format_pitch_treatment_token,
+)
+from omni_director.tools.imf_dcp_packager import (
+    compile_imf_dcp_manifest,
+    export_dcp_cpl_spec_md,
+    export_imf_assetmap_xml,
+    export_imf_cpl_xml,
+    export_imf_dcp_bundle,
+    export_imf_dcp_manifest_json,
+    export_imf_pkl_xml,
+    format_imf_dcp_token,
+    synthesize_default_imf_dcp_manifest,
+)
+from omni_director.tools.voice_ducking import (
+    compile_voice_ducking_manifest,
+    export_adr_viseme_md,
+    export_stem_ducking_csv,
+    export_voice_casting_json,
+    export_voice_ducking_bundle,
+    format_voice_ducking_token,
+    synthesize_default_voice_ducking_manifest,
 )
 
 __all__ = [
@@ -781,5 +806,26 @@ __all__ = [
     "export_bible_revision_diff_json",
     "export_pitch_treatment_bundle",
     "build_v218_hud_bundle",
+    # SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering (PM-FEAT-037)
+    "compile_imf_dcp_manifest",
+    "synthesize_default_imf_dcp_manifest",
+    "format_imf_dcp_token",
+    "export_imf_assetmap_xml",
+    "export_imf_pkl_xml",
+    "export_imf_cpl_xml",
+    "export_imf_dcp_manifest_json",
+    "export_dcp_cpl_spec_md",
+    "export_imf_dcp_bundle",
+    # Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking (PM-FEAT-038)
+    "compile_voice_ducking_manifest",
+    "synthesize_default_voice_ducking_manifest",
+    "format_voice_ducking_token",
+    "export_voice_casting_json",
+    "export_stem_ducking_csv",
+    "export_adr_viseme_md",
+    "export_voice_ducking_bundle",
+    "synthesize_v219_imf_dcp_state",
+    "synthesize_v219_voice_ducking_state",
+    "build_v219_hud_bundle",
 ]
 

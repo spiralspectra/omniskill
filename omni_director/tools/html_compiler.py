@@ -1300,6 +1300,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v216 import build_v216_hud_bundle
     from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
     from omni_director.tools.html_hud_v218 import build_v218_hud_bundle
+    from omni_director.tools.html_hud_v219 import build_v219_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1344,6 +1345,15 @@ def compile_storyboard_html(
     v217_js = v217_bundle["js"]
 
     v218_css, v218_modals_html, v218_js = build_v218_hud_bundle(bible, bundle)
+
+    scenes_payload = [
+        sc.model_dump(mode="json") if hasattr(sc, "model_dump") else dict(sc)
+        for sc in (bible.scenes or [])
+    ]
+    v219_bundle = build_v219_hud_bundle(bible, scenes_payload=scenes_payload)
+    v219_css = v219_bundle["css"]
+    v219_modals_html = v219_bundle["html"]
+    v219_js = v219_bundle["js"]
     
 
     # Serialize bible for client-side export
@@ -4898,6 +4908,7 @@ def compile_storyboard_html(
     {v216_css}
     {v217_css}
     {v218_css}
+    {v219_css}
   </style>
 </head>
 <body>
@@ -6500,6 +6511,7 @@ def compile_storyboard_html(
 {v216_modals_html}
 {v217_modals_html}
 {v218_modals_html}
+{v219_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -6644,34 +6656,50 @@ def compile_storyboard_html(
       showToast(isViewfinderEnabled ? "Optical Viewfinder & Safe Guides: ON" : "Optical Viewfinder & Safe Guides: OFF");
     }}
 
+    const _compilerHudOpenerMap = {{}};
+    function _syncCompilerHUDModal(key, modalId, btnId, closeSel, isOpen) {{
+      const modal = document.getElementById(modalId);
+      const btn = btnId ? document.getElementById(btnId) : null;
+      if (modal) modal.style.display = isOpen ? 'flex' : 'none';
+      if (btn) {{
+        btn.classList.toggle('active', isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }}
+      if (isOpen) {{
+        _compilerHudOpenerMap[key] = document.activeElement;
+        const closeBtn = modal && closeSel ? modal.querySelector(closeSel) : null;
+        if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus();
+      }} else {{
+        const prev = _compilerHudOpenerMap[key];
+        _compilerHudOpenerMap[key] = null;
+        if (prev && typeof prev.focus === 'function') prev.focus();
+        else if (btn && typeof btn.focus === 'function') btn.focus();
+      }}
+    }}
+
     let isVPStageModalOpen = false;
     function toggleVPStageModal() {{
-      isVPStageModalOpen = !isVPStageModalOpen;
-      const modal = document.getElementById('animatic-vp-stage-modal');
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isVPStageModalOpen;
+      if (!shouldOpen && !isVPStageModalOpen) return;
+      if (shouldOpen && isVPStageModalOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('vpstage');
+      isVPStageModalOpen = shouldOpen;
       const btn = document.getElementById('btn-vp-stage-animatic');
-      if (modal) {{
-        modal.style.display = isVPStageModalOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isVPStageModalOpen);
-        btn.setAttribute('aria-pressed', isVPStageModalOpen ? 'true' : 'false');
-      }}
+      if (btn) btn.setAttribute('aria-pressed', isVPStageModalOpen ? 'true' : 'false');
+      _syncCompilerHUDModal('vpstage', 'animatic-vp-stage-modal', 'btn-vp-stage-animatic', '.btn-vp-close', isVPStageModalOpen);
     }}
 
     // Motion Control Trajectory HUD Controller (PM-FEAT-009)
     let isMoCoHUDOpen = false;
     function toggleMoCoHUD() {{
-      isMoCoHUDOpen = !isMoCoHUDOpen;
-      const modal = document.getElementById('animatic-moco-hud');
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isMoCoHUDOpen;
+      if (!shouldOpen && !isMoCoHUDOpen) return;
+      if (shouldOpen && isMoCoHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('moco');
+      isMoCoHUDOpen = shouldOpen;
       const btn = document.getElementById('btn-moco-animatic');
-      if (modal) {{
-        modal.style.display = isMoCoHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isMoCoHUDOpen);
-        btn.setAttribute('aria-pressed', isMoCoHUDOpen ? 'true' : 'false');
-        btn.setAttribute('aria-expanded', isMoCoHUDOpen ? 'true' : 'false');
-      }}
+      if (btn) btn.setAttribute('aria-pressed', isMoCoHUDOpen ? 'true' : 'false');
+      _syncCompilerHUDModal('moco', 'animatic-moco-hud', 'btn-moco-animatic', '.btn-moco-close', isMoCoHUDOpen);
       if (isMoCoHUDOpen) {{
         showToast("Motion Control Trajectory HUD: ACTIVE [K]");
       }}
@@ -6728,17 +6756,14 @@ def compile_storyboard_html(
     // Studio Gaffer & Lighting HUD Controller (PM-FEAT-010)
     let isGafferHUDOpen = false;
     function toggleGafferHUD() {{
-      isGafferHUDOpen = !isGafferHUDOpen;
-      const modal = document.getElementById('animatic-gaffer-hud');
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isGafferHUDOpen;
+      if (!shouldOpen && !isGafferHUDOpen) return;
+      if (shouldOpen && isGafferHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('gaffer');
+      isGafferHUDOpen = shouldOpen;
       const btn = document.getElementById('btn-gaffer-animatic');
-      if (modal) {{
-        modal.style.display = isGafferHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isGafferHUDOpen);
-        btn.setAttribute('aria-pressed', isGafferHUDOpen ? 'true' : 'false');
-        btn.setAttribute('aria-expanded', isGafferHUDOpen ? 'true' : 'false');
-      }}
+      if (btn) btn.setAttribute('aria-pressed', isGafferHUDOpen ? 'true' : 'false');
+      _syncCompilerHUDModal('gaffer', 'animatic-gaffer-hud', 'btn-gaffer-animatic', '.btn-gaffer-close', isGafferHUDOpen);
       if (isGafferHUDOpen) {{
         showToast("Studio Gaffer & Lighting HUD: ACTIVE [G]");
       }}
@@ -6844,16 +6869,12 @@ def compile_storyboard_html(
     // Optical Depth-of-Field (DoF) HUD Controller (PM-FEAT-011)
     let isDoFHUDOpen = false;
     function toggleDoFHUD() {{
-      isDoFHUDOpen = !isDoFHUDOpen;
-      const modal = document.getElementById('animatic-dof-hud');
-      const btn = document.getElementById('btn-dof-animatic');
-      if (modal) {{
-        modal.style.display = isDoFHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isDoFHUDOpen);
-        btn.setAttribute('aria-expanded', isDoFHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isDoFHUDOpen;
+      if (!shouldOpen && !isDoFHUDOpen) return;
+      if (shouldOpen && isDoFHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('dof');
+      isDoFHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('dof', 'animatic-dof-hud', 'btn-dof-animatic', '.btn-dof-close', isDoFHUDOpen);
       if (isDoFHUDOpen) {{
         updateDoFCalculations();
         showToast("Optical Depth-of-Field (DoF) HUD: ACTIVE [F]");
@@ -7024,16 +7045,12 @@ def compile_storyboard_html(
     // DIT 3D LUT Color Grading Suite Controller (PM-FEAT-012)
     let isDitLutHUDOpen = false;
     function toggleDitLutHUD() {{
-      isDitLutHUDOpen = !isDitLutHUDOpen;
-      const modal = document.getElementById('animatic-dit-lut-hud');
-      const btn = document.getElementById('btn-dit-lut-animatic');
-      if (modal) {{
-        modal.style.display = isDitLutHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isDitLutHUDOpen);
-        btn.setAttribute('aria-expanded', isDitLutHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isDitLutHUDOpen;
+      if (!shouldOpen && !isDitLutHUDOpen) return;
+      if (shouldOpen && isDitLutHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('ditlut');
+      isDitLutHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('ditlut', 'animatic-dit-lut-hud', 'btn-dit-lut-animatic', '.btn-lut-close', isDitLutHUDOpen);
       if (isDitLutHUDOpen) {{
         refreshLutSplitFrames();
         showToast("DIT 3D LUT Color Grading Suite: ACTIVE [L]");
@@ -7134,16 +7151,12 @@ def compile_storyboard_html(
     // Spatial Audio & Binaural Soundfield Controller (PM-FEAT-013)
     let isSpatialHUDOpen = false;
     function toggleSpatialHUD() {{
-      isSpatialHUDOpen = !isSpatialHUDOpen;
-      const modal = document.getElementById('animatic-spatial-hud');
-      const btn = document.getElementById('btn-spatial-animatic');
-      if (modal) {{
-        modal.style.display = isSpatialHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isSpatialHUDOpen);
-        btn.setAttribute('aria-expanded', isSpatialHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isSpatialHUDOpen;
+      if (!shouldOpen && !isSpatialHUDOpen) return;
+      if (shouldOpen && isSpatialHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('spatial');
+      isSpatialHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('spatial', 'animatic-spatial-hud', 'btn-spatial-animatic', '.btn-spatial-close', isSpatialHUDOpen);
       if (isSpatialHUDOpen) {{
         showToast("Spatial Audio & 7.1.4 Soundfield HUD: ACTIVE [S]");
       }}
@@ -7223,16 +7236,12 @@ def compile_storyboard_html(
     // Advanced Multi-Pass VFX Compositing Controller (PM-FEAT-014)
     let isVfxHUDOpen = false;
     function toggleVfxHUD() {{
-      isVfxHUDOpen = !isVfxHUDOpen;
-      const modal = document.getElementById('animatic-vfx-hud');
-      const btn = document.getElementById('btn-vfx-animatic');
-      if (modal) {{
-        modal.style.display = isVfxHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isVfxHUDOpen);
-        btn.setAttribute('aria-expanded', isVfxHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isVfxHUDOpen;
+      if (!shouldOpen && !isVfxHUDOpen) return;
+      if (shouldOpen && isVfxHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('vfx');
+      isVfxHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('vfx', 'animatic-vfx-hud', 'btn-vfx-animatic', '.btn-vfx-close', isVfxHUDOpen);
       if (isVfxHUDOpen) {{
         showToast("Advanced Multi-Pass VFX Compositing HUD: ACTIVE [X]");
       }}
@@ -7285,16 +7294,12 @@ def compile_storyboard_html(
     // HDR10 / HLG Broadcast Color Volume Controller (PM-FEAT-015)
     let isHdrHUDOpen = false;
     function toggleHdrHUD() {{
-      isHdrHUDOpen = !isHdrHUDOpen;
-      const modal = document.getElementById('animatic-hdr-hud');
-      const btn = document.getElementById('btn-hdr-animatic');
-      if (modal) {{
-        modal.style.display = isHdrHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isHdrHUDOpen);
-        btn.setAttribute('aria-expanded', isHdrHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isHdrHUDOpen;
+      if (!shouldOpen && !isHdrHUDOpen) return;
+      if (shouldOpen && isHdrHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('hdr');
+      isHdrHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('hdr', 'animatic-hdr-hud', 'btn-hdr-animatic', '.btn-hdr-close', isHdrHUDOpen);
       if (isHdrHUDOpen) {{
         drawHdrWaveform();
         showToast("HDR10 / HLG Broadcast Mastering HUD: ACTIVE [H]");
@@ -7404,16 +7409,12 @@ def compile_storyboard_html(
     // 1st AD Script Breakdown & Stripboard Scheduler Controller (PM-FEAT-016)
     let isStripboardHUDOpen = false;
     function toggleStripboardHUD() {{
-      isStripboardHUDOpen = !isStripboardHUDOpen;
-      const modal = document.getElementById('animatic-stripboard-hud');
-      const btn = document.getElementById('btn-stripboard-animatic');
-      if (modal) {{
-        modal.style.display = isStripboardHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isStripboardHUDOpen);
-        btn.setAttribute('aria-expanded', isStripboardHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isStripboardHUDOpen;
+      if (!shouldOpen && !isStripboardHUDOpen) return;
+      if (shouldOpen && isStripboardHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('stripboard');
+      isStripboardHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('stripboard', 'animatic-stripboard-hud', 'btn-stripboard-animatic', '.btn-stripboard-close', isStripboardHUDOpen);
       if (isStripboardHUDOpen) {{
         showToast("1st AD Stripboard Production Scheduler HUD: ACTIVE [B]");
       }}
@@ -7461,16 +7462,12 @@ def compile_storyboard_html(
     // Physical Film Stock Emulation Controller (PM-FEAT-017)
     let isFilmHUDOpen = false;
     function toggleFilmHUD() {{
-      isFilmHUDOpen = !isFilmHUDOpen;
-      const modal = document.getElementById('animatic-film-hud');
-      const btn = document.getElementById('btn-film-animatic');
-      if (modal) {{
-        modal.style.display = isFilmHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isFilmHUDOpen);
-        btn.setAttribute('aria-expanded', isFilmHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isFilmHUDOpen;
+      if (!shouldOpen && !isFilmHUDOpen) return;
+      if (shouldOpen && isFilmHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('film');
+      isFilmHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('film', 'animatic-film-hud', 'btn-film-animatic', '.btn-film-close', isFilmHUDOpen);
       if (isFilmHUDOpen) {{
         showToast("Physical Film Stock Emulation HUD: ACTIVE [E]");
       }}
@@ -7528,16 +7525,12 @@ def compile_storyboard_html(
     // Aerial Drone Flight Paths & Telemetry Controller (PM-FEAT-019)
     let isDroneHUDOpen = false;
     function toggleDroneHUD() {{
-      isDroneHUDOpen = !isDroneHUDOpen;
-      const modal = document.getElementById('animatic-drone-hud');
-      const btn = document.getElementById('btn-drone-animatic');
-      if (modal) {{
-        modal.style.display = isDroneHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isDroneHUDOpen);
-        btn.setAttribute('aria-expanded', isDroneHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isDroneHUDOpen;
+      if (!shouldOpen && !isDroneHUDOpen) return;
+      if (shouldOpen && isDroneHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('drone');
+      isDroneHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('drone', 'animatic-drone-hud', 'btn-drone-animatic', '.btn-drone-close', isDroneHUDOpen);
       if (isDroneHUDOpen) {{
         drawDroneFlightPath();
         updateCompassRose();
@@ -7699,16 +7692,12 @@ def compile_storyboard_html(
     // AICP Commercial Production Bid & Budget Controller (PM-FEAT-020)
     let isAicpHUDOpen = false;
     function toggleAicpHUD() {{
-      isAicpHUDOpen = !isAicpHUDOpen;
-      const modal = document.getElementById('animatic-aicp-hud');
-      const btn = document.getElementById('btn-aicp-animatic');
-      if (modal) {{
-        modal.style.display = isAicpHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isAicpHUDOpen);
-        btn.setAttribute('aria-expanded', isAicpHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isAicpHUDOpen;
+      if (!shouldOpen && !isAicpHUDOpen) return;
+      if (shouldOpen && isAicpHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('aicp');
+      isAicpHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('aicp', 'animatic-aicp-hud', 'btn-aicp-animatic', '.btn-aicp-close', isAicpHUDOpen);
       if (isAicpHUDOpen) {{
         drawAicpDoughnut();
         showToast("AICP Commercial Production Bid HUD: ACTIVE [A]");
@@ -7806,16 +7795,12 @@ def compile_storyboard_html(
     // SMPTE 12M Timecode Sync, Clapper Slate & ASC-MHL Offload Controller (PM-FEAT-018)
     let isSlateHUDOpen = false;
     function toggleSlateHUD() {{
-      isSlateHUDOpen = !isSlateHUDOpen;
-      const modal = document.getElementById('animatic-slate-hud');
-      const btn = document.getElementById('btn-slate-animatic');
-      if (modal) {{
-        modal.style.display = isSlateHUDOpen ? 'flex' : 'none';
-      }}
-      if (btn) {{
-        btn.classList.toggle('active', isSlateHUDOpen);
-        btn.setAttribute('aria-expanded', isSlateHUDOpen ? 'true' : 'false');
-      }}
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isSlateHUDOpen;
+      if (!shouldOpen && !isSlateHUDOpen) return;
+      if (shouldOpen && isSlateHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('slate');
+      isSlateHUDOpen = shouldOpen;
+      _syncCompilerHUDModal('slate', 'animatic-slate-hud', 'btn-slate-animatic', '.btn-slate-close', isSlateHUDOpen);
       if (isSlateHUDOpen) {{
         showToast("SMPTE 12M Clapper Slate & ASC-MHL Manifest HUD: ACTIVE [T]");
       }}
@@ -8606,7 +8591,11 @@ def compile_storyboard_html(
     let lastReframeOpener = null;
 
     function toggleReframeHUD() {{
-      isReframeHUDOpen = !isReframeHUDOpen;
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isReframeHUDOpen;
+      if (!shouldOpen && !isReframeHUDOpen) return;
+      if (shouldOpen && isReframeHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('reframe');
+      isReframeHUDOpen = shouldOpen;
       const modal = document.getElementById('animatic-reframe-hud');
       const btn = document.getElementById('btn-reframe-animatic');
       if (modal) {{
@@ -8628,6 +8617,8 @@ def compile_storyboard_html(
         updateStoryboardReframeMasks();
         if (lastReframeOpener && typeof lastReframeOpener.focus === 'function') {{
           lastReframeOpener.focus();
+        }} else if (btn && typeof btn.focus === 'function') {{
+          btn.focus();
         }}
       }}
     }}
@@ -8899,7 +8890,11 @@ def compile_storyboard_html(
     let lastQcOpener = null;
 
     function toggleQcHUD() {{
-      isQcHUDOpen = !isQcHUDOpen;
+      const shouldOpen = arguments.length && arguments[0] !== undefined ? Boolean(arguments[0]) : !isQcHUDOpen;
+      if (!shouldOpen && !isQcHUDOpen) return;
+      if (shouldOpen && isQcHUDOpen) return;
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('qc');
+      isQcHUDOpen = shouldOpen;
       const modal = document.getElementById('animatic-qc-hud');
       const btn = document.getElementById('btn-qc-animatic');
       if (modal) {{
@@ -8921,6 +8916,8 @@ def compile_storyboard_html(
       }} else {{
         if (lastQcOpener && typeof lastQcOpener.focus === 'function') {{
           lastQcOpener.focus();
+        }} else if (btn && typeof btn.focus === 'function') {{
+          btn.focus();
         }}
       }}
     }}
@@ -9136,8 +9133,10 @@ def compile_storyboard_html(
     {v216_js}
     {v217_js}
     {v218_js}
+    {v219_js}
 
     function closeSecondaryOpenHUDs() {{
+      const exceptKey = arguments.length ? arguments[0] : '';
       const locOpen = (typeof isLocalizationHUDOpen !== 'undefined') && isLocalizationHUDOpen;
       const spotOpen = (typeof isSpottingHUDOpen !== 'undefined') && isSpottingHUDOpen;
       const s3dOpen = (typeof isS3dHUDOpen !== 'undefined') && isS3dHUDOpen;
@@ -9157,46 +9156,50 @@ def compile_storyboard_html(
       const safetyOpen = (typeof isSafetyHUDOpen !== 'undefined') && isSafetyHUDOpen;
       const rjOpen = (typeof isRenderJobsHUDOpen !== 'undefined') && isRenderJobsHUDOpen;
       const ptOpen = (typeof isPitchTreatmentHUDOpen !== 'undefined') && isPitchTreatmentHUDOpen;
-      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen || reframeOpen || qcOpen || blockingOpen || reviewOpen || c2paOpen || safetyOpen || rjOpen || ptOpen;
-      if (isMoCoHUDOpen) toggleMoCoHUD();
-      if (isGafferHUDOpen) toggleGafferHUD();
-      if (isVPStageModalOpen) toggleVPStageModal();
-      if (isDoFHUDOpen) toggleDoFHUD();
-      if (isDitLutHUDOpen) toggleDitLutHUD();
-      if (isSpatialHUDOpen) toggleSpatialHUD();
-      if (isVfxHUDOpen) toggleVfxHUD();
-      if (isHdrHUDOpen) toggleHdrHUD();
-      if (isStripboardHUDOpen) toggleStripboardHUD();
-      if (isFilmHUDOpen) toggleFilmHUD();
-      if (isSlateHUDOpen) toggleSlateHUD();
-      if (isDroneHUDOpen) toggleDroneHUD();
-      if (isAicpHUDOpen) toggleAicpHUD();
-      if (reframeOpen && typeof toggleReframeHUD === 'function') toggleReframeHUD();
-      if (qcOpen && typeof toggleQcHUD === 'function') toggleQcHUD();
-      if (blockingOpen && typeof toggleBlockingHUD === 'function') toggleBlockingHUD();
-      if (reviewOpen && typeof toggleReviewHUD === 'function') toggleReviewHUD();
-      if (c2paOpen && typeof toggleC2paHUD === 'function') toggleC2paHUD();
-      if (safetyOpen && typeof toggleSafetyHUD === 'function') toggleSafetyHUD();
-      if (locOpen && typeof toggleLocalizationHUD === 'function') toggleLocalizationHUD();
-      if (spotOpen && typeof toggleSpottingHUD === 'function') toggleSpottingHUD();
-      if (s3dOpen && typeof toggleS3dHUD === 'function') toggleS3dHUD(false);
-      if (accOpen && typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(false);
-      if (cmdOpen && typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(false);
-      if (artOpen && typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(false);
-      if (econOpen && typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(false);
-      if (mgsOpen && typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(false);
-      if (otioOpen && typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(false);
-      if (rjOpen && typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(false);
-      if (ptOpen && typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(false);
+      const imfDcpOpen = (typeof isImfDcpHUDOpen !== 'undefined') && isImfDcpHUDOpen;
+      const voiceDuckingOpen = (typeof isVoiceDuckingHUDOpen !== 'undefined') && isVoiceDuckingHUDOpen;
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen || reframeOpen || qcOpen || blockingOpen || reviewOpen || c2paOpen || safetyOpen || rjOpen || ptOpen || imfDcpOpen || voiceDuckingOpen;
+      if (exceptKey !== 'moco' && isMoCoHUDOpen) toggleMoCoHUD(false);
+      if (exceptKey !== 'gaffer' && isGafferHUDOpen) toggleGafferHUD(false);
+      if (exceptKey !== 'vpstage' && isVPStageModalOpen) toggleVPStageModal(false);
+      if (exceptKey !== 'dof' && isDoFHUDOpen) toggleDoFHUD(false);
+      if (exceptKey !== 'ditlut' && isDitLutHUDOpen) toggleDitLutHUD(false);
+      if (exceptKey !== 'spatial' && isSpatialHUDOpen) toggleSpatialHUD(false);
+      if (exceptKey !== 'vfx' && isVfxHUDOpen) toggleVfxHUD(false);
+      if (exceptKey !== 'hdr' && isHdrHUDOpen) toggleHdrHUD(false);
+      if (exceptKey !== 'stripboard' && isStripboardHUDOpen) toggleStripboardHUD(false);
+      if (exceptKey !== 'film' && isFilmHUDOpen) toggleFilmHUD(false);
+      if (exceptKey !== 'slate' && isSlateHUDOpen) toggleSlateHUD(false);
+      if (exceptKey !== 'drone' && isDroneHUDOpen) toggleDroneHUD(false);
+      if (exceptKey !== 'aicp' && isAicpHUDOpen) toggleAicpHUD(false);
+      if (exceptKey !== 'reframe' && reframeOpen && typeof toggleReframeHUD === 'function') toggleReframeHUD(false);
+      if (exceptKey !== 'qc' && qcOpen && typeof toggleQcHUD === 'function') toggleQcHUD(false);
+      if (exceptKey !== 'blocking' && blockingOpen && typeof toggleBlockingHUD === 'function') toggleBlockingHUD();
+      if (exceptKey !== 'review' && reviewOpen && typeof toggleReviewHUD === 'function') toggleReviewHUD();
+      if (exceptKey !== 'c2pa' && c2paOpen && typeof toggleC2paHUD === 'function') toggleC2paHUD();
+      if (exceptKey !== 'safety' && safetyOpen && typeof toggleSafetyHUD === 'function') toggleSafetyHUD();
+      if (exceptKey !== 'localization' && locOpen && typeof toggleLocalizationHUD === 'function') toggleLocalizationHUD();
+      if (exceptKey !== 'spotting' && spotOpen && typeof toggleSpottingHUD === 'function') toggleSpottingHUD();
+      if (exceptKey !== 's3d' && s3dOpen && typeof toggleS3dHUD === 'function') toggleS3dHUD(false);
+      if (exceptKey !== 'ad' && accOpen && typeof toggleAccessibilityAdHUD === 'function') toggleAccessibilityAdHUD(false);
+      if (exceptKey !== 'cmd' && cmdOpen && typeof toggleHudCommandPalette === 'function') toggleHudCommandPalette(false);
+      if (exceptKey !== 'art' && artOpen && typeof toggleArtWardrobeHUD === 'function') toggleArtWardrobeHUD(false);
+      if (exceptKey !== 'econ' && econOpen && typeof toggleRenderEconomicsHUD === 'function') toggleRenderEconomicsHUD(false);
+      if (exceptKey !== 'motiongfx' && mgsOpen && typeof toggleMotionGfxHUD === 'function') toggleMotionGfxHUD(false);
+      if (exceptKey !== 'otio' && otioOpen && typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(false);
+      if (exceptKey !== 'renderjobs' && rjOpen && typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(false);
+      if (exceptKey !== 'treatment' && ptOpen && typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(false);
+      if (exceptKey !== 'imfdcp' && imfDcpOpen && typeof toggleImfDcpHUD === 'function') toggleImfDcpHUD(false);
+      if (exceptKey !== 'voiceducking' && voiceDuckingOpen && typeof toggleVoiceDuckingHUD === 'function') toggleVoiceDuckingHUD(false);
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', `, -, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', `, -, {{, }}, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen) || (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen) || (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen) || (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen) || (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen) || (typeof isImfDcpHUDOpen !== "undefined" && isImfDcpHUDOpen) || (typeof isVoiceDuckingHUDOpen !== "undefined" && isVoiceDuckingHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
@@ -9212,6 +9215,8 @@ def compile_storyboard_html(
         if (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen && typeof toggleOtioCoherenceHUD === "function") toggleOtioCoherenceHUD(false);
         if (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen && typeof toggleRenderJobsHUD === "function") toggleRenderJobsHUD(false);
         if (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen && typeof togglePitchTreatmentHUD === "function") togglePitchTreatmentHUD(false);
+        if (typeof isImfDcpHUDOpen !== "undefined" && isImfDcpHUDOpen && typeof toggleImfDcpHUD === "function") toggleImfDcpHUD(false);
+        if (typeof isVoiceDuckingHUDOpen !== "undefined" && isVoiceDuckingHUDOpen && typeof toggleVoiceDuckingHUD === "function") toggleVoiceDuckingHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9268,6 +9273,8 @@ def compile_storyboard_html(
       else if (e.key === "'" && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleOtioCoherenceHUD === 'function') toggleOtioCoherenceHUD(); }}
       else if (e.key === '`' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleRenderJobsHUD === 'function') toggleRenderJobsHUD(); }}
       else if (e.key === '-' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(); }}
+      else if (e.key === '}}' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleImfDcpHUD === 'function') toggleImfDcpHUD(); }}
+      else if (e.key === '{{' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleVoiceDuckingHUD === 'function') toggleVoiceDuckingHUD(); }}
     }});
 
     // Initialize first frame and default look
@@ -9279,6 +9286,7 @@ def compile_storyboard_html(
       if (typeof initV216HUDs === 'function') initV216HUDs();
       if (typeof initV217HUDs === 'function') initV217HUDs();
       if (typeof initV218HUDs === 'function') initV218HUDs();
+      if (typeof initV219HUDs === 'function') initV219HUDs();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

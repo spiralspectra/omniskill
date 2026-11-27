@@ -1,0 +1,172 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "CHAR_01_MASTER_ARTISANAL_C",
+      "character_name": "Master Artisanal Chef / Tea Master",
+      "vocal_register": "WHISPER_ASMR",
+      "timbre_descriptors": "Intimate close-mic breathy whisper with crisp consonant presence",
+      "mic_perspective": "close_cardioid",
+      "target_wpm": 96.0,
+      "pitch_hz_range": "155-235 Hz",
+      "delivery_notes": "Aligned to Deliberate, rhythmic, micro-fluidic hand gestures with zero tremor"
+    },
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "WHISPER_ASMR",
+      "timbre_descriptors": "Intimate close-mic breathy whisper with crisp consonant presence",
+      "mic_perspective": "close_cardioid",
+      "target_wpm": 96.0,
+      "pitch_hz_range": "130-210 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Artisanal Japanese Culinary Ceremonial M - Initiation: Sizzling.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "AA",
+            "RR",
+            "DD",
+            "EE",
+            "SS",
+            "AA",
+            "NN",
+            "AA",
+            "NN",
+            "AA",
+            "PP",
+            "AA"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -6.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -12.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 13.5
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Artisanal Japanese Culinary Ceremonial M - Climax: Crisp.",
+          "start_sec": 5.1,
+          "end_sec": 8.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "AA",
+            "RR",
+            "DD",
+            "EE",
+            "SS",
+            "AA",
+            "NN",
+            "AA",
+            "NN",
+            "AA",
+            "PP",
+            "AA"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -6.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -12.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 30,
+          "release_ms": 400,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 13.5
+    }
+  ],
+  "default_music_duck_db": -12.0,
+  "default_ambience_duck_db": -6.0,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

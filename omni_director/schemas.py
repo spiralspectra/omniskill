@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.18.0"
+__version__ = "2.19.0"
 
 
 class RegimeType(str, Enum):
@@ -3546,6 +3546,154 @@ class MasterPitchTreatmentSpec(BaseModel):
     treatment_token: str = ""
 
 
+# ==============================================================================
+# PM-FEAT-037: SMPTE IMF (ST 2067) Supplemental Packaging & DCI Theatrical DCP Mastering
+# ==============================================================================
+
+
+class ImfApplicationProfileEnum(str, Enum):
+    """SMPTE IMF Application Profiles & DCI Theatrical DCP Standards (PM-FEAT-037)."""
+    APP_2_EXTENDED = "ST_2067_21_App2E"
+    APP_2_PRO_RES = "ST_2067_50_ProRes"
+    APP_2 = "ST_2067_20_App2"
+    DCI_DCP_SMPTE = "ST_429_DCI_SMPTE"
+
+
+class ImfAssetTrackSpec(BaseModel):
+    """Single MXF/IMSC1 essence track asset inside an IMF ASSETMAP/PKL (PM-FEAT-037)."""
+    asset_uuid: str
+    track_role: str
+    locale_code: str = "en-US"
+    codec_profile: str = "JPEG2000_App2E_12bit"
+    edit_rate: str = "24/1"
+    duration_frames: int = 240
+    sha256_digest: str
+    is_supplemental: bool = False
+
+
+class ImfCompositionPlaylistSpec(BaseModel):
+    """SMPTE ST 2067-3 Composition Playlist (CPL) linking deduplicated OV & supplemental tracks (PM-FEAT-037)."""
+    cpl_uuid: str
+    content_title_text: str
+    version_tag: str
+    application_profile: ImfApplicationProfileEnum = ImfApplicationProfileEnum.APP_2_EXTENDED
+    segment_count: int = 1
+    total_frames: int = 240
+    linked_asset_uuids: List[str] = Field(default_factory=list)
+    source_cutdown_label: Optional[str] = None
+
+
+class DciTheatricalDcpSpec(BaseModel):
+    """SMPTE ST 429 Digital Cinema Package (DCP) mastering specification (PM-FEAT-037)."""
+    container_standard: str = "SMPTE ST 429-2"
+    resolution_class: str = "2K_SCOPE_2048x858"
+    color_encoding: str = "CIE_XYZ_12BIT_D65"
+    jpeg2000_max_bitrate_mbps: float = 250.0
+    audio_config: str = "ATMOS_IAB"
+    kdm_encryption_required: bool = False
+    reel_count: int = 1
+
+
+class MasterImfDcpManifest(BaseModel):
+    """Master SMPTE IMF Supplemental Package & DCI Theatrical DCP Manifest (PM-FEAT-037)."""
+    package_id: str
+    assetmap_uuid: str
+    pkl_uuid: str
+    application_profile: ImfApplicationProfileEnum = ImfApplicationProfileEnum.APP_2_EXTENDED
+    assets: List[ImfAssetTrackSpec] = Field(default_factory=list)
+    cpls: List[ImfCompositionPlaylistSpec] = Field(default_factory=list)
+    dcp_spec: DciTheatricalDcpSpec
+    deduplicated_picture_reuse_pct: float = 0.0
+
+
+# ==============================================================================
+# PM-FEAT-038: Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking
+# ==============================================================================
+
+
+class VocalRegisterEnum(str, Enum):
+    """Vocal casting register taxonomy for talent & synthetic VO profiles (PM-FEAT-038)."""
+    BARITONE = "BARITONE"
+    TENOR = "TENOR"
+    ALTO = "ALTO"
+    MEZZO_SOPRANO = "MEZZO_SOPRANO"
+    BASS = "BASS"
+    WHISPER_ASMR = "WHISPER_ASMR"
+    SYNTHETIC_NEURAL = "SYNTHETIC_NEURAL"
+
+
+class VisemeClassEnum(str, Enum):
+    """Preston Blair 13-class viseme lip-sync taxonomy (PM-FEAT-038)."""
+    SIL = "SIL"
+    PP = "PP"
+    FF = "FF"
+    TH = "TH"
+    DD = "DD"
+    KK = "KK"
+    CH = "CH"
+    SS = "SS"
+    NN = "NN"
+    RR = "RR"
+    AA = "AA"
+    EE = "EE"
+    OO = "OO"
+
+
+class VoiceCastingProfile(BaseModel):
+    """Voice casting, mic perspective, and vocal register profile for a character or VO talent (PM-FEAT-038)."""
+    character_id: str
+    character_name: str
+    vocal_register: VocalRegisterEnum = VocalRegisterEnum.ALTO
+    timbre_descriptors: str
+    mic_perspective: str = "vo_booth_neumann_u87"
+    target_wpm: float = 125.0
+    pitch_hz_range: str = "110-190 Hz"
+    delivery_notes: str = ""
+
+
+class VisemeLipSyncCue(BaseModel):
+    """Timed spoken dialogue or VO cue with WPS telemetry and dominant Preston Blair visemes (PM-FEAT-038)."""
+    scene_index: int
+    speaker_id: str
+    line_text: str
+    start_sec: float
+    end_sec: float
+    word_count: int
+    wps: float
+    dominant_visemes: List[VisemeClassEnum] = Field(default_factory=list)
+    lip_sync_required_on_camera: bool = False
+
+
+class SidechainDuckingKeyframe(BaseModel):
+    """Sample-accurate stem sidechain attenuation keyframe triggered by dialogue or AD (PM-FEAT-038)."""
+    time_sec: float
+    trigger_stem: str
+    target_stem: str
+    attenuation_db: float = Field(default=-8.0, ge=-24.0, le=0.0)
+    attack_ms: int = 40
+    release_ms: int = 300
+    scene_index: int = 1
+
+
+class SceneVoiceDuckingSpec(BaseModel):
+    """Per-scene voice casting, viseme lip-sync, and stem sidechain ducking automation (PM-FEAT-038)."""
+    scene_index: int
+    active_speakers: List[str] = Field(default_factory=list)
+    viseme_cues: List[VisemeLipSyncCue] = Field(default_factory=list)
+    ducking_keyframes: List[SidechainDuckingKeyframe] = Field(default_factory=list)
+    dialogue_to_bgm_snr_db: float = 9.0
+
+
+class MasterVoiceDuckingManifest(BaseModel):
+    """Master Voice Casting, Viseme Lip-Sync & Automated Stem Sidechain Ducking Manifest (PM-FEAT-038)."""
+    casting_roster: List[VoiceCastingProfile] = Field(default_factory=list)
+    scene_profiles: List[SceneVoiceDuckingSpec] = Field(default_factory=list)
+    default_music_duck_db: float = -8.0
+    default_ambience_duck_db: float = -4.5
+    dialogue_clarity_snr_min_db: float = 6.0
+    lip_sync_pass_rate_pct: float = 100.0
+
+
 
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
@@ -3715,6 +3863,16 @@ class ScenePromptSpec(BaseModel):
         default=None,
         validation_alias=AliasChoices("treatment_spec", "pitch_slide"),
         description="Scene Executive Director's Treatment & Pitch Lookbook slide specification (PM-FEAT-036)"
+    )
+    imf_dcp_profile: Optional[ImfCompositionPlaylistSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("imf_dcp_profile", "imf_cpl"),
+        description="Scene SMPTE IMF Composition Playlist & DCI DCP profile (PM-FEAT-037)"
+    )
+    voice_ducking_spec: Optional[SceneVoiceDuckingSpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("voice_ducking_spec", "voice_ducking"),
+        description="Scene voice casting, viseme lip-sync & stem sidechain ducking spec (PM-FEAT-038)"
     )
 
     @model_validator(mode="before")
@@ -4071,6 +4229,7 @@ class ScenePromptSpec(BaseModel):
 
 class MasterProductionBible(BaseModel):
     """Master Production Bible (Single Source of Truth 2.0)."""
+    version: str = Field(default=__version__, description="Omni Director schema version")
     project_title: str
     logline: str
     creative_regime: RegimeType
@@ -4356,6 +4515,16 @@ class MasterProductionBible(BaseModel):
         default=None,
         validation_alias=AliasChoices("master_pitch_treatment", "pitch_treatment", "director_treatment"),
         description="Master Executive Director's Treatment & Print-Ready Pitch Lookbook Manifest (PM-FEAT-036)"
+    )
+    master_imf_dcp: Optional[MasterImfDcpManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_imf_dcp", "imf_dcp_manifest", "imf_manifest"),
+        description="Master SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Manifest (PM-FEAT-037)"
+    )
+    master_voice_ducking: Optional[MasterVoiceDuckingManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_voice_ducking", "voice_casting_manifest", "ducking_manifest"),
+        description="Master Voice Casting, Viseme Lip-Sync & Automated Stem Sidechain Ducking Manifest (PM-FEAT-038)"
     )
     @field_validator("nano_banana_assets")
     @classmethod
@@ -4731,6 +4900,8 @@ class AuditResult(BaseModel):
     otio_coherence_compliant: bool = True
     render_orchestrator_compliant: bool = True
     pitch_treatment_compliant: bool = True
+    imf_dcp_compliant: bool = True
+    voice_ducking_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -5194,6 +5365,20 @@ __all__ = [
     "BibleRevisionDeltaItem",
     "BibleRevisionDiffReport",
     "MasterPitchTreatmentSpec",
+    # PM-FEAT-037: SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering
+    "ImfApplicationProfileEnum",
+    "ImfAssetTrackSpec",
+    "ImfCompositionPlaylistSpec",
+    "DciTheatricalDcpSpec",
+    "MasterImfDcpManifest",
+    # PM-FEAT-038: Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking
+    "VocalRegisterEnum",
+    "VisemeClassEnum",
+    "VoiceCastingProfile",
+    "VisemeLipSyncCue",
+    "SidechainDuckingKeyframe",
+    "SceneVoiceDuckingSpec",
+    "MasterVoiceDuckingManifest",
     "load_bible_from_json",
 ]
 

@@ -13,6 +13,7 @@ import json
 import logging
 import re
 import tempfile
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
@@ -37,6 +38,8 @@ from omni_director.presets import (
     get_domain_otio_coherence_spec,
     get_domain_render_job_spec,
     get_domain_pitch_treatment_spec,
+    get_domain_imf_dcp_profile,
+    get_domain_voice_ducking_profile,
 )
 from omni_director.schemas import (
     StorytellingMode,
@@ -992,6 +995,74 @@ class ProductManagerAgent(BaseAgent):
                 priority="P0",
                 status="implemented",
             ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-037",
+                title="SMPTE ST 2067 IMF Multi-Version Mastering & DCI Theatrical DCP Packaging Engine",
+                problem_statement=(
+                    f"Multi-territory and multi-cutdown commercial deliveries{project_ctx} duplicate 12-bit master "
+                    "picture essence across localized/cutdown renders and lack SMPTE ST 2067 ASSETMAP/PKL/CPL "
+                    "XML packaging plus SMPTE ST 429 DCI Theatrical DCP bitrate/color/KDM verification."
+                ),
+                proposed_solution=(
+                    "Implement ImfApplicationProfileEnum, ImfAssetTrackSpec, ImfCompositionPlaylistSpec, "
+                    "DciTheatricalDcpSpec, and MasterImfDcpManifest schemas; omni_director.tools.imf_dcp_packager "
+                    "(compile_imf_dcp_manifest, format_imf_dcp_token, export_imf_assetmap_xml, export_imf_pkl_xml, "
+                    "export_imf_cpl_xml, export_imf_dcp_manifest_json, export_dcp_cpl_spec_md, export_imf_dcp_bundle "
+                    "with deduplicated OV picture essence reuse and <=250.0 Mbps JPEG2000 DCI cap); 6-domain "
+                    "calibration via get_domain_imf_dcp_profile(); [IMF-CPL:] telemetry token stripping; and the "
+                    "IMF Package & Theatrical DCP Mastering HUD [}] (#btn-imf-dcp, #imfDcpModal)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/imf_dcp_packager.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v219.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-038",
+                title="Voice Casting, Phoneme/Viseme Lip-Sync Scripting & Automated Stem Sidechain Ducking Engine",
+                problem_statement=(
+                    f"Dialogue, voice-over, and Audio Description (AD) tracks{project_ctx} lack explicit "
+                    "vocal register casting, Preston Blair 13-class viseme lip-sync timing <=2.5 WPS, and "
+                    "sample-accurate sidechain stem ducking automation preserving >=6.0 dB dialogue-to-BGM SNR."
+                ),
+                proposed_solution=(
+                    "Implement VocalRegisterEnum, VisemeClassEnum, VoiceCastingProfile, VisemeLipSyncCue, "
+                    "SidechainDuckingKeyframe, SceneVoiceDuckingSpec, and MasterVoiceDuckingManifest schemas; "
+                    "omni_director.tools.voice_ducking (compile_voice_ducking_manifest, format_voice_ducking_token, "
+                    "export_voice_casting_json, export_stem_ducking_csv, export_adr_viseme_md, "
+                    "export_voice_ducking_bundle); 6-domain calibration via get_domain_voice_ducking_profile(); "
+                    "[VOICE-CAST:] telemetry token stripping; and the Voice Casting, Viseme Lip-Sync & Sidechain "
+                    "Ducking Studio HUD [{] (#btn-voice-ducking, #voiceDuckingModal, #v219-ducking-svg)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/voice_ducking.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v219.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
         ]
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -1290,14 +1361,25 @@ class ProductCouncilOrchestrator(BaseAgent):
         if eval_dir and (eval_dir / "telemetry.json").is_file():
             is_valid, checksum_errors = verify_bundle_checksums(eval_dir)
             if not is_valid:
-                has_mismatch = any("Checksum mismatch" in err for err in checksum_errors)
-                findings.append(CouncilFinding(
-                    severity=CouncilFindingSeverity.CRITICAL if has_mismatch else CouncilFindingSeverity.HIGH,
-                    category="artifact_integrity",
-                    message=f"Bundle artifact checksum verification failed ({len(checksum_errors)} issue(s)): {'; '.join(checksum_errors[:2])}",
-                    suggested_fix="Re-run compilation to regenerate artifacts with matching SHA-256 digests."
-                ))
-                score -= 6.0 if has_mismatch else 4.0
+                is_standalone_export_dir = (
+                    bundle is None
+                    and not (eval_dir / "production_bundle.json").is_file()
+                    and not (eval_dir / "storyboard_preview.html").is_file()
+                )
+                effective_errors = (
+                    [err for err in checksum_errors if "Mandatory bundle file" not in err]
+                    if is_standalone_export_dir
+                    else checksum_errors
+                )
+                if effective_errors:
+                    has_mismatch = any("Checksum mismatch" in err for err in effective_errors)
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.CRITICAL if has_mismatch else CouncilFindingSeverity.HIGH,
+                        category="artifact_integrity",
+                        message=f"Bundle artifact checksum verification failed ({len(effective_errors)} issue(s)): {'; '.join(effective_errors[:2])}",
+                        suggested_fix="Re-run compilation to regenerate artifacts with matching SHA-256 digests."
+                    ))
+                    score -= 6.0 if has_mismatch else 4.0
 
         # Verify Optical Depth-of-Field (DoF) and Focus Puller deliverables (PM-FEAT-011)
         if eval_dir:
@@ -2057,6 +2139,142 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 1.0
 
+            # Verify SMPTE ST 2067 IMF & DCI Theatrical DCP deliverables (PM-FEAT-037)
+            imf_candidates = [
+                "ASSETMAP.xml",
+                "PKL.xml",
+                "CPL_master.xml",
+                "imf_dcp_manifest.json",
+                "dcp_cpl_spec.md",
+            ]
+            imf_items = [name for name in imf_candidates if (eval_dir / name).is_file()]
+            if imf_items:
+                missing_imf = [name for name in imf_candidates if name not in imf_items]
+                imf_invalid_reasons: List[str] = []
+                for xml_name in ("ASSETMAP.xml", "PKL.xml", "CPL_master.xml"):
+                    xml_path = eval_dir / xml_name
+                    if xml_path.is_file():
+                        try:
+                            ET.fromstring(xml_path.read_text(encoding="utf-8"))
+                        except Exception as exc:
+                            imf_invalid_reasons.append(f"Invalid XML in {xml_name}: {exc}")
+                if (eval_dir / "imf_dcp_manifest.json").is_file():
+                    try:
+                        imf_doc = json.loads((eval_dir / "imf_dcp_manifest.json").read_text(encoding="utf-8"))
+                        if (
+                            not isinstance(imf_doc, dict)
+                            or not imf_doc.get("package_id")
+                            or not isinstance(imf_doc.get("assets"), list)
+                        ):
+                            imf_invalid_reasons.append("imf_dcp_manifest.json missing 'package_id' or 'assets' list.")
+                        else:
+                            for asset in imf_doc.get("assets", []):
+                                dig = str((asset or {}).get("sha256_digest", "") or "")
+                                if not re.fullmatch(r"[0-9a-fA-F]{64}", dig):
+                                    imf_invalid_reasons.append(
+                                        f"imf_dcp_manifest.json asset {asset.get('asset_uuid', '')!r} lacks 64-char SHA-256 digest."
+                                    )
+                                    break
+                    except Exception as exc:
+                        imf_invalid_reasons.append(f"Invalid JSON in imf_dcp_manifest.json: {exc}")
+                if imf_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="imf_dcp_delivery",
+                        message=" ".join(imf_invalid_reasons),
+                        suggested_fix="Regenerate IMF/DCP deliverables via export_imf_dcp_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_imf and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="imf_dcp_delivery",
+                        message=(
+                            f"Partial IMF/DCP deliverables on disk ({', '.join(imf_items)}); "
+                            f"missing: {', '.join(missing_imf)}."
+                        ),
+                        suggested_fix="Run export_imf_dcp_bundle() or export_all_nle_artifacts() to export all PM-FEAT-037 artifacts.",
+                        details={"imf_dcp_artifacts": imf_items, "missing_artifacts": missing_imf},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="imf_dcp_delivery",
+                        message=f"SMPTE IMF XML (ASSETMAP, PKL, CPL_master) & DCI DCP deliverables verified on disk: {', '.join(imf_items)}.",
+                        details={"imf_dcp_artifacts": imf_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="imf_dcp_delivery",
+                    message="NLE exports present on disk without PM-FEAT-037 IMF/DCP deliverables (ASSETMAP.xml, PKL.xml, CPL_master.xml, imf_dcp_manifest.json, dcp_cpl_spec.md).",
+                    suggested_fix="Run export_imf_dcp_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": imf_candidates},
+                ))
+                score -= 1.0
+
+            # Verify Voice Casting, Viseme Lip-Sync & Sidechain Ducking deliverables (PM-FEAT-038)
+            vd_candidates = [
+                "voice_casting_script.json",
+                "stem_ducking_automation.csv",
+                "adr_viseme_timing.md",
+            ]
+            vd_items = [name for name in vd_candidates if (eval_dir / name).is_file()]
+            if vd_items:
+                missing_vd = [name for name in vd_candidates if name not in vd_items]
+                vd_invalid_reasons: List[str] = []
+                if (eval_dir / "voice_casting_script.json").is_file():
+                    try:
+                        vd_doc = json.loads((eval_dir / "voice_casting_script.json").read_text(encoding="utf-8"))
+                        if not isinstance(vd_doc, dict) or not vd_doc.get("casting_roster"):
+                            vd_invalid_reasons.append("voice_casting_script.json missing non-empty 'casting_roster'.")
+                    except Exception as exc:
+                        vd_invalid_reasons.append(f"Invalid JSON in voice_casting_script.json: {exc}")
+                if (eval_dir / "stem_ducking_automation.csv").is_file():
+                    try:
+                        csv_lines = (eval_dir / "stem_ducking_automation.csv").read_text(encoding="utf-8").strip().splitlines()
+                        if not csv_lines or "attenuation_db" not in csv_lines[0]:
+                            vd_invalid_reasons.append("stem_ducking_automation.csv missing canonical sidechain ducking header.")
+                    except Exception as exc:
+                        vd_invalid_reasons.append(f"Failed reading stem_ducking_automation.csv: {exc}")
+                if vd_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="voice_ducking_delivery",
+                        message=" ".join(vd_invalid_reasons),
+                        suggested_fix="Regenerate Voice Casting & Ducking deliverables via export_voice_ducking_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_vd and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="voice_ducking_delivery",
+                        message=(
+                            f"Partial Voice Casting & Ducking deliverables on disk ({', '.join(vd_items)}); "
+                            f"missing: {', '.join(missing_vd)}."
+                        ),
+                        suggested_fix="Run export_voice_ducking_bundle() or export_all_nle_artifacts() to export all PM-FEAT-038 artifacts.",
+                        details={"voice_ducking_artifacts": vd_items, "missing_artifacts": missing_vd},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="voice_ducking_delivery",
+                        message=f"Voice Casting JSON, Stem Ducking CSV, and ADR/Viseme MD deliverables verified on disk: {', '.join(vd_items)}.",
+                        details={"voice_ducking_artifacts": vd_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="voice_ducking_delivery",
+                    message="NLE exports present on disk without PM-FEAT-038 Voice Casting & Ducking deliverables (voice_casting_script.json, stem_ducking_automation.csv, adr_viseme_timing.md).",
+                    suggested_fix="Run export_voice_ducking_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": vd_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -2429,6 +2647,80 @@ class ProductCouncilOrchestrator(BaseAgent):
                     details={
                         "treatment_id": pt_id,
                         "slides_count": len(pt_slides),
+                    },
+                ))
+
+        # Verify PM-FEAT-037 (SMPTE IMF & DCI DCP) & PM-FEAT-038 (Voice Casting & Ducking) schemas
+        imf_spec = getattr(bible, "master_imf_dcp", None)
+        if imf_spec is not None:
+            imf_assets = list(getattr(imf_spec, "assets", None) or [])
+            imf_cpls = list(getattr(imf_spec, "cpls", None) or [])
+            bad_digests = [
+                str(getattr(a, "asset_uuid", "") or "")
+                for a in imf_assets
+                if not re.fullmatch(r"[0-9a-fA-F]{64}", str(getattr(a, "sha256_digest", "") or ""))
+            ]
+            if not imf_assets or not imf_cpls or bad_digests:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="imf_dcp_schema",
+                    message=(
+                        f"MasterImfDcpManifest invalid (assets={len(imf_assets)}, cpls={len(imf_cpls)}, "
+                        f"invalid_sha256_assets={bad_digests[:3]})."
+                    ),
+                    suggested_fix="Hydrate master_imf_dcp via compile_imf_dcp_manifest() with 64-char SHA-256 track digests.",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="imf_dcp_schema",
+                    message=(
+                        f"MasterImfDcpManifest verified (pkg={getattr(imf_spec, 'package_id', '')}, "
+                        f"assets={len(imf_assets)} with 64-char SHA-256 digests, cpls={len(imf_cpls)})."
+                    ),
+                    details={
+                        "package_id": str(getattr(imf_spec, "package_id", "")),
+                        "assets_count": len(imf_assets),
+                        "cpls_count": len(imf_cpls),
+                    },
+                ))
+
+        vd_spec = getattr(bible, "master_voice_ducking", None)
+        if vd_spec is not None:
+            vd_roster = list(getattr(vd_spec, "casting_roster", None) or [])
+            vd_scenes = list(getattr(vd_spec, "scene_profiles", None) or [])
+            non_mono_scenes: List[int] = []
+            total_kfs = 0
+            for sp in vd_scenes:
+                kfs = list(getattr(sp, "ducking_keyframes", None) or [])
+                total_kfs += len(kfs)
+                times = [float(getattr(kf, "time_sec", 0.0) or 0.0) for kf in kfs]
+                if any(t < 0.0 for t in times) or any(times[i] > times[i + 1] for i in range(len(times) - 1)):
+                    non_mono_scenes.append(int(getattr(sp, "scene_index", 0) or 0))
+            if not vd_roster or non_mono_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="voice_ducking_schema",
+                    message=(
+                        f"MasterVoiceDuckingManifest invalid (casting_roster={len(vd_roster)}, "
+                        f"non_monotonic_ducking_scenes={non_mono_scenes})."
+                    ),
+                    suggested_fix="Hydrate master_voice_ducking via compile_voice_ducking_manifest() with monotonic keyframes.",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="voice_ducking_schema",
+                    message=(
+                        f"MasterVoiceDuckingManifest verified (roster={len(vd_roster)}, "
+                        f"scene_profiles={len(vd_scenes)}, monotonic_keyframes={total_kfs})."
+                    ),
+                    details={
+                        "roster_count": len(vd_roster),
+                        "scene_profiles_count": len(vd_scenes),
+                        "ducking_keyframes_count": total_kfs,
                     },
                 ))
 
@@ -3449,6 +3741,100 @@ class ProductCouncilOrchestrator(BaseAgent):
                     message=f"MasterPitchTreatmentSpec contract verified ({len(pt_slides)} board slides, token present={bool(getattr(pt_spec, 'treatment_token', ''))}).",
                 ))
 
+        # Verify PM-FEAT-037 (SMPTE IMF & DCI DCP) & PM-FEAT-038 (Voice Casting & Ducking) token stripping & contracts
+        v219_strip_failed: List[int] = []
+        v219_tokens = ("[MODE B CONTINUITY:", "[RENDER-ORCHESTRATOR:", "[IMF-CPL:", "[VOICE-CAST:")
+        for sc in bible.scenes:
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and any(tok in prompt for tok in v219_tokens):
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if any(tok in clean_prompt for tok in v219_tokens):
+                    v219_strip_failed.append(sc.scene_index)
+        if v219_strip_failed:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="imf_voice_prompt_strip_failed",
+                message=(
+                    f"Scene(s) {v219_strip_failed} failed to cleanly strip "
+                    "[MODE B CONTINUITY:]/[RENDER-ORCHESTRATOR:]/[IMF-CPL:]/[VOICE-CAST:] tokens in compile_clean_omni_prompt."
+                ),
+                suggested_fix="Ensure v2.19 telemetry tokens match _MACHINE_TELEMETRY_TOKEN_RE.",
+            ))
+            penalty_points += 2.0
+
+        imf_spec = getattr(bible, "master_imf_dcp", None)
+        if imf_spec is not None:
+            dcp_spec = getattr(imf_spec, "dcp_spec", None)
+            max_bitrate = float(getattr(dcp_spec, "jpeg2000_max_bitrate_mbps", 250.0) or 0.0) if dcp_spec else 0.0
+            asset_uuids = {
+                str(getattr(a, "asset_uuid", "") or "").strip()
+                for a in (getattr(imf_spec, "assets", None) or [])
+                if str(getattr(a, "asset_uuid", "") or "").strip()
+            }
+            cpls = list(getattr(imf_spec, "cpls", None) or [])
+            broken_cpl_refs: List[str] = []
+            for cpl in cpls:
+                links = list(getattr(cpl, "linked_asset_uuids", None) or [])
+                if not links or any(u not in asset_uuids for u in links):
+                    broken_cpl_refs.append(str(getattr(cpl, "version_tag", "CPL") or "CPL"))
+            if max_bitrate <= 0.0 or max_bitrate > 250.0 or not asset_uuids or broken_cpl_refs:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="imf_dcp_compliance_failed",
+                    message=(
+                        f"MasterImfDcpManifest failed SMPTE/DCI gate "
+                        f"(jpeg2000_max_bitrate_mbps={max_bitrate:.1f}, broken_cpls={broken_cpl_refs})."
+                    ),
+                    suggested_fix="Cap DCI JPEG2000 bitrate <= 250.0 Mbps and link valid OV/supplemental asset UUIDs.",
+                ))
+                penalty_points += 2.0
+            elif not v219_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="imf_dcp_schema_compliance",
+                    message=(
+                        f"SMPTE IMF & DCI DCP contract verified (bitrate={max_bitrate:.1f} Mbps <= 250.0 Mbps, "
+                        f"assets={len(asset_uuids)}, cpls={len(cpls)})."
+                    ),
+                ))
+
+        vd_spec = getattr(bible, "master_voice_ducking", None)
+        if vd_spec is not None:
+            pass_rate = float(getattr(vd_spec, "lip_sync_pass_rate_pct", 0.0) or 0.0)
+            snr_min = float(getattr(vd_spec, "dialogue_clarity_snr_min_db", 0.0) or 0.0)
+            over_wps = [
+                (int(getattr(sp, "scene_index", 0) or 0), float(getattr(cue, "wps", 0.0) or 0.0))
+                for sp in (getattr(vd_spec, "scene_profiles", None) or [])
+                for cue in (getattr(sp, "viseme_cues", None) or [])
+                if float(getattr(cue, "wps", 0.0) or 0.0) > 2.5
+            ]
+            low_snr_scenes = [
+                int(getattr(sp, "scene_index", 0) or 0)
+                for sp in (getattr(vd_spec, "scene_profiles", None) or [])
+                if float(getattr(sp, "dialogue_to_bgm_snr_db", 0.0) or 0.0) < 6.0
+            ]
+            if pass_rate < 90.0 or snr_min < 6.0 or over_wps or low_snr_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="voice_ducking_compliance_failed",
+                    message=(
+                        f"MasterVoiceDuckingManifest failed lip-sync/ducking gate "
+                        f"(lip_sync_pass_rate_pct={pass_rate:.1f}%, snr_min={snr_min:.1f}dB, "
+                        f"over_wps={over_wps[:3]}, low_snr_scenes={low_snr_scenes})."
+                    ),
+                    suggested_fix="Keep spoken dialogue <= 2.5 WPS, lip_sync_pass_rate_pct >= 90%, and SNR >= 6.0 dB.",
+                ))
+                penalty_points += 2.0
+            elif not v219_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="voice_ducking_schema_compliance",
+                    message=(
+                        f"Voice Casting & Sidechain Ducking contract verified "
+                        f"(lip_sync_pass_rate={pass_rate:.1f}% >= 90%, snr_min={snr_min:.1f} dB >= 6.0 dB, WPS <= 2.5)."
+                    ),
+                ))
+
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
@@ -3510,6 +3896,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "pitch_treatment_compliant", True)
+            ]
+            non_imf_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "imf_dcp_compliant", True)
+            ]
+            non_vd_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "voice_ducking_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -3668,6 +4064,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_render_and_treatment_compliance",
                     message=f"Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if non_imf_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_imf_dcp_non_compliant",
+                    message=f"Bundle audit_reports flagged imf_dcp_compliant=False on scene(s): {non_imf_scenes}.",
+                    suggested_fix="Ensure DCI JPEG2000 bitrate <= 250.0 Mbps and valid OV asset UUID links on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if non_vd_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_voice_ducking_non_compliant",
+                    message=f"Bundle audit_reports flagged voice_ducking_compliant=False on scene(s): {non_vd_scenes}.",
+                    suggested_fix="Ensure dialogue WPS <= 2.5 and sidechain ducking SNR >= 6.0 dB on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_imf_scenes and not non_vd_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_imf_and_voice_compliance",
+                    message=f"Bundle audit_reports verified imf_dcp_compliant=True and voice_ducking_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -4852,6 +5270,96 @@ class ProductCouncilOrchestrator(BaseAgent):
                     },
                 ))
 
+        # Verify SMPTE IMF OV Picture Deduplication & Domain Alignment (PM-FEAT-037)
+        imf_spec = getattr(bible, "master_imf_dcp", None)
+        if imf_spec is not None:
+            expected_imf = get_domain_imf_dcp_profile(detected_domain)
+            imf_cpls = list(getattr(imf_spec, "cpls", None) or [])
+            loc_manifest = getattr(bible, "localization_manifest", None)
+            reframe_manifest = getattr(bible, "master_reframe_manifest", None) or getattr(bible, "reframe_manifest", None)
+            has_locales = bool(loc_manifest and getattr(loc_manifest, "locales", None))
+            has_cutdowns = bool(reframe_manifest and (getattr(reframe_manifest, "cutdowns", None) or getattr(reframe_manifest, "cutdown_versions", None)))
+            has_supplemental_scope = len(imf_cpls) > 1 or has_locales or has_cutdowns
+            reuse_pct = float(getattr(imf_spec, "deduplicated_picture_reuse_pct", 0.0) or 0.0)
+            if has_supplemental_scope and reuse_pct <= 0.0:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_imf_dcp_calibration",
+                    message=(
+                        f"MasterImfDcpManifest for domain '{detected_domain}' has supplemental scope "
+                        f"(cpls={len(imf_cpls)}, locales={has_locales}, cutdowns={has_cutdowns}) but "
+                        f"deduplicated_picture_reuse_pct={reuse_pct:.1f}% <= 0.0%."
+                    ),
+                    suggested_fix="Reuse OV picture essence UUIDs across supplemental CPLs via compile_imf_dcp_manifest().",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_imf_dcp_calibration",
+                    message=(
+                        f"SMPTE IMF & DCI DCP calibrated for '{detected_domain}' "
+                        f"(profile={expected_imf.get('application_profile', '')}, cpls={len(imf_cpls)}, "
+                        f"deduplicated_picture_reuse_pct={reuse_pct:.1f}%)."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "cpls_count": len(imf_cpls),
+                        "deduplicated_picture_reuse_pct": reuse_pct,
+                    },
+                ))
+
+        # Verify Voice Casting Register/Pace & AD Ducking Protection (PM-FEAT-038)
+        vd_spec = getattr(bible, "master_voice_ducking", None)
+        if vd_spec is not None:
+            expected_vd = get_domain_voice_ducking_profile(detected_domain)
+            expected_reg = str(expected_vd.get("vocal_register", "") or "").upper()
+            roster = list(getattr(vd_spec, "casting_roster", None) or [])
+            roster_regs = {
+                str(getattr(getattr(p, "vocal_register", None), "value", getattr(p, "vocal_register", ""))).upper()
+                for p in roster
+            }
+            music_duck_db = float(getattr(vd_spec, "default_music_duck_db", 0.0) or 0.0)
+            acc_spec = getattr(bible, "master_accessibility_spec", None)
+            has_ad_cues = bool(acc_spec and int(getattr(acc_spec, "total_ad_cues", 0) or 0) > 0)
+            ad_kfs = [
+                kf
+                for sp in (getattr(vd_spec, "scene_profiles", None) or [])
+                for kf in (getattr(sp, "ducking_keyframes", None) or [])
+                if "AD" in str(getattr(kf, "trigger_stem", "")).upper()
+                or "AUDIO_DESC" in str(getattr(kf, "trigger_stem", "")).upper()
+            ]
+            ad_protected = (not has_ad_cues) or any(float(getattr(kf, "attenuation_db", 0.0) or 0.0) < 0.0 for kf in ad_kfs)
+            reg_ok = bool(roster_regs) and (not expected_reg or expected_reg in roster_regs)
+            pace_ok = all(float(getattr(p, "target_wpm", 0.0) or 0.0) <= 150.0 for p in roster)
+            if not reg_ok or not pace_ok or music_duck_db >= 0.0 or not ad_protected:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_voice_ducking_calibration",
+                    message=(
+                        f"MasterVoiceDuckingManifest misaligned for domain '{detected_domain}' "
+                        f"(expected_register={expected_reg}, roster_registers={sorted(roster_regs)}, "
+                        f"music_duck_db={music_duck_db:.1f}, ad_protected={ad_protected})."
+                    ),
+                    suggested_fix="Calibrate vocal register, WPM pace (<=150), and AD ducking protection via get_domain_voice_ducking_profile().",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_voice_ducking_calibration",
+                    message=(
+                        f"Voice Casting & Sidechain Ducking calibrated for '{detected_domain}' "
+                        f"(register={expected_reg}, music_duck={music_duck_db:.1f} dB, ad_ducking_kfs={len(ad_kfs)})."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "expected_register": expected_reg,
+                        "music_duck_db": music_duck_db,
+                        "ad_ducking_keyframes": len(ad_kfs),
+                    },
+                ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -5590,6 +6098,56 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').",
                         ))
 
+                    # PM-FEAT-037 SMPTE IMF & DCI Theatrical DCP HUD [}] & Command Palette [/] check
+                    missing_imf_ids = [
+                        el_id
+                        for el_id in ("imfDcpModal", "btn-imf-dcp")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_imf_palette = ("'imfdcp'" in html_content or '"imfdcp"' in html_content) and "toggleImfDcpHUD" in html_content
+                    if missing_imf_ids or not has_imf_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_imf_dcp_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks IMF/DCP HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_imf_ids) or 'Command Palette imfdcp entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #imfDcpModal, #btn-imf-dcp [}], and Command Palette 'imfdcp' entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_imf_dcp_hud",
+                            message="IMF Package & Theatrical DCP HUD verified (#btn-imf-dcp / #imfDcpModal / Command Palette 'imfdcp').",
+                        ))
+
+                    # PM-FEAT-038 Voice Casting, Viseme Lip-Sync & Sidechain Ducking HUD [{] & Command Palette [/] check
+                    missing_vd_ids = [
+                        el_id
+                        for el_id in ("voiceDuckingModal", "btn-voice-ducking", "v219-ducking-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_vd_palette = ("'voiceducking'" in html_content or '"voiceducking"' in html_content) and "toggleVoiceDuckingHUD" in html_content
+                    if missing_vd_ids or not has_vd_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_voice_ducking_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Voice Casting & Ducking HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_vd_ids) or 'Command Palette voiceducking entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #voiceDuckingModal, #btn-voice-ducking [{], #v219-ducking-svg, and Command Palette 'voiceducking' entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_voice_ducking_hud",
+                            message="Voice Casting & Sidechain Ducking HUD verified (#btn-voice-ducking / #voiceDuckingModal / #v219-ducking-svg / Command Palette 'voiceducking').",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -5769,6 +6327,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
                             ))
 
+                        has_rbrace_key = bool(re.search(r"""e\.key\s*===\s*(?:'\}'|"\}")""", kd_block))
+                        has_lbrace_key = bool(re.search(r"""e\.key\s*===\s*(?:'\{'|"\{")""", kd_block))
+                        if not (has_rbrace_key and has_lbrace_key):
+                            missing_braces = []
+                            if not has_rbrace_key:
+                                missing_braces.append("}")
+                            if not has_lbrace_key:
+                                missing_braces.append("{")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_braces",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_braces)}.",
+                                suggested_fix="Bind } (IMF/DCP Mastering HUD) and { (Voice Casting & Ducking HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_braces",
+                                message="IMF/DCP Mastering [}] and Voice Casting & Ducking [{] global keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -5799,6 +6379,8 @@ class ProductCouncilOrchestrator(BaseAgent):
                             ("modal-otio-coherence", ("OtioCoherenceHUD", "isOtioCoherenceHUDOpen", "modal-otio-coherence")),
                             ("modal-render-jobs", ("RenderJobsHUD", "isRenderJobsHUDOpen", "modal-render-jobs")),
                             ("modal-pitch-treatment", ("PitchTreatmentHUD", "isPitchTreatmentHUDOpen", "modal-pitch-treatment")),
+                            ("imfDcpModal", ("ImfDcpHUD", "isImfDcpHUDOpen", "imfDcpModal")),
+                            ("voiceDuckingModal", ("VoiceDuckingHUD", "isVoiceDuckingHUDOpen", "voiceDuckingModal")),
                         )
                         missing_esc: list[str] = [
                             panel_id

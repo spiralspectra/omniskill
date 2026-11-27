@@ -1,0 +1,172 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "CHAR_01_HAUTE_COUTURE_RUNW",
+      "character_name": "Haute Couture Runway Model",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "155-235 Hz",
+      "delivery_notes": "Aligned to Fluid, confident, momentum-conserving runway cadence"
+    },
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "165-245 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Minimalist Luxury Haute Couture Silk Vel - Initiation:.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "PP",
+            "EE",
+            "NN",
+            "EE",
+            "PP",
+            "AA",
+            "NN",
+            "EE",
+            "SS",
+            "DD",
+            "NN",
+            "OO"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Minimalist Luxury Haute Couture Silk Vel - Climax:.",
+          "start_sec": 5.1,
+          "end_sec": 8.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "PP",
+            "EE",
+            "NN",
+            "EE",
+            "PP",
+            "AA",
+            "NN",
+            "EE",
+            "SS",
+            "DD",
+            "NN",
+            "OO"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    }
+  ],
+  "default_music_duck_db": -6.5,
+  "default_ambience_duck_db": -5.0,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

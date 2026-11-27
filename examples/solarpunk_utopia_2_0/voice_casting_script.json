@@ -1,0 +1,172 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "CHAR_01_RESIDENT_SPATIAL_A",
+      "character_name": "Resident Spatial Architect / Meditator",
+      "vocal_register": "BASS",
+      "timbre_descriptors": "Warm natural room-tone alto with unhurried spatial cadence",
+      "mic_perspective": "lavalier_intimate",
+      "target_wpm": 102.0,
+      "pitch_hz_range": "95-155 Hz",
+      "delivery_notes": "Aligned to Calm, deliberate pacing along cardinal spatial axes"
+    },
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "BASS",
+      "timbre_descriptors": "Warm natural room-tone alto with unhurried spatial cadence",
+      "mic_perspective": "lavalier_intimate",
+      "target_wpm": 102.0,
+      "pitch_hz_range": "145-220 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Solarpunk Architectural Sanctuary Featur - Initiation: Cool concrete.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "SS",
+            "OO",
+            "NN",
+            "AA",
+            "RR",
+            "PP",
+            "OO",
+            "NN",
+            "KK",
+            "AA",
+            "RR",
+            "CH"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "Solarpunk Architectural Sanctuary Featur - Climax: Warm light.",
+          "start_sec": 5.1,
+          "end_sec": 8.3,
+          "word_count": 8,
+          "wps": 2.5,
+          "dominant_visemes": [
+            "SS",
+            "OO",
+            "NN",
+            "AA",
+            "RR",
+            "PP",
+            "OO",
+            "NN",
+            "KK",
+            "AA",
+            "RR",
+            "CH"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -4.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 5.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -7.5,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 8.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 90,
+          "release_ms": 500,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 9.0
+    }
+  ],
+  "default_music_duck_db": -7.5,
+  "default_ambience_duck_db": -4.5,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

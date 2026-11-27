@@ -116,10 +116,11 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
         ]
 
     raw_jobs_by_scene: Dict[int, Dict[str, Any]] = {}
+    raw_handoffs: List[Dict[str, Any]] = []
     if isinstance(plain_existing, dict):
         raw_list = (
-            plain_existing.get("scene_jobs")
-            or plain_existing.get("jobs")
+            plain_existing.get("jobs")
+            or plain_existing.get("scene_jobs")
             or plain_existing.get("scene_renders")
             or []
         )
@@ -128,11 +129,33 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
                 if isinstance(item, dict):
                     s_i = int(item.get("scene_index", idx + 1) or (idx + 1))
                     raw_jobs_by_scene[s_i] = item
+        if isinstance(plain_existing.get("frame_anchor_handoffs"), list):
+            raw_handoffs = [h for h in plain_existing["frame_anchor_handoffs"] if isinstance(h, dict)]
     elif isinstance(plain_existing, list):
         for idx, item in enumerate(plain_existing):
             if isinstance(item, dict):
                 s_i = int(item.get("scene_index", idx + 1) or (idx + 1))
                 raw_jobs_by_scene[s_i] = item
+
+    handoffs_by_from: Dict[int, Dict[str, Any]] = {}
+    handoffs_by_to: Dict[int, Dict[str, Any]] = {}
+    for ho in raw_handoffs:
+        if ho.get("from_scene_index") is not None:
+            handoffs_by_from[int(ho["from_scene_index"])] = ho
+        if ho.get("to_scene_index") is not None:
+            handoffs_by_to[int(ho["to_scene_index"])] = ho
+
+    def _map_take_slot(raw_take_id: Any, fallback_idx: Optional[int] = None) -> Optional[str]:
+        val = str(raw_take_id or "").strip().upper()
+        if val in {"A", "T1"} or val.endswith("_T1") or val.endswith("_A"):
+            return "A"
+        if val in {"B", "T2"} or val.endswith("_T2") or val.endswith("_B"):
+            return "B"
+        if val in {"C", "T3"} or val.endswith("_T3") or val.endswith("_C"):
+            return "C"
+        if fallback_idx is not None and 0 <= fallback_idx < 3:
+            return ("A", "B", "C")[fallback_idx]
+        return None
 
     rendered_by_scene: Dict[int, Dict[str, Any]] = {}
     if isinstance(rendered_videos, list):
@@ -154,60 +177,170 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
         raw_job = raw_jobs_by_scene.get(s_idx, {})
         rv_item = rendered_by_scene.get(s_idx, {})
 
-        raw_takes = raw_job.get("takes") if isinstance(raw_job.get("takes"), dict) else {}
+        # Map canonical take_scorecards (TakeQaScorecardSpec list) alongside legacy takes dict/list
+        scorecards_by_slot: Dict[str, Dict[str, Any]] = {}
+        raw_scorecards = raw_job.get("take_scorecards")
+        if isinstance(raw_scorecards, list):
+            for c_idx, card in enumerate(raw_scorecards):
+                if not isinstance(card, dict):
+                    continue
+                slot = _map_take_slot(card.get("take_id"), c_idx)
+                if slot and slot in scorecards_by_slot:
+                    slot = next((k for k in ("A", "B", "C") if k not in scorecards_by_slot), None)
+                if slot:
+                    scorecards_by_slot[slot] = card
+        qa_single = raw_job.get("qa_scorecard") if isinstance(raw_job.get("qa_scorecard"), dict) else None
+        if qa_single is not None:
+            q_slot = _map_take_slot(qa_single.get("take_id"), 0)
+            if q_slot and q_slot not in scorecards_by_slot:
+                scorecards_by_slot[q_slot] = qa_single
+
+        takes_by_slot: Dict[str, Dict[str, Any]] = {}
+        raw_takes_val = raw_job.get("takes")
+        if isinstance(raw_takes_val, dict):
+            for k, v in raw_takes_val.items():
+                if not isinstance(v, dict):
+                    continue
+                slot = _map_take_slot(k) or _map_take_slot(v.get("take_id"))
+                if slot:
+                    takes_by_slot[slot] = v
+        elif isinstance(raw_takes_val, list):
+            for t_idx, v in enumerate(raw_takes_val):
+                if not isinstance(v, dict):
+                    continue
+                slot = _map_take_slot(v.get("take_id"), t_idx)
+                if slot:
+                    takes_by_slot[slot] = v
+
         takes: Dict[str, Dict[str, Any]] = {}
         take_specs = [
-            ("A", "Take A · Hero Primary", 95.4, 96.2, 4, 1.25),
-            ("B", "Take B · Alt Kinetics", 92.6, 93.8, -8, 1.25),
-            ("C", "Take C · Micro-Hold", 88.4, 89.5, 14, 1.15),
+            ("A", "T1", "Take A · Hero Primary", 95.4, 96.2, 4, 1.25),
+            ("B", "T2", "Take B · Alt Kinetics", 92.6, 93.8, -8, 1.25),
+            ("C", "T3", "Take C · Micro-Hold", 88.4, 89.5, 14, 1.15),
         ]
-        for t_key, default_lbl, base_qa, base_opt, base_sync, base_cost in take_specs:
-            rt = raw_takes.get(t_key) if isinstance(raw_takes.get(t_key), dict) else {}
+        for t_key, t_num, default_lbl, base_qa, base_opt, base_sync, base_cost in take_specs:
+            sc_card = scorecards_by_slot.get(t_key, {})
+            rt = takes_by_slot.get(t_key, {})
             adj = ((s_idx - 1) % 3) * 0.4
-            qa_score = round(float(rt.get("qa_score") or rt.get("audit_score") or (base_qa + adj)), 1)
-            opt_score = round(float(rt.get("optical_score") or (base_opt + adj * 0.5)), 1)
+            qa_raw = (
+                sc_card.get("composite_qa_score")
+                if sc_card.get("composite_qa_score") is not None
+                else (
+                    rt.get("composite_qa_score")
+                    if rt.get("composite_qa_score") is not None
+                    else (rt.get("qa_score") if rt.get("qa_score") is not None else rt.get("audit_score"))
+                )
+            )
+            qa_score = round(float(qa_raw if qa_raw is not None else (base_qa + adj)), 1)
+            opt_raw = (
+                sc_card.get("temporal_stability_score")
+                if sc_card.get("temporal_stability_score") is not None
+                else (
+                    rt.get("temporal_stability_score")
+                    if rt.get("temporal_stability_score") is not None
+                    else rt.get("optical_score")
+                )
+            )
+            opt_score = round(float(opt_raw if opt_raw is not None else (base_opt + adj * 0.5)), 1)
+            rms_raw = (
+                sc_card.get("audio_sync_rms_db")
+                if sc_card.get("audio_sync_rms_db") is not None
+                else rt.get("audio_sync_rms_db")
+            )
+            audio_rms_db = round(float(rms_raw if rms_raw is not None else -18.0), 2)
             sync_ms = int(rt.get("audio_sync_ms") if rt.get("audio_sync_ms") is not None else base_sync)
-            cost_usd = round(float(rt.get("cost_usd") if rt.get("cost_usd") is not None else base_cost), 2)
-            seed_val = int(rt.get("seed") or _deterministic_seed(project_title, s_idx, t_key))
-            t_status = _normalize_qa_status(rt.get("status") or rt.get("qa_status"), qa_score)
+            cost_raw = rt.get("cost_usd") if rt.get("cost_usd") is not None else rt.get("estimated_cost_usd")
+            cost_usd = round(float(cost_raw if cost_raw is not None else base_cost), 2)
+            seed_val = int(sc_card.get("seed") or rt.get("seed") or _deterministic_seed(project_title, s_idx, t_key))
+            canonical_tid = str(sc_card.get("take_id") or rt.get("take_id") or f"SC{s_idx:02d}_{t_num}")
+            promoted = (
+                bool(sc_card["promoted_hero"])
+                if "promoted_hero" in sc_card
+                else bool(rt.get("promoted_hero", False))
+            )
+            retry_rec = bool(sc_card.get("retry_recommended", qa_score < 85.0))
+            raw_t_status = rt.get("status") or rt.get("qa_status") or ("qa_flagged" if retry_rec else None)
+            t_status = _normalize_qa_status(raw_t_status, qa_score)
             takes[t_key] = {
                 "take_id": t_key,
+                "canonical_take_id": canonical_tid,
                 "label": str(rt.get("label") or default_lbl),
                 "seed": seed_val,
                 "qa_score": qa_score,
+                "composite_qa_score": qa_score,
                 "optical_score": opt_score,
+                "temporal_stability_score": opt_score,
+                "prompt_adherence_score": round(float(sc_card.get("prompt_adherence_score") if sc_card.get("prompt_adherence_score") is not None else qa_score), 1),
+                "reference_drift_score": round(float(sc_card.get("reference_drift_score") if sc_card.get("reference_drift_score") is not None else qa_score), 1),
+                "audio_sync_rms_db": audio_rms_db,
                 "audio_sync_ms": sync_ms,
                 "cost_usd": cost_usd,
+                "promoted_hero": promoted,
+                "retry_recommended": retry_rec,
                 "status": t_status,
             }
 
-        hero_take = str(raw_job.get("hero_take") or raw_job.get("selected_take") or "A").upper()
-        if hero_take not in {"A", "B", "C"}:
-            hero_take = "A"
+        raw_selected_take = raw_job.get("selected_take_id") or raw_job.get("hero_take") or raw_job.get("selected_take")
+        hero_take = _map_take_slot(raw_selected_take)
+        if hero_take is None and raw_selected_take:
+            sel_upper = str(raw_selected_take).strip().upper()
+            hero_take = next(
+                (k for k in ("A", "B", "C") if takes[k]["canonical_take_id"].upper() == sel_upper),
+                None,
+            )
+        if hero_take is None:
+            hero_take = next((k for k in ("A", "B", "C") if takes[k]["promoted_hero"]), "A")
+        takes[hero_take]["promoted_hero"] = True
         hero_info = takes[hero_take]
+        selected_take_id = str(raw_selected_take or hero_info["canonical_take_id"])
 
         job_status = _normalize_qa_status(
             raw_job.get("status") or raw_job.get("qa_status") or rv_item.get("status"),
             hero_info["qa_score"],
         )
 
-        anchor_in = (
-            str(raw_job.get("anchor_in"))
-            if raw_job.get("anchor_in")
-            else ("START_PLATE_01.svg" if s_idx == 1 else f"End_Frame_0{s_idx - 1}.png")
+        handoff_in = handoffs_by_to.get(s_idx)
+        handoff_out = handoffs_by_from.get(s_idx)
+        end_frame_path = str(
+            raw_job.get("end_frame_path")
+            or raw_job.get("anchor_out")
+            or (handoff_out.get("end_frame_asset_id") if handoff_out else None)
+            or f"End_Frame_{s_idx:02d}.png"
         )
-        anchor_out = str(raw_job.get("anchor_out") or f"End_Frame_0{s_idx}.png")
+        anchor_in = str(
+            raw_job.get("anchor_in")
+            or (handoff_in.get("end_frame_asset_id") if handoff_in else None)
+            or ("START_PLATE_01.svg" if s_idx == 1 else f"End_Frame_{s_idx - 1:02d}.png")
+        )
+        anchor_out = str(raw_job.get("anchor_out") or end_frame_path)
+        lum_raw = raw_job.get("luminance_delta_pct")
+        if lum_raw is None and handoff_out is not None:
+            lum_raw = handoff_out.get("luminance_delta_pct")
+        if lum_raw is None and handoff_in is not None:
+            lum_raw = handoff_in.get("luminance_delta_pct")
         lum_delta = round(
-            float(
-                raw_job.get("luminance_delta_pct")
-                if raw_job.get("luminance_delta_pct") is not None
-                else (0.6 + ((s_idx * 0.45) % 2.1))
-            ),
+            float(lum_raw if lum_raw is not None else (0.6 + ((s_idx * 0.45) % 2.1))),
             2,
         )
+        if handoff_out is not None:
+            continuity_locked = bool(handoff_out.get("continuity_locked", True))
+        elif handoff_in is not None:
+            continuity_locked = bool(handoff_in.get("continuity_locked", True))
+        else:
+            continuity_locked = True
         lock_status = str(
             raw_job.get("continuity_lock_status")
-            or ("FRAME_LOCKED" if (mode_b_enabled and s_idx > 1) else ("KEYFRAME_ROOT" if s_idx == 1 else "PARALLEL_ASSET_LOCK"))
+            or (
+                ("FRAME_LOCKED" if continuity_locked else "DRIFT_WARNING")
+                if (handoff_out is not None or handoff_in is not None)
+                else ("FRAME_LOCKED" if (mode_b_enabled and s_idx > 1) else ("KEYFRAME_ROOT" if s_idx == 1 else "PARALLEL_ASSET_LOCK"))
+            )
+        )
+        output_media = str(
+            raw_job.get("output_media_path")
+            or raw_job.get("output_clip_uri")
+            or rv_item.get("video_path")
+            or f"renders/scene_{s_idx:02d}_take_{hero_take}.mp4"
         )
 
         scene_jobs.append(
@@ -222,19 +355,19 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
                 "duration_sec": dur_s,
                 "smpte_in": _sec_to_smpte(st_s, 24),
                 "smpte_out": _sec_to_smpte(en_s, 24),
+                "selected_take_id": selected_take_id,
                 "hero_take": hero_take,
                 "hero_qa_score": hero_info["qa_score"],
                 "hero_seed": hero_info["seed"],
                 "hero_cost_usd": hero_info["cost_usd"],
                 "anchor_in": anchor_in,
                 "anchor_out": anchor_out,
+                "end_frame_path": end_frame_path,
                 "luminance_delta_pct": lum_delta,
+                "continuity_locked": continuity_locked,
                 "continuity_lock_status": lock_status,
-                "output_clip_uri": str(
-                    raw_job.get("output_clip_uri")
-                    or rv_item.get("video_path")
-                    or f"renders/scene_{s_idx:02d}_take_{hero_take}.mp4"
-                ),
+                "output_media_path": output_media,
+                "output_clip_uri": output_media,
                 "takes": takes,
             }
         )
@@ -246,7 +379,11 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
         sum(float(j["hero_qa_score"]) for j in scene_jobs) / max(1, len(scene_jobs)),
         1,
     )
-    anchor_locks = sum(1 for j in scene_jobs if j["scene_index"] > 1 and mode_b_enabled)
+    anchor_locks = (
+        sum(1 for h in raw_handoffs if h.get("continuity_locked", True))
+        if raw_handoffs
+        else sum(1 for j in scene_jobs if j["scene_index"] > 1 and mode_b_enabled)
+    )
 
     return {
         "schema": "omni.live_render_jobs.v1",
@@ -263,6 +400,7 @@ def synthesize_v218_render_jobs_state(bible: Any, bundle: Any = None) -> Dict[st
         "total_render_cost_usd": total_cost,
         "average_qa_score": avg_qa,
         "mode_b_anchor_locks": anchor_locks,
+        "frame_anchor_handoffs": raw_handoffs,
         "scene_jobs": scene_jobs,
     }
 
@@ -288,12 +426,23 @@ def synthesize_v218_pitch_treatment_state(bible: Any, bundle: Any = None) -> Dic
     plain_existing = _to_plain(existing) if isinstance(_to_plain(existing), dict) else {}
 
     palette = _to_plain(_get_field(bible, "color_palette", []) or [])
+    if (not isinstance(palette, list) or not palette) and isinstance(plain_existing.get("color_script_strip"), list):
+        palette = [str(c) for c in plain_existing["color_script_strip"] if c]
     if not isinstance(palette, list) or not palette:
         palette = ["#0F172A", "#38BDF8", "#F59E0B", "#E2E8F0"]
     palette = [str(c) for c in palette[:8]]
 
-    color_look = _to_plain(_get_field(bible, "master_color_look", {}) or {}) or {}
-    look_name = str(color_look.get("look_name") or color_look.get("preset_name") or "Rec.709 Master Grade")
+    color_look = _to_plain(
+        _get_field(bible, "color_look", None)
+        or _get_field(bible, "master_color_look", {})
+        or {}
+    ) or {}
+    look_name = str(
+        color_look.get("look_preset")
+        or color_look.get("look_name")
+        or color_look.get("preset_name")
+        or "Rec.709 Master Grade"
+    )
 
     scenes = _to_plain(_get_field(bible, "scenes", []) or [])
     scene_beats: List[Dict[str, Any]] = []
@@ -303,11 +452,27 @@ def synthesize_v218_pitch_treatment_state(bible: Any, bundle: Any = None) -> Dic
         s_idx = int(sc_d.get("scene_index", idx + 1) or (idx + 1))
         st_s, en_s = _parse_scene_window(str(sc_d.get("timestamp_range") or ""), cursor_s)
         cursor_s = en_s
-        cam = sc_d.get("camera_spec") if isinstance(sc_d.get("camera_spec"), dict) else {}
-        lens_txt = str(cam.get("lens_mm") or cam.get("focal_length") or "35mm")
-        move_txt = str(cam.get("camera_movement") or cam.get("movement") or "Controlled Dolly")
+        cam = (
+            sc_d.get("craft_camera")
+            if isinstance(sc_d.get("craft_camera"), dict)
+            else (sc_d.get("camera_spec") if isinstance(sc_d.get("camera_spec"), dict) else {})
+        )
+        raw_fl = cam.get("focal_length_mm")
+        if raw_fl is not None and str(raw_fl).strip():
+            fl_s = str(raw_fl).strip()
+            lens_txt = f"{fl_s}mm" if fl_s.isdigit() else fl_s
+        else:
+            lens_txt = str(cam.get("lens_mm") or cam.get("focal_length") or "35mm")
+        move_txt = str(
+            cam.get("route")
+            or cam.get("rig_type")
+            or cam.get("camera_movement")
+            or cam.get("movement")
+            or "Controlled Dolly"
+        )
         prompt_excerpt = str(
-            sc_d.get("visual_action")
+            sc_d.get("omni_prose_prompt")
+            or sc_d.get("visual_action")
             or sc_d.get("narrative_beat")
             or sc_d.get("final_prompt")
             or sc_d.get("scene_prompt")
@@ -329,31 +494,101 @@ def synthesize_v218_pitch_treatment_state(bible: Any, bundle: Any = None) -> Dic
     bgm_bpm = int(bgm.get("tempo_bpm") or 108)
     bgm_key = str(bgm.get("key_signature") or "D Minor")
     bgm_genre = str(bgm.get("genre_style") or "Modern Cinematic Hybrid")
-    bgm_stems = bgm.get("stems") if isinstance(bgm.get("stems"), list) else ["Strings", "Sub Bass", "Percussion", "Foley Bed"]
+    raw_stems = bgm.get("stems")
+    if isinstance(raw_stems, dict):
+        bgm_stems = [f"{k}: {v}" if v else str(k) for k, v in raw_stems.items()]
+    elif isinstance(raw_stems, list):
+        bgm_stems = [str(s) for s in raw_stems]
+    else:
+        bgm_stems = ["Strings", "Sub Bass", "Percussion", "Foley Bed"]
     lyria_prompt = str(bgm.get("lyria_prompt") or f"{bgm_genre} at {bgm_bpm} BPM in {bgm_key} with tactile diegetic dynamics.")
 
-    econ = _to_plain(_get_field(bible, "render_economics", {}) or {}) or {}
-    aicp = _to_plain(_get_field(bible, "aicp_budget", {}) or {}) or {}
-    est_ai_usd = round(float(econ.get("estimated_spend_usd") or (len(scene_beats) * 1.35 + 0.45)), 2)
-    aicp_base_usd = round(float(econ.get("aicp_traditional_baseline_usd") or aicp.get("total_bid_usd") or 48500.0), 2)
+    econ = _to_plain(
+        _get_field(bible, "master_render_economics_spec", None)
+        or _get_field(bible, "render_economics_manifest", None)
+        or _get_field(bible, "render_economics", {})
+        or {}
+    ) or {}
+    aicp = _to_plain(
+        _get_field(bible, "master_aicp_bid", None)
+        or _get_field(bible, "aicp_bid", None)
+        or _get_field(bible, "master_aicp_budget", None)
+        or _get_field(bible, "aicp_budget", {})
+        or {}
+    ) or {}
+    guard = econ.get("guardrail") if isinstance(econ.get("guardrail"), dict) else {}
+    scene_ests = econ.get("scene_estimates") if isinstance(econ.get("scene_estimates"), list) else []
+    est_sum = sum(float(s.get("estimated_scene_usd") or 0.0) for s in scene_ests if isinstance(s, dict))
+    est_ai_usd = round(
+        float(
+            guard.get("estimated_total_usd")
+            or econ.get("estimated_total_compute_usd")
+            or econ.get("estimated_spend_usd")
+            or (est_sum if est_sum > 0 else 0.0)
+            or (len(scene_beats) * 1.35 + 0.45)
+        ),
+        2,
+    )
+    top_sheet = aicp.get("top_sheet") if isinstance(aicp.get("top_sheet"), dict) else {}
+    aicp_base_usd = round(
+        float(
+            econ.get("aicp_traditional_baseline_usd")
+            or aicp.get("grand_total_usd")
+            or aicp.get("grand_total")
+            or top_sheet.get("grand_total_bid_usd")
+            or top_sheet.get("grand_total_bid")
+            or top_sheet.get("grand_total")
+            or aicp.get("total_bid_usd")
+            or 48500.0
+        ),
+        2,
+    )
     savings_pct = round(max(0.0, (1.0 - (est_ai_usd / max(1.0, aicp_base_usd))) * 100.0), 2)
+
+    def _normalize_delta_item(d: Any) -> Optional[Dict[str, Any]]:
+        if not isinstance(d, dict):
+            return None
+        field_val = str(d.get("field_path") or d.get("field") or "")
+        prev_raw = d.get("previous_value") if d.get("previous_value") is not None else d.get("baseline")
+        curr_raw = d.get("current_value") if d.get("current_value") is not None else d.get("current")
+        imp_raw = d.get("impact_severity") or d.get("impact") or "SYNCED"
+        prev_val = str(prev_raw if prev_raw is not None else "")
+        curr_val = str(curr_raw if curr_raw is not None else "")
+        imp_val = str(imp_raw)
+        return {
+            "field_path": field_val,
+            "previous_value": prev_val,
+            "current_value": curr_val,
+            "impact_severity": imp_val,
+            "field": field_val,
+            "baseline": prev_val,
+            "current": curr_val,
+            "impact": imp_val,
+            "section": str(d.get("section") or "Bible"),
+            "change_type": str(d.get("change_type") or "modified"),
+            "department_owner": str(d.get("department_owner") or "Direction"),
+        }
 
     raw_diff = plain_existing.get("revision_diff")
     revision_diff: Dict[str, Any]
     if isinstance(raw_diff, dict):
-        deltas = raw_diff.get("deltas") or raw_diff.get("changes") or []
+        raw_deltas = raw_diff.get("deltas") or raw_diff.get("changes") or []
+        norm_deltas = [
+            nd for nd in (_normalize_delta_item(x) for x in (_to_plain(raw_deltas) if isinstance(raw_deltas, list) else [])) if nd is not None
+        ]
         revision_diff = {
-            "baseline_version": str(raw_diff.get("baseline_version") or raw_diff.get("from_version") or "v1.0-bible-ssot"),
-            "current_version": str(raw_diff.get("current_version") or raw_diff.get("to_version") or "v2.18.0-treatment"),
-            "status": str(raw_diff.get("status") or ("CHANGES DETECTED" if deltas else "SYNCED · 0 UNRECONCILED DELTAS")),
-            "deltas": _to_plain(deltas) if isinstance(deltas, list) else [],
+            "baseline_version": str(raw_diff.get("baseline_title") or raw_diff.get("baseline_version") or raw_diff.get("from_version") or "v1.0-bible-ssot"),
+            "current_version": str(raw_diff.get("target_title") or raw_diff.get("current_version") or raw_diff.get("to_version") or "v2.18.0-treatment"),
+            "status": str(raw_diff.get("status") or (f"{len(norm_deltas)} REVISION DELTA(S)" if norm_deltas else "SYNCED · 0 UNRECONCILED DELTAS")),
+            "deltas": norm_deltas,
         }
     elif isinstance(raw_diff, list):
+        norm_deltas = [nd for nd in (_normalize_delta_item(x) for x in _to_plain(raw_diff)) if nd is not None]
         revision_diff = {
             "baseline_version": "v1.0-bible-ssot",
             "current_version": "v2.18.0-treatment",
-            "status": f"{len(raw_diff)} REVISION DELTA(S)" if raw_diff else "SYNCED · 0 UNRECONCILED DELTAS",
-            "deltas": raw_diff,
+            "status": f"{len(norm_deltas)} REVISION DELTA(S)" if norm_deltas else "SYNCED · 0 UNRECONCILED DELTAS",
+            "deltas": norm_deltas,
         }
     else:
         revision_diff = {
@@ -362,24 +597,40 @@ def synthesize_v218_pitch_treatment_state(bible: Any, bundle: Any = None) -> Dic
             "status": "BASELINE SYNCED · 0 UNRECONCILED DELTAS",
             "deltas": [
                 {
+                    "field_path": "total_runtime_seconds",
+                    "previous_value": f"{runtime_sec}s @ 24fps",
+                    "current_value": f"{runtime_sec}s @ 24fps",
+                    "impact_severity": "LOCKED",
                     "field": "total_runtime_seconds",
                     "baseline": f"{runtime_sec}s @ 24fps",
                     "current": f"{runtime_sec}s @ 24fps",
                     "impact": "LOCKED",
                 },
                 {
+                    "field_path": "color_palette",
+                    "previous_value": f"{len(palette)} swatches",
+                    "current_value": ", ".join(palette[:4]),
+                    "impact_severity": "LOCKED",
                     "field": "color_palette",
                     "baseline": f"{len(palette)} swatches",
                     "current": ", ".join(palette[:4]),
                     "impact": "LOCKED",
                 },
                 {
+                    "field_path": "scene_count",
+                    "previous_value": f"{len(scene_beats)} scenes",
+                    "current_value": f"{len(scene_beats)} scenes",
+                    "impact_severity": "LOCKED",
                     "field": "scene_count",
                     "baseline": f"{len(scene_beats)} scenes",
                     "current": f"{len(scene_beats)} scenes",
                     "impact": "LOCKED",
                 },
                 {
+                    "field_path": "model_matrix",
+                    "previous_value": "2026 Matrix (argon/3.8-flash/3-pro-image/omni-1.1)",
+                    "current_value": "2026 Matrix Verified",
+                    "impact_severity": "COMPLIANT",
                     "field": "model_matrix",
                     "baseline": "2026 Matrix (argon/3.8-flash/3-pro-image/omni-1.1)",
                     "current": "2026 Matrix Verified",
@@ -535,13 +786,16 @@ def build_v218_hud_bundle(bible: Any, bundle: Any = None) -> Tuple[str, str, str
     for d in diff_obj.get("deltas") or []:
         if not isinstance(d, dict):
             continue
-        imp = str(d.get("impact") or "SYNCED")
-        imp_cls = "v218-badge-pass" if imp.upper() in {"LOCKED", "COMPLIANT", "SYNCED", "PASS"} else "v218-badge-warn"
+        field_val = str(d.get("field_path") or d.get("field") or "")
+        prev_raw = d.get("previous_value") if d.get("previous_value") is not None else d.get("baseline")
+        curr_raw = d.get("current_value") if d.get("current_value") is not None else d.get("current")
+        imp = str(d.get("impact_severity") or d.get("impact") or "SYNCED")
+        imp_cls = "v218-badge-pass" if imp.upper() in {"LOCKED", "COMPLIANT", "SYNCED", "PASS", "LOW"} else "v218-badge-warn"
         diff_rows_html.append(
             f'<tr>'
-            f'<td><code class="v218-code">{html_escape(str(d.get("field", "")))}</code></td>'
-            f'<td><span class="v218-sub">{html_escape(str(d.get("baseline", "")))}</span></td>'
-            f'<td><span class="v218-sub">{html_escape(str(d.get("current", "")))}</span></td>'
+            f'<td><code class="v218-code">{html_escape(field_val)}</code></td>'
+            f'<td><span class="v218-sub">{html_escape(str(prev_raw if prev_raw is not None else ""))}</span></td>'
+            f'<td><span class="v218-sub">{html_escape(str(curr_raw if curr_raw is not None else ""))}</span></td>'
             f'<td><span class="v218-badge {imp_cls}">{html_escape(imp)}</span></td>'
             f'</tr>'
         )
@@ -1152,11 +1406,13 @@ def build_v218_hud_bundle(bible: Any, bundle: Any = None) -> Tuple[str, str, str
 
       const tk = job.takes[takeKey];
       job.hero_take = takeKey;
+      job.selected_take_id = tk.canonical_take_id || takeKey;
       job.hero_qa_score = Number(tk.qa_score || 92.0);
       job.hero_seed = Number(tk.seed || 1001);
       job.hero_cost_usd = Number(tk.cost_usd || 1.25);
       job.status = String(tk.status || (job.hero_qa_score >= 90 ? 'qa_passed' : 'qa_flagged'));
       job.output_clip_uri = 'renders/scene_' + String(sceneIndex).padStart(2, '0') + '_take_' + takeKey + '.mp4';
+      job.output_media_path = job.output_clip_uri;
 
       // Update row controls & badges
       document.querySelectorAll('button.v218-take-btn[data-scene-idx="' + sceneIndex + '"]').forEach((btn) => {
@@ -1439,10 +1695,10 @@ def build_v218_hud_bundle(bible: Any, bundle: Any = None) -> Tuple[str, str, str
         ': > "$CONCAT_LIST"'
       ];
       (V218_RENDER_JOBS_STATE.scene_jobs || []).forEach((job) => {
-        const uri = String(job.output_clip_uri || ('renders/scene_' + job.scene_index + '.mp4'));
+        const uri = String(job.output_media_path || job.output_clip_uri || ('renders/scene_' + job.scene_index + '.mp4'));
         lines.push('printf "file \\'%s\\'\\n" "' + uri + '" >> "$CONCAT_LIST"');
       });
-      lines.push('ffmpeg -y -f concat -safe 0 -i "$CONCAT_LIST" -c:v libx264 -r 24 -c:a aac -b:a 192k rough_cut_master.mp4');
+      lines.push('ffmpeg -y -f concat -safe 0 -i "$CONCAT_LIST" -r 24 -c:v libx264 -pix_fmt yuv420p -c:a aac -b:a 192k rough_cut_master.mp4');
       lines.push('echo "Assembled rough_cut_master.mp4"');
       _v218DownloadBlob(lines.join('\\n') + '\\n', 'text/x-shellscript;charset=utf-8;', 'rough_cut_assembly.sh', 'Downloaded rough_cut_assembly.sh');
     };

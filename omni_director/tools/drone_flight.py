@@ -27,7 +27,7 @@ from omni_director.schemas import (
 try:
     from omni_director.schemas import __version__ as _OMNI_VERSION
 except ImportError:
-    _OMNI_VERSION = "2.18.0"
+    _OMNI_VERSION = "2.19.0"
 
 
 def calculate_solar_ephemeris(

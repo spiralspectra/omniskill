@@ -1,7 +1,7 @@
 {
-  "version": "2.18.0",
+  "version": "2.19.0",
   "project_title": "Advanced Quantum Computing Silicon Proce",
-  "timestamp": "2026-11-26T09:30:32.347115+00:00",
+  "timestamp": "2026-11-27T10:54:12.866067+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -398,6 +398,36 @@
         },
         {
           "severity": "info",
+          "category": "imf_dcp_delivery",
+          "message": "SMPTE IMF XML (ASSETMAP, PKL, CPL_master) & DCI DCP deliverables verified on disk: ASSETMAP.xml, PKL.xml, CPL_master.xml, imf_dcp_manifest.json, dcp_cpl_spec.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "imf_dcp_artifacts": [
+              "ASSETMAP.xml",
+              "PKL.xml",
+              "CPL_master.xml",
+              "imf_dcp_manifest.json",
+              "dcp_cpl_spec.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "voice_ducking_delivery",
+          "message": "Voice Casting JSON, Stem Ducking CSV, and ADR/Viseme MD deliverables verified on disk: voice_casting_script.json, stem_ducking_automation.csv, adr_viseme_timing.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "voice_ducking_artifacts": [
+              "voice_casting_script.json",
+              "stem_ducking_automation.csv",
+              "adr_viseme_timing.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).",
           "remediation": null,
@@ -526,13 +556,13 @@
         {
           "severity": "info",
           "category": "otio_coherence_schema",
-          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=c33e26d59604..., coherence_score=100.0, shoot_day_ready=True).",
+          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=91f9a883332d..., coherence_score=100.0, shoot_day_ready=True).",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "schema_version": "OTIO_0.16_COMPAT",
             "track_count": 7,
-            "otio_sha256_prefix": "c33e26d59604"
+            "otio_sha256_prefix": "91f9a883332d"
           }
         },
         {
@@ -559,9 +589,33 @@
             "treatment_id": "pt-2e3bf5ddfe",
             "slides_count": 10
           }
+        },
+        {
+          "severity": "info",
+          "category": "imf_dcp_schema",
+          "message": "MasterImfDcpManifest verified (pkg=imf-pkg-58c7b6b06931, assets=14 with 64-char SHA-256 digests, cpls=9).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "package_id": "imf-pkg-58c7b6b06931",
+            "assets_count": 14,
+            "cpls_count": 9
+          }
+        },
+        {
+          "severity": "info",
+          "category": "voice_ducking_schema",
+          "message": "MasterVoiceDuckingManifest verified (roster=2, scene_profiles=2, monotonic_keyframes=8).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "roster_count": 2,
+            "scene_profiles_count": 2,
+            "ducking_keyframes_count": 8
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 41 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 45 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -783,6 +837,22 @@
         },
         {
           "severity": "info",
+          "category": "imf_dcp_schema_compliance",
+          "message": "SMPTE IMF & DCI DCP contract verified (bitrate=180.0 Mbps <= 250.0 Mbps, assets=14, cpls=9).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "voice_ducking_schema_compliance",
+          "message": "Voice Casting & Sidechain Ducking contract verified (lip_sync_pass_rate=100.0% >= 90%, snr_min=6.0 dB >= 6.0 dB, WPS <= 2.5).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).",
           "remediation": null,
@@ -825,6 +895,14 @@
           "severity": "info",
           "category": "audit_report_render_and_treatment_compliance",
           "message": "Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 2 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_imf_and_voice_compliance",
+          "message": "Bundle audit_reports verified imf_dcp_compliant=True and voice_ducking_compliant=True across 2 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1245,6 +1323,31 @@
         },
         {
           "severity": "info",
+          "category": "domain_imf_dcp_calibration",
+          "message": "SMPTE IMF & DCI DCP calibrated for 'tech_hardware' (profile=ST_2067_50_ProRes, cpls=9, deduplicated_picture_reuse_pct=88.9%).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "tech_hardware",
+            "cpls_count": 9,
+            "deduplicated_picture_reuse_pct": 88.89
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_voice_ducking_calibration",
+          "message": "Voice Casting & Sidechain Ducking calibrated for 'tech_hardware' (register=ALTO, music_duck=-8.5 dB, ad_ducking_kfs=8).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "tech_hardware",
+            "expected_register": "ALTO",
+            "music_duck_db": -8.5,
+            "ad_ducking_keyframes": 8
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'tech_hardware' matches strategic brief classification.",
           "remediation": null,
@@ -1505,6 +1608,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_imf_dcp_hud",
+          "message": "IMF Package & Theatrical DCP HUD verified (#btn-imf-dcp / #imfDcpModal / Command Palette 'imfdcp').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_voice_ducking_hud",
+          "message": "Voice Casting & Sidechain Ducking HUD verified (#btn-voice-ducking / #voiceDuckingModal / #v219-ducking-svg / Command Palette 'voiceducking').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1522,7 +1641,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 66 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 68 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1563,6 +1682,14 @@
           "severity": "info",
           "category": "animatic_hotkeys_backtick_minus",
           "message": "Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkeys_braces",
+          "message": "IMF/DCP Mastering [}] and Voice Casting & Ducking [{] global keyboard hotkeys verified.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -2173,6 +2300,50 @@
         "omni_director/agents/council.py",
         "omni_director/tools/nle_export.py",
         "omni_director/telemetry.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-037",
+      "title": "SMPTE ST 2067 IMF Multi-Version Mastering & DCI Theatrical DCP Packaging Engine",
+      "problem_statement": "Multi-territory and multi-cutdown commercial deliveries for 'Advanced Quantum Computing Silicon Proce' duplicate 12-bit master picture essence across localized/cutdown renders and lack SMPTE ST 2067 ASSETMAP/PKL/CPL XML packaging plus SMPTE ST 429 DCI Theatrical DCP bitrate/color/KDM verification.",
+      "proposed_solution": "Implement ImfApplicationProfileEnum, ImfAssetTrackSpec, ImfCompositionPlaylistSpec, DciTheatricalDcpSpec, and MasterImfDcpManifest schemas; omni_director.tools.imf_dcp_packager (compile_imf_dcp_manifest, format_imf_dcp_token, export_imf_assetmap_xml, export_imf_pkl_xml, export_imf_cpl_xml, export_imf_dcp_manifest_json, export_dcp_cpl_spec_md, export_imf_dcp_bundle with deduplicated OV picture essence reuse and <=250.0 Mbps JPEG2000 DCI cap); 6-domain calibration via get_domain_imf_dcp_profile(); [IMF-CPL:] telemetry token stripping; and the IMF Package & Theatrical DCP Mastering HUD [}] (#btn-imf-dcp, #imfDcpModal).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/imf_dcp_packager.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v219.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-038",
+      "title": "Voice Casting, Phoneme/Viseme Lip-Sync Scripting & Automated Stem Sidechain Ducking Engine",
+      "problem_statement": "Dialogue, voice-over, and Audio Description (AD) tracks for 'Advanced Quantum Computing Silicon Proce' lack explicit vocal register casting, Preston Blair 13-class viseme lip-sync timing <=2.5 WPS, and sample-accurate sidechain stem ducking automation preserving >=6.0 dB dialogue-to-BGM SNR.",
+      "proposed_solution": "Implement VocalRegisterEnum, VisemeClassEnum, VoiceCastingProfile, VisemeLipSyncCue, SidechainDuckingKeyframe, SceneVoiceDuckingSpec, and MasterVoiceDuckingManifest schemas; omni_director.tools.voice_ducking (compile_voice_ducking_manifest, format_voice_ducking_token, export_voice_casting_json, export_stem_ducking_csv, export_adr_viseme_md, export_voice_ducking_bundle); 6-domain calibration via get_domain_voice_ducking_profile(); [VOICE-CAST:] telemetry token stripping; and the Voice Casting, Viseme Lip-Sync & Sidechain Ducking Studio HUD [{] (#btn-voice-ducking, #voiceDuckingModal, #v219-ducking-svg).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/voice_ducking.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v219.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
       ],
       "priority": "P0",
       "status": "implemented"

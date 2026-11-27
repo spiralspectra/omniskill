@@ -1,0 +1,324 @@
+{
+  "casting_roster": [
+    {
+      "character_id": "CHAR_01_MODEL_MAYA_THE_NEO",
+      "character_name": "Model Maya (The Neon Siren)",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "155-235 Hz",
+      "delivery_notes": "Aligned to Aggressive, predatory, fast-tempo runway stride with zero hip sway and sharp hea"
+    },
+    {
+      "character_id": "CHAR_02_MODEL_KAELEN_THE_S",
+      "character_name": "Model Kaelen (The Shimmer Rebel)",
+      "vocal_register": "BARITONE",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "95-155 Hz",
+      "delivery_notes": "Aligned to Fluid, rhythm-locked street bounce with syncopated shoulder dips matching the UK"
+    },
+    {
+      "character_id": "VO_NARRATOR",
+      "character_name": "Narrator / Audio Description VO",
+      "vocal_register": "MEZZO_SOPRANO",
+      "timbre_descriptors": "Velvet editorial poise with controlled breath and warm mid-band glow",
+      "mic_perspective": "vo_booth_neumann_u87",
+      "target_wpm": 108.0,
+      "pitch_hz_range": "165-245 Hz",
+      "delivery_notes": "Primary off-camera voiceover & CVAA audio description anchor."
+    }
+  ],
+  "scene_profiles": [
+    {
+      "scene_index": 1,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 1,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Soho Approach: Smooth glide of silk.",
+          "start_sec": 0.1,
+          "end_sec": 3.3,
+          "word_count": 4,
+          "wps": 1.25,
+          "dominant_visemes": [
+            "SS",
+            "PP",
+            "OO",
+            "TH",
+            "KK",
+            "NN",
+            "EE",
+            "DD",
+            "EE",
+            "OO",
+            "FF",
+            "SS"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 0.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        },
+        {
+          "time_sec": 3.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 1
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 2,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 2,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Store Transition: Heavy drape of cashmere.",
+          "start_sec": 10.1,
+          "end_sec": 13.3,
+          "word_count": 4,
+          "wps": 1.25,
+          "dominant_visemes": [
+            "EE",
+            "FF",
+            "EE",
+            "DD",
+            "RR",
+            "AA",
+            "PP",
+            "EE",
+            "OO",
+            "FF",
+            "KK",
+            "AA"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 10.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 10.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 13.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        },
+        {
+          "time_sec": 13.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 2
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 3,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 3,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Product Flourish: Catching the light on beadwork.",
+          "start_sec": 20.1,
+          "end_sec": 23.3,
+          "word_count": 5,
+          "wps": 1.56,
+          "dominant_visemes": [
+            "KK",
+            "AA",
+            "DD",
+            "CH",
+            "EE",
+            "NN",
+            "KK",
+            "TH",
+            "EE",
+            "NN",
+            "EE",
+            "KK"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 20.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 20.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 23.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        },
+        {
+          "time_sec": 23.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 3
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    },
+    {
+      "scene_index": 4,
+      "active_speakers": [
+        "VO_NARRATOR"
+      ],
+      "viseme_cues": [
+        {
+          "scene_index": 4,
+          "speaker_id": "VO_NARRATOR",
+          "line_text": "The Climactic Hero Lock: Smooth glide of silk.",
+          "start_sec": 30.1,
+          "end_sec": 33.3,
+          "word_count": 4,
+          "wps": 1.25,
+          "dominant_visemes": [
+            "SS",
+            "PP",
+            "OO",
+            "TH",
+            "KK",
+            "NN",
+            "EE",
+            "DD",
+            "EE",
+            "OO",
+            "FF",
+            "SS"
+          ],
+          "lip_sync_required_on_camera": false
+        }
+      ],
+      "ducking_keyframes": [
+        {
+          "time_sec": 30.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": -5.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 30.1,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": -6.5,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 33.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "ambience",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        },
+        {
+          "time_sec": 33.3,
+          "trigger_stem": "audio_description",
+          "target_stem": "music",
+          "attenuation_db": 0.0,
+          "attack_ms": 80,
+          "release_ms": 450,
+          "scene_index": 4
+        }
+      ],
+      "dialogue_to_bgm_snr_db": 8.0
+    }
+  ],
+  "default_music_duck_db": -6.5,
+  "default_ambience_duck_db": -5.0,
+  "dialogue_clarity_snr_min_db": 6.0,
+  "lip_sync_pass_rate_pct": 100.0
+}

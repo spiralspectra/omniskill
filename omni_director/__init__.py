@@ -278,6 +278,20 @@ from omni_director.schemas import (
     BibleRevisionDeltaItem,
     BibleRevisionDiffReport,
     MasterPitchTreatmentSpec,
+    # SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering (PM-FEAT-037)
+    ImfApplicationProfileEnum,
+    ImfAssetTrackSpec,
+    ImfCompositionPlaylistSpec,
+    DciTheatricalDcpSpec,
+    MasterImfDcpManifest,
+    # Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking (PM-FEAT-038)
+    VocalRegisterEnum,
+    VisemeClassEnum,
+    VoiceCastingProfile,
+    VisemeLipSyncCue,
+    SidechainDuckingKeyframe,
+    SceneVoiceDuckingSpec,
+    MasterVoiceDuckingManifest,
     KineticContactChain,
     LedWallGeometry,
     LightingFixtureRole,
@@ -614,6 +628,9 @@ from omni_director.tools import (
     build_v216_hud_bundle,
     build_v217_hud_bundle,
     build_v218_hud_bundle,
+    synthesize_v219_imf_dcp_state,
+    synthesize_v219_voice_ducking_state,
+    build_v219_hud_bundle,
     # Live-Render Job Orchestration & Multi-Take QA (PM-FEAT-035)
     evaluate_take_visual_qa,
     verify_mode_b_frame_anchor,
@@ -635,6 +652,24 @@ from omni_director.tools import (
     export_bible_revision_diff_md,
     export_bible_revision_diff_json,
     export_pitch_treatment_bundle,
+    # SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering (PM-FEAT-037)
+    compile_imf_dcp_manifest,
+    synthesize_default_imf_dcp_manifest,
+    format_imf_dcp_token,
+    export_imf_assetmap_xml,
+    export_imf_pkl_xml,
+    export_imf_cpl_xml,
+    export_imf_dcp_manifest_json,
+    export_dcp_cpl_spec_md,
+    export_imf_dcp_bundle,
+    # Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking (PM-FEAT-038)
+    compile_voice_ducking_manifest,
+    synthesize_default_voice_ducking_manifest,
+    format_voice_ducking_token,
+    export_voice_casting_json,
+    export_stem_ducking_csv,
+    export_adr_viseme_md,
+    export_voice_ducking_bundle,
 )
 from omni_director.tools.motion_graphics import (
     compile_motion_graphics_manifest,
@@ -662,7 +697,7 @@ from omni_director.tools.otio_coherence import (
     reconcile_cross_department_conflicts,
 )
 
-__version__ = "2.18.0"
+__version__ = "2.19.0"
 
 __all__ = [
     # Top-Level Runner & Config
@@ -1298,6 +1333,39 @@ __all__ = [
     "export_bible_revision_diff_json",
     "export_pitch_treatment_bundle",
     "build_v218_hud_bundle",
+    # SMPTE IMF Supplemental Packaging & DCI Theatrical DCP Mastering (PM-FEAT-037)
+    "ImfApplicationProfileEnum",
+    "ImfAssetTrackSpec",
+    "ImfCompositionPlaylistSpec",
+    "DciTheatricalDcpSpec",
+    "MasterImfDcpManifest",
+    "compile_imf_dcp_manifest",
+    "synthesize_default_imf_dcp_manifest",
+    "format_imf_dcp_token",
+    "export_imf_assetmap_xml",
+    "export_imf_pkl_xml",
+    "export_imf_cpl_xml",
+    "export_imf_dcp_manifest_json",
+    "export_dcp_cpl_spec_md",
+    "export_imf_dcp_bundle",
+    # Voice Casting, Viseme Lip-Sync Timing & Automated Stem Sidechain Ducking (PM-FEAT-038)
+    "VocalRegisterEnum",
+    "VisemeClassEnum",
+    "VoiceCastingProfile",
+    "VisemeLipSyncCue",
+    "SidechainDuckingKeyframe",
+    "SceneVoiceDuckingSpec",
+    "MasterVoiceDuckingManifest",
+    "compile_voice_ducking_manifest",
+    "synthesize_default_voice_ducking_manifest",
+    "format_voice_ducking_token",
+    "export_voice_casting_json",
+    "export_stem_ducking_csv",
+    "export_adr_viseme_md",
+    "export_voice_ducking_bundle",
+    "synthesize_v219_imf_dcp_state",
+    "synthesize_v219_voice_ducking_state",
+    "build_v219_hud_bundle",
     # Prompt Auditor Clean Prose & Inter-Scene Continuity
     "audit_bible_inter_scene_continuity",
     "compile_clean_omni_prompt",

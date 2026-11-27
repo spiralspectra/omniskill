@@ -622,4 +622,16 @@ def export_all_nle_artifacts(
     except Exception as exc:
         logger.warning("Pitch treatment bundle export skipped: %s", exc)
 
+    try:
+        from omni_director.tools.imf_dcp_packager import export_imf_dcp_bundle
+        res.update({k: str(v) for k, v in export_imf_dcp_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("IMF/DCP bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.voice_ducking import export_voice_ducking_bundle
+        res.update({k: str(v) for k, v in export_voice_ducking_bundle(bible, out_path, fps=fps).items()})
+    except Exception as exc:
+        logger.warning("Voice ducking bundle export skipped: %s", exc)
+
     return res

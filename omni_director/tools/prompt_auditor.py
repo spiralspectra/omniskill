@@ -4,15 +4,21 @@ import re
 from typing import Any, Dict, List, Optional, Tuple, Union
 from omni_director.schemas import (
     AuditResult,
+    DciTheatricalDcpSpec,
     EditBridgeSpec,
     FrameAnchorHandoffSpec,
+    ImfApplicationProfileEnum,
+    ImfAssetTrackSpec,
+    ImfCompositionPlaylistSpec,
     InterSceneCutCheckSpec,
     LikenessConsentStatus,
     LocaleSyncStatus,
     LocalizationManifestSpec,
     LocalizedLineSpec,
+    MasterImfDcpManifest,
     MasterOtioCoherenceManifest,
     MasterProductionBible,
+    MasterVoiceDuckingManifest,
     PromptAuditResult,
     QcVerdictStatus,
     RegimeType,
@@ -23,12 +29,18 @@ from omni_director.schemas import (
     SceneMotionGraphicsSpec,
     ScenePromptSpec,
     SceneRenderJobSpec,
+    SceneVoiceDuckingSpec,
+    SidechainDuckingKeyframe,
     SpottingManifestSpec,
     StorytellingMode,
     TakeQaScorecardSpec,
     TreatmentBoardSlideSpec,
     TreatmentSlideTypeEnum,
     TypographyPlacementSpec,
+    VisemeClassEnum,
+    VisemeLipSyncCue,
+    VocalRegisterEnum,
+    VoiceCastingProfile,
 )
 from omni_director.tools.optical_lens import format_optical_prompt_token
 from omni_director.tools.dof_simulator import format_dof_prompt_token
@@ -89,6 +101,14 @@ from omni_director.tools.render_orchestrator import (
     evaluate_take_visual_qa,
     format_render_job_token,
     verify_mode_b_frame_anchor,
+)
+from omni_director.tools.imf_dcp_packager import (
+    compile_imf_dcp_manifest,
+    format_imf_dcp_token,
+)
+from omni_director.tools.voice_ducking import (
+    compile_voice_ducking_manifest,
+    format_voice_ducking_token,
 )
 
 
@@ -1104,6 +1124,148 @@ def audit_omni_scene_prompt(
         details["pitch_treatment_reward"] = 1.0
         details["pitch_treatment_descriptor"] = treatment_match.group(0)
 
+    # SMPTE IMF Supplemental Packaging & DCI Theatrical DCP (PM-FEAT-037)
+    master_imf_obj = (
+        kwargs.get("master_imf_dcp")
+        or kwargs.get("imf_dcp_manifest")
+        or kwargs.get("imf_manifest")
+        or (getattr(bible_ctx, "master_imf_dcp", None) if bible_ctx is not None else None)
+    )
+    imf_cpl_obj = (
+        (getattr(scene, "imf_dcp_profile", None) if isinstance(scene, ScenePromptSpec) else None)
+        or kwargs.get("imf_dcp_profile")
+        or kwargs.get("imf_cpl")
+    )
+    if imf_cpl_obj is None and master_imf_obj is not None:
+        cpls_list = list(getattr(master_imf_obj, "cpls", None) or [])
+        if cpls_list:
+            imf_cpl_obj = cpls_list[0]
+
+    imf_match = re.search(r"\[IMF[-_ ]CPL:?", prompt, re.IGNORECASE)
+    imf_dcp_compliant_val = True
+    if master_imf_obj is not None or imf_cpl_obj is not None:
+        imf_errors_found: List[str] = []
+        if master_imf_obj is not None:
+            dcp_spec_obj = getattr(master_imf_obj, "dcp_spec", None)
+            bitrate_mbps = float(getattr(dcp_spec_obj, "jpeg2000_max_bitrate_mbps", 250.0) or 0.0) if dcp_spec_obj else 250.0
+            if bitrate_mbps > 250.0 or bitrate_mbps <= 0.0:
+                imf_errors_found.append(
+                    f"DCI JPEG2000 max bitrate {bitrate_mbps:.1f} Mbps violates SMPTE ST 429 <= 250.0 Mbps ceiling."
+                )
+            valid_asset_uuids = {
+                str(getattr(a, "asset_uuid", "") or "").strip()
+                for a in (getattr(master_imf_obj, "assets", None) or [])
+                if str(getattr(a, "asset_uuid", "") or "").strip()
+            }
+            if not valid_asset_uuids:
+                imf_errors_found.append("MasterImfDcpManifest contains no valid track asset UUIDs.")
+            else:
+                cpls_to_check = list(getattr(master_imf_obj, "cpls", None) or [])
+                if imf_cpl_obj is not None and imf_cpl_obj not in cpls_to_check:
+                    cpls_to_check.append(imf_cpl_obj)
+                for cpl_chk in cpls_to_check:
+                    links = list(getattr(cpl_chk, "linked_asset_uuids", None) or [])
+                    if not links:
+                        imf_errors_found.append(f"CPL '{getattr(cpl_chk, 'version_tag', 'unknown')}' has no linked_asset_uuids.")
+                    else:
+                        broken = [u for u in links if u not in valid_asset_uuids]
+                        if broken:
+                            imf_errors_found.append(
+                                f"CPL '{getattr(cpl_chk, 'version_tag', 'unknown')}' references unknown asset UUIDs: {broken[:2]}."
+                            )
+        elif imf_cpl_obj is not None:
+            if not str(getattr(imf_cpl_obj, "cpl_uuid", "") or "").strip() or not list(getattr(imf_cpl_obj, "linked_asset_uuids", None) or []):
+                imf_errors_found.append(f"Scene {effective_scene_index} imf_dcp_profile is missing cpl_uuid or linked_asset_uuids.")
+
+        if imf_errors_found:
+            imf_dcp_compliant_val = False
+            details["imf_dcp_compliant"] = False
+            warnings.append(f"IMF/DCP Warning: {' '.join(imf_errors_found)}")
+        elif not imf_match:
+            details["imf_dcp_compliant"] = True
+            details["imf_dcp_token_missing"] = True
+            warnings.append(
+                "IMF/DCP Warning: Scene imf_dcp_profile is missing [IMF-CPL: ...] telemetry token."
+            )
+        else:
+            details["imf_dcp_compliant"] = True
+            details["imf_dcp_reward"] = 1.0
+            details["imf_dcp_descriptor"] = (
+                format_imf_dcp_token(master_imf_obj, effective_scene_index)
+                if master_imf_obj is not None
+                else imf_match.group(0)
+            )
+    elif imf_match:
+        details["imf_dcp_compliant"] = True
+        details["imf_dcp_reward"] = 1.0
+        details["imf_dcp_descriptor"] = imf_match.group(0)
+
+    # Voice Casting, Viseme Lip-Sync & Automated Stem Sidechain Ducking (PM-FEAT-038)
+    master_vd_obj = (
+        kwargs.get("master_voice_ducking")
+        or kwargs.get("voice_casting_manifest")
+        or kwargs.get("ducking_manifest")
+        or (getattr(bible_ctx, "master_voice_ducking", None) if bible_ctx is not None else None)
+    )
+    vd_scene_obj = (
+        (getattr(scene, "voice_ducking_spec", None) if isinstance(scene, ScenePromptSpec) else None)
+        or kwargs.get("voice_ducking_spec")
+        or kwargs.get("voice_ducking")
+    )
+    if vd_scene_obj is None and master_vd_obj is not None:
+        for sp in (getattr(master_vd_obj, "scene_profiles", None) or []):
+            if getattr(sp, "scene_index", None) == effective_scene_index:
+                vd_scene_obj = sp
+                break
+
+    vd_match = re.search(r"\[VOICE[-_ ]CAST:?", prompt, re.IGNORECASE)
+    voice_ducking_compliant_val = True
+    if master_vd_obj is not None or vd_scene_obj is not None:
+        vd_errors_found: List[str] = []
+        if vd_scene_obj is not None:
+            snr_val = float(getattr(vd_scene_obj, "dialogue_to_bgm_snr_db", 9.0) or 0.0)
+            if snr_val < 6.0:
+                vd_errors_found.append(
+                    f"Scene {effective_scene_index} dialogue_to_bgm_snr_db={snr_val:.1f} dB is below 6.0 dB clarity floor."
+                )
+            for cue in (getattr(vd_scene_obj, "viseme_cues", None) or []):
+                cue_wps = float(getattr(cue, "wps", 0.0) or 0.0)
+                if cue_wps > 2.5:
+                    vd_errors_found.append(
+                        f"Scene {effective_scene_index} viseme cue WPS={cue_wps:.2f} exceeds 2.5 WPS lip-sync ceiling."
+                    )
+                    break
+            kfs = list(getattr(vd_scene_obj, "ducking_keyframes", None) or [])
+            if any(float(getattr(kf, "time_sec", 0.0) or 0.0) < 0.0 for kf in kfs):
+                vd_errors_found.append(f"Scene {effective_scene_index} contains negative ducking keyframe time_sec.")
+        if master_vd_obj is not None:
+            min_snr_cfg = float(getattr(master_vd_obj, "dialogue_clarity_snr_min_db", 6.0) or 0.0)
+            if min_snr_cfg < 6.0:
+                vd_errors_found.append(f"Master dialogue_clarity_snr_min_db={min_snr_cfg:.1f} dB < 6.0 dB.")
+
+        if vd_errors_found:
+            voice_ducking_compliant_val = False
+            details["voice_ducking_compliant"] = False
+            warnings.append(f"Voice Ducking Warning: {' '.join(vd_errors_found)}")
+        elif not vd_match:
+            details["voice_ducking_compliant"] = True
+            details["voice_ducking_token_missing"] = True
+            warnings.append(
+                "Voice Ducking Warning: Scene voice_ducking_spec is missing [VOICE-CAST: ...] telemetry token."
+            )
+        else:
+            details["voice_ducking_compliant"] = True
+            details["voice_ducking_reward"] = 1.0
+            details["voice_ducking_descriptor"] = (
+                format_voice_ducking_token(master_vd_obj, effective_scene_index)
+                if master_vd_obj is not None
+                else vd_match.group(0)
+            )
+    elif vd_match:
+        details["voice_ducking_compliant"] = True
+        details["voice_ducking_reward"] = 1.0
+        details["voice_ducking_descriptor"] = vd_match.group(0)
+
     # Shutter angle recognition & reward
     shutter_patterns = r"(?:180[°\s\-]*degree\s+shutter|180°\s*(?:cinematic\s+)?shutter|90[°\s\-]*degree\s+shutter|90°\s*(?:staccato\s+)?shutter|(?:45|90|180|270|360)[°\s\-]*(?:degree\s+)?shutter|shutter\s*angle|1\/(?:24|48|96|120|240)s?\s*(?:optical\s+)?(?:shutter|exposure)|staccato\s+shutter)"
     shutter_match = re.search(shutter_patterns, prompt, re.IGNORECASE)
@@ -1298,6 +1460,10 @@ def audit_omni_scene_prompt(
             score = min(100.0, score + 1.0)
         if details.get("pitch_treatment_compliant"):
             score = min(100.0, score + 1.0)
+        if details.get("imf_dcp_compliant"):
+            score = min(100.0, score + 1.0)
+        if details.get("voice_ducking_compliant"):
+            score = min(100.0, score + 1.0)
 
     drone_ok = (
         bool(details.get("drone_flight_compliant", False))
@@ -1329,6 +1495,8 @@ def audit_omni_scene_prompt(
         otio_coherence_compliant=otio_coherence_compliant_val,
         render_orchestrator_compliant=render_orchestrator_compliant_val,
         pitch_treatment_compliant=pitch_treatment_compliant_val,
+        imf_dcp_compliant=imf_dcp_compliant_val,
+        voice_ducking_compliant=voice_ducking_compliant_val,
     )
 
 
@@ -1689,6 +1857,62 @@ def heal_omni_scene_prompt(
             )
         )
     )
+    imf_cpl_heal_init = (
+        (getattr(scene, "imf_dcp_profile", None) if is_spec else None)
+        or (getattr(spec_context, "imf_dcp_profile", None) if spec_context else None)
+        or kwargs.get("imf_dcp_profile")
+        or kwargs.get("imf_cpl")
+    )
+    master_imf_heal_init = (
+        kwargs.get("master_imf_dcp")
+        or kwargs.get("imf_dcp_manifest")
+        or kwargs.get("imf_manifest")
+        or (getattr(bible_ctx_heal, "master_imf_dcp", None) if bible_ctx_heal is not None else None)
+    )
+    needs_imf_injection = bool(
+        (
+            is_spec
+            and (
+                imf_cpl_heal_init is None
+                or not re.search(r"\[IMF[-_ ]CPL:?", current_prompt, re.IGNORECASE)
+            )
+        )
+        or (
+            (imf_cpl_heal_init is not None or master_imf_heal_init is not None)
+            and (
+                not getattr(current_audit, "imf_dcp_compliant", True)
+                or not re.search(r"\[IMF[-_ ]CPL:?", current_prompt, re.IGNORECASE)
+            )
+        )
+    )
+    vd_heal_init = (
+        (getattr(scene, "voice_ducking_spec", None) if is_spec else None)
+        or (getattr(spec_context, "voice_ducking_spec", None) if spec_context else None)
+        or kwargs.get("voice_ducking_spec")
+        or kwargs.get("voice_ducking")
+    )
+    master_vd_heal_init = (
+        kwargs.get("master_voice_ducking")
+        or kwargs.get("voice_casting_manifest")
+        or kwargs.get("ducking_manifest")
+        or (getattr(bible_ctx_heal, "master_voice_ducking", None) if bible_ctx_heal is not None else None)
+    )
+    needs_voice_ducking_injection = bool(
+        (
+            is_spec
+            and (
+                vd_heal_init is None
+                or not re.search(r"\[VOICE[-_ ]CAST:?", current_prompt, re.IGNORECASE)
+            )
+        )
+        or (
+            (vd_heal_init is not None or master_vd_heal_init is not None)
+            and (
+                not getattr(current_audit, "voice_ducking_compliant", True)
+                or not re.search(r"\[VOICE[-_ ]CAST:?", current_prompt, re.IGNORECASE)
+            )
+        )
+    )
 
     if (
         current_audit.passed
@@ -1713,6 +1937,8 @@ def heal_omni_scene_prompt(
         and not needs_otio_injection
         and not needs_render_job_injection
         and not needs_treatment_injection
+        and not needs_imf_injection
+        and not needs_voice_ducking_injection
     ):
         if current_audit.details is None:
             current_audit.details = {}
@@ -2685,6 +2911,203 @@ def heal_omni_scene_prompt(
                 if "pitch_treatment" not in applied_patches:
                     applied_patches.append("pitch_treatment")
 
+        # 3ae. Inject / repair SMPTE IMF Supplemental Packaging & DCI DCP tokens (PM-FEAT-037)
+        master_imf_heal = (
+            kwargs.get("master_imf_dcp")
+            or kwargs.get("imf_dcp_manifest")
+            or kwargs.get("imf_manifest")
+            or (getattr(bible_ctx_heal, "master_imf_dcp", None) if bible_ctx_heal is not None else None)
+        )
+        imf_cpl_heal = (
+            (getattr(scene, "imf_dcp_profile", None) if is_spec else None)
+            or (getattr(spec_context, "imf_dcp_profile", None) if spec_context else None)
+            or kwargs.get("imf_dcp_profile")
+            or kwargs.get("imf_cpl")
+        )
+        imf_repaired = False
+        if master_imf_heal is None and is_spec and bible_ctx_heal is not None:
+            master_imf_heal = compile_imf_dcp_manifest(bible_ctx_heal)
+        if master_imf_heal is not None:
+            master_imf_heal = master_imf_heal.model_copy(deep=True)
+            if master_imf_heal.dcp_spec.jpeg2000_max_bitrate_mbps > 250.0 or master_imf_heal.dcp_spec.jpeg2000_max_bitrate_mbps <= 0.0:
+                master_imf_heal.dcp_spec.jpeg2000_max_bitrate_mbps = 250.0
+                imf_repaired = True
+            valid_uuids = {a.asset_uuid for a in master_imf_heal.assets if a.asset_uuid}
+            if valid_uuids:
+                for cpl_item in master_imf_heal.cpls:
+                    cleaned_links = [u for u in cpl_item.linked_asset_uuids if u in valid_uuids]
+                    if not cleaned_links:
+                        cleaned_links = [master_imf_heal.assets[0].asset_uuid]
+                    if cleaned_links != cpl_item.linked_asset_uuids:
+                        cpl_item.linked_asset_uuids = cleaned_links
+                        imf_repaired = True
+            if imf_cpl_heal is None and master_imf_heal.cpls:
+                imf_cpl_heal = master_imf_heal.cpls[0].model_copy(deep=True)
+            if bible_ctx_heal is not None:
+                bible_ctx_heal.master_imf_dcp = master_imf_heal
+            if "master_imf_dcp" in kwargs:
+                kwargs["master_imf_dcp"] = master_imf_heal
+        if imf_cpl_heal is None and is_spec:
+            stub_uuid = f"cpl-sc{eff_scene_index:02d}-ov"
+            imf_cpl_heal = ImfCompositionPlaylistSpec(
+                cpl_uuid=stub_uuid,
+                content_title_text=str(getattr(scene, "scene_title", "") or f"Scene {eff_scene_index}"),
+                version_tag="OV_MASTER",
+                application_profile=ImfApplicationProfileEnum.APP_2_EXTENDED,
+                segment_count=1,
+                total_frames=max(24, int(duration_seconds) * 24),
+                linked_asset_uuids=[f"asset-pic-sc{eff_scene_index:02d}"],
+            )
+        if imf_cpl_heal is not None:
+            imf_cpl_heal = imf_cpl_heal.model_copy(deep=True)
+            if not imf_cpl_heal.cpl_uuid:
+                imf_cpl_heal.cpl_uuid = f"cpl-sc{eff_scene_index:02d}-ov"
+                imf_repaired = True
+            if not imf_cpl_heal.linked_asset_uuids:
+                if master_imf_heal is not None and master_imf_heal.assets:
+                    imf_cpl_heal.linked_asset_uuids = [master_imf_heal.assets[0].asset_uuid]
+                else:
+                    imf_cpl_heal.linked_asset_uuids = [f"asset-pic-sc{eff_scene_index:02d}"]
+                imf_repaired = True
+            elif master_imf_heal is not None and master_imf_heal.assets:
+                valid_uuids = {a.asset_uuid for a in master_imf_heal.assets if a.asset_uuid}
+                filtered_links = [u for u in imf_cpl_heal.linked_asset_uuids if u in valid_uuids]
+                if len(filtered_links) != len(imf_cpl_heal.linked_asset_uuids):
+                    imf_cpl_heal.linked_asset_uuids = filtered_links or [master_imf_heal.assets[0].asset_uuid]
+                    imf_repaired = True
+            if is_spec:
+                scene.imf_dcp_profile = imf_cpl_heal
+            elif "imf_dcp_profile" in kwargs:
+                kwargs["imf_dcp_profile"] = imf_cpl_heal
+            if imf_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[IMF[-_ ]CPL\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                if "healed_imf_dcp" not in applied_patches:
+                    applied_patches.append("healed_imf_dcp")
+            if not re.search(r"\[IMF[-_ ]CPL:?", working_prompt, re.IGNORECASE):
+                if master_imf_heal is not None:
+                    imf_tok = format_imf_dcp_token(master_imf_heal, eff_scene_index)
+                else:
+                    prof_val = imf_cpl_heal.application_profile.value if hasattr(imf_cpl_heal.application_profile, "value") else str(imf_cpl_heal.application_profile)
+                    imf_tok = f"[IMF-CPL: {imf_cpl_heal.cpl_uuid[:12]} | SC{eff_scene_index:02d} | profile={prof_val} | DCP: 2K_SCOPE_2048x858 @ 250.0Mbps]"
+                working_prompt = working_prompt.rstrip() + f" {imf_tok}."
+                if "imf_dcp" not in applied_patches:
+                    applied_patches.append("imf_dcp")
+
+        # 3af. Inject / repair Voice Casting, Viseme Lip-Sync & Sidechain Ducking tokens (PM-FEAT-038)
+        master_vd_heal = (
+            kwargs.get("master_voice_ducking")
+            or kwargs.get("voice_casting_manifest")
+            or kwargs.get("ducking_manifest")
+            or (getattr(bible_ctx_heal, "master_voice_ducking", None) if bible_ctx_heal is not None else None)
+        )
+        vd_heal = (
+            (getattr(scene, "voice_ducking_spec", None) if is_spec else None)
+            or (getattr(spec_context, "voice_ducking_spec", None) if spec_context else None)
+            or kwargs.get("voice_ducking_spec")
+            or kwargs.get("voice_ducking")
+        )
+        vd_repaired = False
+        if master_vd_heal is None and is_spec and bible_ctx_heal is not None:
+            master_vd_heal = compile_voice_ducking_manifest(bible_ctx_heal)
+        if vd_heal is None and master_vd_heal is not None:
+            for sp in (getattr(master_vd_heal, "scene_profiles", None) or []):
+                if getattr(sp, "scene_index", None) == eff_scene_index:
+                    vd_heal = sp.model_copy(deep=True)
+                    break
+        if vd_heal is None and is_spec:
+            vd_heal = SceneVoiceDuckingSpec(
+                scene_index=eff_scene_index,
+                active_speakers=["VO_NARRATOR"],
+                viseme_cues=[
+                    VisemeLipSyncCue(
+                        scene_index=eff_scene_index,
+                        speaker_id="VO_NARRATOR",
+                        line_text=f"Scene {eff_scene_index} cinematic beat.",
+                        start_sec=0.5,
+                        end_sec=max(2.5, float(duration_seconds) - 0.5),
+                        word_count=4,
+                        wps=round(4.0 / max(2.0, float(duration_seconds) - 1.0), 2),
+                        dominant_visemes=[VisemeClassEnum.SS, VisemeClassEnum.EE, VisemeClassEnum.NN],
+                        lip_sync_required_on_camera=False,
+                    )
+                ],
+                ducking_keyframes=[
+                    SidechainDuckingKeyframe(
+                        time_sec=0.5,
+                        trigger_stem="dialogue",
+                        target_stem="music",
+                        attenuation_db=-8.0,
+                        scene_index=eff_scene_index,
+                    ),
+                    SidechainDuckingKeyframe(
+                        time_sec=max(2.5, float(duration_seconds) - 0.5),
+                        trigger_stem="dialogue",
+                        target_stem="music",
+                        attenuation_db=0.0,
+                        scene_index=eff_scene_index,
+                    ),
+                ],
+                dialogue_to_bgm_snr_db=9.5,
+            )
+        if vd_heal is not None:
+            vd_heal = vd_heal.model_copy(deep=True)
+            if float(getattr(vd_heal, "dialogue_to_bgm_snr_db", 9.0) or 0.0) < 6.0:
+                vd_heal.dialogue_to_bgm_snr_db = 9.0
+                vd_repaired = True
+            for cue in vd_heal.viseme_cues:
+                if float(getattr(cue, "wps", 0.0) or 0.0) > 2.5:
+                    cue_dur = max(1.0, float(cue.end_sec) - float(cue.start_sec))
+                    max_words = max(1, int(cue_dur * 2.5))
+                    words_split = cue.line_text.split()[:max_words]
+                    cue.line_text = " ".join(words_split)
+                    cue.word_count = len(words_split)
+                    cue.wps = round(len(words_split) / cue_dur, 2)
+                    vd_repaired = True
+            for kf in vd_heal.ducking_keyframes:
+                if kf.time_sec < 0.0:
+                    kf.time_sec = 0.0
+                    vd_repaired = True
+            if is_spec:
+                scene.voice_ducking_spec = vd_heal
+            elif "voice_ducking_spec" in kwargs:
+                kwargs["voice_ducking_spec"] = vd_heal
+            if master_vd_heal is not None:
+                master_vd_heal = master_vd_heal.model_copy(deep=True)
+                if master_vd_heal.dialogue_clarity_snr_min_db < 6.0:
+                    master_vd_heal.dialogue_clarity_snr_min_db = 6.0
+                    vd_repaired = True
+                if bible_ctx_heal is not None:
+                    bible_ctx_heal.master_voice_ducking = master_vd_heal
+                if "master_voice_ducking" in kwargs:
+                    kwargs["master_voice_ducking"] = master_vd_heal
+            if vd_repaired:
+                working_prompt = re.sub(
+                    r"\s*\[VOICE[-_ ]CAST\s*:[^\]]*\]\.?",
+                    "",
+                    working_prompt,
+                    flags=re.IGNORECASE,
+                )
+                if "healed_voice_ducking" not in applied_patches:
+                    applied_patches.append("healed_voice_ducking")
+            if not re.search(r"\[VOICE[-_ ]CAST:?", working_prompt, re.IGNORECASE):
+                if master_vd_heal is not None:
+                    vd_tok = format_voice_ducking_token(master_vd_heal, eff_scene_index)
+                else:
+                    spk_s = ",".join(vd_heal.active_speakers[:3]) if vd_heal.active_speakers else "VO_NARRATOR"
+                    vd_tok = (
+                        f"[VOICE-CAST: {spk_s} | SC{eff_scene_index:02d} | "
+                        f"DUCK: music=-8.0dB,amb=-4.5dB | "
+                        f"VISEME-SYNC: cues={len(vd_heal.viseme_cues)},pass=100%,snr={vd_heal.dialogue_to_bgm_snr_db:.1f}dB]"
+                    )
+                working_prompt = working_prompt.rstrip() + f" {vd_tok}."
+                if "voice_ducking" not in applied_patches:
+                    applied_patches.append("voice_ducking")
+
         # 4. Check image references ceiling (>3 or <1)
         prev = working_prompt
         working_prompt = re.sub(r"<image_?0>", "<image_1>", working_prompt)
@@ -2865,6 +3288,22 @@ def heal_omni_scene_prompt(
             )
             or not getattr(current_audit, "pitch_treatment_compliant", True)
         )
+        needs_imf_still = bool(
+            (is_spec and getattr(scene, "imf_dcp_profile", None) is None)
+            or (
+                (imf_cpl_heal is not None or master_imf_heal is not None or is_spec)
+                and not re.search(r"\[IMF[-_ ]CPL:?", working_prompt, re.IGNORECASE)
+            )
+            or not getattr(current_audit, "imf_dcp_compliant", True)
+        )
+        needs_voice_ducking_still = bool(
+            (is_spec and getattr(scene, "voice_ducking_spec", None) is None)
+            or (
+                (vd_heal is not None or master_vd_heal is not None or is_spec)
+                and not re.search(r"\[VOICE[-_ ]CAST:?", working_prompt, re.IGNORECASE)
+            )
+            or not getattr(current_audit, "voice_ducking_compliant", True)
+        )
         if (
             current_audit.passed
             and current_audit.score >= 90.0
@@ -2887,6 +3326,8 @@ def heal_omni_scene_prompt(
             and not needs_otio_still
             and not needs_render_job_still
             and not needs_treatment_still
+            and not needs_imf_still
+            and not needs_voice_ducking_still
         ):
             break
 
@@ -2950,7 +3391,9 @@ _MACHINE_TELEMETRY_TOKEN_RE = re.compile(
     r"GFX[-_]SUPER|GFX\s+SUPER|GFX[-_]CLEANPLATE|GFX\s+CLEANPLATE|ENDCARD|"
     r"OTIO[-_]SYNC|OTIO\s+SYNC|COHERENCE[-_]LOCK|COHERENCE\s+LOCK|"
     r"RENDER[-_]JOB|RENDER\s+JOB|FRAME[-_]ANCHOR|FRAME\s+ANCHOR|"
-    r"TREATMENT[-_]BEAT|TREATMENT\s+BEAT)\s*:[^\]]*\]\.?",
+    r"TREATMENT[-_]BEAT|TREATMENT\s+BEAT|"
+    r"MODE\s+B\s+CONTINUITY|RENDER[-_]ORCHESTRATOR|RENDER\s+ORCHESTRATOR|"
+    r"IMF[-_]CPL|IMF\s+CPL|VOICE[-_]CAST|VOICE\s+CAST)\s*:[^\]]*\]\.?",
     re.IGNORECASE,
 )
 

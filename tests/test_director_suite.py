@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5308,8 +5308,8 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         # Hotkeys registration: [D] and [A]
         assert "e.key === 'd' || e.key === 'D'" in html
         assert "e.key === 'a' || e.key === 'A'" in html
-        assert "if (isDroneHUDOpen) toggleDroneHUD();" in html
-        assert "if (isAicpHUDOpen) toggleAicpHUD();" in html
+        assert "isDroneHUDOpen" in html and "toggleDroneHUD(false)" in html
+        assert "isAicpHUDOpen" in html and "toggleAicpHUD(false)" in html
 
     def test_domain_drone_calibrations_all_6_archetypes(self):
         """Verifies PM-FEAT-019 domain drone specs across all 6 archetypes."""
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5395,15 +5395,16 @@ class TestV211RegressionAndFdeUxFixes:
 
     def test_version_alignment_doctor_and_council(self):
         import omni_director
+        from omni_director.agents.council import ProductCouncilOrchestrator
         from omni_director.doctor import run_doctor
-        from omni_director.schemas import ProductCouncilReport
+        from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert omni_director.__version__ == "2.18.0"
+        assert omni_director.__version__ == "2.19.0"
         report = run_doctor()
         assert report.version == omni_director.__version__
         assert report.passed is True
         assert report.exit_code == 0
-        council_report = ProductCouncilReport(project_title="Smoke Check")
+        council_report = ProductCouncilOrchestrator().audit(IKEA_ASMR_BIBLE)
         assert council_report.version == omni_director.__version__
 
     def test_html_compiler_python_311_ast_compatibility(self):
@@ -5835,7 +5836,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
+            assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6448,7 +6449,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7128,7 +7129,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7714,7 +7715,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         # Fix 3: c2pa_provenance.py and html_compiler.py report current __version__ dynamically
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.18.0"
+        assert omni_director.__version__ == "2.19.0"
         assert all(omni_director.__version__ in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
@@ -7836,7 +7837,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0")
+        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
@@ -8460,7 +8461,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         )
 
         # 1. Schemas, package exports & __version__
-        assert omni_director.__version__ == "2.18.0"
+        assert omni_director.__version__ == "2.19.0"
         expected_033_exports = (
             "get_domain_motion_graphics_spec",
             "GraphicLayerRoleEnum",
@@ -8813,7 +8814,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         pipe_dir = tmp_path / "pipeline_council_v217"
         run_bundle = DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(pipe_dir), dry_run=True, render_video=False)
         report = ProductCouncilOrchestrator().convene_council(bible=run_bundle.bible, bundle=run_bundle, output_dir=pipe_dir)
-        assert report.version == "2.18.0"
+        assert report.version == "2.19.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -9004,7 +9005,7 @@ class TestV218RenderJobsAndPitchTreatment:
         )
 
         # 1. Package & schema exports
-        assert omni_director.__version__ == "2.18.0"
+        assert omni_director.__version__ == "2.19.0"
         expected_035 = (
             "get_domain_render_job_spec",
             "RenderJobStatusEnum",
@@ -9448,10 +9449,10 @@ class TestV218RenderJobsAndPitchTreatment:
         # 4. Zero blocking dialogs
         assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
 
-        # 5. ProductManagerAgent includes PM-FEAT-035 and PM-FEAT-036 (36 proposals)
+        # 5. ProductManagerAgent includes PM-FEAT-035 and PM-FEAT-036 (38 proposals in v2.19.0)
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(ikea)
-        assert len(proposals) == 36
+        assert len(proposals) == 38
         prop_ids = {p.feature_id for p in proposals}
         assert "PM-FEAT-035" in prop_ids
         assert "PM-FEAT-036" in prop_ids
@@ -9462,3 +9463,435 @@ class TestV218RenderJobsAndPitchTreatment:
             ParallelScenePromptAgent()
         dep_warnings = [w for w in caught if issubclass(w.category, DeprecationWarning)]
         assert dep_warnings == [], f"Unexpected DeprecationWarning(s): {[str(w.message) for w in dep_warnings]}"
+
+
+class TestV219ImfDcpAndVoiceDucking:
+    """Verifies v2.19.0 PM-FEAT-037 (IMF & DCI DCP), PM-FEAT-038 (Voice Casting & Ducking), CLI, HUD & Council."""
+
+    def test_pm_feat_037_imf_dcp_manifest_and_xml_exports(self, tmp_path):
+        import json
+        import xml.etree.ElementTree as ET
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_imf_dcp_profile,
+        )
+        from omni_director.schemas import (
+            DciTheatricalDcpSpec,
+            ImfApplicationProfileEnum,
+            ImfAssetTrackSpec,
+            ImfCompositionPlaylistSpec,
+            MasterImfDcpManifest,
+        )
+        from omni_director.tools.imf_dcp_packager import (
+            compile_imf_dcp_manifest,
+            export_imf_dcp_bundle,
+        )
+
+        # 1. Package & schema exports
+        assert omni_director.__version__ == "2.19.0"
+        import omni_director.presets as presets_mod
+        assert hasattr(presets_mod, "get_domain_imf_dcp_profile")
+        expected_037 = (
+            "ImfApplicationProfileEnum",
+            "ImfAssetTrackSpec",
+            "ImfCompositionPlaylistSpec",
+            "DciTheatricalDcpSpec",
+            "MasterImfDcpManifest",
+            "compile_imf_dcp_manifest",
+            "export_imf_dcp_bundle",
+        )
+        for sym in expected_037:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_037[:5]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. 6-domain calibrations & MasterImfDcpManifest invariants
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_imf_dcp_profile(domain)
+            assert cal["domain_archetype"] == domain
+            assert float(cal["jpeg2000_max_bitrate_mbps"]) <= 250.0
+
+            dom_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+            dom_bible.domain_archetype = domain
+            manifest = compile_imf_dcp_manifest(dom_bible, cal)
+            assert isinstance(manifest, MasterImfDcpManifest)
+            assert manifest.dcp_spec.jpeg2000_max_bitrate_mbps <= 250.0
+            assert len(manifest.assets) >= 2
+            assert len(manifest.cpls) >= 2
+            assert manifest.deduplicated_picture_reuse_pct > 0.0
+
+            asset_uuids = {a.asset_uuid for a in manifest.assets}
+            for asset in manifest.assets:
+                assert len(asset.sha256_digest) == 64
+                int(asset.sha256_digest, 16)
+            for cpl in manifest.cpls:
+                assert cpl.linked_asset_uuids
+                assert all(u in asset_uuids for u in cpl.linked_asset_uuids)
+
+        # 3. XML exports & bundle persistence
+        imf_dir = tmp_path / "imf_dcp_out"
+        exported = export_imf_dcp_bundle(IKEA_ASMR_BIBLE, imf_dir)
+        assert set(exported.keys()) == {
+            "assetmap_xml",
+            "pkl_xml",
+            "cpl_master_xml",
+            "imf_dcp_manifest_json",
+            "dcp_cpl_spec_md",
+        }
+        for xml_name in ("ASSETMAP.xml", "PKL.xml", "CPL_master.xml"):
+            xml_path = imf_dir / xml_name
+            assert xml_path.is_file()
+            root = ET.fromstring(xml_path.read_text(encoding="utf-8"))
+            assert root.tag
+        loaded_json = json.loads((imf_dir / "imf_dcp_manifest.json").read_text(encoding="utf-8"))
+        assert loaded_json["dcp_spec"]["jpeg2000_max_bitrate_mbps"] <= 250.0
+        assert loaded_json["deduplicated_picture_reuse_pct"] > 0.0
+        assert "# SMPTE IMF & DCI Theatrical DCP Mastering Spec" in (imf_dir / "dcp_cpl_spec.md").read_text(encoding="utf-8")
+
+    def test_pm_feat_037_and_038_auditor_and_telemetry_stripping(self):
+        from omni_director.presets import get_preset_bible
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. Strip [MODE B CONTINUITY:], [RENDER-ORCHESTRATOR:], [IMF-CPL:], [VOICE-CAST:] tokens
+        raw_prompt = (
+            "[MODE B CONTINUITY: S01->S02 | end_frame=End_Frame_01.png | locked=True] "
+            "[RENDER-ORCHESTRATOR: SC02 | take=SC02_T1 | qa=95.5] "
+            "[IMF-CPL: cpl-001 | SC02 | profile=ST_2067_21_App2E | DCP: 2K_FLAT_1998x1080 @ 220.0Mbps] "
+            "[VOICE-CAST: VO_NARRATOR | SC02 | DUCK: music=-7.5dB,amb=-4.5dB | VISEME-SYNC: cues=1,pass=100%,snr=9.0dB] "
+            "Smooth 35mm dolly push across warm sunlit birch joinery."
+        )
+        cleaned = compile_clean_omni_prompt(raw_prompt)
+        for tok in ("[MODE B CONTINUITY:", "[RENDER-ORCHESTRATOR:", "[IMF-CPL:", "[VOICE-CAST:"):
+            assert tok not in cleaned
+        assert "Smooth 35mm dolly push across warm sunlit birch joinery." in cleaned
+
+        # 2. Audit & heal non-compliant IMF/DCP and Voice Ducking scene specs
+        ikea = get_preset_bible("ikea-asmr").model_copy(deep=True)
+        bad_bible = ikea.model_copy(deep=True)
+        bad_bible.master_imf_dcp.dcp_spec.jpeg2000_max_bitrate_mbps = 320.0
+        bad_bible.master_voice_ducking.dialogue_clarity_snr_min_db = 3.0
+        bad_sc = bad_bible.scenes[0].model_copy(deep=True)
+        bad_sc.voice_ducking_spec.dialogue_to_bgm_snr_db = 3.0
+        bad_sc.voice_ducking_spec.viseme_cues[0].wps = 3.6
+        bad_sc.omni_prose_prompt = compile_clean_omni_prompt(bad_sc.omni_prose_prompt)
+
+        bad_audit = audit_omni_scene_prompt(bad_sc, bible=bad_bible)
+        assert bad_audit.imf_dcp_compliant is False
+        assert bad_audit.voice_ducking_compliant is False
+
+        healed = heal_omni_scene_prompt(bad_sc, bible=bad_bible)
+        assert healed.audit.score >= 90.0
+        assert healed.audit.imf_dcp_compliant is True
+        assert healed.audit.voice_ducking_compliant is True
+        assert "[IMF-CPL:" in healed.healed.omni_prose_prompt
+        assert "[VOICE-CAST:" in healed.healed.omni_prose_prompt
+
+    def test_pm_feat_038_voice_casting_viseme_and_sidechain_ducking(self, tmp_path):
+        import csv
+        import json
+        import omni_director
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            IKEA_ASMR_BIBLE,
+            get_domain_voice_ducking_profile,
+        )
+        from omni_director.schemas import (
+            MasterVoiceDuckingManifest,
+            SceneVoiceDuckingSpec,
+            SidechainDuckingKeyframe,
+            VisemeClassEnum,
+            VisemeLipSyncCue,
+            VocalRegisterEnum,
+            VoiceCastingProfile,
+        )
+        from omni_director.tools.voice_ducking import (
+            compile_voice_ducking_manifest,
+            export_voice_ducking_bundle,
+        )
+
+        # 1. Package & schema exports
+        import omni_director.presets as presets_mod
+        assert hasattr(presets_mod, "get_domain_voice_ducking_profile")
+        expected_038 = (
+            "VocalRegisterEnum",
+            "VisemeClassEnum",
+            "VoiceCastingProfile",
+            "VisemeLipSyncCue",
+            "SidechainDuckingKeyframe",
+            "SceneVoiceDuckingSpec",
+            "MasterVoiceDuckingManifest",
+            "compile_voice_ducking_manifest",
+            "export_voice_ducking_bundle",
+        )
+        for sym in expected_038:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_038[:7]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. 6-domain calibrations, Preston Blair visemes, WPS <= 2.5, monotonic negative ducking & SNR >= 6.0
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_voice_ducking_profile(domain)
+            assert cal["domain_archetype"] == domain
+            dom_bible = IKEA_ASMR_BIBLE.model_copy(deep=True)
+            dom_bible.domain_archetype = domain
+            vd_cfg = dict(cal)
+            vd_cfg["register"] = VocalRegisterEnum(str(cal["vocal_register"]))
+            vd = compile_voice_ducking_manifest(dom_bible, vd_cfg)
+            assert isinstance(vd, MasterVoiceDuckingManifest)
+            assert len(vd.casting_roster) >= 1
+            assert any(p.vocal_register == VocalRegisterEnum(str(cal["vocal_register"])) for p in vd.casting_roster)
+            assert vd.dialogue_clarity_snr_min_db >= 6.0
+            assert vd.lip_sync_pass_rate_pct >= 90.0
+
+            for sp in vd.scene_profiles:
+                assert sp.dialogue_to_bgm_snr_db >= 6.0
+                for cue in sp.viseme_cues:
+                    assert cue.wps <= 2.5
+                    assert len(cue.dominant_visemes) >= 1
+                    assert all(isinstance(v, VisemeClassEnum) for v in cue.dominant_visemes)
+                times = [kf.time_sec for kf in sp.ducking_keyframes]
+                assert all(times[i] <= times[i + 1] for i in range(len(times) - 1))
+                assert any(kf.attenuation_db < 0.0 for kf in sp.ducking_keyframes)
+
+        # 3. Export bundle & verify stem_ducking_automation.csv headers
+        vd_dir = tmp_path / "voice_ducking_out"
+        exported = export_voice_ducking_bundle(IKEA_ASMR_BIBLE, vd_dir, fps=24)
+        assert set(exported.keys()) == {
+            "voice_casting_script_json",
+            "stem_ducking_automation_csv",
+            "adr_viseme_timing_md",
+        }
+        cast_json = json.loads((vd_dir / "voice_casting_script.json").read_text(encoding="utf-8"))
+        assert len(cast_json["casting_roster"]) >= 1
+        with (vd_dir / "stem_ducking_automation.csv").open(encoding="utf-8", newline="") as f:
+            reader = csv.reader(f)
+            headers = next(reader)
+            rows = list(reader)
+        assert headers == [
+            "scene_index",
+            "time_sec",
+            "smpte_tc",
+            "trigger_stem",
+            "target_stem",
+            "attenuation_db",
+            "attack_ms",
+            "release_ms",
+        ]
+        assert len(rows) >= 4
+        assert "# Voice Casting, Viseme Lip-Sync & Sidechain Ducking Script" in (vd_dir / "adr_viseme_timing.md").read_text(encoding="utf-8")
+
+    def test_v219_cli_exports_fps_baseline_and_retry_scene(self, tmp_path):
+        import json
+        import xml.etree.ElementTree as ET
+        from omni_director.cli import handle_export, main as cli_main
+        from omni_director.presets import get_preset_bible
+
+        # 1. Single & bundle CLI exports for PM-FEAT-037 and PM-FEAT-038
+        expected_cli_outputs = [
+            ("imf-dcp", ("ASSETMAP.xml", "PKL.xml", "CPL_master.xml", "imf_dcp_manifest.json", "dcp_cpl_spec.md")),
+            ("imf-assetmap", ("ASSETMAP.xml",)),
+            ("imf-pkl", ("PKL.xml",)),
+            ("imf-cpl", ("CPL_master.xml",)),
+            ("dcp-spec", ("dcp_cpl_spec.md",)),
+            ("voice-ducking", ("voice_casting_script.json", "stem_ducking_automation.csv", "adr_viseme_timing.md")),
+            ("voice-cast", ("voice_casting_script.json",)),
+            ("ducking-csv", ("stem_ducking_automation.csv",)),
+            ("viseme-md", ("adr_viseme_timing.md",)),
+        ]
+        for fmt_name, expected_files in expected_cli_outputs:
+            out_sub = tmp_path / f"cli_{fmt_name}"
+            assert handle_export(["--preset", "ikea-asmr", "--format", fmt_name, "-o", str(out_sub)]) == 0
+            for fname in expected_files:
+                fpath = out_sub / fname
+                assert fpath.is_file() and fpath.stat().st_size > 0
+                if fname.endswith(".xml"):
+                    ET.fromstring(fpath.read_text(encoding="utf-8"))
+
+        # 2. --format all --baseline-bible emits bible_revision_diff.{json,md}
+        ikea = get_preset_bible("ikea-asmr")
+        baseline_bible = ikea.model_copy(deep=True)
+        baseline_bible.project_title = "IKEA: Baseline V1"
+        baseline_path = tmp_path / "baseline_bible.json"
+        baseline_path.write_text(baseline_bible.model_dump_json(indent=2), encoding="utf-8")
+
+        all_dir = tmp_path / "cli_all_baseline"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "--format", "all",
+            "--baseline-bible", str(baseline_path),
+            "-o", str(all_dir),
+        ]) == 0
+        assert (all_dir / "bible_revision_diff.json").is_file()
+        assert (all_dir / "bible_revision_diff.md").is_file()
+        assert (all_dir / "ASSETMAP.xml").is_file()
+        assert (all_dir / "stem_ducking_automation.csv").is_file()
+
+        # 3. run --fps 30 --export-nle forwards fps=30 to NLE/SRT/ducking exports
+        fps30_dir = tmp_path / "cli_run_fps30"
+        assert cli_main([
+            "--preset", "ikea-asmr",
+            "-o", str(fps30_dir),
+            "--fps", "30",
+            "--export-nle",
+            "--json",
+        ]) == 0
+        assert "FCM: NON-DROP FRAME" in (fps30_dir / "timeline.edl").read_text(encoding="utf-8")
+        fcpxml_text = (fps30_dir / "sequence.fcpxml").read_text(encoding="utf-8")
+        assert 'frameDuration="1/30s"' in fcpxml_text and "FFVideoFormat1080p30" in fcpxml_text
+        assert (fps30_dir / "subtitles.srt").is_file()
+
+        # 4. run --retry-scene 2 increments retry_count and refreshes QA/handoffs
+        retry_dir = tmp_path / "cli_run_retry"
+        assert cli_main([
+            "--preset", "sephora-extension-40s",
+            "-o", str(retry_dir),
+            "--retry-scene", "2",
+            "--json",
+        ]) == 0
+        retry_bundle = json.loads((retry_dir / "production_bundle.json").read_text(encoding="utf-8"))
+        jobs = retry_bundle["bible"]["master_render_jobs"]["jobs"]
+        by_sc = {j["scene_index"]: j for j in jobs}
+        assert by_sc[2]["retry_count"] >= 1
+        assert by_sc[1]["retry_count"] == 0
+        handoffs = retry_bundle["bible"]["master_render_jobs"]["frame_anchor_handoffs"]
+        assert len(handoffs) == len(retry_bundle["bible"]["scenes"]) - 1
+        assert all(h["continuity_locked"] is True for h in handoffs)
+
+    def test_v219_hud_wcag_hotkeys_v218_binding_and_council_38_features(self, tmp_path):
+        import re
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.doctor import run_doctor
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import (
+            BibleRevisionDeltaItem,
+            BibleRevisionDiffReport,
+            MasterPitchTreatmentSpec,
+            ProductionBundle,
+            TakeQaScorecardSpec,
+            TreatmentBoardSlideSpec,
+            TreatmentSlideTypeEnum,
+        )
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.html_hud_v218 import (
+            build_v218_hud_bundle,
+            synthesize_v218_pitch_treatment_state,
+            synthesize_v218_render_jobs_state,
+        )
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+        from omni_director.tools.render_orchestrator import compile_render_job_manifest, promote_scene_take
+
+        ikea = get_preset_bible("ikea-asmr")
+        html_dir = tmp_path / "hud_v219"
+        bundle = ProductionBundle(bible=ikea, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html = compile_storyboard_html(bundle, html_dir).read_text(encoding="utf-8")
+
+        # 1. PM-FEAT-037 & PM-FEAT-038 HUD DOM IDs, SVG, Command Palette & hotkeys } / {
+        for marker in (
+            'id="btn-imf-dcp"',
+            'id="imfDcpModal"',
+            'id="btn-voice-ducking"',
+            'id="voiceDuckingModal"',
+            'id="v219-ducking-svg"',
+            "id: 'imfdcp'",
+            "id: 'voiceducking'",
+            "toggleImfDcpHUD",
+            "toggleVoiceDuckingHUD",
+            "isImfDcpHUDOpen",
+            "isVoiceDuckingHUDOpen",
+            "lastImfDcpOpener",
+            "lastVoiceDuckingOpener",
+            "_v217CloseSiblingHUDs",
+        ):
+            assert marker in html, f"Missing HTML marker: {marker}"
+
+        kd_match = re.search(r"window\.addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html, re.DOTALL | re.MULTILINE)
+        assert kd_match is not None
+        kd_block = kd_match.group(0)
+        bound_literals = re.findall(r"e\.key\s*===\s*['\"]([^'\"]+)['\"]", kd_block)
+        assert len(bound_literals) == len(set(bound_literals)), f"Duplicate hotkeys found: {bound_literals}"
+        assert "}" in bound_literals and "{" in bound_literals
+
+        close_fn_match = re.search(r"function closeSecondaryOpenHUDs\s*\([^)]*\)\s*\{(.*?)\n\s*\}", html, re.DOTALL)
+        assert close_fn_match is not None
+        assert "isImfDcpHUDOpen" in close_fn_match.group(1)
+        assert "isVoiceDuckingHUDOpen" in close_fn_match.group(1)
+
+        # 2. html_hud_v218 canonical SC01_T2 + MasterPitchTreatmentSpec + BibleRevisionDeltaItem + -pix_fmt yuv420p
+        promoted_rj = promote_scene_take(compile_render_job_manifest(ikea, dry_run=True), 1, "SC01_T2")
+        rj_bible = ikea.model_copy(deep=True)
+        rj_bible.master_render_jobs = promoted_rj
+        rj_state = synthesize_v218_render_jobs_state(rj_bible)
+        sc1_state = next(j for j in rj_state["scene_jobs"] if j["scene_index"] == 1)
+        assert sc1_state["hero_take"] == "B"
+        assert sc1_state["selected_take_id"] == "SC01_T2"
+        assert isinstance(promoted_rj.jobs[0].qa_scorecard, TakeQaScorecardSpec)
+
+        pt_bible = ikea.model_copy(deep=True)
+        pt_bible.master_pitch_treatment = MasterPitchTreatmentSpec(
+            treatment_id="TRT-V219-TEST",
+            project_title=pt_bible.project_title,
+            slides=[
+                TreatmentBoardSlideSpec(
+                    slide_index=1,
+                    slide_type=TreatmentSlideTypeEnum.COVER_LOGLINE,
+                    headline="Hero Treatment",
+                )
+            ],
+            revision_diff=BibleRevisionDiffReport(
+                baseline_title="V1",
+                target_title="V2",
+                deltas=[
+                    BibleRevisionDeltaItem(
+                        section="Camera",
+                        field_path="scenes[0].optical_lens.focal_length_mm",
+                        previous_value="35",
+                        current_value="50",
+                        impact_severity="medium",
+                    )
+                ],
+            ),
+        )
+        tr_state = synthesize_v218_pitch_treatment_state(pt_bible)
+        assert tr_state["revision_diff"]["deltas"][0]["field_path"] == "scenes[0].optical_lens.focal_length_mm"
+        assert tr_state["revision_diff"]["deltas"][0]["previous_value"] == "35"
+        assert tr_state["revision_diff"]["deltas"][0]["current_value"] == "50"
+        _, _, v218_js = build_v218_hud_bundle(pt_bible)
+        assert "-pix_fmt yuv420p" in v218_js
+
+        # 3. ProductManagerAgent returns 38 implemented features including PM-FEAT-037 and PM-FEAT-038
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(ikea)
+        assert len(proposals) == 38
+        assert all(p.status == "implemented" for p in proposals)
+        prop_ids = {p.feature_id for p in proposals}
+        assert {"PM-FEAT-037", "PM-FEAT-038"} <= prop_ids
+
+        # 4. ProductCouncilOrchestrator.audit() scores >= 90.0 with 0 critical findings across canonical presets
+        orchestrator = ProductCouncilOrchestrator()
+        for preset_name in ("ikea-asmr", "sephora-pulse", "sephora-extension-40s", "kinetic-fabric"):
+            p_bible = get_preset_bible(preset_name)
+            p_dir = tmp_path / f"council_{preset_name}"
+            p_bundle = ProductionBundle(bible=p_bible, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+            compile_storyboard_html(p_bundle, p_dir)
+            export_all_nle_artifacts(p_bible, p_dir, fps=24)
+            rep = orchestrator.audit(p_bundle, output_dir=p_dir, auto_heal=True)
+            assert rep.version == "2.19.0"
+            assert rep.passed is True
+            assert rep.critical_findings_count == 0
+            assert rep.overall_score >= 90.0
+
+        # 5. run_doctor() v2.19.0 compliance
+        doc = run_doctor()
+        assert doc.version == "2.19.0"
+        assert doc.passed is True
+        assert doc.exit_code == 0

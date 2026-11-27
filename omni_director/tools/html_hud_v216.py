@@ -1049,7 +1049,7 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       <button type="button" class="v216-close-btn" id="btn-cmd-palette-close" onclick="toggleHudCommandPalette(false)" aria-label="Close HUD Command Palette">Close [Esc]</button>
     </div>
     <div class="v216-modal-body">
-      <input type="search" id="cmd-palette-search" class="v216-palette-search" placeholder="Search HUDs (e.g. Gaffer, LUT, Wardrobe, Compute, S3D, QC)..." aria-label="Search departmental HUDs" autocomplete="off">
+      <input type="search" id="cmd-palette-search" class="v216-palette-search" placeholder="Search HUDs (e.g. Gaffer, LUT, Wardrobe, Compute, IMF, Voice, S3D, QC)..." aria-label="Search departmental HUDs" autocomplete="off">
       <div id="cmd-palette-count" class="v216-sub" aria-live="polite"></div>
       <ul id="cmd-palette-list" class="v216-palette-list" role="listbox" aria-label="Departmental HUD Launchers"></ul>
     </div>
@@ -1346,7 +1346,7 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isHudCommandPaletteOpen;
       if (!shouldOpen && !isHudCommandPaletteOpen) return;
-      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('cmd');
       isHudCommandPaletteOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
@@ -1378,7 +1378,7 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isArtWardrobeHUDOpen;
       if (!shouldOpen && !isArtWardrobeHUDOpen) return;
-      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('art');
       isArtWardrobeHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
@@ -1403,7 +1403,7 @@ def build_v216_hud_bundle(bible: Any) -> Dict[str, str]:
       if (!modal) return;
       const shouldOpen = forceOpen !== undefined ? Boolean(forceOpen) : !isRenderEconomicsHUDOpen;
       if (!shouldOpen && !isRenderEconomicsHUDOpen) return;
-      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('econ');
       isRenderEconomicsHUDOpen = shouldOpen;
       if (btn) {
         btn.classList.toggle('active', shouldOpen);
