@@ -1109,8 +1109,8 @@ def build_v219_hud_bundle(
       </table>
 
       <div class="v219-actions-row">
-        <button type="button" class="v219-dl-btn" id="btn-dl-imf-json" onclick="downloadImfPackageJSON()">⤓ imf_package_manifest.json</button>
-        <button type="button" class="v219-dl-btn" id="btn-dl-dcp-md" onclick="downloadDcpSpecMD()">⤓ dcp_theatrical_spec.md</button>
+        <button type="button" class="v219-dl-btn" id="btn-dl-imf-json" onclick="downloadImfPackageJSON()">⤓ imf_dcp_manifest.json</button>
+        <button type="button" class="v219-dl-btn" id="btn-dl-dcp-md" onclick="downloadDcpSpecMD()">⤓ dcp_cpl_spec.md</button>
       </div>
     </div>
   </div>
@@ -1178,8 +1178,8 @@ def build_v219_hud_bundle(
       </div>
 
       <div class="v219-actions-row">
-        <button type="button" class="v219-dl-btn" id="btn-dl-voice-json" onclick="downloadVoiceCastingJSON()">⤓ voice_casting_ducking_manifest.json</button>
-        <button type="button" class="v219-dl-btn" id="btn-dl-ducking-csv" onclick="downloadDuckingAutomationCSV()">⤓ sidechain_ducking_automation.csv</button>
+        <button type="button" class="v219-dl-btn" id="btn-dl-voice-json" onclick="downloadVoiceCastingJSON()">⤓ voice_casting_script.json</button>
+        <button type="button" class="v219-dl-btn" id="btn-dl-ducking-csv" onclick="downloadDuckingAutomationCSV()">⤓ stem_ducking_automation.csv</button>
       </div>
     </div>
   </div>
@@ -1333,12 +1333,12 @@ def build_v219_hud_bundle(
 
     window.toggleImfDcpHUD = function(forceState) {
       const modal = document.getElementById('imfDcpModal');
-      const btn = document.getElementById('btn-imf-dcp-animatic');
+      const btn = document.getElementById('btn-imf-dcp');
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isImfDcpHUDOpen;
       if (!shouldOpen && !isImfDcpHUDOpen) return;
       if (shouldOpen) {
-        if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+        if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('imfdcp');
         if (isVoiceDuckingHUDOpen) window.toggleVoiceDuckingHUD(false);
       }
       isImfDcpHUDOpen = shouldOpen;
@@ -1362,12 +1362,12 @@ def build_v219_hud_bundle(
 
     window.toggleVoiceDuckingHUD = function(forceState) {
       const modal = document.getElementById('voiceDuckingModal');
-      const btn = document.getElementById('btn-voice-ducking-animatic');
+      const btn = document.getElementById('btn-voice-ducking');
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isVoiceDuckingHUDOpen;
       if (!shouldOpen && !isVoiceDuckingHUDOpen) return;
       if (shouldOpen) {
-        if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+        if (typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('voiceducking');
         if (isImfDcpHUDOpen) window.toggleImfDcpHUD(false);
       }
       isVoiceDuckingHUDOpen = shouldOpen;
@@ -1399,8 +1399,8 @@ def build_v219_hud_bundle(
       _v219DownloadBlob(
         JSON.stringify(V219_IMF_DCP_STATE, null, 2),
         'application/json;charset=utf-8;',
-        'imf_package_manifest.json',
-        'Downloaded imf_package_manifest.json'
+        'imf_dcp_manifest.json',
+        'Downloaded imf_dcp_manifest.json'
       );
     };
 
@@ -1434,15 +1434,15 @@ def build_v219_hud_bundle(
       (s.asset_map || []).forEach((a) => {
         lines.push('| `' + String(a.file_path) + '` | ' + String(a.track_role) + ' | `' + String(a.sha256) + '` |');
       });
-      _v219DownloadBlob(lines.join('\\n') + '\\n', 'text/markdown;charset=utf-8;', 'dcp_theatrical_spec.md', 'Downloaded dcp_theatrical_spec.md');
+      _v219DownloadBlob(lines.join('\\n') + '\\n', 'text/markdown;charset=utf-8;', 'dcp_cpl_spec.md', 'Downloaded dcp_cpl_spec.md');
     };
 
     window.downloadVoiceCastingJSON = function() {
       _v219DownloadBlob(
         JSON.stringify(V219_VOICE_DUCKING_STATE, null, 2),
         'application/json;charset=utf-8;',
-        'voice_casting_ducking_manifest.json',
-        'Downloaded voice_casting_ducking_manifest.json'
+        'voice_casting_script.json',
+        'Downloaded voice_casting_script.json'
       );
     };
 
@@ -1464,7 +1464,7 @@ def build_v219_hud_bundle(
         ]);
       });
       const csvText = rows.map((r) => r.map(_csvCellV219).join(',')).join('\\n') + '\\n';
-      _v219DownloadBlob(csvText, 'text/csv;charset=utf-8;', 'sidechain_ducking_automation.csv', 'Downloaded sidechain_ducking_automation.csv');
+      _v219DownloadBlob(csvText, 'text/csv;charset=utf-8;', 'stem_ducking_automation.csv', 'Downloaded stem_ducking_automation.csv');
     };
 
     window.initV219HUDs = function() {

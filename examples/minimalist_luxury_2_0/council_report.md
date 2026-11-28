@@ -1,6 +1,6 @@
 # Product Council Audit Report: Minimalist Luxury Haute Couture Silk Vel
 
-**Version**: 2.19.0 | **Timestamp**: `2026-11-27T10:54:12.099592+00:00`
+**Version**: 2.20.0 | **Timestamp**: `2026-11-28T15:00:59.878559+00:00`
 **Overall Score**: **`100.0 / 100.0`** | **Status**: **PASSED**
 **Critical Findings**: 0
 
@@ -8,10 +8,10 @@
 
 | Persona | Role | Score (/25) | Findings Count | Summary |
 | :--- | :--- | :---: | :---: | :--- |
-| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 45 | FDE review completed with score 25.0/25.0. 45 findings. |
-| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 29 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
-| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 34 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
-| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 42 | UX Designer review completed with score 25.0/25.0. |
+| `council-fde` | Forward Deployed Engineer (Schema & Delivery) | **25.0** | 49 | FDE review completed with score 25.0/25.0. 49 findings. |
+| `council-agent-engineer` | Agent Engineer (7-Point Prompts & Models) | **25.0** | 32 | Agent Engineer review completed with score 25.0/25.0 (Prompt Audit avg: 100.0%). |
+| `council-strategist` | Creative Strategist (Domain & Invariants) | **25.0** | 36 | Strategist review completed with score 25.0/25.0 (Domain: luxury_fashion). |
+| `council-ux-designer` | UX & Visual Continuity (ViewBox & Safe Guides) | **25.0** | 45 | UX Designer review completed with score 25.0/25.0. |
 
 ## Findings & Action Items
 
@@ -45,6 +45,8 @@
 - [INFO] **pitch_treatment_delivery**: Director's Treatment Lookbook HTML, Brief MD, and Manifest JSON verified on disk: director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json.
 - [INFO] **imf_dcp_delivery**: SMPTE IMF XML (ASSETMAP, PKL, CPL_master) & DCI DCP deliverables verified on disk: ASSETMAP.xml, PKL.xml, CPL_master.xml, imf_dcp_manifest.json, dcp_cpl_spec.md.
 - [INFO] **voice_ducking_delivery**: Voice Casting JSON, Stem Ducking CSV, and ADR/Viseme MD deliverables verified on disk: voice_casting_script.json, stem_ducking_automation.csv, adr_viseme_timing.md.
+- [INFO] **color_scopes_delivery**: Color Scopes JSON, Shot-Match CDL CSV, and Finishing QC MD deliverables verified on disk: color_continuity_scopes.json, shot_match_cdl_deltas.csv, finishing_scopes_qc.md.
+- [INFO] **archive_vault_delivery**: RFC 8493 BagIt Archive Vault deliverables (bag-info.txt, manifest-sha256.txt, archive_vault_manifest.json) verified on disk: archive_vault_manifest.json, bag-info.txt, manifest-sha256.txt, agency_delivery_readme.md.
 - [INFO] **continuity_blocking_schema**: MasterContinuityBlockingSpec verified (2 scenes, continuity_passed=True).
 - [INFO] **client_review_schema**: MasterClientReviewSpec verified (2 scenes, ready_for_live_render=True).
 - [INFO] **c2pa_provenance_schema**: MasterC2paProvenanceSpec verified (C2PA v2.1, 2 scenes, manifest_signed=True).
@@ -56,11 +58,13 @@
 - [INFO] **wardrobe_prop_schema**: MasterWardrobePropBible verified (2 scenes, looks=1, hero_props=1, pull_list_ready=True).
 - [INFO] **render_economics_schema**: MasterRenderEconomicsManifest verified (4 2026 model rates, dry_run_billable_usd=$0.00, takes=4).
 - [INFO] **motion_graphics_schema**: MasterMotionGraphicsManifest verified (2 cues, max_wpm=150.0, all_safe_zones_cleared=True, legal_supers_compliant=True).
-- [INFO] **otio_coherence_schema**: MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=4ad803126b28..., coherence_score=100.0, shoot_day_ready=True).
+- [INFO] **otio_coherence_schema**: MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=afcdcf6a3a52..., coherence_score=100.0, shoot_day_ready=True).
 - [INFO] **render_jobs_schema**: MasterRenderJobManifest verified (2 job(s), 2026 Model Matrix compliant, overall_qa_score=98.1, assembly_ready=True).
 - [INFO] **pitch_treatment_schema**: MasterPitchTreatmentSpec verified (id=pt-c3a877e4af, 10 board(s), domain=luxury_fashion).
 - [INFO] **imf_dcp_schema**: MasterImfDcpManifest verified (pkg=imf-pkg-21af865dd8db, assets=14 with 64-char SHA-256 digests, cpls=9).
 - [INFO] **voice_ducking_schema**: MasterVoiceDuckingManifest verified (roster=2, scene_profiles=2, monotonic_keyframes=8).
+- [INFO] **color_scopes_schema**: MasterColorScopesManifest verified (id=scopes-d34048f4, scene_scopes=2, mean_dE2000=1.21).
+- [INFO] **archive_vault_schema**: MasterArchiveVaultManifest verified (bag_id=bag-3245529c, oxum=509315.147, entries=147 across 6 departments).
 
 ### COUNCIL-AGENT-ENGINEER
 - [INFO] **rig_schema_validation**: MocoRigSpec (6-DOF kinematics) and LightingRigSpec (photometric studio) schemas and prompt auditor tokens validated.
@@ -85,6 +89,8 @@
 - [INFO] **pitch_treatment_schema_compliance**: MasterPitchTreatmentSpec contract verified (10 board slides, token present=True).
 - [INFO] **imf_dcp_schema_compliance**: SMPTE IMF & DCI DCP contract verified (bitrate=250.0 Mbps <= 250.0 Mbps, assets=14, cpls=9).
 - [INFO] **voice_ducking_schema_compliance**: Voice Casting & Sidechain Ducking contract verified (lip_sync_pass_rate=100.0% >= 90%, snr_min=6.0 dB >= 6.0 dB, WPS <= 2.5).
+- [INFO] **color_scopes_schema_compliance**: Colorist Scopes contract verified (dE2000 ceiling=2.00, EV jump ceiling=0.50 stops, mean_dE2000=1.21).
+- [INFO] **archive_vault_schema_compliance**: RFC 8493 Archive Vault contract verified (bag=bag-3245529c, oxum=509315.147, artifacts=147).
 - [INFO] **audit_report_continuity_and_review_compliance**: Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 2 scene(s).
 - [INFO] **audit_report_c2pa_and_safety_compliance**: Bundle audit_reports verified c2pa_provenance_compliant=True and safety_risk_compliant=True across 2 scene(s).
 - [INFO] **audit_report_localization_and_spotting_compliance**: Bundle audit_reports verified localization_adr_compliant=True and spotting_sync_compliant=True across 2 scene(s).
@@ -92,6 +98,7 @@
 - [INFO] **audit_report_gfx_and_otio_compliance**: Bundle audit_reports verified motion_graphics_compliant=True and otio_coherence_compliant=True across 2 scene(s).
 - [INFO] **audit_report_render_and_treatment_compliance**: Bundle audit_reports verified render_orchestrator_compliant=True and pitch_treatment_compliant=True across 2 scene(s).
 - [INFO] **audit_report_imf_and_voice_compliance**: Bundle audit_reports verified imf_dcp_compliant=True and voice_ducking_compliant=True across 2 scene(s).
+- [INFO] **audit_report_scopes_and_vault_compliance**: Bundle audit_reports verified color_scopes_compliant=True and archive_vault_compliant=True across 2 scene(s).
 
 ### COUNCIL-STRATEGIST
 - [INFO] **domain_color_grading**: Deterministic ASC CDL look preset aligned: 'ColorLookPreset.FUJI_ETERNA_500T' for domain 'luxury_fashion'.
@@ -127,6 +134,8 @@
 - [INFO] **domain_pitch_treatment_calibration**: Executive Director's Treatment calibrated for 'luxury_fashion' (tone='Editorial Couture Restraint & Kinetic Silk Fluidity', slides=10, budget_roi_summary=True).
 - [INFO] **domain_imf_dcp_calibration**: SMPTE IMF & DCI DCP calibrated for 'luxury_fashion' (profile=ST_2067_21_App2E, cpls=9, deduplicated_picture_reuse_pct=88.9%).
 - [INFO] **domain_voice_ducking_calibration**: Voice Casting & Sidechain Ducking calibrated for 'luxury_fashion' (register=MEZZO_SOPRANO, music_duck=-6.5 dB, ad_ducking_kfs=8).
+- [INFO] **domain_color_scopes_calibration**: Colorist Finishing Scopes calibrated for 'luxury_fashion' (std=p3_d65, dE2000<=2.00, EV<=0.50).
+- [INFO] **domain_archive_vault_calibration**: RFC 8493 Archive Vault calibrated for 'luxury_fashion' (retention_tier=studio_lto_perpetual, rights_expiry=2099-12-31).
 - [INFO] **domain_cross_alignment**: Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.
 
 ### COUNCIL-UX-DESIGNER
@@ -162,15 +171,18 @@
 - [INFO] **animatic_pitch_treatment_hud**: Director's Pitch Treatment & Lookbook HUD verified (#btn-treatment-animatic / #modal-pitch-treatment / Command Palette 'treatment' & 'safeguides').
 - [INFO] **animatic_imf_dcp_hud**: IMF Package & Theatrical DCP HUD verified (#btn-imf-dcp / #imfDcpModal / Command Palette 'imfdcp').
 - [INFO] **animatic_voice_ducking_hud**: Voice Casting & Sidechain Ducking HUD verified (#btn-voice-ducking / #voiceDuckingModal / #v219-ducking-svg / Command Palette 'voiceducking').
+- [INFO] **animatic_color_scopes_hud**: Colorist Scopes & A/B Wipe HUD verified (#btn-color-scopes / #colorScopesModal / #v220-scopes-svg / #v220-ab-wipe-stage / Command Palette 'colorscopes').
+- [INFO] **animatic_archive_vault_hud**: RFC 8493 Archive Vault HUD verified (#btn-archive-vault / #archiveVaultModal / #v220-vault-svg / Command Palette 'archivevault').
 - [INFO] **animatic_departmental_toolbar**: Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).
 - [INFO] **animatic_blocking_dialogs**: Zero blocking JS dialog calls (alert/confirm/prompt) verified.
-- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 68 key checks.
+- [INFO] **animatic_hotkey_collision**: Zero duplicate JS keydown hotkey bindings verified across 70 key checks.
 - [INFO] **animatic_hotkeys_wn**: Blocking [W] and Client Review [N] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_yz**: C2PA Provenance [Y] and On-Set Safety JSA [Z] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_ij**: Localization & ADR [I] and Editorial Spotting [J] keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_eq_quote**: Motion Graphics Studio [=] and OTIO Coherence Matrix ['] global keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_backtick_minus**: Live-Render Jobs [`] and Director Pitch Treatment [-] global keyboard hotkeys verified.
 - [INFO] **animatic_hotkeys_braces**: IMF/DCP Mastering [}] and Voice Casting & Ducking [{] global keyboard hotkeys verified.
+- [INFO] **animatic_hotkeys_plus_colon**: Colorist Scopes [+] and RFC 8493 Archive Vault [:] global keyboard hotkeys verified.
 - [INFO] **animatic_aicp_real_data**: AICP HUD real-data binding verified ($375,658.39 matches master_aicp_bid).
 
 ## Senior Product Manager Roadmap & Feature Inspection
@@ -217,3 +229,5 @@
 | `PM-FEAT-036` | **P0** | `implemented` | **Executive Director's Treatment, Print-Ready Pitch Lookbook & Bible Revision Diff Engine**: Implement TreatmentSlideTypeEnum, TreatmentBoardSlideSpec, BibleRevisionDeltaItem, BibleRevisionDiffReport, and MasterPitchTreatmentSpec schemas; omni_director.tools.pitch_treatment (compile_pitch_treatment, diff_production_bibles, format_pitch_treatment_token, export_treatment_lookbook_html with @media print page breaks and html.escape(), export_pitch_treatment_bundle exporting director_treatment_lookbook.html, director_treatment_brief.md, and pitch_treatment_manifest.json, plus [TREATMENT-BEAT:] tokens); 6-domain calibration via get_domain_pitch_treatment_spec(); and the Director's Pitch Treatment & Lookbook Studio HUD [-] (#btn-treatment-animatic, #modal-pitch-treatment). | `omni_director/schemas.py`, `omni_director/tools/pitch_treatment.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v216.py`, `omni_director/tools/html_hud_v218.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py` |
 | `PM-FEAT-037` | **P0** | `implemented` | **SMPTE ST 2067 IMF Multi-Version Mastering & DCI Theatrical DCP Packaging Engine**: Implement ImfApplicationProfileEnum, ImfAssetTrackSpec, ImfCompositionPlaylistSpec, DciTheatricalDcpSpec, and MasterImfDcpManifest schemas; omni_director.tools.imf_dcp_packager (compile_imf_dcp_manifest, format_imf_dcp_token, export_imf_assetmap_xml, export_imf_pkl_xml, export_imf_cpl_xml, export_imf_dcp_manifest_json, export_dcp_cpl_spec_md, export_imf_dcp_bundle with deduplicated OV picture essence reuse and <=250.0 Mbps JPEG2000 DCI cap); 6-domain calibration via get_domain_imf_dcp_profile(); [IMF-CPL:] telemetry token stripping; and the IMF Package & Theatrical DCP Mastering HUD [}] (#btn-imf-dcp, #imfDcpModal). | `omni_director/schemas.py`, `omni_director/tools/imf_dcp_packager.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v219.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py`, `omni_director/cli.py` |
 | `PM-FEAT-038` | **P0** | `implemented` | **Voice Casting, Phoneme/Viseme Lip-Sync Scripting & Automated Stem Sidechain Ducking Engine**: Implement VocalRegisterEnum, VisemeClassEnum, VoiceCastingProfile, VisemeLipSyncCue, SidechainDuckingKeyframe, SceneVoiceDuckingSpec, and MasterVoiceDuckingManifest schemas; omni_director.tools.voice_ducking (compile_voice_ducking_manifest, format_voice_ducking_token, export_voice_casting_json, export_stem_ducking_csv, export_adr_viseme_md, export_voice_ducking_bundle); 6-domain calibration via get_domain_voice_ducking_profile(); [VOICE-CAST:] telemetry token stripping; and the Voice Casting, Viseme Lip-Sync & Sidechain Ducking Studio HUD [{] (#btn-voice-ducking, #voiceDuckingModal, #v219-ducking-svg). | `omni_director/schemas.py`, `omni_director/tools/voice_ducking.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v219.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py`, `omni_director/cli.py` |
+| `PM-FEAT-039` | **P0** | `implemented` | **Colorist Finishing Scopes, CIELAB Delta-E2000 Shot-to-Shot Continuity Match & Interactive A/B Wipe Monitor**: Implement ScopeSignalStandardEnum, ShotMatchStatusEnum, SceneScopeTelemetrySpec, AdjacentCutColorMatchSpec, and MasterColorScopesManifest schemas; omni_director.tools.color_scopes (compile_color_scopes_manifest, compute_ciede2000, format_color_scopes_token, export_color_scopes_json, export_shot_match_cdl_csv, export_finishing_scopes_qc_md, export_color_scopes_bundle); 6-domain calibration via get_domain_color_scopes_profile(); [COLOR-SCOPES:] telemetry token stripping; and the Colorist Scopes & A/B Wipe HUD [+] (#btn-color-scopes, #colorScopesModal, #v220-scopes-svg, #v220-ab-wipe-stage). | `omni_director/schemas.py`, `omni_director/tools/color_scopes.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v220.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py`, `omni_director/cli.py` |
+| `PM-FEAT-040` | **P0** | `implemented` | **RFC 8493 BagIt Production Archive Vault, Checksum Verification & Agency/DAM Handoff Engine**: Implement ArchiveRetentionTierEnum, VaultDepartmentEnum, ArchiveVaultEntrySpec, DepartmentVaultSummarySpec, and MasterArchiveVaultManifest schemas; omni_director.tools.archive_vault (compile_archive_vault_manifest, classify_artifact_department, format_archive_vault_token, export_archive_vault_json, export_bag_info_txt, export_manifest_sha256_txt, export_agency_delivery_readme_md, export_archive_vault_bundle); 6-domain calibration via get_domain_archive_vault_profile(); [ARCHIVE-VAULT:] telemetry token stripping; and the RFC 8493 Archive Vault HUD [:] (#btn-archive-vault, #archiveVaultModal, #v220-vault-svg). | `omni_director/schemas.py`, `omni_director/tools/archive_vault.py`, `omni_director/presets.py`, `omni_director/tools/prompt_auditor.py`, `omni_director/tools/html_compiler.py`, `omni_director/tools/html_hud_v212.py`, `omni_director/tools/html_hud_v220.py`, `omni_director/agents/agent.py`, `omni_director/agents/council.py`, `omni_director/tools/nle_export.py`, `omni_director/telemetry.py`, `omni_director/cli.py` |

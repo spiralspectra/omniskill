@@ -82,6 +82,7 @@ def _build_departmental_toolbar_html() -> str:
               ✨ VFX Passes [X]
             </button>""",
                 """            <button type="button" class="btn-dit-lut" id="btn-motion-gfx-animatic" onclick="toggleMotionGfxHUD()" aria-label="Motion Graphics, Supers and End-Card Studio [=]" aria-expanded="false" aria-controls="modal-motion-graphics-studio" title="Motion Graphics &amp; End-Card [=]">🎞️ Motion GFX [=]</button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-color-scopes" onclick="toggleColorScopesHUD()" aria-label="Colorist Finishing Scopes, Delta-E Match and A/B Wipe HUD [+]" aria-expanded="false" aria-controls="colorScopesModal" title="Color Scopes &amp; A/B Wipe [+]">📊 Color Scopes [+]</button>""",
             ],
         ),
         (
@@ -170,6 +171,9 @@ def _build_departmental_toolbar_html() -> str:
                 """            <button type="button" class="btn-dit-lut" id="btn-imf-dcp" onclick="toggleImfDcpHUD()" aria-label="IMF Package (ST 2067) and Theatrical DCI DCP Mastering HUD [}]" aria-expanded="false" aria-controls="imfDcpModal" title="IMF / DCP [}]">
               📦 IMF / DCP [}]
             </button>""",
+                """            <button type="button" class="btn-dit-lut" id="btn-archive-vault" onclick="toggleArchiveVaultHUD()" aria-label="RFC 8493 Archive Vault and Agency Handoff HUD [:]" aria-expanded="false" aria-controls="archiveVaultModal" title="Archive Vault &amp; BagIt [:]">
+              🗄️ Archive Vault [:]
+            </button>""",
             ],
         ),
     ]
@@ -206,7 +210,7 @@ def _build_departmental_toolbar_html() -> str:
         </button>
       </div>
       <span class="hud-hotkeys" aria-label="Keyboard shortcuts guide">
-        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [`] Render Jobs · [-] Treatment · [{{] Voice &amp; Duck · [}}] IMF / DCP · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [=] Motion GFX · ['] OTIO Coherence · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
+        ⌨ [Space] Play · [O] Loop · [/] HUD Palette · [`] Render Jobs · [-] Treatment · [{{] Voice &amp; Duck · [}}] IMF / DCP · [+] Color Scopes · [:] Archive Vault · [\\] Art &amp; Wardrobe · [;] Compute &amp; Takes · [=] Motion GFX · ['] OTIO Coherence · [K] MoCo · [G] Gaffer · [F] DoF · [W] Blocking · [L] 3D LUT · [S] Spatial · [J] Spotting · [X] VFX · [H] HDR · [B] Stripboard · [E] Film · [T] Slate · [D] Drone · [A] AICP · [Z] Safety · [R] Reframe · [Q] QC · [N] Review · [Y] C2PA · [I] i18n/ADR · [M] Mixer · [C] Captions · [V] Viewfinder · [P] VP Stage · [U] Guides · []] S3D · [[] AD · [←/→] Seek 1s · [,/.] Frame · [Home/0] Rewind · [1-9] Scene
       </span>
     </div>"""
 

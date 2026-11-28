@@ -1,0 +1,271 @@
+{
+  "manifest_id": "scopes-23f30d02",
+  "signal_standard": "bt2020_pq",
+  "max_delta_e_ceiling": 3.0,
+  "max_exposure_jump_stops": 0.75,
+  "mean_delta_e_2000": 1.86,
+  "all_cuts_matched": true,
+  "scene_scopes": [
+    {
+      "scene_index": 1,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 16.14,
+      "luma_peak_ire": 47.74,
+      "rgb_balance_pct": [
+        8.19,
+        33.98,
+        57.83
+      ],
+      "gamut_utilization_pct": 96.0,
+      "waveform_bins": [
+        9.79,
+        14.05,
+        16.04,
+        14.58,
+        10.56,
+        6.08,
+        4.01,
+        4.01,
+        4.01,
+        2.41,
+        2.41,
+        2.41,
+        2.41,
+        2.41,
+        2.41,
+        2.41
+      ],
+      "vectorscope_points": [
+        [
+          317.66,
+          0.141,
+          "#071C2F"
+        ],
+        [
+          299.84,
+          0.766,
+          "#27CAF4"
+        ],
+        [
+          102.69,
+          0.774,
+          "#FF3B52"
+        ],
+        [
+          142.59,
+          0.124,
+          "#FFEFDB"
+        ]
+      ],
+      "dominant_hex": "#071C2F"
+    },
+    {
+      "scene_index": 2,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 16.87,
+      "luma_peak_ire": 48.47,
+      "rgb_balance_pct": [
+        8.31,
+        34.77,
+        56.92
+      ],
+      "gamut_utilization_pct": 96.0,
+      "waveform_bins": [
+        9.32,
+        13.57,
+        15.82,
+        14.82,
+        11.12,
+        6.68,
+        3.98,
+        3.98,
+        3.98,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39
+      ],
+      "vectorscope_points": [
+        [
+          317.66,
+          0.141,
+          "#071C2F"
+        ],
+        [
+          299.84,
+          0.766,
+          "#27CAF4"
+        ],
+        [
+          102.69,
+          0.774,
+          "#FF3B52"
+        ],
+        [
+          142.59,
+          0.124,
+          "#FFEFDB"
+        ]
+      ],
+      "dominant_hex": "#071E32"
+    },
+    {
+      "scene_index": 3,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 16.64,
+      "luma_peak_ire": 48.24,
+      "rgb_balance_pct": [
+        13.92,
+        31.98,
+        54.1
+      ],
+      "gamut_utilization_pct": 96.0,
+      "waveform_bins": [
+        9.47,
+        13.72,
+        15.93,
+        14.75,
+        10.94,
+        6.49,
+        3.99,
+        3.99,
+        3.99,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39,
+        2.39
+      ],
+      "vectorscope_points": [
+        [
+          317.66,
+          0.141,
+          "#071C2F"
+        ],
+        [
+          299.84,
+          0.766,
+          "#27CAF4"
+        ],
+        [
+          102.69,
+          0.774,
+          "#FF3B52"
+        ],
+        [
+          142.59,
+          0.124,
+          "#FFEFDB"
+        ]
+      ],
+      "dominant_hex": "#0C1C30"
+    },
+    {
+      "scene_index": 4,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 17.28,
+      "luma_peak_ire": 48.88,
+      "rgb_balance_pct": [
+        12.4,
+        33.75,
+        53.85
+      ],
+      "gamut_utilization_pct": 96.0,
+      "waveform_bins": [
+        9.07,
+        13.31,
+        15.69,
+        14.94,
+        11.42,
+        7.03,
+        3.96,
+        3.96,
+        3.96,
+        2.38,
+        2.38,
+        2.38,
+        2.38,
+        2.38,
+        2.38,
+        2.38
+      ],
+      "vectorscope_points": [
+        [
+          317.66,
+          0.141,
+          "#071C2F"
+        ],
+        [
+          299.84,
+          0.766,
+          "#27CAF4"
+        ],
+        [
+          102.69,
+          0.774,
+          "#FF3B52"
+        ],
+        [
+          142.59,
+          0.124,
+          "#FFEFDB"
+        ]
+      ],
+      "dominant_hex": "#0B1F31"
+    }
+  ],
+  "cut_matches": [
+    {
+      "from_scene_index": 1,
+      "to_scene_index": 2,
+      "delta_e_2000": 0.75,
+      "exposure_delta_stops": 0.06,
+      "kelvin_delta_k": 0.0,
+      "recommended_cdl_offset": [
+        0.0,
+        -0.0078,
+        -0.0118
+      ],
+      "match_status": "matched",
+      "notes": "Gamut overshoot detected (104.5% > 100%)."
+    },
+    {
+      "from_scene_index": 2,
+      "to_scene_index": 3,
+      "delta_e_2000": 2.21,
+      "exposure_delta_stops": -0.02,
+      "kelvin_delta_k": 0.0,
+      "recommended_cdl_offset": [
+        -0.0196,
+        0.0078,
+        0.0078
+      ],
+      "match_status": "matched",
+      "notes": "Gamut overshoot detected (104.5% > 100%)."
+    },
+    {
+      "from_scene_index": 3,
+      "to_scene_index": 4,
+      "delta_e_2000": 2.55,
+      "exposure_delta_stops": 0.05,
+      "kelvin_delta_k": 0.0,
+      "recommended_cdl_offset": [
+        0.0039,
+        -0.0118,
+        -0.0039
+      ],
+      "match_status": "matched",
+      "notes": "Gamut overshoot detected (104.5% > 100%)."
+    }
+  ],
+  "scopes_token": "[COLOR-SCOPES: SC01 | std=bt2020_pq | avg_ire=16.1 | dE2000=0.75 | ev_delta=+0.06EV | status=out_of_gamut]"
+}

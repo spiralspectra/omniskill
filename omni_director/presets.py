@@ -4629,6 +4629,155 @@ def hydrate_imf_dcp_and_voice_ducking_specs(
                 scene.voice_ducking_spec = matched_vd
 
 
+# ==============================================================================
+# PM-FEAT-039: Colorist Finishing Scopes & CIEDE2000 Continuity Calibrations
+# ==============================================================================
+
+_DOMAIN_COLOR_SCOPES_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "signal_standard": "bt2020_pq",
+        "max_delta_e_ceiling": 2.0,
+        "max_exposure_jump_stops": 0.55,
+        "target_mid_gray_ire": 43.0,
+    },
+    "culinary_asmr": {
+        "signal_standard": "rec709_24",
+        "max_delta_e_ceiling": 2.5,
+        "max_exposure_jump_stops": 0.60,
+        "target_mid_gray_ire": 46.0,
+    },
+    "luxury_fashion": {
+        "signal_standard": "p3_d65",
+        "max_delta_e_ceiling": 2.0,
+        "max_exposure_jump_stops": 0.50,
+        "target_mid_gray_ire": 42.0,
+    },
+    "kinetic_action": {
+        "signal_standard": "bt2020_pq",
+        "max_delta_e_ceiling": 3.0,
+        "max_exposure_jump_stops": 0.75,
+        "target_mid_gray_ire": 44.0,
+    },
+    "tech_hardware": {
+        "signal_standard": "rec709_24",
+        "max_delta_e_ceiling": 2.5,
+        "max_exposure_jump_stops": 0.60,
+        "target_mid_gray_ire": 45.0,
+    },
+    "architectural_sanctuary": {
+        "signal_standard": "rec709_24",
+        "max_delta_e_ceiling": 3.0,
+        "max_exposure_jump_stops": 0.70,
+        "target_mid_gray_ire": 48.0,
+    },
+}
+
+
+def get_domain_color_scopes_profile(
+    bible_or_domain: Union[MasterProductionBible, CommercialDomain, DomainArchetype, str] = "architectural_sanctuary",
+) -> Dict[str, Any]:
+    """Retrieve calibrated Colorist Finishing Scopes & CIEDE2000 continuity tolerances for a domain (PM-FEAT-039)."""
+    resolved = _normalize_domain_key(
+        bible_or_domain if bible_or_domain is not None else "architectural_sanctuary"
+    )
+    out = dict(_DOMAIN_COLOR_SCOPES_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
+# ==============================================================================
+# PM-FEAT-040: RFC 8493 BagIt Production Archive Vault Calibrations
+# ==============================================================================
+
+_DOMAIN_ARCHIVE_VAULT_CALIBRATIONS: Dict[str, Dict[str, Any]] = {
+    "automotive_robotics": {
+        "retention_tier": "studio_lto_perpetual",
+        "footprint_gb_per_min": 12.8,
+        "rights_window_days": 3650,
+    },
+    "culinary_asmr": {
+        "retention_tier": "agency_90_day",
+        "footprint_gb_per_min": 6.4,
+        "rights_window_days": 90,
+    },
+    "luxury_fashion": {
+        "retention_tier": "studio_lto_perpetual",
+        "footprint_gb_per_min": 14.5,
+        "rights_window_days": 3650,
+    },
+    "kinetic_action": {
+        "retention_tier": "campaign_2_year",
+        "footprint_gb_per_min": 11.2,
+        "rights_window_days": 730,
+    },
+    "tech_hardware": {
+        "retention_tier": "campaign_2_year",
+        "footprint_gb_per_min": 9.5,
+        "rights_window_days": 730,
+    },
+    "architectural_sanctuary": {
+        "retention_tier": "campaign_2_year",
+        "footprint_gb_per_min": 10.8,
+        "rights_window_days": 730,
+    },
+}
+
+
+def get_domain_archive_vault_profile(
+    bible_or_domain: Union[MasterProductionBible, CommercialDomain, DomainArchetype, str] = "architectural_sanctuary",
+) -> Dict[str, Any]:
+    """Retrieve calibrated RFC 8493 BagIt retention tier & rights-window parameters for a domain (PM-FEAT-040)."""
+    resolved = _normalize_domain_key(
+        bible_or_domain if bible_or_domain is not None else "architectural_sanctuary"
+    )
+    out = dict(_DOMAIN_ARCHIVE_VAULT_CALIBRATIONS[resolved])
+    out["domain_archetype"] = resolved
+    return out
+
+
+def hydrate_color_scopes_and_archive_vault_specs(
+    bible: MasterProductionBible,
+    cs_profile: Optional[Dict[str, Any]] = None,
+    av_profile: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Compile and attach master and per-scene Color Scopes (PM-FEAT-039) and Archive Vault (PM-FEAT-040) specs."""
+    if not getattr(bible, "master_color_scopes", None):
+        from omni_director.tools.color_scopes import compile_color_scopes_manifest
+
+        bible.master_color_scopes = compile_color_scopes_manifest(bible, domain_profile=cs_profile)
+
+    if not getattr(bible, "master_archive_vault", None):
+        from omni_director.tools.archive_vault import compile_archive_vault_manifest
+
+        bible.master_archive_vault = compile_archive_vault_manifest(bible, domain_profile=av_profile)
+
+    master_cs = getattr(bible, "master_color_scopes", None)
+    master_av = getattr(bible, "master_archive_vault", None)
+    cs_by_sc = {
+        int(getattr(sp, "scene_index", 0) or 0): sp
+        for sp in list(getattr(master_cs, "scene_scopes", None) or [])
+    } if master_cs is not None else {}
+
+    if master_av is not None:
+        from omni_director.tools.archive_vault import format_archive_vault_token
+    else:
+        format_archive_vault_token = None  # type: ignore[assignment]
+
+    for idx, scene in enumerate(getattr(bible, "scenes", None) or [], 1):
+        if not getattr(scene, "color_scopes_spec", None) and master_cs is not None:
+            matched_cs = cs_by_sc.get(int(getattr(scene, "scene_index", idx) or idx))
+            if matched_cs is None:
+                cs_list = list(getattr(master_cs, "scene_scopes", None) or [])
+                if len(cs_list) >= idx:
+                    matched_cs = cs_list[idx - 1]
+            if matched_cs is not None:
+                scene.color_scopes_spec = matched_cs.model_copy(deep=True)
+        if not getattr(scene, "archive_vault_token", None) and master_av is not None and format_archive_vault_token is not None:
+            scene.archive_vault_token = format_archive_vault_token(
+                master_av, int(getattr(scene, "scene_index", idx) or idx)
+            )
+
+
 DOMAINS_6: List[str] = list(DOMAIN_ARCHETYPES.keys())
 
 
@@ -5330,6 +5479,11 @@ def _hydrate_bible_domain_specs(bible: MasterProductionBible) -> MasterProductio
         get_domain_imf_dcp_profile(arch),
         get_domain_voice_ducking_profile(arch),
     )
+    hydrate_color_scopes_and_archive_vault_specs(
+        bible,
+        get_domain_color_scopes_profile(arch),
+        get_domain_archive_vault_profile(arch),
+    )
 
     for idx, scene in enumerate(bible.scenes, 1):
         if not scene.speed_ramp:
@@ -5590,6 +5744,8 @@ def create_bible(
         bible.master_pitch_treatment = None
         bible.master_imf_dcp = None
         bible.master_voice_ducking = None
+        bible.master_color_scopes = None
+        bible.master_archive_vault = None
         bible.master_otio_coherence = None
         for sc in bible.scenes:
             sc.locale_tracks = []
@@ -5603,6 +5759,8 @@ def create_bible(
             sc.treatment_spec = None
             sc.imf_dcp_profile = None
             sc.voice_ducking_spec = None
+            sc.color_scopes_spec = None
+            sc.archive_vault_token = None
             sc.otio_sync_token = None
     else:
         bible = MasterProductionBible(

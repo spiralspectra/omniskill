@@ -1,0 +1,135 @@
+{
+  "manifest_id": "scopes-97d129c5",
+  "signal_standard": "bt2020_pq",
+  "max_delta_e_ceiling": 2.0,
+  "max_exposure_jump_stops": 0.55,
+  "mean_delta_e_2000": 0.16,
+  "all_cuts_matched": true,
+  "scene_scopes": [
+    {
+      "scene_index": 1,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 8.06,
+      "luma_peak_ire": 41.06,
+      "rgb_balance_pct": [
+        9.56,
+        9.56,
+        80.88
+      ],
+      "gamut_utilization_pct": 64.15,
+      "waveform_bins": [
+        16.92,
+        18.46,
+        14.85,
+        8.73,
+        4.66,
+        4.66,
+        4.66,
+        4.66,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "vectorscope_points": [
+        [
+          350.76,
+          0.004,
+          "#000001"
+        ],
+        [
+          292.28,
+          0.426,
+          "#92F5FD"
+        ],
+        [
+          110.86,
+          0.39,
+          "#AA4E4A"
+        ],
+        [
+          350.76,
+          0.009,
+          "#929295"
+        ]
+      ],
+      "dominant_hex": "#000001"
+    },
+    {
+      "scene_index": 2,
+      "signal_standard": "bt2020_pq",
+      "luma_min_ire": 1.0,
+      "luma_avg_ire": 8.27,
+      "luma_peak_ire": 41.27,
+      "rgb_balance_pct": [
+        14.41,
+        20.11,
+        65.48
+      ],
+      "gamut_utilization_pct": 64.15,
+      "waveform_bins": [
+        16.73,
+        18.51,
+        15.0,
+        8.96,
+        4.64,
+        4.64,
+        4.64,
+        4.64,
+        2.78,
+        2.78,
+        2.78,
+        2.78,
+        2.78,
+        2.78,
+        2.78,
+        2.78
+      ],
+      "vectorscope_points": [
+        [
+          350.76,
+          0.004,
+          "#000001"
+        ],
+        [
+          292.28,
+          0.426,
+          "#92F5FD"
+        ],
+        [
+          110.86,
+          0.39,
+          "#AA4E4A"
+        ],
+        [
+          350.76,
+          0.009,
+          "#929295"
+        ]
+      ],
+      "dominant_hex": "#010102"
+    }
+  ],
+  "cut_matches": [
+    {
+      "from_scene_index": 1,
+      "to_scene_index": 2,
+      "delta_e_2000": 0.16,
+      "exposure_delta_stops": 0.04,
+      "kelvin_delta_k": 0.0,
+      "recommended_cdl_offset": [
+        -0.0039,
+        -0.0039,
+        -0.0039
+      ],
+      "match_status": "matched",
+      "notes": "Adjacent cut within CIEDE2000 & exposure continuity tolerances."
+    }
+  ],
+  "scopes_token": "[COLOR-SCOPES: SC01 | std=bt2020_pq | avg_ire=8.1 | dE2000=0.16 | ev_delta=+0.04EV | status=matched]"
+}

@@ -70,6 +70,8 @@ from omni_director.presets import (
     get_domain_stripboard_spec,
     get_domain_vfx_manifest,
     get_domain_wardrobe_prop_spec,
+    get_domain_color_scopes_profile,
+    get_domain_archive_vault_profile,
     get_preset,
     get_preset_bible,
 )
@@ -292,6 +294,18 @@ from omni_director.schemas import (
     SidechainDuckingKeyframe,
     SceneVoiceDuckingSpec,
     MasterVoiceDuckingManifest,
+    # Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity (PM-FEAT-039)
+    ScopeSignalStandardEnum,
+    ShotMatchStatusEnum,
+    SceneScopeTelemetrySpec,
+    AdjacentCutColorMatchSpec,
+    MasterColorScopesManifest,
+    # RFC 8493 BagIt Archive Vault & Agency Delivery Packaging (PM-FEAT-040)
+    ArchiveRetentionTierEnum,
+    VaultDepartmentEnum,
+    ArchiveVaultEntrySpec,
+    DepartmentVaultSummarySpec,
+    MasterArchiveVaultManifest,
     KineticContactChain,
     LedWallGeometry,
     LightingFixtureRole,
@@ -670,6 +684,30 @@ from omni_director.tools import (
     export_stem_ducking_csv,
     export_adr_viseme_md,
     export_voice_ducking_bundle,
+    # Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity (PM-FEAT-039)
+    hex_to_srgb,
+    srgb_to_lab,
+    compute_ciede2000,
+    compile_color_scopes_manifest,
+    synthesize_default_color_scopes_manifest,
+    format_color_scopes_token,
+    export_color_scopes_json,
+    export_shot_match_cdl_csv,
+    export_finishing_scopes_qc_md,
+    export_color_scopes_bundle,
+    # RFC 8493 BagIt Archive Vault & Agency Delivery Packaging (PM-FEAT-040)
+    classify_artifact_department,
+    compile_archive_vault_manifest,
+    synthesize_default_archive_vault_manifest,
+    format_archive_vault_token,
+    export_archive_vault_json,
+    export_bag_info_txt,
+    export_manifest_sha256_txt,
+    export_agency_delivery_readme_md,
+    export_archive_vault_bundle,
+    synthesize_v220_color_scopes_state,
+    synthesize_v220_archive_vault_state,
+    build_v220_hud_bundle,
 )
 from omni_director.tools.motion_graphics import (
     compile_motion_graphics_manifest,
@@ -697,7 +735,7 @@ from omni_director.tools.otio_coherence import (
     reconcile_cross_department_conflicts,
 )
 
-__version__ = "2.19.0"
+__version__ = "2.20.0"
 
 __all__ = [
     # Top-Level Runner & Config
@@ -727,6 +765,8 @@ __all__ = [
     "get_domain_otio_coherence_spec",
     "get_domain_render_job_spec",
     "get_domain_pitch_treatment_spec",
+    "get_domain_color_scopes_profile",
+    "get_domain_archive_vault_profile",
     "DOMAIN_ARCHETYPES",
     "DOMAIN_PRIORITY",
     "IKEA_ASMR_BIBLE",
@@ -1366,6 +1406,40 @@ __all__ = [
     "synthesize_v219_imf_dcp_state",
     "synthesize_v219_voice_ducking_state",
     "build_v219_hud_bundle",
+    # Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity (PM-FEAT-039)
+    "ScopeSignalStandardEnum",
+    "ShotMatchStatusEnum",
+    "SceneScopeTelemetrySpec",
+    "AdjacentCutColorMatchSpec",
+    "MasterColorScopesManifest",
+    "hex_to_srgb",
+    "srgb_to_lab",
+    "compute_ciede2000",
+    "compile_color_scopes_manifest",
+    "synthesize_default_color_scopes_manifest",
+    "format_color_scopes_token",
+    "export_color_scopes_json",
+    "export_shot_match_cdl_csv",
+    "export_finishing_scopes_qc_md",
+    "export_color_scopes_bundle",
+    # RFC 8493 BagIt Archive Vault & Agency Delivery Packaging (PM-FEAT-040)
+    "ArchiveRetentionTierEnum",
+    "VaultDepartmentEnum",
+    "ArchiveVaultEntrySpec",
+    "DepartmentVaultSummarySpec",
+    "MasterArchiveVaultManifest",
+    "classify_artifact_department",
+    "compile_archive_vault_manifest",
+    "synthesize_default_archive_vault_manifest",
+    "format_archive_vault_token",
+    "export_archive_vault_json",
+    "export_bag_info_txt",
+    "export_manifest_sha256_txt",
+    "export_agency_delivery_readme_md",
+    "export_archive_vault_bundle",
+    "synthesize_v220_color_scopes_state",
+    "synthesize_v220_archive_vault_state",
+    "build_v220_hud_bundle",
     # Prompt Auditor Clean Prose & Inter-Scene Continuity
     "audit_bible_inter_scene_continuity",
     "compile_clean_omni_prompt",

@@ -436,6 +436,34 @@ from omni_director.tools.voice_ducking import (
     format_voice_ducking_token,
     synthesize_default_voice_ducking_manifest,
 )
+from omni_director.tools.color_scopes import (
+    compile_color_scopes_manifest,
+    compute_ciede2000,
+    export_color_scopes_bundle,
+    export_color_scopes_json,
+    export_finishing_scopes_qc_md,
+    export_shot_match_cdl_csv,
+    format_color_scopes_token,
+    hex_to_srgb,
+    srgb_to_lab,
+    synthesize_default_color_scopes_manifest,
+)
+from omni_director.tools.archive_vault import (
+    classify_artifact_department,
+    compile_archive_vault_manifest,
+    export_agency_delivery_readme_md,
+    export_archive_vault_bundle,
+    export_archive_vault_json,
+    export_bag_info_txt,
+    export_manifest_sha256_txt,
+    format_archive_vault_token,
+    synthesize_default_archive_vault_manifest,
+)
+from omni_director.tools.html_hud_v220 import (
+    build_v220_hud_bundle,
+    synthesize_v220_archive_vault_state,
+    synthesize_v220_color_scopes_state,
+)
 
 __all__ = [
     "audit_omni_scene_prompt",
@@ -827,5 +855,29 @@ __all__ = [
     "synthesize_v219_imf_dcp_state",
     "synthesize_v219_voice_ducking_state",
     "build_v219_hud_bundle",
+    # Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity (PM-FEAT-039)
+    "hex_to_srgb",
+    "srgb_to_lab",
+    "compute_ciede2000",
+    "compile_color_scopes_manifest",
+    "synthesize_default_color_scopes_manifest",
+    "format_color_scopes_token",
+    "export_color_scopes_json",
+    "export_shot_match_cdl_csv",
+    "export_finishing_scopes_qc_md",
+    "export_color_scopes_bundle",
+    # RFC 8493 BagIt Archive Vault & Agency Delivery Packaging (PM-FEAT-040)
+    "classify_artifact_department",
+    "compile_archive_vault_manifest",
+    "synthesize_default_archive_vault_manifest",
+    "format_archive_vault_token",
+    "export_archive_vault_json",
+    "export_bag_info_txt",
+    "export_manifest_sha256_txt",
+    "export_agency_delivery_readme_md",
+    "export_archive_vault_bundle",
+    "synthesize_v220_color_scopes_state",
+    "synthesize_v220_archive_vault_state",
+    "build_v220_hud_bundle",
 ]
 

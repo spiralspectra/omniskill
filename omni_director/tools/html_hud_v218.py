@@ -1598,7 +1598,7 @@ def build_v218_hud_bundle(bible: Any, bundle: Any = None) -> Tuple[str, str, str
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isRenderJobsHUDOpen;
       if (!shouldOpen && !isRenderJobsHUDOpen) return;
-      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('renderjobs');
       isRenderJobsHUDOpen = shouldOpen;
       window.isRenderJobsHUDOpen = shouldOpen;
       if (btn) {
@@ -1625,7 +1625,7 @@ def build_v218_hud_bundle(bible: Any, bundle: Any = None) -> Tuple[str, str, str
       if (!modal) return;
       const shouldOpen = forceState !== undefined ? Boolean(forceState) : !isPitchTreatmentHUDOpen;
       if (!shouldOpen && !isPitchTreatmentHUDOpen) return;
-      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs();
+      if (shouldOpen && typeof closeSecondaryOpenHUDs === 'function') closeSecondaryOpenHUDs('treatment');
       isPitchTreatmentHUDOpen = shouldOpen;
       window.isPitchTreatmentHUDOpen = shouldOpen;
       if (btn) {

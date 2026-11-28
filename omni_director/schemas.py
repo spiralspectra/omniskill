@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
-__version__ = "2.19.0"
+__version__ = "2.20.0"
 
 
 class RegimeType(str, Enum):
@@ -3694,6 +3694,123 @@ class MasterVoiceDuckingManifest(BaseModel):
     lip_sync_pass_rate_pct: float = 100.0
 
 
+# ==============================================================================
+# PM-FEAT-039: Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity
+# ==============================================================================
+
+
+class ScopeSignalStandardEnum(str, Enum):
+    """Broadcast & cinema digital colorimetry signal standards (PM-FEAT-039)."""
+    REC709_24 = "rec709_24"
+    P3_D65 = "p3_d65"
+    BT2020_PQ = "bt2020_pq"
+
+
+class ShotMatchStatusEnum(str, Enum):
+    """Inter-scene adjacent-cut colorimetry match verdict (PM-FEAT-039)."""
+    MATCHED = "matched"
+    TRIM_RECOMMENDED = "trim_recommended"
+    OUT_OF_GAMUT = "out_of_gamut"
+
+
+class SceneScopeTelemetrySpec(BaseModel):
+    """Per-scene IRE waveform, RGB balance, vectorscope polar telemetry, and dominant color (PM-FEAT-039)."""
+    scene_index: int
+    signal_standard: ScopeSignalStandardEnum = ScopeSignalStandardEnum.REC709_24
+    luma_min_ire: float = 5.0
+    luma_avg_ire: float = 48.0
+    luma_peak_ire: float = 92.0
+    rgb_balance_pct: Tuple[float, float, float] = (33.3, 33.4, 33.3)
+    gamut_utilization_pct: float = 78.0
+    waveform_bins: List[float] = Field(default_factory=lambda: [6.25] * 16)
+    vectorscope_points: List[Tuple[float, float, str]] = Field(default_factory=list)
+    dominant_hex: str = "#808080"
+
+
+class AdjacentCutColorMatchSpec(BaseModel):
+    """Adjacent-cut perceptual CIEDE2000 delta, exposure delta, and CDL trim offset (PM-FEAT-039)."""
+    from_scene_index: int
+    to_scene_index: int
+    delta_e_2000: float = 0.0
+    exposure_delta_stops: float = 0.0
+    kelvin_delta_k: float = 0.0
+    recommended_cdl_offset: Tuple[float, float, float] = (0.0, 0.0, 0.0)
+    match_status: ShotMatchStatusEnum = ShotMatchStatusEnum.MATCHED
+    notes: str = ""
+
+
+class MasterColorScopesManifest(BaseModel):
+    """Master Digital Colorimetry Scopes & Inter-Scene Shot-Match Continuity Manifest (PM-FEAT-039)."""
+    manifest_id: str
+    signal_standard: ScopeSignalStandardEnum = ScopeSignalStandardEnum.REC709_24
+    max_delta_e_ceiling: float = 3.0
+    max_exposure_jump_stops: float = 0.75
+    mean_delta_e_2000: float = 0.0
+    all_cuts_matched: bool = True
+    scene_scopes: List[SceneScopeTelemetrySpec] = Field(default_factory=list)
+    cut_matches: List[AdjacentCutColorMatchSpec] = Field(default_factory=list)
+    scopes_token: str = ""
+
+
+# ==============================================================================
+# PM-FEAT-040: RFC 8493 BagIt Archive Vault & Agency Delivery Packaging
+# ==============================================================================
+
+
+class ArchiveRetentionTierEnum(str, Enum):
+    """Archival retention SLA tiers for agency & studio delivery packages (PM-FEAT-040)."""
+    AGENCY_90_DAY = "agency_90_day"
+    CAMPAIGN_2_YEAR = "campaign_2_year"
+    STUDIO_LTO_PERPETUAL = "studio_lto_perpetual"
+
+
+class VaultDepartmentEnum(str, Enum):
+    """Deterministic production department folder hierarchy inside BagIt data/ payload (PM-FEAT-040)."""
+    EDITORIAL_TIMELINES = "01_Editorial_Timelines"
+    CAMERA_OPTICS_VP = "02_Camera_Optics_VP"
+    COLOR_VFX_HDR = "03_Color_VFX_HDR"
+    AUDIO_VOICE_MUSIC = "04_Audio_Voice_Music"
+    LEGAL_SAFETY_QC = "05_Legal_Safety_QC"
+    MASTERING_IMF_PITCH = "06_Mastering_IMF_Pitch"
+
+
+class ArchiveVaultEntrySpec(BaseModel):
+    """Single checksummed production artifact entry inside the RFC 8493 BagIt archive vault (PM-FEAT-040)."""
+    filename: str
+    vault_department: VaultDepartmentEnum
+    sha256_digest: str
+    size_bytes: int = 0
+    present_on_disk: bool = False
+    mime_type: str = "application/octet-stream"
+
+
+class DepartmentVaultSummarySpec(BaseModel):
+    """Per-department artifact count and byte footprint roll-up inside the archive vault (PM-FEAT-040)."""
+    department: VaultDepartmentEnum
+    folder_name: str
+    artifact_count: int = 0
+    verified_count: int = 0
+    total_bytes: int = 0
+
+
+class MasterArchiveVaultManifest(BaseModel):
+    """Master RFC 8493 BagIt Archive Vault & Agency Delivery Packaging Manifest (PM-FEAT-040)."""
+    bag_id: str
+    bagit_version: str = "1.0"
+    payload_oxum: str
+    retention_tier: ArchiveRetentionTierEnum = ArchiveRetentionTierEnum.STUDIO_LTO_PERPETUAL
+    total_artifacts: int = 0
+    verified_artifacts: int = 0
+    missing_artifacts: int = 0
+    total_payload_bytes: int = 0
+    estimated_media_footprint_gb: float = 0.0
+    rights_expiry_iso: str = ""
+    vault_summaries: List[DepartmentVaultSummarySpec] = Field(default_factory=list)
+    entries: List[ArchiveVaultEntrySpec] = Field(default_factory=list)
+    archive_ready: bool = True
+    archive_token: str = ""
+
+
 
 class ScenePromptSpec(BaseModel):
     """Complete specification for a single 8-10 second video scene."""
@@ -3873,6 +3990,15 @@ class ScenePromptSpec(BaseModel):
         default=None,
         validation_alias=AliasChoices("voice_ducking_spec", "voice_ducking"),
         description="Scene voice casting, viseme lip-sync & stem sidechain ducking spec (PM-FEAT-038)"
+    )
+    color_scopes_spec: Optional[SceneScopeTelemetrySpec] = Field(
+        default=None,
+        validation_alias=AliasChoices("color_scopes_spec", "color_scopes"),
+        description="Scene digital colorimetry, waveform/vectorscope telemetry & shot-match spec (PM-FEAT-039)"
+    )
+    archive_vault_token: Optional[str] = Field(
+        default=None,
+        description="RFC 8493 BagIt archive vault & asset checksum token (PM-FEAT-040)"
     )
 
     @model_validator(mode="before")
@@ -4526,6 +4652,16 @@ class MasterProductionBible(BaseModel):
         validation_alias=AliasChoices("master_voice_ducking", "voice_casting_manifest", "ducking_manifest"),
         description="Master Voice Casting, Viseme Lip-Sync & Automated Stem Sidechain Ducking Manifest (PM-FEAT-038)"
     )
+    master_color_scopes: Optional[MasterColorScopesManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_color_scopes", "color_scopes_manifest", "color_scopes"),
+        description="Master Digital Colorimetry Scopes & Inter-Scene Shot-Match Continuity Manifest (PM-FEAT-039)"
+    )
+    master_archive_vault: Optional[MasterArchiveVaultManifest] = Field(
+        default=None,
+        validation_alias=AliasChoices("master_archive_vault", "archive_vault_manifest", "archive_vault"),
+        description="Master RFC 8493 BagIt Archive Vault & Agency Delivery Packaging Manifest (PM-FEAT-040)"
+    )
     @field_validator("nano_banana_assets")
     @classmethod
     def validate_reference_ceiling(cls, assets: List[NanoBananaReference]) -> List[NanoBananaReference]:
@@ -4718,6 +4854,18 @@ class MasterProductionBible(BaseModel):
             "s3d_manifest": "master_s3d_spec",
             "master_accessibility": "master_accessibility_spec",
             "accessibility_manifest": "master_accessibility_spec",
+            "render_jobs_manifest": "master_render_jobs",
+            "render_job_manifest": "master_render_jobs",
+            "pitch_treatment": "master_pitch_treatment",
+            "director_treatment": "master_pitch_treatment",
+            "imf_dcp_manifest": "master_imf_dcp",
+            "imf_manifest": "master_imf_dcp",
+            "voice_casting_manifest": "master_voice_ducking",
+            "ducking_manifest": "master_voice_ducking",
+            "color_scopes_manifest": "master_color_scopes",
+            "color_scopes": "master_color_scopes",
+            "archive_vault_manifest": "master_archive_vault",
+            "archive_vault": "master_archive_vault",
         }
         if name in alias_targets:
             super().__setattr__(alias_targets[name], value)
@@ -4857,6 +5005,38 @@ class MasterProductionBible(BaseModel):
     def accessibility_manifest(self, value: Optional[MasterAccessibilitySpec]) -> None:
         super().__setattr__("master_accessibility_spec", value)
 
+    @property
+    def color_scopes_manifest(self) -> Optional[MasterColorScopesManifest]:
+        return self.master_color_scopes
+
+    @color_scopes_manifest.setter
+    def color_scopes_manifest(self, value: Optional[MasterColorScopesManifest]) -> None:
+        super().__setattr__("master_color_scopes", value)
+
+    @property
+    def color_scopes(self) -> Optional[MasterColorScopesManifest]:
+        return self.master_color_scopes
+
+    @color_scopes.setter
+    def color_scopes(self, value: Optional[MasterColorScopesManifest]) -> None:
+        super().__setattr__("master_color_scopes", value)
+
+    @property
+    def archive_vault_manifest(self) -> Optional[MasterArchiveVaultManifest]:
+        return self.master_archive_vault
+
+    @archive_vault_manifest.setter
+    def archive_vault_manifest(self, value: Optional[MasterArchiveVaultManifest]) -> None:
+        super().__setattr__("master_archive_vault", value)
+
+    @property
+    def archive_vault(self) -> Optional[MasterArchiveVaultManifest]:
+        return self.master_archive_vault
+
+    @archive_vault.setter
+    def archive_vault(self, value: Optional[MasterArchiveVaultManifest]) -> None:
+        super().__setattr__("master_archive_vault", value)
+
 
     @property
     def is_mode_b_continuous(self) -> bool:
@@ -4902,6 +5082,8 @@ class AuditResult(BaseModel):
     pitch_treatment_compliant: bool = True
     imf_dcp_compliant: bool = True
     voice_ducking_compliant: bool = True
+    color_scopes_compliant: bool = True
+    archive_vault_compliant: bool = True
 
     @property
     def rule_details(self) -> Dict[str, Any]:
@@ -5016,7 +5198,7 @@ class PersonaReviewResult(BaseModel):
 
 class ProductCouncilReport(BaseModel):
     """Unified 100-point 4-persona Product Council evaluation report with Senior PM roadmap."""
-    version: str = "2.18.0"
+    version: str = "2.20.0"
     project_title: str = ""
     timestamp: str = ""
     overall_score: float = Field(default=100.0, ge=0.0, le=100.0)
@@ -5379,6 +5561,18 @@ __all__ = [
     "SidechainDuckingKeyframe",
     "SceneVoiceDuckingSpec",
     "MasterVoiceDuckingManifest",
+    # PM-FEAT-039: Digital Colorimetry Scopes, Waveform/Vectorscope & Shot-Match Continuity
+    "ScopeSignalStandardEnum",
+    "ShotMatchStatusEnum",
+    "SceneScopeTelemetrySpec",
+    "AdjacentCutColorMatchSpec",
+    "MasterColorScopesManifest",
+    # PM-FEAT-040: RFC 8493 BagIt Archive Vault & Agency Delivery Packaging
+    "ArchiveRetentionTierEnum",
+    "VaultDepartmentEnum",
+    "ArchiveVaultEntrySpec",
+    "DepartmentVaultSummarySpec",
+    "MasterArchiveVaultManifest",
     "load_bible_from_json",
 ]
 

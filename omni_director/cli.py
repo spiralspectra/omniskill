@@ -248,7 +248,7 @@ def handle_council(args_list: List[str]) -> int:
             print("Council Strict Check Failed: Score < 88.0 or Critical Findings present.", file=sys.stderr)
         return 2
 
-    return 0 if overall_success else (2 if args.council_strict else 0)
+    return 0
 
 
 def handle_export(args_list: List[str]) -> int:
@@ -356,7 +356,7 @@ def handle_export(args_list: List[str]) -> int:
         generate_review_notes_csv,
     )
 
-    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML/OTIO), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, Gemini compute render economics (economics), Motion Graphics MOGRT/ASS/end-card specs (motion-graphics), and OpenTimelineIO 7-track & cross-department coherence matrices (coherence)")
+    parser = argparse.ArgumentParser(prog="omni export", description="Export NLE timelines (EDL/FCPXML/OTIO), shot lists, call sheets, subtitles, CDL color grades, audio stem manifests, lens packages, virtual production stage manifests, MoCo kinematics tracks, lighting plots, optical DoF charts, DIT 3D LUT suites, spatial audio packages, VFX compositing manifests, HDR broadcast color volume packages, 1st AD stripboard production schedules, film stock emulation bundles, clapper slate packages, drone flight paths (KML/GPX), AICP commercial production bids, multi-aspect social reframe cutdowns, Broadcast QC / PSE / Rights clearance packages, 180-degree continuity blocking floorplans, client review marker/signoff packages, C2PA Content Credentials / AI disclosure / likeness consent packages, on-set safety JSA / risk manifests, multi-territory localization / ADR / IMSC1 TTML packages, editorial J-Cut / L-Cut spotting & beat-grid split-edit bundles, stereoscopic 3D (s3d / MV-HEVC) spatial manifests, audio description (ad / ad-vtt) accessibility tracks, wardrobe & prop art department (art-dept) continuity bibles, Gemini compute render economics (economics), Motion Graphics MOGRT/ASS/end-card specs (motion-graphics), OpenTimelineIO 7-track & cross-department coherence matrices (coherence), digital colorimetry scopes & shot-match CDL continuity (color-scopes), and RFC 8493 BagIt archive vault packages (archive-vault)")
     parser.add_argument("--preset", type=str, default=None, choices=list(PRESETS.keys()), help="Preset name to export")
     parser.add_argument("--bible-file", "-b", type=str, default=None, help="Path to MasterProductionBible or ProductionBundle JSON")
     parser.add_argument("--baseline-bible", type=str, default=None, help="Path to baseline MasterProductionBible or ProductionBundle JSON for revision diff generation")
@@ -375,8 +375,10 @@ def handle_export(args_list: List[str]) -> int:
             "treatment", "lookbook", "treatment-md", "treatment-json",
             "imf-dcp", "imf-assetmap", "imf-pkl", "imf-cpl", "dcp-spec",
             "voice-ducking", "voice-cast", "ducking-csv", "viseme-md",
+            "color-scopes", "scopes-json", "shot-match-csv", "scopes-md",
+            "archive-vault", "bag-info", "bag-manifest", "vault-json", "delivery-readme",
         ],
-        help="Artifact format to export (default: all; includes render-jobs, rough-cut, treatment, imf-dcp, voice-ducking, etc.)",
+        help="Artifact format to export (default: all; includes render-jobs, rough-cut, treatment, imf-dcp, voice-ducking, color-scopes, archive-vault, etc.)",
     )
     parser.add_argument("--dof-chart", action="store_true", help="Export optical hyperfocal chart JSON (dof_chart.json)")
     parser.add_argument("--cue-sheet", action="store_true", help="Export 1st AC Focus Puller cue sheet CSV (focus_puller_cue_sheet.csv)")
@@ -465,6 +467,7 @@ def handle_export(args_list: List[str]) -> int:
     render_group.add_argument("--take-qa-csv", action="store_true", help="Export Multi-Take Visual QA scorecard CSV (take_qa_scorecard.csv)")
     render_group.add_argument("--assembly-sh", action="store_true", help="Export ffmpeg rough-cut concat assembly script (rough_cut_assembly.sh)")
     treatment_group = parser.add_argument_group("Export Subsystem: Director Treatment Lookbook & Pitch Deck (PM-FEAT-036)")
+    treatment_group.add_argument("--treatment", action="store_true", help="Export full Director Pitch Treatment bundle (director_treatment_lookbook.html, director_treatment_brief.md, pitch_treatment_manifest.json)")
     treatment_group.add_argument("--treatment-html", action="store_true", help="Export printable Director's Pitch Lookbook HTML5 (director_treatment_lookbook.html)")
     treatment_group.add_argument("--treatment-md", action="store_true", help="Export Executive Director's Treatment brief Markdown (director_treatment_brief.md)")
     treatment_group.add_argument("--treatment-json", action="store_true", help="Export Pitch Treatment manifest JSON (pitch_treatment_manifest.json)")
@@ -479,6 +482,17 @@ def handle_export(args_list: List[str]) -> int:
     voice_group.add_argument("--voice-cast", action="store_true", help="Export Voice Casting & Viseme Lip-Sync manifest JSON (voice_casting_script.json)")
     voice_group.add_argument("--ducking-csv", action="store_true", help="Export Sidechain Stem Ducking automation keyframes CSV (stem_ducking_automation.csv)")
     voice_group.add_argument("--viseme-md", action="store_true", help="Export Voice Casting, ADR & Preston Blair Viseme timing script Markdown (adr_viseme_timing.md)")
+    scopes_group = parser.add_argument_group("Export Subsystem: Digital Colorimetry Scopes & Shot-Match Continuity (PM-FEAT-039)")
+    scopes_group.add_argument("--color-scopes", action="store_true", help="Export full Digital Colorimetry Scopes & Shot-Match CDL bundle (color_continuity_scopes.json, shot_match_cdl_deltas.csv, finishing_scopes_qc.md)")
+    scopes_group.add_argument("--scopes-json", action="store_true", help="Export Digital Colorimetry Scopes manifest JSON (color_continuity_scopes.json)")
+    scopes_group.add_argument("--shot-match-csv", action="store_true", help="Export Adjacent-Cut CIEDE2000 & CDL trim deltas CSV (shot_match_cdl_deltas.csv)")
+    scopes_group.add_argument("--scopes-md", action="store_true", help="Export Finishing Colorimetry Scopes QC report Markdown (finishing_scopes_qc.md)")
+    vault_group = parser.add_argument_group("Export Subsystem: RFC 8493 BagIt Archive Vault & Agency Delivery (PM-FEAT-040)")
+    vault_group.add_argument("--archive-vault", action="store_true", help="Export full RFC 8493 BagIt Archive Vault bundle (archive_vault_manifest.json, bag-info.txt, manifest-sha256.txt, agency_delivery_readme.md)")
+    vault_group.add_argument("--bag-info", action="store_true", help="Export RFC 8493 BagIt metadata tag file (bag-info.txt)")
+    vault_group.add_argument("--bag-manifest", action="store_true", help="Export RFC 8493 SHA-256 payload checksum manifest (manifest-sha256.txt)")
+    vault_group.add_argument("--vault-json", action="store_true", help="Export Archive Vault manifest JSON (archive_vault_manifest.json)")
+    vault_group.add_argument("--delivery-readme", action="store_true", help="Export Agency Delivery & BagIt Vault Handoff README Markdown (agency_delivery_readme.md)")
     parser.add_argument("--output-dir", "-o", type=str, default="./output", help="Target directory for exported files")
     parser.add_argument("--fps", type=int, default=24, help="Frame rate for timecode calculations (default: 24)")
     parser.add_argument("--refresh-telemetry", action="store_true", default=False, help="Refresh telemetry.json SHA-256 artifact checksums after export")
@@ -656,6 +670,55 @@ def handle_export(args_list: List[str]) -> int:
             p.write_text(export_adr_viseme_md(manifest, bible), encoding="utf-8")
             exported_files["adr_viseme_timing_md"] = str(p.resolve())
 
+    def _write_color_scopes_artifact(kind: str) -> None:
+        from omni_director.tools.color_scopes import (
+            compile_color_scopes_manifest,
+            export_color_scopes_json,
+            export_finishing_scopes_qc_md,
+            export_shot_match_cdl_csv,
+        )
+        manifest = getattr(bible, "master_color_scopes", None) or compile_color_scopes_manifest(bible)
+        if kind == "scopes-json":
+            p = out_dir / "color_continuity_scopes.json"
+            p.write_text(export_color_scopes_json(manifest), encoding="utf-8")
+            exported_files["color_continuity_scopes_json"] = str(p.resolve())
+        elif kind == "shot-match-csv":
+            p = out_dir / "shot_match_cdl_deltas.csv"
+            p.write_text(export_shot_match_cdl_csv(manifest), encoding="utf-8")
+            exported_files["shot_match_cdl_deltas_csv"] = str(p.resolve())
+        elif kind == "scopes-md":
+            p = out_dir / "finishing_scopes_qc.md"
+            p.write_text(export_finishing_scopes_qc_md(manifest, bible), encoding="utf-8")
+            exported_files["finishing_scopes_qc_md"] = str(p.resolve())
+
+    def _write_archive_vault_artifact(kind: str) -> None:
+        from omni_director.tools.archive_vault import (
+            compile_archive_vault_manifest,
+            export_agency_delivery_readme_md,
+            export_archive_vault_json,
+            export_bag_info_txt,
+            export_manifest_sha256_txt,
+        )
+        manifest = getattr(bible, "master_archive_vault", None) or compile_archive_vault_manifest(
+            bible, output_dir=out_dir
+        )
+        if kind == "vault-json":
+            p = out_dir / "archive_vault_manifest.json"
+            p.write_text(export_archive_vault_json(manifest), encoding="utf-8")
+            exported_files["archive_vault_manifest_json"] = str(p.resolve())
+        elif kind == "bag-info":
+            p = out_dir / "bag-info.txt"
+            p.write_text(export_bag_info_txt(manifest, bible), encoding="utf-8")
+            exported_files["bag_info_txt"] = str(p.resolve())
+        elif kind == "bag-manifest":
+            p = out_dir / "manifest-sha256.txt"
+            p.write_text(export_manifest_sha256_txt(manifest), encoding="utf-8")
+            exported_files["manifest_sha256_txt"] = str(p.resolve())
+        elif kind == "delivery-readme":
+            p = out_dir / "agency_delivery_readme.md"
+            p.write_text(export_agency_delivery_readme_md(manifest, bible), encoding="utf-8")
+            exported_files["agency_delivery_readme_md"] = str(p.resolve())
+
     if fmt == "all":
         exported_files.update(export_all_nle_artifacts(bible, out_dir, fps=args.fps))
         srt_path = out_dir / "subtitles.srt"
@@ -687,7 +750,7 @@ def handle_export(args_list: List[str]) -> int:
         exported_files["fcpxml"] = str(p.resolve())
     elif fmt == "csv":
         p = out_dir / "shot_list.csv"
-        p.write_text(export_shot_list_csv(bible), encoding="utf-8")
+        p.write_text(export_shot_list_csv(bible, fps=args.fps), encoding="utf-8")
         exported_files["csv"] = str(p.resolve())
     elif fmt == "md":
         p = out_dir / "call_sheet.md"
@@ -836,6 +899,18 @@ def handle_export(args_list: List[str]) -> int:
         exported_files.update({k: str(Path(v).resolve()) for k, v in vd_files.items()})
     elif fmt in ("voice-cast", "ducking-csv", "viseme-md"):
         _write_voice_ducking_artifact(fmt)
+    elif fmt == "color-scopes":
+        from omni_director.tools.color_scopes import export_color_scopes_bundle
+        cs_files = export_color_scopes_bundle(bible, out_dir)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in cs_files.items()})
+    elif fmt in ("scopes-json", "shot-match-csv", "scopes-md"):
+        _write_color_scopes_artifact(fmt)
+    elif fmt == "archive-vault":
+        from omni_director.tools.archive_vault import export_archive_vault_bundle
+        av_files = export_archive_vault_bundle(bible, out_dir)
+        exported_files.update({k: str(Path(v).resolve()) for k, v in av_files.items()})
+    elif fmt in ("bag-info", "bag-manifest", "vault-json", "delivery-readme"):
+        _write_archive_vault_artifact(fmt)
 
     # Process explicit granular artifact flags if requested
     if args.dof_chart:
@@ -1204,12 +1279,18 @@ def handle_export(args_list: List[str]) -> int:
             _write_render_jobs_artifact("take-qa")
         if args.assembly_sh and fmt != "rough-cut":
             _write_render_jobs_artifact("rough-cut")
-    if args.treatment_html and fmt not in ("all", "treatment", "lookbook"):
-        _write_treatment_artifact("lookbook")
-    if args.treatment_md and fmt not in ("all", "treatment", "treatment-md"):
-        _write_treatment_artifact("treatment-md")
-    if args.treatment_json and fmt not in ("all", "treatment", "treatment-json"):
-        _write_treatment_artifact("treatment-json")
+    if args.treatment and fmt not in ("all", "treatment"):
+        from omni_director.tools.pitch_treatment import export_pitch_treatment_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_pitch_treatment_bundle(bible, out_dir, baseline_bible=baseline_path).items()}
+        )
+    elif not args.treatment and fmt not in ("all", "treatment"):
+        if args.treatment_html and fmt != "lookbook":
+            _write_treatment_artifact("lookbook")
+        if args.treatment_md and fmt != "treatment-md":
+            _write_treatment_artifact("treatment-md")
+        if args.treatment_json and fmt != "treatment-json":
+            _write_treatment_artifact("treatment-json")
     if args.imf_dcp and fmt not in ("all", "imf-dcp"):
         from omni_director.tools.imf_dcp_packager import export_imf_dcp_bundle
         exported_files.update(
@@ -1236,6 +1317,32 @@ def handle_export(args_list: List[str]) -> int:
             _write_voice_ducking_artifact("ducking-csv")
         if args.viseme_md and fmt != "viseme-md":
             _write_voice_ducking_artifact("viseme-md")
+    if args.color_scopes and fmt not in ("all", "color-scopes"):
+        from omni_director.tools.color_scopes import export_color_scopes_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_color_scopes_bundle(bible, out_dir).items()}
+        )
+    elif not args.color_scopes and fmt not in ("all", "color-scopes"):
+        if args.scopes_json and fmt != "scopes-json":
+            _write_color_scopes_artifact("scopes-json")
+        if args.shot_match_csv and fmt != "shot-match-csv":
+            _write_color_scopes_artifact("shot-match-csv")
+        if args.scopes_md and fmt != "scopes-md":
+            _write_color_scopes_artifact("scopes-md")
+    if args.archive_vault and fmt not in ("all", "archive-vault"):
+        from omni_director.tools.archive_vault import export_archive_vault_bundle
+        exported_files.update(
+            {k: str(Path(v).resolve()) for k, v in export_archive_vault_bundle(bible, out_dir).items()}
+        )
+    elif not args.archive_vault and fmt not in ("all", "archive-vault"):
+        if args.bag_info and fmt != "bag-info":
+            _write_archive_vault_artifact("bag-info")
+        if args.bag_manifest and fmt != "bag-manifest":
+            _write_archive_vault_artifact("bag-manifest")
+        if args.vault_json and fmt != "vault-json":
+            _write_archive_vault_artifact("vault-json")
+        if args.delivery_readme and fmt != "delivery-readme":
+            _write_archive_vault_artifact("delivery-readme")
 
     exported_files = {k: str(v) for k, v in exported_files.items()}
 

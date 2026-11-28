@@ -101,6 +101,14 @@ from omni_director.tools.pitch_treatment import (
 )
 from omni_director.tools.imf_dcp_packager import format_imf_dcp_token
 from omni_director.tools.voice_ducking import format_voice_ducking_token
+from omni_director.tools.color_scopes import (
+    compile_color_scopes_manifest,
+    format_color_scopes_token,
+)
+from omni_director.tools.archive_vault import (
+    compile_archive_vault_manifest,
+    format_archive_vault_token,
+)
 from omni_director.schemas import (
     ActionBeatSpec,
     AspectRatio,
@@ -468,9 +476,13 @@ def synthesize_custom_bible(
     )
     bible.master_imf_dcp = None
     bible.master_voice_ducking = None
+    bible.master_color_scopes = None
+    bible.master_archive_vault = None
     for sc in bible.scenes:
         sc.imf_dcp_profile = None
         sc.voice_ducking_spec = None
+        sc.color_scopes_spec = None
+        sc.archive_vault_token = None
     _backfill_production_specs(
         bible,
         domain,
@@ -919,6 +931,36 @@ def _backfill_production_specs(
     vd_profile = vd_fn(arch) if callable(vd_fn) else get_domain_voice_ducking_profile(arch)
     hydrate_imf_dcp_and_voice_ducking_specs(bible, imf_profile, vd_profile)
 
+    # PM-FEAT-039 & PM-FEAT-040: Digital Colorimetry Scopes & RFC 8493 BagIt Archive Vault
+    cs_prof_fn = getattr(_presets_mod, "get_domain_color_scopes_profile", None)
+    av_prof_fn = getattr(_presets_mod, "get_domain_archive_vault_profile", None)
+    hydrate_cs_av_fn = getattr(_presets_mod, "hydrate_color_scopes_and_archive_vault_specs", None)
+    cs_profile = cs_prof_fn(arch) if callable(cs_prof_fn) else None
+    av_profile = av_prof_fn(arch) if callable(av_prof_fn) else None
+    if callable(hydrate_cs_av_fn):
+        hydrate_cs_av_fn(bible, cs_profile, av_profile)
+    else:
+        if not getattr(bible, "master_color_scopes", None):
+            bible.master_color_scopes = compile_color_scopes_manifest(bible, domain_profile=cs_profile)
+        if not getattr(bible, "master_archive_vault", None):
+            bible.master_archive_vault = compile_archive_vault_manifest(bible, domain_profile=av_profile)
+        master_cs = getattr(bible, "master_color_scopes", None)
+        master_av = getattr(bible, "master_archive_vault", None)
+        if master_cs is not None:
+            cs_by_sc = {
+                int(getattr(sp, "scene_index", 0) or 0): sp
+                for sp in list(getattr(master_cs, "scene_scopes", None) or [])
+            }
+            for sc in bible.scenes:
+                if not getattr(sc, "color_scopes_spec", None):
+                    matched_cs = cs_by_sc.get(int(sc.scene_index))
+                    if matched_cs is not None:
+                        sc.color_scopes_spec = matched_cs.model_copy(deep=True)
+        if master_av is not None:
+            for sc in bible.scenes:
+                if not getattr(sc, "archive_vault_token", None):
+                    sc.archive_vault_token = format_archive_vault_token(master_av, sc.scene_index)
+
 
 class IntakeAndResearchAgent(BaseAgent):
     """Stage 1: Ingests user creative loglines, references, and research parameters."""
@@ -1311,6 +1353,29 @@ class ScenePromptAgent(BaseAgent):
                 if master_vd is not None:
                     vd_token = format_voice_ducking_token(master_vd, scene.scene_index)
                     scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {vd_token}."
+
+            # Ensure PM-FEAT-039 [COLOR-SCOPES: ...] token is attached
+            master_cs = getattr(bible, "master_color_scopes", None)
+            if (master_cs is not None or getattr(scene, "color_scopes_spec", None) is not None) and not re.search(
+                r"\[COLOR[-_ ]SCOPES:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                if master_cs is not None:
+                    cs_token = format_color_scopes_token(master_cs, scene.scene_index)
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {cs_token}."
+
+            # Ensure PM-FEAT-040 [ARCHIVE-VAULT: ...] token is attached
+            master_av = getattr(bible, "master_archive_vault", None)
+            if (master_av is not None or getattr(scene, "archive_vault_token", None)) and not re.search(
+                r"\[ARCHIVE[-_ ]VAULT:?", scene.omni_prose_prompt, re.IGNORECASE
+            ):
+                av_token = (
+                    format_archive_vault_token(master_av, scene.scene_index)
+                    if master_av is not None
+                    else str(getattr(scene, "archive_vault_token", ""))
+                )
+                if av_token:
+                    scene.archive_vault_token = av_token
+                    scene.omni_prose_prompt = scene.omni_prose_prompt.rstrip() + f" {av_token}."
         return context
 
 
@@ -1501,6 +1566,18 @@ class PromptAuditorAgent(BaseAgent):
             pt_compliance_fail = not getattr(result, "pitch_treatment_compliant", True)
             imf_compliance_fail = not getattr(result, "imf_dcp_compliant", True)
             vd_compliance_fail = not getattr(result, "voice_ducking_compliant", True)
+            cs_spec = getattr(scene, "color_scopes_spec", None)
+            needs_cs_token = bool(
+                (cs_spec is not None or getattr(bible, "master_color_scopes", None) is not None)
+                and not re.search(r"\[COLOR[-_ ]SCOPES:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            cs_compliance_fail = not getattr(result, "color_scopes_compliant", True)
+            av_tok = getattr(scene, "archive_vault_token", None)
+            needs_av_token = bool(
+                (av_tok or getattr(bible, "master_archive_vault", None) is not None)
+                and not re.search(r"\[ARCHIVE[-_ ]VAULT:?", scene.omni_prose_prompt, re.IGNORECASE)
+            )
+            av_compliance_fail = not getattr(result, "archive_vault_compliant", True)
             
             s3d_compliance_fail = False
             s3d_spec = getattr(scene, "s3d_spec", None)
@@ -1533,6 +1610,10 @@ class PromptAuditorAgent(BaseAgent):
                 or pt_compliance_fail
                 or imf_compliance_fail
                 or vd_compliance_fail
+                or needs_cs_token
+                or cs_compliance_fail
+                or needs_av_token
+                or av_compliance_fail
                 or s3d_compliance_fail
                 or ad_compliance_fail
             ):
@@ -1947,6 +2028,63 @@ class DirectorPipeline:
             else 0
         )
 
+        # PM-FEAT-037 & PM-FEAT-038 telemetry metrics
+        imf_manifest = getattr(bible, "master_imf_dcp", None)
+        imf_package_id = str(getattr(imf_manifest, "package_id", "") or "") if imf_manifest is not None else ""
+        imf_cpl_count = len(getattr(imf_manifest, "cpls", None) or []) if imf_manifest is not None else 0
+        imf_dedup_reuse_pct = (
+            float(getattr(imf_manifest, "deduplicated_picture_reuse_pct", 0.0) or 0.0)
+            if imf_manifest is not None
+            else 0.0
+        )
+        dcp_spec = getattr(imf_manifest, "dcp_spec", None) if imf_manifest is not None else None
+        dcp_bitrate_mbps = float(getattr(dcp_spec, "jpeg2000_max_bitrate_mbps", 0.0) or 0.0) if dcp_spec is not None else 0.0
+
+        vd_manifest = getattr(bible, "master_voice_ducking", None)
+        voice_cast_count = len(getattr(vd_manifest, "casting_roster", None) or []) if vd_manifest is not None else 0
+        vd_profiles = list(getattr(vd_manifest, "scene_profiles", None) or []) if vd_manifest is not None else []
+        ducking_keyframe_count = sum(len(getattr(sp, "ducking_keyframes", None) or []) for sp in vd_profiles)
+        lip_sync_pass_rate_pct = (
+            float(getattr(vd_manifest, "lip_sync_pass_rate_pct", 100.0) or 0.0)
+            if vd_manifest is not None
+            else 100.0
+        )
+        dialogue_bgm_snr_db = (
+            round(
+                sum(float(getattr(sp, "dialogue_to_bgm_snr_db", 9.0) or 0.0) for sp in vd_profiles) / len(vd_profiles),
+                2,
+            )
+            if vd_profiles
+            else float(getattr(vd_manifest, "dialogue_clarity_snr_min_db", 6.0) or 6.0) if vd_manifest is not None else 0.0
+        )
+
+        # PM-FEAT-039 & PM-FEAT-040 telemetry metrics
+        cs_manifest = getattr(bible, "master_color_scopes", None)
+        color_scopes_token = str(getattr(cs_manifest, "scopes_token", "") or "") if cs_manifest is not None else ""
+        if not color_scopes_token and cs_manifest is not None:
+            color_scopes_token = format_color_scopes_token(cs_manifest, 1)
+        mean_delta_e_2000 = float(getattr(cs_manifest, "mean_delta_e_2000", 0.0) or 0.0) if cs_manifest is not None else 0.0
+        cut_matches = list(getattr(cs_manifest, "cut_matches", None) or []) if cs_manifest is not None else []
+        max_exposure_jump_stops = (
+            max((abs(float(getattr(cm, "exposure_delta_stops", 0.0) or 0.0)) for cm in cut_matches), default=0.0)
+            if cs_manifest is not None
+            else 0.0
+        )
+        scopes_cuts_matched = bool(getattr(cs_manifest, "all_cuts_matched", True)) if cs_manifest is not None else True
+
+        av_manifest = getattr(bible, "master_archive_vault", None)
+        archive_vault_token = str(getattr(av_manifest, "archive_token", "") or "") if av_manifest is not None else ""
+        if not archive_vault_token and av_manifest is not None:
+            archive_vault_token = format_archive_vault_token(av_manifest, 1)
+        archive_bag_id = str(getattr(av_manifest, "bag_id", "") or "") if av_manifest is not None else ""
+        archive_verified_count = int(getattr(av_manifest, "verified_artifacts", 0) or 0) if av_manifest is not None else 0
+        archive_payload_bytes = int(getattr(av_manifest, "total_payload_bytes", 0) or 0) if av_manifest is not None else 0
+        archive_footprint_gb = (
+            float(getattr(av_manifest, "estimated_media_footprint_gb", 0.0) or 0.0)
+            if av_manifest is not None
+            else 0.0
+        )
+
         metrics = {
             "estimated_total_compute_usd": est_compute_usd,
             "render_budget_ceiling_usd": budget_ceiling_usd,
@@ -1960,6 +2098,23 @@ class DirectorPipeline:
             "promoted_takes_count": promoted_takes_count,
             "treatment_slides_count": treatment_slides_count,
             "revision_deltas_count": revision_deltas_count,
+            "imf_package_id": imf_package_id,
+            "imf_cpl_count": imf_cpl_count,
+            "imf_dedup_reuse_pct": imf_dedup_reuse_pct,
+            "dcp_bitrate_mbps": dcp_bitrate_mbps,
+            "voice_cast_count": voice_cast_count,
+            "ducking_keyframe_count": ducking_keyframe_count,
+            "lip_sync_pass_rate_pct": lip_sync_pass_rate_pct,
+            "dialogue_bgm_snr_db": dialogue_bgm_snr_db,
+            "color_scopes_token": color_scopes_token,
+            "mean_delta_e_2000": mean_delta_e_2000,
+            "max_exposure_jump_stops": max_exposure_jump_stops,
+            "scopes_cuts_matched": scopes_cuts_matched,
+            "archive_vault_token": archive_vault_token,
+            "archive_bag_id": archive_bag_id,
+            "archive_verified_count": archive_verified_count,
+            "archive_payload_bytes": archive_payload_bytes,
+            "archive_footprint_gb": archive_footprint_gb,
         }
         telemetry.metadata.update(metrics)
         telemetry.audit_summary.update(metrics)

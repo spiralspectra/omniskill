@@ -359,7 +359,7 @@ def export_imf_assetmap_xml(manifest: MasterImfDcpManifest) -> str:
     ns = "http://www.smpte-ra.org/schemas/429-9/2007/AM"
     root = ET.Element("AssetMap", {"xmlns": ns})
     ET.SubElement(root, "Id").text = f"urn:uuid:{manifest.assetmap_uuid}"
-    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.19.0"
+    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.20.0"
     ET.SubElement(root, "VolumeCount").text = "1"
     ET.SubElement(root, "IssueDate").text = "2026-11-27T00:00:00-00:00"
     ET.SubElement(root, "Issuer").text = "Omni Movie Director IMF Packager"
@@ -407,7 +407,7 @@ def export_imf_pkl_xml(manifest: MasterImfDcpManifest) -> str:
     ET.SubElement(root, "AnnotationText").text = f"IMF Packing List {manifest.package_id}"
     ET.SubElement(root, "IssueDate").text = "2026-11-27T00:00:00-00:00"
     ET.SubElement(root, "Issuer").text = "Omni Movie Director IMF Packager"
-    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.19.0"
+    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.20.0"
 
     asset_list = ET.SubElement(root, "AssetList")
     for asset in manifest.assets:
@@ -447,7 +447,7 @@ def export_imf_cpl_xml(manifest: MasterImfDcpManifest) -> str:
     ET.SubElement(root, "AnnotationText").text = f"{cpl.content_title_text} [{cpl.version_tag}]"
     ET.SubElement(root, "IssueDate").text = "2026-11-27T00:00:00-00:00"
     ET.SubElement(root, "Issuer").text = "Omni Movie Director IMF Packager"
-    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.19.0"
+    ET.SubElement(root, "Creator").text = "OmniMovieDirector/2.20.0"
     ET.SubElement(root, "ContentTitleText").text = cpl.content_title_text
     ET.SubElement(root, "ApplicationIdentification").text = f"http://www.smpte-ra.org/ns/2067-21/2016#{profile_val}"
     ET.SubElement(root, "EditRate").text = "24 1"

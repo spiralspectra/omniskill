@@ -1301,6 +1301,7 @@ def compile_storyboard_html(
     from omni_director.tools.html_hud_v217 import build_v217_hud_bundle
     from omni_director.tools.html_hud_v218 import build_v218_hud_bundle
     from omni_director.tools.html_hud_v219 import build_v219_hud_bundle
+    from omni_director.tools.html_hud_v220 import build_v220_hud_bundle
 
     v212_bundle = build_v212_hud_bundle(
         bible=bible,
@@ -1354,6 +1355,11 @@ def compile_storyboard_html(
     v219_css = v219_bundle["css"]
     v219_modals_html = v219_bundle["html"]
     v219_js = v219_bundle["js"]
+
+    v220_bundle = build_v220_hud_bundle(bible, scenes_payload=scenes_payload)
+    v220_css = v220_bundle["css"]
+    v220_modals_html = v220_bundle["html"]
+    v220_js = v220_bundle["js"]
     
 
     # Serialize bible for client-side export
@@ -4909,6 +4915,7 @@ def compile_storyboard_html(
     {v217_css}
     {v218_css}
     {v219_css}
+    {v220_css}
   </style>
 </head>
 <body>
@@ -6512,6 +6519,7 @@ def compile_storyboard_html(
 {v217_modals_html}
 {v218_modals_html}
 {v219_modals_html}
+{v220_modals_html}
 
   <main class="container" role="main">
     <!-- Overview & Palette -->
@@ -9134,6 +9142,7 @@ def compile_storyboard_html(
     {v217_js}
     {v218_js}
     {v219_js}
+    {v220_js}
 
     function closeSecondaryOpenHUDs() {{
       const exceptKey = arguments.length ? arguments[0] : '';
@@ -9158,7 +9167,9 @@ def compile_storyboard_html(
       const ptOpen = (typeof isPitchTreatmentHUDOpen !== 'undefined') && isPitchTreatmentHUDOpen;
       const imfDcpOpen = (typeof isImfDcpHUDOpen !== 'undefined') && isImfDcpHUDOpen;
       const voiceDuckingOpen = (typeof isVoiceDuckingHUDOpen !== 'undefined') && isVoiceDuckingHUDOpen;
-      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen || reframeOpen || qcOpen || blockingOpen || reviewOpen || c2paOpen || safetyOpen || rjOpen || ptOpen || imfDcpOpen || voiceDuckingOpen;
+      const colorScopesOpen = (typeof isColorScopesHUDOpen !== 'undefined') && isColorScopesHUDOpen;
+      const archiveVaultOpen = (typeof isArchiveVaultHUDOpen !== 'undefined') && isArchiveVaultHUDOpen;
+      const hadSecondary = isMoCoHUDOpen || isGafferHUDOpen || isVPStageModalOpen || isDoFHUDOpen || isDitLutHUDOpen || isSpatialHUDOpen || isVfxHUDOpen || isHdrHUDOpen || isStripboardHUDOpen || isFilmHUDOpen || isSlateHUDOpen || isDroneHUDOpen || isAicpHUDOpen || locOpen || spotOpen || s3dOpen || accOpen || cmdOpen || artOpen || econOpen || mgsOpen || otioOpen || reframeOpen || qcOpen || blockingOpen || reviewOpen || c2paOpen || safetyOpen || rjOpen || ptOpen || imfDcpOpen || voiceDuckingOpen || colorScopesOpen || archiveVaultOpen;
       if (exceptKey !== 'moco' && isMoCoHUDOpen) toggleMoCoHUD(false);
       if (exceptKey !== 'gaffer' && isGafferHUDOpen) toggleGafferHUD(false);
       if (exceptKey !== 'vpstage' && isVPStageModalOpen) toggleVPStageModal(false);
@@ -9191,15 +9202,17 @@ def compile_storyboard_html(
       if (exceptKey !== 'treatment' && ptOpen && typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(false);
       if (exceptKey !== 'imfdcp' && imfDcpOpen && typeof toggleImfDcpHUD === 'function') toggleImfDcpHUD(false);
       if (exceptKey !== 'voiceducking' && voiceDuckingOpen && typeof toggleVoiceDuckingHUD === 'function') toggleVoiceDuckingHUD(false);
+      if (exceptKey !== 'colorscopes' && colorScopesOpen && typeof toggleColorScopesHUD === 'function') toggleColorScopesHUD(false);
+      if (exceptKey !== 'archivevault' && archiveVaultOpen && typeof toggleArchiveVaultHUD === 'function') toggleArchiveVaultHUD(false);
       return hadSecondary;
     }}
 
-    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', `, -, {{, }}, Escape)
+    // Global Accessible Keyboard Navigation (Space, Arrow keys, 1-9, T, E, L, M, O, K, G, U, C, V, P, S, X, H, B, D, A, R, Q, W, N, Y, Z, I, J, [, ], /, \\, ;, =, ', `, -, {{, }}, +, :, Escape)
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Tab' && typeof _handleModalTabFocusTrap === 'function' && _handleModalTabFocusTrap(e)) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'Escape') {{
-        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen) || (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen) || (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen) || (typeof isImfDcpHUDOpen !== "undefined" && isImfDcpHUDOpen) || (typeof isVoiceDuckingHUDOpen !== "undefined" && isVoiceDuckingHUDOpen);
+        const anyModal = closeSecondaryOpenHUDs() || isReframeHUDOpen || isQcHUDOpen || isBlockingHUDOpen || isReviewHUDOpen || isC2paHUDOpen || isSafetyHUDOpen || (typeof isS3dHUDOpen !== "undefined" && isS3dHUDOpen) || (typeof isAccessibilityAdHUDOpen !== "undefined" && isAccessibilityAdHUDOpen) || (typeof isHudCommandPaletteOpen !== "undefined" && isHudCommandPaletteOpen) || (typeof isArtWardrobeHUDOpen !== "undefined" && isArtWardrobeHUDOpen) || (typeof isRenderEconomicsHUDOpen !== "undefined" && isRenderEconomicsHUDOpen) || (typeof isMotionGfxHUDOpen !== "undefined" && isMotionGfxHUDOpen) || (typeof isOtioCoherenceHUDOpen !== "undefined" && isOtioCoherenceHUDOpen) || (typeof isRenderJobsHUDOpen !== "undefined" && isRenderJobsHUDOpen) || (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen) || (typeof isImfDcpHUDOpen !== "undefined" && isImfDcpHUDOpen) || (typeof isVoiceDuckingHUDOpen !== "undefined" && isVoiceDuckingHUDOpen) || (typeof isColorScopesHUDOpen !== "undefined" && isColorScopesHUDOpen) || (typeof isArchiveVaultHUDOpen !== "undefined" && isArchiveVaultHUDOpen);
         if (isReframeHUDOpen) toggleReframeHUD();
         if (isQcHUDOpen) toggleQcHUD();
         if (isBlockingHUDOpen) toggleBlockingHUD();
@@ -9217,6 +9230,8 @@ def compile_storyboard_html(
         if (typeof isPitchTreatmentHUDOpen !== "undefined" && isPitchTreatmentHUDOpen && typeof togglePitchTreatmentHUD === "function") togglePitchTreatmentHUD(false);
         if (typeof isImfDcpHUDOpen !== "undefined" && isImfDcpHUDOpen && typeof toggleImfDcpHUD === "function") toggleImfDcpHUD(false);
         if (typeof isVoiceDuckingHUDOpen !== "undefined" && isVoiceDuckingHUDOpen && typeof toggleVoiceDuckingHUD === "function") toggleVoiceDuckingHUD(false);
+        if (typeof isColorScopesHUDOpen !== "undefined" && isColorScopesHUDOpen && typeof toggleColorScopesHUD === "function") toggleColorScopesHUD(false);
+        if (typeof isArchiveVaultHUDOpen !== "undefined" && isArchiveVaultHUDOpen && typeof toggleArchiveVaultHUD === "function") toggleArchiveVaultHUD(false);
         const mixerEl = document.getElementById('animatic-audio-mixer');
         if (mixerEl && mixerEl.classList.contains('open')) toggleMixer();
         else if (!anyModal && openDeptGroupId) closeAllDeptGroups(true);
@@ -9275,6 +9290,8 @@ def compile_storyboard_html(
       else if (e.key === '-' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof togglePitchTreatmentHUD === 'function') togglePitchTreatmentHUD(); }}
       else if (e.key === '}}' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleImfDcpHUD === 'function') toggleImfDcpHUD(); }}
       else if (e.key === '{{' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleVoiceDuckingHUD === 'function') toggleVoiceDuckingHUD(); }}
+      else if (e.key === '+' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleColorScopesHUD === 'function') toggleColorScopesHUD(); }}
+      else if (e.key === ':' && !e.metaKey && !e.ctrlKey && !e.altKey) {{ e.preventDefault(); if (typeof toggleArchiveVaultHUD === 'function') toggleArchiveVaultHUD(); }}
     }});
 
     // Initialize first frame and default look
@@ -9287,6 +9304,7 @@ def compile_storyboard_html(
       if (typeof initV217HUDs === 'function') initV217HUDs();
       if (typeof initV218HUDs === 'function') initV218HUDs();
       if (typeof initV219HUDs === 'function') initV219HUDs();
+      if (typeof initV220HUDs === 'function') initV220HUDs();
       updateGafferLighting();
       updateKelvinCCT({cct_kelvin});
       updateHazeDensity({haze_density_pct});

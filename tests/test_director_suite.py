@@ -1944,7 +1944,7 @@ class TestV22ProductManagerFeatures:
         )
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert __version__ in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert "world-class senior product manager that recently joined this project from a top software company" in SENIOR_PM_PERSONA_PROMPT
 
         pm_agent = ProductManagerAgent()
@@ -1956,7 +1956,7 @@ class TestV22ProductManagerFeatures:
 
         orchestrator = ProductCouncilOrchestrator()
         report = orchestrator.audit(IKEA_ASMR_BIBLE)
-        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert report.version in ("2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert report.pm_persona_prompt == SENIOR_PM_PERSONA_PROMPT
         assert len(report.pm_recommendations) >= 3
         md = orchestrator.generate_markdown_report(report)
@@ -2855,7 +2855,7 @@ class TestOpticalLensAndVirtualProduction:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert report.version in ("2.4.0", "2.5.0", "2.6.0", "2.7.0", "2.8.0", "2.9.0", "2.10.0", "2.11.0", "2.12.0", "2.13.0", "2.14.0", "2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5357,7 +5357,7 @@ class TestPMFeat019And020DroneFlightAndAicpBudget:
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=tmp_path)
 
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -5399,7 +5399,7 @@ class TestV211RegressionAndFdeUxFixes:
         from omni_director.doctor import run_doctor
         from omni_director.presets import IKEA_ASMR_BIBLE
 
-        assert omni_director.__version__ == "2.19.0"
+        assert omni_director.__version__ == "2.20.0"
         report = run_doctor()
         assert report.version == omni_director.__version__
         assert report.passed is True
@@ -5836,7 +5836,7 @@ class TestV211ProductCouncilIntegration:
             )
             compile_storyboard_html(bundle, out_dir)
             report = council.convene_council(bible=preset_bible, bundle=bundle, output_dir=out_dir)
-            assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+            assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
             assert report.passed is True
             assert report.critical_findings_count == 0
             assert report.overall_score >= 90.0
@@ -6449,7 +6449,7 @@ class TestV212PMFeat023And024ContinuityAndClientReview:
 
         council = ProductCouncilOrchestrator()
         report = council.convene_council(bible=IKEA_ASMR_BIBLE, bundle=bundle, output_dir=out_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7129,7 +7129,7 @@ class TestV213C2paProvenanceAndOnSetSafetyJsa:
         export_c2pa_bundle(IKEA_ASMR_BIBLE, council_dir)
         export_safety_bundle(IKEA_ASMR_BIBLE, council_dir)
         report = orchestrator.convene_council(bible=IKEA_ASMR_BIBLE, bundle=council_bundle, output_dir=council_dir)
-        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -7715,7 +7715,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
         # Fix 3: c2pa_provenance.py and html_compiler.py report current __version__ dynamically
         c2pa_manifest = synthesize_default_c2pa_provenance(IKEA_ASMR_BIBLE)
         assert c2pa_manifest.claim_generator == f"OmniMovieDirector/{omni_director.__version__}"
-        assert omni_director.__version__ == "2.19.0"
+        assert omni_director.__version__ == "2.20.0"
         assert all(omni_director.__version__ in act.software_agent for act in c2pa_manifest.scene_provenances[0].actions)
         assert f'version: "{omni_director.__version__}"' in html
         assert f"Created by Omni Movie Director v{omni_director.__version__}" in html
@@ -7837,7 +7837,7 @@ class TestV214LocalizationSpottingAndCrossCuttingFixes:
             bundle=ProductionBundle(bible=IKEA_ASMR_BIBLE, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[]),
             output_dir=html_out,
         )
-        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0")
+        assert council_report.version in ("2.15.0", "2.16.0", "2.17.0", "2.18.0", "2.19.0", "2.20.0")
         assert council_report.passed is True
         assert council_report.critical_findings_count == 0
         assert council_report.overall_score >= 90.0
@@ -8461,7 +8461,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         )
 
         # 1. Schemas, package exports & __version__
-        assert omni_director.__version__ == "2.19.0"
+        assert omni_director.__version__ == "2.20.0"
         expected_033_exports = (
             "get_domain_motion_graphics_spec",
             "GraphicLayerRoleEnum",
@@ -8814,7 +8814,7 @@ class TestV217MotionGraphicsAndOtioCoherenceFeatures:
         pipe_dir = tmp_path / "pipeline_council_v217"
         run_bundle = DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(pipe_dir), dry_run=True, render_video=False)
         report = ProductCouncilOrchestrator().convene_council(bible=run_bundle.bible, bundle=run_bundle, output_dir=pipe_dir)
-        assert report.version == "2.19.0"
+        assert report.version == "2.20.0"
         assert report.passed is True
         assert report.critical_findings_count == 0
         assert report.overall_score >= 90.0
@@ -9005,7 +9005,7 @@ class TestV218RenderJobsAndPitchTreatment:
         )
 
         # 1. Package & schema exports
-        assert omni_director.__version__ == "2.19.0"
+        assert omni_director.__version__ == "2.20.0"
         expected_035 = (
             "get_domain_render_job_spec",
             "RenderJobStatusEnum",
@@ -9449,10 +9449,10 @@ class TestV218RenderJobsAndPitchTreatment:
         # 4. Zero blocking dialogs
         assert not re.search(r"\b(?:alert|confirm|prompt)\s*\(", html)
 
-        # 5. ProductManagerAgent includes PM-FEAT-035 and PM-FEAT-036 (38 proposals in v2.19.0)
+        # 5. ProductManagerAgent includes PM-FEAT-035 and PM-FEAT-036 (40 proposals in v2.20.0)
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(ikea)
-        assert len(proposals) == 38
+        assert len(proposals) == 40
         prop_ids = {p.feature_id for p in proposals}
         assert "PM-FEAT-035" in prop_ids
         assert "PM-FEAT-036" in prop_ids
@@ -9491,7 +9491,7 @@ class TestV219ImfDcpAndVoiceDucking:
         )
 
         # 1. Package & schema exports
-        assert omni_director.__version__ == "2.19.0"
+        assert omni_director.__version__ == "2.20.0"
         import omni_director.presets as presets_mod
         assert hasattr(presets_mod, "get_domain_imf_dcp_profile")
         expected_037 = (
@@ -9868,10 +9868,10 @@ class TestV219ImfDcpAndVoiceDucking:
         _, _, v218_js = build_v218_hud_bundle(pt_bible)
         assert "-pix_fmt yuv420p" in v218_js
 
-        # 3. ProductManagerAgent returns 38 implemented features including PM-FEAT-037 and PM-FEAT-038
+        # 3. ProductManagerAgent returns 40 implemented features including PM-FEAT-037 and PM-FEAT-038
         pm = ProductManagerAgent()
         proposals = pm.inspect_product(ikea)
-        assert len(proposals) == 38
+        assert len(proposals) == 40
         assert all(p.status == "implemented" for p in proposals)
         prop_ids = {p.feature_id for p in proposals}
         assert {"PM-FEAT-037", "PM-FEAT-038"} <= prop_ids
@@ -9885,13 +9885,447 @@ class TestV219ImfDcpAndVoiceDucking:
             compile_storyboard_html(p_bundle, p_dir)
             export_all_nle_artifacts(p_bible, p_dir, fps=24)
             rep = orchestrator.audit(p_bundle, output_dir=p_dir, auto_heal=True)
-            assert rep.version == "2.19.0"
+            assert rep.version == "2.20.0"
             assert rep.passed is True
             assert rep.critical_findings_count == 0
             assert rep.overall_score >= 90.0
 
-        # 5. run_doctor() v2.19.0 compliance
+        # 5. run_doctor() v2.20.0 compliance
         doc = run_doctor()
-        assert doc.version == "2.19.0"
+        assert doc.version == "2.20.0"
+        assert doc.passed is True
+        assert doc.exit_code == 0
+
+
+class TestV220ColorScopesAndArchiveVault:
+    """Verifies v2.20.0 PM-FEAT-039 (Color Scopes & CIEDE2000), PM-FEAT-040 (RFC 8493 Archive Vault), CLI, HUD & Council."""
+
+    def test_pm_feat_039_color_scopes_ciede2000_and_exports(self, tmp_path):
+        import csv
+        import json
+        import omni_director
+        import omni_director.presets as presets_mod
+        import omni_director.schemas as schemas_mod
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            get_domain_color_scopes_profile,
+            get_preset_bible,
+        )
+        from omni_director.schemas import (
+            AdjacentCutColorMatchSpec,
+            MasterColorScopesManifest,
+            SceneScopeTelemetrySpec,
+            ScopeSignalStandardEnum,
+            ShotMatchStatusEnum,
+        )
+        from omni_director.tools.color_scopes import (
+            compile_color_scopes_manifest,
+            compute_ciede2000,
+            export_color_scopes_bundle,
+            format_color_scopes_token,
+            hex_to_srgb,
+            srgb_to_lab,
+        )
+
+        # 1. Package & schema exports
+        assert omni_director.__version__ == "2.20.0"
+        assert hasattr(presets_mod, "get_domain_color_scopes_profile")
+        expected_039 = (
+            "ScopeSignalStandardEnum",
+            "ShotMatchStatusEnum",
+            "SceneScopeTelemetrySpec",
+            "AdjacentCutColorMatchSpec",
+            "MasterColorScopesManifest",
+            "hex_to_srgb",
+            "srgb_to_lab",
+            "compute_ciede2000",
+            "compile_color_scopes_manifest",
+            "format_color_scopes_token",
+            "export_color_scopes_bundle",
+        )
+        for sym in expected_039:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_039[:5]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. Colorimetry math: hex_to_srgb, srgb_to_lab, compute_ciede2000
+        rgb_a = hex_to_srgb("#3B82F6")
+        rgb_b = hex_to_srgb("#EF4444")
+        assert all(0.0 <= c <= 1.0 for c in rgb_a)
+        lab_a = srgb_to_lab(*rgb_a)
+        lab_b = srgb_to_lab(*rgb_b)
+        assert compute_ciede2000(lab_a, lab_a) == 0.0
+        assert compute_ciede2000(lab_a, lab_b) > 20.0
+
+        # 3. 6-domain calibrations
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_color_scopes_profile(domain)
+            assert cal["domain_archetype"] == domain
+            assert ScopeSignalStandardEnum(str(cal["signal_standard"]))
+            assert float(cal["max_delta_e_ceiling"]) > 0.0
+            assert float(cal["max_exposure_jump_stops"]) > 0.0
+
+        # 4. Compile MasterColorScopesManifest across canonical presets
+        for preset_name in ("ikea-asmr", "sephora-pulse", "kinetic-fabric"):
+            bible = get_preset_bible(preset_name)
+            cal = get_domain_color_scopes_profile(bible)
+            manifest = compile_color_scopes_manifest(bible, domain_profile=cal)
+            assert isinstance(manifest, MasterColorScopesManifest)
+            assert len(manifest.scene_scopes) == len(bible.scenes)
+            for sc_scope in manifest.scene_scopes:
+                assert len(sc_scope.waveform_bins) == 16
+                assert abs(sum(sc_scope.waveform_bins) - 100.0) <= 0.1
+            assert isinstance(manifest.all_cuts_matched, bool)
+            if preset_name == "ikea-asmr":
+                assert manifest.all_cuts_matched is True
+            assert manifest.mean_delta_e_2000 >= 0.0
+            tok = format_color_scopes_token(manifest, 1)
+            assert tok.startswith("[COLOR-SCOPES: SC01")
+            assert "dE2000=" in tok
+
+        # 5. export_color_scopes_bundle
+        ikea = get_preset_bible("ikea-asmr")
+        scopes_dir = tmp_path / "color_scopes_out"
+        exported = export_color_scopes_bundle(ikea, scopes_dir)
+        assert set(exported.keys()) == {
+            "color_continuity_scopes_json",
+            "shot_match_cdl_deltas_csv",
+            "finishing_scopes_qc_md",
+        }
+        for fname in ("color_continuity_scopes.json", "shot_match_cdl_deltas.csv", "finishing_scopes_qc.md"):
+            fpath = scopes_dir / fname
+            assert fpath.is_file() and fpath.stat().st_size > 0
+        loaded_json = json.loads((scopes_dir / "color_continuity_scopes.json").read_text(encoding="utf-8"))
+        assert len(loaded_json["scene_scopes"][0]["waveform_bins"]) == 16
+        with (scopes_dir / "shot_match_cdl_deltas.csv").open(encoding="utf-8", newline="") as f:
+            rows = list(csv.reader(f))
+        assert len(rows) >= 2 and rows[0][:3] == ["from_scene_index", "to_scene_index", "delta_e_2000"]
+        assert "# Digital Colorimetry Scopes & Shot-Match QC Report" in (
+            scopes_dir / "finishing_scopes_qc.md"
+        ).read_text(encoding="utf-8")
+
+    def test_pm_feat_040_archive_vault_bagit_and_exports(self, tmp_path):
+        import json
+        import re
+        import omni_director
+        import omni_director.presets as presets_mod
+        import omni_director.schemas as schemas_mod
+        from omni_director import DirectorPipeline
+        from omni_director.presets import (
+            DOMAIN_ARCHETYPES,
+            get_domain_archive_vault_profile,
+            get_preset_bible,
+        )
+        from omni_director.schemas import (
+            ArchiveRetentionTierEnum,
+            ArchiveVaultEntrySpec,
+            DepartmentVaultSummarySpec,
+            MasterArchiveVaultManifest,
+            VaultDepartmentEnum,
+        )
+        from omni_director.telemetry import RuntimeTelemetry, verify_bundle_checksums
+        from omni_director.tools.archive_vault import (
+            compile_archive_vault_manifest,
+            format_archive_vault_token,
+        )
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        # 1. Package & schema exports
+        assert hasattr(presets_mod, "get_domain_archive_vault_profile")
+        expected_040 = (
+            "ArchiveRetentionTierEnum",
+            "VaultDepartmentEnum",
+            "ArchiveVaultEntrySpec",
+            "DepartmentVaultSummarySpec",
+            "MasterArchiveVaultManifest",
+            "compile_archive_vault_manifest",
+            "format_archive_vault_token",
+        )
+        for sym in expected_040:
+            assert hasattr(omni_director, sym), f"Missing omni_director.{sym}"
+            assert sym in omni_director.__all__, f"Missing {sym} in omni_director.__all__"
+        for sym in expected_040[:5]:
+            assert sym in schemas_mod.__all__, f"Missing {sym} in schemas.__all__"
+
+        # 2. 6-domain calibrations & MasterArchiveVaultManifest
+        ikea = get_preset_bible("ikea-asmr")
+        for domain in DOMAIN_ARCHETYPES:
+            cal = get_domain_archive_vault_profile(domain)
+            assert cal["domain_archetype"] == domain
+            assert ArchiveRetentionTierEnum(str(cal["retention_tier"]))
+            assert float(cal["footprint_gb_per_min"]) > 0.0
+            assert int(cal["rights_window_days"]) >= 90
+
+            dom_bible = ikea.model_copy(deep=True)
+            dom_bible.domain_archetype = domain
+            av_manifest = compile_archive_vault_manifest(dom_bible, domain_profile=cal)
+            assert isinstance(av_manifest, MasterArchiveVaultManifest)
+            assert len(av_manifest.vault_summaries) == 6
+            assert {s.department for s in av_manifest.vault_summaries} == set(VaultDepartmentEnum)
+            assert "[ARCHIVE-VAULT:" in format_archive_vault_token(av_manifest, 1)
+
+        # 3. export_all_nle_artifacts + BagIt exports + verify_bundle_checksums
+        vault_dir = tmp_path / "archive_vault_bundle"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(vault_dir), dry_run=True, render_video=False)
+        export_all_nle_artifacts(ikea, vault_dir, fps=24)
+
+        for fname in (
+            "archive_vault_manifest.json",
+            "bag-info.txt",
+            "manifest-sha256.txt",
+            "agency_delivery_readme.md",
+        ):
+            fpath = vault_dir / fname
+            assert fpath.is_file() and fpath.stat().st_size > 0, f"Missing or empty {fname}"
+
+        vault_json = json.loads((vault_dir / "archive_vault_manifest.json").read_text(encoding="utf-8"))
+        assert len(vault_json["vault_summaries"]) == 6
+        assert vault_json["archive_ready"] is True
+
+        bag_info = (vault_dir / "bag-info.txt").read_text(encoding="utf-8")
+        assert "BagIt-Version: 1.0" in bag_info
+        assert "Payload-Oxum:" in bag_info
+
+        sha_lines = [
+            ln.strip()
+            for ln in (vault_dir / "manifest-sha256.txt").read_text(encoding="utf-8").splitlines()
+            if ln.strip()
+        ]
+        assert len(sha_lines) >= 10
+        assert all(re.match(r"^[0-9a-f]{64}\s{2}data/[A-Za-z0-9_]+/.+$", ln) for ln in sha_lines)
+        assert any(ln.endswith("/color_continuity_scopes.json") for ln in sha_lines)
+
+        readme_txt = (vault_dir / "agency_delivery_readme.md").read_text(encoding="utf-8")
+        assert "# Agency Delivery & RFC 8493 BagIt Archive Vault" in readme_txt
+
+        RuntimeTelemetry(project_title=ikea.project_title).write_manifest(vault_dir)
+        ok, errs = verify_bundle_checksums(vault_dir)
+        assert ok is True and errs == [], f"Bundle checksum verification failed: {errs}"
+
+    def test_pm_feat_039_040_auditor_telemetry_and_alias_parity(self, tmp_path):
+        import json
+        from omni_director import DirectorPipeline
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import ShotMatchStatusEnum
+        from omni_director.telemetry import SAFE_KEYS, SECRET_PATTERN
+        from omni_director.tools.prompt_auditor import (
+            audit_omni_scene_prompt,
+            compile_clean_omni_prompt,
+            heal_omni_scene_prompt,
+        )
+
+        # 1. compile_clean_omni_prompt strips [COLOR-SCOPES: ...] & [ARCHIVE-VAULT: ...]
+        raw_prompt = (
+            "[COLOR-SCOPES: SC01 | std=rec709_24 | avg_ire=48.0 | dE2000=1.20 | ev_delta=+0.00EV | status=matched] "
+            "[ARCHIVE-VAULT: bag=bag-12345678 | SC01 | tier=campaign_2_year | assets=72 | oxum=184320.72 | ready=true] "
+            "Warm 35mm dolly push across hand-rubbed birch dowels."
+        )
+        cleaned = compile_clean_omni_prompt(raw_prompt)
+        assert "[COLOR-SCOPES:" not in cleaned
+        assert "[ARCHIVE-VAULT:" not in cleaned
+        assert "Warm 35mm dolly push across hand-rubbed birch dowels." in cleaned
+
+        # 2. audit_omni_scene_prompt & heal_omni_scene_prompt on non-compliant Color Scopes & Archive Vault
+        ikea = get_preset_bible("ikea-asmr").model_copy(deep=True)
+        bad_bible = ikea.model_copy(deep=True)
+        bad_bible.master_color_scopes.all_cuts_matched = False
+        bad_bible.master_color_scopes.scene_scopes[0].gamut_utilization_pct = 104.5
+        if bad_bible.master_color_scopes.cut_matches:
+            bad_bible.master_color_scopes.cut_matches[0].delta_e_2000 = 8.4
+            bad_bible.master_color_scopes.cut_matches[0].match_status = ShotMatchStatusEnum.OUT_OF_GAMUT
+        bad_bible.master_archive_vault.archive_ready = False
+        bad_bible.master_archive_vault.missing_artifacts = 2
+        bad_sc = bad_bible.scenes[0].model_copy(deep=True)
+        bad_sc.omni_prose_prompt = compile_clean_omni_prompt(bad_sc.omni_prose_prompt)
+
+        bad_audit = audit_omni_scene_prompt(bad_sc, bible=bad_bible)
+        assert bad_audit.color_scopes_compliant is False
+        assert bad_audit.archive_vault_compliant is False
+
+        healed = heal_omni_scene_prompt(bad_sc, bible=bad_bible)
+        assert healed.audit.score >= 90.0
+        assert healed.audit.color_scopes_compliant is True
+        assert healed.audit.archive_vault_compliant is True
+        assert "[COLOR-SCOPES:" in healed.healed.omni_prose_prompt
+        assert "[ARCHIVE-VAULT:" in healed.healed.omni_prose_prompt
+
+        # 3. MasterProductionBible.__setattr__ alias parity
+        alias_bible = ikea.model_copy(deep=True)
+        alias_bible.color_scopes_manifest = ikea.master_color_scopes.model_copy(update={"manifest_id": "scopes-alias-test"})
+        assert alias_bible.master_color_scopes.manifest_id == "scopes-alias-test"
+        alias_bible.archive_vault_manifest = ikea.master_archive_vault.model_copy(update={"bag_id": "bag-alias-test"})
+        assert alias_bible.master_archive_vault.bag_id == "bag-alias-test"
+        alias_bible.imf_dcp_manifest = ikea.master_imf_dcp.model_copy(update={"package_id": "IMF-ALIAS-TEST"})
+        assert alias_bible.master_imf_dcp.package_id == "IMF-ALIAS-TEST"
+        alias_bible.voice_casting_manifest = ikea.master_voice_ducking.model_copy(update={"dialogue_clarity_snr_min_db": 7.5})
+        assert alias_bible.master_voice_ducking.dialogue_clarity_snr_min_db == 7.5
+        alias_bible.render_jobs_manifest = ikea.master_render_jobs.model_copy(update={"average_qa_score": 97.5})
+        assert alias_bible.master_render_jobs.average_qa_score == 97.5
+        alias_bible.pitch_treatment = ikea.master_pitch_treatment.model_copy(update={"treatment_id": "TRT-ALIAS-TEST"})
+        assert alias_bible.master_pitch_treatment.treatment_id == "TRT-ALIAS-TEST"
+
+        # 4. DirectorPipeline().run writes telemetry.json with sanitized PM-FEAT-037..040 SAFE_KEYS
+        run_dir = tmp_path / "pipeline_telemetry_v220"
+        DirectorPipeline().run(preset_name="ikea-asmr", output_dir=str(run_dir), dry_run=True)
+        tel_raw = (run_dir / "telemetry.json").read_text(encoding="utf-8")
+        assert not SECRET_PATTERN.search(tel_raw)
+        tel_data = json.loads(tel_raw)
+        meta = tel_data["metadata"]
+        expected_safe_037_040 = (
+            "imf_package_id",
+            "imf_cpl_count",
+            "imf_dedup_reuse_pct",
+            "dcp_bitrate_mbps",
+            "voice_cast_count",
+            "ducking_keyframe_count",
+            "lip_sync_pass_rate_pct",
+            "dialogue_bgm_snr_db",
+            "color_scopes_token",
+            "mean_delta_e_2000",
+            "max_exposure_jump_stops",
+            "scopes_cuts_matched",
+            "archive_vault_token",
+            "archive_bag_id",
+            "archive_verified_count",
+            "archive_payload_bytes",
+            "archive_footprint_gb",
+        )
+        for key in expected_safe_037_040:
+            assert key in SAFE_KEYS
+            assert key in meta, f"Missing telemetry metadata key: {key}"
+            assert meta[key] != "[REDACTED]", f"Safe key unexpectedly redacted: {key}"
+
+    def test_v220_cli_exports_fps_and_treatment_flag(self, tmp_path):
+        from omni_director.cli import handle_export
+
+        # 1. PM-FEAT-039 & PM-FEAT-040 --format CLI exports
+        expected_cli_outputs = [
+            ("color-scopes", ("color_continuity_scopes.json", "shot_match_cdl_deltas.csv", "finishing_scopes_qc.md")),
+            ("scopes-json", ("color_continuity_scopes.json",)),
+            ("shot-match-csv", ("shot_match_cdl_deltas.csv",)),
+            ("scopes-md", ("finishing_scopes_qc.md",)),
+            ("archive-vault", ("archive_vault_manifest.json", "bag-info.txt", "manifest-sha256.txt", "agency_delivery_readme.md")),
+            ("bag-info", ("bag-info.txt",)),
+            ("bag-manifest", ("manifest-sha256.txt",)),
+            ("vault-json", ("archive_vault_manifest.json",)),
+            ("delivery-readme", ("agency_delivery_readme.md",)),
+        ]
+        for fmt_name, expected_files in expected_cli_outputs:
+            out_sub = tmp_path / f"cli_{fmt_name}"
+            assert handle_export(["--preset", "ikea-asmr", "--format", fmt_name, "-o", str(out_sub)]) == 0
+            for fname in expected_files:
+                fpath = out_sub / fname
+                assert fpath.is_file() and fpath.stat().st_size > 0, f"Missing {fname} for --format {fmt_name}"
+
+        # 2. Granular flags: --color-scopes, --archive-vault, --treatment (combined with -f edl)
+        gran_dir = tmp_path / "cli_granular_flags"
+        assert handle_export([
+            "--preset", "ikea-asmr",
+            "-f", "edl",
+            "--color-scopes",
+            "--archive-vault",
+            "--treatment",
+            "-o", str(gran_dir),
+        ]) == 0
+        for fname in (
+            "timeline.edl",
+            "color_continuity_scopes.json",
+            "shot_match_cdl_deltas.csv",
+            "finishing_scopes_qc.md",
+            "archive_vault_manifest.json",
+            "bag-info.txt",
+            "manifest-sha256.txt",
+            "agency_delivery_readme.md",
+            "director_treatment_lookbook.html",
+            "director_treatment_brief.md",
+            "pitch_treatment_manifest.json",
+        ):
+            fpath = gran_dir / fname
+            assert fpath.is_file() and fpath.stat().st_size > 0, f"Missing granular flag output: {fname}"
+
+        # 3. -f csv --fps 30 exports shot_list.csv cleanly
+        csv_fps30_dir = tmp_path / "cli_csv_fps30"
+        assert handle_export(["--preset", "ikea-asmr", "-f", "csv", "--fps", "30", "-o", str(csv_fps30_dir)]) == 0
+        shot_csv = csv_fps30_dir / "shot_list.csv"
+        assert shot_csv.is_file() and shot_csv.stat().st_size > 0
+        assert "scene_index,timecode_start,timecode_end" in shot_csv.read_text(encoding="utf-8")
+
+    def test_v220_hud_wcag_hotkeys_v219_fixes_and_council_40_features(self, tmp_path):
+        import re
+        from omni_director.agents.council import ProductCouncilOrchestrator, ProductManagerAgent
+        from omni_director.doctor import run_doctor
+        from omni_director.presets import get_preset_bible
+        from omni_director.schemas import ProductionBundle
+        from omni_director.tools.html_compiler import compile_storyboard_html
+        from omni_director.tools.nle_export import export_all_nle_artifacts
+
+        ikea = get_preset_bible("ikea-asmr")
+        html_dir = tmp_path / "hud_v220"
+        bundle = ProductionBundle(bible=ikea, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+        html = compile_storyboard_html(bundle, html_dir).read_text(encoding="utf-8")
+
+        # 1. PM-FEAT-039 & PM-FEAT-040 HUD DOM IDs, SVGs, A/B Wipe, Command Palette, v2.19 & v2.18 fixes
+        for marker in (
+            'id="colorScopesModal"',
+            'id="btn-color-scopes"',
+            'id="v220-scopes-svg"',
+            'id="v220-ab-wipe-stage"',
+            'id="v220-ab-wipe-slider"',
+            'id="archiveVaultModal"',
+            'id="btn-archive-vault"',
+            'id="v220-vault-svg"',
+            "id: 'colorscopes'",
+            "id: 'archivevault'",
+            "isColorScopesHUDOpen",
+            "isArchiveVaultHUDOpen",
+            'id="btn-imf-dcp"',
+            'id="btn-voice-ducking"',
+            "imf_dcp_manifest.json",
+            "voice_casting_script.json",
+            "closeSecondaryOpenHUDs('renderjobs')",
+            "closeSecondaryOpenHUDs('treatment')",
+        ):
+            assert marker in html, f"Missing HTML marker: {marker}"
+
+        # 2. Unique hotkeys (+ and : included, zero duplicates) & Escape dismissal
+        kd_match = re.search(r"window\.addEventListener\(['\"]keydown['\"].*?^\s*\}\);", html, re.DOTALL | re.MULTILINE)
+        assert kd_match is not None
+        kd_block = kd_match.group(0)
+        bound_literals = re.findall(r"e\.key\s*===\s*['\"]([^'\"]+)['\"]", kd_block)
+        assert len(bound_literals) == len(set(bound_literals)), f"Duplicate hotkeys found: {bound_literals}"
+        assert "+" in bound_literals and ":" in bound_literals
+
+        esc_block_match = re.search(r"if\s*\(e\.key\s*===\s*['\"]Escape['\"]\)\s*\{(.*?)return;\s*\}", kd_block, re.DOTALL)
+        assert esc_block_match is not None
+        esc_block = esc_block_match.group(1)
+        assert "isColorScopesHUDOpen" in esc_block
+        assert "isArchiveVaultHUDOpen" in esc_block
+
+        # 3. ProductManagerAgent returns 40 implemented features including PM-FEAT-039 and PM-FEAT-040
+        pm = ProductManagerAgent()
+        proposals = pm.inspect_product(ikea)
+        assert len(proposals) == 40
+        assert all(p.status == "implemented" for p in proposals)
+        prop_ids = {p.feature_id for p in proposals}
+        assert {"PM-FEAT-039", "PM-FEAT-040"} <= prop_ids
+
+        # 4. ProductCouncilOrchestrator.audit() scores >= 90.0 with 0 critical findings across all 4 golden presets
+        orchestrator = ProductCouncilOrchestrator()
+        for preset_name in ("ikea-asmr", "sephora-pulse", "sephora-extension-40s", "kinetic-fabric"):
+            p_bible = get_preset_bible(preset_name)
+            p_dir = tmp_path / f"council_v220_{preset_name}"
+            p_bundle = ProductionBundle(bible=p_bible, storyboard_html_path="", bundle_json_path="", visual_plates={}, audit_reports=[])
+            compile_storyboard_html(p_bundle, p_dir)
+            export_all_nle_artifacts(p_bible, p_dir, fps=24)
+            rep = orchestrator.audit(p_bundle, output_dir=p_dir, auto_heal=True)
+            assert rep.version == "2.20.0"
+            assert rep.passed is True
+            assert rep.critical_findings_count == 0
+            assert rep.overall_score >= 90.0
+
+        # 5. run_doctor() v2.20.0 compliance
+        doc = run_doctor()
+        assert doc.version == "2.20.0"
         assert doc.passed is True
         assert doc.exit_code == 0

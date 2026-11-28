@@ -212,7 +212,7 @@ def export_fcpxml(bible: MasterProductionBible, fps: int = 24) -> str:
     )
 
 
-def export_shot_list_csv(bible: MasterProductionBible) -> str:
+def export_shot_list_csv(bible: MasterProductionBible, fps: int = 24) -> str:
     """Export a structured CSV shot list for assistant directors and line producers."""
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="\n")
@@ -236,8 +236,8 @@ def export_shot_list_csv(bible: MasterProductionBible) -> str:
         rec_start_sec, rec_end_sec = _parse_scene_window(
             scene, idx, total_scenes, total_runtime
         )
-        tc_start = _seconds_to_smpte_frames(rec_start_sec, fps=24)
-        tc_end = _seconds_to_smpte_frames(rec_end_sec, fps=24)
+        tc_start = _seconds_to_smpte_frames(rec_start_sec, fps=fps)
+        tc_end = _seconds_to_smpte_frames(rec_end_sec, fps=fps)
 
         cam = scene.craft_camera
         rig = cam.rig_type if cam else "Locked-off Tripod"
@@ -402,7 +402,7 @@ def export_all_nle_artifacts(
 
     edl_path.write_text(export_cmx3600_edl(bible, fps=fps), encoding="utf-8")
     fcpxml_path.write_text(export_fcpxml(bible, fps=fps), encoding="utf-8")
-    csv_path.write_text(export_shot_list_csv(bible), encoding="utf-8")
+    csv_path.write_text(export_shot_list_csv(bible, fps=fps), encoding="utf-8")
     md_path.write_text(export_production_callsheet_md(bible), encoding="utf-8")
 
     res = {
@@ -633,5 +633,34 @@ def export_all_nle_artifacts(
         res.update({k: str(v) for k, v in export_voice_ducking_bundle(bible, out_path, fps=fps).items()})
     except Exception as exc:
         logger.warning("Voice ducking bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.color_scopes import export_color_scopes_bundle
+        res.update({k: str(v) for k, v in export_color_scopes_bundle(bible, out_path).items()})
+    except Exception as exc:
+        logger.warning("Color scopes bundle export skipped: %s", exc)
+
+    try:
+        from omni_director.tools.archive_vault import (
+            compile_archive_vault_manifest,
+            export_archive_vault_bundle,
+        )
+        av_profile = None
+        try:
+            from omni_director.presets import get_domain_archive_vault_profile
+            av_profile = get_domain_archive_vault_profile(bible)
+        except Exception:
+            av_profile = None
+        disk_vault_manifest = compile_archive_vault_manifest(
+            bible, output_dir=out_path, domain_profile=av_profile
+        )
+        res.update({
+            k: str(v)
+            for k, v in export_archive_vault_bundle(
+                bible, out_path, manifest=disk_vault_manifest
+            ).items()
+        })
+    except Exception as exc:
+        logger.warning("Archive vault bundle export skipped: %s", exc)
 
     return res

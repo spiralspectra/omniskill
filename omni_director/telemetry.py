@@ -75,6 +75,15 @@ SAFE_KEYS = {
     "ducking_keyframe_count",
     "lip_sync_pass_rate_pct",
     "dialogue_bgm_snr_db",
+    "color_scopes_token",
+    "mean_delta_e_2000",
+    "max_exposure_jump_stops",
+    "scopes_cuts_matched",
+    "archive_vault_token",
+    "archive_bag_id",
+    "archive_verified_count",
+    "archive_payload_bytes",
+    "archive_footprint_gb",
 }
 SENSITIVE_KEY_TERMS = ("token", "secret", "password", "credential", "auth_token", "api_key", "private_key", "access_key", "secret_key")
 SECRET_PATTERN = re.compile(
@@ -255,6 +264,15 @@ KNOWN_PRODUCTION_ARTIFACTS: tuple[str, ...] = (
     "voice_casting_script.json",
     "stem_ducking_automation.csv",
     "adr_viseme_timing.md",
+    # PM-FEAT-039: Color Continuity Scopes, Shot-Match CDL Deltas & Finishing Scopes QC
+    "color_continuity_scopes.json",
+    "shot_match_cdl_deltas.csv",
+    "finishing_scopes_qc.md",
+    # PM-FEAT-040: BagIt RFC 8493 Archive Vault & Agency Delivery Package
+    "archive_vault_manifest.json",
+    "bag-info.txt",
+    "manifest-sha256.txt",
+    "agency_delivery_readme.md",
 )
 
 DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
@@ -267,6 +285,7 @@ DISCOVERABLE_ARTIFACT_EXTENSIONS: frozenset[str] = frozenset({
     ".xml",
     ".csv",
     ".md",
+    ".txt",
     ".srt",
     ".vtt",
     ".ttml",

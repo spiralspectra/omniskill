@@ -2,7 +2,7 @@
 
 - **C2PA Spec Version**: `v2.1`
 - **Manifest URN**: `urn:c2pa:omni-director:2026:286dcc8d1985`
-- **Claim Generator**: `OmniMovieDirector/2.19.0`
+- **Claim Generator**: `OmniMovieDirector/2.20.0`
 - **Synthetic Disclosure Tier**: `virtual_digital_replica`
 - **IPTC Digital Source Type**: `http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia`
 - **EU AI Act Article 50 Compliant**: `PASS`
@@ -13,10 +13,10 @@
 ## 2026 Gemini Model Matrix Lineage
 | Action ID | Action | Model Used | Software Agent |
 |---|---|---|---|
-| `ACT-MASTER-01` | `c2pa.created` | `gemini-4-argon` | `OmniMovieDirector/2.19.0 (CreativeDirectorAgent)` |
-| `ACT-MASTER-02` | `c2pa.edited` | `gemini-3.8-flash` | `OmniMovieDirector/2.19.0 (PromptAuditorAgent)` |
-| `ACT-MASTER-03` | `c2pa.composited` | `gemini-3-pro-image` | `OmniMovieDirector/2.19.0 (VisualStoryboardAgent)` |
-| `ACT-MASTER-04` | `c2pa.transcoded` | `gemini-omni-1.1-flash-preview` | `OmniMovieDirector/2.19.0 (OptionalOmniVideoRenderAgent)` |
+| `ACT-MASTER-01` | `c2pa.created` | `gemini-4-argon` | `OmniMovieDirector/2.20.0 (CreativeDirectorAgent)` |
+| `ACT-MASTER-02` | `c2pa.edited` | `gemini-3.8-flash` | `OmniMovieDirector/2.20.0 (PromptAuditorAgent)` |
+| `ACT-MASTER-03` | `c2pa.composited` | `gemini-3-pro-image` | `OmniMovieDirector/2.20.0 (VisualStoryboardAgent)` |
+| `ACT-MASTER-04` | `c2pa.transcoded` | `gemini-omni-1.1-flash-preview` | `OmniMovieDirector/2.20.0 (OptionalOmniVideoRenderAgent)` |
 
 ## Provenance Ingredients (`<image_1..3>` Anchors)
 | Ingredient ID | Title | Model | Relationship | SHA-256 (16-char) |

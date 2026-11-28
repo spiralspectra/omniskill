@@ -40,6 +40,8 @@ from omni_director.presets import (
     get_domain_pitch_treatment_spec,
     get_domain_imf_dcp_profile,
     get_domain_voice_ducking_profile,
+    get_domain_color_scopes_profile,
+    get_domain_archive_vault_profile,
 )
 from omni_director.schemas import (
     StorytellingMode,
@@ -1054,6 +1056,77 @@ class ProductManagerAgent(BaseAgent):
                     "omni_director/tools/html_compiler.py",
                     "omni_director/tools/html_hud_v212.py",
                     "omni_director/tools/html_hud_v219.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-039",
+                title="Colorist Finishing Scopes, CIELAB Delta-E2000 Shot-to-Shot Continuity Match & Interactive A/B Wipe Monitor",
+                problem_statement=(
+                    f"Finishing colorists and directors inspecting multi-scene commercials{project_ctx} lack "
+                    "real-time Luma Waveform, RGB Parade, and Rec.709 Vectorscope telemetry, perceptual "
+                    "CIEDE2000 inter-cut chromatic drift diagnostics with ASC CDL trim offsets, and an "
+                    "interactive A/B split-screen comparison monitor."
+                ),
+                proposed_solution=(
+                    "Implement ScopeSignalStandardEnum, ShotMatchStatusEnum, SceneScopeTelemetrySpec, "
+                    "AdjacentCutColorMatchSpec, and MasterColorScopesManifest schemas; "
+                    "omni_director.tools.color_scopes (compile_color_scopes_manifest, compute_ciede2000, "
+                    "format_color_scopes_token, export_color_scopes_json, export_shot_match_cdl_csv, "
+                    "export_finishing_scopes_qc_md, export_color_scopes_bundle); 6-domain calibration via "
+                    "get_domain_color_scopes_profile(); [COLOR-SCOPES:] telemetry token stripping; and the "
+                    "Colorist Scopes & A/B Wipe HUD [+] (#btn-color-scopes, #colorScopesModal, "
+                    "#v220-scopes-svg, #v220-ab-wipe-stage)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/color_scopes.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v220.py",
+                    "omni_director/agents/agent.py",
+                    "omni_director/agents/council.py",
+                    "omni_director/tools/nle_export.py",
+                    "omni_director/telemetry.py",
+                    "omni_director/cli.py",
+                ],
+                priority="P0",
+                status="implemented",
+            ),
+            ProductFeatureProposal(
+                feature_id="PM-FEAT-040",
+                title="RFC 8493 BagIt Production Archive Vault, Checksum Verification & Agency/DAM Handoff Engine",
+                problem_statement=(
+                    f"Agency producers and post-finishing supervisors handing off final commercial bundles{project_ctx} "
+                    "lack an RFC 8493 BagIt-compliant archival package with deterministic 6-department payload "
+                    "routing, SHA-256 manifest verification, Payload-Oxum integrity, and retention SLA governance."
+                ),
+                proposed_solution=(
+                    "Implement ArchiveRetentionTierEnum, VaultDepartmentEnum, ArchiveVaultEntrySpec, "
+                    "DepartmentVaultSummarySpec, and MasterArchiveVaultManifest schemas; "
+                    "omni_director.tools.archive_vault (compile_archive_vault_manifest, classify_artifact_department, "
+                    "format_archive_vault_token, export_archive_vault_json, export_bag_info_txt, "
+                    "export_manifest_sha256_txt, export_agency_delivery_readme_md, export_archive_vault_bundle); "
+                    "6-domain calibration via get_domain_archive_vault_profile(); [ARCHIVE-VAULT:] telemetry "
+                    "token stripping; and the RFC 8493 Archive Vault HUD [:] (#btn-archive-vault, "
+                    "#archiveVaultModal, #v220-vault-svg)."
+                ),
+                target_modules=[
+                    "omni_director/schemas.py",
+                    "omni_director/tools/archive_vault.py",
+                    "omni_director/presets.py",
+                    "omni_director/tools/prompt_auditor.py",
+                    "omni_director/tools/html_compiler.py",
+                    "omni_director/tools/html_hud_v212.py",
+                    "omni_director/tools/html_hud_v220.py",
                     "omni_director/agents/agent.py",
                     "omni_director/agents/council.py",
                     "omni_director/tools/nle_export.py",
@@ -2275,6 +2348,156 @@ class ProductCouncilOrchestrator(BaseAgent):
                 ))
                 score -= 1.0
 
+            # Verify Colorist Finishing Scopes & Shot-Match Continuity deliverables (PM-FEAT-039)
+            cs_candidates = [
+                "color_continuity_scopes.json",
+                "shot_match_cdl_deltas.csv",
+                "finishing_scopes_qc.md",
+            ]
+            cs_items = [name for name in cs_candidates if (eval_dir / name).is_file()]
+            if cs_items:
+                missing_cs = [name for name in cs_candidates if name not in cs_items]
+                cs_invalid_reasons: List[str] = []
+                if (eval_dir / "color_continuity_scopes.json").is_file():
+                    try:
+                        cs_doc = json.loads((eval_dir / "color_continuity_scopes.json").read_text(encoding="utf-8"))
+                        if (
+                            not isinstance(cs_doc, dict)
+                            or not cs_doc.get("manifest_id")
+                            or not isinstance(cs_doc.get("scene_scopes"), list)
+                            or not cs_doc.get("scene_scopes")
+                        ):
+                            cs_invalid_reasons.append("color_continuity_scopes.json missing 'manifest_id' or non-empty 'scene_scopes'.")
+                    except Exception as exc:
+                        cs_invalid_reasons.append(f"Invalid JSON in color_continuity_scopes.json: {exc}")
+                if (eval_dir / "shot_match_cdl_deltas.csv").is_file():
+                    try:
+                        csv_lines = (eval_dir / "shot_match_cdl_deltas.csv").read_text(encoding="utf-8").strip().splitlines()
+                        if not csv_lines or "delta_e_2000" not in csv_lines[0] or "cdl_offset_r" not in csv_lines[0]:
+                            cs_invalid_reasons.append("shot_match_cdl_deltas.csv missing canonical CIEDE2000/CDL header.")
+                    except Exception as exc:
+                        cs_invalid_reasons.append(f"Failed reading shot_match_cdl_deltas.csv: {exc}")
+                if cs_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="color_scopes_delivery",
+                        message=" ".join(cs_invalid_reasons),
+                        suggested_fix="Regenerate Color Scopes deliverables via export_color_scopes_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_cs and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="color_scopes_delivery",
+                        message=(
+                            f"Partial Color Scopes deliverables on disk ({', '.join(cs_items)}); "
+                            f"missing: {', '.join(missing_cs)}."
+                        ),
+                        suggested_fix="Run export_color_scopes_bundle() or export_all_nle_artifacts() to export all PM-FEAT-039 artifacts.",
+                        details={"color_scopes_artifacts": cs_items, "missing_artifacts": missing_cs},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="color_scopes_delivery",
+                        message=f"Color Scopes JSON, Shot-Match CDL CSV, and Finishing QC MD deliverables verified on disk: {', '.join(cs_items)}.",
+                        details={"color_scopes_artifacts": cs_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="color_scopes_delivery",
+                    message="NLE exports present on disk without PM-FEAT-039 Color Scopes deliverables (color_continuity_scopes.json, shot_match_cdl_deltas.csv, finishing_scopes_qc.md).",
+                    suggested_fix="Run export_color_scopes_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": cs_candidates},
+                ))
+                score -= 1.0
+
+            # Verify RFC 8493 BagIt Production Archive Vault deliverables (PM-FEAT-040)
+            av_candidates = [
+                "archive_vault_manifest.json",
+                "bag-info.txt",
+                "manifest-sha256.txt",
+                "agency_delivery_readme.md",
+            ]
+            av_items = [name for name in av_candidates if (eval_dir / name).is_file()]
+            if av_items:
+                missing_av = [name for name in av_candidates if name not in av_items]
+                av_invalid_reasons: List[str] = []
+                if (eval_dir / "archive_vault_manifest.json").is_file():
+                    try:
+                        av_doc = json.loads((eval_dir / "archive_vault_manifest.json").read_text(encoding="utf-8"))
+                        oxum_doc = str((av_doc or {}).get("payload_oxum", "") or "")
+                        if (
+                            not isinstance(av_doc, dict)
+                            or not av_doc.get("bag_id")
+                            or "." not in oxum_doc
+                            or not isinstance(av_doc.get("entries"), list)
+                            or not av_doc.get("entries")
+                        ):
+                            av_invalid_reasons.append("archive_vault_manifest.json missing 'bag_id', valid 'payload_oxum', or non-empty 'entries'.")
+                    except Exception as exc:
+                        av_invalid_reasons.append(f"Invalid JSON in archive_vault_manifest.json: {exc}")
+                if (eval_dir / "bag-info.txt").is_file():
+                    try:
+                        bag_txt = (eval_dir / "bag-info.txt").read_text(encoding="utf-8")
+                        for req_hdr in ("BagIt-Version:", "Payload-Oxum:", "Retention-Tier:"):
+                            if req_hdr not in bag_txt:
+                                av_invalid_reasons.append(f"bag-info.txt missing '{req_hdr}' RFC 8493 tag.")
+                                break
+                    except Exception as exc:
+                        av_invalid_reasons.append(f"Failed reading bag-info.txt: {exc}")
+                if (eval_dir / "manifest-sha256.txt").is_file():
+                    try:
+                        sha_lines = [
+                            ln.strip()
+                            for ln in (eval_dir / "manifest-sha256.txt").read_text(encoding="utf-8").splitlines()
+                            if ln.strip()
+                        ]
+                        if not sha_lines:
+                            av_invalid_reasons.append("manifest-sha256.txt is empty.")
+                        elif not all(re.match(r"^[0-9a-fA-F]{64}\s+data/", ln) for ln in sha_lines):
+                            av_invalid_reasons.append("manifest-sha256.txt contains malformed RFC 8493 SHA-256 payload line.")
+                    except Exception as exc:
+                        av_invalid_reasons.append(f"Failed reading manifest-sha256.txt: {exc}")
+                if av_invalid_reasons:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.HIGH,
+                        category="archive_vault_delivery",
+                        message=" ".join(av_invalid_reasons),
+                        suggested_fix="Regenerate RFC 8493 BagIt Archive Vault deliverables via export_archive_vault_bundle().",
+                    ))
+                    score -= 2.0
+                elif missing_av and has_full_nle_exports:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.MEDIUM,
+                        category="archive_vault_delivery",
+                        message=(
+                            f"Partial Archive Vault deliverables on disk ({', '.join(av_items)}); "
+                            f"missing: {', '.join(missing_av)}."
+                        ),
+                        suggested_fix="Run export_archive_vault_bundle() or export_all_nle_artifacts() to export all PM-FEAT-040 artifacts.",
+                        details={"archive_vault_artifacts": av_items, "missing_artifacts": missing_av},
+                    ))
+                    score -= 1.0
+                else:
+                    findings.append(CouncilFinding(
+                        severity=CouncilFindingSeverity.INFO,
+                        category="archive_vault_delivery",
+                        message=f"RFC 8493 BagIt Archive Vault deliverables (bag-info.txt, manifest-sha256.txt, archive_vault_manifest.json) verified on disk: {', '.join(av_items)}.",
+                        details={"archive_vault_artifacts": av_items},
+                    ))
+            elif has_full_nle_exports:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.MEDIUM,
+                    category="archive_vault_delivery",
+                    message="NLE exports present on disk without PM-FEAT-040 Archive Vault deliverables (archive_vault_manifest.json, bag-info.txt, manifest-sha256.txt, agency_delivery_readme.md).",
+                    suggested_fix="Run export_archive_vault_bundle() or export_all_nle_artifacts().",
+                    details={"missing_artifacts": av_candidates},
+                ))
+                score -= 1.0
+
         # Verify PM-FEAT-023 & PM-FEAT-024 schema specs when attached to bible/bundle
         blocking_spec = getattr(bible, "master_continuity_blocking", None)
         if blocking_spec is not None:
@@ -2721,6 +2944,83 @@ class ProductCouncilOrchestrator(BaseAgent):
                         "roster_count": len(vd_roster),
                         "scene_profiles_count": len(vd_scenes),
                         "ducking_keyframes_count": total_kfs,
+                    },
+                ))
+
+        # Verify PM-FEAT-039 (Colorist Scopes) & PM-FEAT-040 (RFC 8493 BagIt Archive Vault) schemas
+        cs_spec = getattr(bible, "master_color_scopes", None)
+        if cs_spec is not None:
+            cs_scenes = list(getattr(cs_spec, "scene_scopes", None) or [])
+            bad_bins = [
+                int(getattr(sc, "scene_index", 0) or 0)
+                for sc in cs_scenes
+                if len(getattr(sc, "waveform_bins", None) or []) != 16
+                or not (
+                    float(getattr(sc, "luma_min_ire", 0.0) or 0.0)
+                    <= float(getattr(sc, "luma_avg_ire", 0.0) or 0.0)
+                    <= float(getattr(sc, "luma_peak_ire", 100.0) or 100.0)
+                )
+            ]
+            if not cs_scenes or bad_bins:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="color_scopes_schema",
+                    message=(
+                        f"MasterColorScopesManifest invalid (scene_scopes={len(cs_scenes)}, "
+                        f"invalid_waveform_or_ire_scenes={bad_bins})."
+                    ),
+                    suggested_fix="Hydrate master_color_scopes via compile_color_scopes_manifest() with 16-bin IRE waveforms.",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="color_scopes_schema",
+                    message=(
+                        f"MasterColorScopesManifest verified (id={getattr(cs_spec, 'manifest_id', '')}, "
+                        f"scene_scopes={len(cs_scenes)}, mean_dE2000={float(getattr(cs_spec, 'mean_delta_e_2000', 0.0) or 0.0):.2f})."
+                    ),
+                    details={
+                        "manifest_id": str(getattr(cs_spec, "manifest_id", "")),
+                        "scene_scopes_count": len(cs_scenes),
+                        "mean_delta_e_2000": float(getattr(cs_spec, "mean_delta_e_2000", 0.0) or 0.0),
+                    },
+                ))
+
+        av_spec = getattr(bible, "master_archive_vault", None)
+        if av_spec is not None:
+            av_entries = list(getattr(av_spec, "entries", None) or [])
+            av_summaries = list(getattr(av_spec, "vault_summaries", None) or [])
+            av_oxum = str(getattr(av_spec, "payload_oxum", "") or "")
+            bad_av_digests = [
+                str(getattr(e, "filename", "") or "")
+                for e in av_entries
+                if not re.fullmatch(r"[0-9a-fA-F]{64}", str(getattr(e, "sha256_digest", "") or ""))
+            ]
+            if not getattr(av_spec, "bag_id", None) or "." not in av_oxum or not av_entries or len(av_summaries) != 6 or bad_av_digests:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="archive_vault_schema",
+                    message=(
+                        f"MasterArchiveVaultManifest invalid (bag_id={getattr(av_spec, 'bag_id', '')!r}, "
+                        f"oxum={av_oxum!r}, entries={len(av_entries)}, depts={len(av_summaries)}, "
+                        f"invalid_sha256={bad_av_digests[:3]})."
+                    ),
+                    suggested_fix="Hydrate master_archive_vault via compile_archive_vault_manifest() across 6 BagIt departments.",
+                ))
+                score -= 2.0
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="archive_vault_schema",
+                    message=(
+                        f"MasterArchiveVaultManifest verified (bag_id={getattr(av_spec, 'bag_id', '')}, "
+                        f"oxum={av_oxum}, entries={len(av_entries)} across {len(av_summaries)} departments)."
+                    ),
+                    details={
+                        "bag_id": str(getattr(av_spec, "bag_id", "")),
+                        "payload_oxum": av_oxum,
+                        "entries_count": len(av_entries),
                     },
                 ))
 
@@ -3835,6 +4135,89 @@ class ProductCouncilOrchestrator(BaseAgent):
                     ),
                 ))
 
+        # Verify PM-FEAT-039 (Colorist Scopes) & PM-FEAT-040 (Archive Vault) token stripping & contracts
+        v220_strip_failed: List[int] = []
+        v220_tokens = ("[COLOR-SCOPES:", "[ARCHIVE-VAULT:")
+        for sc in bible.scenes:
+            prompt = getattr(sc, "omni_prose_prompt", "")
+            if prompt and any(tok in prompt for tok in v220_tokens):
+                clean_prompt = compile_clean_omni_prompt(prompt)
+                if any(tok in clean_prompt for tok in v220_tokens):
+                    v220_strip_failed.append(sc.scene_index)
+        if v220_strip_failed:
+            findings.append(CouncilFinding(
+                severity=CouncilFindingSeverity.HIGH,
+                category="color_scopes_vault_prompt_strip_failed",
+                message=(
+                    f"Scene(s) {v220_strip_failed} failed to cleanly strip "
+                    "[COLOR-SCOPES:]/[ARCHIVE-VAULT:] tokens in compile_clean_omni_prompt."
+                ),
+                suggested_fix="Ensure v2.20 telemetry tokens match _MACHINE_TELEMETRY_TOKEN_RE.",
+            ))
+            penalty_points += 2.0
+
+        cs_spec = getattr(bible, "master_color_scopes", None)
+        if cs_spec is not None:
+            de_ceil = float(getattr(cs_spec, "max_delta_e_ceiling", 3.0) or 3.0)
+            ev_ceil = float(getattr(cs_spec, "max_exposure_jump_stops", 0.75) or 0.75)
+            oog_scenes = [
+                int(getattr(sc, "scene_index", 0) or 0)
+                for sc in (getattr(cs_spec, "scene_scopes", None) or [])
+                if float(getattr(sc, "gamut_utilization_pct", 0.0) or 0.0) > 100.0
+            ]
+            bad_cuts = [
+                f"SC{getattr(cm, 'from_scene_index', 0)}->SC{getattr(cm, 'to_scene_index', 0)}"
+                for cm in (getattr(cs_spec, "cut_matches", None) or [])
+                if str(getattr(getattr(cm, "match_status", None), "value", getattr(cm, "match_status", ""))) == "out_of_gamut"
+            ]
+            if de_ceil <= 0.0 or ev_ceil <= 0.0 or oog_scenes or bad_cuts:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="color_scopes_compliance_failed",
+                    message=(
+                        f"MasterColorScopesManifest failed gamut/continuity gate "
+                        f"(oog_scenes={oog_scenes}, out_of_gamut_cuts={bad_cuts})."
+                    ),
+                    suggested_fix="Keep scene gamut utilization <= 100% and match adjacent cuts within CIEDE2000 & EV tolerances.",
+                ))
+                penalty_points += 2.0
+            elif not v220_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="color_scopes_schema_compliance",
+                    message=(
+                        f"Colorist Scopes contract verified (dE2000 ceiling={de_ceil:.2f}, "
+                        f"EV jump ceiling={ev_ceil:.2f} stops, mean_dE2000={float(getattr(cs_spec, 'mean_delta_e_2000', 0.0) or 0.0):.2f})."
+                    ),
+                ))
+
+        av_spec = getattr(bible, "master_archive_vault", None)
+        if av_spec is not None:
+            av_ready = bool(getattr(av_spec, "archive_ready", False))
+            av_missing = int(getattr(av_spec, "missing_artifacts", 0) or 0)
+            av_total = int(getattr(av_spec, "total_artifacts", 0) or 0)
+            av_entries = list(getattr(av_spec, "entries", None) or [])
+            if not av_ready or av_missing > 0 or av_total < len(av_entries) or not av_entries:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="archive_vault_compliance_failed",
+                    message=(
+                        f"MasterArchiveVaultManifest failed integrity gate "
+                        f"(archive_ready={av_ready}, missing={av_missing}, total={av_total}, entries={len(av_entries)})."
+                    ),
+                    suggested_fix="Ensure RFC 8493 BagIt manifest has zero missing mandatory artifacts and valid SHA-256 checksums.",
+                ))
+                penalty_points += 2.0
+            elif not v220_strip_failed:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="archive_vault_schema_compliance",
+                    message=(
+                        f"RFC 8493 Archive Vault contract verified (bag={getattr(av_spec, 'bag_id', '')}, "
+                        f"oxum={getattr(av_spec, 'payload_oxum', '')}, artifacts={av_total})."
+                    ),
+                ))
+
         # Check continuity_blocking_compliant, review_gate_compliant, c2pa_provenance_compliant, safety_risk_compliant, localization_adr_compliant, and spotting_sync_compliant on bundle.audit_reports
         if bundle is not None and getattr(bundle, "audit_reports", None):
             non_cont_scenes = [
@@ -3906,6 +4289,16 @@ class ProductCouncilOrchestrator(BaseAgent):
                 getattr(rep, "scene_index", idx)
                 for idx, rep in enumerate(bundle.audit_reports, 1)
                 if not getattr(rep, "voice_ducking_compliant", True)
+            ]
+            non_cs_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "color_scopes_compliant", True)
+            ]
+            non_av_scenes = [
+                getattr(rep, "scene_index", idx)
+                for idx, rep in enumerate(bundle.audit_reports, 1)
+                if not getattr(rep, "archive_vault_compliant", True)
             ]
             if non_cont_scenes:
                 findings.append(CouncilFinding(
@@ -4086,6 +4479,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                     severity=CouncilFindingSeverity.INFO,
                     category="audit_report_imf_and_voice_compliance",
                     message=f"Bundle audit_reports verified imf_dcp_compliant=True and voice_ducking_compliant=True across {len(bundle.audit_reports)} scene(s).",
+                ))
+            if non_cs_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_color_scopes_non_compliant",
+                    message=f"Bundle audit_reports flagged color_scopes_compliant=False on scene(s): {non_cs_scenes}.",
+                    suggested_fix="Keep 16-bin IRE waveforms, <=100% gamut utilization, and CIEDE2000/EV cut deltas within ceiling.",
+                ))
+                penalty_points += 2.0
+            if non_av_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="audit_report_archive_vault_non_compliant",
+                    message=f"Bundle audit_reports flagged archive_vault_compliant=False on scene(s): {non_av_scenes}.",
+                    suggested_fix="Verify RFC 8493 BagIt bag_id, payload_oxum, and archive_ready=True on flagged scenes.",
+                ))
+                penalty_points += 2.0
+            if not non_cs_scenes and not non_av_scenes:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="audit_report_scopes_and_vault_compliance",
+                    message=f"Bundle audit_reports verified color_scopes_compliant=True and archive_vault_compliant=True across {len(bundle.audit_reports)} scene(s).",
                 ))
 
         avg_audit_score = sum(audit_scores) / len(audit_scores) if audit_scores else 0.0
@@ -5360,6 +5775,81 @@ class ProductCouncilOrchestrator(BaseAgent):
                     },
                 ))
 
+        # Verify Colorist Scopes Signal Standard & CIEDE2000 Domain Calibration (PM-FEAT-039)
+        cs_spec = getattr(bible, "master_color_scopes", None)
+        if cs_spec is not None:
+            expected_cs = get_domain_color_scopes_profile(detected_domain)
+            expected_std = str(expected_cs.get("signal_standard", "") or "").lower()
+            expected_de = float(expected_cs.get("max_delta_e_ceiling", 3.0) or 3.0)
+            expected_ev = float(expected_cs.get("max_exposure_jump_stops", 0.75) or 0.75)
+            actual_std = str(
+                getattr(getattr(cs_spec, "signal_standard", None), "value", getattr(cs_spec, "signal_standard", ""))
+            ).lower()
+            actual_de = float(getattr(cs_spec, "max_delta_e_ceiling", 3.0) or 3.0)
+            actual_ev = float(getattr(cs_spec, "max_exposure_jump_stops", 0.75) or 0.75)
+            if actual_de > expected_de + 0.01 or actual_ev > expected_ev + 0.01 or (expected_std and actual_std != expected_std):
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_color_scopes_calibration",
+                    message=(
+                        f"MasterColorScopesManifest misaligned for domain '{detected_domain}' "
+                        f"(std={actual_std} vs {expected_std}, dE_ceil={actual_de:.2f} vs {expected_de:.2f}, "
+                        f"ev_ceil={actual_ev:.2f} vs {expected_ev:.2f})."
+                    ),
+                    suggested_fix="Calibrate master_color_scopes via get_domain_color_scopes_profile().",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_color_scopes_calibration",
+                    message=(
+                        f"Colorist Finishing Scopes calibrated for '{detected_domain}' "
+                        f"(std={actual_std}, dE2000<={actual_de:.2f}, EV<={actual_ev:.2f})."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "signal_standard": actual_std,
+                        "max_delta_e_ceiling": actual_de,
+                        "max_exposure_jump_stops": actual_ev,
+                    },
+                ))
+
+        # Verify RFC 8493 BagIt Retention Tier & Rights Window Domain Calibration (PM-FEAT-040)
+        av_spec = getattr(bible, "master_archive_vault", None)
+        if av_spec is not None:
+            expected_av = get_domain_archive_vault_profile(detected_domain)
+            expected_tier = str(expected_av.get("retention_tier", "") or "").lower()
+            actual_tier = str(
+                getattr(getattr(av_spec, "retention_tier", None), "value", getattr(av_spec, "retention_tier", ""))
+            ).lower()
+            rights_iso = str(getattr(av_spec, "rights_expiry_iso", "") or "").strip()
+            if (expected_tier and actual_tier != expected_tier) or not rights_iso:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.HIGH,
+                    category="domain_archive_vault_calibration",
+                    message=(
+                        f"MasterArchiveVaultManifest misaligned for domain '{detected_domain}' "
+                        f"(retention_tier={actual_tier} vs {expected_tier}, rights_expiry_iso={rights_iso!r})."
+                    ),
+                    suggested_fix="Calibrate master_archive_vault retention tier & rights window via get_domain_archive_vault_profile().",
+                ))
+                score -= 1.5
+            else:
+                findings.append(CouncilFinding(
+                    severity=CouncilFindingSeverity.INFO,
+                    category="domain_archive_vault_calibration",
+                    message=(
+                        f"RFC 8493 Archive Vault calibrated for '{detected_domain}' "
+                        f"(retention_tier={actual_tier}, rights_expiry={rights_iso})."
+                    ),
+                    details={
+                        "domain": detected_domain,
+                        "retention_tier": actual_tier,
+                        "rights_expiry_iso": rights_iso,
+                    },
+                ))
+
         # Verify domain cross-alignment across color/optical/reframe/QC specs
         explicit_arch = getattr(bible, "domain_archetype", None)
         if explicit_arch is not None:
@@ -6148,6 +6638,56 @@ class ProductCouncilOrchestrator(BaseAgent):
                             message="Voice Casting & Sidechain Ducking HUD verified (#btn-voice-ducking / #voiceDuckingModal / #v219-ducking-svg / Command Palette 'voiceducking').",
                         ))
 
+                    # PM-FEAT-039 Colorist Scopes, CIEDE2000 & A/B Wipe HUD [+] & Command Palette [/] check
+                    missing_cs_ids = [
+                        el_id
+                        for el_id in ("colorScopesModal", "btn-color-scopes", "v220-scopes-svg", "v220-ab-wipe-stage")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_cs_palette = ("'colorscopes'" in html_content or '"colorscopes"' in html_content) and "toggleColorScopesHUD" in html_content
+                    if missing_cs_ids or not has_cs_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_color_scopes_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Colorist Scopes HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_cs_ids) or 'Command Palette colorscopes entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #colorScopesModal, #btn-color-scopes [+], #v220-scopes-svg, #v220-ab-wipe-stage, and Command Palette 'colorscopes' entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_color_scopes_hud",
+                            message="Colorist Scopes & A/B Wipe HUD verified (#btn-color-scopes / #colorScopesModal / #v220-scopes-svg / #v220-ab-wipe-stage / Command Palette 'colorscopes').",
+                        ))
+
+                    # PM-FEAT-040 RFC 8493 Archive Vault & Agency Handoff HUD [:] & Command Palette [/] check
+                    missing_av_ids = [
+                        el_id
+                        for el_id in ("archiveVaultModal", "btn-archive-vault", "v220-vault-svg")
+                        if f'id="{el_id}"' not in html_content
+                    ]
+                    has_av_palette = ("'archivevault'" in html_content or '"archivevault"' in html_content) and "toggleArchiveVaultHUD" in html_content
+                    if missing_av_ids or not has_av_palette:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.LOW,
+                            category="animatic_archive_vault_hud",
+                            message=(
+                                f"Compiled storyboard HTML lacks Archive Vault HUD element(s): "
+                                f"{', '.join('#' + i for i in missing_av_ids) or 'Command Palette archivevault entry'}."
+                            ),
+                            suggested_fix="Ensure compile_storyboard_html renders #archiveVaultModal, #btn-archive-vault [:], #v220-vault-svg, and Command Palette 'archivevault' entry.",
+                        ))
+                        score -= 1.0
+                    else:
+                        findings.append(CouncilFinding(
+                            severity=CouncilFindingSeverity.INFO,
+                            category="animatic_archive_vault_hud",
+                            message="RFC 8493 Archive Vault HUD verified (#btn-archive-vault / #archiveVaultModal / #v220-vault-svg / Command Palette 'archivevault').",
+                        ))
+
                     # Departmental toolbar grouping check (#dept-group-camera, #dept-group-delivery)
                     missing_dept_groups = [
                         grp_id
@@ -6349,6 +6889,28 @@ class ProductCouncilOrchestrator(BaseAgent):
                                 message="IMF/DCP Mastering [}] and Voice Casting & Ducking [{] global keyboard hotkeys verified.",
                             ))
 
+                        has_plus_key = bool(re.search(r"""e\.key\s*===\s*(?:'\+'|"\+")""", kd_block))
+                        has_colon_key = bool(re.search(r"""e\.key\s*===\s*(?:'\:'|"\:"|':'|":")""", kd_block))
+                        if not (has_plus_key and has_colon_key):
+                            missing_pc = []
+                            if not has_plus_key:
+                                missing_pc.append("+")
+                            if not has_colon_key:
+                                missing_pc.append(":")
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.LOW,
+                                category="animatic_hotkeys_plus_colon",
+                                message=f"Global keydown handler missing required hotkey binding(s): {', '.join(missing_pc)}.",
+                                suggested_fix="Bind + (Colorist Scopes HUD) and : (RFC 8493 Archive Vault HUD) in global keydown listener.",
+                            ))
+                            score -= 0.5
+                        else:
+                            findings.append(CouncilFinding(
+                                severity=CouncilFindingSeverity.INFO,
+                                category="animatic_hotkeys_plus_colon",
+                                message="Colorist Scopes [+] and RFC 8493 Archive Vault [:] global keyboard hotkeys verified.",
+                            ))
+
                         esc_idx = kd_block.find("e.key === 'Escape'")
                         if esc_idx == -1:
                             esc_idx = kd_block.find('e.key === "Escape"')
@@ -6381,6 +6943,8 @@ class ProductCouncilOrchestrator(BaseAgent):
                             ("modal-pitch-treatment", ("PitchTreatmentHUD", "isPitchTreatmentHUDOpen", "modal-pitch-treatment")),
                             ("imfDcpModal", ("ImfDcpHUD", "isImfDcpHUDOpen", "imfDcpModal")),
                             ("voiceDuckingModal", ("VoiceDuckingHUD", "isVoiceDuckingHUDOpen", "voiceDuckingModal")),
+                            ("colorScopesModal", ("ColorScopesHUD", "isColorScopesHUDOpen", "colorScopesModal")),
+                            ("archiveVaultModal", ("ArchiveVaultHUD", "isArchiveVaultHUDOpen", "archiveVaultModal")),
                         )
                         missing_esc: list[str] = [
                             panel_id

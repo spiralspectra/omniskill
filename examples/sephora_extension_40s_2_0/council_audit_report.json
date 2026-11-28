@@ -1,7 +1,7 @@
 {
-  "version": "2.19.0",
+  "version": "2.20.0",
   "project_title": "SEPHORA: London Pulse (Continuous 40s Oner)",
-  "timestamp": "2026-11-27T10:54:10.105275+00:00",
+  "timestamp": "2026-11-28T15:00:57.630447+00:00",
   "overall_score": 100.0,
   "passed": true,
   "critical_findings_count": 0,
@@ -428,6 +428,35 @@
         },
         {
           "severity": "info",
+          "category": "color_scopes_delivery",
+          "message": "Color Scopes JSON, Shot-Match CDL CSV, and Finishing QC MD deliverables verified on disk: color_continuity_scopes.json, shot_match_cdl_deltas.csv, finishing_scopes_qc.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "color_scopes_artifacts": [
+              "color_continuity_scopes.json",
+              "shot_match_cdl_deltas.csv",
+              "finishing_scopes_qc.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "category": "archive_vault_delivery",
+          "message": "RFC 8493 BagIt Archive Vault deliverables (bag-info.txt, manifest-sha256.txt, archive_vault_manifest.json) verified on disk: archive_vault_manifest.json, bag-info.txt, manifest-sha256.txt, agency_delivery_readme.md.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "archive_vault_artifacts": [
+              "archive_vault_manifest.json",
+              "bag-info.txt",
+              "manifest-sha256.txt",
+              "agency_delivery_readme.md"
+            ]
+          }
+        },
+        {
+          "severity": "info",
           "category": "continuity_blocking_schema",
           "message": "MasterContinuityBlockingSpec verified (4 scenes, continuity_passed=True).",
           "remediation": null,
@@ -556,13 +585,13 @@
         {
           "severity": "info",
           "category": "otio_coherence_schema",
-          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=582d7237f771..., coherence_score=100.0, shoot_day_ready=True).",
+          "message": "MasterOtioCoherenceManifest verified (OTIO_0.16_COMPAT, 7 tracks, otio_sha256=2589440d86fb..., coherence_score=100.0, shoot_day_ready=True).",
           "remediation": null,
           "suggested_fix": null,
           "details": {
             "schema_version": "OTIO_0.16_COMPAT",
             "track_count": 7,
-            "otio_sha256_prefix": "582d7237f771"
+            "otio_sha256_prefix": "2589440d86fb"
           }
         },
         {
@@ -613,9 +642,33 @@
             "scene_profiles_count": 4,
             "ducking_keyframes_count": 16
           }
+        },
+        {
+          "severity": "info",
+          "category": "color_scopes_schema",
+          "message": "MasterColorScopesManifest verified (id=scopes-43a8e5b7, scene_scopes=4, mean_dE2000=2.63).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "manifest_id": "scopes-43a8e5b7",
+            "scene_scopes_count": 4,
+            "mean_delta_e_2000": 2.63
+          }
+        },
+        {
+          "severity": "info",
+          "category": "archive_vault_schema",
+          "message": "MasterArchiveVaultManifest verified (bag_id=bag-f6592d13, oxum=509315.147, entries=147 across 6 departments).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "bag_id": "bag-f6592d13",
+            "payload_oxum": "509315.147",
+            "entries_count": 147
+          }
         }
       ],
-      "summary": "FDE review completed with score 25.0/25.0. 45 findings."
+      "summary": "FDE review completed with score 25.0/25.0. 49 findings."
     },
     {
       "persona": "council-agent-engineer",
@@ -631,6 +684,26 @@
           "remediation": null,
           "suggested_fix": null,
           "details": null
+        },
+        {
+          "severity": "info",
+          "category": "hdr_prompt_token_compliance",
+          "message": "HDR broadcast color volume prompt tokens verified across 4/4 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "hdr_scenes_count": 4
+          }
+        },
+        {
+          "severity": "info",
+          "category": "stripboard_prompt_token_compliance",
+          "message": "1st AD script breakdown prompt tokens verified across 4/4 scene prompts.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "breakdown_scenes_count": 4
+          }
         },
         {
           "severity": "info",
@@ -853,6 +926,22 @@
         },
         {
           "severity": "info",
+          "category": "color_scopes_schema_compliance",
+          "message": "Colorist Scopes contract verified (dE2000 ceiling=2.00, EV jump ceiling=0.50 stops, mean_dE2000=2.63).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "archive_vault_schema_compliance",
+          "message": "RFC 8493 Archive Vault contract verified (bag=bag-f6592d13, oxum=509315.147, artifacts=147).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "audit_report_continuity_and_review_compliance",
           "message": "Bundle audit_reports verified continuity_blocking_compliant=True and review_gate_compliant=True across 4 scene(s).",
           "remediation": null,
@@ -903,6 +992,14 @@
           "severity": "info",
           "category": "audit_report_imf_and_voice_compliance",
           "message": "Bundle audit_reports verified imf_dcp_compliant=True and voice_ducking_compliant=True across 4 scene(s).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "audit_report_scopes_and_vault_compliance",
+          "message": "Bundle audit_reports verified color_scopes_compliant=True and archive_vault_compliant=True across 4 scene(s).",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1346,6 +1443,31 @@
         },
         {
           "severity": "info",
+          "category": "domain_color_scopes_calibration",
+          "message": "Colorist Finishing Scopes calibrated for 'luxury_fashion' (std=p3_d65, dE2000<=2.00, EV<=0.50).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "signal_standard": "p3_d65",
+            "max_delta_e_ceiling": 2.0,
+            "max_exposure_jump_stops": 0.5
+          }
+        },
+        {
+          "severity": "info",
+          "category": "domain_archive_vault_calibration",
+          "message": "RFC 8493 Archive Vault calibrated for 'luxury_fashion' (retention_tier=studio_lto_perpetual, rights_expiry=2099-12-31).",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": {
+            "domain": "luxury_fashion",
+            "retention_tier": "studio_lto_perpetual",
+            "rights_expiry_iso": "2099-12-31"
+          }
+        },
+        {
+          "severity": "info",
           "category": "domain_cross_alignment",
           "message": "Domain cross-alignment verified: explicit domain_archetype 'luxury_fashion' matches strategic brief classification.",
           "remediation": null,
@@ -1622,6 +1744,22 @@
         },
         {
           "severity": "info",
+          "category": "animatic_color_scopes_hud",
+          "message": "Colorist Scopes & A/B Wipe HUD verified (#btn-color-scopes / #colorScopesModal / #v220-scopes-svg / #v220-ab-wipe-stage / Command Palette 'colorscopes').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_archive_vault_hud",
+          "message": "RFC 8493 Archive Vault HUD verified (#btn-archive-vault / #archiveVaultModal / #v220-vault-svg / Command Palette 'archivevault').",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
           "category": "animatic_departmental_toolbar",
           "message": "Departmental toolbar grouping verified (#dept-group-camera, #dept-group-delivery).",
           "remediation": null,
@@ -1639,7 +1777,7 @@
         {
           "severity": "info",
           "category": "animatic_hotkey_collision",
-          "message": "Zero duplicate JS keydown hotkey bindings verified across 68 key checks.",
+          "message": "Zero duplicate JS keydown hotkey bindings verified across 70 key checks.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -1688,6 +1826,14 @@
           "severity": "info",
           "category": "animatic_hotkeys_braces",
           "message": "IMF/DCP Mastering [}] and Voice Casting & Ducking [{] global keyboard hotkeys verified.",
+          "remediation": null,
+          "suggested_fix": null,
+          "details": null
+        },
+        {
+          "severity": "info",
+          "category": "animatic_hotkeys_plus_colon",
+          "message": "Colorist Scopes [+] and RFC 8493 Archive Vault [:] global keyboard hotkeys verified.",
           "remediation": null,
           "suggested_fix": null,
           "details": null
@@ -2337,6 +2483,50 @@
         "omni_director/tools/html_compiler.py",
         "omni_director/tools/html_hud_v212.py",
         "omni_director/tools/html_hud_v219.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-039",
+      "title": "Colorist Finishing Scopes, CIELAB Delta-E2000 Shot-to-Shot Continuity Match & Interactive A/B Wipe Monitor",
+      "problem_statement": "Finishing colorists and directors inspecting multi-scene commercials for 'SEPHORA: London Pulse (Continuous 40s Oner)' lack real-time Luma Waveform, RGB Parade, and Rec.709 Vectorscope telemetry, perceptual CIEDE2000 inter-cut chromatic drift diagnostics with ASC CDL trim offsets, and an interactive A/B split-screen comparison monitor.",
+      "proposed_solution": "Implement ScopeSignalStandardEnum, ShotMatchStatusEnum, SceneScopeTelemetrySpec, AdjacentCutColorMatchSpec, and MasterColorScopesManifest schemas; omni_director.tools.color_scopes (compile_color_scopes_manifest, compute_ciede2000, format_color_scopes_token, export_color_scopes_json, export_shot_match_cdl_csv, export_finishing_scopes_qc_md, export_color_scopes_bundle); 6-domain calibration via get_domain_color_scopes_profile(); [COLOR-SCOPES:] telemetry token stripping; and the Colorist Scopes & A/B Wipe HUD [+] (#btn-color-scopes, #colorScopesModal, #v220-scopes-svg, #v220-ab-wipe-stage).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/color_scopes.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v220.py",
+        "omni_director/agents/agent.py",
+        "omni_director/agents/council.py",
+        "omni_director/tools/nle_export.py",
+        "omni_director/telemetry.py",
+        "omni_director/cli.py"
+      ],
+      "priority": "P0",
+      "status": "implemented"
+    },
+    {
+      "feature_id": "PM-FEAT-040",
+      "title": "RFC 8493 BagIt Production Archive Vault, Checksum Verification & Agency/DAM Handoff Engine",
+      "problem_statement": "Agency producers and post-finishing supervisors handing off final commercial bundles for 'SEPHORA: London Pulse (Continuous 40s Oner)' lack an RFC 8493 BagIt-compliant archival package with deterministic 6-department payload routing, SHA-256 manifest verification, Payload-Oxum integrity, and retention SLA governance.",
+      "proposed_solution": "Implement ArchiveRetentionTierEnum, VaultDepartmentEnum, ArchiveVaultEntrySpec, DepartmentVaultSummarySpec, and MasterArchiveVaultManifest schemas; omni_director.tools.archive_vault (compile_archive_vault_manifest, classify_artifact_department, format_archive_vault_token, export_archive_vault_json, export_bag_info_txt, export_manifest_sha256_txt, export_agency_delivery_readme_md, export_archive_vault_bundle); 6-domain calibration via get_domain_archive_vault_profile(); [ARCHIVE-VAULT:] telemetry token stripping; and the RFC 8493 Archive Vault HUD [:] (#btn-archive-vault, #archiveVaultModal, #v220-vault-svg).",
+      "target_modules": [
+        "omni_director/schemas.py",
+        "omni_director/tools/archive_vault.py",
+        "omni_director/presets.py",
+        "omni_director/tools/prompt_auditor.py",
+        "omni_director/tools/html_compiler.py",
+        "omni_director/tools/html_hud_v212.py",
+        "omni_director/tools/html_hud_v220.py",
         "omni_director/agents/agent.py",
         "omni_director/agents/council.py",
         "omni_director/tools/nle_export.py",
